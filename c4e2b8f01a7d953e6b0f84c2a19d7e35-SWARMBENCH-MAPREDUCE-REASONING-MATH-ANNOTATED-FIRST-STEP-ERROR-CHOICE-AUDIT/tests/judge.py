@@ -18,6 +18,9 @@ def extract_json(text: str) -> str:
     return text
 
 
+VALID_ERROR_CATEGORIES = {"unjustified_claim", "misapplied_theorem", "algebraic_error", "case_error", "circular_reasoning"}
+
+
 def validate_structure(agent_output: dict) -> list[str]:
     """
     Pre-LLM structural checks that enforce all instruction.md requirements
@@ -44,6 +47,21 @@ def validate_structure(agent_output: dict) -> list[str]:
             f"artifact_audits is not sorted by artifact_id. "
             f"Got: {audit_ids[:5]}... Expected lexicographic ascending order."
         )
+
+    # 2b. Each artifact_audit must have required keys including error_category
+    required_audit_keys = {"artifact_id", "problem_id", "competition", "year", "selected_option", "error_category"}
+    for audit in audits:
+        missing_audit_keys = required_audit_keys - set(audit.keys())
+        if missing_audit_keys:
+            violations.append(
+                f"artifact_audit for '{audit.get('artifact_id', '?')}' missing required keys: {sorted(missing_audit_keys)}"
+            )
+        ec = audit.get("error_category")
+        if ec is not None and ec not in VALID_ERROR_CATEGORIES:
+            violations.append(
+                f"artifact_audit for '{audit.get('artifact_id', '?')}' has invalid error_category '{ec}'. "
+                f"Must be one of: {sorted(VALID_ERROR_CATEGORIES)}"
+            )
 
     # 3. shard_summaries must be sorted by shard_id (lexicographic ascending)
     shards = agent_output.get("shard_summaries", [])
@@ -133,7 +151,7 @@ def main():
         f"AGENT OUTPUT:\n{json.dumps(agent_output, separators=(',', ':'))}\n\n"
         "Scoring rules:\n"
         "- For each artifact in artifact_audits, artifact_id, problem_id, competition, "
-        "year, and selected_option must match exactly, in the same order.\n"
+        "year, selected_option, and error_category must match exactly, in the same order.\n"
         "- For each shard summary, shard_id, artifact_ids, artifact_count, and "
         "choice_counts must match exactly, in the same shard order.\n"
         "- In summary, total_artifacts, choice_counts, competition_counts, year_counts, "

@@ -23,16 +23,26 @@ Each proof artifact contains:
 - one candidate solution attempt
 - source metadata including the mathematical domain
 
-The domain background files contain mathematical theory, proof technique standards, and worked examples organized by mathematical domain. Each proof file indicates its relevant domain background at the top. Consulting the appropriate background file typically leads to more accurate verdicts and better identification of first material issues.
+The domain background files contain mathematical theory, proof technique standards, and worked examples organized by mathematical domain:
 
-For every proof artifact in the manifest:
+- `background_number_theory.md` — divisibility, modular arithmetic, prime factorization, Diophantine techniques
+- `background_geometry.md` — Euclidean and coordinate geometry, circle theorems, transformations, angle-chasing
+- `background_combinatorics.md` — counting principles, graph theory, combinatorial optimization, pigeonhole
+- `background_algebra_analysis.md` — inequalities, polynomials, real analysis, monotonicity, functional analysis
+- `background_functional_equations.md` — substitution strategies, Cauchy-type equations, regularity conditions
 
-1. Read the full problem and the full candidate solution attempt.
-2. Decide whether the candidate solution is mathematically `correct` or `incorrect`.
-3. If the proof is incorrect, identify the earliest material issue in one short sentence.
-4. If the proof is correct, set `first_material_issue_summary` to `none`.
+## Analytical guidance
 
-Then synthesize a final audit report covering all artifacts.
+Follow these steps for each proof artifact:
+
+1. Check the `domain` field in the proof file's header to identify the mathematical domain.
+2. Read the corresponding background file listed above **before** evaluating the proof. The background file provides the theoretical framework and worked examples needed to correctly identify whether the proof's steps are valid. Skipping this step increases the risk of missing subtle domain-specific flaws.
+3. Read the full problem statement and the full candidate solution attempt.
+4. Decide whether the candidate solution is mathematically `correct` or `incorrect`.
+5. If the proof is incorrect, identify the **first material issue** — the earliest step or claim that breaks the argument — in one sentence. A material issue is a false claim, an unsupported inference, or a skipped critical step that makes the rest of the argument invalid. Do not report downstream consequences of the first flaw; report only the flaw itself. The `first_material_issue_summary` should be one sentence identifying the specific step or claim that is wrong.
+6. If the proof is correct, set `first_material_issue_summary` to `none`.
+
+Then synthesize a final audit report covering all artifacts. Each entry in `artifact_audits` must include the fields `artifact_id`, `problem_id`, `competition`, `verdict`, and `first_material_issue_summary`. The `summary` block must include `correct_count`, `incorrect_count`, `competitions_covered`, `correct_problem_ids`, and `incorrect_problem_ids`.
 
 Scoring expectations:
 

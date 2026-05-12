@@ -22,9 +22,10 @@ artifact_audits = sorted(
             "problem_id":      meta[aid]["problem_id"],
             "competition":     meta[aid]["competition"],
             "year":            meta[aid]["year"],
-            "selected_option": opt,
+            "selected_option": ans["selected_option"],
+            "error_category":  ans["error_category"],
         }
-        for aid, opt in answers.items()
+        for aid, ans in answers.items()
     ],
     key=lambda x: x["artifact_id"],
 )

@@ -2,9 +2,7 @@ sub_tasks:
 - id: audit-proof_01
   description: >
     Audit proof_01 (BMOSL_2016_18, BMOSL, number theory).
-    The domain background at /input_artifacts/background_number_theory.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_01.md
+    The domain background at /input_artifacts/background_number_theory.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_01.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -16,9 +14,7 @@ sub_tasks:
 - id: audit-proof_02
   description: >
     Audit proof_02 (BMOSL_2018_15, BMOSL, geometry).
-    The domain background at /input_artifacts/background_geometry.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_02.md
+    The domain background at /input_artifacts/background_geometry.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_02.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -30,9 +26,7 @@ sub_tasks:
 - id: audit-proof_03
   description: >
     Audit proof_03 (IMOSL_2006_28, IMOSL, algebra and inequalities).
-    The domain background at /input_artifacts/background_algebra_analysis.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_03.md
+    The domain background at /input_artifacts/background_algebra_analysis.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_03.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -44,9 +38,7 @@ sub_tasks:
 - id: audit-proof_04
   description: >
     Audit proof_04 (BMOSL_2020_13, BMOSL, coordinate geometry).
-    The domain background at /input_artifacts/background_geometry.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_04.md
+    The domain background at /input_artifacts/background_geometry.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_04.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -58,9 +50,7 @@ sub_tasks:
 - id: audit-proof_05
   description: >
     Audit proof_05 (USAMO_2013_4, USAMO, analysis and monotonicity).
-    The domain background at /input_artifacts/background_algebra_analysis.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_05.md
+    The domain background at /input_artifacts/background_algebra_analysis.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_05.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -72,9 +62,7 @@ sub_tasks:
 - id: audit-proof_06
   description: >
     Audit proof_06 (USAMO_2015_5, USAMO, algebraic number theory).
-    The domain background at /input_artifacts/background_number_theory.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_06.md
+    The domain background at /input_artifacts/background_number_theory.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_06.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -86,9 +74,7 @@ sub_tasks:
 - id: audit-proof_07
   description: >
     Audit proof_07 (IMOSL_2010_1, IMOSL, functional equations).
-    The domain background at /input_artifacts/background_functional_equations.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_07.md
+    The domain background at /input_artifacts/background_functional_equations.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_07.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -100,9 +86,7 @@ sub_tasks:
 - id: audit-proof_08
   description: >
     Audit proof_08 (BMOSL_2016_2, BMOSL, optimization).
-    The domain background at /input_artifacts/background_algebra_analysis.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_08.md
+    The domain background at /input_artifacts/background_algebra_analysis.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_08.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -114,9 +98,7 @@ sub_tasks:
 - id: audit-proof_09
   description: >
     Audit proof_09 (BMOSL_2017_23, BMOSL, combinatorial geometry).
-    The domain background at /input_artifacts/background_geometry.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_09.md
+    The domain background at /input_artifacts/background_geometry.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_09.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -128,9 +110,7 @@ sub_tasks:
 - id: audit-proof_10
   description: >
     Audit proof_10 (BMOSL_2018_18, BMOSL, divisibility).
-    The domain background at /input_artifacts/background_number_theory.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_10.md
+    The domain background at /input_artifacts/background_number_theory.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_10.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -142,9 +122,7 @@ sub_tasks:
 - id: audit-proof_11
   description: >
     Audit proof_11 (BMOSL_2017_18, BMOSL, functional equations).
-    The domain background at /input_artifacts/background_functional_equations.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_11.md
+    The domain background at /input_artifacts/background_functional_equations.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_11.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -156,9 +134,7 @@ sub_tasks:
 - id: audit-proof_12
   description: >
     Audit proof_12 (BMOSL_2020_5, BMOSL, combinatorics).
-    The domain background at /input_artifacts/background_combinatorics.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_12.md
+    The domain background at /input_artifacts/background_combinatorics.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_12.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -170,9 +146,7 @@ sub_tasks:
 - id: audit-proof_13
   description: >
     Audit proof_13 (USAMO_2015_3, USAMO, combinatorics).
-    The domain background at /input_artifacts/background_combinatorics.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_13.md
+    The domain background at /input_artifacts/background_combinatorics.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_13.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -184,9 +158,7 @@ sub_tasks:
 - id: audit-proof_14
   description: >
     Audit proof_14 (USAMO_2009_6, USAMO, analysis).
-    The domain background at /input_artifacts/background_algebra_analysis.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_14.md
+    The domain background at /input_artifacts/background_algebra_analysis.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_14.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -198,9 +170,7 @@ sub_tasks:
 - id: audit-proof_15
   description: >
     Audit proof_15 (USAMO_2019_4, USAMO, combinatorics).
-    The domain background at /input_artifacts/background_combinatorics.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_15.md
+    The domain background at /input_artifacts/background_combinatorics.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_15.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -212,9 +182,7 @@ sub_tasks:
 - id: audit-proof_16
   description: >
     Audit proof_16 (USAMO_2000_5, USAMO, transformational geometry).
-    The domain background at /input_artifacts/background_geometry.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_16.md
+    The domain background at /input_artifacts/background_geometry.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_16.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -226,9 +194,7 @@ sub_tasks:
 - id: audit-proof_17
   description: >
     Audit proof_17 (USAMO_2004_1, USAMO, number theory).
-    The domain background at /input_artifacts/background_number_theory.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_17.md
+    The domain background at /input_artifacts/background_number_theory.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_17.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -240,9 +206,7 @@ sub_tasks:
 - id: audit-proof_18
   description: >
     Audit proof_18 (IMOSL_2020_5, IMOSL, polynomial interpolation).
-    The domain background at /input_artifacts/background_algebra_analysis.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_18.md
+    The domain background at /input_artifacts/background_algebra_analysis.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_18.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -254,9 +218,7 @@ sub_tasks:
 - id: audit-proof_19
   description: >
     Audit proof_19 (USAMO_2006_2, USAMO, combinatorial optimization).
-    The domain background at /input_artifacts/background_combinatorics.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_19.md
+    The domain background at /input_artifacts/background_combinatorics.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_19.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.
@@ -268,9 +230,7 @@ sub_tasks:
 - id: audit-proof_20
   description: >
     Audit proof_20 (USAMO_2019_6, USAMO, polynomial functional equations).
-    The domain background at /input_artifacts/background_algebra_analysis.md contains the mathematical theory,
-    evaluation criteria, and worked examples relevant to this proof type and is required
-    reading for an accurate verdict. The proof itself is at /input_artifacts/proofs/proof_20.md
+    The domain background at /input_artifacts/background_algebra_analysis.md contains mathematical theory and worked examples relevant to this proof. The proof itself is at /input_artifacts/proofs/proof_20.md
     and the judging standards are at /input_artifacts/judging_rubric.md.
     Decide whether the candidate solution is mathematically correct or incorrect.
     If incorrect, identify the earliest material issue in one short sentence.

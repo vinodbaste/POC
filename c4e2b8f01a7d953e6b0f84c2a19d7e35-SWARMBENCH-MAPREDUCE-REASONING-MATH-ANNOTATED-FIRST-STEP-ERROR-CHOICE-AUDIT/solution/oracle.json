@@ -5,196 +5,224 @@
       "problem_id": "OLYMPIADBENCH_338",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "A"
+      "selected_option": "A",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_02",
       "problem_id": "OLYMPIADBENCH_244",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "A"
+      "selected_option": "A",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_03",
       "problem_id": "OLYMPIADBENCH_110",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "B"
+      "selected_option": "B",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_04",
       "problem_id": "OLYMPIADBENCH_120",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "C"
+      "selected_option": "C",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_05",
       "problem_id": "OLYMPIADBENCH_221",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "D"
+      "selected_option": "D",
+      "error_category": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_06",
       "problem_id": "OLYMPIADBENCH_239",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "D"
+      "selected_option": "D",
+      "error_category": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_07",
       "problem_id": "OLYMPIADBENCH_13",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "A"
+      "selected_option": "A",
+      "error_category": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_08",
       "problem_id": "OLYMPIADBENCH_138",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "C"
+      "selected_option": "C",
+      "error_category": "case_error"
     },
     {
       "artifact_id": "artifact_09",
       "problem_id": "OLYMPIADBENCH_214",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "B"
+      "selected_option": "B",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_10",
       "problem_id": "OLYMPIADBENCH_108",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "C"
+      "selected_option": "C",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_11",
       "problem_id": "OLYMPIADBENCH_76",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "D"
+      "selected_option": "D",
+      "error_category": "case_error"
     },
     {
       "artifact_id": "artifact_12",
       "problem_id": "OLYMPIADBENCH_188",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "A"
+      "selected_option": "A",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_13",
       "problem_id": "OLYMPIADBENCH_249",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "C"
+      "selected_option": "C",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_14",
       "problem_id": "OLYMPIADBENCH_256",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "A"
+      "selected_option": "A",
+      "error_category": "circular_reasoning"
     },
     {
       "artifact_id": "artifact_15",
       "problem_id": "OLYMPIADBENCH_199",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "B"
+      "selected_option": "B",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_16",
       "problem_id": "OLYMPIADBENCH_80",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "D"
+      "selected_option": "D",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_17",
       "problem_id": "OLYMPIADBENCH_91",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "C"
+      "selected_option": "C",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_18",
       "problem_id": "OLYMPIADBENCH_71",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "D"
+      "selected_option": "D",
+      "error_category": "case_error"
     },
     {
       "artifact_id": "artifact_19",
       "problem_id": "OLYMPIADBENCH_97",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "A"
+      "selected_option": "A",
+      "error_category": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_20",
       "problem_id": "OLYMPIADBENCH_107",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "C"
+      "selected_option": "C",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_21",
       "problem_id": "OLYMPIADBENCH_117",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "B"
+      "selected_option": "B",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_22",
       "problem_id": "OLYMPIADBENCH_88",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "A"
+      "selected_option": "A",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_23",
       "problem_id": "OLYMPIADBENCH_111",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "D"
+      "selected_option": "D",
+      "error_category": "algebraic_error"
     },
     {
       "artifact_id": "artifact_24",
       "problem_id": "OLYMPIADBENCH_180",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "B"
+      "selected_option": "B",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_25",
       "problem_id": "OLYMPIADBENCH_317",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "C"
+      "selected_option": "C",
+      "error_category": "case_error"
     },
     {
       "artifact_id": "artifact_26",
       "problem_id": "OLYMPIADBENCH_21",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "A"
+      "selected_option": "A",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_27",
       "problem_id": "OLYMPIADBENCH_55",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "D"
+      "selected_option": "D",
+      "error_category": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_28",
       "problem_id": "OLYMPIADBENCH_220",
       "competition": "OlympiadBench",
       "year": 2024,
-      "selected_option": "C"
+      "selected_option": "C",
+      "error_category": "case_error"
     }
   ],
   "shard_summaries": [

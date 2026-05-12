@@ -6,8 +6,18 @@ sub_tasks:
       /input_artifacts/review_rubric.md.
       For each artifact, identify the first invalid reasoning step in the proof and
       choose exactly one option letter A-D.
+      Also classify the error category for each artifact as exactly one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
       Write /logs/agent/shard_01.json with the shard_id "shard_01",
       the four artifact audits, and a choice_counts summary.
+      Each artifact audit entry must include artifact_id, selected_option, and error_category.
+      Output structure example:
+      {"shard_id": "shard_01", "artifact_audits": [
+        {"artifact_id": "artifact_01", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_02", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_03", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_04", "selected_option": "X", "error_category": "Y"}
+      ], "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
     depends_on: []
     parallel_group: map
 
@@ -18,8 +28,18 @@ sub_tasks:
       /input_artifacts/review_rubric.md.
       For each artifact, identify the first invalid reasoning step in the proof and
       choose exactly one option letter A-D.
+      Also classify the error category for each artifact as exactly one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
       Write /logs/agent/shard_02.json with the shard_id "shard_02",
       the four artifact audits, and a choice_counts summary.
+      Each artifact audit entry must include artifact_id, selected_option, and error_category.
+      Output structure example:
+      {"shard_id": "shard_02", "artifact_audits": [
+        {"artifact_id": "artifact_05", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_06", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_07", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_08", "selected_option": "X", "error_category": "Y"}
+      ], "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
     depends_on: []
     parallel_group: map
 
@@ -30,8 +50,18 @@ sub_tasks:
       /input_artifacts/review_rubric.md.
       For each artifact, identify the first invalid reasoning step in the proof and
       choose exactly one option letter A-D.
+      Also classify the error category for each artifact as exactly one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
       Write /logs/agent/shard_03.json with the shard_id "shard_03",
       the four artifact audits, and a choice_counts summary.
+      Each artifact audit entry must include artifact_id, selected_option, and error_category.
+      Output structure example:
+      {"shard_id": "shard_03", "artifact_audits": [
+        {"artifact_id": "artifact_09", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_10", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_11", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_12", "selected_option": "X", "error_category": "Y"}
+      ], "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
     depends_on: []
     parallel_group: map
 
@@ -42,8 +72,18 @@ sub_tasks:
       /input_artifacts/review_rubric.md.
       For each artifact, identify the first invalid reasoning step in the proof and
       choose exactly one option letter A-D.
+      Also classify the error category for each artifact as exactly one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
       Write /logs/agent/shard_04.json with the shard_id "shard_04",
       the four artifact audits, and a choice_counts summary.
+      Each artifact audit entry must include artifact_id, selected_option, and error_category.
+      Output structure example:
+      {"shard_id": "shard_04", "artifact_audits": [
+        {"artifact_id": "artifact_13", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_14", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_15", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_16", "selected_option": "X", "error_category": "Y"}
+      ], "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
     depends_on: []
     parallel_group: map
 
@@ -54,8 +94,18 @@ sub_tasks:
       /input_artifacts/review_rubric.md.
       For each artifact, identify the first invalid reasoning step in the proof and
       choose exactly one option letter A-D.
+      Also classify the error category for each artifact as exactly one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
       Write /logs/agent/shard_05.json with the shard_id "shard_05",
       the four artifact audits, and a choice_counts summary.
+      Each artifact audit entry must include artifact_id, selected_option, and error_category.
+      Output structure example:
+      {"shard_id": "shard_05", "artifact_audits": [
+        {"artifact_id": "artifact_17", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_18", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_19", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_20", "selected_option": "X", "error_category": "Y"}
+      ], "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
     depends_on: []
     parallel_group: map
 
@@ -66,8 +116,18 @@ sub_tasks:
       /input_artifacts/review_rubric.md.
       For each artifact, identify the first invalid reasoning step in the proof and
       choose exactly one option letter A-D.
+      Also classify the error category for each artifact as exactly one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
       Write /logs/agent/shard_06.json with the shard_id "shard_06",
       the four artifact audits, and a choice_counts summary.
+      Each artifact audit entry must include artifact_id, selected_option, and error_category.
+      Output structure example:
+      {"shard_id": "shard_06", "artifact_audits": [
+        {"artifact_id": "artifact_21", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_22", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_23", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_24", "selected_option": "X", "error_category": "Y"}
+      ], "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
     depends_on: []
     parallel_group: map
 
@@ -78,21 +138,194 @@ sub_tasks:
       /input_artifacts/review_rubric.md.
       For each artifact, identify the first invalid reasoning step in the proof and
       choose exactly one option letter A-D.
+      Also classify the error category for each artifact as exactly one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
       Write /logs/agent/shard_07.json with the shard_id "shard_07",
       the four artifact audits, and a choice_counts summary.
+      Each artifact audit entry must include artifact_id, selected_option, and error_category.
+      Output structure example:
+      {"shard_id": "shard_07", "artifact_audits": [
+        {"artifact_id": "artifact_25", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_26", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_27", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_28", "selected_option": "X", "error_category": "Y"}
+      ], "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
     depends_on: []
     parallel_group: map
+
+  - id: verify_01
+    description: >
+      Independently verify artifacts artifact_01 through artifact_04.
+      Read /input_artifacts/artifacts/artifact_01.md through
+      /input_artifacts/artifacts/artifact_04.md and
+      /input_artifacts/review_rubric.md.
+      Do NOT read any map-phase shard files before recording your selections.
+      For each artifact, independently identify the first invalid reasoning step and
+      choose exactly one option letter A-D, then classify the error category as exactly
+      one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
+      Write /logs/agent/verify_01.json with verify_id "verify_01" and the four artifact audits.
+      Output structure example:
+      {"verify_id": "verify_01", "artifact_audits": [
+        {"artifact_id": "artifact_01", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_02", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_03", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_04", "selected_option": "X", "error_category": "Y"}
+      ]}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_02
+    description: >
+      Independently verify artifacts artifact_05 through artifact_08.
+      Read /input_artifacts/artifacts/artifact_05.md through
+      /input_artifacts/artifacts/artifact_08.md and
+      /input_artifacts/review_rubric.md.
+      Do NOT read any map-phase shard files before recording your selections.
+      For each artifact, independently identify the first invalid reasoning step and
+      choose exactly one option letter A-D, then classify the error category as exactly
+      one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
+      Write /logs/agent/verify_02.json with verify_id "verify_02" and the four artifact audits.
+      Output structure example:
+      {"verify_id": "verify_02", "artifact_audits": [
+        {"artifact_id": "artifact_05", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_06", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_07", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_08", "selected_option": "X", "error_category": "Y"}
+      ]}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_03
+    description: >
+      Independently verify artifacts artifact_09 through artifact_12.
+      Read /input_artifacts/artifacts/artifact_09.md through
+      /input_artifacts/artifacts/artifact_12.md and
+      /input_artifacts/review_rubric.md.
+      Do NOT read any map-phase shard files before recording your selections.
+      For each artifact, independently identify the first invalid reasoning step and
+      choose exactly one option letter A-D, then classify the error category as exactly
+      one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
+      Write /logs/agent/verify_03.json with verify_id "verify_03" and the four artifact audits.
+      Output structure example:
+      {"verify_id": "verify_03", "artifact_audits": [
+        {"artifact_id": "artifact_09", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_10", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_11", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_12", "selected_option": "X", "error_category": "Y"}
+      ]}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_04
+    description: >
+      Independently verify artifacts artifact_13 through artifact_16.
+      Read /input_artifacts/artifacts/artifact_13.md through
+      /input_artifacts/artifacts/artifact_16.md and
+      /input_artifacts/review_rubric.md.
+      Do NOT read any map-phase shard files before recording your selections.
+      For each artifact, independently identify the first invalid reasoning step and
+      choose exactly one option letter A-D, then classify the error category as exactly
+      one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
+      Write /logs/agent/verify_04.json with verify_id "verify_04" and the four artifact audits.
+      Output structure example:
+      {"verify_id": "verify_04", "artifact_audits": [
+        {"artifact_id": "artifact_13", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_14", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_15", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_16", "selected_option": "X", "error_category": "Y"}
+      ]}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_05
+    description: >
+      Independently verify artifacts artifact_17 through artifact_20.
+      Read /input_artifacts/artifacts/artifact_17.md through
+      /input_artifacts/artifacts/artifact_20.md and
+      /input_artifacts/review_rubric.md.
+      Do NOT read any map-phase shard files before recording your selections.
+      For each artifact, independently identify the first invalid reasoning step and
+      choose exactly one option letter A-D, then classify the error category as exactly
+      one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
+      Write /logs/agent/verify_05.json with verify_id "verify_05" and the four artifact audits.
+      Output structure example:
+      {"verify_id": "verify_05", "artifact_audits": [
+        {"artifact_id": "artifact_17", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_18", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_19", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_20", "selected_option": "X", "error_category": "Y"}
+      ]}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_06
+    description: >
+      Independently verify artifacts artifact_21 through artifact_24.
+      Read /input_artifacts/artifacts/artifact_21.md through
+      /input_artifacts/artifacts/artifact_24.md and
+      /input_artifacts/review_rubric.md.
+      Do NOT read any map-phase shard files before recording your selections.
+      For each artifact, independently identify the first invalid reasoning step and
+      choose exactly one option letter A-D, then classify the error category as exactly
+      one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
+      Write /logs/agent/verify_06.json with verify_id "verify_06" and the four artifact audits.
+      Output structure example:
+      {"verify_id": "verify_06", "artifact_audits": [
+        {"artifact_id": "artifact_21", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_22", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_23", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_24", "selected_option": "X", "error_category": "Y"}
+      ]}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_07
+    description: >
+      Independently verify artifacts artifact_25 through artifact_28.
+      Read /input_artifacts/artifacts/artifact_25.md through
+      /input_artifacts/artifacts/artifact_28.md and
+      /input_artifacts/review_rubric.md.
+      Do NOT read any map-phase shard files before recording your selections.
+      For each artifact, independently identify the first invalid reasoning step and
+      choose exactly one option letter A-D, then classify the error category as exactly
+      one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning.
+      Write /logs/agent/verify_07.json with verify_id "verify_07" and the four artifact audits.
+      Output structure example:
+      {"verify_id": "verify_07", "artifact_audits": [
+        {"artifact_id": "artifact_25", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_26", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_27", "selected_option": "X", "error_category": "Y"},
+        {"artifact_id": "artifact_28", "selected_option": "X", "error_category": "Y"}
+      ]}
+      Replace each X with the chosen option letter and each Y with the error category (one of: unjustified_claim, misapplied_theorem, algebraic_error, case_error, circular_reasoning).
+    depends_on: []
+    parallel_group: verify
 
   - id: reduce-final
     description: >
       Read all seven shard JSON files written by the mapper tasks
-      (/logs/agent/shard_01.json through /logs/agent/shard_07.json).
+      (/logs/agent/shard_01.json through /logs/agent/shard_07.json) and all
+      seven verify JSON files (/logs/agent/verify_01.json through
+      /logs/agent/verify_07.json).
       For artifact metadata (problem_id, competition, year) read
       /input_artifacts/artifact_manifest.json.
+      For each artifact, determine consensus for both selected_option and
+      error_category by comparing the map and verify shard results.
       Merge every artifact audit, sort artifact_audits by artifact_id,
       sort shard_summaries by shard_id, compute exact global choice_counts,
       competition_counts, year_counts, and artifacts_by_option, then write
       /logs/agent/output.json.
+      Each artifact_audit entry in the output must include artifact_id,
+      problem_id, competition, year, selected_option, and error_category.
+      Output structure example for each artifact entry:
+      {"artifact_id": "artifact_01", "problem_id": "...", "competition": "...",
+       "year": 0, "selected_option": "X", "error_category": "Y"}
     depends_on:
       - shard_01
       - shard_02
@@ -101,4 +334,11 @@ sub_tasks:
       - shard_05
       - shard_06
       - shard_07
+      - verify_01
+      - verify_02
+      - verify_03
+      - verify_04
+      - verify_05
+      - verify_06
+      - verify_07
     parallel_group: reduce

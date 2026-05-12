@@ -17,8 +17,9 @@ artifact_audits = sorted(
       "problem_id":  meta[aid]["problem_id"],
       "competition": meta[aid]["competition"],
       "year":        meta[aid]["year"],
-      "selected_option": opt}
-     for aid, opt in answers.items()],
+      "selected_option": ans["selected_option"],
+      "error_category":  ans["error_category"]}
+     for aid, ans in answers.items()],
     key=lambda x: x["artifact_id"]
 )
 audit_map = {a["artifact_id"]: a for a in artifact_audits}
