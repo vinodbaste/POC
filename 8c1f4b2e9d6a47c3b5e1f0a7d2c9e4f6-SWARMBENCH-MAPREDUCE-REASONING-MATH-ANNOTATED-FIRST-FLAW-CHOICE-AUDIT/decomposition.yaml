@@ -15,6 +15,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_01.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_01",
@@ -50,6 +63,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_02.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_02",
@@ -85,6 +111,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_03.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_03",
@@ -120,6 +159,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_04.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_04",
@@ -155,6 +207,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_05.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_05",
@@ -190,6 +255,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_06.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_06",
@@ -225,6 +303,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_07.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_07",
@@ -260,6 +351,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_08.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_08",
@@ -295,6 +399,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_09.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_09",
@@ -330,6 +447,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_10.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_10",
@@ -365,6 +495,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_11.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_11",
@@ -400,6 +543,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_12.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_12",
@@ -435,6 +591,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_13.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_13",
@@ -470,6 +639,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_14.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_14",
@@ -505,6 +687,19 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Write /logs/agent/shard_15.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_15",
@@ -540,6 +735,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_01.json using EXACTLY this JSON structure:
@@ -577,6 +785,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_02.json using EXACTLY this JSON structure:
@@ -614,6 +835,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_03.json using EXACTLY this JSON structure:
@@ -651,6 +885,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_04.json using EXACTLY this JSON structure:
@@ -688,6 +935,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_05.json using EXACTLY this JSON structure:
@@ -725,6 +985,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_06.json using EXACTLY this JSON structure:
@@ -762,6 +1035,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_07.json using EXACTLY this JSON structure:
@@ -799,6 +1085,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_08.json using EXACTLY this JSON structure:
@@ -836,6 +1135,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_09.json using EXACTLY this JSON structure:
@@ -873,6 +1185,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_10.json using EXACTLY this JSON structure:
@@ -910,6 +1235,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_11.json using EXACTLY this JSON structure:
@@ -947,6 +1285,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_12.json using EXACTLY this JSON structure:
@@ -984,6 +1335,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_13.json using EXACTLY this JSON structure:
@@ -1021,6 +1385,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_14.json using EXACTLY this JSON structure:
@@ -1058,6 +1435,19 @@ sub_tasks:
       proof attempt and matching the error to the taxonomy in
       /input_artifacts/review_rubric.md. This classification must be
       independent of the map phase.
+      For flaw_type classification, walk through the 5-step decision procedure
+      from /input_artifacts/review_rubric.md IN ORDER and stop at the first match:
+        Step 1 misapplied_theorem: a named theorem/lemma is invoked but at least one
+          precondition is unverified or violated in this problem.
+        Step 2 false_assumption: an explicit premise (Assume/Let/WLOG/Since X holds)
+          is stated as true but does not actually hold in the given context.
+        Step 3 scope_violation: a result established only for a restricted case
+          (specific value, subset, special configuration) is applied to a broader case.
+        Step 4 algebraic_error: an arithmetic, algebraic, or counting mistake produces
+          an incorrect symbolic or numeric value.
+        Step 5 unjustified_claim (default): a conclusion is asserted without supporting
+          derivation, citation, or proof.
+      Pick exactly one classification per artifact; stop at the FIRST matching step.
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_15.json using EXACTLY this JSON structure:
@@ -1097,6 +1487,16 @@ sub_tasks:
       independently using the review rubric, and record that classification.
       If they disagree on selected_option, re-read the artifact and determine
       the correct option through analysis.
+
+      Resilience: if any individual shard_NN.json or verify_NN.json file is missing
+      or unreadable, do NOT abort. Fall back as follows:
+        - If only the verify file is missing, use the map-phase shard answers for
+          those 5 artifacts (no consensus pass available for those rows).
+        - If only the map file is missing, use the verify-phase answers for those rows.
+        - If both are missing for the same 5 artifacts, re-read those artifact .md
+          files directly and apply the rubric yourself for those rows only.
+      You MUST always produce /logs/agent/output.json containing all 75 artifact entries,
+      even when one or more sub-agent files are unavailable.
 
       Merge all 75 final artifact selections, sort artifact_audits by
       artifact_id (lexicographic ascending), sort shard_summaries by shard_id
