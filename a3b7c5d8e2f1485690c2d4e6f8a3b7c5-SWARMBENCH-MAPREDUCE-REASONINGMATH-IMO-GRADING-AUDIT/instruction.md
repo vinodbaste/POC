@@ -24,9 +24,8 @@ Your job:
 
 Rules:
 - For each artifact, `predicted_grade` must be exactly one of: `Correct`, `Almost`, `Partial`, `Incorrect`.
-- For each artifact, `imo_area` is carried forward verbatim from the artifact's metadata block (no transformation needed). The taxonomy values used in the manifest are `Algebra`, `Combinatorics`, `Geometry`, `Number_Theory`.
 - Do not skip any artifact; every `artifact_id` must appear in `grading_audits`.
-- Each `grading_audit` entry must include the fields: `artifact_id`, `grading_id`, `problem_id`, `imo_area`, `predicted_grade`.
+- Each `grading_audit` entry must include the `artifact_id` (the unique key the verifier matches on) and the `predicted_grade` (the scored field). The fields `grading_id`, `problem_id`, and `imo_area` are informational carry-throughs from the artifact's metadata block — include them in the JSON for completeness, but their values are not individually graded. The taxonomy values used for `imo_area` in the manifest are `Algebra`, `Combinatorics`, `Geometry`, `Number_Theory`.
 - Each `shard_summary` entry must include the fields: `shard_id`, `artifact_ids`, `artifact_count`, `grade_counts` (a map from each of the 4 grade classes to its count in that shard).
 - `grading_audits` must be sorted by `artifact_id` (lexicographic ascending).
 - `shard_summaries` must be sorted by `shard_id` (lexicographic ascending).
