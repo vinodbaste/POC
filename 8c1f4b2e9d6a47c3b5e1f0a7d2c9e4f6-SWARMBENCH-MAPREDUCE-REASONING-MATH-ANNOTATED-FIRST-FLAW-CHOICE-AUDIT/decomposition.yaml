@@ -1,6 +1,7 @@
 sub_tasks:
   - id: shard_01
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_01.md through
       /input_artifacts/artifacts/artifact_05.md and
       /input_artifacts/review_rubric.md.
@@ -35,6 +36,7 @@ sub_tasks:
 
   - id: shard_02
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_06.md through
       /input_artifacts/artifacts/artifact_10.md and
       /input_artifacts/review_rubric.md.
@@ -69,6 +71,7 @@ sub_tasks:
 
   - id: shard_03
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_11.md through
       /input_artifacts/artifacts/artifact_15.md and
       /input_artifacts/review_rubric.md.
@@ -103,6 +106,7 @@ sub_tasks:
 
   - id: shard_04
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_16.md through
       /input_artifacts/artifacts/artifact_20.md and
       /input_artifacts/review_rubric.md.
@@ -137,6 +141,7 @@ sub_tasks:
 
   - id: shard_05
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_21.md through
       /input_artifacts/artifacts/artifact_25.md and
       /input_artifacts/review_rubric.md.
@@ -171,6 +176,7 @@ sub_tasks:
 
   - id: shard_06
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_26.md through
       /input_artifacts/artifacts/artifact_30.md and
       /input_artifacts/review_rubric.md.
@@ -205,6 +211,7 @@ sub_tasks:
 
   - id: shard_07
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_31.md through
       /input_artifacts/artifacts/artifact_35.md and
       /input_artifacts/review_rubric.md.
@@ -239,6 +246,7 @@ sub_tasks:
 
   - id: shard_08
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_36.md through
       /input_artifacts/artifacts/artifact_40.md and
       /input_artifacts/review_rubric.md.
@@ -273,6 +281,7 @@ sub_tasks:
 
   - id: shard_09
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_41.md through
       /input_artifacts/artifacts/artifact_45.md and
       /input_artifacts/review_rubric.md.
@@ -307,6 +316,7 @@ sub_tasks:
 
   - id: shard_10
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_46.md through
       /input_artifacts/artifacts/artifact_50.md and
       /input_artifacts/review_rubric.md.
@@ -341,6 +351,7 @@ sub_tasks:
 
   - id: shard_11
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_51.md through
       /input_artifacts/artifacts/artifact_55.md and
       /input_artifacts/review_rubric.md.
@@ -375,6 +386,7 @@ sub_tasks:
 
   - id: shard_12
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_56.md through
       /input_artifacts/artifacts/artifact_60.md and
       /input_artifacts/review_rubric.md.
@@ -409,6 +421,7 @@ sub_tasks:
 
   - id: shard_13
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_61.md through
       /input_artifacts/artifacts/artifact_65.md and
       /input_artifacts/review_rubric.md.
@@ -443,6 +456,7 @@ sub_tasks:
 
   - id: shard_14
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_66.md through
       /input_artifacts/artifacts/artifact_70.md and
       /input_artifacts/review_rubric.md.
@@ -477,6 +491,7 @@ sub_tasks:
 
   - id: shard_15
     description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_71.md through
       /input_artifacts/artifacts/artifact_75.md and
       /input_artifacts/review_rubric.md.
@@ -511,6 +526,7 @@ sub_tasks:
 
   - id: verify_01
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_01.md through
       /input_artifacts/artifacts/artifact_05.md and
       /input_artifacts/review_rubric.md.
@@ -547,6 +563,7 @@ sub_tasks:
 
   - id: verify_02
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_06.md through
       /input_artifacts/artifacts/artifact_10.md and
       /input_artifacts/review_rubric.md.
@@ -583,6 +600,7 @@ sub_tasks:
 
   - id: verify_03
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_11.md through
       /input_artifacts/artifacts/artifact_15.md and
       /input_artifacts/review_rubric.md.
@@ -619,6 +637,7 @@ sub_tasks:
 
   - id: verify_04
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_16.md through
       /input_artifacts/artifacts/artifact_20.md and
       /input_artifacts/review_rubric.md.
@@ -655,6 +674,7 @@ sub_tasks:
 
   - id: verify_05
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_21.md through
       /input_artifacts/artifacts/artifact_25.md and
       /input_artifacts/review_rubric.md.
@@ -691,6 +711,7 @@ sub_tasks:
 
   - id: verify_06
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_26.md through
       /input_artifacts/artifacts/artifact_30.md and
       /input_artifacts/review_rubric.md.
@@ -727,6 +748,7 @@ sub_tasks:
 
   - id: verify_07
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_31.md through
       /input_artifacts/artifacts/artifact_35.md and
       /input_artifacts/review_rubric.md.
@@ -763,6 +785,7 @@ sub_tasks:
 
   - id: verify_08
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_36.md through
       /input_artifacts/artifacts/artifact_40.md and
       /input_artifacts/review_rubric.md.
@@ -799,6 +822,7 @@ sub_tasks:
 
   - id: verify_09
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_41.md through
       /input_artifacts/artifacts/artifact_45.md and
       /input_artifacts/review_rubric.md.
@@ -835,6 +859,7 @@ sub_tasks:
 
   - id: verify_10
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_46.md through
       /input_artifacts/artifacts/artifact_50.md and
       /input_artifacts/review_rubric.md.
@@ -871,6 +896,7 @@ sub_tasks:
 
   - id: verify_11
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_51.md through
       /input_artifacts/artifacts/artifact_55.md and
       /input_artifacts/review_rubric.md.
@@ -907,6 +933,7 @@ sub_tasks:
 
   - id: verify_12
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_56.md through
       /input_artifacts/artifacts/artifact_60.md and
       /input_artifacts/review_rubric.md.
@@ -943,6 +970,7 @@ sub_tasks:
 
   - id: verify_13
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_61.md through
       /input_artifacts/artifacts/artifact_65.md and
       /input_artifacts/review_rubric.md.
@@ -979,6 +1007,7 @@ sub_tasks:
 
   - id: verify_14
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_66.md through
       /input_artifacts/artifacts/artifact_70.md and
       /input_artifacts/review_rubric.md.
@@ -1015,6 +1044,7 @@ sub_tasks:
 
   - id: verify_15
     description: >
+      This verification shard MUST be executed by a dedicated verifier sub-agent running in an isolated context window, fully independent of the map phase. Do not inline the work into the orchestrator.
       Read /input_artifacts/artifacts/artifact_71.md through
       /input_artifacts/artifacts/artifact_75.md and
       /input_artifacts/review_rubric.md.
@@ -1051,6 +1081,7 @@ sub_tasks:
 
   - id: reduce-final
     description: >
+      This reduction step MUST be executed by a dedicated reducer sub-agent running in its own context window. Do not inline the consensus reconciliation into the orchestrator — the reducer must independently re-read disputed artifacts when map and verify disagree.
       Read all fifteen map-phase shard JSON files (/logs/agent/shard_01.json
       through /logs/agent/shard_15.json) and all fifteen verify-phase JSON
       files (/logs/agent/verify_01.json through /logs/agent/verify_15.json).
