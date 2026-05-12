@@ -26,8 +26,8 @@ Rules:
 - For each artifact, `predicted_grade` must be exactly one of: `Correct`, `Almost`, `Partial`, `Incorrect`.
 - For each artifact, `imo_area` must be exactly one of: `Algebra`, `Combinatorics`, `Geometry`, `Number_Theory`.
 - Do not skip any artifact; every `artifact_id` must appear in `grading_audits`.
-- Each `grading_audit` entry must include exactly these fields: `artifact_id`, `grading_id`, `problem_id`, `imo_area`, `predicted_grade`. No extra fields.
-- Each `shard_summary` entry must include exactly: `shard_id`, `artifact_ids`, `artifact_count`, `grade_counts` (a map from each of the 4 grade classes to its count in that shard).
+- Each `grading_audit` entry must include the fields: `artifact_id`, `grading_id`, `problem_id`, `imo_area`, `predicted_grade`.
+- Each `shard_summary` entry must include the fields: `shard_id`, `artifact_ids`, `artifact_count`, `grade_counts` (a map from each of the 4 grade classes to its count in that shard).
 - `grading_audits` must be sorted by `artifact_id` (lexicographic ascending).
 - `shard_summaries` must be sorted by `shard_id` (lexicographic ascending).
 - The aggregate fields `total_artifacts`, `grade_counts`, `area_counts`, `grade_by_area`, and `artifacts_by_grade` in `summary` are computed from your per-artifact predictions.
