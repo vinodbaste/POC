@@ -70,23 +70,24 @@ def main():
         "Grade the agent output against the gold oracle for this IMO solution-grading task.\n\n"
         f"ORACLE:\n{json.dumps(oracle, separators=(',', ':'))}\n\n"
         f"AGENT OUTPUT:\n{json.dumps(agent_output, separators=(',', ':'))}\n\n"
-        "Scoring rules (total 171 points):\n"
-        "- 150 points: one per grading_audits row. A row PASSES only if artifact_id, grading_id, "
-        "problem_id, imo_area, predicted_grade, AND confidence_score match the oracle exactly. "
-        "Rows out of artifact_id-sorted order count as failed.\n"
-        "- 15 points: one per shard_summaries entry. A shard PASSES only if shard_id, artifact_ids, "
-        "artifact_count, grade_counts, AND mean_confidence (within 0.005) match the oracle exactly.\n"
-        "- 6 points: one each for the summary subgroups total_artifacts, grade_counts, area_counts, "
-        "grade_by_area, mean_confidence (within 0.005), artifacts_by_grade. Each PASSES only if the "
-        "value matches the oracle exactly; artifacts_by_grade lists must be sorted by artifact_id.\n"
-        "- Extra top-level keys beyond grading_audits, shard_summaries, summary count as 6 failed "
-        "summary subgroups.\n"
-        "- score = passed / 171.\n\n"
-        "Compute passed (integer 0-171) and score = passed / 171.\n"
+        "Scoring rules (total 170 points):\n"
+        "- 150 points: one per grading_audits row. A row PASSES iff the agent's predicted_grade "
+        "for that artifact_id MATCHES the oracle's predicted_grade for the same artifact_id. "
+        "Ignore other fields (artifact_id, grading_id, problem_id, imo_area) for row matching as "
+        "long as the row appears under the correct artifact_id. Match by artifact_id directly — "
+        "DO NOT require the agent's grading_audits list to be in any particular order.\n"
+        "- 15 points: one per shard_summaries entry. A shard PASSES iff shard_id, artifact_ids "
+        "(as a set), artifact_count, AND grade_counts all match the oracle. Order within "
+        "shard_summaries does not matter for matching; match by shard_id.\n"
+        "- 5 points: one each for the summary subgroups total_artifacts, grade_counts, area_counts, "
+        "grade_by_area, artifacts_by_grade. Each PASSES iff the value matches the oracle (as sets "
+        "for lists, exact for ints/maps).\n"
+        "- score = passed / 170.\n\n"
+        "Compute passed (integer 0-170) and score = passed / 170.\n"
         "Return ONE JSON object only, with a SHORT justification (under 300 characters) - list "
         "counts and at most 5 sample failed artifact_ids. DO NOT enumerate every artifact. "
         "Schema: "
-        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 171, "justification": "<short summary>"}'
+        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 170, "justification": "<short summary>"}'
     )
 
     messages = [
@@ -109,7 +110,7 @@ def main():
             {"role": "system", "content": "Convert the user content into one valid JSON object only. Do not add commentary."},
             {"role": "user", "content": (
                 "The following model output was supposed to follow this schema exactly:\n"
-                '{"score": <float 0.0-1.0>, "passed": <int>, "total": 171, "justification": "<short>"}\n\n'
+                '{"score": <float 0.0-1.0>, "passed": <int>, "total": 170, "justification": "<short>"}\n\n'
                 "Convert it to valid JSON without changing the meaning.\n\n"
                 f"MODEL OUTPUT:\n{raw[:6000]}"
             )},
