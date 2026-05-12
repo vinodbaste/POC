@@ -7,8 +7,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_01.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_01",
@@ -35,8 +38,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_02.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_02",
@@ -63,8 +69,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_03.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_03",
@@ -91,8 +100,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_04.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_04",
@@ -119,8 +131,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_05.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_05",
@@ -147,8 +162,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_06.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_06",
@@ -175,8 +193,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_07.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_07",
@@ -203,8 +224,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_08.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_08",
@@ -231,8 +255,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_09.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_09",
@@ -259,8 +286,11 @@ sub_tasks:
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
       proof and choose exactly one option letter A-D.
       For each artifact in your assigned shard, identify the option letter
-      (A/B/C/D) that contains the first unrecoverable flaw in the proof,
-      as defined in the review rubric and the task instructions.
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
       Write /logs/agent/shard_10.json using EXACTLY this JSON structure:
       {
         "shard_id": "shard_10",
@@ -315,6 +345,18 @@ sub_tasks:
       Important: read each shard file's "artifact_audits" array for the
       selected_option values; re-read artifact_manifest.json for problem_id,
       competition, and year. Do not guess or invent metadata.
+
+      Quality assurance goal: the final artifact_audits must reflect
+      selections based on chronological proof order, not option-label
+      alphabetical order. Before writing output.json, review the merged
+      selections for any artifact where the chosen option may reflect
+      alphabetical label ordering rather than chronological proof analysis
+      (i.e., the option letter comes first alphabetically but is not
+      necessarily the earliest unrecoverable error in the proof sequence).
+      For each such artifact, re-read its Full Candidate Proof section to
+      confirm the selection is the chronologically first flawed step.
+      Correct any selection that does not meet this standard before writing
+      the final output.
     depends_on:
       - shard_01
       - shard_02
