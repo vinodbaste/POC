@@ -339,6 +339,176 @@ sub_tasks:
     depends_on: []
     parallel_group: map
 
+  - id: shard_11
+    description: >
+      Read /input_artifacts/artifacts/artifact_51.md through
+      /input_artifacts/artifacts/artifact_55.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D. For each artifact,
+      independently classify the flaw type by reading the proof attempt and
+      matching the error to the taxonomy in /input_artifacts/review_rubric.md.
+      For each artifact in your assigned shard, identify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      Write /logs/agent/shard_11.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_11",
+        "artifact_ids": ["artifact_51","artifact_52","artifact_53","artifact_54","artifact_55"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_51", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_52", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_53", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_54", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_55", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_12
+    description: >
+      Read /input_artifacts/artifacts/artifact_56.md through
+      /input_artifacts/artifacts/artifact_60.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D. For each artifact,
+      independently classify the flaw type by reading the proof attempt and
+      matching the error to the taxonomy in /input_artifacts/review_rubric.md.
+      For each artifact in your assigned shard, identify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      Write /logs/agent/shard_12.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_12",
+        "artifact_ids": ["artifact_56","artifact_57","artifact_58","artifact_59","artifact_60"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_56", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_57", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_58", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_59", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_60", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_13
+    description: >
+      Read /input_artifacts/artifacts/artifact_61.md through
+      /input_artifacts/artifacts/artifact_65.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D. For each artifact,
+      independently classify the flaw type by reading the proof attempt and
+      matching the error to the taxonomy in /input_artifacts/review_rubric.md.
+      For each artifact in your assigned shard, identify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      Write /logs/agent/shard_13.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_13",
+        "artifact_ids": ["artifact_61","artifact_62","artifact_63","artifact_64","artifact_65"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_61", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_62", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_63", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_64", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_65", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_14
+    description: >
+      Read /input_artifacts/artifacts/artifact_66.md through
+      /input_artifacts/artifacts/artifact_70.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D. For each artifact,
+      independently classify the flaw type by reading the proof attempt and
+      matching the error to the taxonomy in /input_artifacts/review_rubric.md.
+      For each artifact in your assigned shard, identify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      Write /logs/agent/shard_14.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_14",
+        "artifact_ids": ["artifact_66","artifact_67","artifact_68","artifact_69","artifact_70"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_66", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_67", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_68", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_69", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_70", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_15
+    description: >
+      Read /input_artifacts/artifacts/artifact_71.md through
+      /input_artifacts/artifacts/artifact_75.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D. For each artifact,
+      independently classify the flaw type by reading the proof attempt and
+      matching the error to the taxonomy in /input_artifacts/review_rubric.md.
+      For each artifact in your assigned shard, identify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      Write /logs/agent/shard_15.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_15",
+        "artifact_ids": ["artifact_71","artifact_72","artifact_73","artifact_74","artifact_75"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_71", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_72", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_73", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_74", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_75", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
   - id: verify_01
     description: >
       Read /input_artifacts/artifacts/artifact_01.md through
@@ -699,15 +869,195 @@ sub_tasks:
     depends_on: []
     parallel_group: verify
 
+  - id: verify_11
+    description: >
+      Read /input_artifacts/artifacts/artifact_51.md through
+      /input_artifacts/artifacts/artifact_55.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, independently verify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      For flaw_type, independently classify each artifact by reading the
+      proof attempt and matching the error to the taxonomy in
+      /input_artifacts/review_rubric.md. This classification must be
+      independent of the map phase.
+      Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
+      recording your selections — your evaluation must be fully independent.
+      Write /logs/agent/verify_11.json using EXACTLY this JSON structure:
+      {
+        "verify_id": "verify_11",
+        "artifact_ids": ["artifact_51","artifact_52","artifact_53","artifact_54","artifact_55"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_51", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_52", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_53", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_54", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_55", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_12
+    description: >
+      Read /input_artifacts/artifacts/artifact_56.md through
+      /input_artifacts/artifacts/artifact_60.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, independently verify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      For flaw_type, independently classify each artifact by reading the
+      proof attempt and matching the error to the taxonomy in
+      /input_artifacts/review_rubric.md. This classification must be
+      independent of the map phase.
+      Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
+      recording your selections — your evaluation must be fully independent.
+      Write /logs/agent/verify_12.json using EXACTLY this JSON structure:
+      {
+        "verify_id": "verify_12",
+        "artifact_ids": ["artifact_56","artifact_57","artifact_58","artifact_59","artifact_60"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_56", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_57", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_58", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_59", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_60", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_13
+    description: >
+      Read /input_artifacts/artifacts/artifact_61.md through
+      /input_artifacts/artifacts/artifact_65.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, independently verify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      For flaw_type, independently classify each artifact by reading the
+      proof attempt and matching the error to the taxonomy in
+      /input_artifacts/review_rubric.md. This classification must be
+      independent of the map phase.
+      Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
+      recording your selections — your evaluation must be fully independent.
+      Write /logs/agent/verify_13.json using EXACTLY this JSON structure:
+      {
+        "verify_id": "verify_13",
+        "artifact_ids": ["artifact_61","artifact_62","artifact_63","artifact_64","artifact_65"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_61", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_62", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_63", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_64", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_65", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_14
+    description: >
+      Read /input_artifacts/artifacts/artifact_66.md through
+      /input_artifacts/artifacts/artifact_70.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, independently verify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      For flaw_type, independently classify each artifact by reading the
+      proof attempt and matching the error to the taxonomy in
+      /input_artifacts/review_rubric.md. This classification must be
+      independent of the map phase.
+      Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
+      recording your selections — your evaluation must be fully independent.
+      Write /logs/agent/verify_14.json using EXACTLY this JSON structure:
+      {
+        "verify_id": "verify_14",
+        "artifact_ids": ["artifact_66","artifact_67","artifact_68","artifact_69","artifact_70"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_66", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_67", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_68", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_69", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_70", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: verify
+
+  - id: verify_15
+    description: >
+      Read /input_artifacts/artifacts/artifact_71.md through
+      /input_artifacts/artifacts/artifact_75.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, independently verify the option letter
+      (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
+      error in chronological proof order. Option labels A–D are shuffled and
+      do NOT reflect the proof sequence; the correct answer may be any letter.
+      Use the Full Candidate Proof section to establish the chronological
+      order of steps, then select the letter of the earliest flawed step.
+      For flaw_type, independently classify each artifact by reading the
+      proof attempt and matching the error to the taxonomy in
+      /input_artifacts/review_rubric.md. This classification must be
+      independent of the map phase.
+      Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
+      recording your selections — your evaluation must be fully independent.
+      Write /logs/agent/verify_15.json using EXACTLY this JSON structure:
+      {
+        "verify_id": "verify_15",
+        "artifact_ids": ["artifact_71","artifact_72","artifact_73","artifact_74","artifact_75"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_71", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_72", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_73", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_74", "selected_option": "X", "flaw_type": "Y"},
+          {"artifact_id": "artifact_75", "selected_option": "X", "flaw_type": "Y"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter and each "Y" with the
+      independently classified flaw type. choice_counts must tally the
+      selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: verify
+
   - id: reduce-final
     description: >
-      Read all ten map-phase shard JSON files (/logs/agent/shard_01.json through
-      /logs/agent/shard_10.json) and all ten verify-phase JSON files
-      (/logs/agent/verify_01.json through /logs/agent/verify_10.json).
+      Read all fifteen map-phase shard JSON files (/logs/agent/shard_01.json
+      through /logs/agent/shard_15.json) and all fifteen verify-phase JSON
+      files (/logs/agent/verify_01.json through /logs/agent/verify_15.json).
       For artifact metadata (problem_id, competition, year) read
       /input_artifacts/artifact_manifest.json.
 
-      For each of the 50 artifacts, determine the final selected_option and
+      For each of the 75 artifacts, determine the final selected_option and
       flaw_type using independent-pass consensus: if the map-phase shard and
       verify-phase selections agree on the same letter, that consensus letter is
       the final answer. For flaw_type: if both passes agree, use that
@@ -717,7 +1067,7 @@ sub_tasks:
       If they disagree on selected_option, re-read the artifact and determine
       the correct option through analysis.
 
-      Merge all 50 final artifact selections, sort artifact_audits by
+      Merge all 75 final artifact selections, sort artifact_audits by
       artifact_id (lexicographic ascending), sort shard_summaries by shard_id
       (shard_summaries reflect the original map-phase shard data and its
       choice_counts), compute exact global choice_counts, competition_counts,
@@ -737,7 +1087,7 @@ sub_tasks:
           ...
         ],
         "summary": {
-          "total_artifacts": 50,
+          "total_artifacts": 75,
           "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0},
           "competition_counts": {"BMOSL": 0, "IMOSL": 0, "USAMO": 0},
           "year_counts": {"2007": 0, ...},
@@ -761,6 +1111,11 @@ sub_tasks:
       - shard_08
       - shard_09
       - shard_10
+      - shard_11
+      - shard_12
+      - shard_13
+      - shard_14
+      - shard_15
       - verify_01
       - verify_02
       - verify_03
@@ -771,4 +1126,9 @@ sub_tasks:
       - verify_08
       - verify_09
       - verify_10
+      - verify_11
+      - verify_12
+      - verify_13
+      - verify_14
+      - verify_15
     parallel_group: reduce

@@ -1,7 +1,7 @@
 # Oracle Derivation — First-Flaw Choice Audit
 
 Source: INSAIT-Institute/OPC (Open Proof Corpus)  
-Task: For each of 50 incorrect olympiad proof attempts, identify the candidate excerpt (A/B/C/D) that contains the **first** unrecoverable logical flaw.
+Task: For each of 75 incorrect olympiad proof attempts, identify the candidate excerpt (A/B/C/D) that contains the **first** unrecoverable logical flaw.
 
 The candidate excerpts within each artifact are presented in randomized order. The correct option is the excerpt that contains the first claim that is false, unjustified, or logically breaks the argument — all subsequent steps may be conditionally correct given that flaw.
 
@@ -211,6 +211,106 @@ The correct excerpt (Option A) establishes the intersection size for the inclusi
 The correct excerpt (Option D) uses directed angles to prove \(F\in\Omega\).  
 **Flaw:** The step \(\angle BED=\angle BAD\) (as inscribed angles) is incorrect. Inscribed angles subtend the same arc only when both vertices lie on the circle. \(E=AC\cap BD\) is generically interior to \(\Omega\), not on \(\Omega\), so \(\angle BED\) is not an inscribed angle in \(\Omega\). The angle equality requires a different justification (e.g., using the cyclic quadrilateral property directly), not the inscribed angle theorem.
 
+### artifact_51 — IMOSL_2011_5 (2011) — **Option A**
+The correct excerpt (Option A) invokes Fermat's Little Theorem to claim divisibility lifts.  
+**Flaw (misapplied_theorem):** Fermat's Little Theorem governs modular exponentiation modulo a prime; it has nothing to do with the divisibility identity \(f(m-n)\mid f(m)-f(n)\). The theorem's preconditions (prime modulus and base coprime to it) are not even named here, so the citation is unsupported. All subsequent claims (\(f(m-n)\mid\gcd(f(m),f(n))\)) rest on this misapplied citation.
+
+### artifact_52 — USAMO_2013_4 (2013) — **Option B**
+The correct excerpt (Option B) assumes WLOG \(x=y=z\) by symmetry of the equation.  
+**Flaw (false_assumption):** The minimum function on the LHS is not symmetric in the same way that a sum or product is — it picks out one specific argument. The reduction to \(x=y=z\) discards asymmetric solutions and is therefore an invalid simplification, not a "WLOG" move.
+
+### artifact_53 — BMOSL_2020_11 (2020) — **Option C**
+The correct excerpt (Option C) computes the homothety image \(h(O)\) and asserts it equals the nine-point center.  
+**Flaw (unjustified_claim):** The identification \(h(O)=\) midpoint of \(HO\) is asserted without derivation. While the conclusion is correct, the step from "homothety at \(H\) with ratio \(1/2\)" to "image of \(O\) is the midpoint of \(HO\)" is exactly the key fact needed and is left unproven. The cited "standard result" linking reflections of \(H\) to altitude feet is also unjustified.
+
+### artifact_54 — IMOSL_2016_3 (2016) — **Option D**
+The correct excerpt (Option D) verifies \(n=3\) works using the arithmetic \(1/3+2/9+3/9=9/9=1\).  
+**Flaw (algebraic_error):** \(1/3=3/9\), so the correct sum is \(3/9+2/9+3/9=8/9\), not \(9/9\). The claim that \(n=3\) is a solution rests on this incorrect arithmetic.
+
+### artifact_55 — USAMO_2018_2 (2018) — **Option A**
+The correct excerpt (Option A) takes \(y\to\infty\) and uses boundedness of \(f\) to conclude \(f\equiv 2\).  
+**Flaw (scope_violation):** The limit argument is valid only for bounded continuous functions, but the problem permits unbounded \(f:(0,\infty)\to(0,\infty)\). Applying the bounded-class result to the unrestricted class is a scope violation; the "uniqueness" conclusion does not generalize.
+
+### artifact_56 — BMOSL_2014_7 (2014) — **Option B**
+The correct excerpt (Option B) applies Lifting the Exponent without checking \(p\mid a-1\).  
+**Flaw (misapplied_theorem):** The LTE formula \(v_p(a^n-1)=v_p(n)+v_p(a-1)\) for odd primes \(p\) requires \(p\mid a-1\) as a precondition. The proof writes "for any \(a\)" and so applies the lemma where its hypothesis fails — the contradiction in Step 4 confirms the misapplication.
+
+### artifact_57 — IMOSL_2015_2 (2015) — **Option C**
+The correct excerpt (Option C) descends from \((a,b,c)\) to \((a',b',c')\) and applies the same conditions.  
+**Flaw (false_assumption):** The new triple's "differences" \(2a'b'-c'\) etc. are not guaranteed to be positive powers of 2 — when the original \(ab-c=2\), the new difference is 1, which only sometimes works; in other cases it can be zero or negative. The premise that \((a',b',c')\) satisfies the analogous conditions is false in general.
+
+### artifact_58 — USAMO_2009_2 (2009) — **Option B**
+The correct excerpt (Option B) claims the odd integers in \(\{-n,\ldots,n\}\) have size \(n\).  
+**Flaw (algebraic_error):** For odd \(n\) (e.g., \(n=5\)) the odd integers are \(\{-5,-3,-1,1,3,5\}\), which has size 6, not \(n=5\). The construction does not give exactly \(n\) elements as claimed, breaking the lower-bound argument.
+
+### artifact_59 — BMOSL_2016_4 (2016) — **Option C**
+The correct excerpt (Option C) sums the tangent-line inequality cyclically.  
+**Flaw (algebraic_error):** The pointwise tangent-line inequality \(a^2/(a+b^2)\ge(2a-b)/2\) is itself false at certain configurations (e.g., \(a=0.5,b=2\) gives LHS \(\approx 0.056\) and RHS \(=-0.5\); the inequality reverses for less extreme cases). The cyclic sum cancellation is also evaluated incorrectly — the proof's manipulation of \(\sum_{cyc}(2a-b)\) misuses the symmetry and produces \(3/2\) only by accident.
+
+### artifact_60 — IMOSL_2017_8 (2017) — **Option B**
+The correct excerpt (Option B) claims the infimum of \(E\) is 0 via \(x_i=r^i\) with large \(r\).  
+**Flaw (scope_violation):** The construction \(x_i=r^i\) was designed for a linear (open) sequence, but the problem's sum is cyclic with wrap-around. The wrap-around term \(x_n^2/(x_n^2+x_1^2)\) tends to 1 (not \(1/(1+r^2)\)) for large \(r\), so the sum does not tend to 0. Applying the linear-case scaling to the cyclic case is an invalid scope extension.
+
+### artifact_61 — USAMO_2020_4 (2020) — **Option C**
+The correct excerpt (Option C) uses Pick's Theorem on the triangle \((0,0),v_i,v_j\) to conclude \(I=0,B=3\).  
+**Flaw (misapplied_theorem):** Pick's Theorem gives \(A=I+B/2-1\), but area \(=1/2\) alone does not force \(I=0\) and \(B=3\); these require additionally that no lattice point lies in the interior or on the edges. The proof asserts the conclusion as if forced by area, omitting the precondition check.
+
+### artifact_62 — BMOSL_2019_18 (2019) — **Option D**
+The correct excerpt (Option D) replaces "angle bisector from \(A\)" with "perpendicular bisector of \(AI\)".  
+**Flaw (false_assumption):** The proof silently changes the problem to one where \(P\) lies on the perpendicular bisector of \(AI\), under which the conclusion \(PA=PI\) is trivial. The original setup (P on the angle bisector from \(A\)) is replaced by a false premise about \(P\)'s definition.
+
+### artifact_63 — IMOSL_2009_11 (2009) — **Option A**
+The correct excerpt (Option A) rearranges the inequality and claims this reformulation is equivalent.  
+**Flaw (unjustified_claim):** The leap from the rearranged inequality \(K(abc-1)\ge 2(ab+bc+ca)-6\) to "we seek the largest \(K\)" is asserted without addressing the case where \(abc<1\), where the inequality direction reverses upon dividing by \(abc-1\). The proof states the equivalence as obvious when sign analysis is required.
+
+### artifact_64 — USAMO_2019_3 (2019) — **Option B**
+The correct excerpt (Option B) counts length-3 walks from \(v\) as \(5\cdot4\cdot4=80\).  
+**Flaw (algebraic_error):** This count conflates walks with simple paths. A walk that returns to a previously visited vertex is excluded from a simple path; on the icosahedron, triangle faces create cycles that the count over-includes. The number 80 is the count of length-3 walks with no immediate back-edge, not the count of simple paths to \(v'\).
+
+### artifact_65 — BMOSL_2021_19 (2021) — **Option C**
+The correct excerpt (Option C) writes \(H_p=\sum_{j=1}^{p}1/j\) and applies Wolstenholme's classical lemma.  
+**Flaw (scope_violation):** Wolstenholme's classical lemma states \(\sum_{j=1}^{p-1}1/j\equiv 0\pmod{p^2}\); the sum range is \(1\) to \(p-1\), not \(1\) to \(p\), because \(1/p\) is not invertible mod \(p^k\). The proof extends the result to a range where the lemma's hypothesis (\(j\) coprime to \(p\)) fails, introducing a spurious factor that yields the wrong final congruence.
+
+### artifact_66 — IMOSL_2012_6 (2012) — **Option B**
+The correct excerpt (Option B) applies the Inscribed Angle Theorem without tracking which arc \(M\) is on.  
+**Flaw (misapplied_theorem):** The theorem requires specifying whether the inscribed and central angles subtend the same or opposite arcs. The proof oscillates among "\(\angle BMC=\angle BAC\)", "\(=2\angle BAC\)", and "\(=180°-\angle BAC\)" without consistently establishing \(M\)'s arc location. The precondition (M's arc) is never rigorously verified.
+
+### artifact_67 — USAMO_2012_5 (2012) — **Option D**
+The correct excerpt (Option D) applies Desargues' theorem, claiming \(ABC\) and \(A'B'C'\) are in perspective from \(P\).  
+**Flaw (false_assumption):** \(A'\) is on line \(PA^*\) (the reflected line), not on line \(PA\). Hence the triangles are NOT in perspective from \(P\) — the premise needed to apply Desargues is false in general.
+
+### artifact_68 — BMOSL_2017_14 (2017) — **Option A**
+The correct excerpt (Option A) concludes "Hence \(n=1\)" from \(n\le 1\).  
+**Flaw (unjustified_claim):** The reduction "n ≤ 1 for positive integer n implies n = 1" is asserted as obvious without explicit derivation. While the conclusion is true, the inferential step that excludes \(n=0\) by the positive-integer constraint is left implicit.
+
+### artifact_69 — IMOSL_2008_4 (2008) — **Option C**
+The correct excerpt (Option C) matches coefficients of \(f(x)=ax+b/x+c\) and concludes \(c=2,b=1,a=0\) as the unique solution.  
+**Flaw (algebraic_error):** Case B (\(f(1)=-2\)) yields another valid family of solutions, but the proof omits it entirely by failing to track both branches of the quadratic \(f(1)^2-f(1)-6=0\). The "uniqueness" claim is the result of incomplete case enumeration — an arithmetic/algebraic oversight in the coefficient matching.
+
+### artifact_70 — USAMO_2011_3 (2011) — **Option D**
+The correct excerpt (Option D) deduces equilateral triangle from equal arc-differences.  
+**Flaw (scope_violation):** The criterion "equal arc-differences ⇒ equilateral inscribed triangle" applies only to triangles whose vertices lie on the circle. The midpoints \(M_1,M_2,M_3\) lie strictly inside the circle (on a smaller concentric circle), so the criterion is applied outside its valid scope.
+
+### artifact_71 — BMOSL_2015_13 (2015) — **Option A**
+The correct excerpt (Option A) invokes Chebyshev's sum inequality.  
+**Flaw (misapplied_theorem):** Chebyshev's inequality requires both sequences to be similarly sorted. The sequence \((a^2/(b^2+c^2),\ldots)\) is not automatically sorted in the same order as \((a,b,c)\), and the proof assumes "(similarly sorted)" without verifying it.
+
+### artifact_72 — IMOSL_2013_2 (2013) — **Option B**
+The correct excerpt (Option B) uses symmetry to argue \(P(h>t)=P(t>h)\) and concludes \(1/2\).  
+**Flaw (false_assumption):** The symmetry \(P(h>t)=P(t>h)\) silently assumes a fair coin (\(P(\text{heads})=1/2\)). The problem says "a coin is tossed" without specifying fairness — the proof relies on fairness as an unstated premise.
+
+### artifact_73 — USAMO_2014_5 (2014) — **Option D**
+The correct excerpt (Option D) concludes \(XY=R\) "by a lengthy angle-chasing argument (omitted for brevity)".  
+**Flaw (unjustified_claim):** The omitted argument is the entire content of the problem. Asserting the conclusion without supplying any of the angle-chasing is the canonical unjustified claim.
+
+### artifact_74 — BMOSL_2022_8 (2022) — **Option D**
+The correct excerpt (Option D) verifies the formula on small cases via specific pair enumerations.  
+**Flaw (algebraic_error):** The verification conflates ordered and unordered pair counts inconsistently across the small-\(n\) cases, and the implicit conversion via \(\varphi\) double-counts certain pairs. The arithmetic confirmation of the closed form is therefore tainted by a counting/arithmetic mistake.
+
+### artifact_75 — IMOSL_2018_4 (2018) — **Option A**
+The correct excerpt (Option A) claims a knight move changes parity in BOTH coordinates.  
+**Flaw (algebraic_error):** A knight move changes one coordinate by \(\pm 1\) (odd, parity flips) and the other by \(\pm 2\) (even, parity stays). Hence knight moves change parity in exactly ONE coordinate, not both. The parity arithmetic is computed incorrectly, breaking the Mantel-coloring bipartition argument that follows.
+
 ## Summary Table
 
 | Artifact | Competition | Year | Correct Option | Type of First Flaw |
@@ -265,3 +365,28 @@ The correct excerpt (Option D) uses directed angles to prove \(F\in\Omega\).
 | 48 | IMOSL | 2015 | **A** | Intersection size |∩A_i|=(n-k)! stated without proof (key inclusion-exclusion fact) |
 | 49 | USAMO | 2020 | **A** | Intersection size |∩A_i|=(n-k)! stated without proof (foundational claim unverified) |
 | 50 | BMOSL | 2018 | **D** | ∠BED=∠BAD cited as inscribed angles but E is not on Ω |
+| 51 | IMOSL | 2011 | **A** | Fermat's Little Theorem misapplied to a non-modular-exponentiation identity |
+| 52 | USAMO | 2013 | **B** | WLOG x=y=z exploits a symmetry the minimum function does not preserve |
+| 53 | BMOSL | 2020 | **C** | Homothety image h(O)=midpoint of HO asserted without derivation |
+| 54 | IMOSL | 2016 | **D** | Arithmetic error: 1/3+2/9+3/9 = 8/9, not 9/9 |
+| 55 | USAMO | 2018 | **A** | Bounded-function limit argument applied to unrestricted function class |
+| 56 | BMOSL | 2014 | **B** | LTE applied without verifying p \| a−1 precondition |
+| 57 | IMOSL | 2015 | **C** | Descent assumes new triple satisfies same conditions when it need not |
+| 58 | USAMO | 2009 | **B** | Count of odd integers in {−n,…,n} is n+1 for odd n, not n |
+| 59 | BMOSL | 2016 | **C** | Tangent-line inequality fails pointwise; cyclic sum cancellation is invalid |
+| 60 | IMOSL | 2017 | **B** | Geometric scaling x_i=r^i ignores cyclic wrap-around boundary |
+| 61 | USAMO | 2020 | **C** | Pick's theorem misapplied — interior/boundary conditions not verified |
+| 62 | BMOSL | 2019 | **D** | Silently replaces "angle bisector" with "perpendicular bisector of AI" |
+| 63 | IMOSL | 2009 | **A** | Sign analysis for abc<1 case omitted in rearrangement |
+| 64 | USAMO | 2019 | **B** | Count of walks (80) conflated with count of simple paths |
+| 65 | BMOSL | 2021 | **C** | Sum range extended to j=p where 1/p is non-invertible |
+| 66 | IMOSL | 2012 | **B** | Inscribed Angle Theorem applied without tracking arc position of M |
+| 67 | USAMO | 2012 | **D** | Desargues applied assuming false perspective from P |
+| 68 | BMOSL | 2017 | **A** | "Hence n=1" reduction left implicit |
+| 69 | IMOSL | 2008 | **C** | Case B (f(1)=−2) branch omitted in coefficient matching |
+| 70 | USAMO | 2011 | **D** | Equal-arc criterion applied to points not on the original circle |
+| 71 | BMOSL | 2015 | **A** | Chebyshev applied without verifying both sequences are similarly sorted |
+| 72 | IMOSL | 2013 | **B** | Implicit fairness assumption for the coin |
+| 73 | USAMO | 2014 | **D** | "By a lengthy angle-chasing argument (omitted)" — content of the problem unproven |
+| 74 | BMOSL | 2022 | **D** | Ordered vs unordered pair count conflated; small-case verification arithmetic flawed |
+| 75 | IMOSL | 2018 | **A** | Knight move changes parity in exactly one coordinate, not both |

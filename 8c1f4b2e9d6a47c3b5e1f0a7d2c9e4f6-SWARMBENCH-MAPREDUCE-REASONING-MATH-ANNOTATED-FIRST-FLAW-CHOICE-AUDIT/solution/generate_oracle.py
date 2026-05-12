@@ -32,10 +32,10 @@ artifact_audits = sorted(
 
 audit_map = {a["artifact_id"]: a for a in artifact_audits}
 
-# Shard layout: 10 shards × 5 artifacts
+# Shard layout: 15 shards × 5 artifacts
 SHARDS = {
     f"shard_{i:02d}": [f"artifact_{j:02d}" for j in range((i - 1) * 5 + 1, i * 5 + 1)]
-    for i in range(1, 11)
+    for i in range(1, 16)
 }
 
 shard_summaries = []

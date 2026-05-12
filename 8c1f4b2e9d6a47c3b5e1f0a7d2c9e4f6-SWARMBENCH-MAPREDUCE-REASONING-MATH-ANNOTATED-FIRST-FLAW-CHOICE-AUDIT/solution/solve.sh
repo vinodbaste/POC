@@ -7,14 +7,14 @@ cp /solution/oracle.json /logs/agent/output.json
 
 cat > /logs/agent/oracle.txt << 'EOF'
 Oracle Solution — First-Flaw Choice Audit
-50 artifacts across BMOSL, IMOSL, and USAMO incorrect proof attempts.
+75 artifacts across BMOSL, IMOSL, and USAMO incorrect proof attempts.
 
 The oracle reads artifact_manifest.json to determine the correct option (A/B/C/D)
 for each artifact, then builds the full structured output with shard summaries
 and a global summary of choice counts, competition counts, year counts, and
 per-option artifact lists.
 
-Shard layout (10 shards × 5 artifacts):
+Shard layout (15 shards × 5 artifacts):
   shard_01: artifact_01 – artifact_05
   shard_02: artifact_06 – artifact_10
   shard_03: artifact_11 – artifact_15
@@ -25,4 +25,9 @@ Shard layout (10 shards × 5 artifacts):
   shard_08: artifact_36 – artifact_40
   shard_09: artifact_41 – artifact_45
   shard_10: artifact_46 – artifact_50
+  shard_11: artifact_51 – artifact_55
+  shard_12: artifact_56 – artifact_60
+  shard_13: artifact_61 – artifact_65
+  shard_14: artifact_66 – artifact_70
+  shard_15: artifact_71 – artifact_75
 EOF

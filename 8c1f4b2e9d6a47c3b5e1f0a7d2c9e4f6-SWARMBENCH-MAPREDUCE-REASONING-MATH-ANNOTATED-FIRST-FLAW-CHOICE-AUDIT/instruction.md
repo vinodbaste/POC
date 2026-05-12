@@ -2,7 +2,7 @@ A benchmark-curation team is converting real human flaw annotations from the Ope
 
 Your working directory inside the container is `/workspace`.
 
-The dataset in `/input_artifacts/artifacts/` contains 50 incorrect olympiad proof attempts from BMOSL, IMOSL, and USAMO. A review rubric describing the evaluation procedure is at `/input_artifacts/review_rubric.md`. Artifact metadata (problem_id, competition, year) for all 50 artifacts is available at `/input_artifacts/artifact_manifest.json`. Each artifact file contains:
+The dataset in `/input_artifacts/artifacts/` contains 75 incorrect olympiad proof attempts from BMOSL, IMOSL, and USAMO. A review rubric describing the evaluation procedure is at `/input_artifacts/review_rubric.md`. Artifact metadata (problem_id, competition, year) for all 75 artifacts is available at `/input_artifacts/artifact_manifest.json`. Each artifact file contains:
 - the original problem,
 - the full incorrect proof attempt,
 - four candidate proof excerpts labeled A-D (presented in randomized order, not necessarily proof order),
@@ -13,7 +13,7 @@ Exactly one candidate excerpt contains the human-marked first unrecoverable flaw
 Your job:
 1. Audit every artifact in `/input_artifacts/artifacts/`.
 2. For each artifact, choose exactly one option letter from `A`, `B`, `C`, or `D`.
-3. For each artifact, classify the flaw type as exactly one of: `unjustified_claim`, `misapplied_theorem`, `false_assumption`, `scope_violation`, `algebraic_error`.
+3. For each artifact, classify the flaw type using the decision procedure in `/input_artifacts/review_rubric.md`. The result must be exactly one of: `unjustified_claim`, `misapplied_theorem`, `false_assumption`, `scope_violation`, `algebraic_error`.
 4. Aggregate the results into shard summaries and a final dataset summary.
 
 Rules:
@@ -64,7 +64,7 @@ Write your final answer to `/logs/agent/output.json` as a single JSON object wit
     }
   ],
   "summary": {
-    "total_artifacts": 50,
+    "total_artifacts": 75,
     "choice_counts": {
       "A": 0,
       "B": 0,

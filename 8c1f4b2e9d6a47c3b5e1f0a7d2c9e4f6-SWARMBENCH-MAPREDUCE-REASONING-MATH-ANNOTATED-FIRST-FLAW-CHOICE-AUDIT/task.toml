@@ -1,16 +1,16 @@
 [task]
 name = "swarmbench/8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT"
-description = "Audit 50 real human-annotated incorrect olympiad proofs and choose which candidate excerpt contains the human-marked first unrecoverable flaw."
+description = "Audit 75 real human-annotated incorrect olympiad proofs and choose which candidate excerpt contains the human-marked first unrecoverable flaw."
 
 [metadata]
-verifier_type = "executable"
+verifier_type = "llm-judge"
 domain = "reasoning-math"
 coordination_pattern = "map-reduce"
-human_solving_hours_estimate = 64.2
-human_solving_hours_justification = "50 artifacts x 35 minutes each x 2 independent passes (map + verify) = 58.3 hours for initial evaluation and independent cross-verification of each proof artifact; plus 3.5 hours for the reducer to reconcile consensus selections, shard-level counts, and dataset-wide option summaries; plus 2.3 hours for consistency checks and final report QA. Total = 64.2 hours (rounded)."
-estimated_sub_agents = 21
-input_token_estimate = 84000
-why_multi_agent = "The task requires 50 independent proof-audit judgments across three olympiad sources. Each artifact has a full problem statement, a full incorrect proof, and four candidate excerpt windows that must be evaluated against the proof to locate the human-marked first flaw. A single agent must carry all 50 judgments plus shard and dataset summaries in one context window (~84 000 tokens) in a single pass, creating severe coverage and bookkeeping pressure with no quality-assurance mechanism. In a two-pass map-reduce setup, ten mapper agents each own five artifacts in isolated context and return exact option letters, while ten independent verifier agents simultaneously re-evaluate the same artifacts in separate isolated contexts. The reducer then reconciles any map/verify disagreements by re-examining disputed artifacts directly, achieving consensus-based accuracy that single-agent single-pass evaluation cannot match."
+human_solving_hours_estimate = 97
+human_solving_hours_justification = "75 artifacts x 35 minutes each x 2 independent passes (map + verify) = 87 hours for initial evaluation and independent cross-verification of each proof artifact; plus 7 hours for the reducer to reconcile consensus selections, shard-level counts, and dataset-wide option summaries; plus 3 hours for consistency checks and final report QA. Total = 97 hours."
+estimated_sub_agents = 31
+input_token_estimate = 126000
+why_multi_agent = "The task requires 75 independent proof-audit judgments across three olympiad sources. Each artifact has a full problem statement, a full incorrect proof, and four candidate excerpt windows that must be evaluated against the proof to locate the human-marked first flaw. A single agent must carry all 75 judgments plus shard and dataset summaries in one context window (~126 000 tokens) in a single pass, creating severe coverage and bookkeeping pressure with no quality-assurance mechanism. In a two-pass map-reduce setup, fifteen mapper agents each own five artifacts in isolated context and return exact option letters, while fifteen independent verifier agents simultaneously re-evaluate the same artifacts in separate isolated contexts. The reducer then reconciles any map/verify disagreements by re-examining disputed artifacts directly, achieving consensus-based accuracy that single-agent single-pass evaluation cannot match."
 reference_link = "https://huggingface.co/datasets/INSAIT-Institute/OPC"
 
 [agent]

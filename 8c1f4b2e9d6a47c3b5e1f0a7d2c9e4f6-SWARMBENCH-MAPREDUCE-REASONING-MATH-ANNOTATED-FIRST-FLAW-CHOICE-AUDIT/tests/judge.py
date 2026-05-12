@@ -1,6 +1,10 @@
 import argparse
 import json
+import os
 import re
+import urllib.error
+import urllib.request
+
 
 VALID_OPTIONS = {"A", "B", "C", "D"}
 VALID_FLAW_TYPES = {"unjustified_claim", "misapplied_theorem", "false_assumption", "scope_violation", "algebraic_error"}
@@ -21,19 +25,15 @@ def extract_json(text: str) -> str:
 
 
 def validate_structure(agent_output: dict) -> list[str]:
-    """
-    Structural checks that enforce every instruction.md requirement.
-    Returns a list of violation strings; empty list means pass.
-    """
     violations = []
 
     required_keys = {"artifact_audits", "shard_summaries", "summary"}
     extra_keys = set(agent_output.keys()) - required_keys
     if extra_keys:
-        violations.append(f"Extra top-level keys: {sorted(extra_keys)}")
+        violations.append(f"Extra top-level keys not in schema: {sorted(extra_keys)}")
     missing_keys = required_keys - set(agent_output.keys())
     if missing_keys:
-        violations.append(f"Missing top-level keys: {sorted(missing_keys)}")
+        violations.append(f"Missing required top-level keys: {sorted(missing_keys)}")
         return violations
 
     audits = agent_output.get("artifact_audits", [])
@@ -58,11 +58,9 @@ def validate_structure(agent_output: dict) -> list[str]:
             )
 
     if audit_ids != sorted(audit_ids):
-        violations.append(
-            f"artifact_audits is not sorted by artifact_id. First few: {audit_ids[:5]}"
-        )
+        violations.append(f"artifact_audits is not sorted by artifact_id. First few: {audit_ids[:5]}")
 
-    expected_ids = [f"artifact_{i:02d}" for i in range(1, 51)]
+    expected_ids = [f"artifact_{i:02d}" for i in range(1, 76)]
     missing_artifacts = set(expected_ids) - set(audit_ids)
     if missing_artifacts:
         violations.append(
@@ -72,99 +70,51 @@ def validate_structure(agent_output: dict) -> list[str]:
         )
 
     shards = agent_output.get("shard_summaries", [])
-    shard_ids = []
+    shard_ids = [s.get("shard_id", "") for s in shards]
+    if shard_ids != sorted(shard_ids):
+        violations.append(f"shard_summaries is not sorted by shard_id. Got: {shard_ids}")
+
     for idx, shard in enumerate(shards):
         missing = SHARD_REQUIRED_KEYS - set(shard.keys())
         if missing:
             violations.append(f"shard_summaries[{idx}] missing fields: {sorted(missing)}")
             continue
-        shard_ids.append(shard["shard_id"])
         art_ids = shard.get("artifact_ids", [])
         art_count = shard.get("artifact_count")
-        if not isinstance(art_ids, list):
-            violations.append(f"shard_summaries[{idx}] ({shard['shard_id']}): artifact_ids is not a list")
-        elif art_count != len(art_ids):
+        if isinstance(art_ids, list) and art_count != len(art_ids):
             violations.append(
                 f"shard_summaries[{idx}] ({shard['shard_id']}): "
                 f"artifact_count={art_count} does not match len(artifact_ids)={len(art_ids)}"
             )
 
-    if shard_ids != sorted(shard_ids):
-        violations.append(f"shard_summaries is not sorted by shard_id. Got: {shard_ids}")
-
     abo = agent_output.get("summary", {}).get("artifacts_by_option", {})
     for opt, art_list in abo.items():
-        if not isinstance(art_list, list):
-            violations.append(f"artifacts_by_option['{opt}'] is not a list")
-            continue
-        if art_list != sorted(art_list):
+        if isinstance(art_list, list) and art_list != sorted(art_list):
             violations.append(f"artifacts_by_option['{opt}'] is not sorted. Got: {art_list}")
 
     return violations
 
 
-def score(agent_output: dict, oracle: dict) -> tuple[float, int, int, str]:
-    """
-    Score = (option_passed + flaw_passed) / (2 * total_artifacts).
-    Total is always 2 * len(oracle artifact_audits) — never left to interpretation.
-
-    Shard grouping is not scored: any internally consistent shard grouping
-    receives the same reward as long as per-artifact selected_option and
-    flaw_type values are correct. Only summary aggregate fields are checked informally.
-    """
-    oracle_map = {a["artifact_id"]: {"option": a["selected_option"], "flaw_type": a["flaw_type"]}
-                  for a in oracle["artifact_audits"]}
-    n_artifacts = len(oracle_map)
-
-    agent_map = {a.get("artifact_id"): {"option": a.get("selected_option"), "flaw_type": a.get("flaw_type")}
-                 for a in agent_output.get("artifact_audits", [])}
-
-    failed_options = []
-    failed_flaws = []
-    option_passed = 0
-    flaw_passed = 0
-    for aid in sorted(oracle_map):
-        o = oracle_map[aid]
-        a = agent_map.get(aid, {})
-        if a.get("option") == o["option"]:
-            option_passed += 1
-        else:
-            failed_options.append(aid)
-        if a.get("flaw_type") == o["flaw_type"]:
-            flaw_passed += 1
-        else:
-            failed_flaws.append(aid)
-
-    # Summary field checks (informational — derivative of selected_option values)
-    oracle_summary = oracle.get("summary", {})
-    agent_summary = agent_output.get("summary", {})
-    failed_summary = []
-    for key in ["total_artifacts", "choice_counts", "competition_counts",
-                "year_counts", "artifacts_by_option"]:
-        if agent_summary.get(key) != oracle_summary.get(key):
-            note = ""
-            if key == "choice_counts":
-                oc = oracle_summary.get("choice_counts", {})
-                ac = agent_summary.get("choice_counts", {})
-                diffs = [f"{k}={ac.get(k,'?')} vs {oc[k]}"
-                         for k in oc if ac.get(k) != oc[k]]
-                if diffs:
-                    note = " (" + ", ".join(diffs) + ")"
-            failed_summary.append(key + note)
-
-    total = 2 * n_artifacts
-    passed = option_passed + flaw_passed
-    reward = passed / total if total > 0 else 0.0
-
-    lines = [f"Score: {reward} ({option_passed}/{n_artifacts} options passed, {flaw_passed}/{n_artifacts} flaw types passed)\n"]
-    if failed_options:
-        lines.append("Failed options: " + ", ".join(failed_options))
-    if failed_flaws:
-        lines.append("Failed flaw types: " + ", ".join(failed_flaws))
-    if failed_summary:
-        lines.append("Failed summary fields (informational): " + ", ".join(failed_summary))
-
-    return reward, passed, total, "\n".join(lines)
+def call_fireworks(messages, max_tokens=800, timeout=240):
+    payload = {
+        "model": "accounts/fireworks/models/kimi-k2p5",
+        "messages": messages,
+        "temperature": 0,
+        "max_tokens": max_tokens,
+        "response_format": {"type": "json_object"},
+    }
+    request = urllib.request.Request(
+        "https://api.fireworks.ai/inference/v1/chat/completions",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {os.environ['FIREWORKS_API_KEY']}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        body = json.loads(response.read().decode("utf-8"))
+    return body.get("choices", [{}])[0].get("message", {}).get("content", "") or ""
 
 
 def main():
@@ -198,16 +148,69 @@ def main():
         json.dump({"reward": 0.0}, open(args.reward_out, "w"))
         with open(justification_path, "w") as f:
             f.write(
-                "Score: 0.0\n\nStructural validation failed:\n"
+                "Score: 0.0\n\nStructural validation failed — instruction requirements not met:\n"
                 + "\n".join(f"  - {v}" for v in violations)
             )
         return
 
-    reward, passed, total, justification = score(agent_output, oracle)
+    prompt = (
+        "Grade the agent output against the gold oracle for this olympiad proof-flaw audit task.\n\n"
+        f"ORACLE:\n{json.dumps(oracle, separators=(',', ':'))}\n\n"
+        f"AGENT OUTPUT:\n{json.dumps(agent_output, separators=(',', ':'))}\n\n"
+        "Scoring rules:\n"
+        "- For each artifact in artifact_audits, artifact_id, problem_id, competition, year, "
+        "selected_option, and flaw_type must all match the oracle exactly, in sorted artifact_id order.\n"
+        "- For each shard summary, shard_id, artifact_ids, artifact_count, and choice_counts "
+        "must match exactly, in the same shard order.\n"
+        "- In summary, total_artifacts, choice_counts, competition_counts, year_counts, and "
+        "artifacts_by_option must match exactly, with lists in sorted order.\n"
+        "- Score is the fraction of artifact rows plus summary groups that are fully correct.\n"
+        "Return one JSON object only using this schema: "
+        '{"score": <float 0.0-1.0>, "passed": <int>, "total": <int>, '
+        '"justification": "<brief list of failed artifact_ids and failed summary groups>"}'
+    )
 
-    json.dump({"reward": reward}, open(args.reward_out, "w"))
+    messages = [
+        {"role": "system", "content": "Respond with one valid JSON object only. No prose outside the JSON."},
+        {"role": "user", "content": prompt},
+    ]
+
+    try:
+        raw = call_fireworks(messages)
+    except (urllib.error.URLError, TimeoutError, KeyError) as e:
+        json.dump({"reward": 0.0}, open(args.reward_out, "w"))
+        with open(justification_path, "w") as f:
+            f.write(f"Score: 0.0\n\nJudge request failed: {e}")
+        return
+
+    try:
+        result = json.loads(extract_json(raw))
+    except json.JSONDecodeError:
+        repair_messages = [
+            {"role": "system", "content": "Convert the user content into one valid JSON object only. Do not add commentary."},
+            {"role": "user", "content": (
+                "The following model output was supposed to follow this schema exactly:\n"
+                '{"score": <float 0.0-1.0>, "passed": <int>, "total": <int>, "justification": "<brief>"}\n\n'
+                "Convert it to valid JSON without changing the meaning.\n\n"
+                f"MODEL OUTPUT:\n{raw}"
+            )},
+        ]
+        try:
+            repaired_raw = call_fireworks(repair_messages, max_tokens=300, timeout=180)
+            result = json.loads(extract_json(repaired_raw))
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
+            json.dump({"reward": 0.0}, open(args.reward_out, "w"))
+            with open(justification_path, "w") as f:
+                f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw}")
+            return
+
+    score = float(result.get("score", 0.0))
+    json.dump({"reward": score}, open(args.reward_out, "w"))
     with open(justification_path, "w") as f:
-        f.write(justification)
+        f.write(
+            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', '?')} passed)\n\n"
+            f"{result.get('justification', '')}"
+        )
 
 
 if __name__ == "__main__":
