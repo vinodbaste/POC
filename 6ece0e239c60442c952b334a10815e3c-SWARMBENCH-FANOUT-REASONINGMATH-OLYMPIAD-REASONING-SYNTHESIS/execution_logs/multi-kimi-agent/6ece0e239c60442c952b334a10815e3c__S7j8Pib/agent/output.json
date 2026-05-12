@@ -1,0 +1,80 @@
+{
+  "domain_statistics": {
+    "algebra": {
+      "total_problems": 1744,
+      "level_distribution": {"Level 1": 178, "Level 2": 340, "Level 3": 392, "Level 4": 398, "Level 5": 436},
+      "hard_problems_count": 834
+    },
+    "geometry": {
+      "total_problems": 870,
+      "level_distribution": {"Level 1": 149, "Level 2": 170, "Level 3": 243, "Level 4": 172, "Level 5": 136},
+      "hard_problems_count": 308
+    },
+    "counting_and_probability": {
+      "total_problems": 771,
+      "level_distribution": {"Level 1": 50, "Level 2": 119, "Level 3": 160, "Level 4": 166, "Level 5": 276},
+      "hard_problems_count": 442
+    },
+    "number_theory": {
+      "total_problems": 869,
+      "level_distribution": {"Level 1": 47, "Level 2": 131, "Level 3": 191, "Level 4": 187, "Level 5": 313},
+      "hard_problems_count": 500
+    },
+    "precalculus": {
+      "total_problems": 746,
+      "level_distribution": {"Level 1": 64, "Level 2": 162, "Level 3": 168, "Level 4": 175, "Level 5": 177},
+      "hard_problems_count": 352
+    }
+  },
+  "proof_strategy_taxonomy": [
+    {"strategy": "Case Decomposition", "description": "Systematic partitioning of problem space into exhaustive, mutually exclusive cases; critical for absolute value, floor functions, and constraint satisfaction problems across Number Theory, Counting/Probability, and Precalculus"},
+    {"strategy": "Modular Arithmetic Chains", "description": "Sequential application of congruence relations and modular reductions to manage large numbers; primary technique in Number Theory (32.6% of hard problems)"},
+    {"strategy": "Combinatorial Enumeration with Correction", "description": "Counting via binomial coefficients followed by division by symmetry factor to correct overcounting; essential for Counting and Probability (144/442=32.6% hard problems)"},
+    {"strategy": "Auxiliary Construction", "description": "Strategic addition of lines, points, or circles to reveal hidden geometric relationships; unique to Geometry and required for Level 5 problems"},
+    {"strategy": "Variable Substitution and Reduction", "description": "Transforming complex expressions through strategic substitution to simplify algebraic structure; used in 88/834=10.6% of hard Algebra problems"},
+    {"strategy": "Bound Establishment and Verification", "description": "Setting upper and lower constraints through inequality analysis, then verifying extrema are achievable; critical for Number Theory (51% of Level 5) and Precalculus"},
+    {"strategy": "Probability Multiplication Chains", "description": "Sequential conditional probability computation through product of dependent event probabilities; dominant in Counting/Probability (180/442=40.7% hard problems)"},
+    {"strategy": "Trigonometric Identity Chaining", "description": "Multi-step derivation using angle addition, half-angle, and product-to-sum formulas; characterizes 75% of Level 5 Precalculus trig problems"},
+    {"strategy": "Similarity and Proportion Networks", "description": "Identification and chaining of similar triangles via AA/SAS criteria to establish length ratios; core Geometry technique for multi-step problems"},
+    {"strategy": "GCD/LCM and Divisor Analysis", "description": "Application of Euclidean algorithm and divisor function properties to characterize integer solutions; used in 27.6% of hard Number Theory problems"},
+    {"strategy": "Power of a Point and Cyclic Properties", "description": "Application of circle theorems including power of point, cyclic quadrilateral angles, and intersecting chords; required for Level 5 Geometry"},
+    {"strategy": "Vector Projection and Parameterization", "description": "Coordinate-free geometric computation using dot products for projections and parametric representations; used in 35% of Precalculus vector problems"}
+  ],
+  "reasoning_style_comparison": {
+    "algebra": "Formulaic manipulation with case branching (834/1744=47.8% hard rate); shifts from direct formula application at Level 3 to multi-step constraint satisfaction at Level 5 with symmetric solution verification",
+    "geometry": "Spatial insight requiring auxiliary constructions (308/870=35.4% hard rate); unique among domains for requiring non-obvious geometric additions before proof can proceed",
+    "counting_and_probability": "Declarative constraint establishment with systematic enumeration (442/771=57.3% hard rate); characterized by definitional setup language and overcounting correction requirements",
+    "number_theory": "Modular reduction chains with exhaustive case analysis (500/869=57.5% hard rate); highest hard rate driven by 20x increase in case analysis from Level 3 (0.5%) to Level 5 (10.2%)",
+    "precalculus": "Identity chain derivation with degenerate case handling (352/746=47.2% hard rate); proof length increases 1.82x from Level 3 (745 chars) to Level 5 (1359 chars)"
+  },
+  "most_subtle_reasoning_failure_modes": [
+    "In number theory (500/869=57.5% hard), inadequate bound checking leads to accepting extraneous solutions or rejecting valid ones due to incomplete constraint verification",
+    "In counting and probability (442/771=57.3% hard), overcounting from failing to divide by factorial for indistinguishable objects or double-counting overlapping intersections",
+    "In geometry (308/870=35.4% hard), missing auxiliary constructions or selecting incorrect auxiliary lines that do not reveal the key similar triangles or cyclic quadrilaterals",
+    "In algebra (834/1744=47.8% hard), not recognizing when case analysis is required for absolute value, floor functions, or piecewise definitions; failing to verify conditions after obtaining candidate solutions",
+    "In precalculus (352/746=47.2% hard), blind algebraic manipulation without geometric insight; squaring equations without domain verification leading to extraneous solutions; missing degenerate cases in geometric configurations",
+    "In number theory (500/869=57.5% hard), direct manipulation on large numbers without modular reduction, leading to computational intractability and missed pattern recognition",
+    "In algebra (834/1744=47.8% hard), failing to recognize symmetry in multi-constraint problems, resulting in redundant case work or missed solution families"
+  ],
+  "hardest_problem_families": [
+    {"family": "Number Theory Level 5 Multi-Constraint", "reason": "Highest domain hard rate (500/869=57.5%) with 20x case analysis increase; combines modular arithmetic (32.6%), GCD/LCM analysis (27.6%), and bound verification (51%) in multi-step chains"},
+    {"family": "Counting and Probability Level 5 Constraint Satisfaction", "reason": "Second highest hard rate (442/771=57.3%); requires 2.08x length increase and 2.38x math expression density from Level 3; characterized by definitional setup and overcounting corrections"},
+    {"family": "Algebra Level 5 Multi-Case Piecewise", "reason": "High hard rate (834/1744=47.8%) driven by combining factoring (117 hard), substitution (88), and completing the square (59) with absolute value/floor case analysis"},
+    {"family": "Precalculus Level 5 Trigonometric Identity Chains", "reason": "47.2% hard rate (352/746) with 75% of Level 5 trig problems requiring 4+ step identity chains; proof length 1.82x Level 3 baseline"},
+    {"family": "Geometry Level 5 Circle-Similarity Combination", "reason": "Lowest hard rate (308/870=35.4%) but most cognitively unique; requires auxiliary constructions combining Power of Point, cyclic quadrilaterals, and similarity networks unavailable to lower levels"},
+    {"family": "Number Theory Level 5 Diophantine with Bounds", "reason": "57.5% hard rate; algebraic setup with bounds appears in 51% of Level 5 problems, requiring careful inequality chain management and integer lattice point verification"}
+  ],
+  "top_proof_techniques": [
+    {"technique": "Probability Multiplication Chains", "difficulty_reason": "Counting and Probability (180/442=40.7% of hard problems); requires careful tracking of conditional dependencies across sequential events"},
+    {"technique": "Combinatorial Enumeration with Binomial Coefficients", "difficulty_reason": "Counting and Probability (144/442=32.6% of hard problems); involves systematic counting followed by symmetry correction to avoid overcounting"},
+    {"technique": "Modular Arithmetic and Congruence Chains", "difficulty_reason": "Number Theory (32.6% of 500 hard problems); enables management of large numbers through sequential reduction operations"},
+    {"technique": "Factoring and Vieta's Relationships", "difficulty_reason": "Algebra (117/834=14.0% of hard problems); fundamental for polynomial root analysis and symmetric expression simplification"},
+    {"technique": "Similarity and Proportion (AA/SAS)", "difficulty_reason": "Geometry (fundamental for all levels); foundation for length ratio establishment in multi-step geometric proofs"},
+    {"technique": "Case Decomposition and Enumeration", "difficulty_reason": "Counting and Probability (90/442=20.4% of hard problems); transfers to Number Theory (20x increase at Level 5) and Precalculus (25%)"},
+    {"technique": "Substitution and Variable Replacement", "difficulty_reason": "Algebra (88/834=10.5% of hard problems); transforms complex expressions into manageable forms"},
+    {"technique": "GCD/LCM and Divisor Analysis", "difficulty_reason": "Number Theory (27.6% of 500 hard problems); requires Euclidean algorithm application and divisor function properties"},
+    {"technique": "Trigonometric Identity Chains", "difficulty_reason": "Precalculus (75% of Level 5 trig problems); requires 4+ sequential identity applications"},
+    {"technique": "Completing the Square", "difficulty_reason": "Algebra (59/834=7.1% of hard problems); essential for quadratic optimization and conic section analysis"}
+  ],
+  "cross_domain_reasoning_transfer": "Number Theory leads with 500/869=57.5% hard rate, followed by Counting and Probability at 442/771=57.3%, then Algebra at 834/1744=47.8%, Precalculus at 352/746=47.2%, and Geometry at 308/870=35.4%. Case decomposition transfers bidirectionally between Number Theory, Counting/Probability, and Precalculus (25%). Modular arithmetic chains transfer from Number Theory to Counting/Probability for combinatorial congruence problems. Algebraic bound setup from Number Theory (51% Level 5) transfers to Precalculus optimization. Geometry's auxiliary construction technique remains domain-unique due to spatial reasoning requirements. Probability multiplication and combinatorial counting are specialized to Counting/Probability with limited transfer. Trigonometric identity chaining is specific to Precalculus. The general pattern shows procedural techniques (case analysis, bound verification) transfer across domains, while domain-specific representational techniques (modular arithmetic, auxiliary constructions, probability chains) remain isolated."
+}
