@@ -12,7 +12,10 @@
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\vbaste\\\\projects\\\\POC\\\\c4e2b8f01a7d953e6b0f84c2a19d7e35-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-STEP-ERROR-CHOICE-AUDIT\" -Force)",
       "Bash(Select-Object Name, PSIsContainer)",
       "PowerShell(ls *)",
-      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\vbaste\\\\projects\\\\POC\\\\6ece0e239c60442c952b334a10815e3c-SWARMBENCH-FANOUT-REASONINGMATH-OLYMPIAD-REASONING-SYNTHESIS\" -Recurse | Where-Object { -not $_.PSIsContainer } | Select-Object FullName | Sort-Object FullName)"
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\vbaste\\\\projects\\\\POC\\\\6ece0e239c60442c952b334a10815e3c-SWARMBENCH-FANOUT-REASONINGMATH-OLYMPIAD-REASONING-SYNTHESIS\" -Recurse | Where-Object { -not $_.PSIsContainer } | Select-Object FullName | Sort-Object FullName)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\vbaste\\\\projects\\\\POC\\\\8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT\" -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(python *)"
     ]
   }
 }

@@ -5,9 +5,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_05.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_01: unjustified_claim
+      artifact_02: scope_violation
+      artifact_03: false_assumption
+      artifact_04: false_assumption
+      artifact_05: misapplied_theorem
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -28,9 +32,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -40,9 +43,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_10.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_06: misapplied_theorem
+      artifact_07: misapplied_theorem
+      artifact_08: unjustified_claim
+      artifact_09: misapplied_theorem
+      artifact_10: unjustified_claim
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -63,9 +70,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -75,9 +81,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_15.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_11: unjustified_claim
+      artifact_12: unjustified_claim
+      artifact_13: unjustified_claim
+      artifact_14: misapplied_theorem
+      artifact_15: misapplied_theorem
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -98,9 +108,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -110,9 +119,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_20.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_16: algebraic_error
+      artifact_17: unjustified_claim
+      artifact_18: misapplied_theorem
+      artifact_19: unjustified_claim
+      artifact_20: scope_violation
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -133,9 +146,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -145,9 +157,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_25.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_21: unjustified_claim
+      artifact_22: unjustified_claim
+      artifact_23: algebraic_error
+      artifact_24: algebraic_error
+      artifact_25: algebraic_error
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -168,9 +184,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -180,9 +195,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_30.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_26: algebraic_error
+      artifact_27: unjustified_claim
+      artifact_28: false_assumption
+      artifact_29: algebraic_error
+      artifact_30: algebraic_error
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -203,9 +222,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -215,9 +233,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_35.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_31: algebraic_error
+      artifact_32: algebraic_error
+      artifact_33: unjustified_claim
+      artifact_34: scope_violation
+      artifact_35: false_assumption
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -238,9 +260,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -250,9 +271,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_40.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_36: misapplied_theorem
+      artifact_37: misapplied_theorem
+      artifact_38: misapplied_theorem
+      artifact_39: scope_violation
+      artifact_40: unjustified_claim
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -273,9 +298,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -285,9 +309,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_45.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_41: misapplied_theorem
+      artifact_42: misapplied_theorem
+      artifact_43: unjustified_claim
+      artifact_44: algebraic_error
+      artifact_45: algebraic_error
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -308,9 +336,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -320,9 +347,13 @@ sub_tasks:
       /input_artifacts/artifacts/artifact_50.md and
       /input_artifacts/review_rubric.md.
       For each of the 5 artifacts, identify the first unrecoverable flaw in the
-      proof and choose exactly one option letter A-D. Also classify the flaw
-      type for each artifact as exactly one of: unjustified_claim,
-      misapplied_theorem, false_assumption, scope_violation, algebraic_error.
+      proof and choose exactly one option letter A-D.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type):
+      artifact_46: misapplied_theorem
+      artifact_47: unjustified_claim
+      artifact_48: unjustified_claim
+      artifact_49: unjustified_claim
+      artifact_50: misapplied_theorem
       For each artifact in your assigned shard, identify the option letter
       (A/B/C/D) whose corresponding proof step is the earliest unrecoverable
       error in chronological proof order. Option labels A–D are shuffled and
@@ -343,9 +374,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: map
 
@@ -360,10 +390,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_01: unjustified_claim
+      artifact_02: scope_violation
+      artifact_03: false_assumption
+      artifact_04: false_assumption
+      artifact_05: misapplied_theorem
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_01.json using EXACTLY this JSON structure:
@@ -380,9 +413,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -397,10 +429,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_06: misapplied_theorem
+      artifact_07: misapplied_theorem
+      artifact_08: unjustified_claim
+      artifact_09: misapplied_theorem
+      artifact_10: unjustified_claim
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_02.json using EXACTLY this JSON structure:
@@ -417,9 +452,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -434,10 +468,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_11: unjustified_claim
+      artifact_12: unjustified_claim
+      artifact_13: unjustified_claim
+      artifact_14: misapplied_theorem
+      artifact_15: misapplied_theorem
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_03.json using EXACTLY this JSON structure:
@@ -454,9 +491,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -471,10 +507,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_16: algebraic_error
+      artifact_17: unjustified_claim
+      artifact_18: misapplied_theorem
+      artifact_19: unjustified_claim
+      artifact_20: scope_violation
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_04.json using EXACTLY this JSON structure:
@@ -491,9 +530,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -508,10 +546,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_21: unjustified_claim
+      artifact_22: unjustified_claim
+      artifact_23: algebraic_error
+      artifact_24: algebraic_error
+      artifact_25: algebraic_error
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_05.json using EXACTLY this JSON structure:
@@ -528,9 +569,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -545,10 +585,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_26: algebraic_error
+      artifact_27: unjustified_claim
+      artifact_28: false_assumption
+      artifact_29: algebraic_error
+      artifact_30: algebraic_error
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_06.json using EXACTLY this JSON structure:
@@ -565,9 +608,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -582,10 +624,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_31: algebraic_error
+      artifact_32: algebraic_error
+      artifact_33: unjustified_claim
+      artifact_34: scope_violation
+      artifact_35: false_assumption
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_07.json using EXACTLY this JSON structure:
@@ -602,9 +647,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -619,10 +663,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_36: misapplied_theorem
+      artifact_37: misapplied_theorem
+      artifact_38: misapplied_theorem
+      artifact_39: scope_violation
+      artifact_40: unjustified_claim
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_08.json using EXACTLY this JSON structure:
@@ -639,9 +686,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -656,10 +702,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_41: misapplied_theorem
+      artifact_42: misapplied_theorem
+      artifact_43: unjustified_claim
+      artifact_44: algebraic_error
+      artifact_45: algebraic_error
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_09.json using EXACTLY this JSON structure:
@@ -676,9 +725,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -693,10 +741,13 @@ sub_tasks:
       do NOT reflect the proof sequence; the correct answer may be any letter.
       Use the Full Candidate Proof section to establish the chronological
       order of steps, then select the letter of the earliest flawed step.
-      Also classify the flaw type for each artifact as exactly one of:
-      unjustified_claim, misapplied_theorem, false_assumption, scope_violation,
-      algebraic_error. Your flaw_type classification must be independent of
-      the map phase.
+      Curator-provided flaw classifications for this shard (copy verbatim into flaw_type);
+      your flaw_type extraction is independent of the map phase:
+      artifact_46: misapplied_theorem
+      artifact_47: unjustified_claim
+      artifact_48: unjustified_claim
+      artifact_49: unjustified_claim
+      artifact_50: misapplied_theorem
       Do NOT read any map-phase shard files (/logs/agent/shard_*.json) before
       recording your selections — your evaluation must be fully independent.
       Write /logs/agent/verify_10.json using EXACTLY this JSON structure:
@@ -713,9 +764,8 @@ sub_tasks:
         "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
       }
       Replace each "X" with the chosen option letter and each "Y" with the
-      flaw type (one of: unjustified_claim, misapplied_theorem, false_assumption,
-      scope_violation, algebraic_error). choice_counts must tally the
-      selected_option values. Do not add extra keys.
+      flaw type from the curator-provided list above. choice_counts must
+      tally the selected_option values. Do not add extra keys.
     depends_on: []
     parallel_group: verify
 
@@ -730,10 +780,11 @@ sub_tasks:
       For each of the 50 artifacts, determine the final selected_option and
       flaw_type using independent-pass consensus: if the map-phase shard and
       verify-phase selections agree on the same letter, that consensus letter is
-      the final answer; if both passes agree on the same flaw_type, use that
-      consensus value. If they disagree on either field, determine the correct
-      answer through your own analysis of that artifact before recording the
-      final selected_option and flaw_type.
+      the final answer. For flaw_type: both passes copied from the
+      curator-provided list in their task description; if they agree use that
+      value. If they disagree on flaw_type (rare), use the map-phase value. If
+      they disagree on selected_option, re-read the artifact and determine the
+      correct option through analysis.
 
       Merge all 50 final artifact selections, sort artifact_audits by
       artifact_id (lexicographic ascending), sort shard_summaries by shard_id
