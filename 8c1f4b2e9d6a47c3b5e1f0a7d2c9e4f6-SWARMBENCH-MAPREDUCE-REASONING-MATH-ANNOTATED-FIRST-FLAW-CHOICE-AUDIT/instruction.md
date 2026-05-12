@@ -26,6 +26,7 @@ Rules:
 - `artifacts_by_option` lists must be sorted by `artifact_id` (lexicographic ascending).
 - The aggregate fields `total_artifacts`, `choice_counts`, `competition_counts`, `year_counts`, and `artifacts_by_option` in `summary` are informational tallies computed from your per-artifact selections. They are not independently scored.
 - For each artifact, `flaw_type` must be exactly one of: `unjustified_claim`, `misapplied_theorem`, `false_assumption`, `scope_violation`, `algebraic_error`.
+- The output JSON must contain **only** these three top-level keys: `artifact_audits`, `shard_summaries`, and `summary`. No additional top-level keys are permitted.
 
 **Flaw type taxonomy:**
 - `unjustified_claim`: A conclusion is asserted without proof or supporting reasoning.
