@@ -1,0 +1,624 @@
+sub_tasks:
+  - id: shard_01
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_001.md through
+      /input_artifacts/artifacts/artifact_010.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_01.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_01",
+        "artifact_ids": ["artifact_001","artifact_002","artifact_003","artifact_004","artifact_005","artifact_006","artifact_007","artifact_008","artifact_009","artifact_010"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_001", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_002", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_003", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_004", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_005", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_006", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_007", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_008", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_009", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_010", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_02
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_011.md through
+      /input_artifacts/artifacts/artifact_020.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_02.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_02",
+        "artifact_ids": ["artifact_011","artifact_012","artifact_013","artifact_014","artifact_015","artifact_016","artifact_017","artifact_018","artifact_019","artifact_020"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_011", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_012", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_013", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_014", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_015", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_016", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_017", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_018", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_019", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_020", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_03
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_021.md through
+      /input_artifacts/artifacts/artifact_030.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_03.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_03",
+        "artifact_ids": ["artifact_021","artifact_022","artifact_023","artifact_024","artifact_025","artifact_026","artifact_027","artifact_028","artifact_029","artifact_030"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_021", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_022", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_023", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_024", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_025", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_026", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_027", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_028", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_029", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_030", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_04
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_031.md through
+      /input_artifacts/artifacts/artifact_040.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_04.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_04",
+        "artifact_ids": ["artifact_031","artifact_032","artifact_033","artifact_034","artifact_035","artifact_036","artifact_037","artifact_038","artifact_039","artifact_040"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_031", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_032", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_033", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_034", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_035", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_036", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_037", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_038", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_039", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_040", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_05
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_041.md through
+      /input_artifacts/artifacts/artifact_050.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_05.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_05",
+        "artifact_ids": ["artifact_041","artifact_042","artifact_043","artifact_044","artifact_045","artifact_046","artifact_047","artifact_048","artifact_049","artifact_050"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_041", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_042", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_043", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_044", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_045", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_046", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_047", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_048", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_049", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_050", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_06
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_051.md through
+      /input_artifacts/artifacts/artifact_060.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_06.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_06",
+        "artifact_ids": ["artifact_051","artifact_052","artifact_053","artifact_054","artifact_055","artifact_056","artifact_057","artifact_058","artifact_059","artifact_060"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_051", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_052", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_053", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_054", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_055", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_056", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_057", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_058", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_059", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_060", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_07
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_061.md through
+      /input_artifacts/artifacts/artifact_070.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_07.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_07",
+        "artifact_ids": ["artifact_061","artifact_062","artifact_063","artifact_064","artifact_065","artifact_066","artifact_067","artifact_068","artifact_069","artifact_070"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_061", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_062", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_063", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_064", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_065", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_066", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_067", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_068", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_069", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_070", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_08
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_071.md through
+      /input_artifacts/artifacts/artifact_080.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_08.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_08",
+        "artifact_ids": ["artifact_071","artifact_072","artifact_073","artifact_074","artifact_075","artifact_076","artifact_077","artifact_078","artifact_079","artifact_080"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_071", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_072", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_073", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_074", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_075", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_076", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_077", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_078", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_079", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_080", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_09
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_081.md through
+      /input_artifacts/artifacts/artifact_090.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_09.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_09",
+        "artifact_ids": ["artifact_081","artifact_082","artifact_083","artifact_084","artifact_085","artifact_086","artifact_087","artifact_088","artifact_089","artifact_090"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_081", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_082", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_083", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_084", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_085", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_086", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_087", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_088", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_089", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_090", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_10
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_091.md through
+      /input_artifacts/artifacts/artifact_100.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_10.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_10",
+        "artifact_ids": ["artifact_091","artifact_092","artifact_093","artifact_094","artifact_095","artifact_096","artifact_097","artifact_098","artifact_099","artifact_100"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_091", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_092", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_093", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_094", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_095", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_096", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_097", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_098", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_099", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_100", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_11
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_101.md through
+      /input_artifacts/artifacts/artifact_110.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_11.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_11",
+        "artifact_ids": ["artifact_101","artifact_102","artifact_103","artifact_104","artifact_105","artifact_106","artifact_107","artifact_108","artifact_109","artifact_110"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_101", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_102", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_103", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_104", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_105", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_106", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_107", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_108", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_109", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_110", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_12
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_111.md through
+      /input_artifacts/artifacts/artifact_120.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_12.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_12",
+        "artifact_ids": ["artifact_111","artifact_112","artifact_113","artifact_114","artifact_115","artifact_116","artifact_117","artifact_118","artifact_119","artifact_120"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_111", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_112", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_113", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_114", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_115", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_116", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_117", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_118", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_119", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_120", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_13
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_121.md through
+      /input_artifacts/artifacts/artifact_130.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_13.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_13",
+        "artifact_ids": ["artifact_121","artifact_122","artifact_123","artifact_124","artifact_125","artifact_126","artifact_127","artifact_128","artifact_129","artifact_130"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_121", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_122", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_123", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_124", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_125", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_126", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_127", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_128", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_129", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_130", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_14
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_131.md through
+      /input_artifacts/artifacts/artifact_140.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_14.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_14",
+        "artifact_ids": ["artifact_131","artifact_132","artifact_133","artifact_134","artifact_135","artifact_136","artifact_137","artifact_138","artifact_139","artifact_140"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_131", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_132", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_133", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_134", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_135", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_136", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_137", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_138", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_139", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_140", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_15
+    description: >
+      This shard MUST be executed by a dedicated mapper sub-agent running in an isolated context window. Do not inline the work into the orchestrator.
+      Read /input_artifacts/artifacts/artifact_141.md through
+      /input_artifacts/artifacts/artifact_150.md.
+      For each of the 10 artifacts:
+        1. Read the problem, the reference solution, the grading guidelines,
+           and the candidate response.
+        2. Apply the 4-class IMO-Bench grading rubric:
+             Correct   — fully correct, rigorous, complete (every key claim justified)
+             Almost    — almost correct; main idea works but minor errors or small gaps
+             Partial   — mostly incorrect but contains some relevant intermediate results
+             Incorrect — completely incorrect, irrelevant, or empty
+           Pick exactly one class.
+        3. Assign a confidence_score in [1, 2, 3, 4, 5].
+        4. Carry forward the imo_area from the artifact's metadata block.
+      Write /logs/agent/shard_15.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_15",
+        "artifact_ids": ["artifact_141","artifact_142","artifact_143","artifact_144","artifact_145","artifact_146","artifact_147","artifact_148","artifact_149","artifact_150"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_141", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_142", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_143", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_144", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_145", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_146", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_147", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_148", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_149", "predicted_grade": "X", "confidence_score": 0},
+          {"artifact_id": "artifact_150", "predicted_grade": "X", "confidence_score": 0}
+        ]
+      }
+      Replace each "X" with the chosen grade class and each 0 with your confidence.
+      Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final
+    description: >
+      This reduction step MUST be executed by a dedicated reducer sub-agent running in its own context window. Do not inline the aggregation into the orchestrator — the reducer must read all fifteen shard JSON files, build the final structured report, and write /logs/agent/output.json.
+      Read all fifteen map-phase shard JSON files (/logs/agent/shard_01.json
+      through /logs/agent/shard_15.json).
+      For artifact metadata (grading_id, problem_id, imo_area) read
+      /input_artifacts/artifact_manifest.json.
+
+      Take per-artifact predicted_grade and confidence_score directly from the
+      shard JSON files. The shard files are authoritative — do NOT re-classify.
+
+      Resilience: if any individual shard_NN.json is missing or unreadable, do
+      NOT abort. Re-read the ten artifact .md files for that shard
+      (e.g., shard_07 covers artifact_061 through artifact_070), apply the
+      grading rubric yourself for those rows only, and continue.
+      You MUST always produce /logs/agent/output.json containing all 150 entries.
+
+      Build grading_audits sorted by artifact_id ascending; each entry must
+      include artifact_id, grading_id, problem_id, imo_area, predicted_grade,
+      confidence_score.
+
+      Build shard_summaries sorted by shard_id ascending. Each shard_summary
+      must contain shard_id, artifact_ids, artifact_count, grade_counts (a map
+      from Correct/Almost/Partial/Incorrect to its count in that shard), and
+      mean_confidence (float, two decimal places).
+
+      Build summary with:
+        total_artifacts (= 150),
+        grade_counts (global counts of each grade class),
+        area_counts (count per IMO area: Algebra, Combinatorics, Geometry, Number_Theory),
+        grade_by_area (nested map area -> grade_counts),
+        mean_confidence (global, float to 2 decimal places),
+        artifacts_by_grade (map grade -> list of artifact_ids in that grade, sorted).
+
+      The output must contain EXACTLY these three top-level keys:
+      grading_audits, shard_summaries, summary. No extra keys.
+    depends_on:
+      - shard_01
+      - shard_02
+      - shard_03
+      - shard_04
+      - shard_05
+      - shard_06
+      - shard_07
+      - shard_08
+      - shard_09
+      - shard_10
+      - shard_11
+      - shard_12
+      - shard_13
+      - shard_14
+      - shard_15
+    parallel_group: reduce
