@@ -1,0 +1,22 @@
+[
+  {"artifact_id": "artifact_01", "problem_id": "IMO_2009_1",      "competition": "IMO",    "year": 2009, "source": "imo-official.org"},
+  {"artifact_id": "artifact_02", "problem_id": "USAMO_2010_3",    "competition": "USAMO",  "year": 2010, "source": "imo-official.org"},
+  {"artifact_id": "artifact_03", "problem_id": "IMOSL_2015_N4",   "competition": "IMOSL",  "year": 2015, "source": "imo-official.org"},
+  {"artifact_id": "artifact_04", "problem_id": "IMO_2014_4",      "competition": "IMO",    "year": 2014, "source": "imo-official.org"},
+  {"artifact_id": "artifact_05", "problem_id": "IMOSL_2017_C3",   "competition": "IMOSL",  "year": 2017, "source": "imo-official.org"},
+  {"artifact_id": "artifact_06", "problem_id": "USAMO_2016_5",    "competition": "USAMO",  "year": 2016, "source": "imo-official.org"},
+  {"artifact_id": "artifact_07", "problem_id": "BMOSL_2018_A1",   "competition": "BMOSL",  "year": 2018, "source": "imo-official.org"},
+  {"artifact_id": "artifact_08", "problem_id": "IMO_2019_4",      "competition": "IMO",    "year": 2019, "source": "imo-official.org"},
+  {"artifact_id": "artifact_09", "problem_id": "IMOSL_2018_G2",   "competition": "IMOSL",  "year": 2018, "source": "imo-official.org"},
+  {"artifact_id": "artifact_10", "problem_id": "USAMO_2013_5",    "competition": "USAMO",  "year": 2013, "source": "imo-official.org"},
+  {"artifact_id": "artifact_11", "problem_id": "BMOSL_2019_C2",   "competition": "BMOSL",  "year": 2019, "source": "imo-official.org"},
+  {"artifact_id": "artifact_12", "problem_id": "BMOSL_2020_C5",   "competition": "BMOSL",  "year": 2020, "source": "imo-official.org"},
+  {"artifact_id": "artifact_13", "problem_id": "IMO_2008_3",      "competition": "IMO",    "year": 2008, "source": "imo-official.org"},
+  {"artifact_id": "artifact_14", "problem_id": "IMOSL_2011_A4",   "competition": "IMOSL",  "year": 2011, "source": "imo-official.org"},
+  {"artifact_id": "artifact_15", "problem_id": "USAMO_2012_1",    "competition": "USAMO",  "year": 2012, "source": "imo-official.org"},
+  {"artifact_id": "artifact_16", "problem_id": "BMOSL_2017_N2",   "competition": "BMOSL",  "year": 2017, "source": "imo-official.org"},
+  {"artifact_id": "artifact_17", "problem_id": "IMO_2007_2",      "competition": "IMO",    "year": 2007, "source": "imo-official.org"},
+  {"artifact_id": "artifact_18", "problem_id": "BMOSL_2022_C4",   "competition": "BMOSL",  "year": 2022, "source": "imo-official.org"},
+  {"artifact_id": "artifact_19", "problem_id": "USAMO_2015_2",    "competition": "USAMO",  "year": 2015, "source": "imo-official.org"},
+  {"artifact_id": "artifact_20", "problem_id": "IMOSL_2013_A5",   "competition": "IMOSL",  "year": 2013, "source": "imo-official.org"}
+]
