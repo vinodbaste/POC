@@ -1,16 +1,16 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-12T10:57:25.508748Z",
+    "created_at": "2026-05-12T17:33:14.720135Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
         "is_editable": true
     },
     "invocation": [
-        "/Users/vinodbaste/harbor/.venv/bin/harbor",
+        "/Users/vinodbaste/Turing Projects/harbor/.venv/bin/harbor",
         "run",
         "-p",
-        "/Users/vinodbaste/Turing Projects/POC/6ece0e239c60442c952b334a10815e3c-SWARMBENCH-FANOUT-REASONINGMATH-OLYMPIAD-REASONING-SYNTHESIS",
+        "/Users/vinodbaste/Turing Projects/POC/8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT",
         "-a",
         "swarm-kimi-single",
         "-m",
@@ -22,7 +22,7 @@
         "--job-name",
         "single-kimi-agent",
         "--jobs-dir",
-        "/Users/vinodbaste/Turing Projects/POC/6ece0e239c60442c952b334a10815e3c-SWARMBENCH-FANOUT-REASONINGMATH-OLYMPIAD-REASONING-SYNTHESIS/execution_logs",
+        "/Users/vinodbaste/Turing Projects/POC/8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT/execution_logs",
         "--ve",
         "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
         "--ae",
@@ -33,10 +33,10 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
-            "VerifierTimeoutError",
-            "RewardFileNotFoundError",
             "VerifierOutputParseError",
+            "RewardFileNotFoundError",
             "AgentTimeoutError",
+            "VerifierTimeoutError",
             "RewardFileEmptyError"
         ],
         "wait_multiplier": 1.0,
@@ -46,10 +46,10 @@
     "trials": [
         {
             "task": {
-                "name": "6ece0e239c60442c952b334a10815e3c-SWARMBENCH-FANOUT-REASONINGMATH-OLYMPIAD-REASONING-SYNTHESIS",
+                "name": "8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT",
                 "type": "local",
-                "digest": "sha256:51ede9ae8ce8bb2485ff8e28496107d217de3d1bab6546058d235fe4b664a4ae",
-                "path": "/Users/vinodbaste/Turing Projects/POC/6ece0e239c60442c952b334a10815e3c-SWARMBENCH-FANOUT-REASONINGMATH-OLYMPIAD-REASONING-SYNTHESIS"
+                "digest": "sha256:58d0faeec4f274e02e09dce7e0a982d764261a7be3cb7ff62eb8e0cd648179f7",
+                "path": "/Users/vinodbaste/Turing Projects/POC/8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT"
             },
             "timeout_multiplier": 1.0,
             "agent": {

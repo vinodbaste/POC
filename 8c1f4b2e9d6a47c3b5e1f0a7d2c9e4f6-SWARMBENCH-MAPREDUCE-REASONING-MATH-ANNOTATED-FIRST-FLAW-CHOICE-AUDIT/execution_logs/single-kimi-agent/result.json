@@ -1,8 +1,8 @@
 {
-    "id": "e00bd880-f0a6-4653-8040-c5e1ebb8def5",
-    "started_at": "2026-05-12T23:01:20.209857",
-    "updated_at": "2026-05-12T23:24:04.478398",
-    "finished_at": "2026-05-12T23:24:04.478398",
+    "id": "403947c5-b498-4f89-8dc4-270479d4aded",
+    "started_at": "2026-05-12T23:03:14.648054",
+    "updated_at": "2026-05-12T23:17:15.954377",
+    "finished_at": "2026-05-12T23:17:15.954377",
     "n_total_trials": 1,
     "stats": {
         "n_completed_trials": 1,
@@ -12,7 +12,7 @@
         "n_cancelled_trials": 0,
         "n_retries": 0,
         "evals": {
-            "swarm-kimi-multi__accounts/fireworks/models/kimi-k2p5__adhoc": {
+            "swarm-kimi-single__accounts/fireworks/models/kimi-k2p5__adhoc": {
                 "n_trials": 1,
                 "n_errors": 0,
                 "metrics": [
@@ -24,16 +24,16 @@
                 "reward_stats": {
                     "reward": {
                         "0.0": [
-                            "8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6__hSq3HMx"
+                            "8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6__kA5bHoB"
                         ]
                     }
                 },
                 "exception_stats": {}
             }
         },
-        "n_input_tokens": 304467,
-        "n_cache_tokens": 35747,
-        "n_output_tokens": 25468,
+        "n_input_tokens": 3963719,
+        "n_cache_tokens": 2188398,
+        "n_output_tokens": 19258,
         "cost_usd": null
     }
 }
