@@ -1,3 +1,0 @@
-Score: 0.088 (15/170 passed)
-
-Agent predicted 'Partial' for all 150 artifacts, failing 112/150 rows. Only 38 rows match (where oracle also said 'Partial'). Shard summaries all wrong (0/15 match). Summary subgroups all wrong (0/5). Sort order OK. Sample fails: artifact_002 (Correct→Partial), artifact_004 (Correct→Partial), artifact_007 (Correct→Partial), artifact_008 (Correct→Partial), artifact_010 (Correct→Partial).

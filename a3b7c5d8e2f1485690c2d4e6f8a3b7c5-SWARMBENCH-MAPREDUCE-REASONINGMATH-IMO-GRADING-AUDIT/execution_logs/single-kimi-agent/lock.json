@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-12T20:19:56.343743Z",
+    "created_at": "2026-05-12T20:56:01.480885Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -34,10 +34,10 @@
         "max_retries": 0,
         "exclude_exceptions": [
             "VerifierOutputParseError",
-            "VerifierTimeoutError",
+            "AgentTimeoutError",
             "RewardFileNotFoundError",
-            "RewardFileEmptyError",
-            "AgentTimeoutError"
+            "VerifierTimeoutError",
+            "RewardFileEmptyError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -48,7 +48,7 @@
             "task": {
                 "name": "a3b7c5d8e2f1485690c2d4e6f8a3b7c5-SWARMBENCH-MAPREDUCE-REASONINGMATH-IMO-GRADING-AUDIT",
                 "type": "local",
-                "digest": "sha256:67933921447c1ce0bc09d386f488a56d5c9bee6ac16ee38aaa670d118ccc8768",
+                "digest": "sha256:c3a837314525ea6d3e7ef90605f4c7124604d24c8314e67982ffe7818e01b065",
                 "path": "/Users/vinodbaste/Turing Projects/POC/a3b7c5d8e2f1485690c2d4e6f8a3b7c5-SWARMBENCH-MAPREDUCE-REASONINGMATH-IMO-GRADING-AUDIT"
             },
             "timeout_multiplier": 1.0,

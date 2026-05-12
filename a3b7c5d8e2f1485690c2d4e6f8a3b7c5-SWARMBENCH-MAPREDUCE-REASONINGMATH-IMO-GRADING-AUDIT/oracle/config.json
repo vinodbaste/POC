@@ -1,5 +1,5 @@
 {
-    "job_name": "multi-kimi-agent",
+    "job_name": "oracle",
     "jobs_dir": "/Users/vinodbaste/Turing Projects/POC/a3b7c5d8e2f1485690c2d4e6f8a3b7c5-SWARMBENCH-MAPREDUCE-REASONINGMATH-IMO-GRADING-AUDIT/execution_logs",
     "n_attempts": 1,
     "timeout_multiplier": 1.0,
@@ -8,17 +8,17 @@
     "agent_setup_timeout_multiplier": null,
     "environment_build_timeout_multiplier": null,
     "debug": false,
-    "n_concurrent_trials": 1,
+    "n_concurrent_trials": 4,
     "quiet": true,
     "retry": {
         "max_retries": 0,
         "include_exceptions": null,
         "exclude_exceptions": [
+            "RewardFileNotFoundError",
             "AgentTimeoutError",
-            "VerifierTimeoutError",
             "VerifierOutputParseError",
-            "RewardFileEmptyError",
-            "RewardFileNotFoundError"
+            "VerifierTimeoutError",
+            "RewardFileEmptyError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -49,9 +49,9 @@
     "metrics": [],
     "agents": [
         {
-            "name": "swarm-kimi-multi",
+            "name": "oracle",
             "import_path": null,
-            "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+            "model_name": null,
             "override_timeout_sec": null,
             "override_setup_timeout_sec": null,
             "max_timeout_sec": null,
