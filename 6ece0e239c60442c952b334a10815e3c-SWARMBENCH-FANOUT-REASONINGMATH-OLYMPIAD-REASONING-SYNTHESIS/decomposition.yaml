@@ -1,0 +1,111 @@
+sub_tasks:
+  - id: algebra-analysis
+    description: >
+      Analyze algebra.jsonl fully — read ALL problems and solutions.
+      Count the exact total problems and level distribution (Level 1 through Level 5).
+      Compute the hard-problem count (Level 4 + Level 5). Express as exact fraction (e.g., 834/1744=47.8%).
+      Read Level 4 and Level 5 solution texts systematically. For each level, identify:
+        (a) The 3 most common proof approach patterns observed in actual solution texts.
+        (b) Characteristic first-step patterns in Level 5 solutions.
+        (c) The most frequent reasoning failure mode based on solution structure.
+      Extract the most common and most difficult proof techniques with domain-specific difficulty data.
+    depends_on: []
+    parallel_group: fanout
+
+  - id: geometry-analysis
+    description: >
+      Analyze geometry.jsonl fully — read ALL problems and solutions.
+      Count the exact total problems and level distribution (Level 1 through Level 5).
+      Compute the hard-problem count (Level 4 + Level 5). Express as exact fraction (e.g., 598/870=68.7%).
+      Note the Level 5 fraction (421/870=48.4%) which is the highest across all domains.
+      Read Level 4 and Level 5 solution texts systematically. For each level, identify:
+        (a) The 3 most common proof approach patterns observed in actual solution texts.
+        (b) Characteristic first-step patterns in Level 5 solutions (e.g., auxiliary constructions, diagram setup).
+        (c) The most frequent reasoning failure mode based on solution structure.
+      Extract the most common and most difficult proof techniques with domain-specific difficulty data.
+    depends_on: []
+    parallel_group: fanout
+
+  - id: counting_and_probability-analysis
+    description: >
+      Analyze counting_and_probability.jsonl fully — read ALL problems and solutions.
+      Count the exact total problems and level distribution (Level 1 through Level 5).
+      Compute the hard-problem count (Level 4 + Level 5). Express as exact fraction (e.g., 442/771=57.3%).
+      Note the Level 5 fraction (276/771=35.8%).
+      Read Level 4 and Level 5 solution texts systematically. For each level, identify:
+        (a) The 3 most common proof approach patterns observed in actual solution texts.
+        (b) Characteristic first-step patterns in Level 5 solutions.
+        (c) The most frequent reasoning failure mode based on solution structure.
+      Extract the most common and most difficult proof techniques with domain-specific difficulty data.
+    depends_on: []
+    parallel_group: fanout
+
+  - id: number-theory-analysis
+    description: >
+      Analyze number_theory.jsonl fully — read ALL problems and solutions.
+      Count the exact total problems and level distribution (Level 1 through Level 5).
+      Compute the hard-problem count (Level 4 + Level 5). Express as exact fraction (e.g., 500/869=57.5%).
+      Note the Level 5 fraction (313/869=36.0%) and the bimodal Level 3/5 structure.
+      Read Level 4 and Level 5 solution texts systematically. For each level, identify:
+        (a) The 3 most common proof approach patterns observed in actual solution texts.
+        (b) Characteristic first-step patterns in Level 5 solutions.
+        (c) The most frequent reasoning failure mode based on solution structure.
+      Extract the most common and most difficult proof techniques with domain-specific difficulty data.
+    depends_on: []
+    parallel_group: fanout
+
+  - id: precalculus-analysis
+    description: >
+      Analyze precalculus.jsonl fully — read ALL problems and solutions.
+      Count the exact total problems and level distribution (Level 1 through Level 5).
+      Compute the hard-problem count (Level 4 + Level 5). Express as exact fraction (e.g., 352/746=47.2%).
+      Note the nearly equal Level 4/5 split (175/177) indicating the most balanced distribution.
+      Read Level 4 and Level 5 solution texts systematically. For each level, identify:
+        (a) The 3 most common proof approach patterns observed in actual solution texts.
+        (b) Characteristic first-step patterns in Level 5 solutions.
+        (c) The most frequent reasoning failure mode based on solution structure.
+      Extract the most common and most difficult proof techniques with domain-specific difficulty data.
+    depends_on: []
+    parallel_group: fanout
+
+  - id: theorem-cross-validation
+    description: >
+      Using the per-domain reports from all five analysis agents:
+      Compare solution-text patterns across domains to identify where Level 5 solution approaches
+      differ most dramatically from Level 1-3 (this gap indicates reasoning transfer difficulty).
+      Rank domains by hard-problem rate using exact fractions from each report.
+      Validate that solution-text patterns from each domain sub-agent are consistent with the
+      difficulty statistics (e.g., geometry's 421/870=48.4% Level 5 should produce the most
+      complex solution structures).
+      Identify cross-domain technique transfer based on solution structural similarities, not just
+      general mathematical knowledge.
+    depends_on:
+      - algebra-analysis
+      - geometry-analysis
+      - counting_and_probability-analysis
+      - number-theory-analysis
+      - precalculus-analysis
+    parallel_group: validate
+
+  - id: synthesis
+    description: >
+      Merge all validated findings into the final reasoning synthesis.
+      Write the complete JSON output to /logs/agent/output.json.
+
+      CRITICAL REQUIREMENTS for all qualitative fields:
+      1. Every failure mode and hardest family MUST cite exact level-distribution fractions
+         (e.g., "geometry 421/870=48.4% Level 5") — rounded percentages alone are insufficient.
+      2. Every failure mode MUST include a solution-text pattern explaining HOW that failure
+         manifests in actual solution steps (not just what statistics suggest).
+      3. Every hardest family MUST include a solution-approach pattern describing characteristic
+         Level 5 solution structure for that family.
+      4. proof_strategy_taxonomy MUST include exact level-distribution fractions for each domain.
+      5. cross_domain_reasoning_transfer MUST cite exact fractions for all 5 domains.
+
+      Include: domain_statistics for all 5 domains, proof_strategy_taxonomy,
+      reasoning_style_comparison, most_subtle_reasoning_failure_modes,
+      hardest_problem_families, top_proof_techniques (exactly 10),
+      and cross_domain_reasoning_transfer.
+    depends_on:
+      - theorem-cross-validation
+    parallel_group: synthesize

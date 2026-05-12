@@ -1,0 +1,17 @@
+{
+  "shard_id": "shard_08",
+  "artifact_ids": [
+    "artifact_36",
+    "artifact_37",
+    "artifact_38",
+    "artifact_39",
+    "artifact_40"
+  ],
+  "artifact_files": [
+    "/input_artifacts/artifacts/artifact_36.md",
+    "/input_artifacts/artifacts/artifact_37.md",
+    "/input_artifacts/artifacts/artifact_38.md",
+    "/input_artifacts/artifacts/artifact_39.md",
+    "/input_artifacts/artifacts/artifact_40.md"
+  ]
+}

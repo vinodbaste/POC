@@ -1,0 +1,151 @@
+{
+  "artifact_audits": [
+    {
+      "artifact_id": "proof_01",
+      "problem_id": "BMOSL_2016_18",
+      "competition": "BMOSL",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "Line 91 contains an off-by-one factorial error: claims (p-1)! ≡ (-1)^r r! · (p-r)! (mod p) when it should be (p-r-1)!, as the product (p-1)(p-2)...(p-r) contains r terms leaving (p-r-1)! remaining"
+    },
+    {
+      "artifact_id": "proof_02",
+      "problem_id": "BMOSL_2018_15",
+      "competition": "BMOSL",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "The proof falsely claims ∠GBA = 90° because 'AB = AC makes ∠A = 90° in the isosceles triangle' - this is incorrect as AB = AC only implies the triangle is isosceles, not that it is an isosceles right triangle with ∠A = 90°."
+    },
+    {
+      "artifact_id": "proof_03",
+      "problem_id": "IMOSL_2006_28",
+      "competition": "IMOSL",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    },
+    {
+      "artifact_id": "proof_04",
+      "problem_id": "BMOSL_2020_13",
+      "competition": "BMOSL",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    },
+    {
+      "artifact_id": "proof_05",
+      "problem_id": "USAMO_2013_4",
+      "competition": "USAMO",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "The proof incorrectly claims there is at most one root 'by monotonicity' without verifying that f(t_0) < 0 is impossible, which would yield two distinct solutions."
+    },
+    {
+      "artifact_id": "proof_06",
+      "problem_id": "USAMO_2015_5",
+      "competition": "USAMO",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "The proof unjustifiably asserts that distinct pairs (a²,b²) and (c²,d²) must swap between (u+vi)⁵ and (u-vi)⁵, without systematically analyzing all four possible units in Z[i] to eliminate other configurations."
+    },
+    {
+      "artifact_id": "proof_07",
+      "problem_id": "IMOSL_2010_1",
+      "competition": "IMOSL",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    },
+    {
+      "artifact_id": "proof_08",
+      "problem_id": "BMOSL_2016_2",
+      "competition": "BMOSL",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "The claim that 'symmetry alone forces x=y=z at any stationary point' is unsupported; symmetric functions with symmetric constraints can have non-symmetric critical points, and the proof provides no computation to verify this assertion via Lagrange multipliers."
+    },
+    {
+      "artifact_id": "proof_09",
+      "problem_id": "BMOSL_2017_23",
+      "competition": "BMOSL",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    },
+    {
+      "artifact_id": "proof_10",
+      "problem_id": "BMOSL_2018_18",
+      "competition": "BMOSL",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "The proof falsely claims that 4·7^b - 1 has only prime divisor 3, but for b≥2 this number has other prime divisors (e.g., b=2 gives 195=3·5·13 with primes 5 and 13)."
+    },
+    {
+      "artifact_id": "proof_11",
+      "problem_id": "BMOSL_2017_18",
+      "competition": "BMOSL",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "The proof claims φ acts as a 3-cycle (Q↦T↦S↦Q) on points Q, S, T, but φ is an involution (composition of two commuting involutions), which cannot have 3-cycles since φ² must equal identity."
+    },
+    {
+      "artifact_id": "proof_12",
+      "problem_id": "BMOSL_2020_5",
+      "competition": "BMOSL",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "Proof only establishes the k=2 case and explicitly admits inability to prove the general k≥3 case, which is required by the problem statement."
+    },
+    {
+      "artifact_id": "proof_13",
+      "problem_id": "USAMO_2015_3",
+      "competition": "USAMO",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    },
+    {
+      "artifact_id": "proof_14",
+      "problem_id": "USAMO_2009_6",
+      "competition": "USAMO",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    },
+    {
+      "artifact_id": "proof_15",
+      "problem_id": "USAMO_2019_4",
+      "competition": "USAMO",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "Circular reasoning: the proof claims S_{ij}=A_i∪B_j from |A_i∪B_j|≤i+j=|S_{ij}|, but this only shows A_i∪B_j could be a proper subset; equality requires |A_i∪B_j|=i+j which requires A_i∩B_j=∅, yet the proof derives disjointness from the equality it hasn't established."
+    },
+    {
+      "artifact_id": "proof_16",
+      "problem_id": "USAMO_2000_5",
+      "competition": "USAMO",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "The proof incorrectly claims the rotation angle of σₖ is 2∠Aₖ when the derivation shows it should be −∠Aₖ (or π − ∠Aₖ), with no valid geometric justification for the doubling."
+    },
+    {
+      "artifact_id": "proof_17",
+      "problem_id": "USAMO_2004_1",
+      "competition": "USAMO",
+      "verdict": "incorrect",
+      "first_material_issue_summary": "The claimed inequality D(3p) ≤ 3·D(p) is false because 27p² ≤ 9p² is invalid for all positive p, and the proof incorrectly equates 9[p²+p(q+s)+(q²+qs+s²)] with 3·D(p) when the coefficient of (q²+qs+s²) doesn't match."
+    },
+    {
+      "artifact_id": "proof_18",
+      "problem_id": "IMOSL_2020_5",
+      "competition": "IMOSL",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    },
+    {
+      "artifact_id": "proof_19",
+      "problem_id": "USAMO_2006_2",
+      "competition": "USAMO",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    },
+    {
+      "artifact_id": "proof_20",
+      "problem_id": "USAMO_2019_6",
+      "competition": "USAMO",
+      "verdict": "correct",
+      "first_material_issue_summary": "none"
+    }
+  ],
+  "summary": {
+    "correct_count": 9,
+    "incorrect_count": 11,
+    "competitions_covered": ["BMOSL", "IMOSL", "USAMO"],
+    "correct_problem_ids": ["BMOSL_2017_23", "BMOSL_2020_13", "IMOSL_2006_28", "IMOSL_2010_1", "IMOSL_2020_5", "USAMO_2006_2", "USAMO_2009_6", "USAMO_2015_3", "USAMO_2019_6"],
+    "incorrect_problem_ids": ["BMOSL_2016_18", "BMOSL_2016_2", "BMOSL_2017_18", "BMOSL_2018_15", "BMOSL_2018_18", "BMOSL_2020_5", "USAMO_2000_5", "USAMO_2004_1", "USAMO_2013_4", "USAMO_2015_5", "USAMO_2019_4"]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "artifact_id": "proof_11",
+  "problem_id": "BMOSL_2017_18",
+  "competition": "BMOSL",
+  "verdict": "incorrect",
+  "first_material_issue_summary": "The proof claims φ acts as a 3-cycle (Q↦T↦S↦Q) on points Q, S, T, but φ is an involution (composition of two commuting involutions), which cannot have 3-cycles since φ² must equal identity."
+}

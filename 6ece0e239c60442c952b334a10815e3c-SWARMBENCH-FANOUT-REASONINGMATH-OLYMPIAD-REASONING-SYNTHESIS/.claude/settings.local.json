@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run *)",
+      "Bash(xargs python3 *)",
+      "Bash(python3 solution/generate_oracle.py)",
+      "Bash(cp solution/oracle.json tests/oracle.json)",
+      "Bash(python3 -c \"import json; o=json.load\\(open\\('tests/oracle.json'\\)\\); print\\('domain_stats keys:', list\\(o['domain_statistics']['algebra'].keys\\(\\)\\)\\)\")",
+      "Bash(python3 -c \"import json; o=json.load\\(open\\('tests/oracle.json'\\)\\); print\\('domain_stats keys:', list\\(o['domain_statistics']['algebra'].keys\\(\\)\\)\\); print\\('estimated_sub_agents in task.toml:'\\); import subprocess; print\\([l for l in open\\('task.toml'\\).readlines\\(\\) if 'estimated_sub_agents' in l][0].strip\\(\\)\\); print\\('sub-tasks in decomposition.yaml:', sum\\(1 for l in open\\('decomposition.yaml'\\) if l.strip\\(\\).startswith\\('- id:'\\)\\)\\)\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 *)"
+    ]
+  }
+}

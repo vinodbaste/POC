@@ -1,0 +1,40 @@
+[task]
+name = "swarmbench/6ece0e239c60442c952b334a10815e3c-SWARMBENCH-FANOUT-REASONINGMATH-OLYMPIAD-REASONING-SYNTHESIS"
+description = "Large-scale mathematical reasoning synthesis across 5000 olympiad problems (~4.3 MB, ~1.1M tokens)"
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 85.0
+human_solving_hours_justification = """
+Dataset review:
+5000 olympiad problems (1744 algebra + 870 geometry + 771 counting + 869 number_theory + 746 precalculus)
+× 30 seconds/problem ≈ 42 hours
+
+Per-domain analysis and reasoning style characterization:
+5 domains × 3 hours each ≈ 15 hours
+
+Cross-domain synthesis and validation:
+≈ 15 hours
+
+Oracle verification and consistency checking:
+≈ 13 hours
+
+Total ≈ 85 hours
+"""
+estimated_sub_agents = 7
+input_token_estimate = 1100000
+why_multi_agent = "The full Hendrycks MATH dataset across 5 domains totals ~4.3 MB and ~1.1M tokens — far beyond any single agent context window. A single agent attempting to read and analyze all 5000 problems experiences severe context overflow, covering only ~10-15% of the total data and producing generic cross-domain analysis. Multi-agent fan-out assigns one sub-agent per domain (746-1744 problems each, ~150K-265K tokens per domain), allowing each sub-agent to read its domain comprehensively and produce domain-specific proof-pattern insights. The orchestrator synthesizes 5 focused domain reports into a coherent cross-domain analysis — a task structurally impossible for a single agent with limited context."
+reference_link = "https://huggingface.co/datasets/EleutherAI/hendrycks_math"
+
+[agent]
+timeout_sec = 2400
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

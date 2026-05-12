@@ -1,0 +1,379 @@
+sub_tasks:
+  - id: shard_01
+    description: >
+      Read /input_artifacts/artifacts/artifact_01.md through
+      /input_artifacts/artifacts/artifact_05.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_01.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_01",
+        "artifact_ids": ["artifact_01","artifact_02","artifact_03","artifact_04","artifact_05"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_01", "selected_option": "X"},
+          {"artifact_id": "artifact_02", "selected_option": "X"},
+          {"artifact_id": "artifact_03", "selected_option": "X"},
+          {"artifact_id": "artifact_04", "selected_option": "X"},
+          {"artifact_id": "artifact_05", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_02
+    description: >
+      Read /input_artifacts/artifacts/artifact_06.md through
+      /input_artifacts/artifacts/artifact_10.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_02.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_02",
+        "artifact_ids": ["artifact_06","artifact_07","artifact_08","artifact_09","artifact_10"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_06", "selected_option": "X"},
+          {"artifact_id": "artifact_07", "selected_option": "X"},
+          {"artifact_id": "artifact_08", "selected_option": "X"},
+          {"artifact_id": "artifact_09", "selected_option": "X"},
+          {"artifact_id": "artifact_10", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_03
+    description: >
+      Read /input_artifacts/artifacts/artifact_11.md through
+      /input_artifacts/artifacts/artifact_15.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_03.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_03",
+        "artifact_ids": ["artifact_11","artifact_12","artifact_13","artifact_14","artifact_15"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_11", "selected_option": "X"},
+          {"artifact_id": "artifact_12", "selected_option": "X"},
+          {"artifact_id": "artifact_13", "selected_option": "X"},
+          {"artifact_id": "artifact_14", "selected_option": "X"},
+          {"artifact_id": "artifact_15", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_04
+    description: >
+      Read /input_artifacts/artifacts/artifact_16.md through
+      /input_artifacts/artifacts/artifact_20.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_04.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_04",
+        "artifact_ids": ["artifact_16","artifact_17","artifact_18","artifact_19","artifact_20"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_16", "selected_option": "X"},
+          {"artifact_id": "artifact_17", "selected_option": "X"},
+          {"artifact_id": "artifact_18", "selected_option": "X"},
+          {"artifact_id": "artifact_19", "selected_option": "X"},
+          {"artifact_id": "artifact_20", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_05
+    description: >
+      Read /input_artifacts/artifacts/artifact_21.md through
+      /input_artifacts/artifacts/artifact_25.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_05.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_05",
+        "artifact_ids": ["artifact_21","artifact_22","artifact_23","artifact_24","artifact_25"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_21", "selected_option": "X"},
+          {"artifact_id": "artifact_22", "selected_option": "X"},
+          {"artifact_id": "artifact_23", "selected_option": "X"},
+          {"artifact_id": "artifact_24", "selected_option": "X"},
+          {"artifact_id": "artifact_25", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_06
+    description: >
+      Read /input_artifacts/artifacts/artifact_26.md through
+      /input_artifacts/artifacts/artifact_30.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_06.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_06",
+        "artifact_ids": ["artifact_26","artifact_27","artifact_28","artifact_29","artifact_30"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_26", "selected_option": "X"},
+          {"artifact_id": "artifact_27", "selected_option": "X"},
+          {"artifact_id": "artifact_28", "selected_option": "X"},
+          {"artifact_id": "artifact_29", "selected_option": "X"},
+          {"artifact_id": "artifact_30", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_07
+    description: >
+      Read /input_artifacts/artifacts/artifact_31.md through
+      /input_artifacts/artifacts/artifact_35.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_07.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_07",
+        "artifact_ids": ["artifact_31","artifact_32","artifact_33","artifact_34","artifact_35"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_31", "selected_option": "X"},
+          {"artifact_id": "artifact_32", "selected_option": "X"},
+          {"artifact_id": "artifact_33", "selected_option": "X"},
+          {"artifact_id": "artifact_34", "selected_option": "X"},
+          {"artifact_id": "artifact_35", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_08
+    description: >
+      Read /input_artifacts/artifacts/artifact_36.md through
+      /input_artifacts/artifacts/artifact_40.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_08.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_08",
+        "artifact_ids": ["artifact_36","artifact_37","artifact_38","artifact_39","artifact_40"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_36", "selected_option": "X"},
+          {"artifact_id": "artifact_37", "selected_option": "X"},
+          {"artifact_id": "artifact_38", "selected_option": "X"},
+          {"artifact_id": "artifact_39", "selected_option": "X"},
+          {"artifact_id": "artifact_40", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_09
+    description: >
+      Read /input_artifacts/artifacts/artifact_41.md through
+      /input_artifacts/artifacts/artifact_45.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_09.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_09",
+        "artifact_ids": ["artifact_41","artifact_42","artifact_43","artifact_44","artifact_45"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_41", "selected_option": "X"},
+          {"artifact_id": "artifact_42", "selected_option": "X"},
+          {"artifact_id": "artifact_43", "selected_option": "X"},
+          {"artifact_id": "artifact_44", "selected_option": "X"},
+          {"artifact_id": "artifact_45", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_10
+    description: >
+      Read /input_artifacts/artifacts/artifact_46.md through
+      /input_artifacts/artifacts/artifact_50.md and
+      /input_artifacts/review_rubric.md.
+      For each of the 5 artifacts, identify the first unrecoverable flaw in the
+      proof and choose exactly one option letter A-D.
+      Analysis procedure for each artifact: (1) Read the "Full Candidate Proof"
+      section first to understand the chronological order of proof steps.
+      (2) Map each option (A, B, C, D) to its position in that chronological
+      order — the option labels are assigned in shuffled order and do NOT
+      necessarily match the proof sequence. (3) Working in chronological proof
+      order (earliest step first), identify the first option whose reasoning is
+      unrecoverable. The answer is that option letter, which may be C or D even
+      if A or B appear earlier alphabetically.
+      Write /logs/agent/shard_10.json using EXACTLY this JSON structure:
+      {
+        "shard_id": "shard_10",
+        "artifact_ids": ["artifact_46","artifact_47","artifact_48","artifact_49","artifact_50"],
+        "artifact_audits": [
+          {"artifact_id": "artifact_46", "selected_option": "X"},
+          {"artifact_id": "artifact_47", "selected_option": "X"},
+          {"artifact_id": "artifact_48", "selected_option": "X"},
+          {"artifact_id": "artifact_49", "selected_option": "X"},
+          {"artifact_id": "artifact_50", "selected_option": "X"}
+        ],
+        "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}
+      }
+      Replace each "X" with the chosen option letter. choice_counts must tally
+      the selected_option values. Do not add extra keys.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final
+    description: >
+      Read all ten shard JSON files written by the mapper tasks
+      (/logs/agent/shard_01.json through /logs/agent/shard_10.json).
+      For artifact metadata (problem_id, competition, year) read
+      /input_artifacts/artifact_manifest.json.
+      Merge every artifact audit from all shards, sort artifact_audits by
+      artifact_id (lexicographic ascending), sort shard_summaries by shard_id,
+      compute exact global choice_counts, competition_counts, year_counts, and
+      artifacts_by_option (each list sorted by artifact_id), then write
+      /logs/agent/output.json.
+
+      The output must follow this exact structure — no extra keys, no missing keys:
+      {
+        "artifact_audits": [
+          {"artifact_id": "artifact_01", "problem_id": "...", "competition": "...",
+           "year": 2018, "selected_option": "X"},
+          ...
+        ],
+        "shard_summaries": [
+          {"shard_id": "shard_01", "artifact_ids": [...], "artifact_count": 5,
+           "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0}},
+          ...
+        ],
+        "summary": {
+          "total_artifacts": 50,
+          "choice_counts": {"A": 0, "B": 0, "C": 0, "D": 0},
+          "competition_counts": {"BMOSL": 0, "IMOSL": 0, "USAMO": 0},
+          "year_counts": {"2007": 0, ...},
+          "artifacts_by_option": {"A": [...], "B": [...], "C": [...], "D": [...]}
+        }
+      }
+
+      Important: read each shard file's "artifact_audits" array for the
+      selected_option values; re-read artifact_manifest.json for problem_id,
+      competition, and year. Do not guess or invent metadata.
+    depends_on:
+      - shard_01
+      - shard_02
+      - shard_03
+      - shard_04
+      - shard_05
+      - shard_06
+      - shard_07
+      - shard_08
+      - shard_09
+      - shard_10
+    parallel_group: reduce

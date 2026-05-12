@@ -1,0 +1,104 @@
+sub_tasks:
+  - id: shard_01
+    description: >
+      Read /input_artifacts/artifacts/artifact_01.md through
+      /input_artifacts/artifacts/artifact_04.md and
+      /input_artifacts/review_rubric.md.
+      For each artifact, identify the first invalid reasoning step in the proof and
+      choose exactly one option letter A-D.
+      Write /logs/agent/shard_01.json with the shard_id "shard_01",
+      the four artifact audits, and a choice_counts summary.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_02
+    description: >
+      Read /input_artifacts/artifacts/artifact_05.md through
+      /input_artifacts/artifacts/artifact_08.md and
+      /input_artifacts/review_rubric.md.
+      For each artifact, identify the first invalid reasoning step in the proof and
+      choose exactly one option letter A-D.
+      Write /logs/agent/shard_02.json with the shard_id "shard_02",
+      the four artifact audits, and a choice_counts summary.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_03
+    description: >
+      Read /input_artifacts/artifacts/artifact_09.md through
+      /input_artifacts/artifacts/artifact_12.md and
+      /input_artifacts/review_rubric.md.
+      For each artifact, identify the first invalid reasoning step in the proof and
+      choose exactly one option letter A-D.
+      Write /logs/agent/shard_03.json with the shard_id "shard_03",
+      the four artifact audits, and a choice_counts summary.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_04
+    description: >
+      Read /input_artifacts/artifacts/artifact_13.md through
+      /input_artifacts/artifacts/artifact_16.md and
+      /input_artifacts/review_rubric.md.
+      For each artifact, identify the first invalid reasoning step in the proof and
+      choose exactly one option letter A-D.
+      Write /logs/agent/shard_04.json with the shard_id "shard_04",
+      the four artifact audits, and a choice_counts summary.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_05
+    description: >
+      Read /input_artifacts/artifacts/artifact_17.md through
+      /input_artifacts/artifacts/artifact_20.md and
+      /input_artifacts/review_rubric.md.
+      For each artifact, identify the first invalid reasoning step in the proof and
+      choose exactly one option letter A-D.
+      Write /logs/agent/shard_05.json with the shard_id "shard_05",
+      the four artifact audits, and a choice_counts summary.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_06
+    description: >
+      Read /input_artifacts/artifacts/artifact_21.md through
+      /input_artifacts/artifacts/artifact_24.md and
+      /input_artifacts/review_rubric.md.
+      For each artifact, identify the first invalid reasoning step in the proof and
+      choose exactly one option letter A-D.
+      Write /logs/agent/shard_06.json with the shard_id "shard_06",
+      the four artifact audits, and a choice_counts summary.
+    depends_on: []
+    parallel_group: map
+
+  - id: shard_07
+    description: >
+      Read /input_artifacts/artifacts/artifact_25.md through
+      /input_artifacts/artifacts/artifact_28.md and
+      /input_artifacts/review_rubric.md.
+      For each artifact, identify the first invalid reasoning step in the proof and
+      choose exactly one option letter A-D.
+      Write /logs/agent/shard_07.json with the shard_id "shard_07",
+      the four artifact audits, and a choice_counts summary.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final
+    description: >
+      Read all seven shard JSON files written by the mapper tasks
+      (/logs/agent/shard_01.json through /logs/agent/shard_07.json).
+      For artifact metadata (problem_id, competition, year) read
+      /input_artifacts/artifact_manifest.json.
+      Merge every artifact audit, sort artifact_audits by artifact_id,
+      sort shard_summaries by shard_id, compute exact global choice_counts,
+      competition_counts, year_counts, and artifacts_by_option, then write
+      /logs/agent/output.json.
+    depends_on:
+      - shard_01
+      - shard_02
+      - shard_03
+      - shard_04
+      - shard_05
+      - shard_06
+      - shard_07
+    parallel_group: reduce

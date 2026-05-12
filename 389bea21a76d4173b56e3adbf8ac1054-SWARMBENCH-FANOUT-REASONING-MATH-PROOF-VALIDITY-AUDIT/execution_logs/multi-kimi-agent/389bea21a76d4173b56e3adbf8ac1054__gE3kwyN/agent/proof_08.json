@@ -1,0 +1,7 @@
+{
+  "artifact_id": "proof_08",
+  "problem_id": "BMOSL_2016_2",
+  "competition": "BMOSL",
+  "verdict": "incorrect",
+  "first_material_issue_summary": "The claim that 'symmetry alone forces x=y=z at any stationary point' is unsupported; symmetric functions with symmetric constraints can have non-symmetric critical points, and the proof provides no computation to verify this assertion via Lagrange multipliers."
+}

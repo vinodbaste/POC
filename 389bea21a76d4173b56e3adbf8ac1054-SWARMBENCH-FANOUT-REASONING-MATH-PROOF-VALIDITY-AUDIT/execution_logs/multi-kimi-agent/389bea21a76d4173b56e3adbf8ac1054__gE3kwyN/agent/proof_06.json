@@ -1,0 +1,7 @@
+{
+  "artifact_id": "proof_06",
+  "problem_id": "USAMO_2015_5",
+  "competition": "USAMO",
+  "verdict": "incorrect",
+  "first_material_issue_summary": "The proof unjustifiably asserts that distinct pairs (a²,b²) and (c²,d²) must swap between (u+vi)⁵ and (u-vi)⁵, without systematically analyzing all four possible units in Z[i] to eliminate other configurations."
+}

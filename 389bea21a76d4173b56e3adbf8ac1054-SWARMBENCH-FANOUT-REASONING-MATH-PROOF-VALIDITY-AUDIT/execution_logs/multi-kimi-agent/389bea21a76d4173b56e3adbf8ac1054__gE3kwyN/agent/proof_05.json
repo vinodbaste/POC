@@ -1,0 +1,7 @@
+{
+  "artifact_id": "proof_05",
+  "problem_id": "USAMO_2013_4",
+  "competition": "USAMO",
+  "verdict": "incorrect",
+  "first_material_issue_summary": "The proof incorrectly claims there is at most one root 'by monotonicity' without verifying that f(t_0) < 0 is impossible, which would yield two distinct solutions."
+}

@@ -1,0 +1,7 @@
+{
+  "artifact_id": "proof_01",
+  "problem_id": "BMOSL_2016_18",
+  "competition": "BMOSL",
+  "verdict": "incorrect",
+  "first_material_issue_summary": "Line 91 contains an off-by-one factorial error: claims (p-1)! ≡ (-1)^r r! · (p-r)! (mod p) when it should be (p-r-1)!, as the product (p-1)(p-2)...(p-r) contains r terms leaving (p-r-1)! remaining"
+}

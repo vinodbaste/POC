@@ -1,0 +1,142 @@
+[
+  {
+    "artifact_id": "proof_01",
+    "problem_id": "BMOSL_2016_18",
+    "competition": "BMOSL",
+    "year": 2016,
+    "path": "/input_artifacts/proofs/proof_01.md"
+  },
+  {
+    "artifact_id": "proof_02",
+    "problem_id": "BMOSL_2018_15",
+    "competition": "BMOSL",
+    "year": 2018,
+    "path": "/input_artifacts/proofs/proof_02.md"
+  },
+  {
+    "artifact_id": "proof_03",
+    "problem_id": "IMOSL_2006_28",
+    "competition": "IMOSL",
+    "year": 2006,
+    "path": "/input_artifacts/proofs/proof_03.md"
+  },
+  {
+    "artifact_id": "proof_04",
+    "problem_id": "BMOSL_2020_13",
+    "competition": "BMOSL",
+    "year": 2020,
+    "path": "/input_artifacts/proofs/proof_04.md"
+  },
+  {
+    "artifact_id": "proof_05",
+    "problem_id": "USAMO_2013_4",
+    "competition": "USAMO",
+    "year": 2013,
+    "path": "/input_artifacts/proofs/proof_05.md"
+  },
+  {
+    "artifact_id": "proof_06",
+    "problem_id": "USAMO_2015_5",
+    "competition": "USAMO",
+    "year": 2015,
+    "path": "/input_artifacts/proofs/proof_06.md"
+  },
+  {
+    "artifact_id": "proof_07",
+    "problem_id": "IMOSL_2010_1",
+    "competition": "IMOSL",
+    "year": 2010,
+    "path": "/input_artifacts/proofs/proof_07.md"
+  },
+  {
+    "artifact_id": "proof_08",
+    "problem_id": "BMOSL_2016_2",
+    "competition": "BMOSL",
+    "year": 2016,
+    "path": "/input_artifacts/proofs/proof_08.md"
+  },
+  {
+    "artifact_id": "proof_09",
+    "problem_id": "BMOSL_2017_23",
+    "competition": "BMOSL",
+    "year": 2017,
+    "path": "/input_artifacts/proofs/proof_09.md"
+  },
+  {
+    "artifact_id": "proof_10",
+    "problem_id": "BMOSL_2018_18",
+    "competition": "BMOSL",
+    "year": 2018,
+    "path": "/input_artifacts/proofs/proof_10.md"
+  },
+  {
+    "artifact_id": "proof_11",
+    "problem_id": "BMOSL_2017_18",
+    "competition": "BMOSL",
+    "year": 2017,
+    "path": "/input_artifacts/proofs/proof_11.md"
+  },
+  {
+    "artifact_id": "proof_12",
+    "problem_id": "BMOSL_2020_5",
+    "competition": "BMOSL",
+    "year": 2020,
+    "path": "/input_artifacts/proofs/proof_12.md"
+  },
+  {
+    "artifact_id": "proof_13",
+    "problem_id": "USAMO_2015_3",
+    "competition": "USAMO",
+    "year": 2015,
+    "path": "/input_artifacts/proofs/proof_13.md"
+  },
+  {
+    "artifact_id": "proof_14",
+    "problem_id": "USAMO_2009_6",
+    "competition": "USAMO",
+    "year": 2009,
+    "path": "/input_artifacts/proofs/proof_14.md"
+  },
+  {
+    "artifact_id": "proof_15",
+    "problem_id": "USAMO_2019_4",
+    "competition": "USAMO",
+    "year": 2019,
+    "path": "/input_artifacts/proofs/proof_15.md"
+  },
+  {
+    "artifact_id": "proof_16",
+    "problem_id": "USAMO_2000_5",
+    "competition": "USAMO",
+    "year": 2000,
+    "path": "/input_artifacts/proofs/proof_16.md"
+  },
+  {
+    "artifact_id": "proof_17",
+    "problem_id": "USAMO_2004_1",
+    "competition": "USAMO",
+    "year": 2004,
+    "path": "/input_artifacts/proofs/proof_17.md"
+  },
+  {
+    "artifact_id": "proof_18",
+    "problem_id": "IMOSL_2020_5",
+    "competition": "IMOSL",
+    "year": 2020,
+    "path": "/input_artifacts/proofs/proof_18.md"
+  },
+  {
+    "artifact_id": "proof_19",
+    "problem_id": "USAMO_2006_2",
+    "competition": "USAMO",
+    "year": 2006,
+    "path": "/input_artifacts/proofs/proof_19.md"
+  },
+  {
+    "artifact_id": "proof_20",
+    "problem_id": "USAMO_2019_6",
+    "competition": "USAMO",
+    "year": 2019,
+    "path": "/input_artifacts/proofs/proof_20.md"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"/Users/vinodbaste/Turing Projects/a4f7c2e9b1d6053e8c3f5a1b7d2e4f0c-SWARMBENCH-MAPREDUCE-REASONING-MATH-MINIF2F-FIRST-INVALID-STEP-AUDIT/environment/input_artifacts/artifacts\")",
+      "Bash(mkdir -p \"/Users/vinodbaste/Turing Projects/a4f7c2e9b1d6053e8c3f5a1b7d2e4f0c-SWARMBENCH-MAPREDUCE-REASONING-MATH-MINIF2F-FIRST-INVALID-STEP-AUDIT/environment/input_artifacts/shards\")",
+      "Bash(mkdir -p \"/Users/vinodbaste/Turing Projects/a4f7c2e9b1d6053e8c3f5a1b7d2e4f0c-SWARMBENCH-MAPREDUCE-REASONING-MATH-MINIF2F-FIRST-INVALID-STEP-AUDIT/tests\")",
+      "Bash(mkdir -p \"/Users/vinodbaste/Turing Projects/a4f7c2e9b1d6053e8c3f5a1b7d2e4f0c-SWARMBENCH-MAPREDUCE-REASONING-MATH-MINIF2F-FIRST-INVALID-STEP-AUDIT/solution\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 solution/generate_oracle.py)",
+      "Bash(python3 tests/judge.py --agent-output tests/oracle.json --oracle tests/oracle.json --reward-out /tmp/self_test_reward.json)",
+      "Bash(python3 *)"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "artifact_id": "proof_02",
+  "problem_id": "BMOSL_2018_15",
+  "competition": "BMOSL",
+  "verdict": "incorrect",
+  "first_material_issue_summary": "The proof falsely claims ∠GBA = 90° because 'AB = AC makes ∠A = 90° in the isosceles triangle' - this is incorrect as AB = AC only implies the triangle is isosceles, not that it is an isosceles right triangle with ∠A = 90°."
+}

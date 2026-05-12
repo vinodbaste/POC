@@ -1,0 +1,7 @@
+{
+  "artifact_id": "proof_15",
+  "problem_id": "USAMO_2019_4",
+  "competition": "USAMO",
+  "verdict": "incorrect",
+  "first_material_issue_summary": "Circular reasoning: the proof claims S_{ij}=A_i∪B_j from |A_i∪B_j|≤i+j=|S_{ij}|, but this only shows A_i∪B_j could be a proper subset; equality requires |A_i∪B_j|=i+j which requires A_i∩B_j=∅, yet the proof derives disjointness from the equality it hasn't established."
+}

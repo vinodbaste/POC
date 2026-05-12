@@ -1,0 +1,4 @@
+Score: 0.46 (23/50 passed)
+
+Failed artifacts: artifact_01, artifact_05, artifact_06, artifact_07, artifact_08, artifact_09, artifact_10, artifact_11, artifact_13, artifact_17, artifact_18, artifact_19, artifact_20, artifact_21, artifact_22, artifact_23, artifact_24, artifact_27, artifact_28, artifact_34, artifact_35, artifact_38, artifact_41, artifact_43, artifact_44, artifact_45, artifact_46
+Failed summary fields (informational): choice_counts (A=20 vs 15, C=10 vs 13, D=9 vs 11), artifacts_by_option

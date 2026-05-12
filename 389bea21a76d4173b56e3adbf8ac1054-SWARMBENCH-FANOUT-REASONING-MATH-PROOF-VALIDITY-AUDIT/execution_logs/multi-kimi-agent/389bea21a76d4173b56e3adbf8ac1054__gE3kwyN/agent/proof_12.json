@@ -1,0 +1,7 @@
+{
+  "artifact_id": "proof_12",
+  "problem_id": "BMOSL_2020_5",
+  "competition": "BMOSL",
+  "verdict": "incorrect",
+  "first_material_issue_summary": "Proof only establishes the k=2 case and explicitly admits inability to prove the general k≥3 case, which is required by the problem statement."
+}

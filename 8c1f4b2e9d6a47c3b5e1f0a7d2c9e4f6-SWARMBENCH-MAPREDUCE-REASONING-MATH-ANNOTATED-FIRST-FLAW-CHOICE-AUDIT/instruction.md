@@ -1,0 +1,76 @@
+A benchmark-curation team is converting real human flaw annotations from the Open Proof Corpus into a multiple-choice audit set for downstream evaluator training.
+
+Your working directory inside the container is `/workspace`.
+
+The dataset in `/input_artifacts/artifacts/` contains 50 incorrect olympiad proof attempts from BMOSL, IMOSL, and USAMO. A review rubric describing the evaluation procedure is at `/input_artifacts/review_rubric.md`. Artifact metadata (problem_id, competition, year) for all 50 artifacts is available at `/input_artifacts/artifact_manifest.json`. Each artifact file contains:
+- the original problem,
+- the full incorrect proof attempt,
+- four candidate proof excerpts labeled A-D (presented in randomized order, not necessarily proof order),
+- a reviewer note copied from the corpus.
+
+Exactly one candidate excerpt contains the human-marked first unrecoverable flaw for that artifact.
+
+Your job:
+1. Audit every artifact in `/input_artifacts/artifacts/`.
+2. For each artifact, choose exactly one option letter from `A`, `B`, `C`, or `D`.
+3. Aggregate the results into shard summaries and a final dataset summary.
+
+Rules:
+- For each artifact, `selected_option` must be exactly one of the letters `A`, `B`, `C`, or `D` as labeled in that artifact file.
+- Do not skip any artifact; every `artifact_id` must appear in `artifact_audits`.
+- Each `artifact_audit` entry must include `artifact_id`, `problem_id`, `competition`, `year`, and `selected_option`.
+- Each `shard_summary` entry must include `shard_id`, `artifact_ids`, `artifact_count`, and `choice_counts`, with `artifact_count` equal to the length of `artifact_ids`.
+- `artifact_audits` must be sorted by `artifact_id` (lexicographic ascending).
+- `shard_summaries` must be sorted by `shard_id` (lexicographic ascending).
+- `artifacts_by_option` lists must be sorted by `artifact_id` (lexicographic ascending).
+- The aggregate fields `total_artifacts`, `choice_counts`, `competition_counts`, `year_counts`, and `artifacts_by_option` in `summary` are informational tallies computed from your per-artifact selections. They are not independently scored but must be populated correctly.
+
+Write your final answer to `/logs/agent/output.json` as a single JSON object with no other content:
+
+{
+  "artifact_audits": [
+    {
+      "artifact_id": "artifact_01",
+      "problem_id": "BMOSL_2018_15",
+      "competition": "BMOSL",
+      "year": 2018,
+      "selected_option": "A"
+    }
+  ],
+  "shard_summaries": [
+    {
+      "shard_id": "shard_01",
+      "artifact_ids": ["artifact_01", "artifact_02", "artifact_03", "artifact_04", "artifact_05"],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      }
+    }
+  ],
+  "summary": {
+    "total_artifacts": 50,
+    "choice_counts": {
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0
+    },
+    "competition_counts": {
+      "BMOSL": 0,
+      "IMOSL": 0,
+      "USAMO": 0
+    },
+    "year_counts": {
+      "2007": 0
+    },
+    "artifacts_by_option": {
+      "A": ["artifact_01"],
+      "B": [],
+      "C": [],
+      "D": []
+    }
+  }
+}

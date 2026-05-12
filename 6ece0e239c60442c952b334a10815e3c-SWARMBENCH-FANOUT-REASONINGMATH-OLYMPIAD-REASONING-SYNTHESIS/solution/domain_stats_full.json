@@ -1,0 +1,58 @@
+{
+  "algebra": {
+    "total_problems": 1744,
+    "level_distribution": {
+      "Level 1": 178,
+      "Level 2": 340,
+      "Level 3": 392,
+      "Level 4": 398,
+      "Level 5": 436
+    },
+    "hard_problems_count": 834
+  },
+  "geometry": {
+    "total_problems": 870,
+    "level_distribution": {
+      "Level 1": 41,
+      "Level 2": 100,
+      "Level 3": 129,
+      "Level 4": 177,
+      "Level 5": 421,
+      "Level ?": 2
+    },
+    "hard_problems_count": 598
+  },
+  "counting_and_probability": {
+    "total_problems": 771,
+    "level_distribution": {
+      "Level 1": 50,
+      "Level 2": 119,
+      "Level 3": 160,
+      "Level 4": 166,
+      "Level 5": 276
+    },
+    "hard_problems_count": 442
+  },
+  "number_theory": {
+    "total_problems": 869,
+    "level_distribution": {
+      "Level 1": 47,
+      "Level 2": 131,
+      "Level 3": 191,
+      "Level 4": 187,
+      "Level 5": 313
+    },
+    "hard_problems_count": 500
+  },
+  "precalculus": {
+    "total_problems": 746,
+    "level_distribution": {
+      "Level 1": 64,
+      "Level 2": 162,
+      "Level 3": 168,
+      "Level 4": 175,
+      "Level 5": 177
+    },
+    "hard_problems_count": 352
+  }
+}
