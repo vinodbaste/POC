@@ -1,0 +1,17 @@
+{
+  "verify_id": "verify_03",
+  "artifact_ids": [
+    "artifact_11",
+    "artifact_12",
+    "artifact_13",
+    "artifact_14",
+    "artifact_15"
+  ],
+  "artifact_files": [
+    "/input_artifacts/artifacts/artifact_11.md",
+    "/input_artifacts/artifacts/artifact_12.md",
+    "/input_artifacts/artifacts/artifact_13.md",
+    "/input_artifacts/artifacts/artifact_14.md",
+    "/input_artifacts/artifacts/artifact_15.md"
+  ]
+}
