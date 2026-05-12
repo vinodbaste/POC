@@ -5,350 +5,400 @@
       "problem_id": "BMOSL_2018_15",
       "competition": "BMOSL",
       "year": 2018,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_02",
       "problem_id": "IMOSL_2010_1",
       "competition": "IMOSL",
       "year": 2010,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "scope_violation"
     },
     {
       "artifact_id": "artifact_03",
       "problem_id": "BMOSL_2018_12",
       "competition": "BMOSL",
       "year": 2018,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "false_assumption"
     },
     {
       "artifact_id": "artifact_04",
       "problem_id": "BMOSL_2018_12",
       "competition": "BMOSL",
       "year": 2018,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "false_assumption"
     },
     {
       "artifact_id": "artifact_05",
       "problem_id": "BMOSL_2019_9",
       "competition": "BMOSL",
       "year": 2019,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_06",
       "problem_id": "BMOSL_2019_9",
       "competition": "BMOSL",
       "year": 2019,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_07",
       "problem_id": "BMOSL_2019_9",
       "competition": "BMOSL",
       "year": 2019,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_08",
       "problem_id": "BMOSL_2017_5",
       "competition": "BMOSL",
       "year": 2017,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_09",
       "problem_id": "BMOSL_2017_5",
       "competition": "BMOSL",
       "year": 2017,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_10",
       "problem_id": "USAMO_2015_5",
       "competition": "USAMO",
       "year": 2015,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_11",
       "problem_id": "USAMO_2015_5",
       "competition": "USAMO",
       "year": 2015,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_12",
       "problem_id": "USAMO_2023_6",
       "competition": "USAMO",
       "year": 2023,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_13",
       "problem_id": "USAMO_2023_6",
       "competition": "USAMO",
       "year": 2023,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_14",
       "problem_id": "USAMO_2023_6",
       "competition": "USAMO",
       "year": 2023,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_15",
       "problem_id": "USAMO_2023_6",
       "competition": "USAMO",
       "year": 2023,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_16",
       "problem_id": "IMOSL_2013_4",
       "competition": "IMOSL",
       "year": 2013,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_17",
       "problem_id": "IMOSL_2022_3",
       "competition": "IMOSL",
       "year": 2022,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_18",
       "problem_id": "IMOSL_2022_24",
       "competition": "IMOSL",
       "year": 2022,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_19",
       "problem_id": "IMOSL_2022_24",
       "competition": "IMOSL",
       "year": 2022,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_20",
       "problem_id": "IMOSL_2007_13",
       "competition": "IMOSL",
       "year": 2007,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "scope_violation"
     },
     {
       "artifact_id": "artifact_21",
       "problem_id": "IMOSL_2007_13",
       "competition": "IMOSL",
       "year": 2007,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_22",
       "problem_id": "IMOSL_2020_11",
       "competition": "IMOSL",
       "year": 2020,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_23",
       "problem_id": "BMOSL_2017_22",
       "competition": "BMOSL",
       "year": 2017,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_24",
       "problem_id": "BMOSL_2017_22",
       "competition": "BMOSL",
       "year": 2017,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_25",
       "problem_id": "BMOSL_2017_22",
       "competition": "BMOSL",
       "year": 2017,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_26",
       "problem_id": "BMOSL_2018_2",
       "competition": "BMOSL",
       "year": 2018,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_27",
       "problem_id": "USAMO_2016_3",
       "competition": "USAMO",
       "year": 2016,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_28",
       "problem_id": "USAMO_2016_3",
       "competition": "USAMO",
       "year": 2016,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "false_assumption"
     },
     {
       "artifact_id": "artifact_29",
       "problem_id": "BMOSL_2021_3",
       "competition": "BMOSL",
       "year": 2021,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_30",
       "problem_id": "IMOSL_2019_7",
       "competition": "IMOSL",
       "year": 2019,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_31",
       "problem_id": "USAMO_2018_4",
       "competition": "USAMO",
       "year": 2018,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_32",
       "problem_id": "BMOSL_2016_11",
       "competition": "BMOSL",
       "year": 2016,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_33",
       "problem_id": "IMOSL_2021_9",
       "competition": "IMOSL",
       "year": 2021,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_34",
       "problem_id": "USAMO_2014_3",
       "competition": "USAMO",
       "year": 2014,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "scope_violation"
     },
     {
       "artifact_id": "artifact_35",
       "problem_id": "BMOSL_2015_8",
       "competition": "BMOSL",
       "year": 2015,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "false_assumption"
     },
     {
       "artifact_id": "artifact_36",
       "problem_id": "IMOSL_2016_5",
       "competition": "IMOSL",
       "year": 2016,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_37",
       "problem_id": "USAMO_2021_2",
       "competition": "USAMO",
       "year": 2021,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_38",
       "problem_id": "BMOSL_2020_6",
       "competition": "BMOSL",
       "year": 2020,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_39",
       "problem_id": "IMOSL_2018_8",
       "competition": "IMOSL",
       "year": 2018,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "scope_violation"
     },
     {
       "artifact_id": "artifact_40",
       "problem_id": "USAMO_2017_6",
       "competition": "USAMO",
       "year": 2017,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_41",
       "problem_id": "BMOSL_2022_4",
       "competition": "BMOSL",
       "year": 2022,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_42",
       "problem_id": "IMOSL_2020_6",
       "competition": "IMOSL",
       "year": 2020,
-      "selected_option": "B"
+      "selected_option": "B",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_43",
       "problem_id": "USAMO_2019_4",
       "competition": "USAMO",
       "year": 2019,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_44",
       "problem_id": "BMOSL_2023_7",
       "competition": "BMOSL",
       "year": 2023,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_45",
       "problem_id": "IMOSL_2014_2",
       "competition": "IMOSL",
       "year": 2014,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
     },
     {
       "artifact_id": "artifact_46",
       "problem_id": "USAMO_2022_3",
       "competition": "USAMO",
       "year": 2022,
-      "selected_option": "C"
+      "selected_option": "C",
+      "flaw_type": "misapplied_theorem"
     },
     {
       "artifact_id": "artifact_47",
       "problem_id": "BMOSL_2019_17",
       "competition": "BMOSL",
       "year": 2019,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_48",
       "problem_id": "IMOSL_2015_6",
       "competition": "IMOSL",
       "year": 2015,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_49",
       "problem_id": "USAMO_2020_5",
       "competition": "USAMO",
       "year": 2020,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
     },
     {
       "artifact_id": "artifact_50",
       "problem_id": "BMOSL_2018_9",
       "competition": "BMOSL",
       "year": 2018,
-      "selected_option": "D"
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
     }
   ],
   "shard_summaries": [

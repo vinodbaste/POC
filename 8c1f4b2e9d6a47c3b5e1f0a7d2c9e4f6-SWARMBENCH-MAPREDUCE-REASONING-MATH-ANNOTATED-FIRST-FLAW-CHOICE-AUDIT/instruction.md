@@ -13,17 +13,26 @@ Exactly one candidate excerpt contains the human-marked first unrecoverable flaw
 Your job:
 1. Audit every artifact in `/input_artifacts/artifacts/`.
 2. For each artifact, choose exactly one option letter from `A`, `B`, `C`, or `D`.
-3. Aggregate the results into shard summaries and a final dataset summary.
+3. For each artifact, classify the flaw type as exactly one of: `unjustified_claim`, `misapplied_theorem`, `false_assumption`, `scope_violation`, `algebraic_error`.
+4. Aggregate the results into shard summaries and a final dataset summary.
 
 Rules:
 - For each artifact, `selected_option` must be exactly one of the letters `A`, `B`, `C`, or `D` as labeled in that artifact file.
 - Do not skip any artifact; every `artifact_id` must appear in `artifact_audits`.
-- Each `artifact_audit` entry must include `artifact_id`, `problem_id`, `competition`, `year`, and `selected_option`.
+- Each `artifact_audit` entry must include `artifact_id`, `problem_id`, `competition`, `year`, `selected_option`, and `flaw_type`.
 - Each `shard_summary` entry must include `shard_id`, `artifact_ids`, `artifact_count`, and `choice_counts`, with `artifact_count` equal to the length of `artifact_ids`.
 - `artifact_audits` must be sorted by `artifact_id` (lexicographic ascending).
 - `shard_summaries` must be sorted by `shard_id` (lexicographic ascending).
 - `artifacts_by_option` lists must be sorted by `artifact_id` (lexicographic ascending).
 - The aggregate fields `total_artifacts`, `choice_counts`, `competition_counts`, `year_counts`, and `artifacts_by_option` in `summary` are informational tallies computed from your per-artifact selections. They are not independently scored.
+- For each artifact, `flaw_type` must be exactly one of: `unjustified_claim`, `misapplied_theorem`, `false_assumption`, `scope_violation`, `algebraic_error`.
+
+**Flaw type taxonomy:**
+- `unjustified_claim`: A conclusion is asserted without proof or supporting reasoning.
+- `misapplied_theorem`: A theorem or lemma is invoked but its applicability conditions are not satisfied.
+- `false_assumption`: The proof relies on a premise that does not hold in the given context.
+- `scope_violation`: A result valid in one domain or case is applied outside that scope.
+- `algebraic_error`: An arithmetic, algebraic, or counting mistake produces an incorrect value.
 
 **Analytical guidance:** Each artifact includes a "Full Candidate Proof" section showing proof steps in their original chronological order, and a "Candidate Excerpts" section where the same steps appear with shuffled labels (A–D). The option labels do not necessarily match the proof sequence. To identify the first unrecoverable flaw: read the Full Candidate Proof to establish the chronological order of steps, map each option label to its position in that order, then select the option whose step is the earliest unrecoverable error. The correct answer may be option C or D even if A or B appear earlier alphabetically.
 
@@ -36,7 +45,8 @@ Write your final answer to `/logs/agent/output.json` as a single JSON object wit
       "problem_id": "BMOSL_2018_15",
       "competition": "BMOSL",
       "year": 2018,
-      "selected_option": "A"
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
     }
   ],
   "shard_summaries": [

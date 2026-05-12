@@ -3,7 +3,8 @@ import json
 import re
 
 VALID_OPTIONS = {"A", "B", "C", "D"}
-AUDIT_REQUIRED_KEYS = {"artifact_id", "problem_id", "competition", "year", "selected_option"}
+VALID_FLAW_TYPES = {"unjustified_claim", "misapplied_theorem", "false_assumption", "scope_violation", "algebraic_error"}
+AUDIT_REQUIRED_KEYS = {"artifact_id", "problem_id", "competition", "year", "selected_option", "flaw_type"}
 SHARD_REQUIRED_KEYS = {"shard_id", "artifact_ids", "artifact_count", "choice_counts"}
 
 
@@ -48,6 +49,12 @@ def validate_structure(agent_output: dict) -> list[str]:
             violations.append(
                 f"artifact_audits[{idx}] ({audit['artifact_id']}): "
                 f"selected_option={opt!r} is not one of A, B, C, D"
+            )
+        flaw = audit.get("flaw_type")
+        if flaw not in VALID_FLAW_TYPES:
+            violations.append(
+                f"artifact_audits[{idx}] ({audit['artifact_id']}): "
+                f"flaw_type={flaw!r} is not one of the valid flaw types"
             )
 
     if audit_ids != sorted(audit_ids):
@@ -98,27 +105,35 @@ def validate_structure(agent_output: dict) -> list[str]:
 
 def score(agent_output: dict, oracle: dict) -> tuple[float, int, int, str]:
     """
-    Score = artifacts with matching selected_option / total_artifacts.
-    Total is always len(oracle artifact_audits) — never left to interpretation.
+    Score = (option_passed + flaw_passed) / (2 * total_artifacts).
+    Total is always 2 * len(oracle artifact_audits) — never left to interpretation.
 
     Shard grouping is not scored: any internally consistent shard grouping
-    receives the same reward as long as per-artifact selected_option values
-    are correct. Only summary aggregate fields are checked informally.
+    receives the same reward as long as per-artifact selected_option and
+    flaw_type values are correct. Only summary aggregate fields are checked informally.
     """
-    oracle_map = {a["artifact_id"]: a["selected_option"]
+    oracle_map = {a["artifact_id"]: {"option": a["selected_option"], "flaw_type": a["flaw_type"]}
                   for a in oracle["artifact_audits"]}
-    total = len(oracle_map)
+    n_artifacts = len(oracle_map)
 
-    agent_map = {a.get("artifact_id"): a.get("selected_option")
+    agent_map = {a.get("artifact_id"): {"option": a.get("selected_option"), "flaw_type": a.get("flaw_type")}
                  for a in agent_output.get("artifact_audits", [])}
 
-    failed_artifacts = []
-    passed = 0
+    failed_options = []
+    failed_flaws = []
+    option_passed = 0
+    flaw_passed = 0
     for aid in sorted(oracle_map):
-        if agent_map.get(aid) == oracle_map[aid]:
-            passed += 1
+        o = oracle_map[aid]
+        a = agent_map.get(aid, {})
+        if a.get("option") == o["option"]:
+            option_passed += 1
         else:
-            failed_artifacts.append(aid)
+            failed_options.append(aid)
+        if a.get("flaw_type") == o["flaw_type"]:
+            flaw_passed += 1
+        else:
+            failed_flaws.append(aid)
 
     # Summary field checks (informational — derivative of selected_option values)
     oracle_summary = oracle.get("summary", {})
@@ -137,11 +152,15 @@ def score(agent_output: dict, oracle: dict) -> tuple[float, int, int, str]:
                     note = " (" + ", ".join(diffs) + ")"
             failed_summary.append(key + note)
 
+    total = 2 * n_artifacts
+    passed = option_passed + flaw_passed
     reward = passed / total if total > 0 else 0.0
 
-    lines = [f"Score: {reward} ({passed}/{total} passed)\n"]
-    if failed_artifacts:
-        lines.append("Failed artifacts: " + ", ".join(failed_artifacts))
+    lines = [f"Score: {reward} ({option_passed}/{n_artifacts} options passed, {flaw_passed}/{n_artifacts} flaw types passed)\n"]
+    if failed_options:
+        lines.append("Failed options: " + ", ".join(failed_options))
+    if failed_flaws:
+        lines.append("Failed flaw types: " + ", ".join(failed_flaws))
     if failed_summary:
         lines.append("Failed summary fields (informational): " + ", ".join(failed_summary))
 
