@@ -24,7 +24,7 @@ Your job:
 
 Rules:
 - For each artifact, `predicted_grade` must be exactly one of: `Correct`, `Almost`, `Partial`, `Incorrect`.
-- For each artifact, `imo_area` must be exactly one of: `Algebra`, `Combinatorics`, `Geometry`, `Number_Theory`.
+- For each artifact, `imo_area` is carried forward verbatim from the artifact's metadata block (no transformation needed). The taxonomy values used in the manifest are `Algebra`, `Combinatorics`, `Geometry`, `Number_Theory`.
 - Do not skip any artifact; every `artifact_id` must appear in `grading_audits`.
 - Each `grading_audit` entry must include the fields: `artifact_id`, `grading_id`, `problem_id`, `imo_area`, `predicted_grade`.
 - Each `shard_summary` entry must include the fields: `shard_id`, `artifact_ids`, `artifact_count`, `grade_counts` (a map from each of the 4 grade classes to its count in that shard).
@@ -39,11 +39,11 @@ Write your final answer to `/logs/agent/output.json` as a single JSON object wit
 {
   "grading_audits": [
     {
-      "artifact_id": "artifact_001",
-      "grading_id": "GB-0001",
-      "problem_id": "PB-Advanced-001",
-      "imo_area": "Combinatorics",
-      "predicted_grade": "Partial"
+      "artifact_id": "<artifact_id>",
+      "grading_id": "<grading_id>",
+      "problem_id": "<problem_id>",
+      "imo_area": "<imo_area>",
+      "predicted_grade": "<one of: Correct | Almost | Partial | Incorrect>"
     }
   ],
   "shard_summaries": [
@@ -65,10 +65,10 @@ Write your final answer to `/logs/agent/output.json` as a single JSON object wit
       "Number_Theory":  {"Correct": 0, "Almost": 0, "Partial": 0, "Incorrect": 0}
     },
     "artifacts_by_grade": {
-      "Correct":   ["artifact_001"],
-      "Almost":    [],
-      "Partial":   [],
-      "Incorrect": []
+      "Correct":   ["<artifact_id>", "..."],
+      "Almost":    ["..."],
+      "Partial":   ["..."],
+      "Incorrect": ["..."]
     }
   }
 }
