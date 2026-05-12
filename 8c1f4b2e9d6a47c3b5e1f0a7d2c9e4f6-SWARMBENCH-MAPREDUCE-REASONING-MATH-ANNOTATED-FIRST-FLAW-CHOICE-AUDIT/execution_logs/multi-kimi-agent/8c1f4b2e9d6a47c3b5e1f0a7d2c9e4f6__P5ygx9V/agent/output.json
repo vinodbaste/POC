@@ -1,0 +1,979 @@
+{
+  "artifact_audits": [
+    {
+      "artifact_id": "artifact_01",
+      "problem_id": "BMOSL_2018_15",
+      "competition": "BMOSL",
+      "year": 2018,
+      "selected_option": "D",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_02",
+      "problem_id": "IMOSL_2010_1",
+      "competition": "IMOSL",
+      "year": 2010,
+      "selected_option": "D",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_03",
+      "problem_id": "BMOSL_2018_12",
+      "competition": "BMOSL",
+      "year": 2018,
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_04",
+      "problem_id": "BMOSL_2018_12",
+      "competition": "BMOSL",
+      "year": 2018,
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_05",
+      "problem_id": "BMOSL_2019_9",
+      "competition": "BMOSL",
+      "year": 2019,
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_06",
+      "problem_id": "BMOSL_2019_9",
+      "competition": "BMOSL",
+      "year": 2019,
+      "selected_option": "B",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_07",
+      "problem_id": "BMOSL_2019_9",
+      "competition": "BMOSL",
+      "year": 2019,
+      "selected_option": "C",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_08",
+      "problem_id": "BMOSL_2017_5",
+      "competition": "BMOSL",
+      "year": 2017,
+      "selected_option": "D",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_09",
+      "problem_id": "BMOSL_2017_5",
+      "competition": "BMOSL",
+      "year": 2017,
+      "selected_option": "C",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_10",
+      "problem_id": "USAMO_2015_5",
+      "competition": "USAMO",
+      "year": 2015,
+      "selected_option": "B",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_11",
+      "problem_id": "USAMO_2015_5",
+      "competition": "USAMO",
+      "year": 2015,
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_12",
+      "problem_id": "USAMO_2023_6",
+      "competition": "USAMO",
+      "year": 2023,
+      "selected_option": "B",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_13",
+      "problem_id": "USAMO_2023_6",
+      "competition": "USAMO",
+      "year": 2023,
+      "selected_option": "C",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_14",
+      "problem_id": "USAMO_2023_6",
+      "competition": "USAMO",
+      "year": 2023,
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_15",
+      "problem_id": "USAMO_2023_6",
+      "competition": "USAMO",
+      "year": 2023,
+      "selected_option": "B",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_16",
+      "problem_id": "IMOSL_2013_4",
+      "competition": "IMOSL",
+      "year": 2013,
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_17",
+      "problem_id": "IMOSL_2022_3",
+      "competition": "IMOSL",
+      "year": 2022,
+      "selected_option": "D",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_18",
+      "problem_id": "IMOSL_2022_24",
+      "competition": "IMOSL",
+      "year": 2022,
+      "selected_option": "A",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_19",
+      "problem_id": "IMOSL_2022_24",
+      "competition": "IMOSL",
+      "year": 2022,
+      "selected_option": "B",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_20",
+      "problem_id": "IMOSL_2007_13",
+      "competition": "IMOSL",
+      "year": 2007,
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_21",
+      "problem_id": "IMOSL_2007_13",
+      "competition": "IMOSL",
+      "year": 2007,
+      "selected_option": "B",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_22",
+      "problem_id": "IMOSL_2020_11",
+      "competition": "IMOSL",
+      "year": 2020,
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_23",
+      "problem_id": "BMOSL_2017_22",
+      "competition": "BMOSL",
+      "year": 2017,
+      "selected_option": "C",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_24",
+      "problem_id": "BMOSL_2017_22",
+      "competition": "BMOSL",
+      "year": 2017,
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_25",
+      "problem_id": "BMOSL_2017_22",
+      "competition": "BMOSL",
+      "year": 2017,
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_26",
+      "problem_id": "BMOSL_2018_2",
+      "competition": "BMOSL",
+      "year": 2018,
+      "selected_option": "C",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_27",
+      "problem_id": "USAMO_2016_3",
+      "competition": "USAMO",
+      "year": 2016,
+      "selected_option": "A",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_28",
+      "problem_id": "USAMO_2016_3",
+      "competition": "USAMO",
+      "year": 2016,
+      "selected_option": "D",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_29",
+      "problem_id": "BMOSL_2021_3",
+      "competition": "BMOSL",
+      "year": 2021,
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_30",
+      "problem_id": "IMOSL_2019_7",
+      "competition": "IMOSL",
+      "year": 2019,
+      "selected_option": "B",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_31",
+      "problem_id": "USAMO_2018_4",
+      "competition": "USAMO",
+      "year": 2018,
+      "selected_option": "C",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_32",
+      "problem_id": "BMOSL_2016_11",
+      "competition": "BMOSL",
+      "year": 2016,
+      "selected_option": "D",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_33",
+      "problem_id": "IMOSL_2021_9",
+      "competition": "IMOSL",
+      "year": 2021,
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_34",
+      "problem_id": "USAMO_2014_3",
+      "competition": "USAMO",
+      "year": 2014,
+      "selected_option": "B",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_35",
+      "problem_id": "BMOSL_2015_8",
+      "competition": "BMOSL",
+      "year": 2015,
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_36",
+      "problem_id": "IMOSL_2016_5",
+      "competition": "IMOSL",
+      "year": 2016,
+      "selected_option": "D",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_37",
+      "problem_id": "USAMO_2021_2",
+      "competition": "USAMO",
+      "year": 2021,
+      "selected_option": "A",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_38",
+      "problem_id": "BMOSL_2020_6",
+      "competition": "BMOSL",
+      "year": 2020,
+      "selected_option": "B",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_39",
+      "problem_id": "IMOSL_2018_8",
+      "competition": "IMOSL",
+      "year": 2018,
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_40",
+      "problem_id": "USAMO_2017_6",
+      "competition": "USAMO",
+      "year": 2017,
+      "selected_option": "D",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_41",
+      "problem_id": "BMOSL_2022_4",
+      "competition": "BMOSL",
+      "year": 2022,
+      "selected_option": "A",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_42",
+      "problem_id": "IMOSL_2020_6",
+      "competition": "IMOSL",
+      "year": 2020,
+      "selected_option": "B",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_43",
+      "problem_id": "USAMO_2019_4",
+      "competition": "USAMO",
+      "year": 2019,
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_44",
+      "problem_id": "BMOSL_2023_7",
+      "competition": "BMOSL",
+      "year": 2023,
+      "selected_option": "C",
+      "flaw_type": "scope_violation"
+    },
+    {
+      "artifact_id": "artifact_45",
+      "problem_id": "IMOSL_2014_2",
+      "competition": "IMOSL",
+      "year": 2014,
+      "selected_option": "A",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_46",
+      "problem_id": "USAMO_2022_3",
+      "competition": "USAMO",
+      "year": 2022,
+      "selected_option": "C",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_47",
+      "problem_id": "BMOSL_2019_17",
+      "competition": "BMOSL",
+      "year": 2019,
+      "selected_option": "A",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_48",
+      "problem_id": "IMOSL_2015_6",
+      "competition": "IMOSL",
+      "year": 2015,
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_49",
+      "problem_id": "USAMO_2020_5",
+      "competition": "USAMO",
+      "year": 2020,
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_50",
+      "problem_id": "BMOSL_2018_9",
+      "competition": "BMOSL",
+      "year": 2018,
+      "selected_option": "D",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_51",
+      "problem_id": "IMOSL_2011_5",
+      "competition": "IMOSL",
+      "year": 2011,
+      "selected_option": "A",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_52",
+      "problem_id": "USAMO_2013_4",
+      "competition": "USAMO",
+      "year": 2013,
+      "selected_option": "D",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_53",
+      "problem_id": "BMOSL_2020_11",
+      "competition": "BMOSL",
+      "year": 2020,
+      "selected_option": "A",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_54",
+      "problem_id": "IMOSL_2016_3",
+      "competition": "IMOSL",
+      "year": 2016,
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_55",
+      "problem_id": "USAMO_2018_2",
+      "competition": "USAMO",
+      "year": 2018,
+      "selected_option": "B",
+      "flaw_type": "scope_violation"
+    },
+    {
+      "artifact_id": "artifact_56",
+      "problem_id": "BMOSL_2014_7",
+      "competition": "BMOSL",
+      "year": 2014,
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_57",
+      "problem_id": "IMOSL_2015_2",
+      "competition": "IMOSL",
+      "year": 2015,
+      "selected_option": "B",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_58",
+      "problem_id": "USAMO_2009_2",
+      "competition": "USAMO",
+      "year": 2009,
+      "selected_option": "C",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_59",
+      "problem_id": "BMOSL_2016_4",
+      "competition": "BMOSL",
+      "year": 2016,
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_60",
+      "problem_id": "IMOSL_2017_8",
+      "competition": "IMOSL",
+      "year": 2017,
+      "selected_option": "C",
+      "flaw_type": "scope_violation"
+    },
+    {
+      "artifact_id": "artifact_61",
+      "problem_id": "USAMO_2020_4",
+      "competition": "USAMO",
+      "year": 2020,
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_62",
+      "problem_id": "BMOSL_2019_18",
+      "competition": "BMOSL",
+      "year": 2019,
+      "selected_option": "B",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_63",
+      "problem_id": "IMOSL_2009_11",
+      "competition": "IMOSL",
+      "year": 2009,
+      "selected_option": "D",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_64",
+      "problem_id": "USAMO_2019_3",
+      "competition": "USAMO",
+      "year": 2019,
+      "selected_option": "A",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_65",
+      "problem_id": "BMOSL_2021_19",
+      "competition": "BMOSL",
+      "year": 2021,
+      "selected_option": "B",
+      "flaw_type": "scope_violation"
+    },
+    {
+      "artifact_id": "artifact_66",
+      "problem_id": "IMOSL_2012_6",
+      "competition": "IMOSL",
+      "year": 2012,
+      "selected_option": "A",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_67",
+      "problem_id": "USAMO_2012_5",
+      "competition": "USAMO",
+      "year": 2012,
+      "selected_option": "B",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_68",
+      "problem_id": "BMOSL_2017_14",
+      "competition": "BMOSL",
+      "year": 2017,
+      "selected_option": "C",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_69",
+      "problem_id": "IMOSL_2008_4",
+      "competition": "IMOSL",
+      "year": 2008,
+      "selected_option": "D",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_70",
+      "problem_id": "USAMO_2011_3",
+      "competition": "USAMO",
+      "year": 2011,
+      "selected_option": "A",
+      "flaw_type": "scope_violation"
+    },
+    {
+      "artifact_id": "artifact_71",
+      "problem_id": "BMOSL_2015_13",
+      "competition": "BMOSL",
+      "year": 2015,
+      "selected_option": "D",
+      "flaw_type": "misapplied_theorem"
+    },
+    {
+      "artifact_id": "artifact_72",
+      "problem_id": "IMOSL_2013_2",
+      "competition": "IMOSL",
+      "year": 2013,
+      "selected_option": "D",
+      "flaw_type": "false_assumption"
+    },
+    {
+      "artifact_id": "artifact_73",
+      "problem_id": "USAMO_2014_5",
+      "competition": "USAMO",
+      "year": 2014,
+      "selected_option": "C",
+      "flaw_type": "unjustified_claim"
+    },
+    {
+      "artifact_id": "artifact_74",
+      "problem_id": "BMOSL_2022_8",
+      "competition": "BMOSL",
+      "year": 2022,
+      "selected_option": "D",
+      "flaw_type": "algebraic_error"
+    },
+    {
+      "artifact_id": "artifact_75",
+      "problem_id": "IMOSL_2018_4",
+      "competition": "IMOSL",
+      "year": 2018,
+      "selected_option": "C",
+      "flaw_type": "false_assumption"
+    }
+  ],
+  "shard_summaries": [
+    {
+      "shard_id": "shard_01",
+      "artifact_ids": [
+        "artifact_01",
+        "artifact_02",
+        "artifact_03",
+        "artifact_04",
+        "artifact_05"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "D": 3
+      }
+    },
+    {
+      "shard_id": "shard_02",
+      "artifact_ids": [
+        "artifact_06",
+        "artifact_07",
+        "artifact_08",
+        "artifact_09",
+        "artifact_10"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 0,
+        "B": 2,
+        "C": 2,
+        "D": 1
+      }
+    },
+    {
+      "shard_id": "shard_03",
+      "artifact_ids": [
+        "artifact_11",
+        "artifact_12",
+        "artifact_13",
+        "artifact_14",
+        "artifact_15"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 1,
+        "B": 2,
+        "C": 1,
+        "D": 1
+      }
+    },
+    {
+      "shard_id": "shard_04",
+      "artifact_ids": [
+        "artifact_16",
+        "artifact_17",
+        "artifact_18",
+        "artifact_19",
+        "artifact_20"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 3,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      }
+    },
+    {
+      "shard_id": "shard_05",
+      "artifact_ids": [
+        "artifact_21",
+        "artifact_22",
+        "artifact_23",
+        "artifact_24",
+        "artifact_25"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 2,
+        "B": 1,
+        "C": 2,
+        "D": 0
+      }
+    },
+    {
+      "shard_id": "shard_06",
+      "artifact_ids": [
+        "artifact_26",
+        "artifact_27",
+        "artifact_28",
+        "artifact_29",
+        "artifact_30"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 2,
+        "B": 1,
+        "C": 1,
+        "D": 1
+      }
+    },
+    {
+      "shard_id": "shard_07",
+      "artifact_ids": [
+        "artifact_31",
+        "artifact_32",
+        "artifact_33",
+        "artifact_34",
+        "artifact_35"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 1,
+        "B": 1,
+        "C": 2,
+        "D": 1
+      }
+    },
+    {
+      "shard_id": "shard_08",
+      "artifact_ids": [
+        "artifact_36",
+        "artifact_37",
+        "artifact_38",
+        "artifact_39",
+        "artifact_40"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 1,
+        "B": 1,
+        "C": 1,
+        "D": 2
+      }
+    },
+    {
+      "shard_id": "shard_09",
+      "artifact_ids": [
+        "artifact_41",
+        "artifact_42",
+        "artifact_43",
+        "artifact_44",
+        "artifact_45"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 2,
+        "B": 1,
+        "C": 2,
+        "D": 0
+      }
+    },
+    {
+      "shard_id": "shard_10",
+      "artifact_ids": [
+        "artifact_46",
+        "artifact_47",
+        "artifact_48",
+        "artifact_49",
+        "artifact_50"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 3,
+        "B": 0,
+        "C": 1,
+        "D": 1
+      }
+    },
+    {
+      "shard_id": "shard_11",
+      "artifact_ids": [
+        "artifact_51",
+        "artifact_52",
+        "artifact_53",
+        "artifact_54",
+        "artifact_55"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 2,
+        "B": 1,
+        "C": 0,
+        "D": 2
+      }
+    },
+    {
+      "shard_id": "shard_12",
+      "artifact_ids": [
+        "artifact_56",
+        "artifact_57",
+        "artifact_58",
+        "artifact_59",
+        "artifact_60"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 1,
+        "B": 1,
+        "C": 2,
+        "D": 1
+      }
+    },
+    {
+      "shard_id": "shard_13",
+      "artifact_ids": [
+        "artifact_61",
+        "artifact_62",
+        "artifact_63",
+        "artifact_64",
+        "artifact_65"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 1,
+        "B": 2,
+        "C": 0,
+        "D": 2
+      }
+    },
+    {
+      "shard_id": "shard_14",
+      "artifact_ids": [
+        "artifact_66",
+        "artifact_67",
+        "artifact_68",
+        "artifact_69",
+        "artifact_70"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 2,
+        "B": 1,
+        "C": 1,
+        "D": 1
+      }
+    },
+    {
+      "shard_id": "shard_15",
+      "artifact_ids": [
+        "artifact_71",
+        "artifact_72",
+        "artifact_73",
+        "artifact_74",
+        "artifact_75"
+      ],
+      "artifact_count": 5,
+      "choice_counts": {
+        "A": 0,
+        "B": 0,
+        "C": 2,
+        "D": 3
+      }
+    }
+  ],
+  "summary": {
+    "total_artifacts": 75,
+    "choice_counts": {
+      "A": 23,
+      "B": 15,
+      "C": 18,
+      "D": 19
+    },
+    "competition_counts": {
+      "BMOSL": 28,
+      "IMOSL": 24,
+      "USAMO": 23
+    },
+    "year_counts": {
+      "2007": 2,
+      "2008": 1,
+      "2009": 2,
+      "2010": 1,
+      "2011": 2,
+      "2012": 2,
+      "2013": 3,
+      "2014": 4,
+      "2015": 6,
+      "2016": 6,
+      "2017": 8,
+      "2018": 9,
+      "2019": 8,
+      "2020": 6,
+      "2021": 4,
+      "2022": 6,
+      "2023": 5
+    },
+    "artifacts_by_option": {
+      "A": [
+        "artifact_03",
+        "artifact_11",
+        "artifact_16",
+        "artifact_18",
+        "artifact_20",
+        "artifact_22",
+        "artifact_25",
+        "artifact_27",
+        "artifact_29",
+        "artifact_33",
+        "artifact_37",
+        "artifact_41",
+        "artifact_45",
+        "artifact_47",
+        "artifact_48",
+        "artifact_49",
+        "artifact_51",
+        "artifact_53",
+        "artifact_54",
+        "artifact_59",
+        "artifact_64",
+        "artifact_66",
+        "artifact_70"
+      ],
+      "B": [
+        "artifact_06",
+        "artifact_10",
+        "artifact_12",
+        "artifact_15",
+        "artifact_19",
+        "artifact_21",
+        "artifact_30",
+        "artifact_34",
+        "artifact_38",
+        "artifact_42",
+        "artifact_55",
+        "artifact_57",
+        "artifact_62",
+        "artifact_65",
+        "artifact_67"
+      ],
+      "C": [
+        "artifact_04",
+        "artifact_07",
+        "artifact_09",
+        "artifact_13",
+        "artifact_23",
+        "artifact_24",
+        "artifact_26",
+        "artifact_31",
+        "artifact_35",
+        "artifact_39",
+        "artifact_43",
+        "artifact_44",
+        "artifact_46",
+        "artifact_58",
+        "artifact_60",
+        "artifact_68",
+        "artifact_73",
+        "artifact_75"
+      ],
+      "D": [
+        "artifact_01",
+        "artifact_02",
+        "artifact_05",
+        "artifact_08",
+        "artifact_14",
+        "artifact_17",
+        "artifact_28",
+        "artifact_32",
+        "artifact_36",
+        "artifact_40",
+        "artifact_50",
+        "artifact_52",
+        "artifact_56",
+        "artifact_61",
+        "artifact_63",
+        "artifact_69",
+        "artifact_71",
+        "artifact_72",
+        "artifact_74"
+      ]
+    }
+  }
+}
