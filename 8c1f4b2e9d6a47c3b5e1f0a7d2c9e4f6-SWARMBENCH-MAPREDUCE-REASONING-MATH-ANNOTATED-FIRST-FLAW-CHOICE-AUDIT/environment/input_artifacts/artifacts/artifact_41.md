@@ -39,7 +39,7 @@ Therefore \(a^2 + b^2 \ge 2ab\), with equality iff \(a = b\).  \(\square\)
 ### Option D
 
 ```text
-The full inequality (without the WLOG assumption) follows from Option C by
+The full inequality (without the WLOG assumption) follows by
 noting that \((a-b)^2 \ge 0\) holds for all reals, not just non-negative ones.
 ```
 

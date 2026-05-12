@@ -48,10 +48,10 @@ Since 9 ≠ 8, the recurrence is incorrect.
 ### Option D
 
 ```text
-The inclusion-exclusion in Option C is computed incorrectly:
+The inclusion-exclusion above is computed incorrectly:
 1 - 1 + 1/2 - 1/6 + 1/24 = 12/24 - 4/24 + 1/24 = 9/24,
 so D(4) = 24·(9/24) = 9 ✓.
-The recurrence is correct; the error was in Option C's arithmetic.  \(\square\)
+The recurrence is correct; the error was in the arithmetic above.  \(\square\)
 ```
 
 ## Full Candidate Proof

@@ -40,7 +40,7 @@ With \(f(0)=0\) established, for \(n<0\): write \(n=-m\), \(m>0\).
 
 ```text
 By induction for \(n \ge 1\) (base \(n=1\) clear; step uses \(f(k+1)=f(k)+f(1)\))
-and the negative case in Option C, \(f(n) = nf(1)\) for all \(n \in \mathbb{Z}\).  \(\square\)
+and the negative case above, \(f(n) = nf(1)\) for all \(n \in \mathbb{Z}\).  \(\square\)
 ```
 
 ## Full Candidate Proof

@@ -38,7 +38,7 @@ Contribution: D(n-2).
 ### Option C
 
 ```text
-Option B's count for sub-case (ii) is wrong — it contributes D(n-1), not D(n-2).
+The count for sub-case (ii) above is wrong — it contributes D(n-1), not D(n-2).
 Sub-case (ii) produces a derangement of n-1 elements: element j avoids slot j,
 and each of the remaining n-2 elements avoids its own slot.
 After identifying slot 1 as j's effective forbidden slot, all n-1 non-1 elements

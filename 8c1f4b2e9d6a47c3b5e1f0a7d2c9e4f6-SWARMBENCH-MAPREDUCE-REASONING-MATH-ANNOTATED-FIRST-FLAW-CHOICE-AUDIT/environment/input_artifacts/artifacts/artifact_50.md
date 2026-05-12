@@ -30,7 +30,7 @@ Substituting: \((r+s)^2 - 2rs + p(r+s) + 2q = 0\).
 ### Option C
 
 ```text
-If \(r \ne s\) the subtraction in Option A gives \(r + s = -p\) directly.
+If \(r \ne s\) the subtraction above gives \(r + s = -p\) directly.
 If \(r = s\): then from \(r^2 + pr + q = 0\) and \(s = r\), both roots equal \(-p/2\),
 so \(r + s = -p\) in this case too.  Hence \(r + s = -p\) always.
 ```
@@ -42,14 +42,14 @@ For \(rs = q\): from the factorisation \(x^2 + px + q = (x-r)(x-s)\), expanding 
 \(x^2 - (r+s)x + rs\).  Comparing constant terms: \(q = rs\).
 Using \(r+s = -p\) (established): \(x^2 + px + q = (x-r)(x-s)\) requires
 \(-( r+s) = p\) and \(rs = q\), confirming both Vieta relations simultaneously.
-But from Option B's equation: \((r+s)^2 - 2rs + p(r+s) + 2q = 0\).
+But from the sum-of-roots equation derived above: \((r+s)^2 - 2rs + p(r+s) + 2q = 0\).
 Substituting \(r+s=-p\): \(p^2 - 2rs - p^2 + 2q = 0\), so \(2q = 2rs\), i.e.\ \(q = rs\). \checkmark
-However, this only confirms \(q=rs\) when \(r+s=-p\) is already known, making Option B's
-equation redundant — and Option B's equation was derived without using the factorisation,
+However, this only confirms \(q=rs\) when \(r+s=-p\) is already known, making that
+equation redundant — and that equation was derived without using the factorisation,
 so it provides an independent check.  The conclusion should state: \(q = rs\) follows from
-Option B independently of Option D's factorisation argument.  Option D's argument is
-therefore circular: it uses the factorisation to prove \(q=rs\), then invokes Option B to
-"confirm" it, but Option B itself implicitly assumes the factorisation holds.
+the sum-of-roots equation independently of the factorisation argument.  The factorisation argument is
+therefore circular: it uses the factorisation to prove \(q=rs\), then invokes the sum-of-roots equation to
+"confirm" it, but that equation itself implicitly assumes the factorisation holds.
 ```
 
 ## Full Candidate Proof

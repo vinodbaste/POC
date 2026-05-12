@@ -35,7 +35,7 @@ By the AM-GM inequality applied to \(a^2\) and \(b^2\):
 \frac{a^2 + b^2}{2} \;\ge\; \sqrt{a^2 \cdot b^2} = |ab| \;\ge\; ab.
 \]
 Hence \(a^2 + b^2 \ge 2|ab| \ge 2ab\).  This proves the inequality.
-The factoring in Option B is therefore a redundant alternative approach.
+Direct factoring is therefore a redundant alternative approach.
 ```
 
 ### Option D

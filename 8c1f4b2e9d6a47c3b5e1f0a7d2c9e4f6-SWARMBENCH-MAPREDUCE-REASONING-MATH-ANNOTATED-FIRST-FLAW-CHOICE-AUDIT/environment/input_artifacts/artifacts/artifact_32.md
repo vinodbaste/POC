@@ -31,14 +31,15 @@ For \(n \ge 1\): by induction.  \(f(1) = c\) (base).  If \(f(k) = kc\), then
 ### Option C
 
 ```text
-For \(n < 0\): write \(n = -m\) where \(m > 0\).  By Option A, \(f(-m) = -f(m) = -mc = nc\).
+For \(n < 0\): write \(n = -m\) where \(m > 0\).  Since \(f(-m) = -f(m)\) (established above),
+we get \(f(-m) = -mc = nc\).
 So \(f(n) = nc\) for all \(n \le 0\).
 ```
 
 ### Option D
 
 ```text
-Combining Options B and C: \(f(n) = nc = n\cdot f(1)\) for all \(n \in \mathbb{Z}\).
+Combining the two cases: \(f(n) = nc = n\cdot f(1)\) for all \(n \in \mathbb{Z}\).
 In particular, setting \(n = f(1)\): \(f(f(1)) = f(1)^2\), and since \(f\) maps
 \(\mathbb{Z}\) to \(\mathbb{Z}\), this forces \(f(1)^2 \in \mathbb{Z}\), i.e.\ \(f(1)\) is a real number
 whose square is an integer.  Therefore \(f(1) \in \{0, \pm 1, \pm\sqrt{2}, \ldots\}\),
