@@ -65,4 +65,4 @@ Traceback (most recent call last):
     raise AgentTimeoutError(
         f"Agent execution timed out after {self._agent_timeout_sec} seconds"
     ) from e
-harbor.trial.trial.AgentTimeoutError: Agent execution timed out after 120.0 seconds
+harbor.trial.trial.AgentTimeoutError: Agent execution timed out after 480.0 seconds
