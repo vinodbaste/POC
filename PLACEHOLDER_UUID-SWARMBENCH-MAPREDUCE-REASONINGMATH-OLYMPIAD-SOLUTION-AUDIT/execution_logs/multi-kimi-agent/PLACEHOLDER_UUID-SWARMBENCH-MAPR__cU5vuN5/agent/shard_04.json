@@ -1,0 +1,59 @@
+{
+  "shard_id": "shard_04",
+  "artifact_ids": ["artifact_13","artifact_14","artifact_15","artifact_16"],
+  "artifact_audits": [
+    {
+      "artifact_id": "artifact_13",
+      "central_technique": "proof_by_contradiction",
+      "rigor_score": 5,
+      "claim_audits": [
+        {"claim_id": "C1", "status": "verified"},
+        {"claim_id": "C2", "status": "verified"},
+        {"claim_id": "C3", "status": "verified"},
+        {"claim_id": "C4", "status": "verified"},
+        {"claim_id": "C5", "status": "verified"},
+        {"claim_id": "C6", "status": "verified"},
+        {"claim_id": "C7", "status": "verified"}
+      ]
+    },
+    {
+      "artifact_id": "artifact_14",
+      "central_technique": "inequality_application",
+      "rigor_score": 5,
+      "claim_audits": [
+        {"claim_id": "C1", "status": "verified"},
+        {"claim_id": "C2", "status": "verified"},
+        {"claim_id": "C3", "status": "verified"},
+        {"claim_id": "C4", "status": "verified"},
+        {"claim_id": "C5", "status": "verified"},
+        {"claim_id": "C6", "status": "verified"}
+      ]
+    },
+    {
+      "artifact_id": "artifact_15",
+      "central_technique": "algebraic_manipulation",
+      "rigor_score": 4,
+      "claim_audits": [
+        {"claim_id": "C1", "status": "verified"},
+        {"claim_id": "C2", "status": "verified"},
+        {"claim_id": "C3", "status": "verified"},
+        {"claim_id": "C4", "status": "verified"},
+        {"claim_id": "C5", "status": "verified"},
+        {"claim_id": "C6", "status": "unjustified"},
+        {"claim_id": "C7", "status": "verified"}
+      ]
+    },
+    {
+      "artifact_id": "artifact_16",
+      "central_technique": "modular_arithmetic",
+      "rigor_score": 4,
+      "claim_audits": [
+        {"claim_id": "C1", "status": "verified"},
+        {"claim_id": "C2", "status": "verified"},
+        {"claim_id": "C3", "status": "verified"},
+        {"claim_id": "C4", "status": "verified"},
+        {"claim_id": "C5", "status": "verified"}
+      ]
+    }
+  ]
+}

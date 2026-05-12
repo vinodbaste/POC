@@ -1,0 +1,61 @@
+{
+  "shard_id": "shard_05",
+  "artifact_ids": ["artifact_17","artifact_18","artifact_19","artifact_20"],
+  "artifact_audits": [
+    {
+      "artifact_id": "artifact_17",
+      "central_technique": "geometric_construction",
+      "rigor_score": 4,
+      "claim_audits": [
+        {"claim_id": "C1", "status": "verified"},
+        {"claim_id": "C2", "status": "verified"},
+        {"claim_id": "C3", "status": "verified"},
+        {"claim_id": "C4", "status": "verified"},
+        {"claim_id": "C5", "status": "verified"},
+        {"claim_id": "C6", "status": "unjustified"},
+        {"claim_id": "C7", "status": "verified"}
+      ]
+    },
+    {
+      "artifact_id": "artifact_18",
+      "central_technique": "extremal_principle",
+      "rigor_score": 5,
+      "claim_audits": [
+        {"claim_id": "C1", "status": "verified"},
+        {"claim_id": "C2", "status": "verified"},
+        {"claim_id": "C3", "status": "verified"},
+        {"claim_id": "C4", "status": "verified"},
+        {"claim_id": "C5", "status": "verified"},
+        {"claim_id": "C6", "status": "verified"}
+      ]
+    },
+    {
+      "artifact_id": "artifact_19",
+      "central_technique": "combinatorial_counting",
+      "rigor_score": 4,
+      "claim_audits": [
+        {"claim_id": "C1", "status": "verified"},
+        {"claim_id": "C2", "status": "verified"},
+        {"claim_id": "C3", "status": "verified"},
+        {"claim_id": "C4", "status": "verified"},
+        {"claim_id": "C5", "status": "unjustified"},
+        {"claim_id": "C6", "status": "verified"},
+        {"claim_id": "C7", "status": "verified"}
+      ]
+    },
+    {
+      "artifact_id": "artifact_20",
+      "central_technique": "inequality_application",
+      "rigor_score": 2,
+      "claim_audits": [
+        {"claim_id": "C1", "status": "verified"},
+        {"claim_id": "C2", "status": "verified"},
+        {"claim_id": "C3", "status": "incorrect"},
+        {"claim_id": "C4", "status": "verified"},
+        {"claim_id": "C5", "status": "verified"},
+        {"claim_id": "C6", "status": "verified"},
+        {"claim_id": "C7", "status": "verified"}
+      ]
+    }
+  ]
+}

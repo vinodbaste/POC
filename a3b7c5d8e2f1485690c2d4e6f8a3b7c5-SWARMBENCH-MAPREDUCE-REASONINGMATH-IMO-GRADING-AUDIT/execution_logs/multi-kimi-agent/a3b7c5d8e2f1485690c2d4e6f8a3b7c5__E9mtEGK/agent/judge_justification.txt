@@ -1,0 +1,3 @@
+Score: 0.0 (0/171 passed)
+
+Zero matches. Agent grades differ from oracle on all 150 artifacts (e.g., artifact_001: oracle Partial/4 vs agent Incorrect/5; artifact_002: Correct/5 vs Almost/4; artifact_003: Incorrect/5 vs Partial/3). Shard summaries and summary statistics consequently all mismatch. No rows in correct sorted order with matching fields.

@@ -1,0 +1,3 @@
+Score: 0.212 (7/33 passed)
+
+7/33 passed. Artifact rows: 0/20 (technique/rigor/claim errors in 01,03,04,05,06,07,09,10,12,16,17,19,20). Shards: 0/5 (technique_counts/mean_rigor all wrong). Summary: 7/8 passed (total_artifacts, total_claims, claim_status_counts, competition_counts, year_counts, plus 2 partial). Failed: artifacts_by_technique lists unsorted and wrong. Sample fails: artifact_01, artifact_03, artifact_04, artifact_05, artifact_06.

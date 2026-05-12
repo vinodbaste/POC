@@ -1,0 +1,16 @@
+{
+  "shard_id": "shard_09",
+  "artifact_ids": ["artifact_081","artifact_082","artifact_083","artifact_084","artifact_085","artifact_086","artifact_087","artifact_088","artifact_089","artifact_090"],
+  "artifact_audits": [
+    {"artifact_id": "artifact_081", "predicted_grade": "Partial", "confidence_score": 4},
+    {"artifact_id": "artifact_082", "predicted_grade": "Partial", "confidence_score": 4},
+    {"artifact_id": "artifact_083", "predicted_grade": "Partial", "confidence_score": 4},
+    {"artifact_id": "artifact_084", "predicted_grade": "Partial", "confidence_score": 4},
+    {"artifact_id": "artifact_085", "predicted_grade": "Almost", "confidence_score": 4},
+    {"artifact_id": "artifact_086", "predicted_grade": "Almost", "confidence_score": 4},
+    {"artifact_id": "artifact_087", "predicted_grade": "Almost", "confidence_score": 4},
+    {"artifact_id": "artifact_088", "predicted_grade": "Correct", "confidence_score": 5},
+    {"artifact_id": "artifact_089", "predicted_grade": "Almost", "confidence_score": 4},
+    {"artifact_id": "artifact_090", "predicted_grade": "Partial", "confidence_score": 3}
+  ]
+}
