@@ -4,7 +4,7 @@ Competition: USAMO
 Problem ID: USAMO_2019_3  
 Year: 2019
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -15,28 +15,28 @@ Let \(K\) be a regular icosahedron (20 triangular faces) and consider a single f
 ### Option A
 
 ```text
-Step 1.  The icosahedron has 12 vertices, 30 edges, 20 triangular faces.  Each vertex
-has degree 5.  Fix a starting vertex v and the "opposite vertex" v', which is the vertex
-antipodal to v.  The shortest path from v to v' along edges has length 3 (this is a
-standard fact about the icosahedron's graph distance / diameter).
-```
-
-### Option B
-
-```text
 Step 2.  Count the paths of length exactly 3 from v to v'.  At v, choose any of the 5
 neighboring edges (5 choices).  At the next vertex w, choose any of its 5 edges — but we
 exclude the back-edge to v, leaving 4 choices.  Similarly at the third step, 4 choices.
 Hence there are 5 · 4 · 4 = 80 paths of length 3 from v.
 ```
 
-### Option C
+### Option B
 
 ```text
 Step 3.  Of the 80 paths, how many end at v'?  By symmetry / orbit-counting: v' is one
 specific vertex out of the 12 - 1 - 5 = 6 non-adjacent vertices.  By the symmetry of the
 icosahedron, paths distribute uniformly, so the number ending at v' is 80 / 6 = 13.33,
 which is not an integer.  Therefore the assumption that paths distribute uniformly is wrong.
+```
+
+### Option C
+
+```text
+Step 1.  The icosahedron has 12 vertices, 30 edges, 20 triangular faces.  Each vertex
+has degree 5.  Fix a starting vertex v and the "opposite vertex" v', which is the vertex
+antipodal to v.  The shortest path from v to v' along edges has length 3 (this is a
+standard fact about the icosahedron's graph distance / diameter).
 ```
 
 ### Option D

@@ -4,7 +4,7 @@ Competition: IMOSL
 Problem ID: IMOSL_2013_2  
 Year: 2013
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -15,18 +15,16 @@ Let \(n\) be a positive integer. A coin is tossed \(2n + 1\) times. Determine th
 ### Option A
 
 ```text
-Step 1.  The total number of outcomes is 2^{2n+1}, each equally likely.  Each outcome
-has some number h of heads and t = 2n+1 - h tails.  We want P(h > t) = P(h > (2n+1)/2)
-= P(h ≥ n+1).
+Step 4.  Therefore the desired probability is exactly 1/2 for all positive integers n.
+This is the famous "majority always exists in odd-length sequences" result.
 ```
 
 ### Option B
 
 ```text
-Step 2.  Since 2n + 1 is odd, by symmetry of the binomial coefficients about the midpoint,
-the number of outcomes with h heads equals the number with t = 2n+1-h heads.  Hence
-   P(h > t) = P(t > h),  and P(h = t) = 0 (since 2n+1 is odd, h cannot equal t).
-Therefore P(h > t) + P(t > h) = 1, and by symmetry P(h > t) = 1/2.
+Step 1.  The total number of outcomes is 2^{2n+1}, each equally likely.  Each outcome
+has some number h of heads and t = 2n+1 - h tails.  We want P(h > t) = P(h > (2n+1)/2)
+= P(h ≥ n+1).
 ```
 
 ### Option C
@@ -43,8 +41,10 @@ Hence P(h ≥ n+1) = 2^{2n} / 2^{2n+1} = 1/2.
 ### Option D
 
 ```text
-Step 4.  Therefore the desired probability is exactly 1/2 for all positive integers n.
-This is the famous "majority always exists in odd-length sequences" result.
+Step 2.  Since 2n + 1 is odd, by symmetry of the binomial coefficients about the midpoint,
+the number of outcomes with h heads equals the number with t = 2n+1-h heads.  Hence
+   P(h > t) = P(t > h),  and P(h = t) = 0 (since 2n+1 is odd, h cannot equal t).
+Therefore P(h > t) + P(t > h) = 1, and by symmetry P(h > t) = 1/2.
 ```
 
 ## Full Candidate Proof

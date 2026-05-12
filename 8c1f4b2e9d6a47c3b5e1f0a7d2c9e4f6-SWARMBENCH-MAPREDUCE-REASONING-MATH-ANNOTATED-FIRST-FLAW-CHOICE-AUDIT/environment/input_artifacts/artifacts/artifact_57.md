@@ -4,7 +4,7 @@ Competition: IMOSL
 Problem ID: IMOSL_2015_2  
 Year: 2015
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -17,21 +17,14 @@ is a power of 2.
 ### Option A
 
 ```text
-Assume WLOG a ≤ b ≤ c.  Since ab - c, bc - a, ca - b are powers of 2 (hence positive), we
-need ab > c, bc > a, ca > b.  The middle two are automatic given a ≤ b ≤ c.  The first
-gives c < ab.
+Combining: the only solutions arise from cases where some of a, b, c are odd, and
+exhaustive case analysis on parity gives the triples (2,2,2), (2,2,3), (2,6,11), (3,5,7),
+and their permutations.  Verification for (2,2,2): ab-c = 4-2 = 2 = 2^1 ✓, similar for
+the others.  Verification for (3,5,7): ab-c = 15-7 = 8 = 2^3 ✓, bc-a = 35-3 = 32 = 2^5 ✓,
+ca-b = 21-5 = 16 = 2^4 ✓.
 ```
 
 ### Option B
-
-```text
-Consider parity.  Since each of ab-c, bc-a, ca-b is a power of 2, either it equals 1 (= 2^0)
-or it is even.  Suppose at least two of a, b, c are odd.  Then say a, b are odd; then
-ab is odd, so ab - c is odd iff c is even, hence ab - c = 1 in that case.
-Similarly analyzing all sub-cases of the parities of a, b, c.
-```
-
-### Option C
 
 ```text
 Step 3.  Now we may assume a, b, c are all even.  Write a = 2a', b = 2b', c = 2c'.
@@ -43,14 +36,21 @@ descent, we can assume one of a, b, c is odd, contradiction.  Hence the all-even
 yields no solutions.
 ```
 
+### Option C
+
+```text
+Assume WLOG a ≤ b ≤ c.  Since ab - c, bc - a, ca - b are powers of 2 (hence positive), we
+need ab > c, bc > a, ca > b.  The middle two are automatic given a ≤ b ≤ c.  The first
+gives c < ab.
+```
+
 ### Option D
 
 ```text
-Combining: the only solutions arise from cases where some of a, b, c are odd, and
-exhaustive case analysis on parity gives the triples (2,2,2), (2,2,3), (2,6,11), (3,5,7),
-and their permutations.  Verification for (2,2,2): ab-c = 4-2 = 2 = 2^1 ✓, similar for
-the others.  Verification for (3,5,7): ab-c = 15-7 = 8 = 2^3 ✓, bc-a = 35-3 = 32 = 2^5 ✓,
-ca-b = 21-5 = 16 = 2^4 ✓.
+Consider parity.  Since each of ab-c, bc-a, ca-b is a power of 2, either it equals 1 (= 2^0)
+or it is even.  Suppose at least two of a, b, c are odd.  Then say a, b are odd; then
+ab is odd, so ab - c is odd iff c is even, hence ab - c = 1 in that case.
+Similarly analyzing all sub-cases of the parities of a, b, c.
 ```
 
 ## Full Candidate Proof

@@ -6,12 +6,6 @@ import urllib.error
 import urllib.request
 
 
-VALID_OPTIONS = {"A", "B", "C", "D"}
-VALID_FLAW_TYPES = {"unjustified_claim", "misapplied_theorem", "false_assumption", "scope_violation", "algebraic_error"}
-AUDIT_REQUIRED_KEYS = {"artifact_id", "problem_id", "competition", "year", "selected_option", "flaw_type"}
-SHARD_REQUIRED_KEYS = {"shard_id", "artifact_ids", "artifact_count", "choice_counts"}
-
-
 def extract_json(text: str) -> str:
     text = text.strip()
     match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
@@ -22,77 +16,6 @@ def extract_json(text: str) -> str:
     if start != -1 and end != -1 and end > start:
         return text[start:end + 1]
     return text
-
-
-def validate_structure(agent_output: dict) -> list[str]:
-    violations = []
-
-    required_keys = {"artifact_audits", "shard_summaries", "summary"}
-    extra_keys = set(agent_output.keys()) - required_keys
-    if extra_keys:
-        violations.append(f"Extra top-level keys not in schema: {sorted(extra_keys)}")
-    missing_keys = required_keys - set(agent_output.keys())
-    if missing_keys:
-        violations.append(f"Missing required top-level keys: {sorted(missing_keys)}")
-        return violations
-
-    audits = agent_output.get("artifact_audits", [])
-    audit_ids = []
-    for idx, audit in enumerate(audits):
-        missing = AUDIT_REQUIRED_KEYS - set(audit.keys())
-        if missing:
-            violations.append(f"artifact_audits[{idx}] missing fields: {sorted(missing)}")
-            continue
-        audit_ids.append(audit["artifact_id"])
-        opt = audit.get("selected_option")
-        if opt not in VALID_OPTIONS:
-            violations.append(
-                f"artifact_audits[{idx}] ({audit['artifact_id']}): "
-                f"selected_option={opt!r} is not one of A, B, C, D"
-            )
-        flaw = audit.get("flaw_type")
-        if flaw not in VALID_FLAW_TYPES:
-            violations.append(
-                f"artifact_audits[{idx}] ({audit['artifact_id']}): "
-                f"flaw_type={flaw!r} is not one of the valid flaw types"
-            )
-
-    if audit_ids != sorted(audit_ids):
-        violations.append(f"artifact_audits is not sorted by artifact_id. First few: {audit_ids[:5]}")
-
-    expected_ids = [f"artifact_{i:02d}" for i in range(1, 76)]
-    missing_artifacts = set(expected_ids) - set(audit_ids)
-    if missing_artifacts:
-        violations.append(
-            f"artifact_audits is missing {len(missing_artifacts)} artifact(s): "
-            + ", ".join(sorted(missing_artifacts)[:5])
-            + ("..." if len(missing_artifacts) > 5 else "")
-        )
-
-    shards = agent_output.get("shard_summaries", [])
-    shard_ids = [s.get("shard_id", "") for s in shards]
-    if shard_ids != sorted(shard_ids):
-        violations.append(f"shard_summaries is not sorted by shard_id. Got: {shard_ids}")
-
-    for idx, shard in enumerate(shards):
-        missing = SHARD_REQUIRED_KEYS - set(shard.keys())
-        if missing:
-            violations.append(f"shard_summaries[{idx}] missing fields: {sorted(missing)}")
-            continue
-        art_ids = shard.get("artifact_ids", [])
-        art_count = shard.get("artifact_count")
-        if isinstance(art_ids, list) and art_count != len(art_ids):
-            violations.append(
-                f"shard_summaries[{idx}] ({shard['shard_id']}): "
-                f"artifact_count={art_count} does not match len(artifact_ids)={len(art_ids)}"
-            )
-
-    abo = agent_output.get("summary", {}).get("artifacts_by_option", {})
-    for opt, art_list in abo.items():
-        if isinstance(art_list, list) and art_list != sorted(art_list):
-            violations.append(f"artifacts_by_option['{opt}'] is not sorted. Got: {art_list}")
-
-    return violations
 
 
 def call_fireworks(messages, max_tokens=800, timeout=240):
@@ -143,28 +66,24 @@ def main():
             f.write("Score: 1.0\n\nAgent output exactly matches oracle.")
         return
 
-    violations = validate_structure(agent_output)
-    if violations:
-        json.dump({"reward": 0.0}, open(args.reward_out, "w"))
-        with open(justification_path, "w") as f:
-            f.write(
-                "Score: 0.0\n\nStructural validation failed — instruction requirements not met:\n"
-                + "\n".join(f"  - {v}" for v in violations)
-            )
-        return
-
     prompt = (
         "Grade the agent output against the gold oracle for this olympiad proof-flaw audit task.\n\n"
         f"ORACLE:\n{json.dumps(oracle, separators=(',', ':'))}\n\n"
         f"AGENT OUTPUT:\n{json.dumps(agent_output, separators=(',', ':'))}\n\n"
         "Scoring rules:\n"
         "- For each artifact in artifact_audits, artifact_id, problem_id, competition, year, "
-        "selected_option, and flaw_type must all match the oracle exactly, in sorted artifact_id order.\n"
+        "selected_option, and flaw_type must all match the oracle exactly.\n"
+        "- artifact_audits must be sorted by artifact_id (lexicographic ascending). "
+        "If the order is wrong, count every misordered row as failed.\n"
         "- For each shard summary, shard_id, artifact_ids, artifact_count, and choice_counts "
-        "must match exactly, in the same shard order.\n"
+        "must match the oracle exactly. shard_summaries must be sorted by shard_id.\n"
         "- In summary, total_artifacts, choice_counts, competition_counts, year_counts, and "
-        "artifacts_by_option must match exactly, with lists in sorted order.\n"
-        "- Score is the fraction of artifact rows plus summary groups that are fully correct.\n"
+        "artifacts_by_option must match the oracle exactly, with artifacts_by_option lists "
+        "sorted by artifact_id.\n"
+        "- The top-level keys must be exactly artifact_audits, shard_summaries, and summary — "
+        "no extra keys. Treat any extra top-level key as one failed summary group.\n"
+        "- Score is the fraction of artifact rows plus summary groups (shard_summaries entries "
+        "and the 5 summary subgroups) that are fully correct, out of the total checkable items.\n"
         "Return one JSON object only using this schema: "
         '{"score": <float 0.0-1.0>, "passed": <int>, "total": <int>, '
         '"justification": "<brief list of failed artifact_ids and failed summary groups>"}'

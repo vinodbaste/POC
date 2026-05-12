@@ -4,7 +4,7 @@ Competition: IMOSL
 Problem ID: IMOSL_2012_6  
 Year: 2012
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -15,15 +15,6 @@ Let \(ABC\) be a triangle with \(AB \ne AC\), and let the perpendicular bisector
 ### Option A
 
 ```text
-Step 1.  Let O be the circumcenter of triangle ABC.  By definition, M lies on the
-perpendicular bisector of BC, so MB = MC.  Since M is on the circumcircle, by the
-inscribed angle theorem applied to chord BC, the angles inscribing arc BC from a point
-on the major arc are equal — meaning angle BMC = angle BAC.
-```
-
-### Option B
-
-```text
 Step 2.  By the Inscribed Angle Theorem (the central angle is twice the inscribed angle),
 angle BMC = 2 angle BAC.  Wait, the inscribed angle theorem says: the inscribed angle is
 half the central angle subtended by the same arc.  Here the central angle BOC = 2 angle BAC
@@ -32,15 +23,16 @@ the major-arc side).  But M is on the minor arc BC, so angle BMC = 180° - angle
 the inscribed angle theorem for opposite arcs.
 ```
 
-### Option C
+### Option B
 
 ```text
-Step 3.  Now since MB = MC and angle BMC is known, triangle MBC is isosceles with
-MB = MC.  The base angles are equal: angle MBC = angle MCB.  And angle MBC + angle MCB
-+ angle BMC = 180°, so 2 angle MBC = 180° - angle BMC.
+Step 1.  Let O be the circumcenter of triangle ABC.  By definition, M lies on the
+perpendicular bisector of BC, so MB = MC.  Since M is on the circumcircle, by the
+inscribed angle theorem applied to chord BC, the angles inscribing arc BC from a point
+on the major arc are equal — meaning angle BMC = angle BAC.
 ```
 
-### Option D
+### Option C
 
 ```text
 Step 4.  Now to show MA bisects angle BAC.  Consider angles MAB and MAC (inscribed in
@@ -49,6 +41,14 @@ the circumcircle on chords MB and MC respectively).  By the inscribed angle theo
    angle MAC = angle MBC (subtending arc MC).
 But angle MBC = angle MCB (Step 3, isosceles).  Hence angle MAB = angle MAC, so MA
 bisects angle BAC.  Done.
+```
+
+### Option D
+
+```text
+Step 3.  Now since MB = MC and angle BMC is known, triangle MBC is isosceles with
+MB = MC.  The base angles are equal: angle MBC = angle MCB.  And angle MBC + angle MCB
++ angle BMC = 180°, so 2 angle MBC = 180° - angle BMC.
 ```
 
 ## Full Candidate Proof

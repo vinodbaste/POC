@@ -4,7 +4,7 @@ Competition: USAMO
 Problem ID: USAMO_2009_2  
 Year: 2009
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -15,12 +15,18 @@ Let \(n\) be a positive integer. Determine the size of the largest subset of \(\
 ### Option A
 
 ```text
+Hence the maximum size is exactly n.  This completes the proof.
+```
+
+### Option B
+
+```text
 Step 1.  Call a subset S ⊆ {-n, ..., n} "good" if it contains no three elements (possibly
 repeated) summing to 0.  Equivalently, for all a, b ∈ S, the value -(a+b) is not in S.
 We seek max |S|.
 ```
 
-### Option B
+### Option C
 
 ```text
 Step 2.  Consider S = {odd integers in {-n, ..., n}}.  Then |S| = n if n is odd, or n if
@@ -28,19 +34,13 @@ n is even (number of odd integers).  For a, b, c odd, a+b+c is odd, hence nonzer
 So |S| = n is achievable.
 ```
 
-### Option C
+### Option D
 
 ```text
 Step 3.  We claim |S| ≤ n is the best possible.  Indeed, the set S can avoid the constraint
 only by avoiding certain combinations, and a counting argument (counting (a,b,c) with
 a+b+c = 0, with appropriate accounting for symmetry) shows that S must omit at least n+1
 elements from the full set of 2n+1.  Hence |S| ≤ 2n+1 - (n+1) = n.
-```
-
-### Option D
-
-```text
-Hence the maximum size is exactly n.  This completes the proof.
 ```
 
 ## Full Candidate Proof

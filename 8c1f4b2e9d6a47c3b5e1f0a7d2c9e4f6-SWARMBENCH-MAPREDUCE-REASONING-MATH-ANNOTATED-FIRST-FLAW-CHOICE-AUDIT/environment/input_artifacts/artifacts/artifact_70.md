@@ -4,7 +4,7 @@ Competition: USAMO
 Problem ID: USAMO_2011_3  
 Year: 2011
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -15,10 +15,16 @@ In hexagon \(ABCDEF\), inscribed in a circle, sides \(AB, CD\) and \(EF\) are al
 ### Option A
 
 ```text
-Step 1.  Let O be the center of the circumscribed circle.  Since AB = CD = EF = R
-(the circumradius), each of the triangles OAB, OCD, OEF is equilateral (two sides equal
-to R and the third equal to R).  Hence each of arcs AB, CD, EF subtends a 60° central
-angle.
+Step 4.  Midpoint M_1 of BC: at angle (60° + 60° + α)/2 = 60° + α/2.  Similarly M_2 at
+60° + α + 60° + β/2 + ... computation gets complex, but by direct angle-counting:
+   M_1 is at angle 60° + α/2,
+   M_2 is at angle 60° + 60° + α + β/2,
+   M_3 is at angle 60° + 60° + 60° + α + β + γ/2.
+The pairwise differences: M_2 - M_1 = 60° + α/2 + β/2, M_3 - M_2 = 60° + β/2 + γ/2.
+For M_1 M_2 M_3 to be equilateral inscribed on the circle (of midpoints), we need
+these arc-differences to be equal: 60° + α/2 + β/2 = 60° + β/2 + γ/2, giving α = γ.
+Similarly β = α (from another pair).  So α = β = γ = 60° (using α + β + γ = 180°).
+Hence the hexagon has all six sides equal, contradicting the freedom we wanted.
 ```
 
 ### Option B
@@ -32,26 +38,20 @@ each, on average — but they need not all be equal.
 ### Option C
 
 ```text
-Step 3.  Place coordinates: let the circle have center O = (0, 0) and radius R = 1.
-Place A at angle 0, B at angle 60° (since arc AB is 60°).  The remaining vertices C, D,
-E, F are at angles 60° + α, 60° + α + 60°, 60° + α + 60° + β, 60° + α + 60° + β + 60°,
-where α and β are the arcs BC and DE respectively.  Constraint: total angle is 360°, so
-3 · 60° + α + β + γ = 360°, with γ = arc FA.  Hence α + β + γ = 180°.
+Step 1.  Let O be the center of the circumscribed circle.  Since AB = CD = EF = R
+(the circumradius), each of the triangles OAB, OCD, OEF is equilateral (two sides equal
+to R and the third equal to R).  Hence each of arcs AB, CD, EF subtends a 60° central
+angle.
 ```
 
 ### Option D
 
 ```text
-Step 4.  Midpoint M_1 of BC: at angle (60° + 60° + α)/2 = 60° + α/2.  Similarly M_2 at
-60° + α + 60° + β/2 + ... computation gets complex, but by direct angle-counting:
-   M_1 is at angle 60° + α/2,
-   M_2 is at angle 60° + 60° + α + β/2,
-   M_3 is at angle 60° + 60° + 60° + α + β + γ/2.
-The pairwise differences: M_2 - M_1 = 60° + α/2 + β/2, M_3 - M_2 = 60° + β/2 + γ/2.
-For M_1 M_2 M_3 to be equilateral inscribed on the circle (of midpoints), we need
-these arc-differences to be equal: 60° + α/2 + β/2 = 60° + β/2 + γ/2, giving α = γ.
-Similarly β = α (from another pair).  So α = β = γ = 60° (using α + β + γ = 180°).
-Hence the hexagon has all six sides equal, contradicting the freedom we wanted.
+Step 3.  Place coordinates: let the circle have center O = (0, 0) and radius R = 1.
+Place A at angle 0, B at angle 60° (since arc AB is 60°).  The remaining vertices C, D,
+E, F are at angles 60° + α, 60° + α + 60°, 60° + α + 60° + β, 60° + α + 60° + β + 60°,
+where α and β are the arcs BC and DE respectively.  Constraint: total angle is 360°, so
+3 · 60° + α + β + γ = 360°, with γ = arc FA.  Hence α + β + γ = 180°.
 ```
 
 ## Full Candidate Proof

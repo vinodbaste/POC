@@ -4,7 +4,7 @@ Competition: BMOSL
 Problem ID: BMOSL_2021_19  
 Year: 2021
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -24,16 +24,6 @@ The numerator product is over k = p+1, ..., 2p; the denominator is p!.
 ### Option B
 
 ```text
-Step 2.  Rewrite the numerator as p! · \prod_{k=1}^{p} (1 + p/k) — by pulling out p from
-each factor (2p-i) = p(2-i/p) for i = 0, ..., p-1 — wait, that's not a clean factorization.
-Re-do: (2p-i) = (p) + (p-i), so the numerator is
-   \prod_{i=0}^{p-1} (p + (p-i)) = \prod_{j=1}^{p} (p + j),
-which equals p! · \prod_{j=1}^{p} (1 + p/j).
-```
-
-### Option C
-
-```text
 Step 3.  Therefore \binom{2p}{p} = \prod_{j=1}^{p} (1 + p/j) = 1 + p · sum (1/j) + p^2 ·
 sum_{i<j} 1/(ij) + ... (expand the product).
 Modulo p^3, only the terms up to p^2 matter:
@@ -41,7 +31,7 @@ Modulo p^3, only the terms up to p^2 matter:
 where H_p = sum_{j=1}^{p} 1/j and H_p^{(2)} = sum 1/j^2.
 ```
 
-### Option D
+### Option C
 
 ```text
 Step 4.  By Wolstenholme's classical lemma (for p ≥ 5), H_p ≡ 0 (mod p^2) and H_p^{(2)}
@@ -49,6 +39,16 @@ Step 4.  By Wolstenholme's classical lemma (for p ≥ 5), H_p ≡ 0 (mod p^2) an
 than needed.  Also p^2 H_p^{(2)} ≡ 0 (mod p^3).  All higher terms in the expansion are
 divisible by p^3.  Hence \binom{2p}{p} ≡ 1 (mod p^3).  But the desired congruence is
 \binom{2p}{p} ≡ 2 (mod p^3).  We got 1, not 2 — off by a factor.  Need to revisit.
+```
+
+### Option D
+
+```text
+Step 2.  Rewrite the numerator as p! · \prod_{k=1}^{p} (1 + p/k) — by pulling out p from
+each factor (2p-i) = p(2-i/p) for i = 0, ..., p-1 — wait, that's not a clean factorization.
+Re-do: (2p-i) = (p) + (p-i), so the numerator is
+   \prod_{i=0}^{p-1} (p + (p-i)) = \prod_{j=1}^{p} (p + j),
+which equals p! · \prod_{j=1}^{p} (1 + p/j).
 ```
 
 ## Full Candidate Proof

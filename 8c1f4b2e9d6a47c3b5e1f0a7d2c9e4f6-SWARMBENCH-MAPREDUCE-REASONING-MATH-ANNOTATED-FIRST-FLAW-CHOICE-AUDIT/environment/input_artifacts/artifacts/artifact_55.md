@@ -4,7 +4,7 @@ Competition: USAMO
 Problem ID: USAMO_2018_2  
 Year: 2018
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -16,6 +16,13 @@ Find all functions \(f : (0, \infty) \to (0, \infty)\) such that
 ### Option A
 
 ```text
+Setting y = x in the equation: f(x)·f(x) = 2 f(x + x f(x)) = 2 f(x(1 + f(x))).  Thus
+   f(x)^2 = 2 f(x(1 + f(x))).
+```
+
+### Option B
+
+```text
 Setting y → ∞ in the equation, we observe that the RHS becomes 2f(x + ∞ · f(x)) =
 2 · lim f, and assuming f is bounded on (0,∞), the limit exists.  Hence the LHS also
 tends to a finite limit, giving f(x) · lim_{y→∞} f(y) = 2 · lim_{y→∞} f(x + y f(x)).
@@ -23,27 +30,20 @@ Both limits being the same constant C (since f is bounded), we conclude f(x) · 
 so f(x) = 2 for all x.
 ```
 
-### Option B
+### Option C
 
 ```text
-Setting y = x in the equation: f(x)·f(x) = 2 f(x + x f(x)) = 2 f(x(1 + f(x))).  Thus
-   f(x)^2 = 2 f(x(1 + f(x))).
+Verifying f(x) = 2 for all x > 0: the LHS is 2·2 = 4, and the RHS is 2·f(x + 2y) = 2·2 = 4.
+Hence f ≡ 2 is a solution, and by Option A above it is the unique solution.
 ```
 
-### Option C
+### Option D
 
 ```text
 Now set y = 1 in the original equation: f(x) f(1) = 2 f(x + f(x)).  Let c = f(1).  Then
 f(x + f(x)) = (c/2) f(x).
 By induction, f(x + n f(x)) = (c/2)^n f(x) for all positive integers n (the inductive step
 applies the same substitution).
-```
-
-### Option D
-
-```text
-Verifying f(x) = 2 for all x > 0: the LHS is 2·2 = 4, and the RHS is 2·f(x + 2y) = 2·2 = 4.
-Hence f ≡ 2 is a solution, and by Option A above it is the unique solution.
 ```
 
 ## Full Candidate Proof

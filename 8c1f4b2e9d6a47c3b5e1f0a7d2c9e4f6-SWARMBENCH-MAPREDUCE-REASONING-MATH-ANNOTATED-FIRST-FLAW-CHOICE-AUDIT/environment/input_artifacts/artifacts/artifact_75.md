@@ -4,7 +4,7 @@ Competition: IMOSL
 Problem ID: IMOSL_2018_4  
 Year: 2018
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -13,6 +13,33 @@ A site is any point \((x, y)\) in the plane such that \(x\) and \(y\) are both p
 ## Candidate Excerpts
 
 ### Option A
+
+```text
+Step 3.  Wait — within class (0,0), are all pairs non-knight-related?  A knight move
+changes parity in both coordinates, so within (0,0) (both coordinates even), a knight
+move would go to (odd, odd) = class (1,1).  So no knight moves stay within (0,0).
+Within (0,0), there are no edges of the knight graph.  Hence (0,0) is a 100-element
+independent set in the knight graph.  By Mantel's theorem applied to the bipartite knight
+graph, the maximum independent set has size at least 200.  So Amy can place at least
+200/2 = 100 stones if she plays optimally against Ben's interference.
+```
+
+### Option B
+
+```text
+Step 4.  Specifically, Amy's strategy: she plays in class (0,0) first, claiming as many
+sites as possible.  Ben can block at most one site per Amy move (since Ben plays one stone
+per turn).  In the worst case Ben blocks sites in (0,0), reducing Amy's available targets.
+But there are 100 sites in (0,0), and Ben gets at most 100 moves (alternating with Amy's
+100), so by parity Amy gets at least 50 sites in (0,0).
+But by symmetry, Amy can play 50 in (0,0) and continue in (1,1), getting another 50,
+for a total of 100.  Hence K ≥ 100.
+
+For the upper bound, one shows by a strategy-stealing argument that Ben can prevent
+Amy from placing more than 100, giving K = 100.
+```
+
+### Option C
 
 ```text
 Step 1.  Two sites (x_1, y_1) and (x_2, y_2) are at distance √5 iff (x_1-x_2)^2 +
@@ -26,7 +53,7 @@ coordinates: c changes from (a, b) to (a+1, b+1) (mod 2).  Hence knight-neighbor
 opposite parity in BOTH coordinates.
 ```
 
-### Option B
+### Option D
 
 ```text
 Step 2.  Therefore the 4 color classes split into two pairs: {(0,0), (1,1)} and
@@ -37,33 +64,6 @@ sites across the two pairs.  Hence within each pair, the sites form an independe
 The class (0,0) has 10·10 = 100 sites (since x, y even with 1 ≤ x, y ≤ 20).  Similarly
 (1,1) has 100 sites.  Together {(0,0), (1,1)} = 200 sites, all pairwise non-knight-related.
 Similarly {(0,1), (1,0)} has 200 sites.
-```
-
-### Option C
-
-```text
-Step 3.  Wait — within class (0,0), are all pairs non-knight-related?  A knight move
-changes parity in both coordinates, so within (0,0) (both coordinates even), a knight
-move would go to (odd, odd) = class (1,1).  So no knight moves stay within (0,0).
-Within (0,0), there are no edges of the knight graph.  Hence (0,0) is a 100-element
-independent set in the knight graph.  By Mantel's theorem applied to the bipartite knight
-graph, the maximum independent set has size at least 200.  So Amy can place at least
-200/2 = 100 stones if she plays optimally against Ben's interference.
-```
-
-### Option D
-
-```text
-Step 4.  Specifically, Amy's strategy: she plays in class (0,0) first, claiming as many
-sites as possible.  Ben can block at most one site per Amy move (since Ben plays one stone
-per turn).  In the worst case Ben blocks sites in (0,0), reducing Amy's available targets.
-But there are 100 sites in (0,0), and Ben gets at most 100 moves (alternating with Amy's
-100), so by parity Amy gets at least 50 sites in (0,0).
-But by symmetry, Amy can play 50 in (0,0) and continue in (1,1), getting another 50,
-for a total of 100.  Hence K ≥ 100.
-
-For the upper bound, one shows by a strategy-stealing argument that Ben can prevent
-Amy from placing more than 100, giving K = 100.
 ```
 
 ## Full Candidate Proof

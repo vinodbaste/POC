@@ -4,7 +4,7 @@ Competition: IMOSL
 Problem ID: IMOSL_2009_11  
 Year: 2009
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -16,10 +16,11 @@ Find the largest constant \(K\) such that for all positive reals \(a, b, c\) wit
 ### Option A
 
 ```text
-Step 1.  Note a^2 + b^2 + c^2 = (a + b + c)^2 - 2(ab + bc + ca) = 9 - 2(ab+bc+ca).
-The inequality becomes 9 - 2(ab+bc+ca) + K abc ≥ K + 3, i.e.,
-   K abc - 2(ab+bc+ca) ≥ K - 6.
-We seek the largest K for which this holds for all (a,b,c) with a+b+c=3 and a,b,c > 0.
+Step 4.  Hence K_max = 3/2.  But we should check this against the original problem:
+substitute K = 3/2 and verify the inequality a^2 + b^2 + c^2 + (3/2) abc ≥ 3/2 + 3 = 9/2.
+At a=b=c=1: 3 + 3/2 = 9/2. ✓ Tight.
+At a=3, b=c=0 (boundary, but b,c>0): a^2+b^2+c^2 = 9, abc = 0, LHS = 9 ≥ 9/2 ✓.
+So K = 3/2 works.  Combined with Step 3 showing K cannot exceed 3/2, we conclude K = 3/2.
 ```
 
 ### Option B
@@ -51,11 +52,10 @@ as b → 3/2 (i.e., a → 0), giving K ≤ 6/4 = 3/2.
 ### Option D
 
 ```text
-Step 4.  Hence K_max = 3/2.  But we should check this against the original problem:
-substitute K = 3/2 and verify the inequality a^2 + b^2 + c^2 + (3/2) abc ≥ 3/2 + 3 = 9/2.
-At a=b=c=1: 3 + 3/2 = 9/2. ✓ Tight.
-At a=3, b=c=0 (boundary, but b,c>0): a^2+b^2+c^2 = 9, abc = 0, LHS = 9 ≥ 9/2 ✓.
-So K = 3/2 works.  Combined with Step 3 showing K cannot exceed 3/2, we conclude K = 3/2.
+Step 1.  Note a^2 + b^2 + c^2 = (a + b + c)^2 - 2(ab + bc + ca) = 9 - 2(ab+bc+ca).
+The inequality becomes 9 - 2(ab+bc+ca) + K abc ≥ K + 3, i.e.,
+   K abc - 2(ab+bc+ca) ≥ K - 6.
+We seek the largest K for which this holds for all (a,b,c) with a+b+c=3 and a,b,c > 0.
 ```
 
 ## Full Candidate Proof

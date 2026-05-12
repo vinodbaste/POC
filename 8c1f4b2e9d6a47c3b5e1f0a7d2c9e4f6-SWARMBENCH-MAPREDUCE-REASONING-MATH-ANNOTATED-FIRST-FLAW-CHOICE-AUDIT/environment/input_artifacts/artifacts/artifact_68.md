@@ -4,60 +4,74 @@ Competition: BMOSL
 Problem ID: BMOSL_2017_14  
 Year: 2017
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
-Determine all positive integers \(n\) such that \(n^2 + 1\) divides \(n + 1\).
+Find all primes \(p\) such that \(p^2 + 2\) is also prime.
 
 ## Candidate Excerpts
 
 ### Option A
 
 ```text
-Step 1.  Note that n^2 + 1 ≥ n + 1 for n ≥ 1 (since n^2 ≥ n for n ≥ 1).  For n^2 + 1 to
-divide n + 1, we need n^2 + 1 ≤ n + 1 in absolute value, which (since both are positive)
-requires n^2 + 1 ≤ n + 1, i.e., n^2 ≤ n, i.e., n ≤ 1.  Hence n = 1.
+Step 1.  Check small primes.
+  p = 2: p^2 + 2 = 6 = 2 · 3, not prime.
+  p = 3: p^2 + 2 = 11, prime. ✓
+  p = 5: p^2 + 2 = 27 = 3 · 9, not prime.
+  p = 7: p^2 + 2 = 51 = 3 · 17, not prime.
+So among small primes only p = 3 satisfies the condition.
 ```
 
 ### Option B
 
 ```text
-Step 2.  For n = 1: n^2 + 1 = 2, and n + 1 = 2.  Indeed 2 | 2. ✓ So n = 1 is a solution.
-For n = 0 (not positive, excluded by problem): n^2 + 1 = 1 and n + 1 = 1, so 1 | 1
-trivially.  Excluded.
+Step 4.  Combining: only p = 3 yields p^2 + 2 prime (namely 11), but Step 2/3's modular
+obstruction analysis broke down — so we cannot rule out other primes purely from the
+mod-3 argument as given.  The expected conclusion (p = 3 is the only solution) holds,
+but the proof's reasoning chain is broken at the FLT step.
 ```
 
 ### Option C
 
 ```text
-Step 3.  We could also have the trivial case where n + 1 = 0, but n is positive so this
-is impossible.  Hence the only solution is n = 1.
+Step 2.  For p > 3, since gcd(p, 3) = 1, by Fermat's Little Theorem,
+  p^2 ≡ 0 (mod 3).
+Hence p^2 + 2 ≡ 2 (mod 3) for all primes p > 3.
 ```
 
 ### Option D
 
 ```text
-Step 4.  Conclusion: the unique positive integer n with n^2 + 1 | n + 1 is n = 1.
+Step 3.  Since p^2 + 2 ≡ 2 (mod 3) for p > 3, the value 3 does NOT divide p^2 + 2 in that
+range.  Therefore the mod-3 argument does not directly produce composite witnesses for
+p > 3, and we must look elsewhere for an obstruction.
 ```
 
 ## Full Candidate Proof
 
 ```text
-Step 1.  Note that n^2 + 1 ≥ n + 1 for n ≥ 1 (since n^2 ≥ n for n ≥ 1).  For n^2 + 1 to
-divide n + 1, we need n^2 + 1 ≤ n + 1 in absolute value, which (since both are positive)
-requires n^2 + 1 ≤ n + 1, i.e., n^2 ≤ n, i.e., n ≤ 1.  Hence n = 1.
+Step 1.  Check small primes.
+  p = 2: p^2 + 2 = 6 = 2 · 3, not prime.
+  p = 3: p^2 + 2 = 11, prime. ✓
+  p = 5: p^2 + 2 = 27 = 3 · 9, not prime.
+  p = 7: p^2 + 2 = 51 = 3 · 17, not prime.
+So among small primes only p = 3 satisfies the condition.
 
-Step 2.  For n = 1: n^2 + 1 = 2, and n + 1 = 2.  Indeed 2 | 2. ✓ So n = 1 is a solution.
-For n = 0 (not positive, excluded by problem): n^2 + 1 = 1 and n + 1 = 1, so 1 | 1
-trivially.  Excluded.
+Step 2.  For p > 3, since gcd(p, 3) = 1, by Fermat's Little Theorem,
+  p^2 ≡ 0 (mod 3).
+Hence p^2 + 2 ≡ 2 (mod 3) for all primes p > 3.
 
-Step 3.  We could also have the trivial case where n + 1 = 0, but n is positive so this
-is impossible.  Hence the only solution is n = 1.
+Step 3.  Since p^2 + 2 ≡ 2 (mod 3) for p > 3, the value 3 does NOT divide p^2 + 2 in that
+range.  Therefore the mod-3 argument does not directly produce composite witnesses for
+p > 3, and we must look elsewhere for an obstruction.
 
-Step 4.  Conclusion: the unique positive integer n with n^2 + 1 | n + 1 is n = 1.
+Step 4.  Combining: only p = 3 yields p^2 + 2 prime (namely 11), but Step 2/3's modular
+obstruction analysis broke down — so we cannot rule out other primes purely from the
+mod-3 argument as given.  The expected conclusion (p = 3 is the only solution) holds,
+but the proof's reasoning chain is broken at the FLT step.
 ```
 
 ## Reviewer Note
 
-In Step 2, the statement "1 | 1 trivially" for n = 0 is mathematically correct, but the dismissal "Excluded" treats the n = 0 case as if it has no logical bearing on the argument. However, the claim in Step 1 that "n^2 + 1 ≤ n + 1 requires n ≤ 1" is asserted without checking the case n = 0 (which would also satisfy "n ≤ 1" and gives a divisor on both sides). The Step 1 conclusion "Hence n = 1" excludes n = 0 by the constraint "positive integer," but the inference itself uses "n ≤ 1," which includes 0. The proof's reasoning is itself sound — n^2 + 1 = n + 1 only when n = 0 or n = 1 — but the conclusion is asserted without explicitly establishing that the only positive integer satisfying n ≤ 1 is n = 1. The Step 1 claim "Hence n = 1" treats "n ≤ 1 for positive integer n implies n = 1" as obvious without proving it; while it is in fact obvious, the proof's structure leaves this final reduction unjustified, and more critically, the reasoning "we need n^2 + 1 ≤ n + 1" should be "we need n^2 + 1 ≤ |n + 1|" — which the proof states but in a positive-integer context, the absolute value is trivially correct, and so the dismissal is OK; but the unjustified-claim issue is the implicit jump.
+Step 2 misapplies Fermat's Little Theorem. For prime modulus 3 and a coprime to 3, FLT gives a^(3−1) = a^2 ≡ 1 (mod 3), not 0. The correct conclusion is p^2 + 2 ≡ 1 + 2 ≡ 0 (mod 3) for p > 3, which makes p^2 + 2 divisible by 3 — and hence composite (since p^2 + 2 > 3 in that range). This is the OPPOSITE of what Step 2 derives. The downstream Steps 3 and 4 inherit the sign-flipped congruence and reach an incorrect "broken reasoning" conclusion, when in fact the correct mod-3 argument cleanly establishes p = 3 as the unique solution.

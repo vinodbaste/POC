@@ -4,7 +4,7 @@ Competition: BMOSL
 Problem ID: BMOSL_2015_13  
 Year: 2015
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -16,10 +16,8 @@ Prove that for all positive reals \(a, b, c\),
 ### Option A
 
 ```text
-Step 1.  By Chebyshev's sum inequality applied to the sequences (a, b, c) and
-(a^2/(b^2+c^2), b^2/(c^2+a^2), c^2/(a^2+b^2)) (assumed to be similarly sorted), we have
-   3 sum a · a^2/(b^2+c^2) ≥ (a+b+c) · sum a^2/(b^2+c^2).
-Thus sum a^3/(b^2+c^2) ≥ ((a+b+c)/3) · sum a^2/(b^2+c^2).
+Step 3.  Verification: at a = b = c = 1, LHS = 3 · 1/2 = 3/2, and RHS = (1+1+1)/2 = 3/2,
+so equality holds. ✓
 ```
 
 ### Option B
@@ -34,14 +32,16 @@ which is what we wanted to prove.
 ### Option C
 
 ```text
-Step 3.  Verification: at a = b = c = 1, LHS = 3 · 1/2 = 3/2, and RHS = (1+1+1)/2 = 3/2,
-so equality holds. ✓
+Step 4.  Hence the inequality is proved with equality iff a = b = c.
 ```
 
 ### Option D
 
 ```text
-Step 4.  Hence the inequality is proved with equality iff a = b = c.
+Step 1.  By Chebyshev's sum inequality applied to the sequences (a, b, c) and
+(a^2/(b^2+c^2), b^2/(c^2+a^2), c^2/(a^2+b^2)) (assumed to be similarly sorted), we have
+   3 sum a · a^2/(b^2+c^2) ≥ (a+b+c) · sum a^2/(b^2+c^2).
+Thus sum a^3/(b^2+c^2) ≥ ((a+b+c)/3) · sum a^2/(b^2+c^2).
 ```
 
 ## Full Candidate Proof

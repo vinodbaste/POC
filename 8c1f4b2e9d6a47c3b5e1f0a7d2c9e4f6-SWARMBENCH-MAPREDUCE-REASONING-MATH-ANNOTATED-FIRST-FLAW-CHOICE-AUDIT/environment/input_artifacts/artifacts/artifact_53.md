@@ -4,7 +4,7 @@ Competition: BMOSL
 Problem ID: BMOSL_2020_11  
 Year: 2020
 
-Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
+Benchmark curation item. The annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 
@@ -15,14 +15,6 @@ Let \(ABC\) be an acute triangle with circumcircle \(\Omega\). Let \(D, E, F\) b
 ### Option A
 
 ```text
-Let O be the circumcenter and H the orthocenter of triangle ABC.  By a standard result,
-the reflection of H over any side of the triangle lies on the circumcircle Ω.
-In particular, the reflection H_A of H over line BC lies on Ω.
-```
-
-### Option B
-
-```text
 Let N be the midpoint of OH.  We claim N is the center of the circle through D, E, F.
 To see this, observe that the homothety h centered at H with ratio 1/2 maps each H_X
 (reflection of H over the opposite side) to the foot of the corresponding altitude.
@@ -30,7 +22,7 @@ For instance, h(H_A) is the midpoint of HH_A, which equals D since H_A is the re
 of H over BC.
 ```
 
-### Option C
+### Option B
 
 ```text
 Since h(Ω) is a circle centered at h(O) with radius (1/2) · R = R/2, where R is the
@@ -39,10 +31,18 @@ that D, E, F lie on a circle of radius R/2 centered at h(O).  Furthermore, h(O) 
 midpoint of segment HO, which is exactly the nine-point center N.
 ```
 
-### Option D
+### Option C
 
 ```text
 Therefore the circumradius of DEF is R/2 = (1/2) · (circumradius of ABC), as required.
+```
+
+### Option D
+
+```text
+Let O be the circumcenter and H the orthocenter of triangle ABC.  By a standard result,
+the reflection of H over any side of the triangle lies on the circumcircle Ω.
+In particular, the reflection H_A of H over line BC lies on Ω.
 ```
 
 ## Full Candidate Proof
