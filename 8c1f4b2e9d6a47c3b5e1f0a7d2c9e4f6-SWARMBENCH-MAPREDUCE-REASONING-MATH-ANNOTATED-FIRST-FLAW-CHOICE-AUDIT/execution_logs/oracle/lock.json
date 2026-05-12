@@ -1,13 +1,13 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-12T11:41:56.521042Z",
+    "created_at": "2026-05-12T14:32:58.191404Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
         "is_editable": true
     },
     "invocation": [
-        "/Users/vinodbaste/harbor/.venv/bin/harbor",
+        "/Users/vinodbaste/Turing Projects/harbor/.venv/bin/harbor",
         "run",
         "-p",
         "/Users/vinodbaste/Turing Projects/POC/8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT",
@@ -27,9 +27,9 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
+            "RewardFileEmptyError",
             "AgentTimeoutError",
             "RewardFileNotFoundError",
-            "RewardFileEmptyError",
             "VerifierTimeoutError",
             "VerifierOutputParseError"
         ],
@@ -42,7 +42,7 @@
             "task": {
                 "name": "8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT",
                 "type": "local",
-                "digest": "sha256:0726d14bf723f187db574c55886544ba7290d0f10d602edde5df8e1abadbb7e2",
+                "digest": "sha256:0128e7689cee7338adb0d441a915e1871b1b7ab13d614f59cbe1cf282eb5ab0c",
                 "path": "/Users/vinodbaste/Turing Projects/POC/8c1f4b2e9d6a47c3b5e1f0a7d2c9e4f6-SWARMBENCH-MAPREDUCE-REASONING-MATH-ANNOTATED-FIRST-FLAW-CHOICE-AUDIT"
             },
             "timeout_multiplier": 1.0,
