@@ -1,0 +1,12 @@
+{
+  "shard_id": "shard_06",
+  "artifact_ids": ["artifact_26","artifact_27","artifact_28","artifact_29","artifact_30"],
+  "artifact_audits": [
+    {"artifact_id": "artifact_26", "selected_option": "A"},
+    {"artifact_id": "artifact_27", "selected_option": "A"},
+    {"artifact_id": "artifact_28", "selected_option": "B"},
+    {"artifact_id": "artifact_29", "selected_option": "A"},
+    {"artifact_id": "artifact_30", "selected_option": "B"}
+  ],
+  "choice_counts": {"A": 2, "B": 2, "C": 0, "D": 0}
+}
