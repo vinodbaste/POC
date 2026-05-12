@@ -1,0 +1,16 @@
+{
+  "shard_id": "shard_14",
+  "artifact_ids": ["artifact_131","artifact_132","artifact_133","artifact_134","artifact_135","artifact_136","artifact_137","artifact_138","artifact_139","artifact_140"],
+  "artifact_audits": [
+    {"artifact_id": "artifact_131", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_132", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_133", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_134", "predicted_grade": "Almost", "imo_area": "Geometry"},
+    {"artifact_id": "artifact_135", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_136", "predicted_grade": "Partial", "imo_area": "Geometry"},
+    {"artifact_id": "artifact_137", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_138", "predicted_grade": "Almost", "imo_area": "Number_Theory"},
+    {"artifact_id": "artifact_139", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_140", "predicted_grade": "Partial", "imo_area": "Number_Theory"}
+  ]
+}

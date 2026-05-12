@@ -1,0 +1,107 @@
+{
+    "id": "5095beb9-a4c5-433f-844b-fd83d18e65ed",
+    "task_name": "swarmbench/a3b7c5d8e2f1485690c2d4e6f8a3b7c5-SWARMBENCH-MAPREDUCE-REASONINGMATH-IMO-GRADING-AUDIT",
+    "trial_name": "a3b7c5d8e2f1485690c2d4e6f8a3b7c5__6NwMDY9",
+    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/a3b7c5d8e2f1485690c2d4e6f8a3b7c5-SWARMBENCH-MAPREDUCE-REASONINGMATH-IMO-GRADING-AUDIT/execution_logs/single-kimi-agent/a3b7c5d8e2f1485690c2d4e6f8a3b7c5__6NwMDY9",
+    "task_id": {
+        "path": "/Users/vinodbaste/Turing Projects/POC/a3b7c5d8e2f1485690c2d4e6f8a3b7c5-SWARMBENCH-MAPREDUCE-REASONINGMATH-IMO-GRADING-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "a212e94e280ccde5bfd2b7df3665a40754330ce0f60768e5f09b80b8629d972d",
+    "config": {
+        "task": {
+            "path": "/Users/vinodbaste/Turing Projects/POC/a3b7c5d8e2f1485690c2d4e6f8a3b7c5-SWARMBENCH-MAPREDUCE-REASONINGMATH-IMO-GRADING-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "a3b7c5d8e2f1485690c2d4e6f8a3b7c5__6NwMDY9",
+        "trials_dir": "/Users/vinodbaste/Turing Projects/POC/a3b7c5d8e2f1485690c2d4e6f8a3b7c5-SWARMBENCH-MAPREDUCE-REASONINGMATH-IMO-GRADING-AUDIT/execution_logs/single-kimi-agent",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "swarm-kimi-single",
+            "import_path": null,
+            "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "ad9cbf83-1bf3-4e6d-addf-edcf7cb99fc6"
+    },
+    "agent_info": {
+        "name": "swarm-kimi-single",
+        "version": "unknown",
+        "model_info": {
+            "name": "accounts/fireworks/models/kimi-k2p5",
+            "provider": "fireworks_ai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 3275176,
+        "n_cache_tokens": 2604806,
+        "n_output_tokens": 17185,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.182
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-12T19:27:17.908474Z",
+    "finished_at": "2026-05-12T19:36:45.109700Z",
+    "environment_setup": {
+        "started_at": "2026-05-12T19:27:18.161404Z",
+        "finished_at": "2026-05-12T19:27:22.495852Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-12T19:27:22.495934Z",
+        "finished_at": "2026-05-12T19:27:38.865844Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-12T19:27:38.866009Z",
+        "finished_at": "2026-05-12T19:36:37.607939Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-12T19:36:37.906045Z",
+        "finished_at": "2026-05-12T19:36:42.804094Z"
+    },
+    "step_results": null
+}

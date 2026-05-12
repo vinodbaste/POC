@@ -1,0 +1,16 @@
+{
+  "shard_id": "shard_15",
+  "artifact_ids": ["artifact_141","artifact_142","artifact_143","artifact_144","artifact_145","artifact_146","artifact_147","artifact_148","artifact_149","artifact_150"],
+  "artifact_audits": [
+    {"artifact_id": "artifact_141", "predicted_grade": "Partial", "imo_area": "Number_Theory"},
+    {"artifact_id": "artifact_142", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_143", "predicted_grade": "Partial", "imo_area": "Geometry"},
+    {"artifact_id": "artifact_144", "predicted_grade": "Partial", "imo_area": "Number_Theory"},
+    {"artifact_id": "artifact_145", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_146", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_147", "predicted_grade": "Almost", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_148", "predicted_grade": "Partial", "imo_area": "Number_Theory"},
+    {"artifact_id": "artifact_149", "predicted_grade": "Almost", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_150", "predicted_grade": "Partial", "imo_area": "Algebra"}
+  ]
+}

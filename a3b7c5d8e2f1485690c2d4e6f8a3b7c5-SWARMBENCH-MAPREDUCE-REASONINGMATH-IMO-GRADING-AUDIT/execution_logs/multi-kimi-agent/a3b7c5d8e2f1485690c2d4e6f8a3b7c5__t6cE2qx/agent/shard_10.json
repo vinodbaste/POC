@@ -1,0 +1,16 @@
+{
+  "shard_id": "shard_10",
+  "artifact_ids": ["artifact_091","artifact_092","artifact_093","artifact_094","artifact_095","artifact_096","artifact_097","artifact_098","artifact_099","artifact_100"],
+  "artifact_audits": [
+    {"artifact_id": "artifact_091", "predicted_grade": "Almost", "imo_area": "Number_Theory"},
+    {"artifact_id": "artifact_092", "predicted_grade": "Almost", "imo_area": "Geometry"},
+    {"artifact_id": "artifact_093", "predicted_grade": "Almost", "imo_area": "Algebra"},
+    {"artifact_id": "artifact_094", "predicted_grade": "Partial", "imo_area": "Geometry"},
+    {"artifact_id": "artifact_095", "predicted_grade": "Almost", "imo_area": "Number_Theory"},
+    {"artifact_id": "artifact_096", "predicted_grade": "Partial", "imo_area": "Geometry"},
+    {"artifact_id": "artifact_097", "predicted_grade": "Almost", "imo_area": "Geometry"},
+    {"artifact_id": "artifact_098", "predicted_grade": "Partial", "imo_area": "Combinatorics"},
+    {"artifact_id": "artifact_099", "predicted_grade": "Almost", "imo_area": "Geometry"},
+    {"artifact_id": "artifact_100", "predicted_grade": "Partial", "imo_area": "Combinatorics"}
+  ]
+}

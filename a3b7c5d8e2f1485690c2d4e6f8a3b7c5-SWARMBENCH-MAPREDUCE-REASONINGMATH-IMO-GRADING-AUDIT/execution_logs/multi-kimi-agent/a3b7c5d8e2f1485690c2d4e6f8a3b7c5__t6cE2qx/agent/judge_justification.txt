@@ -1,0 +1,3 @@
+Score: 0.247 (42/170 passed)
+
+42/170 passed. Grading_audits: 25/150 correct (e.g., artifact_020, artifact_027). Shard_summaries: 0/15 correct (all grade_counts wrong). Summary: 0/5 correct (grade_counts, area_counts, grade_by_area, artifacts_by_grade all mismatched). Agent heavily over-predicts 'Partial' (99 vs oracle 38) and under-predicts 'Correct' (12 vs 37). Sample fails: artifact_001 (Partial→Incorrect), artifact_002 (Correct→Almost), artifact_007 (Correct→Partial), artifact_033 (Correct→Partial), artifact_101 (Correct→Incorrect).
