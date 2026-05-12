@@ -1,10 +1,10 @@
-# artifact_01
+﻿# artifact_01
 
 Competition: BMOSL  
 Problem ID: BMOSL_2018_15  
 Year: 2018
 
-You are reviewing a real human annotation from the Open Proof Corpus. A curator converted one free-form annotation into four candidate proof excerpts. Exactly one candidate excerpt contains the human-marked first unrecoverable flaw in this incorrect proof attempt. Choose the correct option letter. The candidate excerpts are presented in a randomized order.
+Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 

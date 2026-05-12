@@ -1,10 +1,10 @@
-# artifact_45
+﻿# artifact_45
 
 Competition: IMOSL  
 Problem ID: IMOSL_2014_2  
 Year: 2014
 
-From the Open Proof Corpus benchmark set. One of the four candidate excerpts below corresponds to the first step that was marked unrecoverable by a human reviewer of this proof attempt. The excerpts appear in randomized order. Select the correct letter.
+Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 

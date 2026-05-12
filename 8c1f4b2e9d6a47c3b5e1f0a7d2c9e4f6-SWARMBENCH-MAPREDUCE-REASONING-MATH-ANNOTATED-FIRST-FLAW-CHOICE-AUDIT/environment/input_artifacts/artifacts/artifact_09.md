@@ -1,10 +1,10 @@
-# artifact_09
+﻿# artifact_09
 
 Competition: BMOSL  
 Problem ID: BMOSL_2017_5  
 Year: 2017
 
-This item is drawn from the INSAIT Open Proof Corpus. A human reviewer identified the first unrecoverable flaw in the proof below; a curator extracted four candidate excerpts from the proof text. Select the letter of the excerpt that contains the annotated flaw. Excerpts are ordered randomly, not by proof position.
+Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 

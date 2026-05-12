@@ -1,10 +1,10 @@
-# artifact_37
+﻿# artifact_37
 
 Competition: USAMO  
 Problem ID: USAMO_2021_2  
 Year: 2021
 
-OPC audit entry. A human annotator reviewing this incorrect olympiad proof marked the first unrecoverable flaw. Four candidate windows have been curated and randomly labeled A–D. Choose the label of the window that contains the human-marked flaw.
+Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 

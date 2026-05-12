@@ -1,10 +1,10 @@
-# artifact_44
+﻿# artifact_44
 
 Competition: BMOSL  
 Problem ID: BMOSL_2023_7  
 Year: 2023
 
-From the Open Proof Corpus benchmark set. One of the four candidate excerpts below corresponds to the first step that was marked unrecoverable by a human reviewer of this proof attempt. The excerpts appear in randomized order. Select the correct letter.
+Benchmark curation item — source: INSAIT-Institute/OPC. The original human annotation flagged one step as the first unrecoverable error in this proof attempt. Four candidate excerpts (labeled A–D in shuffled order) have been extracted from that proof. Identify the excerpt containing that step.
 
 ## Problem
 

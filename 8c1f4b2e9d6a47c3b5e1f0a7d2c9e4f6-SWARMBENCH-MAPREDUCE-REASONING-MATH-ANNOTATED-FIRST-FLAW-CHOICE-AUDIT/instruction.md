@@ -23,7 +23,9 @@ Rules:
 - `artifact_audits` must be sorted by `artifact_id` (lexicographic ascending).
 - `shard_summaries` must be sorted by `shard_id` (lexicographic ascending).
 - `artifacts_by_option` lists must be sorted by `artifact_id` (lexicographic ascending).
-- The aggregate fields `total_artifacts`, `choice_counts`, `competition_counts`, `year_counts`, and `artifacts_by_option` in `summary` are informational tallies computed from your per-artifact selections. They are not independently scored but must be populated correctly.
+- The aggregate fields `total_artifacts`, `choice_counts`, `competition_counts`, `year_counts`, and `artifacts_by_option` in `summary` are informational tallies computed from your per-artifact selections. They are not independently scored.
+
+**Analytical guidance:** Each artifact includes a "Full Candidate Proof" section showing proof steps in their original chronological order, and a "Candidate Excerpts" section where the same steps appear with shuffled labels (A–D). The option labels do not necessarily match the proof sequence. To identify the first unrecoverable flaw: read the Full Candidate Proof to establish the chronological order of steps, map each option label to its position in that order, then select the option whose step is the earliest unrecoverable error. The correct answer may be option C or D even if A or B appear earlier alphabetically.
 
 Write your final answer to `/logs/agent/output.json` as a single JSON object with no other content:
 
