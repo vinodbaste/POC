@@ -1,0 +1,12 @@
+{
+  "verify_id": "verify_11",
+  "artifact_ids": ["artifact_51","artifact_52","artifact_53","artifact_54","artifact_55"],
+  "artifact_audits": [
+    {"artifact_id": "artifact_51", "selected_option": "A", "flaw_type": "misapplied_theorem"},
+    {"artifact_id": "artifact_52", "selected_option": "D", "flaw_type": "false_assumption"},
+    {"artifact_id": "artifact_53", "selected_option": "B", "flaw_type": "scope_violation"},
+    {"artifact_id": "artifact_54", "selected_option": "A", "flaw_type": "algebraic_error"},
+    {"artifact_id": "artifact_55", "selected_option": "B", "flaw_type": "false_assumption"}
+  ],
+  "choice_counts": {"A": 2, "B": 2, "C": 0, "D": 1}
+}
