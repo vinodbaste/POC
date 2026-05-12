@@ -1,0 +1,12 @@
+{
+  "verify_id": "verify_01",
+  "artifact_ids": ["artifact_01","artifact_02","artifact_03","artifact_04","artifact_05"],
+  "artifact_audits": [
+    {"artifact_id": "artifact_01", "selected_option": "A"},
+    {"artifact_id": "artifact_02", "selected_option": "D"},
+    {"artifact_id": "artifact_03", "selected_option": "A"},
+    {"artifact_id": "artifact_04", "selected_option": "C"},
+    {"artifact_id": "artifact_05", "selected_option": "D"}
+  ],
+  "choice_counts": {"A": 2, "B": 0, "C": 1, "D": 2}
+}
