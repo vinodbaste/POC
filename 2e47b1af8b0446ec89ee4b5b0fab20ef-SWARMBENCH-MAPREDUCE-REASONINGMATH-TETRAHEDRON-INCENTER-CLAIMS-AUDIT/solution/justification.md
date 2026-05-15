@@ -42,15 +42,14 @@ dist(A, BC) = dist(A, CD) = dist(A, DB) =: h.     [R2]
 
 ---
 
-## Acceptable solutions: `["A", "D", "I"]`
+## Acceptable solutions: `["A", "D"]`
 
 A response is acceptable iff its claimed set equals the gold set AND no failure-reason trigger phrase fires on its text. Equivalent oracle condition: `final_answer_correct = true` AND `failure_reasons = []`.
 
 - **A**: claims `{a,b,c,d,e}`. No trigger phrase from the 5-code vocabulary appears in A's text (no "AI = r"; no "we can have a tetrahedron satisfying (2) where AI is not perpendicular"; no "tangent to each face at the face-incenter" universal; A's counterexamples mention "incenter", not "centroid"; A does not use "almost regular" or "slightly skewed"). Acceptable.
-- **D**: claims `{a,b,c,d,e}`. No trigger phrase appears. Acceptable.
-- **I**: claims `{a,b,c,d,e}`. No trigger phrase appears. Acceptable.
+- **D**: claims `{a,b,c,d,e}`. No trigger phrase appears (D writes "directly above (H)" where H is the in-centre — the trigger requires the literal word "centroid", which D does not use). Acceptable.
 
-Response C claims the gold set but its text triggers `asserts_universal_face_incenter_tangency`, so C is excluded. Responses B, E, F, G, H have `final_answer_correct = false`.
+Responses C and I claim the gold set but their texts trigger `asserts_universal_face_incenter_tangency`, so C and I are excluded. Responses B, E, F, G, H have `final_answer_correct = false`.
 
 ---
 
@@ -97,9 +96,9 @@ Response C claims the gold set but its text triggers `asserts_universal_face_inc
 - `failure_reasons`: `["asserts_AI_equals_r"]`. Trigger fires on line 9: *"As I is also the center of the inscribed sphere of tetrahedron ABCD, AI = r."* — exact literal `AI = r` asserted as a load-bearing equality in H's (b) proof.
 
 ### Response I
-- Claimed set: `{a, b, c, d, e}` (per response final answer).
+- Claimed set: `{a, b, c, d, e}` (per response final answer, line 208: *"Thus necessary truths: (a), (b), (c), (d), (e)"*).
 - `final_answer_correct`: true.
-- `failure_reasons`: `[]`. No trigger phrase fires.
+- `failure_reasons`: `["asserts_universal_face_incenter_tangency"]`. Trigger fires on line 186: *"The point at which inscribed sphere touches face BCD is incenter of triangle BCD — this is always true for tetrahedron incenter, regardless of hypothesis 2. So true."* — asserts the touch-point identity as a universal property of tetrahedron inspheres, explicitly "regardless of hypothesis 2". The "always" + "regardless of hypothesis 2" markers are textbook universal-premise language.
 
 ---
 
