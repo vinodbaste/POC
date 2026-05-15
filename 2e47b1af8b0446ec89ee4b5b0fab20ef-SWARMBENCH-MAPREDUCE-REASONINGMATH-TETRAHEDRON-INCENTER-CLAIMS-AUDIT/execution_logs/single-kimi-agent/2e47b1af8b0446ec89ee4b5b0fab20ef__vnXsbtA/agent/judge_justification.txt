@@ -1,3 +1,0 @@
-Score: 0.79 (79/100 passed)
-
-Per-solution: 42/49 (A:7, B:5.5, C:5, D:7, E:5.5, F:5.5, G:6.5). Fatal-error: 23/29 (A:2, D:2, B:4, C:3, E:4, F:4, G:4). Cross-summary: 12/18 (gold_final_answer:2, problem_id:1, best_solution_id:3, correct_gtfa:1.5, valid_core_idea:0.5, common_failure_modes:4/6). Format: 4/4. Issues: (1) Agent's C verdict='incorrect' vs oracle 'partially_correct' (-2), (2) Agent's valid_core_idea=['A','D'] misses B,C, (3) Agent missed 2 common_failure_modes (false-insphere-claim partially captured, missed unconstructed-counterexample pattern).
