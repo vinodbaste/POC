@@ -11,8 +11,7 @@
       "response_id": "B",
       "final_answer_correct": false,
       "failure_reasons": [
-        "rejected_perpendicularity_no_counterexample",
-        "cascaded_rejection_of_e_from_a"
+        "rejected_perpendicularity_no_counterexample"
       ]
     },
     {
@@ -32,35 +31,29 @@
       "response_id": "E",
       "final_answer_correct": false,
       "failure_reasons": [
-        "confused_centroid_and_incenter",
-        "self_contradictory_centroid_above",
-        "vague_word_salad_proofs"
+        "self_contradictory_centroid_above"
       ]
     },
     {
       "response_id": "F",
       "final_answer_correct": false,
       "failure_reasons": [
-        "cot_trace_misses_distance_equivalence",
-        "repeats_false_universal_in_e",
-        "vague_almost_regular_nonconstruction"
+        "cot_trace_misses_distance_equivalence"
       ]
     },
     {
       "response_id": "G",
       "final_answer_correct": false,
       "failure_reasons": [
-        "rejects_e_via_general_property_misapplied",
-        "vague_almost_regular_nonconstruction"
+        "vague_almost_regular_nonconstruction",
+        "rejects_e_via_misapplied_general_property"
       ]
     },
     {
       "response_id": "H",
       "final_answer_correct": false,
       "failure_reasons": [
-        "degenerate_counterexample_b_equals_c",
-        "false_claim_ai_equals_inradius",
-        "incoherent_ratio_argument_in_b"
+        "false_claim_ai_equals_inradius"
       ]
     },
     {

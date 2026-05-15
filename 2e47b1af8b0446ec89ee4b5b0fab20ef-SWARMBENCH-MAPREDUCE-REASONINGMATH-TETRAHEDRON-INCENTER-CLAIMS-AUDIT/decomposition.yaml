@@ -18,17 +18,18 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_A.md.
       Audit only Response A. Decide whether its claimed final SET of necessarily-true statement
-      labels equals the gold set. If it is wrong, or if its proof has any defect, return the
-      exact applicable failure_reasons chosen from:
+      labels equals the gold set. If it is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
@@ -36,17 +37,18 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_B.md.
       Audit only Response B. Decide whether its claimed final SET of necessarily-true statement
-      labels equals the gold set. If it is wrong, or if its proof has any defect, return the
-      exact applicable failure_reasons chosen from:
+      labels equals the gold set. If it is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
@@ -54,17 +56,18 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_C.md.
       Audit only Response C. Decide whether its claimed final SET of necessarily-true statement
-      labels equals the gold set. If it is wrong, or if its proof has any defect, return the
-      exact applicable failure_reasons chosen from:
+      labels equals the gold set. If it is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
@@ -72,17 +75,18 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_D.md.
       Audit only Response D. Decide whether its claimed final SET of necessarily-true statement
-      labels equals the gold set. If it is wrong, or if its proof has any defect, return the
-      exact applicable failure_reasons chosen from:
+      labels equals the gold set. If it is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
@@ -90,17 +94,18 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_E.md.
       Audit only Response E. Decide whether its claimed final SET of necessarily-true statement
-      labels equals the gold set. If it is wrong, or if its proof has any defect, return the
-      exact applicable failure_reasons chosen from:
+      labels equals the gold set. If it is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
@@ -110,17 +115,18 @@ sub_tasks:
       Audit only Response F. Decide whether its claimed final SET of necessarily-true statement
       labels equals the gold set. If the response includes a visible chain-of-thought trace
       before its final answer, read the trace and the final answer together and audit them as a
-      single submission. If the claim is wrong, or if its proof has any defect, return the exact
-      applicable failure_reasons chosen from:
+      single submission. If its claim is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
@@ -128,17 +134,18 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_G.md.
       Audit only Response G. Decide whether its claimed final SET of necessarily-true statement
-      labels equals the gold set. If it is wrong, or if its proof has any defect, return the
-      exact applicable failure_reasons chosen from:
+      labels equals the gold set. If it is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
@@ -146,17 +153,18 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_H.md.
       Audit only Response H. Decide whether its claimed final SET of necessarily-true statement
-      labels equals the gold set. If it is wrong, or if its proof has any defect, return the
-      exact applicable failure_reasons chosen from:
+      labels equals the gold set. If it is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
@@ -164,33 +172,34 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_I.md.
       Audit only Response I. Decide whether its claimed final SET of necessarily-true statement
-      labels equals the gold set. If it is wrong, or if its proof has any defect, return the
-      exact applicable failure_reasons chosen from:
+      labels equals the gold set. If it is wrong, or if its proof has any load-bearing defect,
+      return the exact applicable failure_reasons chosen from this 10-code vocabulary:
       rejected_perpendicularity_no_counterexample, cascaded_rejection_of_e_from_a,
       correct_gtfa_invalid_proof_chain, false_universal_insphere_at_face_incenter,
       confused_centroid_and_incenter, self_contradictory_centroid_above,
-      vague_word_salad_proofs, cot_trace_misses_distance_equivalence,
-      repeats_false_universal_in_e, vague_almost_regular_nonconstruction,
-      rejects_e_via_general_property_misapplied, false_claim_ai_equals_inradius,
-      incoherent_ratio_argument_in_b, degenerate_counterexample_b_equals_c. Use an empty list
-      exactly when the claimed set equals the gold AND the proof has no defect. Do not infer
-      correctness or defect codes from other proposed responses.
+      false_claim_ai_equals_inradius, vague_almost_regular_nonconstruction,
+      cot_trace_misses_distance_equivalence, rejects_e_via_misapplied_general_property.
+      Apply each code ONLY when its trigger condition (defined in /workspace/instruction.md) is
+      directly observable in this single response's text. Most responses have 0, 1, or 2
+      failure reasons. Use an empty list exactly when the claimed set equals the gold AND the
+      proof has no load-bearing defect. Do not apply borderline codes; do not include codes
+      whose trigger phrase is not concretely instantiated in this response.
     depends_on: []
     parallel_group: fan-out
 
   - id: synthesize-final-audit
     description: >
-      Combine the gold-set adjudication and nine response audits. Resolve conflicts by
-      independently re-opening /input_artifacts/problem.md and each response file, not by
-      majority vote. Before writing the final output, verify for each response that the
-      claimed set comparison against the gold set is correct and that failure_reasons contains
-      the exact applicable allowed codes with no missing reasons and no extra reasons. Compute
-      acceptable_solution_ids as the uppercase, alphabetically-sorted list of response_ids
-      whose final_answer_correct is true AND failure_reasons is empty. Produce exactly the
-      required JSON schema and write it to /logs/agent/output.json. Top-level keys exactly:
-      gold_set, acceptable_solution_ids, per_response_assessment. per_response_assessment must
-      contain exactly nine objects, ordered alphabetically A through I, each with exactly the
-      keys response_id, final_answer_correct, failure_reasons.
+      Combine the gold-set adjudication and nine response audits. Trust each per-response
+      audit's failure_reasons list and do not add codes that the per-response audit did not
+      identify. Resolve any inconsistency between final_answer_correct and the claimed-set
+      comparison by re-reading the relevant response. Compute acceptable_solution_ids as the
+      uppercase, alphabetically-sorted list of response_ids whose final_answer_correct is true
+      AND failure_reasons is empty. Produce exactly the required JSON schema and write it to
+      /logs/agent/output.json. Top-level keys exactly: gold_set, acceptable_solution_ids,
+      per_response_assessment. per_response_assessment must contain exactly nine objects,
+      ordered alphabetically A through I, each with exactly the keys response_id,
+      final_answer_correct, failure_reasons. Do not introduce additional failure reasons
+      beyond those the per-response audits identified.
     depends_on:
       - adjudicate-gold-set
       - audit-response-a
