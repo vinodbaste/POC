@@ -11,16 +11,14 @@
       "response_id": "B",
       "final_answer_correct": false,
       "failure_reasons": [
-        "rejected_perpendicularity_no_counterexample",
-        "cascaded_rejection_of_e_from_a"
+        "rejects_a_with_we_can_have_assertion"
       ]
     },
     {
       "response_id": "C",
       "final_answer_correct": true,
       "failure_reasons": [
-        "correct_gtfa_invalid_proof_chain",
-        "false_universal_insphere_at_face_incenter"
+        "asserts_universal_face_incenter_tangency"
       ]
     },
     {
@@ -32,35 +30,28 @@
       "response_id": "E",
       "final_answer_correct": false,
       "failure_reasons": [
-        "confused_centroid_and_incenter",
-        "self_contradictory_centroid_above",
-        "vague_word_salad_proofs"
+        "counterexample_places_a_above_centroid"
       ]
     },
     {
       "response_id": "F",
       "final_answer_correct": false,
       "failure_reasons": [
-        "cot_trace_misses_distance_equivalence",
-        "repeats_false_universal_in_e",
-        "vague_almost_regular_nonconstruction"
+        "asserts_universal_face_incenter_tangency"
       ]
     },
     {
       "response_id": "G",
       "final_answer_correct": false,
       "failure_reasons": [
-        "rejects_e_via_general_property_misapplied",
-        "vague_almost_regular_nonconstruction"
+        "appeals_to_almost_regular_or_slightly_skewed"
       ]
     },
     {
       "response_id": "H",
       "final_answer_correct": false,
       "failure_reasons": [
-        "degenerate_counterexample_b_equals_c",
-        "false_claim_ai_equals_inradius",
-        "incoherent_ratio_argument_in_b"
+        "asserts_AI_equals_r"
       ]
     },
     {
