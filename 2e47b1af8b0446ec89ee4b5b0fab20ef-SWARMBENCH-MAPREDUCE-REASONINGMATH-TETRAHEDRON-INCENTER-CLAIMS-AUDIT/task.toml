@@ -3,14 +3,14 @@ name = "swarmbench/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONI
 description = "Audit multiple model-produced solutions to a modified CMO 2026 P4 multi-claim variant about a tetrahedron with inscribed sphere; identify which of 8 claims are necessarily true and classify each candidate's errors."
 
 [metadata]
-verifier_type = "deterministic-set-match"
+verifier_type = "llm-judge"
 domain = "reasoning-math"
-coordination_pattern = "fan-out"
+coordination_pattern = "fan-out-synthesize"
 human_solving_hours_estimate = 14.0
-human_solving_hours_justification = "A graduate-level mathematician needs ~45 minutes to derive and verify the gold answer set {a, b, c, d, e} against the CMO 2026 P4 proof and the rejection arguments for (f), (g), (h). Each of the nine candidate solutions then requires ~1.0–1.5h to read carefully, classify the candidate's claimed set, trace the argument step by step, identify the specific defects (0–3 per candidate from the failure_reasons vocabulary), and confirm that no extra labels apply — roughly 11 hours for 9 candidates. The cross-solution synthesis (verifying gold_set, determining acceptable_solution_ids, ensuring per-response set-match against the vocabulary) adds ~2 hours. Total ≈ 14 hours."
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end audit workflow: 1.5h to independently derive and verify the gold set {a, b, c, d, e} from the two hypotheses (R1 reduction via vol(IXYZ)=(1/3)*area*r, R2 reduction via the area-base identity, locating A's projection at the incenter of BCD via acuteness, concluding AI perpendicular to plane BCD); 9 x 1.0h to audit nine heterogeneous AI-generated responses, extract each claimed set, trace each argument step by step, and assign the exact applicable failure_reasons subset from the controlled vocabulary; 3.5h to reconcile conflicting audits, prepare the 274-point verifier-aligned oracle, and document response-specific rationale. Total: 1.5 + 9.0 + 3.5 = 14.0h."
 estimated_sub_agents = 11
 input_token_estimate = 28000
-why_multi_agent = "The judge scores `failure_reasons` by exact set match per response — a subset or superset scores 0 for that candidate. A single agent juggling all 9 candidates simultaneously consistently produces near-matches (2 of 3 expected labels, or 3 of 2, etc.), zeroing 30-pt blocks per slip. A fan-out decomposition assigns each candidate to its own sub-agent with a clean context window containing only that candidate's prose plus the controlled vocabulary, eliminating cross-candidate label bleed. An independent gold-verifier agent re-establishes the proof structure without polluting any audit context, and a deterministic reducer assembles the final JSON. The deterministic set-match judge then scores each per-response set independently against the oracle, with no LLM in the verification loop."
+why_multi_agent = "The task requires both independent gold-set adjudication of a difficult olympiad-level 3D geometry problem AND detailed auditing of nine verbose candidate responses against a 14-label failure_reasons vocabulary scored by exact set match per response. A single agent is prone to attention degradation: even after deriving the gold set once, it may lose track of each response's specific defects and pick 2-of-3 labels per response, zeroing 30-point blocks. Fan-out assigns the gold-set adjudication to one sub-agent and the nine response audits to nine isolated sub-agents, each with a clean context window containing only its candidate's prose plus the controlled vocabulary in instruction.md. A synthesizer reconciles all labels into one schema."
 reference_link = "https://cms.math.ca/wp-content/uploads/2026/03/CMO2026-problems.pdf"
 
 [agent]
