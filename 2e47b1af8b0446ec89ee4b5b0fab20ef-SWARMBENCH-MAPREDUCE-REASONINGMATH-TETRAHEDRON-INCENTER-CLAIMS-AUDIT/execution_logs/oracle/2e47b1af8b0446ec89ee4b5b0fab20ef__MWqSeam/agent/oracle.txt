@@ -1,6 +1,6 @@
 {
   "gold_set": ["a", "b", "c", "d", "e"],
-  "acceptable_solution_ids": ["A", "D", "I"],
+  "acceptable_solution_ids": ["A", "D"],
   "per_response_assessment": [
     {
       "response_id": "A",
@@ -57,7 +57,9 @@
     {
       "response_id": "I",
       "final_answer_correct": true,
-      "failure_reasons": []
+      "failure_reasons": [
+        "asserts_universal_face_incenter_tangency"
+      ]
     }
   ]
 }

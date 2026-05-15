@@ -1,3 +1,0 @@
-Score: 0.5547 (152/274 passed)
-
-gold_set correct (2/2). acceptable_solution_ids incorrect: agent [A,D,H] vs oracle [A,D,I] (0/2). Per-response: A,B,C,D,E correct (150/150); F incorrect failure_reasons (0/30); G incorrect failure_reasons (0/30); H incorrect final_answer_correct and failure_reasons (0/30); I incorrect final_answer_correct and failure_reasons (0/30).
