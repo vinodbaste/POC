@@ -108,6 +108,33 @@ sub_tasks:
     depends_on: []
     parallel_group: audit
 
+  - id: audit-H-I
+    description: |
+      Same audit as audit-A-B. Files:
+      - /input_artifacts/response_H.md
+      - /input_artifacts/response_I.md
+      Watch for: (1) incoherent proofs that assert the false equality "AI = r" (the
+      distance from vertex A to the incenter I equals the inradius r) — this is
+      mathematically false in general; (2) clean, correct proofs that derive A's
+      projection = incenter of BCD, observe I's projection is also incenter, conclude
+      AI perpendicular to plane BCD.
+      Return {"audits": [<H>, <I>]}.
+
+      primary_error_label vocabulary: NO_ERROR, REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE,
+        FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE, SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE,
+        MISSED_VOLUME_TO_DISTANCE_EQUIVALENCE_IN_COT, VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION,
+        WRONG_PROJECTION_TARGET, CIRCULAR_BISECTOR_ARGUMENT, OVERCLAIMS_EQUILATERAL_BCD,
+        FALSE_CLAIM_AI_EQUALS_INRADIUS_R.
+      required_evidence_label vocabulary: NO_ERROR, TETRAHEDRON_INCENTER_FORMULA_DERIVATION,
+        DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY, PROJECTION_IS_INCENTER_NOT_CENTROID,
+        AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A, VOLUME_CONDITION_FORCES_PERPENDICULARITY,
+        ACUTENESS_RULES_OUT_EXCENTER, DIHEDRAL_BISECTOR_LEMMA,
+        RECOGNIZE_AI_IS_GREATER_THAN_INRADIUS.
+
+      Same verdict values. Do NOT write /logs/agent/output.json.
+    depends_on: []
+    parallel_group: audit
+
   - id: verify-gold-math
     description: |
       Independently establish the gold answer to the problem. Do NOT read any candidate
@@ -143,9 +170,9 @@ sub_tasks:
 
   - id: synthesize-final-audit
     description: |
-      Receive four {"audits": [...]} payloads from audit-A-B, audit-C-D, audit-E-F, audit-G
-      plus the reference brief from verify-gold-math. Merge into the final task output and
-      write to /logs/agent/output.json.
+      Receive five {"audits": [...]} payloads from audit-A-B, audit-C-D, audit-E-F, audit-G,
+      audit-H-I plus the reference brief from verify-gold-math. Merge into the final task
+      output and write to /logs/agent/output.json.
 
       ## Reconciliation rules
       1. For each per-response audit: if final_answer_correct claim disagrees with whether
@@ -155,20 +182,21 @@ sub_tasks:
       3. If verdict="correct" set primary_error_label="NO_ERROR" and
          required_evidence_label="NO_ERROR".
       4. Both label fields must be drawn from the controlled vocabularies (see audit-A-B
-         description for the full lists).
-      5. response_id values uppercase A..G.
+         and audit-H-I descriptions for the full lists, including the new labels
+         FALSE_CLAIM_AI_EQUALS_INRADIUS_R and RECOGNIZE_AI_IS_GREATER_THAN_INRADIUS).
+      5. response_id values uppercase A..I.
 
       ## Final output JSON — write ONLY this file: /logs/agent/output.json
       {
         "response_audits": [
-          <7 reconciled audits, ordered alphabetically by response_id A..G; each audit has
+          <9 reconciled audits, ordered alphabetically by response_id A..I; each audit has
            keys response_id, final_answer_correct, proof_valid, verdict, primary_error_label,
            required_evidence_label — no additional keys>
         ]
       }
 
       ## Self-checks before writing
-      - Exactly 7 entries, ordered A, B, C, D, E, F, G.
+      - Exactly 9 entries, ordered A, B, C, D, E, F, G, H, I.
       - Top-level keys exactly: response_audits.
       - Every entry has exactly these 6 keys: response_id, final_answer_correct, proof_valid,
         verdict, primary_error_label, required_evidence_label.
@@ -176,5 +204,5 @@ sub_tasks:
       - When verdict="correct": primary_error_label=NO_ERROR AND required_evidence_label=NO_ERROR.
 
       Write the final JSON to /logs/agent/output.json. This is the ONLY file you write.
-    depends_on: [audit-A-B, audit-C-D, audit-E-F, audit-G, verify-gold-math]
+    depends_on: [audit-A-B, audit-C-D, audit-E-F, audit-G, audit-H-I, verify-gold-math]
     parallel_group: synthesize

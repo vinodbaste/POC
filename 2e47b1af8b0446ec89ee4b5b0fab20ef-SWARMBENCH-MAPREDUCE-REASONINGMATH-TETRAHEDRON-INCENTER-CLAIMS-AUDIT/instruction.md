@@ -1,10 +1,10 @@
 # Tetrahedron Incenter — Candidate Solution Audit
 
-You are auditing seven model-produced solutions to an olympiad-level 3D geometry problem. Read each candidate solution and produce a structured audit object for it. You are **auditing**, not solving the problem from scratch.
+You are auditing nine model-produced solutions to an olympiad-level 3D geometry problem. Read each candidate solution and produce a structured audit object for it. You are **auditing**, not solving the problem from scratch.
 
 ## Working environment
 
-- Candidate solutions: `/input_artifacts/response_A.md` through `/input_artifacts/response_G.md` (7 files).
+- Candidate solutions: `/input_artifacts/response_A.md` through `/input_artifacts/response_I.md` (9 files).
 - Provenance metadata: `/input_artifacts/provenance.json` (informational only — do not let it bias your audit).
 - Write your final answer to `/logs/agent/output.json`.
 
@@ -70,10 +70,12 @@ Write exactly this JSON structure to `/logs/agent/output.json`:
 - `WRONG_PROJECTION_TARGET` — distractor; do not use unless an audit clearly fits.
 - `CIRCULAR_BISECTOR_ARGUMENT` — distractor; do not use unless an audit clearly fits.
 - `OVERCLAIMS_EQUILATERAL_BCD` — distractor; do not use unless an audit clearly fits.
+- `FALSE_CLAIM_AI_EQUALS_INRADIUS_R` — the candidate's proof asserts the false equality "AI = r" (the distance from vertex A to the incenter I equals the inradius r). This is mathematically false in general — AI is strictly greater than r since I is interior to the tetrahedron and r is the perpendicular distance from I to each face. Often appears in incoherent proofs of (b) that attempt to use a 1:1 ratio argument.
 
 ### `required_evidence_label` vocabulary (use exactly one per response)
 
 - `NO_ERROR` — the proof is valid; nothing required.
+- `RECOGNIZE_AI_IS_GREATER_THAN_INRADIUS` — the candidate needed to recognize that the distance AI (from vertex A to the tetrahedron incenter I) is strictly greater than the inradius r, NOT equal to r. AI = r only in degenerate cases.
 - `TETRAHEDRON_INCENTER_FORMULA_DERIVATION` — the candidate needed to derive that the tetrahedron's incenter I equals $\sum_i S_i v_i / \sum_i S_i$ (face-area-weighted vertex combination) and apply it to show I's projection on plane BCD coincides with A's projection.
 - `DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY` — the candidate needed to derive the touch point of the insphere on face BCD as a consequence of AI ⊥ plane BCD (using the volume condition), rather than as a universal property of tangential tetrahedra.
 - `PROJECTION_IS_INCENTER_NOT_CENTROID` — the candidate needed to recognize that the volume condition forces A's projection on plane BCD to be the incenter of triangle BCD, not the centroid.
@@ -88,7 +90,7 @@ For each response, pick exactly **one** `primary_error_label` from the vocabular
 
 ## Output rules
 
-- `response_audits` must contain exactly 7 entries, ordered alphabetically by `response_id` (A, B, C, D, E, F, G).
-- Every `response_id` must be uppercase A..G.
+- `response_audits` must contain exactly 9 entries, ordered alphabetically by `response_id` (A, B, C, D, E, F, G, H, I).
+- Every `response_id` must be uppercase A..I.
 - Every field must be present in every entry.
 - Top-level keys exactly: `response_audits`. No other top-level keys.
