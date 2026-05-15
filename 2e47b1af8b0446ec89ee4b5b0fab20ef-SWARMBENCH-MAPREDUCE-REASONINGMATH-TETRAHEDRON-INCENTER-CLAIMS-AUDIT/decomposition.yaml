@@ -25,20 +25,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
@@ -58,20 +54,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
@@ -91,20 +83,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
@@ -124,20 +112,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
@@ -157,20 +141,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
@@ -192,20 +172,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
@@ -225,20 +201,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
@@ -258,20 +230,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
@@ -291,20 +259,16 @@ sub_tasks:
       rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
       where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
       concrete construction);
-      asserts_universal_face_incenter_tangency (claim that the insphere is tangent to each
-      face at the face-incenter asserted as a universal property — trigger phrases include
-      "tangent to each face at its face-incenter", "point of tangency on each face is the
-      incenter of that face", or any near-verbatim claim that this holds "always" / "for any
-      tangential tetrahedron" / "regardless of hypothesis 2"; trigger does NOT fire when the
-      response derives the touch-point identity from hypothesis (2) as a conclusion);
+      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
+      at its face-incenter" or "the point of tangency on each face is the incenter of that
+      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
       counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
       not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
       paragraph to statement (a), placing A directly above the centroid of triangle BCD);
       appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
       skewed" used to dismiss a claim without concrete construction).
       The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "always" and "regardless of hypothesis 2" are universal markers;
-      "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
+      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
       specific line in this response whose text contains the trigger phrase
       (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
       Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
