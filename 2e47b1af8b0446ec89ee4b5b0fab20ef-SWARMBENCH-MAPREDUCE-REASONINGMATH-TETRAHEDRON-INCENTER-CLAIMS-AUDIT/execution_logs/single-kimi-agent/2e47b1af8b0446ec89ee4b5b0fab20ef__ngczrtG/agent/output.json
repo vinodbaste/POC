@@ -1,0 +1,136 @@
+{
+  "problem_id": "cmo2026-p4-claims-audit",
+  "gold_final_answer": "{a, b, c, d, e}",
+  "solution_audits": [
+    {
+      "solution_id": "A",
+      "claimed_set": ["a", "b", "c", "d", "e"],
+      "verdict": "correct",
+      "final_answer_correct": true,
+      "logical_chain_valid": true,
+      "proof_complete": true,
+      "contains_wrong_math_claim": false,
+      "first_fatal_error": null,
+      "failure_labels": [],
+      "domain_specific_labels": [],
+      "repairability": "n/a",
+      "brief_assessment": "Completely correct solution. Properly derives that the volume condition implies equal distances from A to lines BC, CD, DB (statement c), uses the projection-Pythagorean argument to show the projection of A onto plane BCD is the incenter (statement b), applies the incenter formula for tetrahedra to prove AI is perpendicular to BCD (statement a) and that the insphere tangency point is the incenter (statement e), and correctly derives the area ratio (statement d). Valid counterexamples for (f), (g), (h)."
+    },
+    {
+      "solution_id": "B",
+      "claimed_set": ["b", "c", "d"],
+      "verdict": "incorrect",
+      "final_answer_correct": false,
+      "logical_chain_valid": false,
+      "proof_complete": false,
+      "contains_wrong_math_claim": true,
+      "first_fatal_error": {
+        "location": "analysis of statement (e) - claim that tangency point is not necessarily the incenter",
+        "error_type": "false_math_claim",
+        "explanation": "The solution incorrectly claims that 'the point where the sphere touches face BCD is not necessarily the incenter of triangle BCD.' In a tangential tetrahedron, the insphere touches each face at the incenter of that triangular face. The touch point is equidistant from the three edges of the face (distance = r), and the unique point in a triangle equidistant from all three sides is the incenter. This is a fundamental property of tangential tetrahedra that the solution misstates."
+      },
+      "failure_labels": ["final_answer_error", "false_math_claim"],
+      "domain_specific_labels": [],
+      "repairability": "major_rewrite",
+      "brief_assessment": "The solution correctly identifies (b), (c), (d) but fails to recognize that (a) and (e) are also necessarily true. The error stems from a misunderstanding of the insphere tangency point geometry. The solution could be corrected by recognizing that in a tangential tetrahedron, the touch point on each face is the incenter of that face, which forces AI to be perpendicular to BCD."
+    },
+    {
+      "solution_id": "C",
+      "claimed_set": ["a", "b", "c", "d", "e"],
+      "verdict": "correct",
+      "final_answer_correct": true,
+      "logical_chain_valid": true,
+      "proof_complete": true,
+      "contains_wrong_math_claim": false,
+      "first_fatal_error": null,
+      "failure_labels": [],
+      "domain_specific_labels": [],
+      "repairability": "n/a",
+      "brief_assessment": "Completely correct solution with a clean logical structure. Properly derives (c) from the volume condition, uses the projection argument to establish (b), and correctly recognizes that (a), (b), (e) form an equivalent set based on the insphere tangency properties. The solution also correctly notes that the acute dihedral angle condition ensures the projection is the interior incenter rather than an excenter. Valid counterexamples for (f), (g), (h)."
+    },
+    {
+      "solution_id": "D",
+      "claimed_set": ["a", "b", "c", "d", "e"],
+      "verdict": "correct",
+      "final_answer_correct": true,
+      "logical_chain_valid": true,
+      "proof_complete": true,
+      "contains_wrong_math_claim": false,
+      "first_fatal_error": null,
+      "failure_labels": [],
+      "domain_specific_labels": [],
+      "repairability": "n/a",
+      "brief_assessment": "Completely correct solution with rigorous mathematical derivation. Uses the volume-to-area translation correctly to establish (c) and (d), applies the Pythagorean relationship for projections to prove (b), and elegantly shows that since I lies on the internal bisector planes that meet at line AI, and these planes contain the angle bisectors of triangle BCD meeting at its incenter H, the points A, I, H are collinear, giving (a) and (e). Valid counterexamples for (f), (g), (h)."
+    },
+    {
+      "solution_id": "E",
+      "claimed_set": ["c", "d", "e"],
+      "verdict": "incorrect",
+      "final_answer_correct": false,
+      "logical_chain_valid": false,
+      "proof_complete": false,
+      "contains_wrong_math_claim": true,
+      "first_fatal_error": {
+        "location": "analysis of statement (b) - claim that projection is not necessarily the incenter",
+        "error_type": "underjustified_step",
+        "explanation": "The solution asserts without valid proof that 'the projection of A onto BCD does not necessarily coincide with the incenter of triangle BCD.' However, from the volume condition, we derive that d(A, BC) = d(A, CD) = d(A, DB). If P is the projection of A onto plane BCD, then d(A, ℓ)² = d(P, ℓ)² + h² for any line ℓ in the plane, so equal distances from A imply equal distances from P, making P the incenter (by the acute dihedral angle condition). The solution fails to recognize this necessary implication."
+      },
+      "failure_labels": ["final_answer_error", "underjustified_step", "incomplete_proof"],
+      "domain_specific_labels": ["missed_volume_to_distance_lemma"],
+      "repairability": "major_rewrite",
+      "brief_assessment": "The solution correctly identifies (c), (d), and (e) but fails to prove (a) and (b). The error is in not recognizing that the equal distance condition from (c) forces the projection of A onto plane BCD to be the incenter of triangle BCD. Once this is established, (a) follows from the fact that the insphere center I also projects to the incenter of face BCD. The solution needs significant revision to connect these geometric facts."
+    },
+    {
+      "solution_id": "F",
+      "claimed_set": ["d", "e"],
+      "verdict": "incorrect",
+      "final_answer_correct": false,
+      "logical_chain_valid": false,
+      "proof_complete": false,
+      "contains_wrong_math_claim": true,
+      "first_fatal_error": {
+        "location": "analysis of statement (c) - claim that distances from A to lines are not necessarily equal",
+        "error_type": "false_math_claim",
+        "explanation": "The solution explicitly claims that statement (c) is 'not necessarily true' and provides an invalid counterexample. However, (c) follows directly and necessarily from the volume condition: vol(IABC)/BC = vol(IACD)/CD implies area(ABC)/BC = area(ACD)/CD, which implies (1/2)·d(A, BC) = (1/2)·d(A, CD), so d(A, BC) = d(A, CD). The solution fails to derive this necessary consequence, making a false claim about statement (c)."
+      },
+      "failure_labels": ["final_answer_error", "false_math_claim", "invalid_logical_step"],
+      "domain_specific_labels": ["missed_volume_to_distance_lemma"],
+      "repairability": "major_rewrite",
+      "brief_assessment": "The solution has a fundamental error in claiming (c) is false when it necessarily follows from the given volume condition. The solution also incorrectly rejects (a) and (b) without valid justification. While (d) and (e) are correctly identified, the reasoning for (e) is actually circular—it assumes what it needs to prove about insphere tangency points. The solution needs substantial revision to correctly derive all five true statements."
+    },
+    {
+      "solution_id": "G",
+      "claimed_set": ["d"],
+      "verdict": "incorrect",
+      "final_answer_correct": false,
+      "logical_chain_valid": false,
+      "proof_complete": false,
+      "contains_wrong_math_claim": true,
+      "first_fatal_error": {
+        "location": "analysis of statement (c) - claim that equal distances to lines are not forced",
+        "error_type": "false_math_claim",
+        "explanation": "The solution claims that 'the volume condition does not imply this' regarding equal distances from A to lines BC, CD, DB. This is mathematically false. As derived from the volume condition: area(ABC)/BC = area(ACD)/CD = area(ADB)/DB. Since area(ABC) = (1/2)·BC·d(A, BC), we get d(A, BC) = d(A, CD) = d(A, DB) necessarily. The solution completely misses this direct algebraic consequence of the hypothesis."
+      },
+      "failure_labels": ["final_answer_error", "false_math_claim", "underjustified_step"],
+      "domain_specific_labels": ["missed_volume_to_distance_lemma"],
+      "repairability": "major_rewrite",
+      "brief_assessment": "This is the most incomplete solution, correctly identifying only statement (d). The solution fails to recognize that (c) follows immediately from the volume condition via the area formula. Without (c), the solution cannot derive (b), (a), or (e). The counterexamples provided for (a), (b), (c), (e) are hand-wavy and not mathematically rigorous. The solution requires a complete rewrite to properly analyze the geometric constraints."
+    }
+  ],
+  "cross_solution_summary": {
+    "common_failure_modes": [
+      "Failure to recognize that the volume condition vol(IABC)/BC = ... directly implies equal distances from A to lines BC, CD, DB (statement c) via the area formula area = (1/2)·base·height",
+      "Failure to use the projection-Pythagorean argument: d(A, ℓ)² = d(P, ℓ)² + h² to establish that equal distances from A imply equal distances from its projection P",
+      "Misunderstanding of insphere geometry: not recognizing that the touch point of the insphere on each face is the incenter of that face"
+    ],
+    "solutions_with_correct_gtfa_but_invalid_proof": [],
+    "solutions_with_valid_core_idea": ["A", "C", "D"],
+    "candidates_sharing_same_fatal_error_type": [
+      ["B", "E", "F", "G"]
+    ],
+    "candidates_implicitly_using_same_false_lemma": [
+      ["B", "F"]
+    ],
+    "best_solution_id": "D"
+  }
+}
