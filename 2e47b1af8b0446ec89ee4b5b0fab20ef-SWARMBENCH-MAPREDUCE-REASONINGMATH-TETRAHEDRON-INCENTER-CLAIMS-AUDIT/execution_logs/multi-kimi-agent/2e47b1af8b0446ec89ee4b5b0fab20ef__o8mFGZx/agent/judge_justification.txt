@@ -1,9 +1,0 @@
-Score: 0.854 (269/315 passed)
-
-Response A: 45/45; final_answer_correct=1/1; proof_valid=1/1; verdict=1/1; primary_error_label=40/40; required_evidence_label=2/2
-Response B: 43/45; final_answer_correct=1/1; proof_valid=1/1; verdict=1/1; primary_error_label=40/40; required_evidence_label=0/2 (got='VOLUME_CONDITION_FORCES_PERPENDICULARITY', expected='TETRAHEDRON_INCENTER_FORMULA_DERIVATION')
-Response C: 45/45; final_answer_correct=1/1; proof_valid=1/1; verdict=1/1; primary_error_label=40/40; required_evidence_label=2/2
-Response D: 45/45; final_answer_correct=1/1; proof_valid=1/1; verdict=1/1; primary_error_label=40/40; required_evidence_label=2/2
-Response E: 43/45; final_answer_correct=1/1; proof_valid=1/1; verdict=1/1; primary_error_label=40/40; required_evidence_label=0/2 (got='DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY', expected='PROJECTION_IS_INCENTER_NOT_CENTROID')
-Response F: 5/45; final_answer_correct=1/1; proof_valid=1/1; verdict=1/1; primary_error_label=0/40 (got='VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION', expected='MISSED_VOLUME_TO_DISTANCE_EQUIVALENCE_IN_COT'); required_evidence_label=2/2
-Response G: 43/45; final_answer_correct=1/1; proof_valid=1/1; verdict=1/1; primary_error_label=40/40; required_evidence_label=0/2 (got='AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A', expected='VOLUME_CONDITION_FORCES_PERPENDICULARITY')

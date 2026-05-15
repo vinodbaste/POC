@@ -9,17 +9,17 @@
         "download_dir": null,
         "source": null
     },
-    "trial_name": "2e47b1af8b0446ec89ee4b5b0fab20ef__WJivBJX",
-    "trials_dir": "/Users/vinodbaste/Turing Projects/POC/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT/execution_logs/oracle",
+    "trial_name": "2e47b1af8b0446ec89ee4b5b0fab20ef__qX4DZBF",
+    "trials_dir": "/Users/vinodbaste/Turing Projects/POC/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT/execution_logs/single-kimi-agent",
     "timeout_multiplier": 1.0,
     "agent_timeout_multiplier": null,
     "verifier_timeout_multiplier": null,
     "agent_setup_timeout_multiplier": null,
     "environment_build_timeout_multiplier": null,
     "agent": {
-        "name": "oracle",
+        "name": "swarm-kimi-single",
         "import_path": null,
-        "model_name": null,
+        "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
         "override_timeout_sec": null,
         "override_setup_timeout_sec": null,
         "max_timeout_sec": null,
@@ -51,5 +51,5 @@
         "disable": false
     },
     "artifacts": [],
-    "job_id": "e559fe8d-b212-4913-97b4-d729d4ad98af"
+    "job_id": "195b8fc4-cd2e-4f50-bf22-d49a5b2feca4"
 }

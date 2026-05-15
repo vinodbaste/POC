@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-15T14:57:50.170585Z",
+    "created_at": "2026-05-15T15:53:40.070857Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -34,10 +34,10 @@
         "max_retries": 0,
         "exclude_exceptions": [
             "AgentTimeoutError",
-            "RewardFileEmptyError",
-            "RewardFileNotFoundError",
             "VerifierTimeoutError",
-            "VerifierOutputParseError"
+            "VerifierOutputParseError",
+            "RewardFileEmptyError",
+            "RewardFileNotFoundError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -48,7 +48,7 @@
             "task": {
                 "name": "2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT",
                 "type": "local",
-                "digest": "sha256:44fd17ec76d17ed0b6aaa3f908fd3c40b4cb8a98aa535b75a36d602ce2f9a822",
+                "digest": "sha256:c323c1028ad324eca7989f919ef19dfc394e6b4209d94d587a56eb7566b5e549",
                 "path": "/Users/vinodbaste/Turing Projects/POC/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT"
             },
             "timeout_multiplier": 1.0,
