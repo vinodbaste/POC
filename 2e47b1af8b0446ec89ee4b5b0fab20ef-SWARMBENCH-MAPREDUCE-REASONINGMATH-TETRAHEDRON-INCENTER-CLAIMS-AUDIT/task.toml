@@ -1,5 +1,5 @@
 [task]
-name = "2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT"
+name = "swarmbench/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT"
 description = "Audit multiple model-produced solutions to a modified CMO 2026 P4 multi-claim variant about a tetrahedron with inscribed sphere; identify which of 8 claims are necessarily true and classify each candidate's errors."
 
 [metadata]
