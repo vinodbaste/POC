@@ -127,9 +127,3 @@ Use only these strings.
 - `excenter_vs_incenter_gap` — applies "equidistant from three lines = incenter" without noting that the equidistant point could be an excenter when the projection is outside triangle BCD.
 - `degenerate_or_unphysical_configuration` — works in a configuration that contradicts the inscribed-sphere or acuteness hypothesis.
 
-## What NOT to do
-
-- Do not solve the problem from scratch and ignore the candidate solutions — your job is to audit.
-- Do not introduce labels outside the allowed vocabularies.
-- Do not modify files in `/input_artifacts/`.
-- Do not write anything to `/logs/agent/` other than `output.json`.
