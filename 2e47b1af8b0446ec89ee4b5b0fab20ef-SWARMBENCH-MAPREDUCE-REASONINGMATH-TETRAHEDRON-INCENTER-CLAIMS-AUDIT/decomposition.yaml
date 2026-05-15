@@ -410,6 +410,21 @@ sub_tasks:
               reasoning steps align with the reference brief's per_claim_brief for
               the claims they attempt — regardless of whether they reach the full
               gold set>],
+          "candidates_sharing_same_fatal_error_type": [<list of GROUPS of
+              solution_ids. Compute this by reading each non-correct audit's
+              first_fatal_error.error_type and bucketing solution_ids whose
+              error_type strings are equal (case-insensitive, normalized). Each
+              inner list is one group; only emit groups of size >= 2. Singletons
+              are dropped. Order within each group does not matter; order of
+              groups does not matter. Example shape: [["A","C"],["D","F"]].>],
+          "candidates_implicitly_using_same_false_lemma": [<list of GROUPS of
+              solution_ids whose proofs implicitly invoke the same FALSE general
+              mathematical claim (a universal assertion that is not actually
+              true). The reference brief's known_pitfalls lists the false claims
+              to look for. Bucket solution_ids whose brief_assessment OR
+              first_fatal_error.explanation references the same false claim.
+              Only emit groups of size >= 2. If no two candidates share a false
+              lemma, this field is an empty list [].>],
           "best_solution_id": "<the single best candidate by overall verdict,
                                soundness, and concision; or 'none' if no candidate
                                is fully correct>"
@@ -426,6 +441,14 @@ sub_tasks:
       - gold_final_answer is formatted as specified above.
       - Top-level keys are exactly: problem_id, gold_final_answer, solution_audits,
         cross_solution_summary. No extra keys.
+      - cross_solution_summary contains exactly these keys: common_failure_modes,
+        solutions_with_correct_gtfa_but_invalid_proof, solutions_with_valid_core_idea,
+        candidates_sharing_same_fatal_error_type,
+        candidates_implicitly_using_same_false_lemma, best_solution_id.
+      - candidates_sharing_same_fatal_error_type: every inner list has >= 2
+        solution_ids; no singletons.
+      - candidates_implicitly_using_same_false_lemma: every inner list has >= 2
+        solution_ids; if none qualify, use the literal empty list [].
 
       Write the final JSON to /logs/agent/output.json. This is the ONLY file the
       synthesizer writes — do not produce other artifacts.

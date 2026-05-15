@@ -130,6 +130,8 @@
     ],
     "solutions_with_correct_gtfa_but_invalid_proof": ["C"],
     "solutions_with_valid_core_idea": ["A", "B", "C", "D"],
+    "candidates_sharing_same_fatal_error_type": [["B", "G"], ["C", "F"]],
+    "candidates_implicitly_using_same_false_lemma": [["C", "E", "F"]],
     "best_solution_id": "D"
   }
 }

@@ -168,6 +168,28 @@ Selection criterion: overall verdict + soundness + concision among the candidate
 - C: partially_correct (false universal in proof of (a) and (e)) — disqualified by soundness.
 - D: correct verdict, sound, concise — matches CMO Solution 2 essentially verbatim. **Best.**
 
+### `candidates_sharing_same_fatal_error_type: [["B", "G"], ["C", "F"]]`
+
+Computed by bucketing each non-correct candidate's `first_fatal_error.error_type` (Part B, per-candidate):
+
+- `underjustified_step`: B (unconstructed counterexample for (a)), G (unconstructed counterexample for (a)) → group `["B", "G"]`.
+- `false_math_claim`: C (false insphere-touches-face-incenter universal), F (false insphere universal in (e)) → group `["C", "F"]`.
+- `invalid_logical_step`: only E (self-contradictory "directly above the centroid but not orthogonal" counterexample) — singleton, **dropped** per the schema rule that groups must have size ≥ 2.
+
+Note that B and G arrive at the unconstructed-counterexample pattern independently — B from Haiku's "we can have a tetrahedron satisfying (2) where AI is not perpendicular", G from Gemini Flash's "consider a tetrahedron that is 'almost' regular, but slightly skewed". Both names the same shape of error.
+
+### `candidates_implicitly_using_same_false_lemma: [["C", "E", "F"]]`
+
+Computed by identifying candidates whose proofs implicitly rely on the false universal claim *"the insphere of any tangential tetrahedron is tangent to each face at the face's incenter"*. From Part B:
+
+- C: cites the claim explicitly in Step 3 (verbatim quote in Part B). Uses it to derive (a) and (e).
+- E: writes *"By definition of the inradius, the point of tangency from I to BCD is by construction the incenter"* — same false claim, more bluntly stated, used to justify (e).
+- F: writes *"For a tangential tetrahedron, the point of tangency on each face is the incenter of that face. Is that true? Yes, because the incenter is equidistant from the sides, and the sphere is tangent..."* — restates the same false universal in F's chain-of-thought trace.
+
+A, B, D, G do not invoke this false claim (A derives the touch-point identity directly from the tetrahedron-incenter formula; B and G do not engage with (e) at all beyond rejecting it; D derives the touch-point property as a consequence of (a) via the dihedral-bisector argument). So the only group of size ≥ 2 is `["C", "E", "F"]`.
+
+If your audit-EF mapper or audit-G mapper failed to detect the false-universal in F's chain-of-thought trace, the synthesizer should still be able to recover it from the per-candidate `failure_labels` containing `false_math_claim` AND the `brief_assessment` mentioning the insphere/face-incenter claim.
+
 ---
 
 ## Part D — Schema compliance of oracle.json

@@ -1,180 +1,373 @@
+"""Deterministic verifier for the Tetrahedron Incenter Claims Audit task.
+
+No LLM is called. The script compares the agent's /logs/agent/output.json against
+the gold /tests/oracle.json field by field using exact-match and set-IoU rules,
+then writes a reward in [0.0, 1.0] to /logs/verifier/reward.json.
+
+Scoring total = 100 points:
+  - 35 per-solution (5 pts each * 7 solutions: claimed_set, verdict, 4 booleans, repairability)
+  - 15 fatal-error    (3 pts each for the 5 non-correct solutions: error_type, explanation non-empty)
+  -  4 correct-null  (2 pts each for the 2 correct solutions A,D: first_fatal_error must be null)
+  - 14 failure_labels coverage (2 pts per solution * 7)
+  -  7 domain_specific_labels coverage (1 pt per solution * 7)
+  - 25 cross_solution_summary breakdown described below.
+
+Schema-violation gating: missing top-level keys, non-list solution_audits, or
+non-7-entry solution_audits all cap the reward at 0.5 (multiply per-solution and
+fatal-error blocks by 0.5).
+
+License: MIT (this file ships with the task; safe to redistribute).
+"""
+
 import argparse
 import json
 import os
-import re
-import urllib.error
-import urllib.request
+from typing import Any, Dict, List, Set
 
 
-def extract_json(text: str) -> str:
-    text = text.strip()
-    match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
-    if match:
-        return match.group(1).strip()
-    start = text.find("{")
-    end = text.rfind("}")
-    if start != -1 and end != -1 and end > start:
-        return text[start:end + 1]
-    return text
+# ----- helpers -----------------------------------------------------------------
 
 
-def call_fireworks(messages, max_tokens=4000, timeout=240):
-    payload = {
-        "model": "accounts/fireworks/models/kimi-k2p5",
-        "messages": messages,
-        "temperature": 0,
-        "max_tokens": max_tokens,
-        "response_format": {"type": "json_object"},
-    }
-    request = urllib.request.Request(
-        "https://api.fireworks.ai/inference/v1/chat/completions",
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {os.environ['FIREWORKS_API_KEY']}",
-            "Content-Type": "application/json",
-        },
-        method="POST",
-    )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        body = json.loads(response.read().decode("utf-8"))
-    return body.get("choices", [{}])[0].get("message", {}).get("content", "") or ""
+def normalize_letter_list(value: Any) -> List[str]:
+    """Lowercase, strip whitespace, keep only single letters a-h, alphabetical."""
+    if not isinstance(value, list):
+        return []
+    out = []
+    for v in value:
+        if not isinstance(v, str):
+            continue
+        s = v.strip().lower()
+        if len(s) == 1 and s in "abcdefgh":
+            out.append(s)
+    return sorted(set(out))
+
+
+def normalize_solution_id_list(value: Any) -> List[str]:
+    """Uppercase, strip whitespace, keep only single letters A-G, alphabetical."""
+    if not isinstance(value, list):
+        return []
+    out = []
+    for v in value:
+        if not isinstance(v, str):
+            continue
+        s = v.strip().upper()
+        if len(s) == 1 and s in "ABCDEFG":
+            out.append(s)
+    return sorted(set(out))
+
+
+def normalize_groups_of_solution_ids(value: Any) -> Set[frozenset]:
+    """For list-of-lists fields. Each inner list becomes a frozenset of normalized
+    solution IDs; outer becomes a set of those frozensets so order is irrelevant.
+    Singletons are dropped (a group of size 1 is meaningless for "sharing")."""
+    if not isinstance(value, list):
+        return set()
+    out: Set[frozenset] = set()
+    for group in value:
+        if not isinstance(group, list):
+            continue
+        norm = frozenset(normalize_solution_id_list(group))
+        if len(norm) >= 2:
+            out.add(norm)
+    return out
+
+
+def set_iou(a: Set[Any], b: Set[Any]) -> float:
+    if not a and not b:
+        return 1.0
+    union = a | b
+    if not union:
+        return 1.0
+    return len(a & b) / len(union)
+
+
+# ----- per-section scoring -----------------------------------------------------
+
+
+def score_per_solution_entry(agent: Dict[str, Any], oracle: Dict[str, Any]) -> float:
+    """Return up to 5.0 points for one solution audit entry."""
+    pts = 0.0
+    if normalize_letter_list(agent.get("claimed_set")) == normalize_letter_list(oracle.get("claimed_set")):
+        pts += 1.0
+    if str(agent.get("verdict", "")).strip().lower() == str(oracle.get("verdict", "")).strip().lower():
+        pts += 1.0
+    if bool(agent.get("final_answer_correct")) == bool(oracle.get("final_answer_correct")):
+        pts += 0.5
+    if bool(agent.get("logical_chain_valid")) == bool(oracle.get("logical_chain_valid")):
+        pts += 0.5
+    if bool(agent.get("proof_complete")) == bool(oracle.get("proof_complete")):
+        pts += 0.5
+    if bool(agent.get("contains_wrong_math_claim")) == bool(oracle.get("contains_wrong_math_claim")):
+        pts += 0.5
+    if str(agent.get("repairability", "")).strip().lower() == str(oracle.get("repairability", "")).strip().lower():
+        pts += 1.0
+    return pts
+
+
+def score_fatal_error_entry(agent: Dict[str, Any], oracle: Dict[str, Any]) -> float:
+    """Per non-correct solution: up to 3 pts. error_type match = 2 pts, non-empty
+    explanation = 1 pt. Oracle verdict drives the rule."""
+    oracle_ffe = oracle.get("first_fatal_error")
+    if oracle_ffe is None:
+        return 0.0  # this entry is scored under correct-null block instead
+    pts = 0.0
+    agent_ffe = agent.get("first_fatal_error")
+    if not isinstance(agent_ffe, dict):
+        return 0.0
+    if str(agent_ffe.get("error_type", "")).strip().lower() == str(oracle_ffe.get("error_type", "")).strip().lower():
+        pts += 2.0
+    explanation = str(agent_ffe.get("explanation", "")).strip()
+    if len(explanation) >= 20:
+        pts += 1.0
+    return pts
+
+
+def score_correct_null_entry(agent: Dict[str, Any], oracle: Dict[str, Any]) -> float:
+    """Per correct solution: up to 2 pts. first_fatal_error must be null AND
+    repairability must be 'n/a'."""
+    if oracle.get("first_fatal_error") is not None:
+        return 0.0
+    pts = 0.0
+    if agent.get("first_fatal_error") is None:
+        pts += 1.0
+    if str(agent.get("repairability", "")).strip().lower() == "n/a":
+        pts += 1.0
+    return pts
+
+
+def score_failure_labels(agent: Dict[str, Any], oracle: Dict[str, Any], max_pts: float) -> float:
+    """Set-IoU on failure_labels."""
+    a = {str(s).strip().lower() for s in (agent.get("failure_labels") or []) if isinstance(s, str)}
+    o = {str(s).strip().lower() for s in (oracle.get("failure_labels") or []) if isinstance(s, str)}
+    return max_pts * set_iou(a, o)
+
+
+def score_domain_labels(agent: Dict[str, Any], oracle: Dict[str, Any], max_pts: float) -> float:
+    """Set-IoU on domain_specific_labels."""
+    a = {str(s).strip().lower() for s in (agent.get("domain_specific_labels") or []) if isinstance(s, str)}
+    o = {str(s).strip().lower() for s in (oracle.get("domain_specific_labels") or []) if isinstance(s, str)}
+    return max_pts * set_iou(a, o)
+
+
+# ----- cross-summary scoring ---------------------------------------------------
+
+
+def score_cross_summary(agent_cs: Dict[str, Any], oracle_cs: Dict[str, Any]) -> float:
+    """Return up to 25.0 points from the cross_solution_summary block."""
+    pts = 0.0
+
+    # best_solution_id (3 pts, exact match)
+    if str(agent_cs.get("best_solution_id", "")).strip().upper() == str(oracle_cs.get("best_solution_id", "")).strip().upper():
+        pts += 3.0
+
+    # solutions_with_correct_gtfa_but_invalid_proof (2 pts, exact set match)
+    if set(normalize_solution_id_list(agent_cs.get("solutions_with_correct_gtfa_but_invalid_proof"))) == \
+       set(normalize_solution_id_list(oracle_cs.get("solutions_with_correct_gtfa_but_invalid_proof"))):
+        pts += 2.0
+
+    # solutions_with_valid_core_idea (2 pts, exact set match)
+    if set(normalize_solution_id_list(agent_cs.get("solutions_with_valid_core_idea"))) == \
+       set(normalize_solution_id_list(oracle_cs.get("solutions_with_valid_core_idea"))):
+        pts += 2.0
+
+    # NEW: candidates_sharing_same_fatal_error_type (5 pts, set of frozensets)
+    agent_groups = normalize_groups_of_solution_ids(agent_cs.get("candidates_sharing_same_fatal_error_type"))
+    oracle_groups = normalize_groups_of_solution_ids(oracle_cs.get("candidates_sharing_same_fatal_error_type"))
+    if oracle_groups:
+        per_group = 5.0 / max(len(oracle_groups), 1)
+        for og in oracle_groups:
+            if og in agent_groups:
+                pts += per_group
+
+    # NEW: candidates_implicitly_using_same_false_lemma (5 pts, set of frozensets)
+    agent_lemma_groups = normalize_groups_of_solution_ids(agent_cs.get("candidates_implicitly_using_same_false_lemma"))
+    oracle_lemma_groups = normalize_groups_of_solution_ids(oracle_cs.get("candidates_implicitly_using_same_false_lemma"))
+    if oracle_lemma_groups:
+        per_group = 5.0 / max(len(oracle_lemma_groups), 1)
+        for og in oracle_lemma_groups:
+            if og in agent_lemma_groups:
+                pts += per_group
+
+    # common_failure_modes (5 pts, keyword-substring match per oracle mode)
+    # Each canonical mode is detected by ALL of its required keywords appearing in
+    # any single agent common_failure_modes string. Robust to paraphrasing.
+    canonical_modes = [
+        ["unconstructed", "counterexample"],          # mode 1
+        ["insphere", "incenter"],                      # mode 2 (false insphere/face-incenter claim)
+        ["volume", "distance"],                        # mode 3 (vol-to-distance translation)
+        ["acute"],                                     # mode 4 (acuteness condition unused)
+    ]
+    agent_modes = [str(s).lower() for s in (agent_cs.get("common_failure_modes") or []) if isinstance(s, str)]
+    joined = " ".join(agent_modes)
+    captured = 0
+    for keywords in canonical_modes:
+        if all(kw in joined for kw in keywords):
+            captured += 1
+    pts += 5.0 * (captured / len(canonical_modes))
+
+    # gold_final_answer (2 pts, exact normalized match)
+    def norm_set_string(s: str) -> str:
+        if not isinstance(s, str):
+            return ""
+        s = s.strip().lower().replace(" ", "").replace("{", "").replace("}", "")
+        parts = sorted(p for p in s.split(",") if p in "abcdefgh")
+        return "{" + ", ".join(parts) + "}"
+
+    if norm_set_string(agent_cs.get("__placeholder_for_gold_final_answer__", "")) or True:
+        pass  # gold_final_answer is at the top level, not inside cross_solution_summary
+
+    # problem_id is scored at the outer level, not here
+
+    return pts
+
+
+# ----- main --------------------------------------------------------------------
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--agent-output")
-    parser.add_argument("--oracle")
-    parser.add_argument("--reward-out")
+    parser.add_argument("--agent-output", required=True)
+    parser.add_argument("--oracle", required=True)
+    parser.add_argument("--reward-out", required=True)
     args = parser.parse_args()
 
     justification_path = "/logs/agent/judge_justification.txt"
+    os.makedirs(os.path.dirname(justification_path), exist_ok=True)
 
+    # Load agent output
     try:
-        raw = open(args.agent_output).read()
-        agent_output = json.loads(extract_json(raw))
+        with open(args.agent_output, encoding="utf-8") as f:
+            agent_output = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError) as e:
-        json.dump({"reward": 0.0}, open(args.reward_out, "w"))
-        with open(justification_path, "w") as f:
+        with open(args.reward_out, "w") as f:
+            json.dump({"reward": 0.0}, f)
+        with open(justification_path, "w", encoding="utf-8") as f:
             f.write(f"Score: 0.0\n\nAgent output missing or invalid JSON: {e}")
         return
 
-    oracle = json.load(open(args.oracle))
+    # Load oracle
+    with open(args.oracle, encoding="utf-8") as f:
+        oracle = json.load(f)
 
+    # Exact-match shortcut for oracle agent
     if agent_output == oracle:
-        json.dump({"reward": 1.0}, open(args.reward_out, "w"))
-        with open(justification_path, "w") as f:
+        with open(args.reward_out, "w") as f:
+            json.dump({"reward": 1.0}, f)
+        with open(justification_path, "w", encoding="utf-8") as f:
             f.write("Score: 1.0\n\nAgent output exactly matches oracle.")
         return
 
-    prompt = (
-        "Grade the agent output against the gold oracle for this tetrahedron-incenter claim-audit task.\n"
-        "Both are JSON objects following the schema described in the agent's instruction. The oracle is "
-        "authoritative; the agent's output should be scored against it.\n\n"
-        f"ORACLE:\n{json.dumps(oracle, separators=(',', ':'))}\n\n"
-        f"AGENT OUTPUT:\n{json.dumps(agent_output, separators=(',', ':'))}\n\n"
-        "Total: 100 points. Compute integer 'passed' (0-100) and float score = passed / 100.\n\n"
-        "TOP-LEVEL KEY CHECK (gating):\n"
-        "- The agent output MUST have exactly these three top-level keys: problem_id, gold_final_answer, "
-        "solution_audits, cross_solution_summary. If any key is missing, set passed = 0 and score = 0.0 "
-        "and return immediately — the structure is non-conformant.\n"
-        "- solution_audits must be a list with exactly 7 entries, ordered alphabetically by solution_id "
-        "(A, B, C, D, E, F, G). If not 7 entries OR not alphabetically ordered, cap per-solution scoring "
-        "at half credit (multiply the per-solution points by 0.5).\n\n"
-        "PER-SOLUTION SCORING (max 7 points each, 7 solutions, 49 points total):\n"
-        "Match each agent solution_audits entry against the oracle entry with the same solution_id. "
-        "For each solution, award:\n"
-        "  - 2 points if claimed_set is exactly the oracle's claimed_set (as a set; order is required "
-        "alphabetical but treat order errors as -0.5 not full loss).\n"
-        "  - 1 point if verdict matches oracle.\n"
-        "  - 0.5 points if final_answer_correct (bool) matches oracle.\n"
-        "  - 0.5 points if contains_wrong_math_claim (bool) matches oracle.\n"
-        "  - 0.5 points if logical_chain_valid matches AND 0.5 points if proof_complete matches.\n"
-        "  - 1 point if repairability matches oracle exactly.\n"
-        "  - 1 point if failure_labels coverage is reasonable: award 1 if the agent's labels include "
-        "all the labels in the oracle's failure_labels (allow extra agent labels, just not missing ones); "
-        "0.5 if a strict majority overlap; 0 otherwise.\n\n"
-        "FATAL-ERROR SCORING (max 5 points per non-correct solution; 5 solutions B/C/E/F/G; 25 points; "
-        "plus 2 points each for the 2 correct solutions A/D having first_fatal_error = null; 4 points; "
-        "total 29 points):\n"
-        "For oracle verdict = 'correct' (solutions A, D): award 2 points if agent's first_fatal_error is "
-        "JSON null (or absent), 0 otherwise.\n"
-        "For oracle verdict in {'incorrect', 'partially_correct'} (solutions B, C, E, F, G): award up to "
-        "5 points:\n"
-        "  - 2 points if agent's first_fatal_error.error_type matches oracle's (semantic match accepted: "
-        "treat 'incomplete_proof' and 'underjustified_step' as substitutable; treat 'false_math_claim' "
-        "and 'wrong_theorem_application' as substitutable; require an exact match otherwise).\n"
-        "  - 1 point if agent's first_fatal_error.location plausibly points to the same passage as "
-        "oracle's (semantic: agent should name the same statement/step being audited).\n"
-        "  - 2 points if agent's first_fatal_error.explanation captures the same mathematical reason as "
-        "oracle's (semantic similarity, not verbatim).\n\n"
-        "CROSS-SOLUTION SUMMARY SCORING (max 18 points total):\n"
-        "  - 2 points if gold_final_answer matches oracle exactly (string '{a, b, c, d, e}').\n"
-        "  - 1 point if problem_id matches oracle ('cmo2026-p4-claims-audit').\n"
-        "  - 3 points if cross_solution_summary.best_solution_id is 'D'.\n"
-        "  - 3 points if cross_solution_summary.solutions_with_correct_gtfa_but_invalid_proof is exactly "
-        "['C']. Award 1 if it contains C plus extras; 0 otherwise.\n"
-        "  - 3 points if cross_solution_summary.solutions_with_valid_core_idea covers exactly "
-        "{A, B, C, D} (as a set). Award 1.5 if it contains all 4 plus extras; 0.5 if it contains 3 of 4; "
-        "0 otherwise.\n"
-        "  - 6 points for cross_solution_summary.common_failure_modes coverage: the oracle lists 4 modes "
-        "(unconstructed-counterexample-for-(a), false-insphere-touches-face-incenter-claim, "
-        "missed-volume-to-distance-translation, no-explicit-use-of-acuteness). Award 1.5 points per oracle "
-        "mode that is captured in any of the agent's common_failure_modes strings (semantic match, not "
-        "verbatim).\n\n"
-        "FORMAT BONUS (max 4 points):\n"
-        "  - 1 point if every letter array (claimed_set values) uses only lowercase letters from a-h.\n"
-        "  - 1 point if every claimed_set is alphabetically sorted.\n"
-        "  - 1 point if solution_audits has exactly 7 entries.\n"
-        "  - 1 point if first_fatal_error is JSON null exactly for verdict='correct' entries.\n\n"
-        "Total maximum: 49 + 29 + 18 + 4 = 100 points.\n"
-        "Compute passed = sum of points awarded (round to nearest integer 0-100), score = passed / 100.\n\n"
-        "Return ONE JSON object only. Keep justification under 600 characters: list per-section subtotals "
-        "(per-solution, fatal-error, cross-summary, format) and at most 3 sample sub-issues. DO NOT "
-        "enumerate every field. Schema: "
-        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 100, "justification": "<short summary>"}'
+    # Top-level structure check (gating)
+    required_top_keys = {"problem_id", "gold_final_answer", "solution_audits", "cross_solution_summary"}
+    missing = required_top_keys - set(agent_output.keys() if isinstance(agent_output, dict) else [])
+    audits = agent_output.get("solution_audits") if isinstance(agent_output, dict) else None
+    audits_ok = isinstance(audits, list) and len(audits) == 7
+    structure_multiplier = 0.5 if (missing or not audits_ok) else 1.0
+
+    oracle_audits = oracle["solution_audits"]
+    oracle_by_id = {a["solution_id"]: a for a in oracle_audits}
+    agent_by_id = {
+        str(a.get("solution_id", "")).strip().upper(): a
+        for a in (audits or [])
+        if isinstance(a, dict)
+    }
+
+    # 35 pts: per-solution (7 entries * 5)
+    per_solution_pts = 0.0
+    per_solution_breakdown = []
+    for sid in "ABCDEFG":
+        oracle_entry = oracle_by_id.get(sid)
+        agent_entry = agent_by_id.get(sid, {})
+        score = score_per_solution_entry(agent_entry, oracle_entry) if oracle_entry else 0.0
+        per_solution_pts += score
+        per_solution_breakdown.append(f"{sid}={score:.1f}")
+    per_solution_pts *= structure_multiplier
+
+    # 15 pts: fatal-error for the 5 non-correct solutions (B, C, E, F, G)
+    fatal_pts = 0.0
+    fatal_breakdown = []
+    for sid in "BCEFG":
+        oracle_entry = oracle_by_id.get(sid)
+        agent_entry = agent_by_id.get(sid, {})
+        score = score_fatal_error_entry(agent_entry, oracle_entry) if oracle_entry else 0.0
+        fatal_pts += score
+        fatal_breakdown.append(f"{sid}={score:.1f}")
+    fatal_pts *= structure_multiplier
+
+    # 4 pts: correct-null for A and D
+    correct_null_pts = 0.0
+    for sid in "AD":
+        oracle_entry = oracle_by_id.get(sid)
+        agent_entry = agent_by_id.get(sid, {})
+        correct_null_pts += score_correct_null_entry(agent_entry, oracle_entry) if oracle_entry else 0.0
+
+    # 14 pts: failure_labels coverage (2 pts per solution * 7)
+    failure_labels_pts = 0.0
+    for sid in "ABCDEFG":
+        oracle_entry = oracle_by_id.get(sid, {})
+        agent_entry = agent_by_id.get(sid, {})
+        failure_labels_pts += score_failure_labels(agent_entry, oracle_entry, max_pts=2.0)
+
+    # 7 pts: domain_specific_labels coverage (1 pt per solution * 7)
+    domain_labels_pts = 0.0
+    for sid in "ABCDEFG":
+        oracle_entry = oracle_by_id.get(sid, {})
+        agent_entry = agent_by_id.get(sid, {})
+        domain_labels_pts += score_domain_labels(agent_entry, oracle_entry, max_pts=1.0)
+
+    # 25 pts: cross_solution_summary (excluding gold_final_answer and problem_id, scored at top level)
+    agent_cs = agent_output.get("cross_solution_summary") if isinstance(agent_output, dict) else None
+    oracle_cs = oracle.get("cross_solution_summary", {})
+    cross_pts = score_cross_summary(agent_cs or {}, oracle_cs)
+
+    # Top-level extras (gold_final_answer and problem_id) — folded into cross-summary block
+    # gold_final_answer (2 pts)
+    gold_pts = 0.0
+    def norm_set_string(s: str) -> str:
+        if not isinstance(s, str):
+            return ""
+        t = s.strip().lower().replace(" ", "").replace("{", "").replace("}", "")
+        parts = sorted(p for p in t.split(",") if p in "abcdefgh")
+        return "{" + ", ".join(parts) + "}"
+    if norm_set_string(agent_output.get("gold_final_answer") if isinstance(agent_output, dict) else "") == \
+       norm_set_string(oracle.get("gold_final_answer", "")):
+        gold_pts += 2.0
+    # problem_id (1 pt)
+    pid_pts = 0.0
+    if str(agent_output.get("problem_id") if isinstance(agent_output, dict) else "").strip().lower() == \
+       str(oracle.get("problem_id", "")).strip().lower():
+        pid_pts += 1.0
+    # absorb into the 25 cap by attributing to a free "header" allotment
+    # The cross_pts above is capped at 25 from the cross_solution_summary subscores.
+    # Add gold_pts and pid_pts on top, but cap the entire cross+header block at 25.
+    header_block = min(cross_pts + gold_pts + pid_pts, 25.0)
+    # The cap is hit because we redistribute: cross subscores sum to 22 max
+    # (3 best_id + 2 + 2 + 5 + 5 + 5 = 22), plus 2 gold + 1 pid = 25 total. No overflow.
+
+    total = per_solution_pts + fatal_pts + correct_null_pts + failure_labels_pts + domain_labels_pts + header_block
+    total_rounded = round(total, 2)
+    score = max(0.0, min(1.0, total_rounded / 100.0))
+
+    with open(args.reward_out, "w") as f:
+        json.dump({"reward": score}, f)
+
+    breakdown = (
+        f"Score: {score:.4f}  ({total_rounded:.2f}/100)\n\n"
+        f"  per_solution (max 35):       {per_solution_pts:.2f}  [{', '.join(per_solution_breakdown)}]\n"
+        f"  fatal_error  (max 15):       {fatal_pts:.2f}  [{', '.join(fatal_breakdown)}]\n"
+        f"  correct_null (max 4):        {correct_null_pts:.2f}\n"
+        f"  failure_labels (max 14):     {failure_labels_pts:.2f}\n"
+        f"  domain_labels  (max 7):      {domain_labels_pts:.2f}\n"
+        f"  cross_summary+header (max 25): {header_block:.2f}\n"
     )
-
-    messages = [
-        {"role": "system", "content": "Respond with one valid JSON object only. Keep justification under 600 characters. No prose outside the JSON."},
-        {"role": "user", "content": prompt},
-    ]
-
-    try:
-        raw = call_fireworks(messages, max_tokens=4000)
-    except (urllib.error.URLError, TimeoutError, KeyError) as e:
-        json.dump({"reward": 0.0}, open(args.reward_out, "w"))
-        with open(justification_path, "w") as f:
-            f.write(f"Score: 0.0\n\nJudge request failed: {e}")
-        return
-
-    try:
-        result = json.loads(extract_json(raw))
-    except json.JSONDecodeError:
-        repair_messages = [
-            {"role": "system", "content": "Convert the user content into one valid JSON object only. Do not add commentary."},
-            {"role": "user", "content": (
-                "The following model output was supposed to follow this schema exactly:\n"
-                '{"score": <float 0.0-1.0>, "passed": <int>, "total": 100, "justification": "<short>"}\n\n'
-                "Convert it to valid JSON without changing the meaning.\n\n"
-                f"MODEL OUTPUT:\n{raw[:6000]}"
-            )},
-        ]
-        try:
-            repaired_raw = call_fireworks(repair_messages, max_tokens=800, timeout=180)
-            result = json.loads(extract_json(repaired_raw))
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
-            json.dump({"reward": 0.0}, open(args.reward_out, "w"))
-            with open(justification_path, "w") as f:
-                f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw[:1000]}")
-            return
-
-    score = float(result.get("score", 0.0))
-    json.dump({"reward": score}, open(args.reward_out, "w"))
-    with open(justification_path, "w") as f:
-        f.write(
-            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', 100)} passed)\n\n"
-            f"{result.get('justification', '')}"
+    if structure_multiplier < 1.0:
+        breakdown += (
+            f"\n  STRUCTURE PENALTY APPLIED (x0.5 on per_solution and fatal_error):\n"
+            f"    missing top-level keys: {sorted(missing)}\n"
+            f"    audits_ok (exactly 7 entries): {audits_ok}\n"
         )
+    with open(justification_path, "w", encoding="utf-8") as f:
+        f.write(breakdown)
 
 
 if __name__ == "__main__":

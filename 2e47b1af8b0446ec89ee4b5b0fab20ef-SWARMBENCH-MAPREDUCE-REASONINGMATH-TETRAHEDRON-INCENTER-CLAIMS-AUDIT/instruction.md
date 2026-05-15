@@ -82,10 +82,25 @@ Write your final answer to `/logs/agent/output.json` in this exact JSON structur
     "common_failure_modes": ["<string>", "..."],
     "solutions_with_correct_gtfa_but_invalid_proof": ["<solution_id>", "..."],
     "solutions_with_valid_core_idea": ["<solution_id>", "..."],
+    "candidates_sharing_same_fatal_error_type": [
+      ["<solution_id>", "<solution_id>", "..."],
+      ["<solution_id>", "<solution_id>", "..."]
+    ],
+    "candidates_implicitly_using_same_false_lemma": [
+      ["<solution_id>", "<solution_id>", "..."]
+    ],
     "best_solution_id": "<string — the single best candidate, or \"none\" if no candidate is correct>"
   }
 }
 ```
+
+### Rules for the two cross-candidate grouping fields
+
+These two fields require comparing **all 7 candidate audits pairwise** to extract groups.
+
+**`candidates_sharing_same_fatal_error_type`** is a list of groups of `solution_id` letters. Each inner list (group) contains the solution_ids whose `first_fatal_error.error_type` is the same string. Only groups of size ≥ 2 should appear (a singleton is not "sharing"). Group order does not matter; the order within a group does not matter. For example, if four candidates have `error_type: "underjustified_step"` and two have `error_type: "false_math_claim"` and one has a unique `error_type`, the field is `[["A","C","D","G"], ["B","F"]]` (illustrative shape; actual groupings depend on your audits).
+
+**`candidates_implicitly_using_same_false_lemma`** is a list of groups of `solution_id` letters whose proofs implicitly invoke the same **false mathematical claim** (a general assertion that is not actually true). Two candidates belong to the same group if they both rely on the same false universal claim — for example, "the insphere of any tangential tetrahedron is tangent to each face at the face's incenter" (false in general, true only under additional symmetry such as this problem's hypothesis). Only groups of size ≥ 2 should appear. If no two candidates share a false lemma, this field is an empty list `[]`.
 
 ### Rules for the output
 
