@@ -81,6 +81,49 @@ def set_iou(a: Set[Any], b: Set[Any]) -> float:
     return len(a & b) / len(union)
 
 
+# Semantic equivalence classes for error_type. Two labels in the SAME class
+# count as equivalent for fatal_error scoring. Labels not in any class only
+# match themselves.
+ERROR_TYPE_EQUIV_CLASSES = [
+    # B/G/E-style "rejected true claim without construction" cluster
+    frozenset({
+        "underjustified_step",
+        "invalid_logical_step",
+        "incomplete_proof",
+        "missing_case",
+        "ignored_acuteness_condition",
+    }),
+    # C/F-style "invoked false universal claim" cluster
+    frozenset({
+        "false_math_claim",
+        "wrong_theorem_application",
+        "correct_gtfa_invalid_proof",
+    }),
+]
+
+
+def error_types_equivalent(a: str, b: str) -> bool:
+    """True iff a and b are the same string OR fall in the same equivalence class."""
+    a = (a or "").strip().lower()
+    b = (b or "").strip().lower()
+    if a == b:
+        return True
+    for cls in ERROR_TYPE_EQUIV_CLASSES:
+        if a in cls and b in cls:
+            return True
+    return False
+
+
+def best_group_iou(agent_groups: Set[frozenset], oracle_group: frozenset) -> float:
+    """For one oracle group, find the max set-IoU against any agent group."""
+    best = 0.0
+    for ag in agent_groups:
+        score = set_iou(set(ag), set(oracle_group))
+        if score > best:
+            best = score
+    return best
+
+
 # ----- per-section scoring -----------------------------------------------------
 
 
@@ -105,8 +148,10 @@ def score_per_solution_entry(agent: Dict[str, Any], oracle: Dict[str, Any]) -> f
 
 
 def score_fatal_error_entry(agent: Dict[str, Any], oracle: Dict[str, Any]) -> float:
-    """Per non-correct solution: up to 3 pts. error_type match = 2 pts, non-empty
-    explanation = 1 pt. Oracle verdict drives the rule."""
+    """Per non-correct solution: up to 3 pts.
+    - 2 pts: error_type match (exact OR same semantic equivalence class)
+    - 1 pt:  non-empty explanation (>= 20 chars)
+    Oracle verdict drives the rule."""
     oracle_ffe = oracle.get("first_fatal_error")
     if oracle_ffe is None:
         return 0.0  # this entry is scored under correct-null block instead
@@ -114,7 +159,7 @@ def score_fatal_error_entry(agent: Dict[str, Any], oracle: Dict[str, Any]) -> fl
     agent_ffe = agent.get("first_fatal_error")
     if not isinstance(agent_ffe, dict):
         return 0.0
-    if str(agent_ffe.get("error_type", "")).strip().lower() == str(oracle_ffe.get("error_type", "")).strip().lower():
+    if error_types_equivalent(agent_ffe.get("error_type", ""), oracle_ffe.get("error_type", "")):
         pts += 2.0
     explanation = str(agent_ffe.get("explanation", "")).strip()
     if len(explanation) >= 20:
