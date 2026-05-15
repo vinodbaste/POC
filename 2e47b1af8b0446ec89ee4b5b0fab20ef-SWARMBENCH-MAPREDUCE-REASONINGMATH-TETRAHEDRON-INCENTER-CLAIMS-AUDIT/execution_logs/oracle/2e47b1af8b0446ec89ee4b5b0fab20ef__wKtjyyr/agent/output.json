@@ -1,0 +1,72 @@
+{
+  "gold_set": ["a", "b", "c", "d", "e"],
+  "acceptable_solution_ids": ["A", "D", "I"],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "rejected_perpendicularity_no_counterexample",
+        "cascaded_rejection_of_e_from_a"
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": true,
+      "failure_reasons": [
+        "correct_gtfa_invalid_proof_chain",
+        "false_universal_insphere_at_face_incenter"
+      ]
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "confused_centroid_and_incenter",
+        "self_contradictory_centroid_above",
+        "vague_word_salad_proofs"
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "cot_trace_misses_distance_equivalence",
+        "repeats_false_universal_in_e",
+        "vague_almost_regular_nonconstruction"
+      ]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "rejects_e_via_general_property_misapplied",
+        "vague_almost_regular_nonconstruction"
+      ]
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "degenerate_counterexample_b_equals_c",
+        "false_claim_ai_equals_inradius",
+        "incoherent_ratio_argument_in_b"
+      ]
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    }
+  ]
+}

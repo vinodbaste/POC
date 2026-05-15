@@ -1,0 +1,3 @@
+Score: 0.2263 (62/274 passed)
+
+gold_set: 2/2 (correct); acceptable_solution_ids: 0/2 (missing D); Response A: 30/30 (correct); Response B: 0/30 (missing cascaded_rejection_of_e_from_a); Response C: 0/30 (incorrect failure reasons set); Response D: 0/30 (spurious failure reason correct_gtfa_invalid_proof_chain); Response E: 0/30 (incorrect failure reasons set); Response F: 0/30 (incorrect failure reasons set); Response G: 0/30 (incorrect failure reasons set); Response H: 0/30 (incorrect failure reasons set); Response I: 30/30 (correct). Sum: 62/274.
