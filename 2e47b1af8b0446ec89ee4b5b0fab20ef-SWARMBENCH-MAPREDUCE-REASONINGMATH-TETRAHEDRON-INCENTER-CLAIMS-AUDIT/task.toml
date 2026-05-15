@@ -1,0 +1,25 @@
+[task]
+name = "2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT"
+description = "Audit multiple model-produced solutions to a modified CMO 2026 P4 multi-claim variant about a tetrahedron with inscribed sphere; identify which of 8 claims are necessarily true and classify each candidate's errors."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 14.0
+human_solving_hours_justification = "A graduate-level mathematician needs ~45 minutes to derive and verify the gold answer set {a, b, c, d, e} against the CMO 2026 P4 proof and the rejection arguments for (f), (g), (h). Each candidate solution then requires ~1.0–1.5h to read carefully, classify the candidate's claimed set, trace the argument step by step, identify the first fatal mathematical error, assign failure labels from the controlled vocabulary, and judge repairability — roughly 10 hours for ~8 candidates. The cross-solution synthesis (common failure modes, isolating correct-gtfa-but-invalid-proof candidates, selecting best) adds ~2 hours. Total ≈ 14 hours."
+estimated_sub_agents = 6
+input_token_estimate = 25000
+why_multi_agent = "A single agent must hold the gold proof of CMO 2026 P4, each candidate's full prose argument, and the audit rubric (verdict, claimed set, first fatal error, failure labels, repairability, brief assessment) simultaneously while iterating across all ~8 candidates. With ~8 candidates × ~6 audit fields × ~2,500 tokens of prose per candidate, attention degrades by candidate 5–6: claims start getting attributed to the wrong solution, fatal-error locations get fabricated, and failure labels regress toward generic 'incomplete_proof' tags. A map-reduce decomposition gives each mapper a clean ~2-candidate window plus the problem statement, an independent gold-verifier agent re-establishes the proof structure without polluting the audit context, and a reducer reconciles the per-candidate JSONs into the cross-solution summary."
+reference_link = "https://cms.math.ca/wp-content/uploads/2026/03/CMO2026-problems.pdf"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

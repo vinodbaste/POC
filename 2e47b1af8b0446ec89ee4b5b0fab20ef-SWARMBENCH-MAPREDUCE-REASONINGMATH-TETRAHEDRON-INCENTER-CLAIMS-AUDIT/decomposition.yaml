@@ -1,0 +1,433 @@
+sub_tasks:
+  - id: audit-AB
+    description: |
+      You are auditing two candidate solutions to a math problem. You are NOT solving
+      the problem yourself; you are judging two written solutions against the standard
+      of mathematical correctness.
+
+      ## The problem each candidate was given
+
+      Let ABCD be a tetrahedron with an inscribed sphere of center I and inradius r>0.
+      Suppose (1) the dihedral angle between any two faces of ABCD is acute, and
+      (2) vol(IABC)/BC = vol(IACD)/CD = vol(IADB)/DB, where vol(IXYZ) is the volume
+      of the tetrahedron with vertices I,X,Y,Z.
+
+      For each of these eight statements the candidate had to decide whether the
+      statement is necessarily true for every tetrahedron satisfying both hypotheses,
+      then give the SET of necessarily-true statement labels:
+
+      (a) AI is perpendicular to plane BCD.
+      (b) The orthogonal projection of A onto plane BCD coincides with the incenter
+          of triangle BCD.
+      (c) The distances from A to each of the three lines BC, CD, DB are equal.
+      (d) The areas of triangles ABC, ACD, ADB are in the ratio BC : CD : DB.
+      (e) The point at which the inscribed sphere touches face BCD is the incenter of
+          triangle BCD.
+      (f) AB = AC = AD.
+      (g) Triangle ABC is isosceles with AB = AC.
+      (h) Triangle BCD is equilateral.
+
+      ## Your task
+
+      Read these two candidate files in full:
+      - /input_artifacts/response_A.md
+      - /input_artifacts/response_B.md
+
+      For EACH of the two candidates, produce one solution-audit JSON object with these
+      fields exactly:
+
+      {
+        "solution_id": "<the letter matching the file, A or B>",
+        "claimed_set": [<lowercase letters from a..h, alphabetical, the set the
+                        candidate claimed is necessarily true>],
+        "verdict": "<correct | partially_correct | incorrect>",
+        "final_answer_correct": <bool — whether claimed_set equals the actual gold set;
+                                 you must judge this from the mathematics, not by
+                                 comparison to any other candidate>,
+        "logical_chain_valid": <bool — whether each inference in the candidate's proof
+                                 actually follows from prior statements>,
+        "proof_complete": <bool — whether every claim the candidate makes is fully
+                            justified>,
+        "contains_wrong_math_claim": <bool — whether the candidate states any
+                                       mathematical fact that is false, even if the
+                                       final answer turns out correct>,
+        "first_fatal_error": <object with keys location, error_type, explanation —
+                              or JSON null if verdict is correct>,
+        "failure_labels": [<strings from the controlled vocabulary below>],
+        "domain_specific_labels": [<strings from the controlled vocabulary below>],
+        "repairability": "<minor_fix | major_rewrite | impossible_from_current_solution
+                          | n/a>",
+        "brief_assessment": "<1-3 sentences>"
+      }
+
+      Verdict rules:
+      - "correct" requires: claimed_set equals the gold AND the argument is logically
+        valid AND complete.
+      - "partially_correct": claimed_set matches gold but proof is invalid/incomplete,
+        OR claimed_set differs from gold by one letter and the argument is on the
+        right track.
+      - "incorrect": otherwise.
+
+      Letter arrays must be lowercase a..h, alphabetically sorted.
+      first_fatal_error must be JSON null when verdict is "correct".
+      repairability must be "n/a" when verdict is "correct".
+
+      ## Controlled failure_labels vocabulary (use only these strings)
+
+      - final_answer_error
+      - correct_gtfa_invalid_proof
+      - invalid_logical_step
+      - wrong_theorem_application
+      - false_math_claim
+      - missing_case
+      - incomplete_proof
+      - underjustified_step
+      - circular_reasoning
+      - extraneous_solution
+      - notation_definition_error
+      - unclear_claimed_set
+
+      ## Controlled domain_specific_labels vocabulary (use only these strings)
+
+      - incenter_circumcenter_confusion
+      - incenter_centroid_confusion
+      - wrong_projection_claim
+      - ignored_acuteness_condition
+      - over_symmetrization
+      - missed_volume_to_distance_lemma
+      - excenter_vs_incenter_gap
+      - degenerate_or_unphysical_configuration
+
+      ## Output
+
+      Return ONE JSON object with key "audits" mapping to a 2-element array of the
+      per-candidate audits in the order [A, B]:
+
+      {"audits": [<audit for A>, <audit for B>]}
+
+      Do NOT write to /logs/agent/output.json. That file is the final synthesized
+      output and is written only by the synthesize-final-audit sub-task.
+    depends_on: []
+    parallel_group: audit
+
+  - id: audit-CD
+    description: |
+      Same audit task as audit-AB. Read these two candidate files in full:
+      - /input_artifacts/response_C.md
+      - /input_artifacts/response_D.md
+
+      Use the same problem statement, the same audit schema, the same verdict rules,
+      and the same controlled vocabularies as audit-AB. Return ONE JSON object with
+      key "audits" mapping to a 2-element array of per-candidate audits in the order
+      [C, D]. Do NOT write to /logs/agent/output.json.
+
+      ## The problem each candidate was given (reference)
+
+      Let ABCD be a tetrahedron with an inscribed sphere of center I and inradius r>0.
+      Suppose (1) the dihedral angle between any two faces of ABCD is acute, and
+      (2) vol(IABC)/BC = vol(IACD)/CD = vol(IADB)/DB. For each of the eight statements
+      (a)-(h) below the candidate had to decide whether it is necessarily true.
+
+      (a) AI is perpendicular to plane BCD.
+      (b) The orthogonal projection of A onto plane BCD coincides with the incenter
+          of triangle BCD.
+      (c) The distances from A to each of the three lines BC, CD, DB are equal.
+      (d) The areas of triangles ABC, ACD, ADB are in the ratio BC : CD : DB.
+      (e) The point at which the inscribed sphere touches face BCD is the incenter
+          of triangle BCD.
+      (f) AB = AC = AD.
+      (g) Triangle ABC is isosceles with AB = AC.
+      (h) Triangle BCD is equilateral.
+
+      ## Audit schema (per candidate)
+
+      {
+        "solution_id": "<C or D>",
+        "claimed_set": [<lowercase letters a..h, alphabetical>],
+        "verdict": "<correct | partially_correct | incorrect>",
+        "final_answer_correct": <bool>,
+        "logical_chain_valid": <bool>,
+        "proof_complete": <bool>,
+        "contains_wrong_math_claim": <bool>,
+        "first_fatal_error": <{location, error_type, explanation} | null>,
+        "failure_labels": [<from controlled vocabulary>],
+        "domain_specific_labels": [<from controlled vocabulary>],
+        "repairability": "<minor_fix | major_rewrite | impossible_from_current_solution | n/a>",
+        "brief_assessment": "<1-3 sentences>"
+      }
+
+      ## Controlled failure_labels vocabulary
+      final_answer_error, correct_gtfa_invalid_proof, invalid_logical_step,
+      wrong_theorem_application, false_math_claim, missing_case, incomplete_proof,
+      underjustified_step, circular_reasoning, extraneous_solution,
+      notation_definition_error, unclear_claimed_set.
+
+      ## Controlled domain_specific_labels vocabulary
+      incenter_circumcenter_confusion, incenter_centroid_confusion,
+      wrong_projection_claim, ignored_acuteness_condition, over_symmetrization,
+      missed_volume_to_distance_lemma, excenter_vs_incenter_gap,
+      degenerate_or_unphysical_configuration.
+
+      Verdict rules: "correct" requires claimed_set = gold AND argument valid AND
+      complete; "partially_correct" covers claimed_set = gold with invalid/incomplete
+      proof, OR claimed_set differs from gold by one letter with on-track argument;
+      else "incorrect". first_fatal_error is JSON null iff verdict is "correct";
+      repairability is "n/a" iff verdict is "correct". Letter arrays must be
+      lowercase a..h, alphabetical.
+
+      Return {"audits": [<audit for C>, <audit for D>]}.
+    depends_on: []
+    parallel_group: audit
+
+  - id: audit-EF
+    description: |
+      Same audit task as audit-AB. Read these two candidate files in full:
+      - /input_artifacts/response_E.md
+      - /input_artifacts/response_F.md
+
+      One of these two files contains a visible chain-of-thought reasoning trace
+      that the candidate model emitted before its final answer. Treat the entire
+      response — including the trace — as the candidate's submitted solution and
+      audit it as such. If the trace and the final write-up disagree, audit the
+      final write-up but note the inconsistency in brief_assessment.
+
+      Use the same problem statement, audit schema, verdict rules, and controlled
+      vocabularies as audit-AB. Return {"audits": [<audit for E>, <audit for F>]}.
+      Do NOT write to /logs/agent/output.json.
+
+      ## The problem each candidate was given (reference)
+
+      Let ABCD be a tetrahedron with an inscribed sphere of center I and inradius r>0.
+      Suppose (1) the dihedral angle between any two faces of ABCD is acute, and
+      (2) vol(IABC)/BC = vol(IACD)/CD = vol(IADB)/DB. Statements (a)-(h):
+
+      (a) AI ⊥ plane BCD.
+      (b) Projection of A onto plane BCD = incenter of triangle BCD.
+      (c) dist(A, BC) = dist(A, CD) = dist(A, DB).
+      (d) Area(ABC) : Area(ACD) : Area(ADB) = BC : CD : DB.
+      (e) Insphere touch point on BCD = incenter of triangle BCD.
+      (f) AB = AC = AD.
+      (g) Triangle ABC isosceles with AB = AC.
+      (h) Triangle BCD equilateral.
+
+      ## Audit schema (per candidate)
+
+      {
+        "solution_id": "<E or F>",
+        "claimed_set": [<lowercase letters a..h, alphabetical>],
+        "verdict": "<correct | partially_correct | incorrect>",
+        "final_answer_correct": <bool>,
+        "logical_chain_valid": <bool>,
+        "proof_complete": <bool>,
+        "contains_wrong_math_claim": <bool>,
+        "first_fatal_error": <{location, error_type, explanation} | null>,
+        "failure_labels": [<from controlled vocabulary>],
+        "domain_specific_labels": [<from controlled vocabulary>],
+        "repairability": "<minor_fix | major_rewrite | impossible_from_current_solution | n/a>",
+        "brief_assessment": "<1-3 sentences>"
+      }
+
+      ## Controlled failure_labels
+      final_answer_error, correct_gtfa_invalid_proof, invalid_logical_step,
+      wrong_theorem_application, false_math_claim, missing_case, incomplete_proof,
+      underjustified_step, circular_reasoning, extraneous_solution,
+      notation_definition_error, unclear_claimed_set.
+
+      ## Controlled domain_specific_labels
+      incenter_circumcenter_confusion, incenter_centroid_confusion,
+      wrong_projection_claim, ignored_acuteness_condition, over_symmetrization,
+      missed_volume_to_distance_lemma, excenter_vs_incenter_gap,
+      degenerate_or_unphysical_configuration.
+
+      Return {"audits": [<audit for E>, <audit for F>]}.
+    depends_on: []
+    parallel_group: audit
+
+  - id: audit-G
+    description: |
+      Same audit task as audit-AB but for a single candidate. Read
+      /input_artifacts/response_G.md in full and produce ONE solution-audit JSON
+      object using the same problem statement, schema, verdict rules, and controlled
+      vocabularies as audit-AB. Return {"audits": [<audit for G>]} (a 1-element
+      array). Do NOT write to /logs/agent/output.json.
+
+      ## The problem reference
+
+      Let ABCD be a tetrahedron with an inscribed sphere of center I and inradius r>0.
+      Suppose (1) all dihedral angles between faces are acute, and
+      (2) vol(IABC)/BC = vol(IACD)/CD = vol(IADB)/DB.
+
+      Statements (a)-(h):
+      (a) AI ⊥ plane BCD.
+      (b) Projection of A onto plane BCD = incenter of triangle BCD.
+      (c) dist(A, BC) = dist(A, CD) = dist(A, DB).
+      (d) Area(ABC) : Area(ACD) : Area(ADB) = BC : CD : DB.
+      (e) Insphere touch point on BCD = incenter of triangle BCD.
+      (f) AB = AC = AD.
+      (g) Triangle ABC isosceles with AB = AC.
+      (h) Triangle BCD equilateral.
+
+      ## Schema and vocabularies
+
+      Audit object per candidate:
+      {
+        "solution_id": "G",
+        "claimed_set": [<letters a..h alphabetical>],
+        "verdict": "<correct | partially_correct | incorrect>",
+        "final_answer_correct": <bool>,
+        "logical_chain_valid": <bool>,
+        "proof_complete": <bool>,
+        "contains_wrong_math_claim": <bool>,
+        "first_fatal_error": <{location, error_type, explanation} | null>,
+        "failure_labels": [...],
+        "domain_specific_labels": [...],
+        "repairability": "<minor_fix | major_rewrite | impossible_from_current_solution | n/a>",
+        "brief_assessment": "<1-3 sentences>"
+      }
+
+      failure_labels vocabulary: final_answer_error, correct_gtfa_invalid_proof,
+      invalid_logical_step, wrong_theorem_application, false_math_claim, missing_case,
+      incomplete_proof, underjustified_step, circular_reasoning, extraneous_solution,
+      notation_definition_error, unclear_claimed_set.
+
+      domain_specific_labels vocabulary: incenter_circumcenter_confusion,
+      incenter_centroid_confusion, wrong_projection_claim, ignored_acuteness_condition,
+      over_symmetrization, missed_volume_to_distance_lemma, excenter_vs_incenter_gap,
+      degenerate_or_unphysical_configuration.
+
+      Return {"audits": [<audit for G>]}.
+    depends_on: []
+    parallel_group: audit
+
+  - id: verify-gold-math
+    description: |
+      Your job is the mathematics, not the audit. You will NOT read any candidate
+      solution file. You will produce a reference brief that the synthesizer agent
+      will use to cross-check the per-candidate audits.
+
+      ## The problem
+
+      Let ABCD be a tetrahedron with an inscribed sphere of center I and inradius
+      r > 0. Assume (1) the dihedral angle between any two faces of ABCD is acute,
+      and (2) vol(IABC)/BC = vol(IACD)/CD = vol(IADB)/DB, where vol(IXYZ) is the
+      volume of the tetrahedron with vertices I, X, Y, Z.
+
+      For each of the following eight statements, decide whether it is necessarily
+      true for every tetrahedron ABCD satisfying both hypotheses. Provide a short
+      justification (1-2 sentences) naming the key lemma or counterexample structure.
+
+      (a) AI is perpendicular to plane BCD.
+      (b) The orthogonal projection of A onto plane BCD coincides with the incenter
+          of triangle BCD.
+      (c) The distances from A to each of the three lines BC, CD, DB are equal.
+      (d) The areas of triangles ABC, ACD, ADB are in the ratio BC : CD : DB.
+      (e) The point at which the inscribed sphere touches face BCD is the incenter
+          of triangle BCD.
+      (f) AB = AC = AD.
+      (g) Triangle ABC is isosceles with AB = AC.
+      (h) Triangle BCD is equilateral.
+
+      ## What to return
+
+      Return ONE JSON object with these keys:
+
+      {
+        "gold_set": [<list of lowercase letters from a..h, alphabetical, the set
+                     of statements that are necessarily true>],
+        "per_claim_brief": {
+          "a": "<1-2 sentence justification or counterexample sketch>",
+          "b": "<...>",
+          "c": "<...>",
+          "d": "<...>",
+          "e": "<...>",
+          "f": "<...>",
+          "g": "<...>",
+          "h": "<...>"
+        },
+        "known_pitfalls": [
+          "<string naming a false general claim about tetrahedron inspheres that a
+           weak solution might invoke — e.g. 'the insphere of any tangential
+           tetrahedron is tangent to each face at the face's incenter' is FALSE in
+           general (it requires extra symmetry).>",
+          "<other pitfalls a wrong solution might fall into when rejecting a true
+           statement without constructing a counterexample.>"
+        ]
+      }
+
+      Reason it through carefully. Identify which hypothesis (acuteness vs. the
+      volume condition) is used to derive each conclusion. Do NOT read any candidate
+      solution file. Do NOT write to /logs/agent/output.json.
+    depends_on: []
+    parallel_group: verify
+
+  - id: synthesize-final-audit
+    description: |
+      You receive four per-candidate audit JSONs from audit-AB, audit-CD, audit-EF,
+      audit-G (each is {"audits": [...]} containing one or two audits) and one
+      reference brief from verify-gold-math (with gold_set, per_claim_brief,
+      known_pitfalls). Your job is to merge these into the final task output and
+      write it to /logs/agent/output.json.
+
+      ## Reconciliation rules
+
+      For each per-candidate audit:
+      1. Compare the audit's claimed_set against the reference brief's gold_set.
+         If the audit's final_answer_correct flag is inconsistent with this
+         comparison, correct the flag.
+      2. If the audit's verdict is "correct" but its claimed_set ≠ gold_set, demote
+         the verdict (to "incorrect" if claimed_set differs by 2+ letters from the
+         gold; to "partially_correct" if it differs by exactly 1).
+      3. If the audit's first_fatal_error is non-null but the audit's verdict is
+         "correct", set first_fatal_error to JSON null and repairability to "n/a".
+         Conversely, if first_fatal_error is null but the verdict is not "correct",
+         construct a first_fatal_error using the reference brief's per_claim_brief
+         and known_pitfalls to identify a plausible fatal step.
+      4. Letter arrays must be alphabetically sorted and contain only lowercase
+         letters a..h.
+
+      ## Final output JSON (write to /logs/agent/output.json — NOWHERE ELSE)
+
+      {
+        "problem_id": "cmo2026-p4-claims-audit",
+        "gold_final_answer": "<string of the form {x1, x2, ...} derived from the
+                              reference brief's gold_set — letters alphabetically
+                              sorted, lowercase, separated by ', ', wrapped in curly
+                              braces; if gold_set is empty, use the literal '{}'>",
+        "solution_audits": [<the 7 reconciled per-candidate audits, ordered
+                             alphabetically by solution_id A, B, C, D, E, F, G —
+                             exactly 7 entries>],
+        "cross_solution_summary": {
+          "common_failure_modes": [<list of strings naming patterns observed across
+                                    two or more per-candidate audits — e.g. a shared
+                                    error_type, a shared underlying confusion, a
+                                    shared structural gap. Aim for 3-5 distinct
+                                    patterns covering the failure space.>],
+          "solutions_with_correct_gtfa_but_invalid_proof": [<list of solution_ids
+              whose reconciled claimed_set equals the gold_set from the reference
+              brief AND whose audit has contains_wrong_math_claim = true OR
+              logical_chain_valid = false>],
+          "solutions_with_valid_core_idea": [<list of solution_ids whose key
+              reasoning steps align with the reference brief's per_claim_brief for
+              the claims they attempt — regardless of whether they reach the full
+              gold set>],
+          "best_solution_id": "<the single best candidate by overall verdict,
+                               soundness, and concision; or 'none' if no candidate
+                               is fully correct>"
+        }
+      }
+
+      ## Self-checks before writing
+
+      - solution_audits has exactly 7 entries, alphabetical by solution_id.
+      - Every claimed_set is alphabetical and uses only lowercase a..h.
+      - first_fatal_error is JSON null for every entry with verdict = "correct"
+        and is a populated object for every other entry.
+      - repairability is "n/a" exactly when verdict = "correct".
+      - gold_final_answer is formatted as specified above.
+      - Top-level keys are exactly: problem_id, gold_final_answer, solution_audits,
+        cross_solution_summary. No extra keys.
+
+      Write the final JSON to /logs/agent/output.json. This is the ONLY file the
+      synthesizer writes — do not produce other artifacts.
+    depends_on: [audit-AB, audit-CD, audit-EF, audit-G, verify-gold-math]
+    parallel_group: synthesize
