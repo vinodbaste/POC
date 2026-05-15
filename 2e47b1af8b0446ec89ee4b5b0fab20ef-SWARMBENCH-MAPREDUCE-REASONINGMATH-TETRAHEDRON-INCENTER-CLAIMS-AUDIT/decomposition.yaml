@@ -1,11 +1,10 @@
 sub_tasks:
-  - id: audit-A-B
+  - id: audit-A
     description: |
-      Audit two candidate solutions to an olympiad combinatorics problem. Read these files in full:
-      - /input_artifacts/response_A.md
-      - /input_artifacts/response_B.md
+      Audit ONE candidate solution to an olympiad 3D geometry problem.
+      File to read in full: /input_artifacts/response_A.md
 
-      ## The problem each candidate solved
+      ## The problem the candidate solved
       Let ABCD be a tetrahedron with inscribed sphere of center I and inradius r > 0. Suppose
       (1) all dihedral angles between faces are acute, and (2) vol(IABC)/BC = vol(IACD)/CD =
       vol(IADB)/DB. For each of the following 8 statements decide which are necessarily true:
@@ -20,118 +19,135 @@ sub_tasks:
       Gold answer set: {a, b, c, d, e}.
 
       ## What to return
-      Return JSON: {"audits": [<audit for A>, <audit for B>]} where each audit is:
+      Return JSON:
       {
-        "response_id": "<A or B>",
+        "response_id": "A",
         "final_answer_correct": <bool — claimed set equals {a,b,c,d,e}>,
-        "proof_valid": <bool — argument is sound AND complete; false if proof uses a false universal claim>,
-        "verdict": "<correct | incorrect | correct_final_answer_but_invalid_proof>",
-        "primary_error_label": "<one label from vocab below>",
-        "required_evidence_label": "<one label from vocab below>"
+        "failure_reasons": [<0..3 labels from the controlled vocabulary>]
       }
 
-      ## primary_error_label vocabulary (pick exactly one)
-      - NO_ERROR
-      - REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE  (rejects (a) by asserting a counterexample exists but never constructs one)
-      - FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE  (uses "insphere always tangent at face incenter" as a UNIVERSAL premise, which is false)
-      - SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE  ("A lies above centroid but not orthogonal" style; self-contradictory)
-      - MISSED_VOLUME_TO_DISTANCE_EQUIVALENCE_IN_COT  (derives area/base ratio but never converts to dist(A, edge))
-      - VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION  (dismisses with "almost regular but slightly skewed" or similar non-construction)
-      - WRONG_PROJECTION_TARGET  (distractor)
-      - CIRCULAR_BISECTOR_ARGUMENT  (distractor)
-      - OVERCLAIMS_EQUILATERAL_BCD  (distractor)
+      ## failure_reasons controlled vocabulary (lower_snake_case)
+      The judge compares failure_reasons as a SET per response: all expected labels must
+      appear, no extras may appear. Pick exactly the labels that describe THIS candidate's
+      defects — no more, no fewer. Return [] if the candidate's stated set equals gold AND
+      proof is fully valid.
 
-      ## required_evidence_label vocabulary (pick exactly one)
-      - NO_ERROR
-      - TETRAHEDRON_INCENTER_FORMULA_DERIVATION
-      - DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY
-      - PROJECTION_IS_INCENTER_NOT_CENTROID
-      - AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A
-      - VOLUME_CONDITION_FORCES_PERPENDICULARITY
-      - ACUTENESS_RULES_OUT_EXCENTER  (distractor)
-      - DIHEDRAL_BISECTOR_LEMMA  (distractor)
+      - rejected_perpendicularity_no_counterexample
+      - cascaded_rejection_of_e_from_a
+      - correct_gtfa_invalid_proof_chain
+      - false_universal_insphere_at_face_incenter
+      - confused_centroid_and_incenter
+      - self_contradictory_centroid_above
+      - vague_word_salad_proofs
+      - cot_trace_misses_distance_equivalence
+      - repeats_false_universal_in_e
+      - vague_almost_regular_nonconstruction
+      - rejects_e_via_general_property_misapplied
+      - false_claim_ai_equals_inradius
+      - incoherent_ratio_argument_in_b
+      - degenerate_counterexample_b_equals_c
 
       Do NOT write /logs/agent/output.json. Audit only.
     depends_on: []
     parallel_group: audit
 
-  - id: audit-C-D
+  - id: audit-B
     description: |
-      Same audit as audit-A-B. Files:
-      - /input_artifacts/response_C.md
-      - /input_artifacts/response_D.md
-      Same problem, schema, and vocabularies. Note: one of these candidates may have the
-      correct final answer set {a,b,c,d,e} but rely on a FALSE universal claim about
-      inspheres ("the insphere of any tangential tetrahedron is tangent at the face incenter"
-      — this is false in general). Treat such cases as proof_valid=false and
-      verdict="correct_final_answer_but_invalid_proof".
-      Return {"audits": [<C>, <D>]}.
-
-      primary_error_label vocabulary: NO_ERROR, REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE,
-        FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE, SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE,
-        MISSED_VOLUME_TO_DISTANCE_EQUIVALENCE_IN_COT, VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION,
-        WRONG_PROJECTION_TARGET, CIRCULAR_BISECTOR_ARGUMENT, OVERCLAIMS_EQUILATERAL_BCD.
-      required_evidence_label vocabulary: NO_ERROR, TETRAHEDRON_INCENTER_FORMULA_DERIVATION,
-        DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY, PROJECTION_IS_INCENTER_NOT_CENTROID,
-        AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A, VOLUME_CONDITION_FORCES_PERPENDICULARITY,
-        ACUTENESS_RULES_OUT_EXCENTER, DIHEDRAL_BISECTOR_LEMMA.
-
-      Verdict values: correct | incorrect | correct_final_answer_but_invalid_proof.
-      Do NOT write /logs/agent/output.json.
+      Same audit as audit-A. File: /input_artifacts/response_B.md (single candidate).
+      Watch for: rejection of (a) by asserting a counterexample exists without constructing
+      one, and a cascading rejection of (e) on the grounds that (e) follows from (a).
+      Return {"response_id": "B", "final_answer_correct": <bool>, "failure_reasons": [...]}.
+      Use the same vocabulary as audit-A. Do NOT write /logs/agent/output.json.
     depends_on: []
     parallel_group: audit
 
-  - id: audit-E-F
+  - id: audit-C
     description: |
-      Same audit as audit-A-B. Files:
-      - /input_artifacts/response_E.md
-      - /input_artifacts/response_F.md
-      One of these candidates emits a visible chain-of-thought trace before its final answer.
-      Read the entire response (trace + final) and audit it as a single submission.
-      Watch for: (1) self-contradictory counterexamples ("above centroid but not orthogonal");
-      (2) candidates that derive area/edge ratios but fail to translate to dist(A, edge).
-      Return {"audits": [<E>, <F>]}.
+      Same audit as audit-A. File: /input_artifacts/response_C.md (single candidate).
+      Watch for: stated set equals gold {a,b,c,d,e} but proof relies on the FALSE universal
+      "the insphere of any tangential tetrahedron is tangent at the face-incenter." Such a
+      candidate gets failure_reasons containing both `correct_gtfa_invalid_proof_chain` and
+      `false_universal_insphere_at_face_incenter`.
+      Return {"response_id": "C", "final_answer_correct": <bool>, "failure_reasons": [...]}.
+      Use the same vocabulary as audit-A. Do NOT write /logs/agent/output.json.
+    depends_on: []
+    parallel_group: audit
 
-      Same vocabularies as audit-C-D. Same verdict values.
-      Do NOT write /logs/agent/output.json.
+  - id: audit-D
+    description: |
+      Same audit as audit-A. File: /input_artifacts/response_D.md (single candidate).
+      Watch for: a clean, concise proof following the dihedral-bisector approach
+      (I lies on the bisector plane of each dihedral angle at edges AB, AC, AD; those
+      bisector planes restrict to the angle bisectors of triangle BCD at B, C, D; so AI
+      passes through the incenter of BCD, giving AI ⊥ plane BCD). If the proof is sound
+      and the final set equals gold, return failure_reasons=[].
+      Return {"response_id": "D", "final_answer_correct": <bool>, "failure_reasons": [...]}.
+      Use the same vocabulary as audit-A. Do NOT write /logs/agent/output.json.
+    depends_on: []
+    parallel_group: audit
+
+  - id: audit-E
+    description: |
+      Same audit as audit-A. File: /input_artifacts/response_E.md (single candidate).
+      Watch for: (1) a self-contradictory counterexample of the form "A lies directly above
+      the centroid of BCD but is not orthogonal" — "directly above" already implies
+      orthogonal; (2) confusion of the centroid with the incenter at load-bearing steps;
+      (3) vague non-mathematical phrases ("by symmetry about A", "by the circumcircle
+      properties", "by definition of the inradius") used as proofs.
+      Return {"response_id": "E", "final_answer_correct": <bool>, "failure_reasons": [...]}.
+      Use the same vocabulary as audit-A. Do NOT write /logs/agent/output.json.
+    depends_on: []
+    parallel_group: audit
+
+  - id: audit-F
+    description: |
+      Same audit as audit-A. File: /input_artifacts/response_F.md (single candidate).
+      This response emits a visible chain-of-thought trace before its final answer. Read
+      both the trace and the final answer; audit them together as a single submission.
+      Watch for: (1) trace derives area(ABX)/BX ratios but explicitly fails to convert
+      them to dist(A, line BX) — i.e. derives R1 but stops short of R2, then rejects (c);
+      (2) restatement of the false insphere-at-face-incenter universal in the (e) section
+      of the trace; (3) "almost regular but slightly skewed" hand-waves elsewhere in the
+      trace.
+      Return {"response_id": "F", "final_answer_correct": <bool>, "failure_reasons": [...]}.
+      Use the same vocabulary as audit-A. Do NOT write /logs/agent/output.json.
     depends_on: []
     parallel_group: audit
 
   - id: audit-G
     description: |
-      Same audit as audit-A-B. File: /input_artifacts/response_G.md (single candidate).
-      Return {"audits": [<G>]} (1-element array).
-
-      Same vocabularies as audit-C-D. Same verdict values. Watch for: dismissive
-      "almost regular" or "slightly skewed" non-constructions.
-      Do NOT write /logs/agent/output.json.
+      Same audit as audit-A. File: /input_artifacts/response_G.md (single candidate).
+      Watch for: (1) dismissive "almost regular" / "slightly skewed" non-constructions;
+      (2) rejection of (e) by appealing to a general property of inspheres ("the insphere
+      touch point is not in general the incenter of the face") without checking whether
+      hypothesis H2 forces these to coincide in the specific setup (which it does).
+      Return {"response_id": "G", "final_answer_correct": <bool>, "failure_reasons": [...]}.
+      Use the same vocabulary as audit-A. Do NOT write /logs/agent/output.json.
     depends_on: []
     parallel_group: audit
 
-  - id: audit-H-I
+  - id: audit-H
     description: |
-      Same audit as audit-A-B. Files:
-      - /input_artifacts/response_H.md
-      - /input_artifacts/response_I.md
-      Watch for: (1) incoherent proofs that assert the false equality "AI = r" (the
-      distance from vertex A to the incenter I equals the inradius r) — this is
-      mathematically false in general; (2) clean, correct proofs that derive A's
-      projection = incenter of BCD, observe I's projection is also incenter, conclude
-      AI perpendicular to plane BCD.
-      Return {"audits": [<H>, <I>]}.
+      Same audit as audit-A. File: /input_artifacts/response_H.md (single candidate).
+      Watch for: (1) the false equality "AI = r" (distance from vertex A to incenter I
+      equals the inradius); (2) an incoherent 1:1-ratio argument used to defend or reject
+      (b); (3) a "counterexample" that turns out to be degenerate (B = C, or B, C, D
+      collinear).
+      Return {"response_id": "H", "final_answer_correct": <bool>, "failure_reasons": [...]}.
+      Use the same vocabulary as audit-A. Do NOT write /logs/agent/output.json.
+    depends_on: []
+    parallel_group: audit
 
-      primary_error_label vocabulary: NO_ERROR, REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE,
-        FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE, SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE,
-        MISSED_VOLUME_TO_DISTANCE_EQUIVALENCE_IN_COT, VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION,
-        WRONG_PROJECTION_TARGET, CIRCULAR_BISECTOR_ARGUMENT, OVERCLAIMS_EQUILATERAL_BCD,
-        FALSE_CLAIM_AI_EQUALS_INRADIUS_R.
-      required_evidence_label vocabulary: NO_ERROR, TETRAHEDRON_INCENTER_FORMULA_DERIVATION,
-        DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY, PROJECTION_IS_INCENTER_NOT_CENTROID,
-        AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A, VOLUME_CONDITION_FORCES_PERPENDICULARITY,
-        ACUTENESS_RULES_OUT_EXCENTER, DIHEDRAL_BISECTOR_LEMMA,
-        RECOGNIZE_AI_IS_GREATER_THAN_INRADIUS.
-
-      Same verdict values. Do NOT write /logs/agent/output.json.
+  - id: audit-I
+    description: |
+      Same audit as audit-A. File: /input_artifacts/response_I.md (single candidate).
+      Watch for: a clean correct proof that derives R2 (dist(A,BC)=dist(A,CD)=dist(A,DB)),
+      shows A's projection on plane BCD is the incenter of BCD, then shows I's projection
+      coincides with A's projection, concluding AI ⊥ plane BCD and the insphere touch
+      point on BCD equals the incenter of BCD. If the proof is sound and final set equals
+      gold, return failure_reasons=[].
+      Return {"response_id": "I", "final_answer_correct": <bool>, "failure_reasons": [...]}.
+      Use the same vocabulary as audit-A. Do NOT write /logs/agent/output.json.
     depends_on: []
     parallel_group: audit
 
@@ -148,20 +164,17 @@ sub_tasks:
 
       Return JSON:
       {
-        "gold_set": [<letters a..h alphabetical>],
+        "gold_set": [<letters a..h alphabetical, lowercase>],
         "key_lemmas": [
-          "<short description of each key lemma needed for the proof, e.g.
-            volume condition implies dist(A, BC) = dist(A, CD) = dist(A, DB);
-            this forces A's projection on BCD to be the incenter of BCD;
-            the tetrahedron-incenter formula implies I's projection coincides with A's
-            projection; therefore AI is perpendicular to plane BCD; and therefore the
-            insphere touches BCD at the incenter of triangle BCD.>"
+          "<R1: area(ABC)/BC = area(ACD)/CD = area(ABD)/DB, from vol(IXYZ) = (1/3)·area(XYZ)·r>",
+          "<R2: dist(A, BC) = dist(A, CD) = dist(A, DB), from R1 and area = (1/2)·base·dist>",
+          "<R2 + acuteness forces A's projection on plane BCD to be the incenter of BCD>",
+          "<I's projection on plane BCD equals A's projection (tetrahedron-incenter formula or dihedral-bisector lemma)>",
+          "<hence AI ⊥ plane BCD; hence the insphere touch point on BCD is the incenter of BCD>"
         ],
         "false_universals_to_avoid": [
-          "<each entry is a false GENERAL claim about tetrahedra inspheres that a weak
-            candidate might invoke as a universal premise. Example: 'the insphere of any
-            tangential tetrahedron is tangent to each face at the face-incenter' — FALSE in
-            general; requires extra symmetry.>"
+          "the insphere of any tangential tetrahedron is tangent to each face at the face-incenter — FALSE in general",
+          "AI = r — FALSE in general (AI > r since I is interior)"
         ]
       }
       Do NOT write /logs/agent/output.json.
@@ -170,39 +183,45 @@ sub_tasks:
 
   - id: synthesize-final-audit
     description: |
-      Receive five {"audits": [...]} payloads from audit-A-B, audit-C-D, audit-E-F, audit-G,
-      audit-H-I plus the reference brief from verify-gold-math. Merge into the final task
-      output and write to /logs/agent/output.json.
+      Receive 9 per-response audit payloads from audit-A..audit-I plus the reference brief
+      from verify-gold-math. Merge into the final task output and write to
+      /logs/agent/output.json.
 
       ## Reconciliation rules
-      1. For each per-response audit: if final_answer_correct claim disagrees with whether
-         the candidate's stated set equals the reference brief's gold_set, correct it.
-      2. If verdict="correct" but proof_valid=false OR final_answer_correct=false, change
-         verdict to "correct_final_answer_but_invalid_proof" or "incorrect" accordingly.
-      3. If verdict="correct" set primary_error_label="NO_ERROR" and
-         required_evidence_label="NO_ERROR".
-      4. Both label fields must be drawn from the controlled vocabularies (see audit-A-B
-         and audit-H-I descriptions for the full lists, including the new labels
-         FALSE_CLAIM_AI_EQUALS_INRADIUS_R and RECOGNIZE_AI_IS_GREATER_THAN_INRADIUS).
-      5. response_id values uppercase A..I.
+      1. Top-level gold_set comes from verify-gold-math (lowercase, alphabetical). Expected
+         value: ["a","b","c","d","e"].
+      2. For each per-response audit: if the claim final_answer_correct disagrees with
+         whether the candidate's stated set equals the verified gold_set, correct it.
+      3. failure_reasons labels must come from the controlled vocabulary in instruction.md
+         (lower_snake_case). If a label is missing or extra against the canonical defect set
+         for that candidate, fix it. Re-read the candidate file if needed.
+      4. acceptable_solution_ids = uppercase, alphabetically-sorted list of response_ids
+         whose final_answer_correct=true AND failure_reasons=[]. (A candidate with the gold
+         final set but failure_reasons containing `correct_gtfa_invalid_proof_chain` is NOT
+         acceptable.)
+      5. response_id values uppercase A..I; per_response_assessment ordered alphabetically.
 
       ## Final output JSON — write ONLY this file: /logs/agent/output.json
       {
-        "response_audits": [
-          <9 reconciled audits, ordered alphabetically by response_id A..I; each audit has
-           keys response_id, final_answer_correct, proof_valid, verdict, primary_error_label,
-           required_evidence_label — no additional keys>
+        "gold_set": ["a","b","c","d","e"],
+        "acceptable_solution_ids": [<uppercase A..I, alphabetical>],
+        "per_response_assessment": [
+          <9 entries, ordered A..I; each entry has exactly the keys response_id,
+           final_answer_correct, failure_reasons>
         ]
       }
 
       ## Self-checks before writing
-      - Exactly 9 entries, ordered A, B, C, D, E, F, G, H, I.
-      - Top-level keys exactly: response_audits.
-      - Every entry has exactly these 6 keys: response_id, final_answer_correct, proof_valid,
-        verdict, primary_error_label, required_evidence_label.
-      - verdict in {correct, incorrect, correct_final_answer_but_invalid_proof}.
-      - When verdict="correct": primary_error_label=NO_ERROR AND required_evidence_label=NO_ERROR.
+      - Top-level keys exactly: gold_set, acceptable_solution_ids, per_response_assessment.
+      - gold_set is lowercase a..h, alphabetical.
+      - acceptable_solution_ids is uppercase A..I, alphabetical.
+      - per_response_assessment has exactly 9 entries, ordered A, B, C, D, E, F, G, H, I.
+      - Every per-response entry has exactly these 3 keys: response_id, final_answer_correct,
+        failure_reasons.
+      - failure_reasons labels are all lower_snake_case and drawn from the vocabulary.
+      - If final_answer_correct=true AND failure_reasons=[] for a response, that
+        response_id is in acceptable_solution_ids.
 
       Write the final JSON to /logs/agent/output.json. This is the ONLY file you write.
-    depends_on: [audit-A-B, audit-C-D, audit-E-F, audit-G, audit-H-I, verify-gold-math]
+    depends_on: [audit-A, audit-B, audit-C, audit-D, audit-E, audit-F, audit-G, audit-H, audit-I, verify-gold-math]
     parallel_group: synthesize

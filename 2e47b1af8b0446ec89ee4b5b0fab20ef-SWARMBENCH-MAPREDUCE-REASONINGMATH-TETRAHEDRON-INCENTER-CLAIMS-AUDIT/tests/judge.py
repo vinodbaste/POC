@@ -1,39 +1,36 @@
-"""Deterministic verifier — Task-B-style scoring.
+"""Deterministic verifier — TETRIS-pattern set-match scoring.
 
 No LLM called. Compares agent /logs/agent/output.json against /tests/oracle.json.
 
-Per-response scoring (45 pts each, 7 responses, 315 total):
-  - final_answer_correct (bool match):       1 pt
-  - proof_valid          (bool match):       1 pt
-  - verdict              (exact string):     1 pt
-  - primary_error_label  (exact string):    40 pts   <- dominant lever
-  - required_evidence_label (exact string):  2 pts
+Top-level scoring (4 pts, cheap direct math facts):
+  - gold_set (set match against ["a","b","c","d","e"]):     2 pts
+  - acceptable_solution_ids (set match against ["A","D","I"]): 2 pts
 
-Reward = total_passed / 315.
+Per-response scoring (30 pts each, 9 responses):
+  - failure_reasons (SET MATCH — all-or-nothing, exact set equality): 30 pts
 
-The primary_error_label vocabulary is task-specific and granular — there is one
-canonical label per oracle entry, and labels do not appear in the instruction's
-vocabulary unless the candidate's audit needs them. This forces the agent to
-identify each candidate's specific error pattern, not pick from a generic list.
+Total max = 4 + 9 * 30 = 274 pts. Reward = total_passed / 274.
+
+The set-match on failure_reasons is the structural lever: each response has 0-3
+specific failure-reason labels drawn from a granular task-specific vocabulary,
+and the agent must produce the EXACT set (no extras, no omissions) per response.
+Subsets and supersets both score 0 for that response.
 """
 
 import argparse
 import json
 import os
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set
 
 
-REQUIRED_TOP_KEYS = {"response_audits"}
+REQUIRED_TOP_KEYS = {"gold_set", "acceptable_solution_ids", "per_response_assessment"}
 
-FIELD_WEIGHTS = {
-    "final_answer_correct": 1,
-    "proof_valid": 1,
-    "verdict": 1,
-    "primary_error_label": 40,
-    "required_evidence_label": 2,
+TOP_LEVEL_WEIGHTS = {
+    "gold_set": 2,
+    "acceptable_solution_ids": 2,
 }
 
-MAX_PER_RESPONSE = sum(FIELD_WEIGHTS.values())  # 45
+PER_RESPONSE_WEIGHT = 30
 
 
 def write_reward(score: float, reward_out: str, justification: str) -> None:
@@ -50,8 +47,16 @@ def norm_str(v: Any) -> str:
     return str(v if v is not None else "").strip()
 
 
-def equal_str_ci(a: Any, b: Any) -> bool:
-    return norm_str(a).lower() == norm_str(b).lower()
+def as_lower_set(items: Any) -> Set[str]:
+    if not isinstance(items, list):
+        return set()
+    return {norm_str(x).lower() for x in items if norm_str(x) != ""}
+
+
+def as_upper_set(items: Any) -> Set[str]:
+    if not isinstance(items, list):
+        return set()
+    return {norm_str(x).upper() for x in items if norm_str(x) != ""}
 
 
 def main():
@@ -71,71 +76,67 @@ def main():
     with open(args.oracle, encoding="utf-8") as f:
         oracle = json.load(f)
 
-    # Exact-match shortcut for oracle agent path
     if agent == oracle:
         write_reward(1.0, args.reward_out, "Score: 1.0\n\nAgent output exactly matches oracle.")
         return
 
-    # Top-level structure check
-    if not isinstance(agent, dict) or "response_audits" not in agent or not isinstance(agent["response_audits"], list):
-        write_reward(0.0, args.reward_out, "Score: 0.0\n\nMissing or non-list 'response_audits' top-level key.")
+    if not isinstance(agent, dict):
+        write_reward(0.0, args.reward_out, "Score: 0.0\n\nAgent output is not a JSON object.")
         return
 
-    oracle_audits: List[Dict[str, Any]] = oracle["response_audits"]
-    agent_audits: List[Dict[str, Any]] = agent["response_audits"]
-    oracle_by_id = {norm_str(a.get("response_id")).upper(): a for a in oracle_audits}
-    agent_by_id = {norm_str(a.get("response_id")).upper(): a for a in agent_audits if isinstance(a, dict)}
-
-    total_max = len(oracle_audits) * MAX_PER_RESPONSE
+    oracle_assessment: List[Dict[str, Any]] = oracle["per_response_assessment"]
+    total_max = sum(TOP_LEVEL_WEIGHTS.values()) + len(oracle_assessment) * PER_RESPONSE_WEIGHT
     total_passed = 0
     lines: List[str] = []
+
+    oracle_gold = as_lower_set(oracle.get("gold_set"))
+    agent_gold = as_lower_set(agent.get("gold_set"))
+    if oracle_gold == agent_gold and oracle_gold:
+        total_passed += TOP_LEVEL_WEIGHTS["gold_set"]
+        lines.append(f"gold_set=2/2 (matched {sorted(oracle_gold)})")
+    else:
+        lines.append(f"gold_set=0/2 (got={sorted(agent_gold)}, expected={sorted(oracle_gold)})")
+
+    oracle_accept = as_upper_set(oracle.get("acceptable_solution_ids"))
+    agent_accept = as_upper_set(agent.get("acceptable_solution_ids"))
+    if oracle_accept == agent_accept and oracle_accept:
+        total_passed += TOP_LEVEL_WEIGHTS["acceptable_solution_ids"]
+        lines.append(f"acceptable_solution_ids=2/2 (matched {sorted(oracle_accept)})")
+    else:
+        lines.append(f"acceptable_solution_ids=0/2 (got={sorted(agent_accept)}, expected={sorted(oracle_accept)})")
+
+    agent_assessment_raw = agent.get("per_response_assessment")
+    if not isinstance(agent_assessment_raw, list):
+        agent_assessment_raw = []
+
+    oracle_by_id = {norm_str(r.get("response_id")).upper(): r for r in oracle_assessment}
+    agent_by_id = {
+        norm_str(r.get("response_id")).upper(): r
+        for r in agent_assessment_raw
+        if isinstance(r, dict)
+    }
 
     for resp_id in sorted(oracle_by_id.keys()):
         o = oracle_by_id[resp_id]
         a = agent_by_id.get(resp_id, {})
-        row_passed = 0
-        details = []
-        # final_answer_correct (bool)
-        got = a.get("final_answer_correct"); exp = o.get("final_answer_correct")
-        if isinstance(got, bool) and isinstance(exp, bool) and got == exp:
-            row_passed += FIELD_WEIGHTS["final_answer_correct"]
-            details.append(f"final_answer_correct=1/1")
+        exp_set = as_lower_set(o.get("failure_reasons"))
+        got_set = as_lower_set(a.get("failure_reasons"))
+        if exp_set == got_set:
+            total_passed += PER_RESPONSE_WEIGHT
+            lines.append(
+                f"Response {resp_id}: failure_reasons={PER_RESPONSE_WEIGHT}/{PER_RESPONSE_WEIGHT} "
+                f"(set match: {sorted(exp_set) if exp_set else '[]'})"
+            )
         else:
-            details.append(f"final_answer_correct=0/1 (got={got!r}, expected={exp!r})")
-        # proof_valid (bool)
-        got = a.get("proof_valid"); exp = o.get("proof_valid")
-        if isinstance(got, bool) and isinstance(exp, bool) and got == exp:
-            row_passed += FIELD_WEIGHTS["proof_valid"]
-            details.append(f"proof_valid=1/1")
-        else:
-            details.append(f"proof_valid=0/1 (got={got!r}, expected={exp!r})")
-        # verdict (exact string)
-        got = a.get("verdict"); exp = o.get("verdict")
-        if equal_str_ci(got, exp):
-            row_passed += FIELD_WEIGHTS["verdict"]
-            details.append(f"verdict=1/1")
-        else:
-            details.append(f"verdict=0/1 (got={norm_str(got)!r}, expected={norm_str(exp)!r})")
-        # primary_error_label (exact string — 40 pts)
-        got = a.get("primary_error_label"); exp = o.get("primary_error_label")
-        if equal_str_ci(got, exp):
-            row_passed += FIELD_WEIGHTS["primary_error_label"]
-            details.append(f"primary_error_label=40/40")
-        else:
-            details.append(f"primary_error_label=0/40 (got={norm_str(got)!r}, expected={norm_str(exp)!r})")
-        # required_evidence_label (exact string — 2 pts)
-        got = a.get("required_evidence_label"); exp = o.get("required_evidence_label")
-        if equal_str_ci(got, exp):
-            row_passed += FIELD_WEIGHTS["required_evidence_label"]
-            details.append(f"required_evidence_label=2/2")
-        else:
-            details.append(f"required_evidence_label=0/2 (got={norm_str(got)!r}, expected={norm_str(exp)!r})")
-
-        total_passed += row_passed
-        lines.append(f"Response {resp_id}: {row_passed}/{MAX_PER_RESPONSE}; " + "; ".join(details))
+            missing = sorted(exp_set - got_set)
+            extra = sorted(got_set - exp_set)
+            lines.append(
+                f"Response {resp_id}: failure_reasons=0/{PER_RESPONSE_WEIGHT} "
+                f"(missing={missing}, extra={extra}, expected={sorted(exp_set)}, got={sorted(got_set)})"
+            )
 
     score = total_passed / total_max if total_max > 0 else 0.0
-    justification = f"Score: {score:.3f} ({total_passed}/{total_max} passed)\n\n" + "\n".join(lines)
+    justification = f"Score: {score:.4f} ({total_passed}/{total_max} passed)\n\n" + "\n".join(lines)
     write_reward(score, args.reward_out, justification)
 
 
