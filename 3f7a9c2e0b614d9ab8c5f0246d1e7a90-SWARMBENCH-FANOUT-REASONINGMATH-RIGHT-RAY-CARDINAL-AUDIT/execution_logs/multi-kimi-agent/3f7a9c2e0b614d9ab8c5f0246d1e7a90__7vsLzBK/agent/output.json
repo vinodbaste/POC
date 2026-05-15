@@ -1,0 +1,68 @@
+{
+  "response_audits": [
+    {
+      "response_id": "A",
+      "final_answer_correct": true,
+      "proof_valid": true,
+      "verdict": "correct",
+      "primary_error_label": "NO_ERROR",
+      "required_evidence_label": "NO_ERROR"
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "proof_valid": false,
+      "verdict": "incorrect",
+      "primary_error_label": "GLOBAL_NEIGHBORHOOD_MISCOUNT",
+      "required_evidence_label": "GLOBAL_RAY_CARDINALITY_CHECK"
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": true,
+      "proof_valid": false,
+      "verdict": "correct_final_answer_but_invalid_proof",
+      "primary_error_label": "FINITE_CASE_LIMIT_POINT_ERROR",
+      "required_evidence_label": "FINITE_NEIGHBORHOOD_CHECK"
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "proof_valid": false,
+      "verdict": "incorrect",
+      "primary_error_label": "LOCAL_PAIRING_MODEL_ERROR",
+      "required_evidence_label": "PAIRING_GLOBALITY_CHECK"
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": true,
+      "proof_valid": false,
+      "verdict": "correct_final_answer_but_invalid_proof",
+      "primary_error_label": "OVERGENERALIZED_INFINITE_CASE",
+      "required_evidence_label": "COUNTABLE_COUNTEREXAMPLE_CHECK"
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "proof_valid": false,
+      "verdict": "incorrect",
+      "primary_error_label": "SUPREMUM_DEFINITION_ERROR",
+      "required_evidence_label": "SUPREMUM_LEAST_UPPER_BOUND_CHECK"
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "proof_valid": false,
+      "verdict": "incorrect",
+      "primary_error_label": "IMPOSSIBLE_TAIL_CONSTRUCTION",
+      "required_evidence_label": "GLOBAL_RAY_CARDINALITY_CHECK"
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": true,
+      "proof_valid": false,
+      "verdict": "correct_final_answer_but_invalid_proof",
+      "primary_error_label": "WRONG_TOPOLOGY_TRANSFER",
+      "required_evidence_label": "GLOBAL_RAY_CARDINALITY_CHECK"
+    }
+  ]
+}
