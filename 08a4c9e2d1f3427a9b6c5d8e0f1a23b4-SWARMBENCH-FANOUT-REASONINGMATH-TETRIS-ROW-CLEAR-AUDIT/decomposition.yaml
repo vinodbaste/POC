@@ -1,0 +1,110 @@
+sub_tasks:
+  - id: adjudicate-tetris-mechanics
+    description: >
+      Read /input_artifacts/problem.md only. Independently determine the final 20-row Tetris board.
+      Use standard Tetris gravity: the three vertical I-tetrominoes placed in the rightmost column
+      occupy the lowest available cells in that column before row clearing. Then apply standard
+      row clearing. When rows clear, surviving rows above the cleared rows fall downward, and the
+      replacement empty rows are inserted at the top of the board, not at the bottom. Return the
+      final board in top-to-bottom order and a concise mechanics summary for the synthesizer.
+      Do not inspect or rely on any proposed response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_A.md.
+      Audit only Response A. Decide whether its final board is exactly correct by comparing the
+      response's printed final 20-row board to the independently computed final board. If it is wrong,
+      return the exact applicable failure_reasons chosen from: wrong_i_piece_placement,
+      wrong_full_rows_cleared, wrong_post_clear_shift_or_padding, invalid_or_incomplete_final_output.
+      Use wrong_post_clear_shift_or_padding when the response has the wrong shifted board after
+      clearing, including the common error of putting newly empty rows at the bottom instead of at the top.
+      Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_B.md.
+      Audit only Response B. Decide whether its final board is exactly correct by comparing the
+      response's printed final 20-row board to the independently computed final board. If it is wrong,
+      return the exact applicable failure_reasons chosen from: wrong_i_piece_placement,
+      wrong_full_rows_cleared, wrong_post_clear_shift_or_padding, invalid_or_incomplete_final_output.
+      If a response describes the intended placement and the correct full-row count but assembles or
+      prints the shifted final board incorrectly, classify that as wrong_post_clear_shift_or_padding rather
+      than as a placement or row-clearing error. Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_C.md.
+      Audit only Response C. Decide whether its final board is exactly correct by comparing the
+      response's printed final 20-row board to the independently computed final board. If it is wrong,
+      return the exact applicable failure_reasons chosen from: wrong_i_piece_placement,
+      wrong_full_rows_cleared, wrong_post_clear_shift_or_padding, invalid_or_incomplete_final_output.
+      If a response outputs a board before clearing full rows, include row-clearing and post-clear
+      shift/padding failures because the final board after row clearing was not produced. Do not infer
+      correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_D.md.
+      Audit only Response D. Decide whether its final board is exactly correct by comparing the
+      response's printed final board to the independently computed final board. If the response gives
+      fewer than 20 board rows or rows of the wrong width, include invalid_or_incomplete_final_output.
+      Also classify any explicit wrong mechanical claims in the response text, such as a wrong placement
+      range or wrong number of cleared full rows, using the corresponding failure reason codes.
+      Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_E.md.
+      Audit only Response E. Decide whether its final board is exactly correct by comparing the
+      response's printed final 20-row board to the independently computed final board. If it is wrong,
+      return the exact applicable failure_reasons chosen from: wrong_i_piece_placement,
+      wrong_full_rows_cleared, wrong_post_clear_shift_or_padding, invalid_or_incomplete_final_output.
+      Be especially strict about top-to-bottom order after clearing: newly empty rows must be at the top.
+      A response that places empty rows at the bottom after clearing is not correct; classify that as
+      wrong_post_clear_shift_or_padding. Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_F.md.
+      Audit only Response F. Decide whether its final board is exactly correct by comparing the
+      response's printed final 20-row board to the independently computed final board. If it is wrong,
+      return the exact applicable failure_reasons chosen from: wrong_i_piece_placement,
+      wrong_full_rows_cleared, wrong_post_clear_shift_or_padding, invalid_or_incomplete_final_output.
+      If a response treats three vertical I-tetrominoes as only three filled cells or directly equates them
+      with three cleared rows, classify the placement and row-clearing mechanics accordingly. If its final
+      board is also shifted/padded incorrectly, include wrong_post_clear_shift_or_padding. Do not infer
+      correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Combine the mechanics adjudication and six response audits. Resolve conflicts by independently
+      checking the problem statement and response text, not by majority vote. Before writing the final
+      output, do a line-by-line top-to-bottom comparison between each response's final board and the
+      mechanics-adjudicated board. Do not mark any response acceptable unless its printed final board
+      exactly matches the mechanics-adjudicated final board. In particular, reject a board whose surviving
+      rows are correct but whose empty padding rows are placed at the bottom instead of the top. Produce
+      exactly the required JSON schema and write it to /logs/agent/output.json. Each response must have
+      an exact failure_reasons set: no missing reasons and no extra reasons.
+    depends_on:
+      - adjudicate-tetris-mechanics
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+    parallel_group: synthesize

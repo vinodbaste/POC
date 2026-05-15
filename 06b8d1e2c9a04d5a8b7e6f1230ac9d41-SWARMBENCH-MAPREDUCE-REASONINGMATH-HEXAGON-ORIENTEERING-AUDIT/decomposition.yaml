@@ -1,0 +1,105 @@
+sub_tasks:
+  - id: geometry-adjudication
+    description: >
+      Read /input_artifacts/problem.md and all eight proposed solution files. Your sole job is to
+      independently adjudicate the true optimal schedule. Identify which tasks require both runners,
+      which tasks are solo-capable, and which flag dependencies are forced. Use unit side length for
+      the regular hexagon and compare the critical feasible schedule families, including schedules
+      that use runner-splitting rather than simply walking around the boundary. Do not decide by
+      majority vote among the responses. Return a compact note containing the correct order, the
+      response IDs that are fully correct if any, and a short explanation of why the tempting
+      sequential boundary-walk schedules are or are not optimal.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_A.md.
+      Audit only Response A. Extract its final claimed task order as a normalized string.
+      Decide whether the final order is correct. Evaluate all labels exactly as defined in the
+      main task. Return a compact JSON-style note for Response A only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_B.md.
+      Audit only Response B. Extract its final claimed task order as a normalized string.
+      Decide whether the final order is correct. Evaluate all labels exactly as defined in the
+      main task. Return a compact JSON-style note for Response B only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_C.md.
+      Audit only Response C. Extract its final claimed task order as a normalized string.
+      Decide whether the final order is correct. Evaluate all labels exactly as defined in the
+      main task. Return a compact JSON-style note for Response C only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_D.md.
+      Audit only Response D. Extract its final claimed task order as a normalized string.
+      Decide whether the final order is correct. Evaluate all labels exactly as defined in the
+      main task. Return a compact JSON-style note for Response D only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_E.md.
+      Audit only Response E. Extract its final claimed task order as a normalized string.
+      Decide whether the final order is correct. Evaluate all labels exactly as defined in the
+      main task. Return a compact JSON-style note for Response E only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_F.md.
+      Audit only Response F. Extract its final claimed task order as a normalized string.
+      Decide whether the final order is correct. Evaluate all labels exactly as defined in the
+      main task. Return a compact JSON-style note for Response F only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-g
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_G.md.
+      Audit only Response G. Extract its final claimed task order as a normalized string.
+      Decide whether the final order is correct. Evaluate all labels exactly as defined in the
+      main task. Return a compact JSON-style note for Response G only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-h
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_H.md.
+      Audit only Response H. Extract its final claimed task order as a normalized string.
+      Decide whether the final order is correct. Evaluate all labels exactly as defined in the
+      main task. Return a compact JSON-style note for Response H only.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final-audit
+    description: >
+      Read the geometry-adjudication note and all eight response-audit notes. Then independently
+      re-open /input_artifacts/problem.md and all eight response files to verify the final order and
+      every label. Do not decide correctness by majority vote among response orders; multiple
+      responses can share the same wrong schedule. The final JSON must contain correct_order,
+      acceptable_solution_ids, and per_response_assessment for A through H in order. Do not include
+      prose justification fields. Write the final JSON to /logs/agent/output.json.
+    depends_on:
+      - geometry-adjudication
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+    parallel_group: reduce

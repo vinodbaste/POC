@@ -1,0 +1,2 @@
+Skipping image OS validation for hb__swarmbench-06b8d1e2c9a04d5a8b7e6f1230ac9d41-swarmbench-mapreduce-reasoningmath-hexagon-orienteering-audit: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

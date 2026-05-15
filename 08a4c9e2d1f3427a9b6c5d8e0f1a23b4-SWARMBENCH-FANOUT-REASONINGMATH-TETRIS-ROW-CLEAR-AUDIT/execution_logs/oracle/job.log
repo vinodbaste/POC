@@ -1,0 +1,2 @@
+Skipping image OS validation for hb__swarmbench-08a4c9e2d1f3427a9b6c5d8e0f1a23b4-swarmbench-fanout-reasoningmath-tetris-row-clear-audit: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

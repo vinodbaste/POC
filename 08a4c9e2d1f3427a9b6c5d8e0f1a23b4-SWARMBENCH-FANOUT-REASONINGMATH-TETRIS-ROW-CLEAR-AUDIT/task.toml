@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/08a4c9e2d1f3427a9b6c5d8e0f1a23b4-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-ROW-CLEAR-AUDIT"
+description = "Audit six proposed solutions to a Tetris row-clearing board-state problem and label their final-board and mechanics errors."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 10.0
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end audit workflow: 1.5h to independently adjudicate the Tetris mechanics and final board; 6 x 1.0h to audit six heterogeneous AI-generated responses, extract their final-board claims, and assign exact failure-reason sets; 2.5h to reconcile conflicting audits, prepare the 184-point verifier-aligned oracle, and document response-specific rationale. Total: 1.5 + 6.0 + 2.5 = 10.0h."
+estimated_sub_agents = 8
+input_token_estimate = 3210
+why_multi_agent = "The task requires both exact board-state simulation and detailed auditing of six verbose candidate responses. A single agent is prone to attention degradation: it may solve the board once but then lose track of each response's contradictory final board, cleared-row count, and error-type distinctions. Fan-out lets one mechanics adjudicator solve the Tetris state while six response-audit agents extract and label candidates independently, and a synthesizer reconciles all labels into one schema."
+reference_link = "https://tetris.wiki/Line_clear"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

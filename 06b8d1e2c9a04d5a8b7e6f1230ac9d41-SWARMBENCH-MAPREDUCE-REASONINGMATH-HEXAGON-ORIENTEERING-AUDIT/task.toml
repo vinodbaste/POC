@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/06b8d1e2c9a04d5a8b7e6f1230ac9d41-SWARMBENCH-MAPREDUCE-REASONINGMATH-HEXAGON-ORIENTEERING-AUDIT"
+description = "Audit eight candidate AI solutions to a two-inspector route-planning problem on a regular hexagonal training site."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 13.0
+human_solving_hours_justification = "Requires independently solving the geometric optimization problem, then auditing eight conflicting proposed solutions under 12 labels each. Estimated work: about 2 hours for the correct solution and route comparisons, 6 hours to audit eight responses, and 5 hours for consistency checking, label reconciliation, and JSON verification."
+estimated_sub_agents = 10
+input_token_estimate = 5600
+why_multi_agent = "The task has eight independent candidate AI solution files plus a separate geometry adjudication thread. A single agent tends to anchor on the majority sequential route and miss subtle feasibility, dependency, and distance-label distinctions. A multi-agent setup assigns each response to a separate auditor and uses a reducer to reconcile labels against an independent geometry adjudication."
+reference_link = "https://hal.science/hal-02418537v1/file/S0305054819301844.pdf"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

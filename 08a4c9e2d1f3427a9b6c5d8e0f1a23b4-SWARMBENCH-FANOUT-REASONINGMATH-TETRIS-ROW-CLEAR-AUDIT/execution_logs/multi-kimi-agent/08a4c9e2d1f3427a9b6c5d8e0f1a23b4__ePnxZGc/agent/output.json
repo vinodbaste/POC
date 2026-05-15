@@ -1,0 +1,76 @@
+{
+  "correct_final_board": [
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "0000000000",
+    "1000010000",
+    "1000110000",
+    "1011111011",
+    "1110111111",
+    "1101010111",
+    "1101100111",
+    "1111101111",
+    "1110011111"
+  ],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_board_correct": false,
+      "failure_reasons": [
+        "wrong_post_clear_shift_or_padding"
+      ]
+    },
+    {
+      "response_id": "B",
+      "final_board_correct": false,
+      "failure_reasons": [
+        "wrong_i_piece_placement",
+        "wrong_full_rows_cleared"
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_board_correct": false,
+      "failure_reasons": [
+        "wrong_i_piece_placement",
+        "wrong_full_rows_cleared",
+        "wrong_post_clear_shift_or_padding"
+      ]
+    },
+    {
+      "response_id": "D",
+      "final_board_correct": false,
+      "failure_reasons": [
+        "wrong_i_piece_placement",
+        "wrong_full_rows_cleared",
+        "invalid_or_incomplete_final_output"
+      ]
+    },
+    {
+      "response_id": "E",
+      "final_board_correct": false,
+      "failure_reasons": [
+        "wrong_post_clear_shift_or_padding"
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_board_correct": false,
+      "failure_reasons": [
+        "wrong_i_piece_placement",
+        "wrong_full_rows_cleared",
+        "wrong_post_clear_shift_or_padding"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Here's what happens when you place those three vertical I-tetrominoes in the rightmost column. They fill rows 7 through 19 in column 10, completing 11 full rows that get cleared and shift down. The top 6 empty rows stay empty, and the bottom 3 rows end up like this: 0000000000 0000000000 0000000000 0000000000 0000000000 0000000000 1111111110 1101010110 1111111110

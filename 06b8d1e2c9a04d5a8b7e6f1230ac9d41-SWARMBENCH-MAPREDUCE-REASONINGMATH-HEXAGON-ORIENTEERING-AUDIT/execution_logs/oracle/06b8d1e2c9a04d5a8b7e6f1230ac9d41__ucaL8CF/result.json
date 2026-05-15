@@ -1,0 +1,104 @@
+{
+    "id": "1d1dca28-a1ef-4814-ba34-05e4f73807d6",
+    "task_name": "swarmbench/06b8d1e2c9a04d5a8b7e6f1230ac9d41-SWARMBENCH-MAPREDUCE-REASONINGMATH-HEXAGON-ORIENTEERING-AUDIT",
+    "trial_name": "06b8d1e2c9a04d5a8b7e6f1230ac9d41__ucaL8CF",
+    "trial_uri": "file:///Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/06b8d1e2c9a04d5a8b7e6f1230ac9d41-SWARMBENCH-MAPREDUCE-REASONINGMATH-HEXAGON-ORIENTEERING-AUDIT/execution_logs/oracle/06b8d1e2c9a04d5a8b7e6f1230ac9d41__ucaL8CF",
+    "task_id": {
+        "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/06b8d1e2c9a04d5a8b7e6f1230ac9d41-SWARMBENCH-MAPREDUCE-REASONINGMATH-HEXAGON-ORIENTEERING-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "11f68791f308f17f08a0b16001de98f6fa2bea67463a4088f3358a4cb83e69cc",
+    "config": {
+        "task": {
+            "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/06b8d1e2c9a04d5a8b7e6f1230ac9d41-SWARMBENCH-MAPREDUCE-REASONINGMATH-HEXAGON-ORIENTEERING-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "06b8d1e2c9a04d5a8b7e6f1230ac9d41__ucaL8CF",
+        "trials_dir": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/06b8d1e2c9a04d5a8b7e6f1230ac9d41-SWARMBENCH-MAPREDUCE-REASONINGMATH-HEXAGON-ORIENTEERING-AUDIT/execution_logs/oracle",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "a522c721-ca62-438a-8fc7-48a4f67f1e4e"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-06T17:43:54.635217Z",
+    "finished_at": "2026-05-06T17:44:55.898490Z",
+    "environment_setup": {
+        "started_at": "2026-05-06T17:43:54.978054Z",
+        "finished_at": "2026-05-06T17:44:09.138841Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-06T17:44:09.139217Z",
+        "finished_at": "2026-05-06T17:44:09.139427Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-06T17:44:09.139585Z",
+        "finished_at": "2026-05-06T17:44:11.583558Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-06T17:44:11.995111Z",
+        "finished_at": "2026-05-06T17:44:53.264579Z"
+    },
+    "step_results": null
+}

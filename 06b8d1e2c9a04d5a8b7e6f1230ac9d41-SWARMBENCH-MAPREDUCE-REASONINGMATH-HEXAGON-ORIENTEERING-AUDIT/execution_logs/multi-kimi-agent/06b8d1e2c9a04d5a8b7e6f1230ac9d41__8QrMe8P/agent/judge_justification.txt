@@ -1,0 +1,3 @@
+Score: 0.813 (413/508 passed)
+
+Top-level fields perfect (20/20). Response A: -25 (has_calculation_error, has_unjustified_step). Response B: -19 (parallel_solo_block_correct, has_unjustified_step). Response C: -4 (has_feasibility_error, has_required_answer_format). Response D: -18 (joint_task_requirements_correct, has_feasibility_error). Response E: -19 (parallel_solo_block_correct, has_unjustified_step). Response F: perfect (61/61). Response G: -10 (has_calculation_error). Response H: perfect (61/61).
