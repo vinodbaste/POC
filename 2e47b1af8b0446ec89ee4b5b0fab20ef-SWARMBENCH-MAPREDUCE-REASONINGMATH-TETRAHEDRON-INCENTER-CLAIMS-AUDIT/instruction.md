@@ -19,26 +19,31 @@ Input artifacts:
 Task:
 1. Read the problem statement and all nine proposed solutions.
 2. Independently determine the gold SET of statement labels (a)..(h) that are necessarily true for every tetrahedron satisfying the two hypotheses.
-3. Determine which proposed response(s), if any, are fully correct (claimed set equals the gold set AND proof contains no load-bearing defect).
-4. For each proposed response A through I, audit whether its claimed set matches the gold set and identify the exact set of concrete failure reasons present in its argument, drawn from the allowed vocabulary below.
+3. Determine which proposed response(s), if any, are fully correct (claimed set equals the gold set AND no failure reason fires on their proof).
+4. For each proposed response A through I, audit whether its claimed set matches the gold set and identify the exact set of failure reasons whose phrase trigger is concretely instantiated in that response.
 5. Do not decide correctness by majority vote among the proposed responses. Independently solve the gold set first, then audit each response against that result.
 
-Allowed failure reason codes:
-- `rejected_perpendicularity_no_counterexample`: TRIGGER — the response rejects statement (a) (`AI ⊥ plane BCD`) by asserting that a counterexample exists, but never constructs one. The hypothesis is in fact strong enough to force (a). Apply ONLY when the response explicitly rejects (a) AND writes language like "counterexample exists" / "we can have a tetrahedron where..." without producing a concrete construction.
-- `cascaded_rejection_of_e_from_a`: TRIGGER — having rejected (a), the response then rejects (e) on the explicit grounds that (e) follows from (a). Apply ONLY when the rejection of (e) is justified by reference to its dependence on (a).
-- `correct_gtfa_invalid_proof_chain`: TRIGGER — the response's stated final answer set equals the gold set, but at least one step of its proof contains a false math claim or a load-bearing logical gap. Apply ONLY when both conditions hold: stated set is exactly gold AND proof has a load-bearing wrong claim.
-- `false_universal_insphere_at_face_incenter`: TRIGGER — the response uses, as a UNIVERSAL premise, the false claim "the insphere of any tangential tetrahedron is tangent to each face at the face's incenter." Apply ONLY when the response uses this universal claim as a premise (not when it correctly derives the touch point from the specific hypothesis here).
-- `confused_centroid_and_incenter`: TRIGGER — the response substitutes the word "centroid" of `BCD` where the correct point is the "incenter" of `BCD` at a load-bearing step. Apply ONLY when "centroid" actually appears in the response at a position where "incenter" is required.
-- `self_contradictory_centroid_above`: TRIGGER — the response proposes a counterexample of the form "A lies directly above the centroid of BCD but is not orthogonal" or any logically equivalent formulation. Apply ONLY when this specific self-contradictory construction appears verbatim or near-verbatim in the response.
-- `false_claim_ai_equals_inradius`: TRIGGER — the response asserts the equality `AI = r` (distance from vertex `A` to incenter `I` equals the inradius). Apply ONLY when `AI = r` (or its mathematical equivalent) is asserted as a load-bearing claim.
-- `vague_almost_regular_nonconstruction`: TRIGGER — the response dismisses one or more of the gold claims with phrases like "almost regular", "slightly skewed", or "it is possible to construct" without any concrete construction. Apply ONLY when this hand-wave phrase appears AND no concrete tetrahedron is exhibited.
-- `cot_trace_misses_distance_equivalence`: TRIGGER — the response derives `area(ABC)/BC = area(ACD)/CD = area(ABD)/DB` (the area-over-base ratio identity) but explicitly fails to convert it to `dist(A, BC) = dist(A, CD) = dist(A, DB)`, then rejects (c). Apply ONLY when both halves are observable: the ratio is derived AND (c) is rejected.
-- `rejects_e_via_misapplied_general_property`: TRIGGER — the response rejects (e) by appealing to a general property of inspheres (e.g. "the insphere touch point is not in general the incenter of the face") without checking whether the specific hypothesis (2) forces these two points to coincide here. Apply ONLY when the rejection of (e) cites a general fact about inspheres without reference to (2).
+Allowed failure reason codes (phrase-triggered; each code applies ONLY when its trigger phrase or its near-verbatim paraphrase is present in that single response's text):
+
+- `asserts_AI_equals_r`
+  - TRIGGER: the response asserts the equality "AI = r" (the distance from vertex A to the incenter I equals the inradius r) as a load-bearing claim. Look for the literal phrase "AI = r" or any direct paraphrase asserting equality of AI to the inradius. This claim is mathematically false in general because I is strictly interior to the tetrahedron.
+
+- `rejects_a_with_we_can_have_assertion`
+  - TRIGGER: the response rejects statement (a) (AI perpendicular to plane BCD) by writing a sentence of the form "we can have a tetrahedron satisfying (2) where AI is not perpendicular to BCD" or its near-verbatim paraphrase, without producing a concrete construction (no explicit coordinates or named vertex configuration). This is an assertion-not-construction rejection.
+
+- `asserts_universal_face_incenter_tangency`
+  - TRIGGER: the response asserts, as a UNIVERSAL premise about any tangential tetrahedron, that the inscribed sphere is tangent to each face at the face's incenter. Look for phrases like "insphere is tangent to each face at its face-incenter", "tangent to each face at the incenter of that face", or "point of tangency on each face is the incenter of that face" used as a general fact rather than as a conclusion derived from hypothesis (2).
+
+- `counterexample_places_a_above_centroid`
+  - TRIGGER: the response's counterexample to statement (a) places vertex A "directly above the centroid" of triangle BCD. Look for the literal phrase "directly above the centroid" (or "lies above the centroid") used inside an explicit counterexample paragraph for (a).
+
+- `appeals_to_almost_regular_or_slightly_skewed`
+  - TRIGGER: the response dismisses one or more of the gold claims with an appeal to a tetrahedron that is "almost regular" or "slightly skewed" or any near-verbatim paraphrase, without producing a concrete construction. Look for the literal phrase "almost regular" or "slightly skewed".
 
 Important scoring and selection rules:
 - The audit is evaluated as an EXACT set match per response. Extra failure reasons and missing failure reasons both score zero for that response.
-- **Most responses have 0, 1, or 2 failure reasons.** Apply a code only when its TRIGGER condition is directly observable in the response text. Do not apply borderline or stylistic codes. Do not apply a code whose trigger phrase is only present in a different response.
-- Use an empty list `[]` for failure_reasons exactly when the response's claimed set equals the gold set AND its proof has no load-bearing defect (i.e. no trigger from the vocabulary is concretely instantiated).
+- Most responses have 0 or 1 failure reasons. Apply a code only when its trigger phrase is directly observable in the response text.
+- Use an empty list `[]` for failure_reasons exactly when the response's claimed set equals the gold set AND no failure-reason trigger phrase appears in that response.
 - `acceptable_solution_ids` is the uppercase, alphabetically-sorted list of response_ids whose `final_answer_correct` is `true` AND whose `failure_reasons` is the empty list.
 
 Label definitions for each proposed response:
