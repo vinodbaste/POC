@@ -1,0 +1,148 @@
+{
+  "dataset": "RUC-AIBOX/OlymMATH-eval (HuggingFace)",
+  "dataset_url": "https://huggingface.co/datasets/RUC-AIBOX/OlymMATH-eval",
+  "problem_unique_id": "OlymMATH-EASY-0-EN",
+  "split": "en_easy",
+  "fetched_at": "2026-05-15",
+  "selection_rule": "response_id=0 from each of 15 distinct model configs",
+  "license_note": "Proceeding assuming permissive; verify before submission.",
+  "responses": [
+    {
+      "solution_id": "A",
+      "model_config": "qwen3-0.6b",
+      "response_id": 0,
+      "extracted_answer": "4",
+      "correctness_groundtruth": false,
+      "output_tokens": 17130,
+      "response_chars": 60241
+    },
+    {
+      "solution_id": "B",
+      "model_config": "deepseek-r1-distill-qwen-1.5b",
+      "response_id": 0,
+      "extracted_answer": "",
+      "correctness_groundtruth": false,
+      "output_tokens": 32768,
+      "response_chars": 55788
+    },
+    {
+      "solution_id": "C",
+      "model_config": "deepscaler-1.5b-preview",
+      "response_id": 0,
+      "extracted_answer": "1",
+      "correctness_groundtruth": false,
+      "output_tokens": 32768,
+      "response_chars": 149090
+    },
+    {
+      "solution_id": "D",
+      "model_config": "openmath-nemotron-1.5b",
+      "response_id": 0,
+      "extracted_answer": "948",
+      "correctness_groundtruth": true,
+      "output_tokens": 20261,
+      "response_chars": 51821
+    },
+    {
+      "solution_id": "E",
+      "model_config": "still-3-1.5b-preview",
+      "response_id": 0,
+      "extracted_answer": "1",
+      "correctness_groundtruth": false,
+      "output_tokens": 16468,
+      "response_chars": 58011
+    },
+    {
+      "solution_id": "F",
+      "model_config": "qwen3-4b",
+      "response_id": 0,
+      "extracted_answer": "948",
+      "correctness_groundtruth": true,
+      "output_tokens": 12550,
+      "response_chars": 31768
+    },
+    {
+      "solution_id": "G",
+      "model_config": "deepseek-r1-distill-qwen-7b",
+      "response_id": 0,
+      "extracted_answer": "1252",
+      "correctness_groundtruth": false,
+      "output_tokens": 16309,
+      "response_chars": 43647
+    },
+    {
+      "solution_id": "H",
+      "model_config": "light-r1-7b-ds",
+      "response_id": 0,
+      "extracted_answer": "2048",
+      "correctness_groundtruth": false,
+      "output_tokens": 16508,
+      "response_chars": 54311
+    },
+    {
+      "solution_id": "I",
+      "model_config": "acemath-rl-nemotron-7b",
+      "response_id": 0,
+      "extracted_answer": "33554432",
+      "correctness_groundtruth": false,
+      "output_tokens": 20598,
+      "response_chars": 53444
+    },
+    {
+      "solution_id": "J",
+      "model_config": "openmath-nemotron-7b",
+      "response_id": 0,
+      "extracted_answer": "474",
+      "correctness_groundtruth": false,
+      "output_tokens": 14077,
+      "response_chars": 36495
+    },
+    {
+      "solution_id": "K",
+      "model_config": "skywork-or1-7b-preview",
+      "response_id": 0,
+      "extracted_answer": "948",
+      "correctness_groundtruth": true,
+      "output_tokens": 14345,
+      "response_chars": 35470
+    },
+    {
+      "solution_id": "L",
+      "model_config": "openthinker2-7b",
+      "response_id": 0,
+      "extracted_answer": "2017",
+      "correctness_groundtruth": false,
+      "output_tokens": 20153,
+      "response_chars": 50245
+    },
+    {
+      "solution_id": "M",
+      "model_config": "skywork-or1-math-7b",
+      "response_id": 0,
+      "extracted_answer": "950",
+      "correctness_groundtruth": false,
+      "output_tokens": 19348,
+      "response_chars": 52278
+    },
+    {
+      "solution_id": "N",
+      "model_config": "qwq-32b",
+      "response_id": 0,
+      "extracted_answer": "948",
+      "correctness_groundtruth": true,
+      "output_tokens": 18600,
+      "response_chars": 53237
+    },
+    {
+      "solution_id": "O",
+      "model_config": "openthinker2-32b",
+      "response_id": 0,
+      "extracted_answer": "2^{44}",
+      "correctness_groundtruth": false,
+      "output_tokens": 19901,
+      "response_chars": 55274
+    }
+  ],
+  "problem": "Given a non-negative integer sequence $\\{a_n\\}$ satisfying $a_1 = 2016$, $a_{n+1} \\le \\sqrt{a_n}$, and if the number of terms is at least 2, then any two terms in the sequence are not equal. Find the number of such sequences $\\{a_n\\}$.",
+  "gold_answer": "948"
+}

@@ -1,0 +1,366 @@
+sub_tasks:
+  - id: audit-A-B-C-D
+    description: |
+      You are auditing four candidate solutions to an olympiad combinatorics problem.
+      You are NOT solving the problem yourself; you are judging four written solutions
+      against the standard of mathematical correctness.
+
+      ## The problem each candidate was given
+
+      Given a non-negative integer sequence {a_n} satisfying a_1 = 2016,
+      a_{n+1} <= sqrt(a_n), and if the number of terms is at least 2, then any two
+      terms in the sequence are not equal. Find the number of such sequences {a_n}.
+
+      ## Your task
+
+      Read these four candidate files in full:
+        - /input_artifacts/response_A.md
+        - /input_artifacts/response_B.md
+        - /input_artifacts/response_C.md
+        - /input_artifacts/response_D.md
+
+      For EACH of the four candidates, produce one solution-audit JSON object with
+      these fields exactly:
+
+      {
+        "solution_id": "<A, B, C, or D>",
+        "extracted_answer": "<literal final boxed/stated answer; empty string if none>",
+        "final_answer_correct": <bool>,
+        "verdict": "<correct | partially_correct | incorrect>",
+        "logical_chain_valid": <bool>,
+        "proof_complete": <bool>,
+        "contains_wrong_math_claim": <bool>,
+        "first_fatal_error": <{location, error_type, explanation} | null>,
+        "failure_labels": [<from controlled vocabulary>],
+        "domain_specific_labels": [<from controlled vocabulary>],
+        "repairability": "<minor_fix | major_rewrite | impossible_from_current_solution | n/a>",
+        "brief_assessment": "<1-3 sentences>"
+      }
+
+      Verdict rules:
+        - "correct" requires: extracted_answer equals the gold answer (a specific
+          integer that the verify-gold-math sub-agent will derive) AND the proof
+          chain is logically valid AND complete.
+        - "partially_correct": extracted answer matches gold but proof has a gap,
+          OR answer is close (off by a small constant or factor) and recurrence is
+          essentially right.
+        - "incorrect": otherwise.
+
+      first_fatal_error must be JSON null when verdict is "correct".
+      repairability must be "n/a" when verdict is "correct".
+
+      ## Controlled failure_labels vocabulary (use only these strings)
+
+      final_answer_error, correct_answer_invalid_proof, invalid_logical_step,
+      wrong_theorem_application, false_math_claim, missing_case, incomplete_proof,
+      underjustified_step, circular_reasoning, arithmetic_error,
+      pattern_extrapolation_unsupported, inconsistent_boxing, repetition_loop,
+      notation_definition_error.
+
+      ## Controlled domain_specific_labels vocabulary (use only these strings)
+
+      wrong_recurrence, correct_recurrence_wrong_arithmetic, missed_singleton_sequence,
+      deterministic_chain_misconception, power_of_two_leap, off_by_factor_of_two,
+      off_by_small_constant, distinct_term_constraint_ignored, bounds_error,
+      truncated_before_conclusion.
+
+      ## Output
+
+      Return ONE JSON object with key "audits" mapping to a 4-element array of
+      per-candidate audits in the order [A, B, C, D]:
+
+      {"audits": [<audit for A>, <audit for B>, <audit for C>, <audit for D>]}
+
+      Do NOT write to /logs/agent/output.json. That file is the final output and
+      is written only by the synthesize-final-audit sub-task.
+    depends_on: []
+    parallel_group: audit
+
+  - id: audit-E-F-G-H
+    description: |
+      Same audit task as audit-A-B-C-D. Read these four candidate files in full:
+        - /input_artifacts/response_E.md
+        - /input_artifacts/response_F.md
+        - /input_artifacts/response_G.md
+        - /input_artifacts/response_H.md
+
+      Use the same problem statement, audit schema, verdict rules, and controlled
+      vocabularies as audit-A-B-C-D. Return {"audits": [<E>, <F>, <G>, <H>]}.
+      Do NOT write to /logs/agent/output.json.
+
+      ## Problem reference
+
+      Given a non-negative integer sequence {a_n} satisfying a_1 = 2016,
+      a_{n+1} <= sqrt(a_n), with all terms distinct (if length >= 2). Find the
+      number of such sequences.
+
+      ## Audit schema (per candidate)
+
+      {
+        "solution_id": "<E, F, G, or H>",
+        "extracted_answer": "<string>",
+        "final_answer_correct": <bool>,
+        "verdict": "<correct | partially_correct | incorrect>",
+        "logical_chain_valid": <bool>,
+        "proof_complete": <bool>,
+        "contains_wrong_math_claim": <bool>,
+        "first_fatal_error": <{location, error_type, explanation} | null>,
+        "failure_labels": [<from controlled vocabulary>],
+        "domain_specific_labels": [<from controlled vocabulary>],
+        "repairability": "<minor_fix | major_rewrite | impossible_from_current_solution | n/a>",
+        "brief_assessment": "<1-3 sentences>"
+      }
+
+      ## Controlled failure_labels vocabulary
+      final_answer_error, correct_answer_invalid_proof, invalid_logical_step,
+      wrong_theorem_application, false_math_claim, missing_case, incomplete_proof,
+      underjustified_step, circular_reasoning, arithmetic_error,
+      pattern_extrapolation_unsupported, inconsistent_boxing, repetition_loop,
+      notation_definition_error.
+
+      ## Controlled domain_specific_labels vocabulary
+      wrong_recurrence, correct_recurrence_wrong_arithmetic, missed_singleton_sequence,
+      deterministic_chain_misconception, power_of_two_leap, off_by_factor_of_two,
+      off_by_small_constant, distinct_term_constraint_ignored, bounds_error,
+      truncated_before_conclusion.
+
+      Verdict rules same as audit-A-B-C-D.
+
+      Return {"audits": [<E>, <F>, <G>, <H>]}.
+    depends_on: []
+    parallel_group: audit
+
+  - id: audit-I-J-K-L
+    description: |
+      Same audit task as audit-A-B-C-D. Read these four candidate files in full:
+        - /input_artifacts/response_I.md
+        - /input_artifacts/response_J.md
+        - /input_artifacts/response_K.md
+        - /input_artifacts/response_L.md
+
+      Use the same problem statement, audit schema, verdict rules, and controlled
+      vocabularies as audit-A-B-C-D. Return {"audits": [<I>, <J>, <K>, <L>]}.
+      Do NOT write to /logs/agent/output.json.
+
+      ## Problem reference
+
+      Given a non-negative integer sequence {a_n} satisfying a_1 = 2016,
+      a_{n+1} <= sqrt(a_n), with all terms distinct (if length >= 2). Find the
+      number of such sequences.
+
+      ## Audit schema (per candidate)
+
+      {
+        "solution_id": "<I, J, K, or L>",
+        "extracted_answer": "<string>",
+        "final_answer_correct": <bool>,
+        "verdict": "<correct | partially_correct | incorrect>",
+        "logical_chain_valid": <bool>,
+        "proof_complete": <bool>,
+        "contains_wrong_math_claim": <bool>,
+        "first_fatal_error": <{location, error_type, explanation} | null>,
+        "failure_labels": [<from controlled vocabulary>],
+        "domain_specific_labels": [<from controlled vocabulary>],
+        "repairability": "<minor_fix | major_rewrite | impossible_from_current_solution | n/a>",
+        "brief_assessment": "<1-3 sentences>"
+      }
+
+      ## Controlled failure_labels vocabulary
+      final_answer_error, correct_answer_invalid_proof, invalid_logical_step,
+      wrong_theorem_application, false_math_claim, missing_case, incomplete_proof,
+      underjustified_step, circular_reasoning, arithmetic_error,
+      pattern_extrapolation_unsupported, inconsistent_boxing, repetition_loop,
+      notation_definition_error.
+
+      ## Controlled domain_specific_labels vocabulary
+      wrong_recurrence, correct_recurrence_wrong_arithmetic, missed_singleton_sequence,
+      deterministic_chain_misconception, power_of_two_leap, off_by_factor_of_two,
+      off_by_small_constant, distinct_term_constraint_ignored, bounds_error,
+      truncated_before_conclusion.
+
+      Verdict rules same as audit-A-B-C-D.
+
+      Return {"audits": [<I>, <J>, <K>, <L>]}.
+    depends_on: []
+    parallel_group: audit
+
+  - id: audit-M-N-O
+    description: |
+      Same audit task as audit-A-B-C-D but for three candidates. Read these three
+      candidate files in full:
+        - /input_artifacts/response_M.md
+        - /input_artifacts/response_N.md
+        - /input_artifacts/response_O.md
+
+      Use the same problem statement, audit schema, verdict rules, and controlled
+      vocabularies as audit-A-B-C-D. Return {"audits": [<M>, <N>, <O>]} (3-element
+      array). Do NOT write to /logs/agent/output.json.
+
+      ## Problem reference
+
+      Given a non-negative integer sequence {a_n} satisfying a_1 = 2016,
+      a_{n+1} <= sqrt(a_n), with all terms distinct (if length >= 2). Find the
+      number of such sequences.
+
+      ## Audit schema (per candidate)
+
+      {
+        "solution_id": "<M, N, or O>",
+        "extracted_answer": "<string>",
+        "final_answer_correct": <bool>,
+        "verdict": "<correct | partially_correct | incorrect>",
+        "logical_chain_valid": <bool>,
+        "proof_complete": <bool>,
+        "contains_wrong_math_claim": <bool>,
+        "first_fatal_error": <{location, error_type, explanation} | null>,
+        "failure_labels": [<from controlled vocabulary>],
+        "domain_specific_labels": [<from controlled vocabulary>],
+        "repairability": "<minor_fix | major_rewrite | impossible_from_current_solution | n/a>",
+        "brief_assessment": "<1-3 sentences>"
+      }
+
+      ## Controlled failure_labels vocabulary
+      final_answer_error, correct_answer_invalid_proof, invalid_logical_step,
+      wrong_theorem_application, false_math_claim, missing_case, incomplete_proof,
+      underjustified_step, circular_reasoning, arithmetic_error,
+      pattern_extrapolation_unsupported, inconsistent_boxing, repetition_loop,
+      notation_definition_error.
+
+      ## Controlled domain_specific_labels vocabulary
+      wrong_recurrence, correct_recurrence_wrong_arithmetic, missed_singleton_sequence,
+      deterministic_chain_misconception, power_of_two_leap, off_by_factor_of_two,
+      off_by_small_constant, distinct_term_constraint_ignored, bounds_error,
+      truncated_before_conclusion.
+
+      Verdict rules same as audit-A-B-C-D.
+
+      Return {"audits": [<M>, <N>, <O>]}.
+    depends_on: []
+    parallel_group: audit
+
+  - id: verify-gold-math
+    description: |
+      Your job is the mathematics, not the audit. You will NOT read any candidate
+      solution file. You will produce a reference brief that the synthesizer agent
+      will use to cross-check the per-candidate audits.
+
+      ## The problem
+
+      Given a non-negative integer sequence {a_n} satisfying:
+        (1) a_1 = 2016,
+        (2) a_{n+1} <= sqrt(a_n),
+        (3) if the number of terms is at least 2, then any two terms in the
+            sequence are not equal (all distinct).
+      Find the number of such sequences {a_n}.
+
+      ## What you must derive
+
+      1. The integer gold answer to the problem. Set up the natural recurrence
+         f(n) = number of valid sequences starting at value n, with appropriate
+         base cases f(0) and f(1). Determine the form of f(n) for n >= 2 by
+         considering the choices for a_2 given a_1 = n. Compute f(n) iteratively
+         for n up to floor(sqrt(2016)) = 44, then evaluate f(2016).
+
+      2. The set of common failure modes a weak solution might exhibit, including
+         but not limited to:
+           - asserting a closed-form answer like 2^k without iterative computation
+             (where k is loosely related to floor(sqrt(2016)) or similar)
+           - treating the chain as deterministic (believing there is one valid
+             sequence and reporting 1)
+           - hitting a token-budget cap before reaching a final answer (truncation)
+           - arithmetic errors in the iterative summation
+           - off-by-small-constant errors in the final summation
+           - off-by-factor-of-two errors in the cumulative sum
+
+      ## What to return
+
+      Return ONE JSON object with these keys:
+
+      {
+        "gold_answer_integer": <integer>,
+        "gold_answer_string": "<string form of the integer (no decimal,
+                               no thousands separator) that a correct candidate's
+                               extracted_answer field should equal>",
+        "recurrence_brief": "<2-4 sentences describing the recurrence form,
+                             base cases, and how f(2016) is computed>",
+        "known_pitfalls": [
+          "<each entry is a short description of a typical failure mode that a
+           weak candidate solution might exhibit>",
+          ...
+        ]
+      }
+
+      Do NOT read any candidate solution file. Do NOT write to /logs/agent/output.json.
+    depends_on: []
+    parallel_group: verify
+
+  - id: synthesize-final-audit
+    description: |
+      You receive four per-candidate audit JSONs from audit-A-B-C-D, audit-E-F-G-H,
+      audit-I-J-K-L, audit-M-N-O (each is {"audits": [...]} containing 3 or 4 audits)
+      and one reference brief from verify-gold-math (with gold_answer_integer,
+      gold_answer_string, recurrence_brief, known_pitfalls). Merge these into the
+      final task output and write it to /logs/agent/output.json.
+
+      ## Reconciliation rules
+
+      For each per-candidate audit:
+        1. Compare audit.extracted_answer against the reference brief's
+           gold_answer_string. If audit.final_answer_correct is inconsistent with
+           this comparison, correct it.
+        2. If audit.verdict is "correct" but extracted_answer != gold_answer_string,
+           demote the verdict ("incorrect" if extracted_answer is far from the
+           gold or empty; "partially_correct" if extracted_answer is close to the
+           gold — off by a small constant or a factor of two — and the candidate's
+           reasoning is on the right track per the mapper's audit).
+        3. If audit.first_fatal_error is non-null but audit.verdict is "correct",
+           set first_fatal_error to JSON null and repairability to "n/a". Conversely,
+           if first_fatal_error is null but verdict is not "correct", construct a
+           first_fatal_error using the reference brief's known_pitfalls and the
+           mapper's brief_assessment to identify a plausible fatal step.
+        4. Letter values must be uppercase A..O.
+
+      ## Final output JSON (write to /logs/agent/output.json — NOWHERE ELSE)
+
+      {
+        "problem_id": "olymmath-easy-0-en-combinatorics-audit",
+        "gold_final_answer": "<the reference brief's gold_answer_string>",
+        "solution_audits": [<the 15 reconciled per-candidate audits, ordered
+                            alphabetically by solution_id A through O — exactly
+                            15 entries>],
+        "cross_solution_summary": {
+          "common_failure_modes": [<list of strings naming patterns observed
+                                    across two or more per-candidate audits>],
+          "solutions_with_correct_recurrence_wrong_arithmetic": [<list of
+              solution_ids whose audit has domain_specific_labels containing
+              "correct_recurrence_wrong_arithmetic" OR whose failure_labels
+              contain "arithmetic_error" and whose recurrence form (per
+              brief_assessment) is correct>],
+          "solutions_with_incoherent_or_truncated_reasoning": [<list of
+              solution_ids whose audit has failure_labels containing
+              "repetition_loop" or "incomplete_proof" combined with empty
+              extracted_answer>],
+          "solutions_relying_on_unsupported_pattern_extrapolation": [<list of
+              solution_ids whose audit has failure_labels containing
+              "pattern_extrapolation_unsupported" or domain_specific_labels
+              containing "power_of_two_leap">],
+          "best_solution_id": "<the single best candidate by overall verdict,
+                               soundness, and concision; or 'none' if no candidate
+                               is fully correct>"
+        }
+      }
+
+      ## Self-checks before writing
+
+        - solution_audits has exactly 15 entries, alphabetical A through O.
+        - Every solution_id is uppercase A..O.
+        - first_fatal_error is JSON null for every entry with verdict = "correct".
+        - repairability is "n/a" exactly when verdict = "correct".
+        - gold_final_answer matches the reference brief's gold_answer_string.
+        - Top-level keys are exactly: problem_id, gold_final_answer, solution_audits,
+          cross_solution_summary. No extra keys.
+
+      Write the final JSON to /logs/agent/output.json. This is the ONLY file the
+      synthesizer writes.
+    depends_on: [audit-A-B-C-D, audit-E-F-G-H, audit-I-J-K-L, audit-M-N-O, verify-gold-math]
+    parallel_group: synthesize

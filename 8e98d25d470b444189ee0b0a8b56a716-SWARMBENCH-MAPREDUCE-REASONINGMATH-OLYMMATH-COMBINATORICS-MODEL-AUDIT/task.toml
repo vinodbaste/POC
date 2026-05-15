@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-MAPREDUCE-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT"
+description = "Audit 15 model-produced solutions to an olympiad combinatorics problem (OlymMATH-EASY-0-EN); classify correctness, identify first fatal error, label failure modes."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 22.0
+human_solving_hours_justification = "A graduate-level mathematician needs ~30 minutes to independently derive the gold answer 948 via the recurrence f(n) = 1 + sum_{k=0..floor(sqrt(n))} f(k) with f(0)=1, f(1)=2, and verify it computationally. Each of the 15 candidate responses is 30K-150K characters of reasoning (10K-37K tokens) — careful reading to identify the first fatal mathematical error, classify the failure type (arithmetic error vs wrong recurrence vs power-of-two leap vs deterministic-chain misconception vs truncation), assign failure labels from the controlled vocabulary, and judge repairability takes ~1.2-1.5 hours per candidate, roughly 19 hours for 15 candidates. The cross-solution synthesis (clustering the 11 distinct wrong-answer patterns into common failure modes, isolating arithmetic-only errors vs structural errors, selecting best candidate among the 4 with correct boxed answer) adds ~2 hours. Total ≈ 22 hours."
+estimated_sub_agents = 6
+input_token_estimate = 210000
+why_multi_agent = "The 15 candidate responses total ~841K characters / ~210K tokens, which exceeds Kimi K2.5's 128K context window. A single agent cannot simultaneously hold all 15 candidate proofs plus the audit rubric (extracted_answer, final_answer_correct, verdict, logical_chain_valid, proof_complete, contains_wrong_math_claim, first_fatal_error, two label arrays, repairability, brief_assessment) and the cross-solution synthesis fields. Single will be forced to either truncate per-candidate reading, skip candidates, or chunk and lose cross-candidate consistency — all of which lower the audit score. A map-reduce decomposition gives each mapper a clean 3-4 candidate window (~50K-75K tokens of candidate text, well within Kimi's context), an independent gold-math verifier re-establishes the recurrence-based proof of 948 without polluting the audit context, and a reducer reconciles the per-candidate JSONs into the cross-solution summary."
+reference_link = "https://huggingface.co/datasets/RUC-AIBOX/OlymMATH-eval"
+
+[agent]
+timeout_sec = 5400
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600
