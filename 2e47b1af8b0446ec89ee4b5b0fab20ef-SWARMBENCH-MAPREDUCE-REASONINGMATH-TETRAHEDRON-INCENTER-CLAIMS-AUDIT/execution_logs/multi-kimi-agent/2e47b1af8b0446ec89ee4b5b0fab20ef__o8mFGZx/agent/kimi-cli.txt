@@ -8113,3 +8113,592 @@
 {"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"StatusUpdate","payload":{"context_usage":0.030086517333984375,"context_tokens":7887,"max_context_tokens":262144,"token_usage":{"input_other":1666,"output":1005,"input_cache_read":6221,"input_cache_creation":0},"message_id":"chatcmpl-26945ca5f46d476d9d3b7df201b4a26e","plan_mode":false,"mcp_status":null}}}}}
 {"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ToolResult","payload":{"tool_call_id":"functions.Shell:0","return_value":{"is_error":false,"output":"total 2116\ndrwxrwxrwx 4 root root     128 May 15 14:58 .\ndrwxr-xr-x 1 root root    4096 May 15 14:58 ..\n-rw-r--r-- 1 root root 1127010 May 15 15:09 kimi-cli.txt\ndrwxr-xr-x 2 root root      64 May 15 14:58 setup\n","message":"Command executed successfully.","display":[],"extras":null}}}}}}
 {"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"StepBegin","payload":{"n":2}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ContentPart","payload":{"type":"think","think":"Good, the directory exists. Now I need to create the merged output JSON. Let me carefully reconcile each entry according to the rules.\n\nLooking at the data:\n- A: verdict=\"correct\", final_answer_correct=true, proof_valid=true, NO_ERROR labels\n- B: verdict=\"incorrect\", final_answer_correct=false, proof_valid=false\n- C: verdict=\"correct_final_answer_but_invalid_proof\", final_answer_correct=true, proof_valid=false\n- D: verdict=\"correct\", final_answer_correct=true, proof_valid=true, NO_ERROR labels\n- E: verdict=\"incorrect\", final_answer_correct=false, proof_valid=false\n- F: verdict=\"incorrect\", final_answer_correct=false, proof_valid=false\n- G: verdict=\"incorrect\", final_answer_correct=false, proof_valid=false\n\nApplying reconciliation rules:\n\nRule 2 & 3 checks:\n- A: verdict=\"correct\", proof_valid=true, final_answer_correct=true → stays \"correct\", NO_ERROR labels ✓\n- B: verdict=\"incorrect\" → not \"correct\", no change ✓\n- C: verdict=\"correct_final_answer_but_invalid_proof\" → not \"correct\", no change ✓\n- D: verdict=\"correct\", proof_valid=true, final_answer_correct=true → stays \"correct\", NO_ERROR labels ✓\n- E: verdict=\"incorrect\" → not \"correct\", no change ✓\n- F: verdict=\"incorrect\" → not \"correct\", no change ✓\n- G: verdict=\"incorrect\" → not \"correct\", no change ✓\n\nAll labels are from controlled vocabularies. The audits are already properly reconciled.\n\nNow I'll write the final JSON.","encrypted":null}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ContentPart","payload":{"type":"text","text":"Now let me create the reconciled output JSON:"}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ToolCall","payload":{"type":"function","id":"functions.WriteFile:1","function":{"name":"WriteFile","arguments":"{\"path\": \"/logs/agent/output.json\", \"content\": \"{\\n  \\\"response_audits\\\": [\\n    {\\n      \\\"response_id\\\": \\\"A\\\",\\n      \\\"final_answer_correct\\\": true,\\n      \\\"proof_valid\\\": true,\\n      \\\"verdict\\\": \\\"correct\\\",\\n      \\\"primary_error_label\\\": \\\"NO_ERROR\\\",\\n      \\\"required_evidence_label\\\": \\\"NO_ERROR\\\"\\n    },\\n    {\\n      \\\"response_id\\\": \\\"B\\\",\\n      \\\"final_answer_correct\\\": false,\\n      \\\"proof_valid\\\": false,\\n      \\\"verdict\\\": \\\"incorrect\\\",\\n      \\\"primary_error_label\\\": \\\"REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE\\\",\\n      \\\"required_evidence_label\\\": \\\"VOLUME_CONDITION_FORCES_PERPENDICULARITY\\\"\\n    },\\n    {\\n      \\\"response_id\\\": \\\"C\\\",\\n      \\\"final_answer_correct\\\": true,\\n      \\\"proof_valid\\\": false,\\n      \\\"verdict\\\": \\\"correct_final_answer_but_invalid_proof\\\",\\n      \\\"primary_error_label\\\": \\\"FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE\\\",\\n      \\\"required_evidence_label\\\": \\\"DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY\\\"\\n    },\\n    {\\n      \\\"response_id\\\": \\\"D\\\",\\n      \\\"final_answer_correct\\\": true,\\n      \\\"proof_valid\\\": true,\\n      \\\"verdict\\\": \\\"correct\\\",\\n      \\\"primary_error_label\\\": \\\"NO_ERROR\\\",\\n      \\\"required_evidence_label\\\": \\\"NO_ERROR\\\"\\n    },\\n    {\\n      \\\"response_id\\\": \\\"E\\\",\\n      \\\"final_answer_correct\\\": false,\\n      \\\"proof_valid\\\": false,\\n      \\\"verdict\\\": \\\"incorrect\\\",\\n      \\\"primary_error_label\\\": \\\"SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE\\\",\\n      \\\"required_evidence_label\\\": \\\"DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY\\\"\\n    },\\n    {\\n      \\\"response_id\\\": \\\"F\\\",\\n      \\\"final_answer_correct\\\": false,\\n      \\\"proof_valid\\\": false,\\n      \\\"verdict\\\": \\\"incorrect\\\",\\n      \\\"primary_error_label\\\": \\\"VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION\\\",\\n      \\\"required_evidence_label\\\": \\\"AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A\\\"\\n    },\\n    {\\n      \\\"response_id\\\": \\\"G\\\",\\n      \\\"final_answer_correct\\\": false,\\n      \\\"proof_valid\\\": false,\\n      \\\"verdict\\\": \\\"incorrect\\\",\\n      \\\"primary_error_label\\\": \\\"VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION\\\",\\n      \\\"required_evidence_label\\\": \\\"AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A\\\"\\n    }\\n  ]\\n}\\n\"}"},"extras":null}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"StatusUpdate","payload":{"context_usage":0.034381866455078125,"context_tokens":9013,"max_context_tokens":262144,"token_usage":{"input_other":2792,"output":943,"input_cache_read":6221,"input_cache_creation":0},"message_id":"chatcmpl-09ed72a3bc48468a96374fa9ef12f726","plan_mode":false,"mcp_status":null}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ToolResult","payload":{"tool_call_id":"functions.WriteFile:1","return_value":{"is_error":false,"output":"","message":"File successfully overwritten. Current size: 1942 bytes.","display":[{"type":"diff","path":"/logs/agent/output.json","old_text":"","new_text":"{\n  \"response_audits\": [\n    {\n      \"response_id\": \"A\",\n      \"final_answer_correct\": true,\n      \"proof_valid\": true,\n      \"verdict\": \"correct\",\n      \"primary_error_label\": \"NO_ERROR\",\n      \"required_evidence_label\": \"NO_ERROR\"\n    },\n    {\n      \"response_id\": \"B\",\n      \"final_answer_correct\": false,\n      \"proof_valid\": false,\n      \"verdict\": \"incorrect\",\n      \"primary_error_label\": \"REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE\",\n      \"required_evidence_label\": \"VOLUME_CONDITION_FORCES_PERPENDICULARITY\"\n    },\n    {\n      \"response_id\": \"C\",\n      \"final_answer_correct\": true,\n      \"proof_valid\": false,\n      \"verdict\": \"correct_final_answer_but_invalid_proof\",\n      \"primary_error_label\": \"FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE\",\n      \"required_evidence_label\": \"DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY\"\n    },\n    {\n      \"response_id\": \"D\",\n      \"final_answer_correct\": true,\n      \"proof_valid\": true,\n      \"verdict\": \"correct\",\n      \"primary_error_label\": \"NO_ERROR\",\n      \"required_evidence_label\": \"NO_ERROR\"\n    },\n    {\n      \"response_id\": \"E\",\n      \"final_answer_correct\": false,\n      \"proof_valid\": false,\n      \"verdict\": \"incorrect\",\n      \"primary_error_label\": \"SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE\",\n      \"required_evidence_label\": \"DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY\"\n    },\n    {\n      \"response_id\": \"F\",\n      \"final_answer_correct\": false,\n      \"proof_valid\": false,\n      \"verdict\": \"incorrect\",\n      \"primary_error_label\": \"VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION\",\n      \"required_evidence_label\": \"AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A\"\n    },\n    {\n      \"response_id\": \"G\",\n      \"final_answer_correct\": false,\n      \"proof_valid\": false,\n      \"verdict\": \"incorrect\",\n      \"primary_error_label\": \"VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION\",\n      \"required_evidence_label\": \"AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A\"\n    }\n  ]\n}","old_start":1,"new_start":1,"is_summary":false}],"extras":null}}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"StepBegin","payload":{"n":3}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ContentPart","payload":{"type":"think","think":"Let me verify the output is correct by reading it back and validating it matches all the requirements.","encrypted":null}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ContentPart","payload":{"type":"text","text":"Let me verify the output is valid JSON and meets all requirements:"}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ToolCall","payload":{"type":"function","id":"functions.Shell:2","function":{"name":"Shell","arguments":"{\"command\": \"cat /logs/agent/output.json | python3 -m json.tool\"}"},"extras":null}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"StatusUpdate","payload":{"context_usage":0.03810882568359375,"context_tokens":9990,"max_context_tokens":262144,"token_usage":{"input_other":2104,"output":62,"input_cache_read":7886,"input_cache_creation":0},"message_id":"chatcmpl-fc597731f2b9471c97e0f87e33d5bc0e","plan_mode":false,"mcp_status":null}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ToolResult","payload":{"tool_call_id":"functions.Shell:2","return_value":{"is_error":false,"output":"{\n    \"response_audits\": [\n        {\n            \"response_id\": \"A\",\n            \"final_answer_correct\": true,\n            \"proof_valid\": true,\n            \"verdict\": \"correct\",\n            \"primary_error_label\": \"NO_ERROR\",\n            \"required_evidence_label\": \"NO_ERROR\"\n        },\n        {\n            \"response_id\": \"B\",\n            \"final_answer_correct\": false,\n            \"proof_valid\": false,\n            \"verdict\": \"incorrect\",\n            \"primary_error_label\": \"REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE\",\n            \"required_evidence_label\": \"VOLUME_CONDITION_FORCES_PERPENDICULARITY\"\n        },\n        {\n            \"response_id\": \"C\",\n            \"final_answer_correct\": true,\n            \"proof_valid\": false,\n            \"verdict\": \"correct_final_answer_but_invalid_proof\",\n            \"primary_error_label\": \"FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE\",\n            \"required_evidence_label\": \"DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY\"\n        },\n        {\n            \"response_id\": \"D\",\n            \"final_answer_correct\": true,\n            \"proof_valid\": true,\n            \"verdict\": \"correct\",\n            \"primary_error_label\": \"NO_ERROR\",\n            \"required_evidence_label\": \"NO_ERROR\"\n        },\n        {\n            \"response_id\": \"E\",\n            \"final_answer_correct\": false,\n            \"proof_valid\": false,\n            \"verdict\": \"incorrect\",\n            \"primary_error_label\": \"SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE\",\n            \"required_evidence_label\": \"DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY\"\n        },\n        {\n            \"response_id\": \"F\",\n            \"final_answer_correct\": false,\n            \"proof_valid\": false,\n            \"verdict\": \"incorrect\",\n            \"primary_error_label\": \"VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION\",\n            \"required_evidence_label\": \"AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A\"\n        },\n        {\n            \"response_id\": \"G\",\n            \"final_answer_correct\": false,\n            \"proof_valid\": false,\n            \"verdict\": \"incorrect\",\n            \"primary_error_label\": \"VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION\",\n            \"required_evidence_label\": \"AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A\"\n        }\n    ]\n}\n","message":"Command executed successfully.","display":[],"extras":null}}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"StepBegin","payload":{"n":4}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ContentPart","payload":{"type":"think","think":"The output is valid JSON. Let me verify all the self-checks:\n\n1. ✓ Exactly 7 entries\n2. ✓ Ordered A, B, C, D, E, F, G (alphabetically)\n3. ✓ Top-level key: response_audits\n4. ✓ Each entry has exactly 6 keys: response_id, final_answer_correct, proof_valid, verdict, primary_error_label, required_evidence_label\n5. ✓ All verdicts are in {correct, incorrect, correct_final_answer_but_invalid_proof}\n6. ✓ When verdict=\"correct\" (A and D): primary_error_label=NO_ERROR and required_evidence_label=NO_ERROR\n7. ✓ All primary_error_labels are in controlled vocabulary\n8. ✓ All required_evidence_labels are in controlled vocabulary\n\nAll checks pass!","encrypted":null}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"ContentPart","payload":{"type":"text","text":"All self-checks pass:\n\n| Check | Status |\n|-------|--------|\n| Exactly 7 entries | ✓ |\n| Ordered A-G alphabetically | ✓ |\n| Top-level key: `response_audits` | ✓ |\n| Each entry has 6 required keys | ✓ |\n| Verdicts in controlled vocabulary | ✓ |\n| `verdict=\"correct\"` → `NO_ERROR` labels | ✓ (A and D) |\n| All `primary_error_label` values valid | ✓ |\n| All `required_evidence_label` values valid | ✓ |\n\n**Final output written to:** `/logs/agent/output.json`"}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"StatusUpdate","payload":{"context_usage":0.040370941162109375,"context_tokens":10583,"max_context_tokens":262144,"token_usage":{"input_other":594,"output":308,"input_cache_read":9989,"input_cache_creation":0},"message_id":"chatcmpl-042e4faf1e0344a0bf60a21fa2253515","plan_mode":false,"mcp_status":null}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"SubagentEvent","payload":{"parent_tool_call_id":"functions.Agent:6","agent_id":"ae037bb9f","subagent_type":"coder","event":{"type":"TurnEnd","payload":{}}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolResult","payload":{"tool_call_id":"functions.Agent:6","return_value":{"is_error":false,"output":"agent_id: ae037bb9f\nresumed: false\nactual_subagent_type: coder\nstatus: completed\n\n[summary]\nAll self-checks pass:\n\n| Check | Status |\n|-------|--------|\n| Exactly 7 entries | ✓ |\n| Ordered A-G alphabetically | ✓ |\n| Top-level key: `response_audits` | ✓ |\n| Each entry has 6 required keys | ✓ |\n| Verdicts in controlled vocabulary | ✓ |\n| `verdict=\"correct\"` → `NO_ERROR` labels | ✓ (A and D) |\n| All `primary_error_label` values valid | ✓ |\n| All `required_evidence_label` values valid | ✓ |\n\n**Final output written to:** `/logs/agent/output.json`","message":"","display":[],"extras":null}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"StepBegin","payload":{"n":4}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"The","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" reducer","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" has","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" completed","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" and","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" written","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" the","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" final","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" output","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" Let","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" me","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" verify","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" the","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" output","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" was","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" written","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" correctly","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" by","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" reading","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" the","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" file","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"The"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" reducer"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" has"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" completed"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"."}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" Let"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" me"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" verify"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" the"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" final"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" output"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" was"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" written"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" correctly"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":":"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCall","payload":{"type":"function","id":"functions.ReadFile:7","function":{"name":"ReadFile","arguments":""},"extras":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":"{\""}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":"path"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":"\":"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":" \"/"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":"logs"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":"/agent"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":"/output"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":".json"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolCallPart","payload":{"arguments_part":"\"}"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"StatusUpdate","payload":{"context_usage":0.09646224975585938,"context_tokens":25287,"max_context_tokens":262144,"token_usage":{"input_other":25272,"output":59,"input_cache_read":15,"input_cache_creation":0},"message_id":"chatcmpl-98f800e2f15e4ffba82b13774758476f","plan_mode":false,"mcp_status":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ToolResult","payload":{"tool_call_id":"functions.ReadFile:7","return_value":{"is_error":false,"output":"     1\t{\n     2\t  \"response_audits\": [\n     3\t    {\n     4\t      \"response_id\": \"A\",\n     5\t      \"final_answer_correct\": true,\n     6\t      \"proof_valid\": true,\n     7\t      \"verdict\": \"correct\",\n     8\t      \"primary_error_label\": \"NO_ERROR\",\n     9\t      \"required_evidence_label\": \"NO_ERROR\"\n    10\t    },\n    11\t    {\n    12\t      \"response_id\": \"B\",\n    13\t      \"final_answer_correct\": false,\n    14\t      \"proof_valid\": false,\n    15\t      \"verdict\": \"incorrect\",\n    16\t      \"primary_error_label\": \"REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE\",\n    17\t      \"required_evidence_label\": \"VOLUME_CONDITION_FORCES_PERPENDICULARITY\"\n    18\t    },\n    19\t    {\n    20\t      \"response_id\": \"C\",\n    21\t      \"final_answer_correct\": true,\n    22\t      \"proof_valid\": false,\n    23\t      \"verdict\": \"correct_final_answer_but_invalid_proof\",\n    24\t      \"primary_error_label\": \"FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE\",\n    25\t      \"required_evidence_label\": \"DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY\"\n    26\t    },\n    27\t    {\n    28\t      \"response_id\": \"D\",\n    29\t      \"final_answer_correct\": true,\n    30\t      \"proof_valid\": true,\n    31\t      \"verdict\": \"correct\",\n    32\t      \"primary_error_label\": \"NO_ERROR\",\n    33\t      \"required_evidence_label\": \"NO_ERROR\"\n    34\t    },\n    35\t    {\n    36\t      \"response_id\": \"E\",\n    37\t      \"final_answer_correct\": false,\n    38\t      \"proof_valid\": false,\n    39\t      \"verdict\": \"incorrect\",\n    40\t      \"primary_error_label\": \"SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE\",\n    41\t      \"required_evidence_label\": \"DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY\"\n    42\t    },\n    43\t    {\n    44\t      \"response_id\": \"F\",\n    45\t      \"final_answer_correct\": false,\n    46\t      \"proof_valid\": false,\n    47\t      \"verdict\": \"incorrect\",\n    48\t      \"primary_error_label\": \"VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION\",\n    49\t      \"required_evidence_label\": \"AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A\"\n    50\t    },\n    51\t    {\n    52\t      \"response_id\": \"G\",\n    53\t      \"final_answer_correct\": false,\n    54\t      \"proof_valid\": false,\n    55\t      \"verdict\": \"incorrect\",\n    56\t      \"primary_error_label\": \"VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION\",\n    57\t      \"required_evidence_label\": \"AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A\"\n    58\t    }\n    59\t  ]\n    60\t}\n","message":"60 lines read from file starting from line 1. Total lines in file: 60. End of file reached.","display":[],"extras":null}}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"StepBegin","payload":{"n":5}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"The","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" output","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" looks","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" good","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" Let","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" me","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" verify","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" all","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" the","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" requirements","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":":\n\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"1","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ✅","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" Exactly","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"7","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" entries","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"A","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" through","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" G","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"2","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ✅","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" Ordered","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" alphabet","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ically","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" by","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" response","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_id","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"A","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" B","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" C","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" D","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" E","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" F","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" G","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"3","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ✅","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" Top","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"-level","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" key","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" is","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" exactly","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" \"","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"response","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_aud","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"its","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"\"\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"4","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ✅","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" Each","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" entry","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" has","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" exactly","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"6","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" keys","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":":","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" response","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_id","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" final","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_answer","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_correct","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" proof","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_valid","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" verdict","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" primary","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_error","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_label","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" required","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_ev","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"idence","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_label","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"5","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ✅","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" verdict","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" values","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" are","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" in","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" the","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" controlled","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" vocabulary","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"correct","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" incorrect","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" correct","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_final","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_answer","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_but","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_invalid","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_proof","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"6","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ✅","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" When","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" verdict","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"=\"","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"correct","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"\"","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"A","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" and","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" D","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"),","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" primary","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_error","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_label","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"=","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"NO","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_ERROR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" and","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" required","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_ev","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"idence","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_label","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"=","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"NO","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_ERROR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"7","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ✅","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" All","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" primary","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_error","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_label","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" values","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" are","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" from","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" the","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" vocabulary","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":":\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" NO","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_ERROR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"A","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" D","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" RE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"JECT","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ED","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_PER","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"P","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"END","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"IC","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ULAR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ITY","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_WITHOUT","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_COUNTER","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"EX","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"AMPLE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"B","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" FALSE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_IN","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"SP","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"HERE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_FACE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_INC","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ENTER","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_UN","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"IVERS","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"AL","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_AS","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_PRE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"MI","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"SE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"C","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" S","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ELF","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_CON","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"TR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"AD","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ICT","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ORY","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_C","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ENT","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ROID","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_COUNTER","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"EX","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"AMPLE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"E","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" V","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"AG","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"UE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_AL","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"M","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"OST","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_REG","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ULAR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_NON","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_CON","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"STRUCTION","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"F","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" G","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"8","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" ✅","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" All","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" required","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_ev","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"idence","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_label","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" values","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" are","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" from","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" the","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" vocabulary","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":":\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" NO","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_ERROR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"A","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" D","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" V","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"OLUME","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_CONDITION","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_FOR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"CES","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_PER","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"P","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"END","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"IC","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ULAR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ITY","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"B","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" DIRECT","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_TOUCH","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_POINT","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_D","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ER","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"IV","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ATION","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_FROM","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_PER","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"P","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"END","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"IC","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ULAR","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"ITY","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"C","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" E","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"  ","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" -","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" AREA","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_OVER","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_BASE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_EQUALS","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_HALF","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_DISTANCE","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_FROM","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"_A","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" (","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"F","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":",","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" G","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":")\n\n","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":"The","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" output","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" is","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" complete","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" and","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" follows","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" all","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":" requirements","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"think","think":".","encrypted":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"The"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" map"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"reduce"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" workflow"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" has"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" completed"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" successfully"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"."}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" The"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" final"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" output"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" has"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" been"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" written"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" to"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" `/"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"logs"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"/agent"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"/output"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":".json"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"`"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" with"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":":\n\n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" **"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"7"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" entries"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" ordered"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" A"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" through"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" G"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"\n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" **"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"2"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" correct"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" responses"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" ("}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"A"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" and"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" D"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":")"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" -"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" both"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" with"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" valid"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" proofs"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" and"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" matching"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" the"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" gold"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" set"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" `{"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"a"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":","}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" b"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":","}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" c"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":","}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" d"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":","}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" e"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"}`\n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" **"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"1"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" correct"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"_final"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"_answer"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"_but"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"_invalid"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"_proof"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" ("}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"C"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":")"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" -"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" got"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" the"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" right"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" answer"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" but"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" relied"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" on"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" a"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" false"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" universal"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" claim"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" about"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" insp"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"heres"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"\n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" **"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"4"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" incorrect"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" responses"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" ("}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"B"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":","}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" E"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":","}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" F"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":","}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" G"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":")"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" -"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" with"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" various"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" error"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" patterns"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"\n\n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"Summary"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" of"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" errors"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" found"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":":**\n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" **"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"B"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**:"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" Re"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"jected"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" perpendicular"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"ity"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" without"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" constructing"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" a"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" valid"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" counter"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"example"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"\n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" **"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"C"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**:"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" Used"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" false"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" \""}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"in"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"sphere"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" always"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" tangent"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" at"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" face"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" inc"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"enter"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"\""}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" as"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" a"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" universal"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" premise"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"\n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" **"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"E"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**:"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" Pro"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"posed"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" self"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-con"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"trad"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"ict"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"ory"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" \""}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"cent"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"roid"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" counter"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"example"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"\""}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" \n"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" **"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"F"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" &"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" G"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"**:"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" Used"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" vague"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" \""}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"almost"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" regular"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" but"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" slightly"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" skew"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"ed"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"\""}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":" non"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"-con"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"ContentPart","payload":{"type":"text","text":"structions"}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"StatusUpdate","payload":{"context_usage":0.0994873046875,"context_tokens":26080,"max_context_tokens":262144,"token_usage":{"input_other":2989,"output":519,"input_cache_read":23091,"input_cache_creation":0},"message_id":"chatcmpl-eaa51408fb96464d87c0bd0b9c14533d","plan_mode":false,"mcp_status":null}}}
+{"jsonrpc":"2.0","method":"event","params":{"type":"TurnEnd","payload":{}}}
+{"jsonrpc":"2.0","id":"1","result":{"status":"finished"}}
