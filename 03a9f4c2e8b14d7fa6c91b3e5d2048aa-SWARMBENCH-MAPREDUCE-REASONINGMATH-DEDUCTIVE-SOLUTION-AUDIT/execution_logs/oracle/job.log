@@ -1,0 +1,2 @@
+Skipping image OS validation for hb__swarmbench-03a9f4c2e8b14d7fa6c91b3e5d2048aa-swarmbench-mapreduce-reasoningmath-deductive-solution-audit: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

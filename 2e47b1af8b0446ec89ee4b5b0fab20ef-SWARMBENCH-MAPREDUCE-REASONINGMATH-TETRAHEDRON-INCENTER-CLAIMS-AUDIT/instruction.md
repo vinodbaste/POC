@@ -1,144 +1,94 @@
 # Tetrahedron Incenter — Candidate Solution Audit
 
-You are auditing model-produced solutions to a hard olympiad-level 3D geometry problem. Multiple language models were each asked the same question and produced their own written solutions. Your job is to read every candidate solution, judge whether it is correct, identify the first fatal mathematical error in each incorrect solution, and produce a structured cross-solution audit report.
-
-You are NOT being asked to solve the problem from scratch. You are being asked to **audit** the candidate solutions against the mathematical truth.
+You are auditing seven model-produced solutions to an olympiad-level 3D geometry problem. Read each candidate solution and produce a structured audit object for it. You are **auditing**, not solving the problem from scratch.
 
 ## Working environment
 
-- Working directory: `/workspace`
-- Candidate solutions: `/input_artifacts/response_A.md`, `/input_artifacts/response_B.md`, ..., one file per candidate. The number of candidates `N` and the set of solution IDs (single uppercase letters: A, B, C, ...) are determined by what is present in `/input_artifacts/`.
-- Provenance metadata for each candidate (model name, version, sampling settings) is in `/input_artifacts/provenance.json` for reference only — do not use it to bias your audit.
-- Write your final answer to `/logs/agent/output.json` and nothing else to that path.
-
-You may read any file in `/input_artifacts/`. Do not modify them.
+- Candidate solutions: `/input_artifacts/response_A.md` through `/input_artifacts/response_G.md` (7 files).
+- Provenance metadata: `/input_artifacts/provenance.json` (informational only — do not let it bias your audit).
+- Write your final answer to `/logs/agent/output.json`.
 
 ## The problem each candidate solved
 
-The candidate models were each given the following problem verbatim. The problem is the audit target — your gold reasoning must be grounded in it.
+Each candidate model was given the following problem verbatim:
 
-> **Problem.** Let $ABCD$ be a tetrahedron with an inscribed sphere of center $I$ and inradius $r > 0$. Suppose that
+> Let $ABCD$ be a tetrahedron with an inscribed sphere of center $I$ and inradius $r > 0$. Suppose (1) the dihedral angle between any two faces of $ABCD$ is acute, and (2) $\mathrm{vol}(IABC)/BC = \mathrm{vol}(IACD)/CD = \mathrm{vol}(IADB)/DB$, where $\mathrm{vol}(IXYZ)$ denotes the volume of the tetrahedron with vertices $I, X, Y, Z$. For each of the following eight statements, decide whether it is necessarily true for every tetrahedron $ABCD$ satisfying both hypotheses, then state the SET of statement labels that are necessarily true.
 >
-> 1. the dihedral angle between any two faces of $ABCD$ is acute, and
-> 2. $\dfrac{\mathrm{vol}(IABC)}{BC} \;=\; \dfrac{\mathrm{vol}(IACD)}{CD} \;=\; \dfrac{\mathrm{vol}(IADB)}{DB}.$
->
-> (Here $\mathrm{vol}(IXYZ)$ denotes the volume of the tetrahedron with vertices $I, X, Y, Z$.)
->
-> For each of the following eight statements, decide whether the statement is **necessarily true for every** tetrahedron $ABCD$ satisfying both hypotheses.
->
-> (a) $AI$ is perpendicular to the plane $BCD$.
-> (b) The orthogonal projection of $A$ onto the plane $BCD$ coincides with the incenter of triangle $BCD$.
-> (c) The distances from $A$ to each of the three lines $BC$, $CD$, and $DB$ are equal.
-> (d) The areas of the triangles $ABC$, $ACD$, $ADB$ are in the ratio $BC : CD : DB$.
-> (e) The point at which the inscribed sphere touches the face $BCD$ is the incenter of triangle $BCD$.
+> (a) $AI$ is perpendicular to plane $BCD$.
+> (b) The orthogonal projection of $A$ onto plane $BCD$ coincides with the incenter of triangle $BCD$.
+> (c) The distances from $A$ to each of the three lines $BC$, $CD$, $DB$ are equal.
+> (d) The areas of triangles $ABC$, $ACD$, $ADB$ are in the ratio $BC : CD : DB$.
+> (e) The point at which the inscribed sphere touches face $BCD$ is the incenter of triangle $BCD$.
 > (f) $AB = AC = AD$.
 > (g) Triangle $ABC$ is isosceles with $AB = AC$.
 > (h) Triangle $BCD$ is equilateral.
->
-> State the **set of statement labels** that are necessarily true. For example, an answer of "$\{a, c, e\}$" means exactly $(a), (c), (e)$ are necessarily true and the others are not.
 
-## What you must do
-
-For each candidate solution in `/input_artifacts/`:
-
-1. Identify the **claimed set of true statements** the candidate's solution actually asserts (parse the claim from the prose; some candidates will be ambiguous — record your best reading).
-2. Determine whether the candidate's claimed set equals the correct gold set.
-3. Independently audit the candidate's mathematical argument for each claim it considered. Note where the argument is invalid, where a theorem is misapplied, where a case is missing, where a step is asserted without justification, and where the candidate confuses related concepts (e.g. incenter vs. circumcenter, projection vs. perpendicular foot).
-4. Identify the **first fatal mathematical error** in the solution — the earliest step at which the candidate's reasoning becomes irrecoverable. If the solution is fully correct, set the first fatal error to null.
-5. Assign **failure labels** from the allowed vocabulary listed below.
-6. Assess **repairability**: could the solution be patched with a minor fix, would it need a major rewrite, or is the entire approach unsalvageable?
-
-Then produce a single cross-solution summary describing common failure modes, listing candidates with correct final answers but invalid proofs, listing candidates whose core idea is on the right track, and naming the single best candidate solution.
+The gold answer set is `{a, b, c, d, e}` (the conclusion of CMO 2026 P4 plus its direct corollaries). Statements (f), (g), (h) are NOT necessarily true.
 
 ## Output format
 
-Write your final answer to `/logs/agent/output.json` in this exact JSON structure. Every key must be present. Field names, types, and allowed values must match exactly.
+Write exactly this JSON structure to `/logs/agent/output.json`:
 
 ```json
 {
-  "problem_id": "cmo2026-p4-claims-audit",
-  "gold_final_answer": "<string — the gold set in canonical form, e.g. \"{a, b, c, d, e}\">",
-  "solution_audits": [
+  "response_audits": [
     {
-      "solution_id": "<string — single uppercase letter matching the response file>",
-      "claimed_set": ["<letter>", "..."],
-      "verdict": "<one of: correct | partially_correct | incorrect>",
+      "response_id": "A",
       "final_answer_correct": <bool>,
-      "logical_chain_valid": <bool>,
-      "proof_complete": <bool>,
-      "contains_wrong_math_claim": <bool>,
-      "first_fatal_error": {
-        "location": "<string — short description of where the error appears, e.g. \"step claiming A projects to circumcenter\">",
-        "error_type": "<string — one of the allowed failure labels>",
-        "explanation": "<string — 1–3 sentences describing the mathematical reason the step is wrong>"
-      },
-      "failure_labels": ["<string>", "..."],
-      "domain_specific_labels": ["<string>", "..."],
-      "repairability": "<one of: minor_fix | major_rewrite | impossible_from_current_solution | n/a>",
-      "brief_assessment": "<string — 1–3 sentences summarizing the solution's quality>"
-    }
-  ],
-  "cross_solution_summary": {
-    "common_failure_modes": ["<string>", "..."],
-    "solutions_with_correct_gtfa_but_invalid_proof": ["<solution_id>", "..."],
-    "solutions_with_valid_core_idea": ["<solution_id>", "..."],
-    "candidates_sharing_same_fatal_error_type": [
-      ["<solution_id>", "<solution_id>", "..."],
-      ["<solution_id>", "<solution_id>", "..."]
-    ],
-    "candidates_implicitly_using_same_false_lemma": [
-      ["<solution_id>", "<solution_id>", "..."]
-    ],
-    "best_solution_id": "<string — the single best candidate, or \"none\" if no candidate is correct>"
-  }
+      "proof_valid": <bool>,
+      "verdict": "<one of the verdict vocabulary below>",
+      "primary_error_label": "<one of the primary_error_label vocabulary below>",
+      "required_evidence_label": "<one of the required_evidence_label vocabulary below>"
+    },
+    ... (one entry per response file, 7 total, ordered A through G)
+  ]
 }
 ```
 
-### Rules for the two cross-candidate grouping fields
+### Field semantics
 
-These two fields require comparing **all 7 candidate audits pairwise** to extract groups.
+- `final_answer_correct`: true iff the candidate's stated SET of necessarily-true statements equals the gold set `{a, b, c, d, e}` (as a set; order irrelevant).
+- `proof_valid`: true iff the candidate's argument is logically sound AND complete (no false math claims, no unconstructed counterexamples, no logical gaps). For a candidate whose `final_answer_correct = true` but whose proof relies on a false universal claim (e.g. asserting that the insphere of any tangential tetrahedron is tangent at the face-incenter), `proof_valid` is **false**.
+- `verdict`: a categorical assessment combining the two above.
+- `primary_error_label`: the SPECIFIC error pattern this candidate exhibits (or `NO_ERROR`).
+- `required_evidence_label`: the specific lemma or argument the candidate would have needed to make the proof valid (or `NO_ERROR` if the proof is already valid).
 
-**`candidates_sharing_same_fatal_error_type`** is a list of groups of `solution_id` letters. Each inner list (group) contains the solution_ids whose `first_fatal_error.error_type` is the same string. Only groups of size ≥ 2 should appear (a singleton is not "sharing"). Group order does not matter; the order within a group does not matter. For example, if four candidates have `error_type: "underjustified_step"` and two have `error_type: "false_math_claim"` and one has a unique `error_type`, the field is `[["A","C","D","G"], ["B","F"]]` (illustrative shape; actual groupings depend on your audits).
+### `verdict` vocabulary (use exactly one)
 
-**`candidates_implicitly_using_same_false_lemma`** is a list of groups of `solution_id` letters whose proofs implicitly invoke the same **false mathematical claim** (a general assertion that is not actually true). Two candidates belong to the same group if they both rely on the same false universal claim — for example, "the insphere of any tangential tetrahedron is tangent to each face at the face's incenter" (false in general, true only under additional symmetry such as this problem's hypothesis). Only groups of size ≥ 2 should appear. If no two candidates share a false lemma, this field is an empty list `[]`.
+- `correct` — final answer matches gold AND proof is valid.
+- `incorrect` — final answer does NOT match gold.
+- `correct_final_answer_but_invalid_proof` — final answer matches gold but proof has a false claim, logical gap, or unsupported step.
 
-### Rules for the output
+### `primary_error_label` vocabulary (use exactly one per response)
 
-- `solution_audits` must contain exactly one entry per response file present in `/input_artifacts/`. Order entries by `solution_id` alphabetically.
-- `claimed_set` is the set of letters the candidate asserted as necessarily true. If the candidate did not give a clear claimed set, record your best reading and add `"unclear_claimed_set"` to `failure_labels`.
-- `verdict = "correct"` requires `claimed_set` exactly equals the gold set AND the proof is logically valid AND complete. `verdict = "partially_correct"` covers cases where the claimed set matches the gold but the reasoning is incomplete or invalid (correct-final-answer-but-invalid-proof), OR cases where the claimed set is close (differs by one) and the reasoning is on the right track. Everything else is `"incorrect"`.
-- `final_answer_correct = true` iff `claimed_set` equals the gold set (regardless of proof quality).
-- `first_fatal_error` must be `null` (literally, JSON null) when `verdict = "correct"`. Otherwise it must be a populated object.
-- `repairability = "n/a"` when `verdict = "correct"`.
-- Letters in any letter array must be lowercase single characters from `["a", "b", "c", "d", "e", "f", "g", "h"]`. Order each letter array alphabetically.
+- `NO_ERROR` — the proof is valid; no error to flag.
+- `REJECTED_PERPENDICULARITY_WITHOUT_COUNTEREXAMPLE` — the candidate rejects statement (a) (AI ⊥ plane BCD) by asserting a counterexample exists but never constructs one. The hypothesis is in fact strong enough to force (a).
+- `FALSE_INSPHERE_FACE_INCENTER_UNIVERSAL_AS_PREMISE` — the candidate uses the universal claim "the insphere of any tangential tetrahedron is tangent to each face at the face-incenter" as a premise. This claim is FALSE in general; it requires extra symmetry. The candidate's final answer may be correct but the proof of (a) and/or (e) rests on this false universal.
+- `SELF_CONTRADICTORY_CENTROID_COUNTEREXAMPLE` — the candidate proposes a counterexample of the form "A lies directly above the centroid of BCD but is not orthogonal" or similar, which is self-contradictory because "directly above the centroid" already implies orthogonality. Often confuses centroid with incenter.
+- `MISSED_VOLUME_TO_DISTANCE_EQUIVALENCE_IN_COT` — the candidate's reasoning trace derives area(ABX)/BX = ... but never recognizes that this equals (1/2)·dist(A, line BX), and therefore rejects statement (c) or (b) even though they are direct consequences of the hypothesis.
+- `VAGUE_ALMOST_REGULAR_NON_CONSTRUCTION` — the candidate dismisses statements with hand-wavy phrases like "consider a tetrahedron that is almost regular but slightly skewed" or "it is possible to construct" without any concrete construction.
+- `WRONG_PROJECTION_TARGET` — distractor; do not use unless an audit clearly fits.
+- `CIRCULAR_BISECTOR_ARGUMENT` — distractor; do not use unless an audit clearly fits.
+- `OVERCLAIMS_EQUILATERAL_BCD` — distractor; do not use unless an audit clearly fits.
 
-### Allowed `failure_labels` vocabulary
+### `required_evidence_label` vocabulary (use exactly one per response)
 
-Use only these strings. You may attach more than one to a single solution.
+- `NO_ERROR` — the proof is valid; nothing required.
+- `TETRAHEDRON_INCENTER_FORMULA_DERIVATION` — the candidate needed to derive that the tetrahedron's incenter I equals $\sum_i S_i v_i / \sum_i S_i$ (face-area-weighted vertex combination) and apply it to show I's projection on plane BCD coincides with A's projection.
+- `DIRECT_TOUCH_POINT_DERIVATION_FROM_PERPENDICULARITY` — the candidate needed to derive the touch point of the insphere on face BCD as a consequence of AI ⊥ plane BCD (using the volume condition), rather than as a universal property of tangential tetrahedra.
+- `PROJECTION_IS_INCENTER_NOT_CENTROID` — the candidate needed to recognize that the volume condition forces A's projection on plane BCD to be the incenter of triangle BCD, not the centroid.
+- `AREA_OVER_BASE_EQUALS_HALF_DISTANCE_FROM_A` — the candidate needed to apply the identity area(ABX) / BX = (1/2)·dist(A, line BX) to convert the volume condition into the equal-distance condition.
+- `VOLUME_CONDITION_FORCES_PERPENDICULARITY` — the candidate needed to recognize that the volume condition (with acuteness) is by itself sufficient to force AI ⊥ plane BCD; their hand-waved "almost regular" non-construction is impossible.
+- `ACUTENESS_RULES_OUT_EXCENTER` — distractor; do not use unless an audit clearly fits.
+- `DIHEDRAL_BISECTOR_LEMMA` — distractor; do not use unless an audit clearly fits.
 
-- `final_answer_error` — the claimed set differs from the gold set.
-- `correct_gtfa_invalid_proof` — the claimed set matches gold but the argument does not establish it.
-- `invalid_logical_step` — a specific inference does not follow from previous statements.
-- `wrong_theorem_application` — a theorem is invoked outside its hypotheses or in the wrong form.
-- `false_math_claim` — a mathematical statement asserted by the candidate is mathematically false.
-- `missing_case` — the candidate omits a required configuration or boundary case.
-- `incomplete_proof` — the argument has a plausible outline but lacks necessary justification.
-- `underjustified_step` — a step may be true but is asserted without sufficient argument for the problem level.
-- `circular_reasoning` — the argument assumes a claim equivalent to what it is trying to prove.
-- `extraneous_solution` — the candidate introduces a value or configuration that does not satisfy the original constraints.
-- `notation_definition_error` — variables, definitions, or notation are misused in a way that affects correctness.
-- `unclear_claimed_set` — the candidate did not unambiguously state which statements are necessarily true.
+### Selection rule
 
-### Allowed `domain_specific_labels` vocabulary
+For each response, pick exactly **one** `primary_error_label` from the vocabulary that best matches the candidate's specific error (or `NO_ERROR`). Pick exactly **one** `required_evidence_label` similarly. Do not invent new labels.
 
-Use only these strings.
+## Output rules
 
-- `incenter_circumcenter_confusion` — confuses the incenter with the circumcenter (of triangle BCD, of the tetrahedron, or otherwise).
-- `incenter_centroid_confusion` — confuses the incenter with the centroid.
-- `wrong_projection_claim` — names the wrong point as the orthogonal projection of A onto plane BCD.
-- `ignored_acuteness_condition` — does not use the acute-dihedral-angle hypothesis where the gold proof needs it, or claims the hypothesis is unnecessary without justification.
-- `over_symmetrization` — concludes regularity (BCD equilateral, $AB=AC=AD$, or similar) from the hypotheses without justification.
-- `missed_volume_to_distance_lemma` — fails to translate $\mathrm{vol}(IABC)/BC = \cdots$ into the equal-distances-from-A condition that the gold proof depends on.
-- `excenter_vs_incenter_gap` — applies "equidistant from three lines = incenter" without noting that the equidistant point could be an excenter when the projection is outside triangle BCD.
-- `degenerate_or_unphysical_configuration` — works in a configuration that contradicts the inscribed-sphere or acuteness hypothesis.
-
+- `response_audits` must contain exactly 7 entries, ordered alphabetically by `response_id` (A, B, C, D, E, F, G).
+- Every `response_id` must be uppercase A..G.
+- Every field must be present in every entry.
+- Top-level keys exactly: `response_audits`. No other top-level keys.

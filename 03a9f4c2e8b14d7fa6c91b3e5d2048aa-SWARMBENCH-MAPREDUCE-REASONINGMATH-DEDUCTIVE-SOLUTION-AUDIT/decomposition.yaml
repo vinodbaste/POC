@@ -1,0 +1,136 @@
+sub_tasks:
+  - id: calibrate-audit-rules
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this calibration yourself. Do NOT solve the
+      puzzle yourself. Do NOT include any asserted numeric answer, true answer,
+      correct answer, solved strategy, or oracle-derived conclusion in the
+      sub-agent prompt. The sub-agent must read the task instruction and
+      /input_artifacts/problem_statement.md itself, then return a concise
+      calibration guide for applying C1-C8, verdict, and primary_failure_code.
+      The guide should clarify: criteria are independent; C1 concerns only the
+      candidate's stated final minimum; C2 concerns whether an explicit
+      actionable strategy is present; C3 concerns whether that strategy
+      guarantees success; C4 concerns whether minimality is proven; C5 concerns
+      worst-case framing; C6 concerns invalid purity inference from one draw
+      when the bag could still be mixed; C7 concerns unnecessary exact mixed-pair
+      requirements; C8 concerns fatal contradictions or proof-invalidating
+      claims. The guide must explain how to choose the most diagnostic
+      primary_failure_code from the instruction list without assigning any code
+      to any specific response.
+    depends_on: []
+    parallel_group: calibrate
+
+  - id: grade-response-a
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_A using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_A yourself. Do NOT include any asserted numeric answer or solved
+      puzzle conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_A.md itself, use the
+      calibration guide, and return only the response_A evaluation JSON fields.
+      Focus on applying every criterion independently: final number, concrete
+      strategy, sufficiency, minimality, worst-case framing, one-draw inference,
+      exact mixed-pair requirement, fatal claims, verdict, and diagnostic
+      failure category.
+    depends_on: [calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-b
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_B using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_B yourself. Do NOT include any asserted numeric answer or solved
+      puzzle conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_B.md itself, use the
+      calibration guide, and return only the response_B evaluation JSON fields.
+      Focus on whether each one-draw conclusion is logically justified when the
+      inspected bag may still be mixed, while still evaluating all C1-C8 labels,
+      verdict, and diagnostic failure category independently.
+    depends_on: [calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-c
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_C using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_C yourself. Do NOT include any asserted numeric answer or solved
+      puzzle conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_C.md itself, use the
+      calibration guide, and return only the response_C evaluation JSON fields.
+      Focus on whether the proposed reasoning covers all legal worst-case
+      branches or only favorable observations. Also check whether the response
+      treats exact mixed-pair composition as necessary, while still evaluating
+      all C1-C8 labels, verdict, and diagnostic failure category independently.
+    depends_on: [calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-d
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_D using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_D yourself. Do NOT include any asserted numeric answer or solved
+      puzzle conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_D.md itself, use the
+      calibration guide, and return only the response_D evaluation JSON fields.
+      Focus on whether the response gives one consistent final answer and one
+      concrete strategy, or instead oscillates among incompatible conclusions.
+      Still evaluate all C1-C8 labels, verdict, and diagnostic failure category
+      independently.
+    depends_on: [calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-e
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_E using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_E yourself. Do NOT include any asserted numeric answer or solved
+      puzzle conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_E.md itself, use the
+      calibration guide, and return only the response_E evaluation JSON fields.
+      Focus on separating the stated final number from the validity of the
+      proposed strategy. Test whether the chosen sequence of inspections
+      actually forces all remaining labels in every legal branch. Still evaluate
+      all C1-C8 labels, verdict, and diagnostic failure category independently.
+    depends_on: [calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-f
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_F using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_F yourself. Do NOT include any asserted numeric answer or solved
+      puzzle conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_F.md itself, use the
+      calibration guide, and return only the response_F evaluation JSON fields.
+      Focus on whether the response respects the fact that all labels are wrong
+      and whether it adds unnecessary requirements about the mixed bag's exact
+      composition. Still evaluate all C1-C8 labels, verdict, and diagnostic
+      failure category independently.
+    depends_on: [calibrate-audit-rules]
+    parallel_group: map
+
+  - id: reduce-final-audit
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent using
+      the Agent tool. Do NOT perform the final reduction yourself. The reducer
+      may only synthesize the calibration output and the six mapper outputs. It
+      MUST NOT redo the six audits from scratch. If a mapper output is malformed,
+      ask a replacement sub-agent to re-grade that same response instead of
+      grading it in the orchestrator. The reducer must write exactly one JSON
+      report at /logs/agent/output.json with response_A through response_F, plus accepted_solutions, rejected_solutions,
+      best_solution, and summary.
+    depends_on:
+      - grade-response-a
+      - grade-response-b
+      - grade-response-c
+      - grade-response-d
+      - grade-response-e
+      - grade-response-f
+    parallel_group: reduce
