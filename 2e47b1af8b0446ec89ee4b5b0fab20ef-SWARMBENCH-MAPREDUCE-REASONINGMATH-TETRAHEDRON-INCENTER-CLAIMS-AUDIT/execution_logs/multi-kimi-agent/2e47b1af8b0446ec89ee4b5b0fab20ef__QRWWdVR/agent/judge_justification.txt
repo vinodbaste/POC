@@ -1,8 +1,0 @@
-Score: 0.5475  (54.75/100)
-
-  per_solution (max 35):       26.50  [A=5.0, B=3.5, C=1.5, D=5.0, E=5.0, F=1.5, G=5.0]
-  fatal_error  (max 15):       4.00  [B=1.0, C=0.0, E=1.0, F=1.0, G=1.0]
-  correct_null (max 4):        4.00
-  failure_labels (max 14):     6.50
-  domain_labels  (max 7):      4.00
-  cross_summary+header (max 25): 9.75
