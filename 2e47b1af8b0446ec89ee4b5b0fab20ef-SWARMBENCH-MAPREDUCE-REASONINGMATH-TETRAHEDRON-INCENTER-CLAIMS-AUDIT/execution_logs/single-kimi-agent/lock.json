@@ -1,13 +1,13 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-15T07:29:21.692247Z",
+    "created_at": "2026-05-15T08:48:50.994866Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
         "is_editable": true
     },
     "invocation": [
-        "/Users/vinodbaste/Turing Projects/harbor/.venv/bin/harbor",
+        "/Users/vinodbaste/harbor/.venv/bin/harbor",
         "run",
         "-p",
         "/Users/vinodbaste/Turing Projects/POC/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT",
@@ -33,11 +33,11 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
+            "AgentTimeoutError",
             "RewardFileEmptyError",
-            "VerifierTimeoutError",
             "RewardFileNotFoundError",
-            "VerifierOutputParseError",
-            "AgentTimeoutError"
+            "VerifierTimeoutError",
+            "VerifierOutputParseError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -48,7 +48,7 @@
             "task": {
                 "name": "2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT",
                 "type": "local",
-                "digest": "sha256:dda688e2c69e0afceef8abe071855fda7eb846b4c0089bd6c25ad10f6f2a167f",
+                "digest": "sha256:8374ed6429656255a062671f38934f7d6af2cdfee90c282dd83c6f7583b8c3f4",
                 "path": "/Users/vinodbaste/Turing Projects/POC/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT"
             },
             "timeout_multiplier": 1.0,
