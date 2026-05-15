@@ -1,0 +1,137 @@
+{
+  "problem_id": "cmo2026-p4-claims-audit",
+  "gold_final_answer": "{a, b, c, d, e}",
+  "solution_audits": [
+    {
+      "solution_id": "A",
+      "claimed_set": ["a", "b", "c", "d", "e"],
+      "verdict": "correct",
+      "final_answer_correct": true,
+      "logical_chain_valid": true,
+      "proof_complete": true,
+      "contains_wrong_math_claim": false,
+      "first_fatal_error": null,
+      "failure_labels": [],
+      "domain_specific_labels": [],
+      "repairability": "n/a",
+      "brief_assessment": "Solution A correctly derives that conditions (a)-(e) are necessarily true through rigorous geometric analysis. The key insight that A and I both project to the incenter of triangle BCD is properly established using the volume condition and the tetrahedron incenter formula. Counterexamples for (f), (g), (h) are valid."
+    },
+    {
+      "solution_id": "B",
+      "claimed_set": ["b", "c", "d"],
+      "verdict": "incorrect",
+      "final_answer_correct": false,
+      "logical_chain_valid": false,
+      "proof_complete": false,
+      "contains_wrong_math_claim": true,
+      "first_fatal_error": {
+        "location": "Statement (a) analysis",
+        "error_type": "invalid_logical_step",
+        "explanation": "The solution claims (a) is false and asserts a counterexample exists without providing any concrete coordinates or verification. In fact, given that A projects to the incenter of BCD (from the established (b)), and using the tetrahedron incenter formula with the area ratio condition, I also projects to the same incenter, making AI perpendicular to BCD. The counterexample claim is unsubstantiated and false."
+      },
+      "failure_labels": ["invalid_logical_step", "false_math_claim", "underjustified_step"],
+      "domain_specific_labels": ["wrong_projection_claim"],
+      "repairability": "major_rewrite",
+      "brief_assessment": "Solution B correctly identifies (b), (c), (d) as true but incorrectly rejects (a) and (e). The error stems from failing to recognize that the incenter I projects to the same point as A (the incenter of BCD) under the given hypotheses. The 'counterexample' claims for (a) are unsubstantiated and mathematically incorrect."
+    },
+    {
+      "solution_id": "C",
+      "claimed_set": ["a", "b", "c", "d", "e"],
+      "verdict": "correct",
+      "final_answer_correct": true,
+      "logical_chain_valid": true,
+      "proof_complete": true,
+      "contains_wrong_math_claim": false,
+      "first_fatal_error": null,
+      "failure_labels": [],
+      "domain_specific_labels": [],
+      "repairability": "n/a",
+      "brief_assessment": "Complete and correct solution. The proof correctly derives equal distances from A to the three edges, identifies the projection of A onto BCD as the incenter, establishes AI perpendicularity to BCD, and provides sound counterexamples for statements f-h. All claims match the gold set {a,b,c,d,e}."
+    },
+    {
+      "solution_id": "D",
+      "claimed_set": ["a", "b", "c", "d", "e"],
+      "verdict": "correct",
+      "final_answer_correct": true,
+      "logical_chain_valid": true,
+      "proof_complete": true,
+      "contains_wrong_math_claim": false,
+      "first_fatal_error": null,
+      "failure_labels": [],
+      "domain_specific_labels": [],
+      "repairability": "n/a",
+      "brief_assessment": "Complete and correct solution with rigorous proofs. Uses Pythagorean theorem to rigorously establish projection as incenter, dihedral angle bisector argument for AI perpendicularity, and provides explicit coordinate counterexample. All claims match the gold set {a,b,c,d,e}."
+    },
+    {
+      "solution_id": "E",
+      "claimed_set": ["c", "d", "e"],
+      "verdict": "incorrect",
+      "final_answer_correct": false,
+      "logical_chain_valid": false,
+      "proof_complete": false,
+      "contains_wrong_math_claim": true,
+      "first_fatal_error": {
+        "location": "statement (e) analysis",
+        "error_type": "false_math_claim",
+        "explanation": "Claims the insphere touch point on face BCD is the incenter 'by definition of the inradius' - this is circular reasoning. The touch point is where the perpendicular from I meets the plane, and while it happens to be the incenter (which is provable), the justification given is vacuous."
+      },
+      "failure_labels": ["false_math_claim", "underjustified_step", "invalid_logical_step"],
+      "domain_specific_labels": ["wrong_projection_claim"],
+      "repairability": "major_rewrite",
+      "brief_assessment": "Solution claims {c,d,e} but reasoning is fundamentally flawed. For (c), claims 'symmetry about point A' without justification. For (d), invokes irrelevant 'circumcircle properties.' For (e), provides circular definition-based 'proof.' Counterexamples are hand-wavy without construction. No valid mathematical derivation from the volume condition."
+    },
+    {
+      "solution_id": "F",
+      "claimed_set": ["d", "e"],
+      "verdict": "partially_correct",
+      "final_answer_correct": false,
+      "logical_chain_valid": true,
+      "proof_complete": true,
+      "contains_wrong_math_claim": false,
+      "first_fatal_error": {
+        "location": "derivation of statement (c)",
+        "error_type": "missing_case",
+        "explanation": "Solution fails to recognize that statement (c) necessarily follows from the volume condition. Using area = (1/2)·base·height, the equal area/base ratios from condition (2) directly imply equal distances from A to the lines BC, CD, and DB. This missing connection prevents the solution from establishing the full gold set {a,b,c,d,e}."
+      },
+      "failure_labels": ["missing_case"],
+      "domain_specific_labels": ["missed_volume_to_distance_lemma"],
+      "repairability": "minor_fix",
+      "brief_assessment": "Correctly derives area proportionality from volume condition, proving (d). Correctly proves (e) using equidistance property of insphere touch point. However, fails to recognize that (c) follows from area formula: area = (1/2)·base·height, so equal area/base ratios imply equal distances from A to edges. Chain-of-thought and final write-up are consistent (both claim only {d,e})."
+    },
+    {
+      "solution_id": "G",
+      "claimed_set": ["d"],
+      "verdict": "incorrect",
+      "final_answer_correct": false,
+      "logical_chain_valid": false,
+      "proof_complete": false,
+      "contains_wrong_math_claim": true,
+      "first_fatal_error": {
+        "location": "analysis of statement (a)",
+        "error_type": "ignored_acuteness_condition",
+        "explanation": "The solution completely ignores hypothesis (1) requiring all dihedral angles to be acute. All 'counterexamples' provided are vague ('slightly skewed') without verifying they satisfy the acute dihedral angle condition. This fundamentally undermines the analysis of statements (a), (b), (c), (e), (f), (g), (h)."
+      },
+      "failure_labels": ["ignored_acuteness_condition", "underjustified_step", "false_math_claim", "final_answer_error"],
+      "domain_specific_labels": ["ignored_acuteness_condition"],
+      "repairability": "major_rewrite",
+      "brief_assessment": "The proof for (d) is mathematically correct, but the solution completely ignores the acute dihedral angle condition and provides no valid counterexamples for the other statements. The 'almost regular but slightly skewed' argument is hand-waving without verifying acuteness. The final answer {d} is likely incorrect as statements (c) and (e) are probably also necessarily true given both conditions together."
+    }
+  ],
+  "cross_solution_summary": {
+    "common_failure_modes": [
+      "Failure to properly establish the projection of the incenter I onto face BCD coincides with the projection of A (the incenter of triangle BCD), leading to incorrect rejection of statements (a) and/or (e)",
+      "Circular or vacuous reasoning when justifying geometric properties, such as claiming the insphere touch point is the incenter 'by definition' without proper derivation from the volume condition",
+      "Hand-waving counterexamples without concrete coordinate verification or ignoring the acute dihedral angle constraint when constructing purported counterexamples",
+      "Missing the connection between area/base ratios and equal distances from A to the base edges, causing failure to derive statement (c) from the volume condition"
+    ],
+    "solutions_with_correct_gtfa_but_invalid_proof": [],
+    "solutions_with_valid_core_idea": ["A", "C", "D", "F"],
+    "candidates_sharing_same_fatal_error_type": [
+      ["B", "E"]
+    ],
+    "candidates_implicitly_using_same_false_lemma": [
+      ["B", "E"]
+    ],
+    "best_solution_id": "D"
+  }
+}
