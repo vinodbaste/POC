@@ -4,291 +4,148 @@ sub_tasks:
       Read /input_artifacts/problem.md only. Independently determine, for each of the eight
       statements (a) through (h), whether it is necessarily true for every tetrahedron ABCD
       satisfying both hypotheses, then state the gold SET of statement labels that are
-      necessarily true. Derive the key reductions yourself: from hypothesis (2) and the
-      identity vol(IXYZ) = (1/3)*area(XYZ)*r, obtain area(ABC)/BC = area(ACD)/CD = area(ABD)/DB;
-      then from area(ABX) = (1/2)*BX*dist(A, line BX) obtain dist(A, BC) = dist(A, CD) =
-      dist(A, DB); then combine with the acuteness hypothesis to locate the projection of A on
-      plane BCD; then conclude AI perpendicular to plane BCD and the insphere touch point on
-      face BCD. Return a compact note containing the gold set in alphabetical lowercase form
-      and a short explanation. Do not inspect or rely on any proposed response.
+      necessarily true in alphabetical lowercase form. Do not inspect any proposed response.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-a
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_A.md.
-      Audit only Response A. Extract Response A's claimed final SET of necessarily-true
-      statement labels. Decide whether it equals the gold set (final_answer_correct). Then
-      determine the exact set of failure_reasons whose trigger phrase is concretely present in
-      this single response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A. Extract its
+      claimed final SET of necessarily-true statement labels and decide whether it equals the
+      gold set (final_answer_correct). Then determine the exact set of failure_reasons whose
+      trigger phrase is concretely present in this single response, drawn ONLY from the
+      5-code vocabulary defined in instruction.md. The literal word "centroid" is NOT
+      interchangeable with "incenter". Most responses have 0 or 1 failure reasons. Return
+      failure_reasons=[] when the claimed set equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-b
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_B.md.
-      Audit only Response B. Extract Response B's claimed final SET of necessarily-true
-      statement labels. Decide whether it equals the gold set (final_answer_correct). Then
-      determine the exact set of failure_reasons whose trigger phrase is concretely present in
-      this single response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B. Extract its
+      claimed final SET of necessarily-true statement labels and decide whether it equals the
+      gold set (final_answer_correct). Then determine the exact set of failure_reasons whose
+      trigger phrase is concretely present in this single response, drawn ONLY from the
+      5-code vocabulary defined in instruction.md. The literal word "centroid" is NOT
+      interchangeable with "incenter". Most responses have 0 or 1 failure reasons. Return
+      failure_reasons=[] when the claimed set equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-c
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_C.md.
-      Audit only Response C. Extract Response C's claimed final SET of necessarily-true
-      statement labels. Decide whether it equals the gold set (final_answer_correct). Then
-      determine the exact set of failure_reasons whose trigger phrase is concretely present in
-      this single response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C. Extract its
+      claimed final SET of necessarily-true statement labels and decide whether it equals the
+      gold set (final_answer_correct). Then determine the exact set of failure_reasons whose
+      trigger phrase is concretely present in this single response, drawn ONLY from the
+      5-code vocabulary defined in instruction.md. The literal word "centroid" is NOT
+      interchangeable with "incenter". Most responses have 0 or 1 failure reasons. Return
+      failure_reasons=[] when the claimed set equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-d
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_D.md.
-      Audit only Response D. Extract Response D's claimed final SET of necessarily-true
-      statement labels. Decide whether it equals the gold set (final_answer_correct). Then
-      determine the exact set of failure_reasons whose trigger phrase is concretely present in
-      this single response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D. Extract its
+      claimed final SET of necessarily-true statement labels and decide whether it equals the
+      gold set (final_answer_correct). Then determine the exact set of failure_reasons whose
+      trigger phrase is concretely present in this single response, drawn ONLY from the
+      5-code vocabulary defined in instruction.md. The literal word "centroid" is NOT
+      interchangeable with "incenter". Most responses have 0 or 1 failure reasons. Return
+      failure_reasons=[] when the claimed set equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-e
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_E.md.
-      Audit only Response E. Extract Response E's claimed final SET of necessarily-true
-      statement labels. Decide whether it equals the gold set (final_answer_correct). Then
-      determine the exact set of failure_reasons whose trigger phrase is concretely present in
-      this single response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E. Extract its
+      claimed final SET of necessarily-true statement labels and decide whether it equals the
+      gold set (final_answer_correct). Then determine the exact set of failure_reasons whose
+      trigger phrase is concretely present in this single response, drawn ONLY from the
+      5-code vocabulary defined in instruction.md. The literal word "centroid" is NOT
+      interchangeable with "incenter". Most responses have 0 or 1 failure reasons. Return
+      failure_reasons=[] when the claimed set equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-f
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_F.md.
-      Audit only Response F. If this response includes a visible chain-of-thought trace before
-      its final answer, read the trace and the final answer together and audit them as a
-      single submission. Extract Response F's claimed final SET of necessarily-true statement
-      labels. Decide whether it equals the gold set (final_answer_correct). Then determine the
-      exact set of failure_reasons whose trigger phrase is concretely present in this single
-      response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F. If the
+      response includes a visible chain-of-thought trace, read trace and final answer
+      together. Extract its claimed final SET of necessarily-true statement labels and decide
+      whether it equals the gold set (final_answer_correct). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this single response,
+      drawn ONLY from the 5-code vocabulary defined in instruction.md. The literal word
+      "centroid" is NOT interchangeable with "incenter". Most responses have 0 or 1 failure
+      reasons. Return failure_reasons=[] when the claimed set equals the gold AND no trigger
+      phrase fires. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-g
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_G.md.
-      Audit only Response G. Extract Response G's claimed final SET of necessarily-true
-      statement labels. Decide whether it equals the gold set (final_answer_correct). Then
-      determine the exact set of failure_reasons whose trigger phrase is concretely present in
-      this single response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G. Extract its
+      claimed final SET of necessarily-true statement labels and decide whether it equals the
+      gold set (final_answer_correct). Then determine the exact set of failure_reasons whose
+      trigger phrase is concretely present in this single response, drawn ONLY from the
+      5-code vocabulary defined in instruction.md. The literal word "centroid" is NOT
+      interchangeable with "incenter". Most responses have 0 or 1 failure reasons. Return
+      failure_reasons=[] when the claimed set equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-h
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_H.md.
-      Audit only Response H. Extract Response H's claimed final SET of necessarily-true
-      statement labels. Decide whether it equals the gold set (final_answer_correct). Then
-      determine the exact set of failure_reasons whose trigger phrase is concretely present in
-      this single response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only Response H. Extract its
+      claimed final SET of necessarily-true statement labels and decide whether it equals the
+      gold set (final_answer_correct). Then determine the exact set of failure_reasons whose
+      trigger phrase is concretely present in this single response, drawn ONLY from the
+      5-code vocabulary defined in instruction.md. The literal word "centroid" is NOT
+      interchangeable with "incenter". Most responses have 0 or 1 failure reasons. Return
+      failure_reasons=[] when the claimed set equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-i
     description: >
-      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_I.md.
-      Audit only Response I. Extract Response I's claimed final SET of necessarily-true
-      statement labels. Decide whether it equals the gold set (final_answer_correct). Then
-      determine the exact set of failure_reasons whose trigger phrase is concretely present in
-      this single response's text. The allowed codes and their literal trigger phrases are:
-      asserts_AI_equals_r (literal "AI = r" asserted as a load-bearing equality);
-      rejects_a_with_we_can_have_assertion (sentence "we can have a tetrahedron satisfying (2)
-      where AI is not perpendicular to BCD" or near-verbatim, used to reject (a) without a
-      concrete construction);
-      asserts_universal_face_incenter_tangency (claim "the insphere is tangent to each face
-      at its face-incenter" or "the point of tangency on each face is the incenter of that
-      face" asserted as a universal property of tangential tetrahedra, not derived from H2);
-      counterexample_places_a_above_centroid (the literal word "centroid" — not "incenter",
-      not "in-centre", not a named symbol like "H" — appears inside an explicit counterexample
-      paragraph to statement (a), placing A directly above the centroid of triangle BCD);
-      appeals_to_almost_regular_or_slightly_skewed (literal "almost regular" or "slightly
-      skewed" used to dismiss a claim without concrete construction).
-      The trigger phrases are LITERAL words: "centroid" and "incenter" are NOT
-      interchangeable; "AI = r" is an exact equality string. Apply each code ONLY if you can point to a
-      specific line in this response whose text contains the trigger phrase
-      (verbatim or near-verbatim). If you cannot identify such a line, DO NOT apply the code.
-      Most responses have 0 or 1 failure reasons. Return failure_reasons=[] when the claimed
-      set equals the gold AND no trigger phrase fires. When in doubt, return []. Do not
-      infer from other responses.
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_I.md. Audit only Response I. Extract its
+      claimed final SET of necessarily-true statement labels and decide whether it equals the
+      gold set (final_answer_correct). Then determine the exact set of failure_reasons whose
+      trigger phrase is concretely present in this single response, drawn ONLY from the
+      5-code vocabulary defined in instruction.md. The literal word "centroid" is NOT
+      interchangeable with "incenter". Most responses have 0 or 1 failure reasons. Return
+      failure_reasons=[] when the claimed set equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: synthesize-final-audit
     description: >
       Combine the gold-set adjudication and nine response audits into the final JSON output.
-      Trust each per-response audit's failure_reasons list. Do not add codes the audit did not
-      identify, and do not delete codes the audit did identify. Resolve any inconsistency
-      between final_answer_correct and the claimed-set comparison by re-reading the relevant
-      response. Compute acceptable_solution_ids as the uppercase, alphabetically-sorted list
-      of response_ids whose final_answer_correct is true AND failure_reasons is empty. Write
-      the result to /logs/agent/output.json. Top-level keys exactly: gold_set,
-      acceptable_solution_ids, per_response_assessment. per_response_assessment must contain
-      exactly nine objects, ordered alphabetically A through I, each with exactly the keys
-      response_id, final_answer_correct, failure_reasons.
+      Trust each per-response audit's failure_reasons list; do not add codes the audit did
+      not identify, and do not delete codes the audit did identify. Compute
+      acceptable_solution_ids as the uppercase, alphabetically-sorted list of response_ids
+      whose final_answer_correct is true AND failure_reasons is empty. Write the result to
+      /logs/agent/output.json. Top-level keys exactly: gold_set, acceptable_solution_ids,
+      per_response_assessment. per_response_assessment must contain exactly nine objects,
+      ordered alphabetically A through I, each with exactly the keys response_id,
+      final_answer_correct, failure_reasons.
     depends_on:
       - adjudicate-gold-set
       - audit-response-a

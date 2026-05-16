@@ -29,7 +29,7 @@ Allowed failure reason codes (phrase-triggered; each code applies ONLY when its 
   - TRIGGER: the response asserts the equality "AI = r" (the distance from vertex A to the incenter I equals the inradius r) as a load-bearing claim. Look for the literal phrase "AI = r" or any direct paraphrase asserting equality of AI to the inradius. This claim is mathematically false in general because I is strictly interior to the tetrahedron.
 
 - `rejects_a_with_we_can_have_assertion`
-  - TRIGGER: the response rejects statement (a) (AI perpendicular to plane BCD) by writing a sentence of the form "we can have a tetrahedron satisfying (2) where AI is not perpendicular to BCD" or its near-verbatim paraphrase, without producing a concrete construction (no explicit coordinates or named vertex configuration). This is an assertion-not-construction rejection.
+  - TRIGGER: the response REJECTS statement (a) — that is, the response's FINAL claimed set of necessarily-true statements does NOT contain "a" — AND the rejection is justified by a sentence of the form "we can have a tetrahedron satisfying (2) where AI is not perpendicular to BCD" or its near-verbatim paraphrase, without producing a concrete construction. If the response includes (a) in its final claimed set, this trigger does NOT fire, even if a "we can have / counterexample" sentence appears earlier in the response's reasoning.
 
 - `asserts_universal_face_incenter_tangency`
   - TRIGGER: the response asserts, as a UNIVERSAL premise about any tangential tetrahedron, that the inscribed sphere is tangent to each face at the face's incenter. Look for phrases like "insphere is tangent to each face at its face-incenter", "tangent to each face at the incenter of that face", or "point of tangency on each face is the incenter of that face" used as a general fact rather than as a conclusion derived from hypothesis (2).
@@ -42,9 +42,8 @@ Allowed failure reason codes (phrase-triggered; each code applies ONLY when its 
 
 Important scoring and selection rules:
 - The audit is evaluated as an EXACT set match per response. Extra failure reasons and missing failure reasons both score zero for that response.
-- Most responses have 0 or 1 failure reasons. Apply a code ONLY when you can identify the exact line of the response that contains the trigger phrase. If you cannot point to a specific line whose text matches the trigger phrase (verbatim or near-verbatim), DO NOT apply the code.
-- The trigger phrases are LITERAL words. "centroid" and "incenter" are NOT interchangeable; "AI = r" is an exact equality string. Substituting synonyms is not allowed; the response must use the trigger language itself.
-- Use an empty list `[]` for failure_reasons exactly when the response's claimed set equals the gold set AND no failure-reason trigger phrase appears in that response. When in doubt, return `[]`.
+- Most responses have 0 or 1 failure reasons. Apply a code only when its trigger phrase is directly observable in the response text.
+- Use an empty list `[]` for failure_reasons exactly when the response's claimed set equals the gold set AND no failure-reason trigger phrase appears in that response.
 - `acceptable_solution_ids` is the uppercase, alphabetically-sorted list of response_ids whose `final_answer_correct` is `true` AND whose `failure_reasons` is the empty list.
 
 Label definitions for each proposed response:

@@ -14,7 +14,7 @@ why_multi_agent = "The task pairs a fixed gold-set determination with auditing n
 reference_link = "https://cms.math.ca/wp-content/uploads/2026/03/CMO2026-problems.pdf"
 
 [agent]
-timeout_sec = 1800
+timeout_sec = 3600
 
 [verifier]
 timeout_sec = 600

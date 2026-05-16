@@ -30,7 +30,8 @@
       "response_id": "E",
       "final_answer_correct": false,
       "failure_reasons": [
-        "counterexample_places_a_above_centroid"
+        "counterexample_places_a_above_centroid",
+        "asserts_universal_face_incenter_tangency"
       ]
     },
     {

@@ -78,7 +78,7 @@ Responses C and I claim the gold set but their texts trigger `asserts_universal_
 ### Response E
 - Claimed set: `{c, d, e}` (line 210: *"the final answer is: {c,d,e}"*).
 - `final_answer_correct`: false.
-- `failure_reasons`: `["counterexample_places_a_above_centroid"]`. Trigger fires on line 55, inside the explicit counterexample to (a): *"A lies directly above the centroid of B[CD]"*.
+- `failure_reasons`: `["counterexample_places_a_above_centroid", "asserts_universal_face_incenter_tangency"]`. The centroid trigger fires on line 55, inside the explicit counterexample to (a): *"A lies directly above the centroid of B[CD]"*. The universal-tangency trigger fires on lines 106–120 where E's proof of (e) is: *"The point at which the inscribed sphere touches face BCD is the incenter of triangle BCD. ... Proof: By definition of the inradius, the point of tangency from I ... BCD is by construction the incenter."* — asserts the touch-point identity as a property of the inradius itself, i.e. as a universal premise rather than as a conclusion derived from hypothesis (2).
 
 ### Response F
 - Claimed set: `{d, e}` (line 301: *"In my final answer, I'll say {d, e}"*; line 277 confirms).
