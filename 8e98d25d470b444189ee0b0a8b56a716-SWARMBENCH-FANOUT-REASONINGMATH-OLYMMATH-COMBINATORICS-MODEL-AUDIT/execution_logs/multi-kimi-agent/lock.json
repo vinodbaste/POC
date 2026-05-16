@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-16T10:08:31.523661Z",
+    "created_at": "2026-05-16T11:59:32.203019Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -33,11 +33,11 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
-            "RewardFileEmptyError",
-            "AgentTimeoutError",
-            "RewardFileNotFoundError",
             "VerifierOutputParseError",
-            "VerifierTimeoutError"
+            "RewardFileNotFoundError",
+            "VerifierTimeoutError",
+            "AgentTimeoutError",
+            "RewardFileEmptyError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -48,7 +48,7 @@
             "task": {
                 "name": "8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT",
                 "type": "local",
-                "digest": "sha256:8f298c52b7000f0904ec4efc9eea56defd437950fcd88d447f45c749fd3a2c71",
+                "digest": "sha256:7741f46c19ec941bfb37c9252dd2d88e3142f0f2a38f4f7b398bafbb2cd29f30",
                 "path": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT"
             },
             "timeout_multiplier": 1.0,

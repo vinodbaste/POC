@@ -1,0 +1,27 @@
+Score: 0.6125 (430/702 passed)
+
+gold_final_answer: 50/50 (matches '948').
+gold_recurrence_at_44_prefix_sum: 50/50 (matches 947).
+acceptable_solution_ids: 0/2 (expected ['D', 'F', 'K', 'N', 'P'], got ['D', 'F', 'K', 'N', 'P', 'R']).
+
+Per-response:
+A: 30/30.
+B: 0/30 (extracted_answer='40' (oracle '')).
+C: 0/30 (failure_reasons=['incoherent_or_truncated'] (oracle ['deterministic_chain_misconception'])).
+D: 30/30.
+E: 0/30 (failure_reasons=['incoherent_or_truncated', 'unsupported_constant_answer'] (oracle ['deterministic_chain_misconception'])).
+F: 30/30.
+G: 30/30.
+H: 30/30.
+I: 0/30 (failure_reasons=['power_of_two_leap'] (oracle ['inconsistent_boxing', 'power_of_two_leap'])).
+J: 30/30.
+K: 30/30.
+L: 0/30 (failure_reasons=['unsupported_constant_answer'] (oracle ['deterministic_chain_misconception', 'unsupported_constant_answer'])).
+M: 30/30.
+N: 30/30.
+O: 0/30 (extracted_answer='2^{44' (oracle '2^{44}')).
+P: 30/30.
+Q: 0/30 (failure_reasons=['inconsistent_boxing'] (oracle ['correct_recurrence_arithmetic_error'])).
+R: 0/30 (final_answer_correct=True (oracle False); failure_reasons=[] (oracle ['incoherent_or_truncated']); extracted_answer='948' (oracle '')).
+S: 30/30.
+T: 0/30 (failure_reasons=['deterministic_chain_misconception'] (oracle ['deterministic_chain_misconception', 'unsupported_constant_answer'])).
