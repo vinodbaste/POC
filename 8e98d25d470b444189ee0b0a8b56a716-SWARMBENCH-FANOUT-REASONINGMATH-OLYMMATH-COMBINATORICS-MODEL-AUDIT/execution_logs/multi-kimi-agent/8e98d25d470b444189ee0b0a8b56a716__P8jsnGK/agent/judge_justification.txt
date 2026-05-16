@@ -1,0 +1,3 @@
+Score: 1.0 (454/454 passed)
+
+gold_final_answer: '948' matches (2 pts). acceptable_solution_ids: [D,F,K,N] matches (2 pts). per_response_assessment: All 15 responses (A-O) match exactly on solution_id, final_answer_correct, and failure_reasons sets. Note: I has reasons in different order (power_of_two_leap, inconsistent_boxing vs oracle's inconsistent_boxing, power_of_two_leap), but order doesn't matter per rules—set is identical. Each response: 30 pts × 15 = 450 pts. Total: 454/454.

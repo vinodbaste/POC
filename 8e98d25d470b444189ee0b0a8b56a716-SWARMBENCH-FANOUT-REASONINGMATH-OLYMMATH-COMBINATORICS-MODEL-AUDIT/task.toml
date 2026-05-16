@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT"
+description = "Audit 15 model-produced solutions to an olympiad combinatorics problem (OlymMATH-EASY-0-EN); per response, decide whether the boxed answer equals 948 and assign the exact set of failure-reason codes from a closed vocabulary."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 12.0
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end audit workflow: 1.0h to independently derive the gold answer 948 via the recurrence f(n) = 1 + sum_{k=0..floor(sqrt(n))} f(k) with f(0)=1, f(1)=2; 15 x 0.6h = 9.0h to read each of the fifteen head+tail-truncated candidate responses (~3.8K tokens each, ~57K tokens total) and assign the exact failure-reason set from the six-code closed vocabulary; 2.0h to reconcile the fifteen per-response audits against the gold derivation, verify the acceptable_solution_ids list, and produce the verifier-aligned oracle. Total: 1.0 + 9.0 + 2.0 = 12.0h."
+estimated_sub_agents = 17
+input_token_estimate = 57000
+why_multi_agent = "The fifteen candidate responses total ~57K tokens of heterogeneous reasoning (each candidate's full chain-of-thought head and boxed-answer tail are preserved; the redundant middle is elided). A single agent must hold all fifteen audits plus the closed failure-reason vocabulary and exact-set output constraint in one context, with attention degradation across fifteen distinct failure-trigger patterns: the agent tends to collapse onto a default per-response label set, conflate similar candidates, and lose per-response distinctions. Fan-out gives the gold-math derivation to one isolated sub-agent and each of the fifteen candidate audits to its own sub-agent with an isolated ~4K-token context plus a hand-tuned per-response hint that does not leak labels. A dedicated synthesizer trusts each per-response failure_reasons set as authoritative and merges them into the final JSON. The exact-set scoring rewards this isolation handsomely: each per-response audit is all-or-nothing on the (final_answer_correct, exact failure_reasons set) tuple, so per-response confusion zeroes the full 30-point block instead of leaking partial credit."
+reference_link = "https://huggingface.co/datasets/RUC-AIBOX/OlymMATH-eval"
+
+[agent]
+timeout_sec = 5400
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600
