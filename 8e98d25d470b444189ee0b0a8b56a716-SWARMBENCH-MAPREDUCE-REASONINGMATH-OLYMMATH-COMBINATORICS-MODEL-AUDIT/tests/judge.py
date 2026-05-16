@@ -67,68 +67,46 @@ def main():
         return
 
     prompt = (
-        "Grade the agent output against the gold oracle for this OlymMATH combinatorics-audit task.\n"
-        "Both are JSON objects. The oracle is authoritative; the agent's output should be scored against it.\n\n"
-        f"ORACLE:\n{json.dumps(oracle, separators=(',', ':'))}\n\n"
-        f"AGENT OUTPUT:\n{json.dumps(agent_output, separators=(',', ':'))}\n\n"
-        "Total: 100 points. Compute integer 'passed' (0-100) and float score = passed / 100.\n\n"
-        "TOP-LEVEL KEY CHECK (gating):\n"
-        "- The agent output MUST have exactly these four top-level keys: problem_id, gold_final_answer, "
-        "solution_audits, cross_solution_summary. If any key is missing, set passed = 0 and score = 0.0 "
-        "and return immediately.\n"
-        "- solution_audits must be a list with exactly 15 entries, ordered alphabetically by solution_id "
-        "(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O). If not 15 entries OR not alphabetically ordered, "
-        "cap per-solution scoring at half credit (multiply per-solution points by 0.5).\n\n"
-        "PER-SOLUTION SCORING (max 4 points each, 15 solutions, 60 points total):\n"
-        "Match each agent solution_audits entry against the oracle entry with the same solution_id.\n"
-        "  - 1 point if extracted_answer matches oracle's extracted_answer (literal string compare; allow "
-        "minor whitespace differences). For oracle entry with extracted_answer='2^{44}', accept variants "
-        "like '2^44', '2^{44}', '17592186044416'. For empty string entries, require empty or close.\n"
-        "  - 1 point if final_answer_correct (bool) matches oracle.\n"
-        "  - 1 point if verdict matches oracle exactly.\n"
-        "  - 1 point if at least 3 of the 4 booleans (logical_chain_valid, proof_complete, "
-        "contains_wrong_math_claim, repairability matches 'n/a' iff verdict='correct') agree with oracle.\n\n"
-        "FATAL-ERROR SCORING (max 24 points; 2 points each for the 11 non-correct solutions; "
-        "1 point each for the 4 correct solutions having first_fatal_error = null and repairability = 'n/a'):\n"
-        "For oracle verdict = 'correct' (solutions D, F, K, N): award 1 point if agent's first_fatal_error "
-        "is JSON null AND repairability is 'n/a', 0 otherwise.\n"
-        "For oracle verdict in {'incorrect', 'partially_correct'} (B, A, C, E, G, H, I, J, L, M, O — 11 "
-        "solutions): award up to 2 points:\n"
-        "  - 1 point if agent's first_fatal_error.error_type matches oracle's (semantic match accepted: "
-        "treat 'arithmetic_error' and 'invalid_logical_step' as substitutable for solutions G, J, M; "
-        "treat 'pattern_extrapolation_unsupported' and 'false_math_claim' as substitutable for H and O).\n"
-        "  - 1 point if agent's first_fatal_error.explanation captures the same mathematical reason as "
-        "oracle's (semantic similarity, not verbatim).\n\n"
-        "LABEL SCORING (max 9 points; 0.5 points each for failure_labels coverage + 0.1 each for "
-        "domain_specific_labels coverage per solution, summed):\n"
-        "For each non-correct solution, award 0.6 points if the agent's failure_labels include the "
-        "primary oracle label (the one most central to the error: 'arithmetic_error' for G/J/M, "
-        "'pattern_extrapolation_unsupported' for H/O, 'inconsistent_boxing' for I, 'repetition_loop' for "
-        "B/C, 'false_math_claim' for A/E/L). Allow agent to include extra labels. For solutions D/F/K/N "
-        "(correct), award 0.6 points if failure_labels and domain_specific_labels are both empty lists.\n"
-        "Award up to 9 points total proportionally across all 15 solutions.\n\n"
-        "CROSS-SOLUTION SUMMARY SCORING (max 7 points):\n"
-        "  - 1 point if gold_final_answer = '948' exactly.\n"
-        "  - 1 point if problem_id = 'olymmath-easy-0-en-combinatorics-audit'.\n"
-        "  - 1 point if cross_solution_summary.best_solution_id is in {'N', 'F', 'K', 'D'} (any of the 4 "
-        "correct solutions is acceptable; prefer N or F).\n"
-        "  - 1 point if cross_solution_summary.solutions_with_correct_recurrence_wrong_arithmetic covers "
-        "{G, J, M} as a set (allow up to 2 extras for partial credit 0.5).\n"
-        "  - 1 point if cross_solution_summary.solutions_with_incoherent_or_truncated_reasoning includes "
-        "B (and at most 1 other; B alone is canonical).\n"
-        "  - 1 point if cross_solution_summary.solutions_relying_on_unsupported_pattern_extrapolation "
-        "covers {H, I, O} as a set.\n"
-        "  - 1 point for common_failure_modes coverage: the oracle names 4 modes (power-of-two leaps, "
-        "correct-recurrence-wrong-arithmetic, deterministic-chain misconception, incoherent/truncated). "
-        "Award 0.25 per mode that is captured semantically in any of the agent's common_failure_modes "
-        "strings.\n\n"
-        "Total maximum: 60 + 24 + 9 + 7 = 100 points.\n"
-        "Compute passed = sum of points awarded (round to nearest integer 0-100), score = passed / 100.\n\n"
-        "Return ONE JSON object only. Keep justification under 600 characters: list per-section subtotals "
-        "(per-solution, fatal-error, label, cross-summary) and at most 3 sample sub-issues (e.g. 'A "
-        "verdict=incorrect agrees, but failure_labels missing pattern_extrapolation_unsupported'). DO NOT "
-        "enumerate every field. Schema: "
-        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 100, "justification": "<short summary>"}'
+        "You are an evaluation judge grading an agent's JSON output against a gold oracle for an "
+        "OlymMATH combinatorics solution-audit task.\n\n"
+        f"ORACLE:\n{json.dumps(oracle, indent=2)}\n\n"
+        f"AGENT OUTPUT:\n{json.dumps(agent_output, indent=2)}\n\n"
+        "Grade only the requested JSON fields. Do not reward prose outside the schema.\n\n"
+        "Allowed failure reason codes are exactly:\n"
+        "- incoherent_or_truncated\n"
+        "- deterministic_chain_misconception\n"
+        "- unsupported_constant_answer\n"
+        "- power_of_two_leap\n"
+        "- correct_recurrence_arithmetic_error\n"
+        "- inconsistent_boxing\n\n"
+        "Field meanings:\n"
+        "- gold_final_answer: literal string '948'.\n"
+        "- acceptable_solution_ids: response letters whose extracted answer is 948 AND whose reasoning chain "
+        "establishes 948 without an inconsistent leap (i.e. final_answer_correct is true AND failure_reasons "
+        "is empty).\n"
+        "- final_answer_correct: whether that response's extracted final answer equals the gold integer 948 "
+        "(literal string compare after whitespace strip).\n"
+        "- failure_reasons: exact set of concrete reasons why the response's reasoning is defective. It must "
+        "be empty iff the response's extracted answer is 948 AND the reasoning chain establishes 948.\n\n"
+        "Equivalence and strictness rules:\n"
+        "1. For gold_final_answer, require the literal string '948'.\n"
+        "2. For acceptable_solution_ids, require the same set of uppercase letters as the oracle.\n"
+        "3. per_response_assessment must contain exactly one object for each response A through O.\n"
+        "4. For solution_id and final_answer_correct, require exact equality.\n"
+        "5. For failure_reasons, order does not matter, but the set must match exactly. Extra reasons fail. "
+        "Missing reasons fail. No partial credit inside failure_reasons.\n"
+        "6. A per-response audit receives credit only if solution_id, final_answer_correct, and the exact "
+        "failure_reasons set are all correct for that response.\n\n"
+        "Scoring rubric with weighted points:\n"
+        "- gold_final_answer = 2 points.\n"
+        "- acceptable_solution_ids = 2 points.\n"
+        "- Each response audit A through O is all-or-nothing = 30 points. Award the 30 points only if "
+        "solution_id, final_answer_correct, and exact failure_reasons set all match the oracle for that "
+        "response. Otherwise award 0 for that response.\n"
+        "- Total = 454 points. score = passed/454.\n\n"
+        "Respond in JSON only, no markdown: "
+        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 454, "justification": "<concise weighted '
+        'field-by-field breakdown, under 600 characters>"}'
     )
 
     messages = [
@@ -151,7 +129,7 @@ def main():
             {"role": "system", "content": "Convert the user content into one valid JSON object only. Do not add commentary."},
             {"role": "user", "content": (
                 "The following model output was supposed to follow this schema exactly:\n"
-                '{"score": <float 0.0-1.0>, "passed": <int>, "total": 100, "justification": "<short>"}\n\n'
+                '{"score": <float 0.0-1.0>, "passed": <int>, "total": 454, "justification": "<short>"}\n\n'
                 "Convert it to valid JSON without changing the meaning.\n\n"
                 f"MODEL OUTPUT:\n{raw[:6000]}"
             )},
@@ -166,10 +144,11 @@ def main():
             return
 
     score = float(result.get("score", 0.0))
+    score = max(0.0, min(1.0, score))
     json.dump({"reward": score}, open(args.reward_out, "w"))
     with open(justification_path, "w") as f:
         f.write(
-            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', 100)} passed)\n\n"
+            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', 454)} passed)\n\n"
             f"{result.get('justification', '')}"
         )
 

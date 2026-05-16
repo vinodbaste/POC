@@ -1,6 +1,6 @@
-# Oracle Justification
+# Oracle justification
 
-This document derives every value in `tests/oracle.json` and `solution/oracle.json`. A QA reviewer can independently verify each oracle field against (1) the underlying mathematics of the problem, (2) the candidate response text in `environment/input_artifacts/response_X.md`, (3) the ground-truth `correctness` and `extracted` fields from the source dataset (RUC-AIBOX/OlymMATH-eval), and (4) the controlled vocabularies in `instruction.md`.
+This document derives every value in `tests/oracle.json` and `solution/oracle.json` for the OlymMATH combinatorics audit task. A QA reviewer can verify each oracle field against (1) the underlying mathematics of the problem, (2) the candidate response text in `environment/input_artifacts/response_X.md`, and (3) the closed failure-reason vocabulary defined in `instruction.md`.
 
 ## Part A — The problem and the gold answer
 
@@ -10,180 +10,123 @@ This document derives every value in `tests/oracle.json` and `solution/oracle.js
 
 ### Gold answer: **948**
 
-This is the answer stated by the source dataset (`provenance.json["gold_answer"]`) and is also the answer four independent strong/medium models in the bundle converged on (candidates D, F, K, N).
-
 ### Standard derivation
 
 Let $f(n)$ = number of valid sequences starting at value $n$.
 
-- **Base cases.** $f(0) = 1$ (the singleton $(0)$, since $a_2 \le \sqrt{0} = 0$ forces $a_2 = 0 = a_1$, violating distinctness). $f(1) = 2$ (the singleton $(1)$ and the length-2 sequence $(1, 0)$).
-- **Recurrence.** For $n \ge 2$: $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$. The "1" is the singleton $(n)$; the sum accounts for sequences starting with $n$ followed by a continuation from each valid $a_2 \le \sqrt{n}$. Distinctness with $n$ is automatic since $\lfloor\sqrt{n}\rfloor < n$ for all $n \ge 2$.
-- **Iterative computation.** Define $S(m) = \sum_{k=0}^{m} f(k)$. Compute $S(0), S(1), \ldots, S(44)$ in order. Since $\lfloor\sqrt{2016}\rfloor = 44$ (because $44^2 = 1936 \le 2016 < 2025 = 45^2$), the answer is $f(2016) = 1 + S(44) = 1 + 947 = 948$.
+- **Base cases.** $f(0) = 1$ (the singleton $(0)$; $a_2 \le \sqrt{0} = 0$ would force $a_2 = 0 = a_1$, violating distinctness). $f(1) = 2$ (the singleton $(1)$ and the length-2 sequence $(1, 0)$).
+- **Recurrence.** For $n \ge 2$: $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$. The "1" is the singleton $(n)$; the sum accounts for sequences with $a_2 \le \sqrt{n}$ followed by a valid continuation. Distinctness with $n$ is automatic because $\lfloor\sqrt{n}\rfloor < n$ for $n \ge 2$.
+- **Iterative computation.** With $S(m) = \sum_{k=0}^{m} f(k)$, compute $S(0), S(1), \ldots, S(44)$. Since $\lfloor\sqrt{2016}\rfloor = 44$, the answer is $f(2016) = 1 + S(44) = 1 + 947 = 948$.
 
 ### Computational verification
 
-Running the recurrence in Python:
-
 ```python
 import math
-f = [1, 2]  # f[0], f[1]
+f = [1, 2]
 for n in range(2, 45):
-    f.append(1 + sum(f[:math.isqrt(n) + 1]))
-S44 = sum(f[:45])  # = 947
-print(1 + S44)     # 948
+    f.append(1 + sum(f[: math.isqrt(n) + 1]))
+print(1 + sum(f))   # 948
 ```
 
 Output: `948`. This matches the dataset's gold answer and the answer of candidates D, F, K, N.
 
-## Part B — Per-candidate audit rationale
+## Part B — Closed failure-reason vocabulary
 
-Each candidate has a separate file `environment/input_artifacts/response_<letter>.md`. The audit fields in `oracle.json` are derived from (a) the `correctness` and `extracted` fields shipped with the OlymMATH-eval dataset, recorded in `provenance.json`, and (b) the trainer's reading of the response prose (particularly the conclusion and final answer paragraphs). Citations below are verbatim from the relevant response file.
+`instruction.md` defines exactly six allowed codes. The trigger condition is what the response must concretely exhibit for the code to apply:
 
-### Candidate A — qwen3-0.6b — boxed 4
+| Code | Trigger condition |
+|---|---|
+| `incoherent_or_truncated` | Empty extracted answer combined with repetition or off-topic content. |
+| `deterministic_chain_misconception` | Response asserts one (or essentially one) valid sequence, often $(2016, 44, 6, 2, 1)$ or boxes 1 by treating the chain as forced. |
+| `unsupported_constant_answer` | Response boxes a small non-power-of-two integer (e.g. 4, 2017) with no recurrence and no iterative computation. |
+| `power_of_two_leap` | Response leaps to a closed-form $2^k$ answer (e.g. $2048$, $33554432$, $2^{44}$) without iterative computation of the $f(k)$ values. |
+| `correct_recurrence_arithmetic_error` | Recurrence is equivalent to the gold one, but specific $f(k)$ or $S(m)$ values are miscomputed; boxed answer is within a small factor of 948 (e.g. 474, 950, 1252) but not 948. |
+| `inconsistent_boxing` | Derivation arithmetically concludes one numerical value but the candidate boxes a different numerical value. |
 
-- `extracted_answer`: `"4"`. `final_answer_correct`: false. `correctness_groundtruth`: false.
-- **Citation:** *"once we choose a starting value, the number of such sequences is always 4, regardless of the starting value (as long as it is at least 2)"* followed by *"\\boxed{4}"*.
-- **Verdict:** `incorrect`. The candidate asserts a false universal claim ("always 4") with no derivation.
-- **First fatal error:** the universal-claim sentence; `error_type = "false_math_claim"`.
-- **Labels:** `final_answer_error`, `false_math_claim`, `underjustified_step`, `missing_case`; domain-specific `deterministic_chain_misconception`.
-- **Repairability:** `major_rewrite` — no recurrence was set up.
+The set of codes attached to a response is unordered but must match exactly: extra codes and missing codes are both wrong.
 
-### Candidate B — deepseek-r1-distill-qwen-1.5b — boxed nothing
+## Part C — Per-response audit
 
-- `extracted_answer`: `""`. `correctness_groundtruth`: false.
-- **Citation:** the tail of the response loops on *"1 + 2 + 2 + 2 = 1 + 2 + 2 + 2 = 1 + 2 + 2 + 2 = 1 + 2 = 3; 3 + 2 = 5; 5 + 2 = 7."* and never reaches a final answer. Earlier the candidate drifts into manipulating an unrelated linear equation *"x + 2y + 2z = 2x + 2y + 2z"*.
-- **Verdict:** `incorrect`. No coherent argument; hits the 32,768-token output cap.
-- **Repairability:** `impossible_from_current_solution`.
+Each entry below corresponds to one record in `per_response_assessment`. Citations are short verbatim phrases from the relevant `response_X.md`.
 
-### Candidate C — deepscaler-1.5b-preview — boxed 1
+### A — boxed `4`. `final_answer_correct`: false. `failure_reasons`: {`unsupported_constant_answer`}.
 
-- `extracted_answer`: `"1"`. `correctness_groundtruth`: false.
-- **Citation:** the tail repeatedly says *"perhaps the answer is \\boxed{1}, but perhaps not. Therefore, perhaps given that, perhaps the number of sequences is equal to the number of possible decreasing sequences starting from 2016, which is equal to the number of possible sequences, which is a certain number, perhaps 1, but given that, perhaps not"*.
-- **Verdict:** `incorrect`. Self-referential hedging loop; no recurrence is set up; the answer 1 corresponds to counting only the singleton $(2016)$.
-- **Repairability:** `major_rewrite`.
+Citation: *"once we choose a starting value, the number of such sequences is always 4, regardless of the starting value"* followed by $\boxed{4}$. No recurrence is set up; a small constant is boxed without derivation. Trigger `unsupported_constant_answer`. The response does not box a power of two, does not show a correct recurrence with arithmetic miscount, and is not a truncation, so no other code applies.
 
-### Candidate D — openmath-nemotron-1.5b — boxed 948 ✓
+### B — empty extraction. `final_answer_correct`: false. `failure_reasons`: {`incoherent_or_truncated`}.
 
-- `extracted_answer`: `"948"`. `correctness_groundtruth`: true.
-- **Citation:** the tail shows iterative $f(n)$ computation: *"$f(24) = 1 + f(0) + f(1) + f(2) + f(3) + f(4) = 1 + 1 + 2 + 4 + 4 + 8 = 20$"* through repeated similar lines. Base cases and recurrence are correct.
-- **Verdict:** `correct`. The intermediate values become repetitive in the tail but the final computation matches the gold answer 948.
-- **`first_fatal_error`:** null.
+The response drifts into manipulating an unrelated equation ($x + 2y + 2z = 2x + 2y + 2z$) and loops ($1 + 2 + 2 + 2 = 1 + 2 + 2 + 2 = \ldots$) until the token cap is hit; no final boxed answer is produced. Trigger `incoherent_or_truncated`.
 
-### Candidate E — still-3-1.5b-preview — boxed 1
+### C — boxed `1`. `final_answer_correct`: false. `failure_reasons`: {`deterministic_chain_misconception`}.
 
-- `extracted_answer`: `"1"`. `correctness_groundtruth`: false.
-- **Citation:** *"After analyzing the constraints and possible sequences, it was concluded that the number of such sequences is 1. This conclusion is based on the fact that the sequence must be strictly decreasing and each term must be a perfect square or less, leading to the only possible sequence being 2016, 44, 6, 2, 1."*
-- **Verdict:** `incorrect`. The candidate makes two unstated false claims: (i) successive terms must be perfect squares or less (the problem only requires $\le \sqrt{\cdot}$), and (ii) there is a unique valid sequence (deterministic-chain misconception).
-- **Repairability:** `major_rewrite`.
+Citation: tail collapses to *"perhaps the answer is 1, but perhaps not… perhaps the number of sequences is equal to the number of possible decreasing sequences starting from 2016"* and boxes $1$. The response treats the chain as essentially forced and counts only the trivial sequence. Trigger `deterministic_chain_misconception`.
 
-### Candidate F — qwen3-4b — boxed 948 ✓
+### D — boxed `948`. `final_answer_correct`: true. `failure_reasons`: {}.
 
-- `extracted_answer`: `"948"`. `correctness_groundtruth`: true.
-- **Citation:** *"$f(n) = 1 + T(\\lfloor \\sqrt{n} \\rfloor)$"* and *"$T(44) = 947$, Therefore, $f(2016) = 1 + T(44) = 1 + 947 = 948$"*.
-- **Verdict:** `correct`. Clean, concise, and mathematically sound. One of the cleanest of the 15 candidates.
+The response sets up $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ with $f(0) = 1$, computes $f(k)$ iteratively for $k = 0\ldots44$ with correct base cases, and reaches $948$. Minor redundancy in the tail does not affect correctness. Empty failure set.
 
-### Candidate G — deepseek-r1-distill-qwen-7b — boxed 1252
+### E — boxed `1`. `final_answer_correct`: false. `failure_reasons`: {`deterministic_chain_misconception`}.
 
-- `extracted_answer`: `"1252"`. `correctness_groundtruth`: false.
-- **Citation:** *"After computing the values, we find: $f(44) = 340$, $S(44) = 1251$. Thus, the number of sequences starting at 2016 is given by: $f(2016) = 1 + S(44) = 1 + 1251 = 1252$"*.
-- **Verdict:** `incorrect`. The recurrence form $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ is correctly identified. The failure is purely arithmetic: the correct values are $f(44) = 188$ and $S(44) = 947$, not 340 and 1251. The structural reasoning is sound.
-- **Labels:** `final_answer_error`, `arithmetic_error`; domain `correct_recurrence_wrong_arithmetic`.
-- **Repairability:** `minor_fix` — just recompute the iteration.
+Citation: *"the only possible sequence being $2016, 44, 6, 2, 1$"* followed by $\boxed{1}$. The response claims a unique forced sequence, ignoring the 44 distinct choices for $a_2 \in \{0, 1, \ldots, 44\}$. Trigger `deterministic_chain_misconception`.
 
-### Candidate H — light-r1-7b-ds — boxed 2048
+### F — boxed `948`. `final_answer_correct`: true. `failure_reasons`: {}.
 
-- `extracted_answer`: `"2048"`. `correctness_groundtruth`: false.
-- **Citation:** *"the number of sequences grows exponentially but is constrained by the decreasing nature of the sequence... the number of valid sequences is $2^{11} = 2048$"*.
-- **Verdict:** `incorrect`. Pattern-extrapolation leap to $2^{11}$ with no justification. The actual count does not grow exponentially in the relevant sense.
-- **Labels:** `final_answer_error`, `pattern_extrapolation_unsupported`, `underjustified_step`, `false_math_claim`; domain `power_of_two_leap`.
+The response defines $f(n) = 1 + T(\lfloor\sqrt{n}\rfloor)$ with $T$ the prefix sum of $f$, computes $T(44) = 947$ iteratively, and concludes $f(2016) = 1 + 947 = 948$. Empty failure set.
 
-### Candidate I — acemath-rl-nemotron-7b — boxed 33554432 (= 2^{25})
+### G — boxed `1252`. `final_answer_correct`: false. `failure_reasons`: {`correct_recurrence_arithmetic_error`}.
 
-- `extracted_answer`: `"33554432"`. `correctness_groundtruth`: false.
-- **Citation:** *"$T_{44} = 1 + (2^{25} - 8) = 33554425$. Therefore, $f(2016) = 1 + T_{44} = 33554426$. However, considering the detailed steps and verifying the pattern, the correct final answer is: $\\boxed{33554432}$"*.
-- **Verdict:** `incorrect`. Two compounded errors: (i) the claim *"each pair of increments doubles the previous sum"* yielding $T_k = 2^{25} - 8$ is unsupported by the recurrence; (ii) the boxed value 33554432 (= $2^{25}$) differs from BOTH the derivation's 33554426 AND the gold 948 — inconsistent boxing.
-- **Labels:** `final_answer_error`, `inconsistent_boxing`, `pattern_extrapolation_unsupported`, `false_math_claim`; domain `power_of_two_leap`, `correct_recurrence_wrong_arithmetic`.
+Citation: *"$f(44) = 340$, $S(44) = 1251$, $f(2016) = 1 + 1251 = 1252$"*. The recurrence form is correct ($f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$); the failure is purely arithmetic: the actual values are $f(44) = 188$ and $S(44) = 947$, not $340$ and $1251$. Trigger `correct_recurrence_arithmetic_error`.
 
-### Candidate J — openmath-nemotron-7b — boxed 474
+### H — boxed `2048`. `final_answer_correct`: false. `failure_reasons`: {`power_of_two_leap`}.
 
-- `extracted_answer`: `"474"`. `correctness_groundtruth`: false.
-- **Citation:** the tail shows *"$S(27) = S(26) + S(\\lfloor \\sqrt{27} \\rfloor) = 186 + S(5) = 186 + 14 = 200$"* with similar lines through $S(44) \approx 474$. The recurrence form is hybrid — the candidate is computing $S(m) = S(m-1) + S(\lfloor\sqrt{m}\rfloor)$ in place of the correct $S(m) = S(m-1) + f(m)$, which systematically undercounts.
-- **Verdict:** `incorrect`. Recurrence is sketched but the substitution $S(\lfloor\sqrt{m}\rfloor)$ for $f(m)$ is an invalid step. Final answer 474 ≈ 948/2 is consistent with a factor-of-two miscount.
-- **Labels:** `final_answer_error`, `arithmetic_error`, `invalid_logical_step`; domain `correct_recurrence_wrong_arithmetic`, `off_by_factor_of_two`.
+Citation: *"the number of valid sequences is $2^{11} = 2048$"*, with no iterative computation of any $f(k)$ value. The exponent 11 is not derived. Trigger `power_of_two_leap`.
 
-### Candidate K — skywork-or1-7b-preview — boxed 948 ✓
+### I — boxed `33554432` ($= 2^{25}$). `final_answer_correct`: false. `failure_reasons`: {`inconsistent_boxing`, `power_of_two_leap`}.
 
-- `extracted_answer`: `"948"`. `correctness_groundtruth`: true.
-- **Citation:** *"$f(n) = 1 + \\sum_{k=0}^{\\lfloor \\sqrt{n} \\rfloor} f(k)$ ... $S(44) = 947$. Thus, the number of valid sequences starting from 2016 is: $f(2016) = 1 + S(44) = 1 + 947 = 948$"*.
-- **Verdict:** `correct`. Clean derivation. One of the four candidates with correct boxed answer and sound proof.
+Two trigger conditions are simultaneously present:
 
-### Candidate L — openthinker2-7b — boxed 2017
+- The derivation arithmetically concludes $T_{44} = 1 + (2^{25} - 8) = 33554425$, then states $f(2016) = 1 + T_{44} = 33554426$. The boxed final answer is a different number, $2^{25} = 33554432$. Trigger `inconsistent_boxing`.
+- The premise *"each pair of increments doubles the previous sum"* is asserted without justification and yields the closed form $T_k = 2^{25} - 8$. Trigger `power_of_two_leap`.
 
-- `extracted_answer`: `"2017"`. `correctness_groundtruth`: false.
-- **Citation:** *"After careful consideration and recognizing the constraints, the correct answer is determined by recognizing that each term must be strictly decreasing and distinct, leading to a unique sequence for each possible choice at each step. The final answer, considering all constraints and correct recursion, is: $\\boxed{2017}$"*.
-- **Verdict:** `incorrect`. No recurrence is constructed. The answer 2017 = 2016 + 1 has no mathematical relationship to the count of valid sequences.
-- **Labels:** `final_answer_error`, `false_math_claim`, `underjustified_step`, `invalid_logical_step`; domain `distinct_term_constraint_ignored`.
+This is the only response with two codes in its expected set.
 
-### Candidate M — skywork-or1-math-7b — boxed 950
+### J — boxed `474`. `final_answer_correct`: false. `failure_reasons`: {`correct_recurrence_arithmetic_error`}.
 
-- `extracted_answer`: `"950"`. `correctness_groundtruth`: false.
-- **Citation:** *"To compute $C_{44}$, we sum the values of $f(m)$ for $m$ from 0 to 44 and add 1. After detailed calculations, we find that $C_{44} = 950$. Thus, the number of such sequences $\\{a_n\\}$ is: $\\boxed{950}$"*.
-- **Verdict:** `incorrect`. Recurrence is correctly identified as $C_n = 1 + \sum_{m=0}^{n} f(m)$ for $k \in [n^2, (n+1)^2 - 1]$, and $C_{44} = f(2016)$. The failure is arithmetic — off by 2.
-- **Labels:** `final_answer_error`, `arithmetic_error`; domain `correct_recurrence_wrong_arithmetic`, `off_by_small_constant`.
-- **Repairability:** `minor_fix`.
+The response sketches the correct recurrence but its iterative summation drifts (using a hybrid form $S(m) = S(m-1) + S(\lfloor\sqrt{m}\rfloor)$) and systematically undercounts. The final answer $474 \approx 948 / 2$ reflects a factor-of-two miscount. Trigger `correct_recurrence_arithmetic_error`.
 
-### Candidate N — qwq-32b — boxed 948 ✓
+### K — boxed `948`. `final_answer_correct`: true. `failure_reasons`: {}.
 
-- `extracted_answer`: `"948"`. `correctness_groundtruth`: true.
-- **Citation:** *"For each $m$, the interval $[m^2, (m+1)^2 - 1]$ has the same $\\lfloor \\sqrt{n} \\rfloor = m$. Define $S(m) = \\sum_{k=0}^m f(k)$. Then $f(n) = 1 + S(m)$ for $n$ in the interval $[m^2, (m+1)^2 - 1]$. ... $S(44) = 947$. $f(2016) = 1 + S(44) = 1 + 947 = 948$"*.
-- **Verdict:** `correct`. Cleanest and most explanatory of the four correct solutions — explicitly notes the interval structure, base cases, and the iterative computation. **Best solution.**
+The response sets up $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ and the prefix sum $S(m) = \sum_{k=0}^{m} f(k)$, computes $S(0), \ldots, S(44)$ in order, identifies $2016 \in [44^2, 45^2 - 1]$, and concludes $f(2016) = 1 + S(44) = 948$. Empty failure set.
 
-### Candidate O — openthinker2-32b — boxed 2^{44}
+### L — boxed `2017`. `final_answer_correct`: false. `failure_reasons`: {`unsupported_constant_answer`}.
 
-- `extracted_answer`: `"2^{44}"`. `correctness_groundtruth`: false.
-- **Citation:** *"After detailed analysis and recognizing the pattern in the values of $f(k)$, the number of sequences starting from 2016 is determined to be $2^{44}$. $\\boxed{2^{44}}$"*.
-- **Verdict:** `incorrect`. The block-analysis machinery $V(n) = 1 + \sum_{m=0}^n f(m)$ is sketched, but no iterative computation is performed. The leap to $2^{44}$ is unjustified; the exponent appears chosen because $\lfloor\sqrt{2016}\rfloor = 44$, but the recurrence does not yield $f(2016) = 2^{\lfloor\sqrt{2016}\rfloor}$.
-- **Labels:** `final_answer_error`, `pattern_extrapolation_unsupported`, `underjustified_step`, `false_math_claim`; domain `power_of_two_leap`.
+Citation: *"each step leads to a unique sequence for each possible choice at each step. The final answer is $2017$"*. The candidate boxes $2017 = a_1 + 1$ with no derivation. Trigger `unsupported_constant_answer`.
 
-## Part C — Cross-solution summary basis
+### M — boxed `950`. `final_answer_correct`: false. `failure_reasons`: {`correct_recurrence_arithmetic_error`}.
 
-### `common_failure_modes` (4 items, basis)
+Citation: *"$C_{44} = 950$"* as the value of $f(2016)$. The recurrence is correct; the failure is a small arithmetic miscount (off by 2). Trigger `correct_recurrence_arithmetic_error`.
 
-1. **Power-of-two leaps without computation (H, I, O).** All three candidates set up partial machinery but leap to a closed-form answer of the form $2^k$ where $k$ is loosely tied to $\lfloor\sqrt{2016}\rfloor = 44$ or to the structure of the recursion. None of them iteratively compute $f(k)$ for $k = 0, \ldots, 44$.
-2. **Correct recurrence with arithmetic errors (G, J, M).** All three identify $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ correctly but err in the iterative computation. G's $f(44) = 340$ should be 188; J's substitution of $S(\lfloor\sqrt{m}\rfloor)$ for $f(m)$ undercounts by a factor of two; M's $C_{44} = 950$ is off by 2. These are the closest to correct.
-3. **Deterministic-chain misconception (C, E, and arguably A).** These candidates believe there is essentially one valid sequence (often $(2016, 44, 6, 2, 1)$) and report the count as 1 (or 4 for A). The misreading is that the constraint $a_{n+1} \le \sqrt{a_n}$ allows multiple choices at each step, not a unique deterministic chain.
-4. **Incoherent or truncated reasoning (B).** The candidate drifts into unrelated symbolic manipulation, enters a repetition loop on *"1 + 2 + 2 + 2 = ..."*, and hits the token cap without extracting a final answer.
+### N — boxed `948`. `final_answer_correct`: true. `failure_reasons`: {}.
 
-### `solutions_with_correct_recurrence_wrong_arithmetic = ["G", "J", "M"]`
+The response uses $f(0) = 1$, $f(1) = 2$, the recurrence $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$, groups $n$ into intervals $[m^2, (m+1)^2 - 1]$ sharing the same $\lfloor\sqrt{n}\rfloor = m$, computes $S(m)$ iteratively up to $m = 44$, and concludes $f(2016) = 1 + S(44) = 948$. Empty failure set.
 
-Definition: candidates whose recurrence form is essentially correct but whose iterative computation produces a wrong value. Verified by inspecting the recurrence statement and the final summation in each response.
+### O — boxed `2^{44}`. `final_answer_correct`: false. `failure_reasons`: {`power_of_two_leap`}.
 
-### `solutions_with_incoherent_or_truncated_reasoning = ["B"]`
+Citation: *"the number of sequences starting from 2016 is determined to be $2^{44}$"*. The exponent 44 is chosen because $\lfloor\sqrt{2016}\rfloor = 44$, but the recurrence does not yield a closed form $2^{\lfloor\sqrt{n}\rfloor}$. No iterative computation of $f(k)$ is performed. Trigger `power_of_two_leap`.
 
-B is the only candidate that fails to reach a final boxed answer at all. C is a close runner-up (looping prose) but does box 1, so technically extracts an answer.
+## Part D — Derived top-level fields
 
-### `solutions_relying_on_unsupported_pattern_extrapolation = ["H", "I", "O"]`
+- `gold_final_answer`: `"948"`. Matches the gold derivation in Part A.
+- `acceptable_solution_ids`: `["D", "F", "K", "N"]`. The four responses with `final_answer_correct = true` AND empty `failure_reasons`. Listed in alphabetical uppercase order.
 
-All three explicitly leap to a power-of-two answer without iterative computation. Distinguished from G/J/M which DO attempt the computation but compute wrong values.
+## Part E — Distribution of expected failure-reason sets
 
-### `best_solution_id = "N"`
+- Empty set: D, F, K, N (4 responses).
+- `{incoherent_or_truncated}`: B (1).
+- `{deterministic_chain_misconception}`: C, E (2).
+- `{unsupported_constant_answer}`: A, L (2).
+- `{power_of_two_leap}`: H, O (2).
+- `{correct_recurrence_arithmetic_error}`: G, J, M (3).
+- `{inconsistent_boxing, power_of_two_leap}`: I (1).
 
-Selection among the four candidates with `extracted_answer = "948"` (D, F, K, N) by clarity and explicitness:
-
-- **D** (openmath-nemotron-1.5b): correct but the tail has repetitive intermediate lines.
-- **F** (qwen3-4b): clean and short.
-- **K** (skywork-or1-7b-preview): clean and explicit.
-- **N** (qwq-32b): explicitly notes the interval structure $[m^2, (m+1)^2 - 1]$ sharing $\lfloor\sqrt{n}\rfloor = m$, gives base cases $f(0) = 1$ and $f(1) = 2$, and shows the iterative computation. **Best by explanatory clarity.**
-
-## Part D — Schema compliance of oracle.json
-
-- Letter arrays use uppercase A..O ✓.
-- `solution_audits` has exactly 15 entries, ordered A through O alphabetically ✓.
-- `first_fatal_error` is JSON `null` for D, F, K, N (the four correct verdicts) and a populated object for the other 11 ✓.
-- `repairability` is `"n/a"` for D, F, K, N and one of `minor_fix | major_rewrite | impossible_from_current_solution` for the others ✓.
-- All `failure_labels` and `domain_specific_labels` values are drawn from the controlled vocabularies in `instruction.md` ✓.
-- `tests/oracle.json` and `solution/oracle.json` are byte-identical (verified by `diff`) — this activates the exact-match shortcut in `tests/judge.py` for the oracle agent run.
-
-## Part E — Source attribution
-
-Candidate responses A through O are pulled verbatim (unedited) from the public HuggingFace dataset [RUC-AIBOX/OlymMATH-eval](https://huggingface.co/datasets/RUC-AIBOX/OlymMATH-eval), specifically the `en_easy` split, `unique_id = OlymMATH-EASY-0-EN`, `response_id = 0`, across 15 different model configs (see `environment/input_artifacts/provenance.json` for the exact config name per candidate). Per the user's submission decision (2026-05-15), the task proceeds assuming the dataset's permissive license; the dataset is cited in `task.toml` (`reference_link`) and in `provenance.json`. If the dataset license requires explicit per-row attribution that affects this submission, that must be addressed before the final submission ZIP.
+Each of the six codes is exercised by at least one response. The set sizes span 0, 1, and 2. Two responses share each non-empty non-arithmetic set; three share the arithmetic-error set; one response (I) has the only two-element set. This distribution forces the auditor to read each response individually rather than memorise a template.
