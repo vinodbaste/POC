@@ -1,0 +1,13 @@
+Score: 0.501273
+
+Deterministic weighted score: 143.1133/285.5000.
+Global GTFA: incorrect; location=not found.
+
+Per-response scores:
+- A: 24.4000/26.5000
+- B: 2.7000/26.5000
+- C: 24.9333/26.5000
+- D: 23.4333/26.5000
+- E: 22.1133/26.5000
+- F: 22.3133/26.5000
+- G: 23.2200/26.5000

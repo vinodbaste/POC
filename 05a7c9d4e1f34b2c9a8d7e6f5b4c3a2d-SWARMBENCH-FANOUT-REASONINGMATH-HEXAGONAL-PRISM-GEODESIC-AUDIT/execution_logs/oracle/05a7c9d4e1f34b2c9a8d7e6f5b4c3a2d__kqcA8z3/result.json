@@ -1,0 +1,104 @@
+{
+    "id": "c36c6ddf-4065-4403-9fb9-e10a251b9d9e",
+    "task_name": "swarmbench/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT",
+    "trial_name": "05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d__kqcA8z3",
+    "trial_uri": "file:///Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT/execution_logs/oracle/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d__kqcA8z3",
+    "task_id": {
+        "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "8dae03790dac27c689a68e835eb8d3b465cf0f1652592b2fc21ccacba8b85983",
+    "config": {
+        "task": {
+            "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d__kqcA8z3",
+        "trials_dir": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT/execution_logs/oracle",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "20db0e07-e6ce-436e-8d3a-b7a8e9295c0d"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-12T05:17:09.387748Z",
+    "finished_at": "2026-05-12T05:17:34.147994Z",
+    "environment_setup": {
+        "started_at": "2026-05-12T05:17:09.705116Z",
+        "finished_at": "2026-05-12T05:17:24.056139Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-12T05:17:24.056312Z",
+        "finished_at": "2026-05-12T05:17:24.056400Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-12T05:17:24.056504Z",
+        "finished_at": "2026-05-12T05:17:24.810471Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-12T05:17:25.072117Z",
+        "finished_at": "2026-05-12T05:17:31.498837Z"
+    },
+    "step_results": null
+}

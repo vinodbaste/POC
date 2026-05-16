@@ -1,0 +1,72 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-05-12T05:17:04.310592Z",
+    "harbor": {
+        "version": "0.6.4",
+        "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
+        "is_editable": true
+    },
+    "invocation": [
+        "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/harbor/.venv/bin/harbor",
+        "run",
+        "-p",
+        "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT",
+        "-a",
+        "oracle",
+        "--job-name",
+        "oracle",
+        "--jobs-dir",
+        "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT/execution_logs",
+        "--ve",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--ae",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--quiet"
+    ],
+    "n_concurrent_trials": 4,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileEmptyError",
+            "VerifierTimeoutError",
+            "AgentTimeoutError",
+            "RewardFileNotFoundError",
+            "VerifierOutputParseError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT",
+                "type": "local",
+                "digest": "sha256:428d32a47e5f9aba7520e08acc827e9372200c936cadaf2b27147d63c2d9813a",
+                "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "kwargs": {},
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                }
+            },
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                },
+                "disable": false
+            }
+        }
+    ]
+}
