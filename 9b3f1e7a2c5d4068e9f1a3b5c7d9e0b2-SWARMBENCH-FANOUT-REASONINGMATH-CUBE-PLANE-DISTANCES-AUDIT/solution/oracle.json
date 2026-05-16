@@ -5,73 +5,138 @@
   "per_response_assessment": [
     {
       "response_id": "A",
+      "extracted_final_answer": "6",
       "final_answer_correct": false,
-      "failure_reasons": [
-        "claims_unique_edge_length",
-        "uses_fabricated_invariant_or_invalid_derivation"
-      ]
+      "final_answer_category": "NUMERIC_WITHOUT_DERIVATION",
+      "claims_unique_edge_length": true,
+      "derives_s2_equals_21_for_some_orientation": false,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": true,
+      "equates_max_distance_with_space_diagonal": false,
+      "assumes_plane_parallel_to_cube_face": false,
+      "equates_max_distance_with_edge_length_directly": false,
+      "uses_fabricated_invariant_or_invalid_derivation": true,
+      "restricts_to_nonnegative_subset_sums": false,
+      "reasoning_coherence_level": "rambling"
     },
     {
       "response_id": "B",
+      "extracted_final_answer": "49",
       "final_answer_correct": false,
-      "failure_reasons": [
-        "claims_unique_edge_length",
-        "assumes_plane_parallel_to_cube_face"
-      ]
+      "final_answer_category": "FACE_PARALLEL_FALLACY",
+      "claims_unique_edge_length": true,
+      "derives_s2_equals_21_for_some_orientation": false,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": false,
+      "equates_max_distance_with_space_diagonal": false,
+      "assumes_plane_parallel_to_cube_face": true,
+      "equates_max_distance_with_edge_length_directly": true,
+      "uses_fabricated_invariant_or_invalid_derivation": false,
+      "restricts_to_nonnegative_subset_sums": false,
+      "reasoning_coherence_level": "rambling"
     },
     {
       "response_id": "C",
+      "extracted_final_answer": "49/3",
       "final_answer_correct": false,
-      "failure_reasons": [
-        "claims_unique_edge_length",
-        "assumes_max_distance_equals_space_diagonal"
-      ]
+      "final_answer_category": "SPACE_DIAGONAL_FALLACY",
+      "claims_unique_edge_length": true,
+      "derives_s2_equals_21_for_some_orientation": false,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": false,
+      "equates_max_distance_with_space_diagonal": true,
+      "assumes_plane_parallel_to_cube_face": false,
+      "equates_max_distance_with_edge_length_directly": false,
+      "uses_fabricated_invariant_or_invalid_derivation": false,
+      "restricts_to_nonnegative_subset_sums": false,
+      "reasoning_coherence_level": "rambling"
     },
     {
       "response_id": "D",
+      "extracted_final_answer": "49/3",
       "final_answer_correct": false,
-      "failure_reasons": [
-        "claims_unique_edge_length",
-        "assumes_max_distance_equals_space_diagonal"
-      ]
+      "final_answer_category": "SPACE_DIAGONAL_FALLACY",
+      "claims_unique_edge_length": true,
+      "derives_s2_equals_21_for_some_orientation": false,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": false,
+      "equates_max_distance_with_space_diagonal": true,
+      "assumes_plane_parallel_to_cube_face": false,
+      "equates_max_distance_with_edge_length_directly": false,
+      "uses_fabricated_invariant_or_invalid_derivation": false,
+      "restricts_to_nonnegative_subset_sums": false,
+      "reasoning_coherence_level": "rambling"
     },
     {
       "response_id": "E",
+      "extracted_final_answer": null,
       "final_answer_correct": false,
-      "failure_reasons": [
-        "non_terminating_or_no_final_answer"
-      ]
+      "final_answer_category": "NO_FINAL_ANSWER",
+      "claims_unique_edge_length": false,
+      "derives_s2_equals_21_for_some_orientation": false,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": false,
+      "equates_max_distance_with_space_diagonal": false,
+      "assumes_plane_parallel_to_cube_face": false,
+      "equates_max_distance_with_edge_length_directly": false,
+      "uses_fabricated_invariant_or_invalid_derivation": false,
+      "restricts_to_nonnegative_subset_sums": false,
+      "reasoning_coherence_level": "incoherent"
     },
     {
       "response_id": "F",
+      "extracted_final_answer": "21",
       "final_answer_correct": false,
-      "failure_reasons": [
-        "claims_unique_edge_length",
-        "restricts_to_nonnegative_subset_sums"
-      ]
+      "final_answer_category": "S2_EQUALS_21_SINGLE_ORIENTATION",
+      "claims_unique_edge_length": true,
+      "derives_s2_equals_21_for_some_orientation": true,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": true,
+      "equates_max_distance_with_space_diagonal": false,
+      "assumes_plane_parallel_to_cube_face": false,
+      "equates_max_distance_with_edge_length_directly": false,
+      "uses_fabricated_invariant_or_invalid_derivation": false,
+      "restricts_to_nonnegative_subset_sums": true,
+      "reasoning_coherence_level": "coherent"
     },
     {
       "response_id": "G",
+      "extracted_final_answer": "140/3",
       "final_answer_correct": false,
-      "failure_reasons": [
-        "uses_fabricated_invariant_or_invalid_derivation"
-      ]
+      "final_answer_category": "FABRICATED_INVARIANT_SUM",
+      "claims_unique_edge_length": false,
+      "derives_s2_equals_21_for_some_orientation": true,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": true,
+      "equates_max_distance_with_space_diagonal": false,
+      "assumes_plane_parallel_to_cube_face": false,
+      "equates_max_distance_with_edge_length_directly": false,
+      "uses_fabricated_invariant_or_invalid_derivation": true,
+      "restricts_to_nonnegative_subset_sums": false,
+      "reasoning_coherence_level": "rambling"
     },
     {
       "response_id": "H",
+      "extracted_final_answer": "21",
       "final_answer_correct": false,
-      "failure_reasons": [
-        "claims_unique_edge_length",
-        "restricts_to_nonnegative_subset_sums"
-      ]
+      "final_answer_category": "S2_EQUALS_21_SINGLE_ORIENTATION",
+      "claims_unique_edge_length": true,
+      "derives_s2_equals_21_for_some_orientation": true,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": true,
+      "equates_max_distance_with_space_diagonal": false,
+      "assumes_plane_parallel_to_cube_face": false,
+      "equates_max_distance_with_edge_length_directly": false,
+      "uses_fabricated_invariant_or_invalid_derivation": false,
+      "restricts_to_nonnegative_subset_sums": true,
+      "reasoning_coherence_level": "coherent"
     },
     {
       "response_id": "I",
+      "extracted_final_answer": "21",
       "final_answer_correct": false,
-      "failure_reasons": [
-        "claims_unique_edge_length",
-        "restricts_to_nonnegative_subset_sums"
-      ]
+      "final_answer_category": "S2_EQUALS_21_SINGLE_ORIENTATION",
+      "claims_unique_edge_length": true,
+      "derives_s2_equals_21_for_some_orientation": true,
+      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": true,
+      "equates_max_distance_with_space_diagonal": false,
+      "assumes_plane_parallel_to_cube_face": false,
+      "equates_max_distance_with_edge_length_directly": false,
+      "uses_fabricated_invariant_or_invalid_derivation": false,
+      "restricts_to_nonnegative_subset_sums": true,
+      "reasoning_coherence_level": "coherent"
     }
   ]
 }

@@ -3,216 +3,152 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and solve the olympiad geometry problem from first
       principles. Compute the gold final numeric answer (the sum of squares of all possible
-      cube edge lengths) and the underlying set of distinct squared edge-length values. Show
-      the reasoning chain in the returned write-up, including any case analysis you carry
-      out, so the synthesizer can independently corroborate the gold values. Do not inspect
-      any proposed response. Return both the gold answer, the set of distinct s² values, and
-      a concise mathematical justification (about 200-400 words).
+      cube edge lengths) and the underlying set of distinct squared edge-length values.
+      Return both values together with a concise mathematical justification (200-400 words)
+      so the synthesizer can independently corroborate the result. Do not inspect any
+      candidate response.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-a
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_A.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_A.md, extract the response's claimed
+      final numeric answer, audit its full mathematical reasoning chain, and produce all 12
+      per-response fields defined in instruction.md. Return a brief written audit (150-300
+      words) explaining your independent derivation, the response's claimed answer, and the
+      evidence backing each field value, followed by a JSON object with all 12 per-response
+      fields for response A. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-b
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_B.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_B.md, extract the response's claimed
+      final numeric answer, audit its full mathematical reasoning chain, and produce all 12
+      per-response fields defined in instruction.md. Return a brief written audit (150-300
+      words) explaining your independent derivation, the response's claimed answer, and the
+      evidence backing each field value, followed by a JSON object with all 12 per-response
+      fields for response B. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-c
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_C.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_C.md, extract the response's claimed
+      final numeric answer, audit its full mathematical reasoning chain, and produce all 12
+      per-response fields defined in instruction.md. Return a brief written audit (150-300
+      words) explaining your independent derivation, the response's claimed answer, and the
+      evidence backing each field value, followed by a JSON object with all 12 per-response
+      fields for response C. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-d
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_D.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_D.md, extract the response's claimed
+      final numeric answer, audit its full mathematical reasoning chain, and produce all 12
+      per-response fields defined in instruction.md. Return a brief written audit (150-300
+      words) explaining your independent derivation, the response's claimed answer, and the
+      evidence backing each field value, followed by a JSON object with all 12 per-response
+      fields for response D. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-e
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_E.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_E.md, extract the response's claimed
+      final numeric answer if any, audit its full mathematical reasoning chain, and produce
+      all 12 per-response fields defined in instruction.md. Return a brief written audit
+      (150-300 words) explaining your independent derivation, the response's claimed answer
+      (or its absence), and the evidence backing each field value, followed by a JSON object
+      with all 12 per-response fields for response E. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-f
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_F.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_F.md, extract the response's claimed
+      final numeric answer, audit its full mathematical reasoning chain, and produce all 12
+      per-response fields defined in instruction.md. Return a brief written audit (150-300
+      words) explaining your independent derivation, the response's claimed answer, and the
+      evidence backing each field value, followed by a JSON object with all 12 per-response
+      fields for response F. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-g
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_G.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_G.md, extract the response's claimed
+      final numeric answer, audit its full mathematical reasoning chain, and produce all 12
+      per-response fields defined in instruction.md. Return a brief written audit (150-300
+      words) explaining your independent derivation, the response's claimed answer, and the
+      evidence backing each field value, followed by a JSON object with all 12 per-response
+      fields for response G. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-h
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_H.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_H.md, extract the response's claimed
+      final numeric answer, audit its full mathematical reasoning chain, and produce all 12
+      per-response fields defined in instruction.md. Return a brief written audit (150-300
+      words) explaining your independent derivation, the response's claimed answer, and the
+      evidence backing each field value, followed by a JSON object with all 12 per-response
+      fields for response H. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-i
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, independently
-      solve the geometry problem yourself and record your own gold numeric answer and your
-      own set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_I.md, extract the response's claimed final
-      numeric answer, and compare it against your independent derivation to set
-      final_answer_correct. Audit the response's mathematical reasoning chain end-to-end:
-      identify the load-bearing algebraic identities it uses, the geometric setup it assumes,
-      and any logical step that does not survive your independent derivation. Apply the full
-      6-code controlled vocabulary defined in instruction.md. Apply a code only when its
-      trigger phrase (or near-verbatim paraphrase) is concretely present in this single
-      response's text. Most candidate responses have 1 or 2 applicable codes. Return a brief
-      written audit (150-300 words) explaining your math derivation, the response's claimed
-      answer, and the concrete trigger phrase(s) that justify each selected code, followed
-      by a JSON object {response_id, final_answer_correct, failure_reasons}. Use
-      failure_reasons=[] only when your independent answer and the response's answer agree
-      AND no trigger phrase fires.
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
+      geometry problem yourself from first principles and record your own gold numeric
+      answer and set of distinct s² values before touching the candidate response. Then read
+      /input_artifacts/proposed_solutions/response_I.md, extract the response's claimed
+      final numeric answer, audit its full mathematical reasoning chain, and produce all 12
+      per-response fields defined in instruction.md. Return a brief written audit (150-300
+      words) explaining your independent derivation, the response's claimed answer, and the
+      evidence backing each field value, followed by a JSON object with all 12 per-response
+      fields for response I. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: synthesize-final-audit
     description: >
       Combine the gold-answer adjudication and the nine response audits into the final JSON
-      output. Use the gold-answer adjudication's numeric answer and set of distinct s² values
-      as the top-level gold fields. Use each per-response audit's reported final_answer_correct
-      and failure_reasons set verbatim — do not add codes a per-response audit did not select
-      and do not delete codes a per-response audit did select. Compute acceptable_solution_ids
-      as the uppercase, alphabetically-sorted list of response_ids whose final_answer_correct
-      is true AND failure_reasons is empty. Write the result to /logs/agent/output.json.
-      Top-level keys exactly: gold_final_answer, gold_edge_length_squared_set,
-      acceptable_solution_ids, per_response_assessment. per_response_assessment must contain
-      exactly nine objects, ordered alphabetically A through I, each with exactly the keys
-      response_id, final_answer_correct, failure_reasons.
+      output. Use the gold-answer adjudication's numeric answer and set of distinct s²
+      values as the top-level gold fields. Use each per-response audit's reported per-field
+      values verbatim — do not flip booleans or change categoricals that a per-response
+      audit set. Compute acceptable_solution_ids as the uppercase, alphabetically-sorted
+      list of response_ids whose final_answer_correct is true. Write the result to
+      /logs/agent/output.json. Top-level keys exactly: gold_final_answer,
+      gold_edge_length_squared_set, acceptable_solution_ids, per_response_assessment.
+      per_response_assessment must contain exactly nine objects, ordered alphabetically A
+      through I, each with exactly the 12 per-response fields plus response_id, in the
+      order defined by instruction.md.
     depends_on:
       - adjudicate-gold-answer
       - audit-response-a
