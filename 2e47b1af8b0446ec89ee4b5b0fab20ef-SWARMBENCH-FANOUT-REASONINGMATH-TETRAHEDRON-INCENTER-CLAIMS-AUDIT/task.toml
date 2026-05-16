@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-FANOUT-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT"
+description = "Audit multiple model-produced solutions to a modified CMO 2026 P4 multi-claim variant about a tetrahedron with inscribed sphere; identify which of 8 claims are necessarily true and classify each candidate's errors."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 12
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end audit workflow: 1.0h to independently confirm the gold set {a, b, c, d, e} from the two hypotheses and the reference solution; 9 x 0.9h to audit nine heterogeneous AI-generated responses, extract each claimed set, identify the load-bearing concrete defect(s) in each response, and select the applicable failure_reasons subset from the controlled 10-code vocabulary; 2.9h to reconcile conflicting audits, prepare the 274-point verifier-aligned oracle, and document response-specific rationale. Total: 1.0 + 8.1 + 2.9 = 12.1h."
+estimated_sub_agents = 11
+input_token_estimate = 28000
+why_multi_agent = "The task pairs a fixed gold-set determination with auditing nine heterogeneous candidate responses against a 10-code failure_reasons vocabulary scored by exact set match per response. A single agent juggling all nine responses in one context tends to confuse near-duplicate codes across candidates and to apply codes whose trigger is only stylistically present in a different response, zeroing 30-point blocks. Fan-out gives the gold-set adjudication to one sub-agent and each candidate audit to its own sub-agent with an isolated context containing only that response plus the controlled vocabulary, so each audit picks codes whose concrete trigger phrase is directly observable in its single response. A synthesizer reconciles all labels into one schema."
+reference_link = "https://cms.math.ca/wp-content/uploads/2026/03/CMO2026-problems.pdf"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

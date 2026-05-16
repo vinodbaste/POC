@@ -1,3 +1,0 @@
-Score: 0.445255 (122/274 passed)
-
-gold_set: 2/2 (correct); acceptable_solution_ids: 0/2 (incorrect: included H,I not in oracle); A: 30/30 (correct); B: 30/30 (correct); C: 30/30 (correct); D: 30/30 (correct); E: 0/30 (missing failure_reasons: asserts_universal_face_incenter_tangency); F: 0/30 (wrong failure_reasons: should be asserts_universal_face_incenter_tangency); G: 0/30 (wrong failure_reasons: should be appeals_to_almost_regular_or_slightly_skewed); H: 0/30 (wrong final_answer_correct and failure_reasons); I: 0/30 (missing failure_reasons: asserts_universal_face_incenter_tangency)

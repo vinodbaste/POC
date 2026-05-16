@@ -1,0 +1,3 @@
+Score: 0.4453 (122/274 passed)
+
+gold_set correct (2/2). acceptable_solution_ids incorrect: expected [A,D], got [A,I] (0/2). Response A correct (30/30). Response B correct (30/30). Response C correct (30/30). Response D incorrect: failure_reasons expected [], got [asserts_universal_face_incenter_tangency] (0/30). Response E incorrect: failure_reasons mismatch (0/30). Response F incorrect: failure_reasons expected [asserts_universal_face_incenter_tangency], got [] (0/30). Response G correct (30/30). Response H incorrect: failure_reasons expected [asserts_AI_equals_r], got 3 reasons (0/30). Response I incorrect: failure_reasons expected [asserts_universal_face_incenter_tangency], got [] (0/30).
