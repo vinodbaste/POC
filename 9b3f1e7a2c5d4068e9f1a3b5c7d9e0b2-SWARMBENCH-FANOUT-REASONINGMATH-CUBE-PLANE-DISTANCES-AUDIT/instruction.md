@@ -18,78 +18,76 @@ Input artifacts:
 
 Task:
 1. Read the problem statement and all nine released responses.
-2. Independently determine the gold final numeric answer (the sum of squares of all elements of S, where S is the set of possible cube edge lengths) and the underlying set of distinct values of s² (the squared edge lengths). Do not modify any files under `/input_artifacts`, `/tests`, or `/solution`.
-3. Determine which response(s), if any, are fully correct (final numeric answer equals the gold answer).
-4. For each response A through I, audit it using the labels defined below.
-5. Do not decide correctness by majority vote among the responses. Solve the problem independently first, then audit each response against your derivation.
+2. Independently determine the gold final numeric answer (the sum of squares of all elements of S, where S is the set of possible cube edge lengths) and the underlying set of distinct values of s².
+3. Determine which response(s), if any, give the correct final numeric answer.
+4. For each response A through I, identify the EXACT SET of failure-reason codes from the controlled vocabulary below whose triggering condition is concretely present in that single response's text. Each response typically has 1-5 applicable codes.
 
-## Per-response label definitions
+Allowed failure-reason codes (each code applies ONLY when its triggering condition is concretely instantiated in that single response's text):
 
-For each response A through I, you must produce the following fields. Most are booleans; a few are strings or categorical enums with controlled values.
+- `claims_unique_edge_length`
+  - TRIGGER: the response's final stated conclusion asserts that there is exactly one possible cube edge length (|S| = 1), regardless of the value claimed. Trigger phrases include "only possible edge length", "the only solution", "uniquely determined", "the cube edge length is", or a final boxed answer that equals (one numeric edge-length value)² rather than a sum of squares over multiple values. Does NOT fire if the response presents its final answer as a sum over multiple candidate edge lengths, or if the response never reaches a final numeric conclusion.
 
+- `restricts_to_nonnegative_subset_sums`
+  - TRIGGER: the response's load-bearing argument requires all seven non-zero vertex-to-plane distances to arise as non-negative sums of three "axis projections" or "subset sums" of three positive quantities {p, q, r}. Trigger phrases: "projections must be non-negative", "subset sums of {p, q, r}", "non-empty subset sums", "signed projections have the same sign", or a search restricted to positive-integer triples whose subset sums equal {1, …, 7}.
+
+- `assumes_max_distance_equals_space_diagonal`
+  - TRIGGER: the response equates the maximum vertex-to-plane distance (7) with the cube's space diagonal a√3, deriving a = 7/√3 and s² = 49/3 (or equivalent) as a load-bearing step. Trigger phrases: "space diagonal = 7", "a√3 = 7", "a = 7/√3", "the space diagonal must equal 7", "maximum distance is the space diagonal".
+
+- `assumes_plane_parallel_to_cube_face`
+  - TRIGGER: the response's primary geometric setup assumes the cutting plane is parallel to one face of the cube (or an axis-aligned cube cut by z = k), so the eight vertex distances take at most two distinct values. Trigger phrases: "distances would be the z-coordinates", "plane parallel to a face", "plane z = k" with an axis-aligned cube. Does NOT fire if the response merely entertains and discards this hypothesis.
+
+- `equates_max_distance_with_edge_length_directly`
+  - TRIGGER: the response directly identifies the maximum vertex-to-plane distance (7) with the cube's edge length a (so a = 7 and s² = 49), without projecting through any plane normal. Mutually exclusive with `assumes_max_distance_equals_space_diagonal` (the first sets a = 7, the second sets a = 7/√3).
+
+- `uses_fabricated_invariant_or_invalid_derivation`
+  - TRIGGER: the response's final numeric answer rests on an invented algebraic identity that does not follow from the problem (e.g., asserting a "sum of squared distances = 3a²(1 + T²)" identity, or summing roots of a quadratic whose coefficients come from a fabricated invariant), OR the response openly invents a derivation step without algebraic backing. The trigger is met whenever the response's final boxed value is the output of a fabricated algebraic chain.
+
+- `accepts_internal_contradictions_in_derivation`
+  - TRIGGER: the response openly accepts mutually contradictory equations such as "6 = 7" or "3 = 4" inside its derivation and then proceeds to select a numeric answer that the surviving algebra does not justify. The trigger requires both (a) an explicit contradiction in the response text and (b) a final numeric answer extracted despite the contradiction.
+
+- `assumes_zero_distance_vertex_is_axis_corner`
+  - TRIGGER: the response fixes the vertex at distance 0 to be a specific cube-local corner (typically (0,0,0) of an axis-aligned cube) and treats every other vertex's signed distance to the plane as a non-negative coordinate combination of three outgoing edge directions from that corner, without justifying why the zero-vertex must be that specific corner. Trigger phrases: "place the cube with one vertex at the origin", "vertex (0,0,0) lies on the plane", "the cube has vertices at {0, a}³". Does NOT fire if the response uses a symbolic (±, ±, ±) sign-pattern setup or a body-diagonal aligned setup that does not fix a specific corner.
+
+- `omits_sign_pattern_casework`
+  - TRIGGER: the response reaches a numeric conclusion (correct or wrong) without enumerating the sign-pattern families of the cube's vertex configurations relative to the plane (i.e., it does not consider configurations in which some vertices have negative signed distance to the plane and others positive). The trigger fires when the response does not branch on whether the plane intersects the cube's interior. Does NOT fire if the response never reaches a numeric conclusion.
+
+- `treats_one_orientation_as_proof_of_uniqueness`
+  - TRIGGER: the response solves a single cube orientation (axis-aligned, body-diagonal-aligned, face-parallel, or any other single geometric configuration), derives some s² value from that one orientation, and then asserts (explicitly or implicitly) that this s² value is the only solution without ruling out other orientations. Trigger pattern: ONE derivation chain producing ONE numeric value that the response then names as the unique answer. Does NOT fire if the response considers multiple orientations or treats its final answer as a sum over multiple candidates.
+
+- `derives_correct_partial_s2_then_discards_it`
+  - TRIGGER: the response correctly derives s² = 21 (the all-positive case value) at some point in its reasoning chain and then explicitly rejects or discards that value, choosing a different final numeric answer. The trigger requires both (a) the value 21 (or equivalently 1² + 2² + 4²) appearing as a derived s² intermediate and (b) explicit rejection of it.
+
+- `non_terminating_or_no_final_answer`
+  - TRIGGER: the response does not produce an identifiable final numeric answer. Includes: no boxed answer and no "final answer is N" sentence; a generation that loops on a phrase tens or hundreds of times until truncation; a mid-sentence cut-off before any conclusion. Fires regardless of whether the early portion of the response is mathematically reasonable. Mutually incompatible with any other code that requires extracting a final numeric answer.
+
+Important scoring and selection rules:
+- The audit is evaluated as an EXACT SET MATCH per response. Both extra failure-reason codes and missing failure-reason codes are wrong: a response audit receives credit only if the exact set of codes matches the oracle's set for that response.
+- Most responses have 3-5 applicable codes. A few have 1.
+- Apply a code only when its triggering condition is concretely instantiated in the response's text.
+- Use an empty list `[]` for `failure_reasons` exactly when the response's final numeric answer equals the gold answer AND no failure-reason trigger fires.
+- `acceptable_solution_ids` is the uppercase, alphabetically-sorted list of `response_id`s whose `final_answer_correct` is `true` AND whose `failure_reasons` list is empty.
+
+Label definitions for each released response:
 - `response_id`: the response letter, exactly one of `"A"`, `"B"`, `"C"`, `"D"`, `"E"`, `"F"`, `"G"`, `"H"`, `"I"`.
+- `final_answer_correct`: `true` exactly when the response's final stated numeric answer equals the gold answer. Otherwise `false`.
+- `failure_reasons`: a JSON list of strings chosen only from the 12 allowed failure-reason codes above.
 
-- `extracted_final_answer`: a string giving the response's claimed final numeric answer for the sum of squares of edge lengths, normalized as the response wrote it (for example `"21"`, `"49"`, `"49/3"`, `"140/3"`, `"6"`). Use `null` if the response gives no identifiable final numeric answer (a repetition loop, no boxed answer, or mid-sentence cut-off). This is a faithful extraction of the response's own claim, not a correction.
-
-- `final_answer_correct`: `true` exactly when the response's `extracted_final_answer` equals the gold final answer; otherwise `false`. A `null` extracted answer is never correct.
-
-- `final_answer_category`: exactly one of the following controlled categories.
-  - `CORRECT` — extracted answer equals the gold answer.
-  - `S2_EQUALS_21_SINGLE_ORIENTATION` — extracted answer equals `21` (s² from the all-positive case, mistaking S for a single-element set).
-  - `SPACE_DIAGONAL_FALLACY` — extracted answer equals `49/3` (the response set 7 = a√3 and reported s² = 49/3).
-  - `FACE_PARALLEL_FALLACY` — extracted answer equals `49` (the response set a = 7 directly with a face-parallel cutting plane).
-  - `FABRICATED_INVARIANT_SUM` — extracted answer comes from summing roots of a fabricated quadratic (e.g., `140/3`).
-  - `NUMERIC_WITHOUT_DERIVATION` — extracted answer is a numeric value that the response asserts without a valid algebraic chain (typical of internally-contradictory derivations).
-  - `NO_FINAL_ANSWER` — response produced no identifiable final numeric answer.
-
-- `claims_unique_edge_length`: `true` exactly when the response's final stated conclusion asserts that there is exactly one possible cube edge length (|S| = 1), regardless of what value the unique edge length is claimed to be. `false` when the response either does not reach a final conclusion or explicitly treats the final answer as a sum over multiple distinct edge-length values.
-
-- `derives_s2_equals_21_for_some_orientation`: `true` exactly when the response, at any point in its reasoning, correctly derives s² = 21 (equivalently, the all-positive case `(p, q, r) = (1, 2, 4)` with `p² + q² + r² = 21`) for at least one cube orientation, even if the response then declares that value unique or rejects it. `false` if the response never produces s² = 21 as an intermediate or final value.
-
-- `uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner`: `true` exactly when the response's primary geometric setup places the cube with edges along the coordinate axes and fixes the vertex at distance 0 to be the cube-local corner `(0, 0, 0)` (or an equivalent named corner of an axis-aligned `{0, a}³` cube), then treats the other seven vertices as non-negative coordinate combinations of edges from that corner. `false` if the response uses a different geometric setup (for example, a body-diagonal aligned cube, or a symbolic `(±, ±, ±)` sign-pattern setup that does not fix a specific corner).
-
-- `equates_max_distance_with_space_diagonal`: `true` exactly when the response uses the load-bearing identification 7 = a√3 (the cube's space diagonal equals the maximum vertex-to-plane distance) to derive a = 7/√3. `false` otherwise.
-
-- `assumes_plane_parallel_to_cube_face`: `true` exactly when the response's primary geometric setup assumes the cutting plane is parallel to one face of the cube (or equivalently, an axis-aligned cube cut by a plane of the form z = k), so the eight vertex distances take at most two distinct values. `false` if the response merely entertains and discards this hypothesis.
-
-- `equates_max_distance_with_edge_length_directly`: `true` exactly when the response directly identifies the maximum vertex-to-plane distance (7) with the cube's edge length a (so a = 7 and s² = 49), without projecting through a plane normal. Mutually exclusive with `equates_max_distance_with_space_diagonal`.
-
-- `uses_fabricated_invariant_or_invalid_derivation`: `true` exactly when the response's final numeric answer rests on (a) an invented algebraic identity that does not follow from the problem (e.g., an asserted "sum of squared distances = 3a²(1 + T²)" identity, or a Vieta-sum over a fabricated quadratic), or (b) the response openly accepts mutually contradictory equations ("6 = 7", "3 = 4") inside its derivation and selects a numeric answer not justified by the surviving algebra. `false` otherwise.
-
-- `restricts_to_nonnegative_subset_sums`: `true` exactly when the response's load-bearing argument requires all seven non-zero vertex-to-plane distances to arise as non-negative sums of three positive "axis projections" or "subset sums" of a positive triple {p, q, r}. Trigger phrases include "projections must be non-negative", "subset sums of {p, q, r}", "non-empty subset sums", "signed projections have the same sign", or a search restricted to positive-integer triples whose subset sums equal {1, 2, …, 7}. `false` otherwise.
-
-- `reasoning_coherence_level`: exactly one of three values describing the overall coherence of the response's reasoning chain.
-  - `coherent` — the response argues in a linear, internally-consistent fashion, even if it reaches a wrong conclusion.
-  - `rambling` — the response cycles through hypotheses, contradicts itself, or hand-waves between approaches, but eventually produces a final answer.
-  - `incoherent` — the response is dominated by repetition, self-loops, or other non-progressing text and never produces a final answer.
-
+---
 ## Output Instructions
 
-Write your final answer to `/logs/agent/output.json` in this exact JSON format. Top-level keys must be exactly `gold_final_answer`, `gold_edge_length_squared_set`, `acceptable_solution_ids`, and `per_response_assessment`. Include no other top-level keys.
+Write your final answer to `/logs/agent/output.json` in this exact JSON format:
 
-```
 {
   "gold_final_answer": "<gold numeric answer as a string>",
   "gold_edge_length_squared_set": [<sorted list of all distinct s² values>],
-  "acceptable_solution_ids": ["<uppercase letters of responses with final_answer_correct=true>"],
+  "acceptable_solution_ids": ["<uppercase response letters that are fully correct>"],
   "per_response_assessment": [
     {
       "response_id": "A",
-      "extracted_final_answer": "<response's claimed answer as a string, or null>",
       "final_answer_correct": <true or false>,
-      "final_answer_category": "<one controlled category>",
-      "claims_unique_edge_length": <true or false>,
-      "derives_s2_equals_21_for_some_orientation": <true or false>,
-      "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": <true or false>,
-      "equates_max_distance_with_space_diagonal": <true or false>,
-      "assumes_plane_parallel_to_cube_face": <true or false>,
-      "equates_max_distance_with_edge_length_directly": <true or false>,
-      "uses_fabricated_invariant_or_invalid_derivation": <true or false>,
-      "restricts_to_nonnegative_subset_sums": <true or false>,
-      "reasoning_coherence_level": "<coherent | rambling | incoherent>"
+      "failure_reasons": ["<zero or more allowed failure-reason codes>"]
     }
   ]
 }
-```
 
-In the actual output, include exactly nine objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, I, in that order. `acceptable_solution_ids` is the alphabetically-sorted uppercase list of `response_id`s whose `final_answer_correct` is `true`. Do not write anything else to that file.
+In the actual output, include nine objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, I, in that order. Do not write anything else to that file.

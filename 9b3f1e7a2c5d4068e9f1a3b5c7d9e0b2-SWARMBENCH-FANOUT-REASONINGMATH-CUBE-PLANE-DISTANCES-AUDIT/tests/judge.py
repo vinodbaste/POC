@@ -1,189 +1,118 @@
 import argparse
 import json
 import os
-from typing import Any
+import re
+from openai import OpenAI
 
 
-REQUIRED_TOP_KEYS = {
-    "gold_final_answer",
-    "gold_edge_length_squared_set",
-    "acceptable_solution_ids",
-    "per_response_assessment",
-}
-
-TOP_LEVEL_WEIGHTS = {
-    "gold_final_answer": 2,
-    "gold_edge_length_squared_set": 2,
-    "acceptable_solution_ids": 2,
-}
-
-PER_RESPONSE_WEIGHTS = {
-    "response_id": 1,
-    "extracted_final_answer": 1,
-    "final_answer_correct": 1,
-    "final_answer_category": 4,
-    "claims_unique_edge_length": 2,
-    "derives_s2_equals_21_for_some_orientation": 4,
-    "uses_axis_aligned_cube_at_origin_with_zero_vertex_at_corner": 4,
-    "equates_max_distance_with_space_diagonal": 2,
-    "assumes_plane_parallel_to_cube_face": 2,
-    "equates_max_distance_with_edge_length_directly": 2,
-    "uses_fabricated_invariant_or_invalid_derivation": 2,
-    "restricts_to_nonnegative_subset_sums": 2,
-    "reasoning_coherence_level": 3,
-}
-
-
-def write_reward(score: float, reward_out: str, justification: str) -> None:
-    os.makedirs(os.path.dirname(reward_out), exist_ok=True)
-    with open(reward_out, "w", encoding="utf-8") as f:
-        json.dump({"reward": max(0.0, min(1.0, score))}, f)
-    with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-        f.write(justification)
-
-
-def as_map_by_response_id(items: Any) -> dict:
-    if not isinstance(items, list):
-        return {}
-    out = {}
-    for item in items:
-        if isinstance(item, dict) and isinstance(item.get("response_id"), str):
-            out[item["response_id"]] = item
-    return out
-
-
-def normalize_string(v: Any) -> Any:
-    if isinstance(v, str):
-        return v.strip()
-    return v
-
-
-def normalize_int_list(v: Any) -> Any:
-    if isinstance(v, list):
-        try:
-            return sorted(int(x) for x in v)
-        except (TypeError, ValueError):
-            return v
-    return v
-
-
-def normalize_letter_list(v: Any) -> Any:
-    if isinstance(v, list):
-        try:
-            return sorted(str(x).upper() for x in v)
-        except (TypeError, ValueError):
-            return v
-    return v
-
-
-def field_equal(field: str, got: Any, expected: Any) -> bool:
-    if field == "gold_edge_length_squared_set":
-        return normalize_int_list(got) == normalize_int_list(expected)
-    if field == "acceptable_solution_ids":
-        return normalize_letter_list(got) == normalize_letter_list(expected)
-    if isinstance(expected, str):
-        return normalize_string(got) == normalize_string(expected)
-    return got == expected
+def extract_json(text: str) -> str:
+    text = text.strip()
+    match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
+    if match:
+        return match.group(1).strip()
+    return text
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--agent-output", required=True)
-    parser.add_argument("--oracle", required=True)
-    parser.add_argument("--reward-out", required=True)
+    parser.add_argument("--agent-output")
+    parser.add_argument("--oracle")
+    parser.add_argument("--reward-out")
     args = parser.parse_args()
+
+    os.makedirs(os.path.dirname(args.reward_out), exist_ok=True)
 
     try:
         with open(args.agent_output, "r", encoding="utf-8") as f:
             agent_output = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError) as e:
-        write_reward(
-            0.0,
-            args.reward_out,
-            f"Score: 0.0\n\nAgent output missing or invalid: {e}",
-        )
+        json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
+        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+            f.write(f"Score: 0.0\n\nAgent output missing or invalid: {e}")
         return
 
     with open(args.oracle, "r", encoding="utf-8") as f:
         oracle = json.load(f)
 
-    if not isinstance(agent_output, dict):
-        write_reward(
-            0.0,
-            args.reward_out,
-            "Score: 0.0\n\nAgent output must be a JSON object.",
-        )
+    if agent_output == oracle:
+        json.dump({"reward": 1.0}, open(args.reward_out, "w", encoding="utf-8"))
+        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+            f.write("Score: 1.0\n\nAgent output exactly matches oracle.")
         return
 
-    actual_keys = set(agent_output.keys())
-    extra_keys = sorted(actual_keys - REQUIRED_TOP_KEYS)
-    missing_keys = sorted(REQUIRED_TOP_KEYS - actual_keys)
-    if extra_keys or missing_keys:
-        write_reward(
-            0.0,
-            args.reward_out,
-            "Score: 0.0\n\nTop-level schema mismatch. "
-            f"Extra keys: {extra_keys}. Missing keys: {missing_keys}.",
-        )
-        return
-
-    per_response_total = sum(PER_RESPONSE_WEIGHTS.values())
-    expected_by_id = as_map_by_response_id(oracle.get("per_response_assessment"))
-    actual_by_id = as_map_by_response_id(agent_output.get("per_response_assessment"))
-    n_responses = len(expected_by_id)
-    total_points = sum(TOP_LEVEL_WEIGHTS.values()) + n_responses * per_response_total
-
-    passed = 0
-    details = []
-
-    for field, weight in TOP_LEVEL_WEIGHTS.items():
-        got = agent_output.get(field)
-        expected = oracle.get(field)
-        ok = field_equal(field, got, expected)
-        points = weight if ok else 0
-        passed += points
-        details.append(
-            f"top-level {field}: {points}/{weight} "
-            f"(got={got!r}, expected={expected!r})"
-        )
-
-    expected_ids = set(expected_by_id)
-    actual_ids = set(actual_by_id)
-    if actual_ids != expected_ids:
-        details.append(
-            f"response_ids mismatch: expected {sorted(expected_ids)}, got {sorted(actual_ids)}"
-        )
-
-    for rid in sorted(expected_by_id):
-        exp = expected_by_id[rid]
-        act = actual_by_id.get(rid, {})
-        response_points = 0
-        field_details = []
-
-        for field, weight in PER_RESPONSE_WEIGHTS.items():
-            got = act.get(field)
-            expected = exp.get(field)
-            ok = field_equal(field, got, expected)
-            points = weight if ok else 0
-            response_points += points
-            field_details.append(
-                f"{field}={points}/{weight} "
-                f"(got={got!r}, expected={expected!r})"
-            )
-
-        passed += response_points
-        details.append(
-            f"Response {rid}: {response_points}/{per_response_total}; "
-            + "; ".join(field_details)
-        )
-
-    score = passed / total_points if total_points else 0.0
-    write_reward(
-        score,
-        args.reward_out,
-        f"Score: {score:.4f} ({passed}/{total_points} passed)\n\n"
-        + "\n".join(details),
+    client = OpenAI(
+        api_key=os.environ["FIREWORKS_API_KEY"],
+        base_url="https://api.fireworks.ai/inference/v1",
     )
+
+    prompt = (
+        "You are an evaluation judge grading an agent's JSON output against a gold oracle "
+        "for a cube-plane-distances solution-audit task.\n\n"
+        f"ORACLE:\n{json.dumps(oracle, indent=2)}\n\n"
+        f"AGENT OUTPUT:\n{json.dumps(agent_output, indent=2)}\n\n"
+        "Grade only the requested JSON fields. Do not reward prose outside the schema.\n\n"
+        "Allowed failure reason codes are exactly:\n"
+        "- claims_unique_edge_length\n"
+        "- restricts_to_nonnegative_subset_sums\n"
+        "- assumes_max_distance_equals_space_diagonal\n"
+        "- assumes_plane_parallel_to_cube_face\n"
+        "- equates_max_distance_with_edge_length_directly\n"
+        "- uses_fabricated_invariant_or_invalid_derivation\n"
+        "- accepts_internal_contradictions_in_derivation\n"
+        "- assumes_zero_distance_vertex_is_axis_corner\n"
+        "- omits_sign_pattern_casework\n"
+        "- treats_one_orientation_as_proof_of_uniqueness\n"
+        "- derives_correct_partial_s2_then_discards_it\n"
+        "- non_terminating_or_no_final_answer\n\n"
+        "Field meanings:\n"
+        "- gold_final_answer: the literal string \"210\" (sum of squares of all possible cube edge lengths).\n"
+        "- gold_edge_length_squared_set: the set of distinct s² values consistent with the eight given vertex-to-plane distances; the oracle value is [21, 54, 66, 69].\n"
+        "- acceptable_solution_ids: the response letters whose final numeric answers equal the gold AND whose failure_reasons list is empty.\n"
+        "- final_answer_correct: whether that response's final stated numeric answer equals 210.\n"
+        "- failure_reasons: exact set of concrete reasons why the response's reasoning is defective. Must be empty iff final_answer_correct is true AND no failure-reason trigger fires on the response.\n\n"
+        "Equivalence and strictness rules:\n"
+        "1. For gold_final_answer, require exact string equality with the oracle (\"210\").\n"
+        "2. For gold_edge_length_squared_set, require the same multiset of integers as the oracle (order irrelevant).\n"
+        "3. For acceptable_solution_ids, require the same set of response letters as the oracle.\n"
+        "4. per_response_assessment must contain exactly one object for each response A-I.\n"
+        "5. For response_id and final_answer_correct, require exact equality.\n"
+        "6. For failure_reasons, order does not matter, but the set must match exactly. Extra reasons fail. Missing reasons fail. No partial credit inside failure_reasons.\n"
+        "7. A per-response audit receives credit only if response_id, final_answer_correct, and the exact failure_reasons set are all correct for that response.\n\n"
+        "Scoring rubric with weighted points:\n"
+        "- gold_final_answer = 2 points.\n"
+        "- gold_edge_length_squared_set = 2 points.\n"
+        "- acceptable_solution_ids = 2 points.\n"
+        "- Each response audit A-I is all-or-nothing = 30 points. Award the 30 points only if response_id, final_answer_correct, and exact failure_reasons set all match the oracle for that response. Otherwise award 0 for that response.\n"
+        "- Total = 276 points. score = passed/276.\n\n"
+        "Respond in JSON only, no markdown:\n"
+        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 276, '
+        '"justification": "<concise weighted field-by-field breakdown>"}'
+    )
+
+    response = client.chat.completions.create(
+        model="accounts/fireworks/models/kimi-k2p5",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0,
+    )
+
+    raw = response.choices[0].message.content or ""
+
+    try:
+        result = json.loads(extract_json(raw))
+    except json.JSONDecodeError as e:
+        json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
+        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+            f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw}")
+        return
+
+    score = max(0.0, min(1.0, float(result.get("score", 0.0))))
+    json.dump({"reward": score}, open(args.reward_out, "w", encoding="utf-8"))
+
+    with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+        f.write(
+            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', '?')} passed)\n\n"
+            f"{result.get('justification', '')}"
+        )
 
 
 if __name__ == "__main__":
