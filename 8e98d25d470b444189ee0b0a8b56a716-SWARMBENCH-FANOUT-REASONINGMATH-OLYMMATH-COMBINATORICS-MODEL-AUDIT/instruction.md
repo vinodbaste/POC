@@ -30,7 +30,7 @@ Use only these strings. The set you assign to a response is unordered but must m
 - `correct_recurrence_arithmetic_error` — the recurrence $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ is correctly formulated, but specific $f(k)$ or $S(m)$ values are miscomputed and the boxed answer is consequently a wrong integer that is not the gold value.
 - `inconsistent_boxing` — within the response itself, the derivation arithmetically concludes one numerical value while a different numerical value is presented as the final boxed answer.
 
-Multiple codes may apply to a single response. Most responses have zero or one applicable code. Do not include a code unless its trigger condition is concretely present.
+Multiple codes may apply to a single response when more than one distinct failure mechanism is concretely present. For example, a response that boxes a small constant integer WITHOUT a recurrence AND that also asserts the underlying chain is forced or unique exhibits two separate mechanisms and must carry both codes. Do not include a code unless its trigger condition is concretely present in the response; do not omit an applicable code merely because another code already applies.
 
 ## Output schema
 

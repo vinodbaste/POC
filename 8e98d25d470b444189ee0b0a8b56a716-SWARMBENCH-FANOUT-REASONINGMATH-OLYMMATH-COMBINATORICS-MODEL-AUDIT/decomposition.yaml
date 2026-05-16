@@ -49,10 +49,14 @@ sub_tasks:
       condition is concretely present in this single response, drawn ONLY from
       the six-code vocabulary in instruction.md.
 
-      Specific guidance for response A: pay attention to whether the response
-      asserts a small constant count (such as "always 4") with no recurrence and
-      no iterative computation. That trigger condition maps to
-      unsupported_constant_answer.
+      Specific guidance for response A: TWO trigger conditions can apply
+      simultaneously. (a) The response asserts a small constant count (such as
+      "always 4") with no recurrence and no iterative computation — that maps to
+      unsupported_constant_answer. (b) The response also asserts that the count
+      is fixed "regardless of the starting value" or that the chain is
+      essentially forced regardless of starting state — that maps to
+      deterministic_chain_misconception. If both triggers are present in the
+      response, include both codes in failure_reasons.
 
       Return ONE JSON object with these keys:
       {"solution_id": "A", "final_answer_correct": <bool>, "failure_reasons": [...]}.
@@ -234,9 +238,15 @@ sub_tasks:
       Read /workspace/instruction.md and /input_artifacts/response_L.md only.
       Same audit task as audit-response-a but for response L.
 
-      Specific guidance for response L: pay attention to whether the response
-      asserts the answer is 2017 = a_1 + 1 with no derivation. Boxing a small
-      constant with no recurrence maps to unsupported_constant_answer.
+      Specific guidance for response L: TWO trigger conditions can apply
+      simultaneously. (a) The response boxes 2017 = a_1 + 1 with no derivation —
+      a formulaic constant answer without iterative computation maps to
+      unsupported_constant_answer. (b) The response also asserts that "each
+      step leads to a unique sequence for each possible choice", treating the
+      construction as a single forced chain rather than a counting problem with
+      branching — that maps to deterministic_chain_misconception. If both
+      triggers are present in the response, include both codes in
+      failure_reasons.
 
       Return {"solution_id": "L", "final_answer_correct": <bool>, "failure_reasons": [...]}.
 

@@ -49,9 +49,12 @@ The set of codes attached to a response is unordered but must match exactly: ext
 
 Each entry below corresponds to one record in `per_response_assessment`. Citations are short verbatim phrases from the relevant `response_X.md`.
 
-### A — boxed `4`. `final_answer_correct`: false. `failure_reasons`: {`unsupported_constant_answer`}.
+### A — boxed `4`. `final_answer_correct`: false. `failure_reasons`: {`deterministic_chain_misconception`, `unsupported_constant_answer`}.
 
-Citation: *"once we choose a starting value, the number of such sequences is always 4, regardless of the starting value"* followed by $\boxed{4}$. No recurrence is set up; a small constant is boxed without derivation. Trigger `unsupported_constant_answer`. The response does not box a power of two, does not show a correct recurrence with arithmetic miscount, and is not a truncation, so no other code applies.
+Two trigger conditions are simultaneously present:
+
+- The response boxes the small constant $4$ with no recurrence and no iterative computation. Trigger `unsupported_constant_answer`.
+- The response also claims the count is fixed *"regardless of the starting value (as long as it is at least 2)"* — i.e. the outcome is treated as forced regardless of the actual state of the chain, ignoring that different starting values yield different numbers of continuations. Trigger `deterministic_chain_misconception`.
 
 ### B — empty extraction. `final_answer_correct`: false. `failure_reasons`: {`incoherent_or_truncated`}.
 
@@ -98,9 +101,12 @@ The response sketches the correct recurrence but its iterative summation drifts 
 
 The response sets up $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ and the prefix sum $S(m) = \sum_{k=0}^{m} f(k)$, computes $S(0), \ldots, S(44)$ in order, identifies $2016 \in [44^2, 45^2 - 1]$, and concludes $f(2016) = 1 + S(44) = 948$. Empty failure set.
 
-### L — boxed `2017`. `final_answer_correct`: false. `failure_reasons`: {`unsupported_constant_answer`}.
+### L — boxed `2017`. `final_answer_correct`: false. `failure_reasons`: {`deterministic_chain_misconception`, `unsupported_constant_answer`}.
 
-Citation: *"each step leads to a unique sequence for each possible choice at each step. The final answer is $2017$"*. The candidate boxes $2017 = a_1 + 1$ with no derivation. Trigger `unsupported_constant_answer`.
+Two trigger conditions are simultaneously present:
+
+- The candidate boxes $2017 = a_1 + 1$ as a formulaic function of the starting value, with no recurrence and no iterative computation. Trigger `unsupported_constant_answer`.
+- The candidate justifies the answer with *"each step leads to a unique sequence for each possible choice at each step"*, treating the construction as a single forced chain rather than a counting problem with branching options at each step. Trigger `deterministic_chain_misconception`.
 
 ### M — boxed `950`. `final_answer_correct`: false. `failure_reasons`: {`correct_recurrence_arithmetic_error`}.
 
@@ -124,9 +130,9 @@ Citation: *"the number of sequences starting from 2016 is determined to be $2^{4
 - Empty set: D, F, K, N (4 responses).
 - `{incoherent_or_truncated}`: B (1).
 - `{deterministic_chain_misconception}`: C, E (2).
-- `{unsupported_constant_answer}`: A, L (2).
 - `{power_of_two_leap}`: H, O (2).
 - `{correct_recurrence_arithmetic_error}`: G, J, M (3).
+- `{deterministic_chain_misconception, unsupported_constant_answer}`: A, L (2).
 - `{inconsistent_boxing, power_of_two_leap}`: I (1).
 
-Each of the six codes is exercised by at least one response. The set sizes span 0, 1, and 2. Two responses share each non-empty non-arithmetic set; three share the arithmetic-error set; one response (I) has the only two-element set. This distribution forces the auditor to read each response individually rather than memorise a template.
+Each of the six codes is exercised by at least one response. Three responses (A, L, I) carry two-element sets, requiring the auditor to identify both failure mechanisms that are concurrently present in the response text. The remaining non-correct responses each carry a one-element set. Identifying the dominant mechanism alone is insufficient when both are present — the audit is evaluated as an exact set match, so missing the second mechanism on A, L, or I zeros the full per-response credit.
