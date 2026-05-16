@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT"
+description = "Audit nine real, unedited model responses (from the public RUC-AIBOX/OlymMATH-eval benchmark) to an olympiad-level 3D geometry problem about a cube whose eight vertex-to-plane distances are 0..7. The task asks for the LARGEST possible squared edge length consistent with that configuration, and labels each response's mathematical errors against a controlled vocabulary."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 12.0
+human_solving_hours_justification = "A human expert needs about 3.5h to derive and verify the gold maximum squared edge length, which requires enumerating every valid cube orientation consistent with the eight given distances (the all-positive sign-pattern case plus the sign-flipped configurations where the plane passes through the cube's interior) and then taking the maximum s² over the resulting set; about 3.5h to audit nine proposed model responses against that derivation; about 3.0h to assign all per-response controlled labels (final_answer_category, boolean error fields, quality levels, error_codes) consistently; and about 2.0h to reconcile borderline cases and validate the final JSON schema. Total is approximately 12.0h, dominated (~83%) by mathematical reasoning rather than document classification."
+estimated_sub_agents = 12
+input_token_estimate = 31000
+why_multi_agent = "This reasoning-math task benefits from multi-agent coordination because the main failure mode is reasoning conflation across nine response audits, not raw context overflow. The reframed question — find the LARGEST squared edge length — requires enumerating EVERY valid cube orientation before taking a maximum. A single agent can read the files but is highly likely to take a shortcut on the orientation casework, solve only the all-positive sign-pattern case, conclude s² = 21, and report that as the maximum without realizing the plane-through-cube-interior configurations yield larger values; then propagate that wrong gold across all nine audits, confusing per-response error_codes across the controlled vocabulary. The fan-out-synthesize decomposition isolates an independent geometry solver, an adversarial sign-pattern validator that hunts for orientations beyond the all-positive case, nine response-specific auditors (each with isolated context containing only its single response and the controlled vocabulary), and a final synthesizer, so each worker maintains a clean reasoning thread and the synthesis step reconciles disagreements. Single-agent attention degradation across nine heterogeneous responses with overlapping error codes is the structural wedge."
+reference_link = "https://huggingface.co/datasets/RUC-AIBOX/OlymMATH-eval"
+
+[agent]
+timeout_sec = 3000
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600
