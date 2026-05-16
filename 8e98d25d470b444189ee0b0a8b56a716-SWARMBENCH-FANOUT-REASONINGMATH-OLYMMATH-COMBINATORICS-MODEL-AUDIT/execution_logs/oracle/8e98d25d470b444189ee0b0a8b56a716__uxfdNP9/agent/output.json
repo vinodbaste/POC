@@ -1,0 +1,21 @@
+{
+  "gold_final_answer": "948",
+  "acceptable_solution_ids": ["D", "F", "K", "N"],
+  "per_response_assessment": [
+    {"solution_id": "A", "final_answer_correct": false, "failure_reasons": ["deterministic_chain_misconception", "unsupported_constant_answer"]},
+    {"solution_id": "B", "final_answer_correct": false, "failure_reasons": ["incoherent_or_truncated"]},
+    {"solution_id": "C", "final_answer_correct": false, "failure_reasons": ["deterministic_chain_misconception"]},
+    {"solution_id": "D", "final_answer_correct": true,  "failure_reasons": []},
+    {"solution_id": "E", "final_answer_correct": false, "failure_reasons": ["deterministic_chain_misconception"]},
+    {"solution_id": "F", "final_answer_correct": true,  "failure_reasons": []},
+    {"solution_id": "G", "final_answer_correct": false, "failure_reasons": ["correct_recurrence_arithmetic_error"]},
+    {"solution_id": "H", "final_answer_correct": false, "failure_reasons": ["power_of_two_leap"]},
+    {"solution_id": "I", "final_answer_correct": false, "failure_reasons": ["inconsistent_boxing", "power_of_two_leap"]},
+    {"solution_id": "J", "final_answer_correct": false, "failure_reasons": ["correct_recurrence_arithmetic_error"]},
+    {"solution_id": "K", "final_answer_correct": true,  "failure_reasons": []},
+    {"solution_id": "L", "final_answer_correct": false, "failure_reasons": ["deterministic_chain_misconception", "unsupported_constant_answer"]},
+    {"solution_id": "M", "final_answer_correct": false, "failure_reasons": ["correct_recurrence_arithmetic_error"]},
+    {"solution_id": "N", "final_answer_correct": true,  "failure_reasons": []},
+    {"solution_id": "O", "final_answer_correct": false, "failure_reasons": ["power_of_two_leap"]}
+  ]
+}
