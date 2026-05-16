@@ -15,28 +15,28 @@ Simplify: $\log_2 6 - \log_2 3$.
 ### Option A
 
 ```text
-By the logarithm quotient rule, log_b(m) - log_b(n) = log_b(m/n) for any valid
-base b and positive m, n. Applied here: log_2(6) - log_2(3) = log_2(6/3) = log_2(2).
+Alternatively, log_2(6) = log_2(2·3) = log_2(2) + log_2(3) = 1 + log_2(3), so
+log_2(6) - log_2(3) = (1 + log_2(3)) - log_2(3) = 1.
 ```
 
 ### Option B
+
+```text
+Therefore log_2(6) - log_2(3) = 1.
+```
+
+### Option C
 
 ```text
 log_2(6) - log_2(3) = log_2(6) + log_2(1/3) = log_2(6·(1/3)) = log_2(2) = 1.
 This confirms the quotient rule calculation.
 ```
 
-### Option C
-
-```text
-Alternatively, log_2(6) = log_2(2·3) = log_2(2) + log_2(3) = 1 + log_2(3), so
-log_2(6) - log_2(3) = (1 + log_2(3)) - log_2(3) = 1.
-```
-
 ### Option D
 
 ```text
-Therefore log_2(6) - log_2(3) = 1.
+By the logarithm quotient rule, log_b(m) - log_b(n) = log_b(m/n) for any valid
+base b and positive m, n. Applied here: log_2(6) - log_2(3) = log_2(6/3) = log_2(2).
 ```
 
 ## Full Candidate Proof

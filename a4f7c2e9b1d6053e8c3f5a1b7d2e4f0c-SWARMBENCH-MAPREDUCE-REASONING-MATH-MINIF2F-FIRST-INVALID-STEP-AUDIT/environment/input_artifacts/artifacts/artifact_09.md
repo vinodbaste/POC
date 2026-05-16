@@ -15,12 +15,18 @@ Two fair six-sided dice are rolled. What is the probability that the sum of the 
 ### Option A
 
 ```text
+Probability = 15/36 = 5/12.
+```
+
+### Option B
+
+```text
 The sample space consists of all ordered pairs (d_1, d_2) with d_1,d_2 ∈ {1,...,6}.
 Since each die has 7 equally likely outcomes (the faces 0 through 6), the total
 number of outcomes is 7×7 = 49.
 ```
 
-### Option B
+### Option C
 
 ```text
 Outcomes with sum > 7: sum can be 8,9,10,11,12.
@@ -30,12 +36,6 @@ Outcomes with sum > 7: sum can be 8,9,10,11,12.
   Sum=11: (5,6),(6,5)                              → 2 outcomes
   Sum=12: (6,6)                                    → 1 outcome
   Total favorable: 5+4+3+2+1 = 15.
-```
-
-### Option C
-
-```text
-Probability = 15/36 = 5/12.
 ```
 
 ### Option D

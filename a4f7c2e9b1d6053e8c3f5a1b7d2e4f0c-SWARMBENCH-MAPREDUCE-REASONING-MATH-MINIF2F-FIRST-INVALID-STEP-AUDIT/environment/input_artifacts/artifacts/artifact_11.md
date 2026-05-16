@@ -15,30 +15,30 @@ How many distinct arrangements are there of the letters in the word $\textbf{BAN
 ### Option A
 
 ```text
-The word BANANA has 6 letters: B(×1), A(×3), N(×2). The number of distinct
-arrangements of n objects where one appears p times, another q times, etc. is
-n! / (p! · q! · ...). Here that gives 6! / (1! · 3! · 2!) = 720 / (1·6·2) = 60.
+Total letters: 6. If all letters were distinct, there would be 6! = 720 arrangements.
 ```
 
 ### Option B
 
 ```text
-Total letters: 6. If all letters were distinct, there would be 6! = 720 arrangements.
+The word BANANA has 6 letters: B(×1), A(×3), N(×2). The number of distinct
+arrangements of n objects where one appears p times, another q times, etc. is
+n! / (p! · q! · ...). Here that gives 6! / (1! · 3! · 2!) = 720 / (1·6·2) = 60.
 ```
 
 ### Option C
+
+```text
+Therefore the number of distinct arrangements of BANANA is 60.
+```
+
+### Option D
 
 ```text
 To account for identical letters, we divide by the number of ways to permute the
 identical letters among themselves. The 3 A's can be permuted in 3! ways, but
 since there are actually 3! · 2 = 12 distinct A-arrangements (considering the
 N's too), we divide 720 by 12, getting 720/12 = 60.
-```
-
-### Option D
-
-```text
-Therefore the number of distinct arrangements of BANANA is 60.
 ```
 
 ## Full Candidate Proof

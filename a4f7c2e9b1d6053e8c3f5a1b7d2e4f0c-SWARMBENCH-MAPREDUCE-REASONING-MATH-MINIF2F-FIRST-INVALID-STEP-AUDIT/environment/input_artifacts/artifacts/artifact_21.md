@@ -15,6 +15,13 @@ Determine all pairs of positive integers $(a, b)$ such that $\dfrac{a^2}{2ab^2 -
 ### Option A
 
 ```text
+For b=1: denominator = 2a·1-1+1 = 2a, so k = a^2/(2a) = a/2. Integer iff 2|a.
+Solutions: (a,b) = (2t, 1) for any positive integer t.
+```
+
+### Option B
+
+```text
 Let k = a^2 / (2ab^2 - b^3 + 1) be a positive integer. Then a^2 = k(2ab^2-b^3+1).
 Since the denominator must be positive, we require 2ab^2 - b^3 + 1 > 0, i.e.,
 a > (b^3-1)/(2b^2) = b/2 - 1/(2b^2). So a ≥ ⌈b/2⌉ for b ≥ 2.
@@ -30,19 +37,12 @@ Hence a ≤ kb^2, and by minimality over all valid pairs sharing the same k, a=k
 leads to a^2=k(2kb^4-b^3+1), giving specific families of solutions.
 ```
 
-### Option B
+### Option C
 
 ```text
 Testing small values: (b=1): k = a^2/(2a-0) = a/2, so k is an integer iff a is even.
 All pairs (2t, 1) for t ≥ 1 are solutions with k=t. (b=2): k = a^2/(8a-7),
 testing a: a=1 gives 1/1=1 ✓; a=7 gives 49/49=1 ✓; a=49 gives 2401/337≠int.
-```
-
-### Option C
-
-```text
-For b=1: denominator = 2a·1-1+1 = 2a, so k = a^2/(2a) = a/2. Integer iff 2|a.
-Solutions: (a,b) = (2t, 1) for any positive integer t.
 ```
 
 ### Option D

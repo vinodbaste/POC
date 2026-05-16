@@ -15,28 +15,12 @@ The polynomial $p(x) = x^3 - 7x + 6$ has three real roots. Find their product.
 ### Option A
 
 ```text
-By Vieta's formulas for x^3 + 0·x^2 - 7x + 6 = 0:
-  sum of roots = -0/1 = 0,
-  sum of products of pairs = -7/1 = -7,
-  product of all three roots = -6/1 = -6.
-```
-
-### Option B
-
-```text
 Factor: p(x) = x^3-7x+6. Testing x=1: 1-7+6=0 ✓. So (x-1) is a factor.
 Dividing: x^3-7x+6 = (x-1)(x^2+x-6) = (x-1)(x+3)(x-2).
 Roots are x=1, x=-3, x=2. Product = 1·(-3)·2 = -6. ✓
 ```
 
-### Option C
-
-```text
-Verification: 1+(-3)+2 = 0 (sum of roots) ✓; 1·(-3)+1·2+(-3)·2 = -3+2-6 = -7
-(sum of pairwise products) ✓; product = -6 ✓. All Vieta's conditions satisfied.
-```
-
-### Option D
+### Option B
 
 ```text
 By Vieta's formulas for the monic polynomial x^3+bx^2+cx+d, the product of the
@@ -46,6 +30,22 @@ so the product of the roots is -d = -6.
 Wait — the correct Vieta's formula is: product of roots = (-1)^n · d/a where n
 is the degree and a is the leading coefficient. For n=3: product = (-1)^3·(6/1) = +6.
 Hence the product of the three roots is +6.
+```
+
+### Option C
+
+```text
+By Vieta's formulas for x^3 + 0·x^2 - 7x + 6 = 0:
+  sum of roots = -0/1 = 0,
+  sum of products of pairs = -7/1 = -7,
+  product of all three roots = -6/1 = -6.
+```
+
+### Option D
+
+```text
+Verification: 1+(-3)+2 = 0 (sum of roots) ✓; 1·(-3)+1·2+(-3)·2 = -3+2-6 = -7
+(sum of pairwise products) ✓; product = -6 ✓. All Vieta's conditions satisfied.
 ```
 
 ## Full Candidate Proof

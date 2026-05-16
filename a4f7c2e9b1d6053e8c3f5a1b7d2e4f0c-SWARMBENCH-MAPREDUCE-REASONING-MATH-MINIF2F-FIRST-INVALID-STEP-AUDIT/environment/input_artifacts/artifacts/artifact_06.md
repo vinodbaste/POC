@@ -15,6 +15,16 @@ For how many values of the integer $n$ with $1 \le n \le 1000$ is $n^2 - n + 1$ 
 ### Option A
 
 ```text
+Among 1 ≤ n ≤ 1000, there are ⌊1000/7⌋ = 142 complete residue cycles of length 7,
+plus a partial cycle covering n = 995,...,1000 (residues 1,...,6 mod 7, since
+994 = 142×7). Each complete cycle contributes exactly 2 values (n ≡ 3 and n ≡ 5
+mod 7). In the partial cycle (995–1000), n mod 7 takes values 1,2,3,4,5,6;
+residues 3 and 5 both appear (n=997 ≡ 3 and n=999 ≡ 5). So total = 142×2+2 = 286.
+```
+
+### Option B
+
+```text
 We need n^2 - n + 1 ≡ 0 (mod 7), i.e., n^2 - n + 1 ≡ 0 (mod 7). Testing
 n = 0,1,2,3,4,5,6 (mod 7):
   n=0: 0-0+1 = 1 ≢ 0
@@ -27,7 +37,13 @@ n = 0,1,2,3,4,5,6 (mod 7):
 So n ≡ 3 or n ≡ 5 (mod 7) are the solutions.
 ```
 
-### Option B
+### Option C
+
+```text
+Therefore n^2-n+1 is divisible by 7 for exactly 286 values of n in [1,1000].
+```
+
+### Option D
 
 ```text
 By factoring the quadratic n^2 - n + 1 over Z/7Z, we write it as
@@ -36,22 +52,6 @@ By factoring the quadratic n^2 - n + 1 over Z/7Z, we write it as
 r = (1+2)/2 = 3/2 and s = (1-2)/2 = -1/2. Now 2^{-1} ≡ 4 (mod 7), so
 r = 3·4 = 12 ≡ 5 (mod 7) and s = (-1)·4 = -4 ≡ 3 (mod 7).
 Hence n^2-n+1 ≡ (n-5)(n-3) (mod 7), confirming n ≡ 3 or 5 (mod 7).
-```
-
-### Option C
-
-```text
-Among 1 ≤ n ≤ 1000, there are ⌊1000/7⌋ = 142 complete residue cycles of length 7,
-plus a partial cycle covering n = 995,...,1000 (residues 1,...,6 mod 7, since
-994 = 142×7). Each complete cycle contributes exactly 2 values (n ≡ 3 and n ≡ 5
-mod 7). In the partial cycle (995–1000), n mod 7 takes values 1,2,3,4,5,6;
-residues 3 and 5 both appear (n=997 ≡ 3 and n=999 ≡ 5). So total = 142×2+2 = 286.
-```
-
-### Option D
-
-```text
-Therefore n^2-n+1 is divisible by 7 for exactly 286 values of n in [1,1000].
 ```
 
 ## Full Candidate Proof

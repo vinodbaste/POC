@@ -16,13 +16,19 @@ $$\frac{a}{\sqrt{a^2+8bc}} + \frac{b}{\sqrt{b^2+8ca}} + \frac{c}{\sqrt{c^2+8ab}}
 ### Option A
 
 ```text
+Therefore the sum a/√(a²+8bc) + b/√(b²+8ca) + c/√(c²+8ab) ≥ 1.
+```
+
+### Option B
+
+```text
 By the Cauchy-Schwarz inequality (Titu/Engel form):
   sum a/√(a²+8bc) = sum a·(a²+8bc)^{-1/2}.
 By C-S: [sum a·(a²+8bc)^{-1/2}] ≥ (sum a)² / [sum a·√(a²+8bc)].
 This gives a lower bound in terms of sum a·√(a²+8bc), which we must now bound above.
 ```
 
-### Option B
+### Option C
 
 ```text
 It suffices to show each term satisfies a/√(a²+8bc) ≥ a/(a+2b+2c). This holds
@@ -30,7 +36,7 @@ iff √(a²+8bc) ≤ a+2b+2c, iff a²+8bc ≤ (a+2b+2c)², i.e.,
 a²+8bc ≤ a²+4b²+4c²+4ab+4ac+8bc, iff 0 ≤ 4b²+4c²+4ab+4ac = 4(b+c)(a+b+c). ✓
 ```
 
-### Option C
+### Option D
 
 ```text
 From Step 2: a/√(a²+8bc) ≥ a/(a+2b+2c) for each term. Summing:
@@ -39,12 +45,6 @@ From Step 2: a/√(a²+8bc) ≥ a/(a+2b+2c) for each term. Summing:
       = [a(2a+b+2c)(2a+2b+c) + b(a+2b+2c)(2a+2b+c) + c(a+2b+2c)(2a+b+2c)]
         / [(a+2b+2c)(2a+b+2c)(2a+2b+c)].
 By Nesbitt-type analysis this sum equals 1.
-```
-
-### Option D
-
-```text
-Therefore the sum a/√(a²+8bc) + b/√(b²+8ca) + c/√(c²+8ab) ≥ 1.
 ```
 
 ## Full Candidate Proof

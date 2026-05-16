@@ -17,23 +17,6 @@ for all positive integers $a, b$.
 ### Option A
 
 ```text
-Substituting a=b=1: 1+f(1) | 1+f(1), always true. No constraint from this.
-Substituting b=1: a+f(1) | a^2+f(a). Since a+f(1) | (a+f(1))·a = a^2+a·f(1),
-subtracting gives a+f(1) | f(a)-a·f(1). Let c=f(1). So a+c | f(a)-ac.
-```
-
-### Option B
-
-```text
-From a+c | f(a)-ac and f(a) > 0, we get f(a) = ac + k(a+c) for some integer k.
-Since f(a) > 0, we need k > -ac/(a+c). For k=0: f(a)=ac=a·f(1), i.e., f is linear.
-For k=-1: f(a) = ac-(a+c) = ac-a-c = a(c-1)-c; this is positive iff a > c/(c-1),
-valid only for c ≥ 2 and large a.
-```
-
-### Option C
-
-```text
 Substituting a=b into the original: a+f(a) | a^2+a·f(a) = a(a+f(a)), so
 a+f(a) | a(a+f(a)), which is always true and gives no constraint.
 
@@ -42,7 +25,15 @@ a+f(a^2) | a^2(1+f(a)). This is a new constraint relating f(a^2) to f(a) and
 a+f(a^2).
 ```
 
-### Option D
+### Option B
+
+```text
+Substituting a=b=1: 1+f(1) | 1+f(1), always true. No constraint from this.
+Substituting b=1: a+f(1) | a^2+f(a). Since a+f(1) | (a+f(1))·a = a^2+a·f(1),
+subtracting gives a+f(1) | f(a)-a·f(1). Let c=f(1). So a+c | f(a)-ac.
+```
+
+### Option C
 
 ```text
 Assuming f(a)=a for all a: check a+b | a^2+ab = a(a+b). ✓ So f(a)=a is a solution.
@@ -50,6 +41,15 @@ Assuming f(a)=c (constant): a+c | a^2+bc. Since a^2+bc = (a-c)(a+c)+c^2+bc =
 (a-c)(a+c)+c(b+c), we need a+c | c(b+c) for all a,b. For fixed c and varying a,
 a+c takes all large values, so a+c | c(b+c) fails for a+c > c(b+c). Hence no
 nonzero constant solution unless c=0, excluded. So f(a)=a is the unique solution.
+```
+
+### Option D
+
+```text
+From a+c | f(a)-ac and f(a) > 0, we get f(a) = ac + k(a+c) for some integer k.
+Since f(a) > 0, we need k > -ac/(a+c). For k=0: f(a)=ac=a·f(1), i.e., f is linear.
+For k=-1: f(a) = ac-(a+c) = ac-a-c = a(c-1)-c; this is positive iff a > c/(c-1),
+valid only for c ≥ 2 and large a.
 ```
 
 ## Full Candidate Proof

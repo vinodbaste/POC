@@ -24,16 +24,9 @@ for all even n > 2.
 ### Option B
 
 ```text
-Testing small values:
-  n=2: (4+1)/4 = 5/4, not an integer.
-  n=3: (8+1)/9 = 9/9 = 1. ✓
-  n=4: (16+1)/16 not integer.
-  n=5: (32+1)/25 not integer.
-  n=6: (64+1)/36 not integer.
-  n=7: (128+1)/49 not integer.
-  n=8: (256+1)/64 not integer.
-  n=9: (512+1)/81 not integer.
-  Only n=3 works among small cases.
+For n even: n^2 = (2m)^2 = 4m^2 must divide 2^n+1 = 4^m+1. Since 4^m+1 ≡ 1 (mod 2)
+is odd but 4m^2 is divisible by 4, we need 4 | (4^m+1). But 4^m+1 ≡ 1 (mod 4),
+so 4 ∤ (4^m+1). Therefore n^2 ∤ 2^n+1 for any even n > 1.
 ```
 
 ### Option C
@@ -52,9 +45,16 @@ a|2^n+1. But by a careful order argument, the only solution is n=3.
 ### Option D
 
 ```text
-For n even: n^2 = (2m)^2 = 4m^2 must divide 2^n+1 = 4^m+1. Since 4^m+1 ≡ 1 (mod 2)
-is odd but 4m^2 is divisible by 4, we need 4 | (4^m+1). But 4^m+1 ≡ 1 (mod 4),
-so 4 ∤ (4^m+1). Therefore n^2 ∤ 2^n+1 for any even n > 1.
+Testing small values:
+  n=2: (4+1)/4 = 5/4, not an integer.
+  n=3: (8+1)/9 = 9/9 = 1. ✓
+  n=4: (16+1)/16 not integer.
+  n=5: (32+1)/25 not integer.
+  n=6: (64+1)/36 not integer.
+  n=7: (128+1)/49 not integer.
+  n=8: (256+1)/64 not integer.
+  n=9: (512+1)/81 not integer.
+  Only n=3 works among small cases.
 ```
 
 ## Full Candidate Proof

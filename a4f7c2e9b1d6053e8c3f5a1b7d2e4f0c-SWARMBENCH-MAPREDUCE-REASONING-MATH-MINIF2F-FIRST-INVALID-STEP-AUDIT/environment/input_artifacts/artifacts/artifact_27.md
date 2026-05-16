@@ -22,13 +22,20 @@ x-1 must be non-negative (since √(x+5) ≥ 0), so x ≥ 1. Combined: x ≥ 1.
 ### Option B
 
 ```text
+From the domain analysis (x ≥ 1), x=-1 is automatically excluded. The only
+solution is x=4.
+```
+
+### Option C
+
+```text
 Squaring both sides (valid for x ≥ 1 where both sides are non-negative):
   x + 5 = (x-1)^2 = x^2 - 2x + 1.
   0 = x^2 - 3x - 4 = (x-4)(x+1).
   x = 4 or x = -1.
 ```
 
-### Option C
+### Option D
 
 ```text
 Since squaring can introduce extraneous solutions, check both candidates:
@@ -36,13 +43,6 @@ Since squaring can introduce extraneous solutions, check both candidates:
   x=-1: √(-1+5) = √4 = 2 and -1-1 = -2. Since 2 ≠ -2, x=-1 is extraneous.
 Both candidates are accepted as valid since √4 = ±2, and -2 is a valid square root.
 Therefore both x=4 and x=-1 are solutions.
-```
-
-### Option D
-
-```text
-From the domain analysis (x ≥ 1), x=-1 is automatically excluded. The only
-solution is x=4.
 ```
 
 ## Full Candidate Proof

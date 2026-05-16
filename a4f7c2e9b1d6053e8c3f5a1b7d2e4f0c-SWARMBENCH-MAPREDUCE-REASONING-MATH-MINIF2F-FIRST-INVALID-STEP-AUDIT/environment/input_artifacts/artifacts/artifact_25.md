@@ -24,10 +24,8 @@ Therefore (x+3)^2 - (x-3)^2 = (x^2+9) - (x^2-9) = 9+9 = 18.
 ### Option B
 
 ```text
-By the difference of squares identity, a^2-b^2 = (a-b)(a+b). Here
-  (x+3)^2 - (x-3)^2 = [(x+3)-(x-3)]·[(x+3)+(x-3)]
-                     = [x+3-x+3]·[x+3+x-3]
-                     = 6·2x = 12x.
+The correct expansion: (x+3)^2 = x^2+6x+9 and (x-3)^2 = x^2-6x+9.
+Subtracting: (x^2+6x+9)-(x^2-6x+9) = 12x.
 ```
 
 ### Option C
@@ -41,8 +39,10 @@ The answer 12x is confirmed by numerical checks.
 ### Option D
 
 ```text
-The correct expansion: (x+3)^2 = x^2+6x+9 and (x-3)^2 = x^2-6x+9.
-Subtracting: (x^2+6x+9)-(x^2-6x+9) = 12x.
+By the difference of squares identity, a^2-b^2 = (a-b)(a+b). Here
+  (x+3)^2 - (x-3)^2 = [(x+3)-(x-3)]·[(x+3)+(x-3)]
+                     = [x+3-x+3]·[x+3+x-3]
+                     = 6·2x = 12x.
 ```
 
 ## Full Candidate Proof

@@ -15,14 +15,20 @@ Find all $\theta \in [0°, 360°)$ satisfying $\sin\theta + \cos\theta = 1$.
 ### Option A
 
 ```text
-Squaring both sides: (sin θ + cos θ)^2 = 1, so
-  sin²θ + 2 sin θ cos θ + cos²θ = 1
-  1 + sin 2θ = 1
-  sin 2θ = 0.
-Thus 2θ = 0°, 180°, 360°, 540°, giving θ = 0°, 90°, 180°, 270°.
+We can write sin θ + cos θ = √2 · sin(θ + 45°). Setting this equal to 1 gives
+sin(θ + 45°) = 1/√2, so θ + 45° = 45° or 135° (mod 360°), hence θ = 0° or 90°.
+This confirms the solution set {0°, 90°}.
 ```
 
 ### Option B
+
+```text
+Since squaring can introduce extraneous solutions, the candidates θ ∈ {0°,90°,180°,270°}
+must be verified in the original equation. Steps 2–3 carry out this verification,
+retaining only θ = 0° and θ = 90°.
+```
+
+### Option C
 
 ```text
 We must check each candidate from Step 1 in the original equation sin θ + cos θ = 1:
@@ -33,20 +39,14 @@ We must check each candidate from Step 1 in the original equation sin θ + cos �
 So the solutions are θ = 0° and θ = 90°.
 ```
 
-### Option C
-
-```text
-We can write sin θ + cos θ = √2 · sin(θ + 45°). Setting this equal to 1 gives
-sin(θ + 45°) = 1/√2, so θ + 45° = 45° or 135° (mod 360°), hence θ = 0° or 90°.
-This confirms the solution set {0°, 90°}.
-```
-
 ### Option D
 
 ```text
-Since squaring can introduce extraneous solutions, the candidates θ ∈ {0°,90°,180°,270°}
-must be verified in the original equation. Steps 2–3 carry out this verification,
-retaining only θ = 0° and θ = 90°.
+Squaring both sides: (sin θ + cos θ)^2 = 1, so
+  sin²θ + 2 sin θ cos θ + cos²θ = 1
+  1 + sin 2θ = 1
+  sin 2θ = 0.
+Thus 2θ = 0°, 180°, 360°, 540°, giving θ = 0°, 90°, 180°, 270°.
 ```
 
 ## Full Candidate Proof

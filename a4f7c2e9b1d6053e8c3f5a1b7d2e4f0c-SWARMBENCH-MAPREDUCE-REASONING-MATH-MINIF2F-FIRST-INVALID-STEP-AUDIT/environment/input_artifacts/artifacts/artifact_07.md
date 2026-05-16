@@ -21,11 +21,17 @@ Total unrestricted committees of size 3 from 10 people: C(10,3) = 120.
 ### Option B
 
 ```text
+The number of valid committees = 120 - 8 = 112.
+```
+
+### Option C
+
+```text
 Committees containing both Alice and Bob: we must choose 1 more person from the
 remaining 8, giving C(8,1) = 8 such committees.
 ```
 
-### Option C
+### Option D
 
 ```text
 To count valid committees, we use complementary counting and note that among the
@@ -33,12 +39,6 @@ To count valid committees, we use complementary counting and note that among the
 pair {Alice, Bob, x} for each of the 10 possible choices of x (since x can be any
 of the 10 people, including Alice or Bob themselves to form a "triple"). The number
 of forbidden committees is therefore 10, giving 120 - 10 = 110.
-```
-
-### Option D
-
-```text
-The number of valid committees = 120 - 8 = 112.
 ```
 
 ## Full Candidate Proof

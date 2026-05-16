@@ -17,32 +17,32 @@ Let $f: \mathbb{N} \to \mathbb{N}$ be a function satisfying $f(f(n)) = n + 1987$
 ### Option A
 
 ```text
-Substituting n=0 into f(f(n)) = n+1987 gives f(f(0)) = 1987. Since f maps N to N
-and 0 ∉ N (as N = {1,2,...}), this substitution is invalid and yields a contradiction
-with the domain, proving no such function exists.
+If such f exists, then f is injective: f(a)=f(b) implies f(f(a))=f(f(b)), so
+a+1987 = b+1987, hence a=b. Injectivity is established without contradiction.
 ```
 
 ### Option B
 
 ```text
-Applying the relation twice: f(f(f(f(n)))) = f(f(n))+1987 = n+1987+1987 = n+2·1987.
-But also f(f(f(f(n)))) = f(f(n+1987)) = n+1987+1987 = n+2·1987. Both sides agree,
-so the relation is self-consistent and gives no immediate contradiction.
+Since f(f(n)) = n+1987, applying f gives f(f(f(n))) = f(n)+1987. But also
+f(f(f(n))) = f(n+1987). Therefore f(n+1987) = f(n)+1987 for all n in N.
+This means f is "1987-periodic in increments" — a valid structural property.
 ```
 
 ### Option C
 
 ```text
-If such f exists, then f is injective: f(a)=f(b) implies f(f(a))=f(f(b)), so
-a+1987 = b+1987, hence a=b. Injectivity is established without contradiction.
+Substituting n=0 into f(f(n)) = n+1987 gives f(f(0)) = 1987. Since f maps N to N
+and 0 ∉ N (as N = {1,2,...}), this substitution is invalid and yields a contradiction
+with the domain, proving no such function exists.
 ```
 
 ### Option D
 
 ```text
-Since f(f(n)) = n+1987, applying f gives f(f(f(n))) = f(n)+1987. But also
-f(f(f(n))) = f(n+1987). Therefore f(n+1987) = f(n)+1987 for all n in N.
-This means f is "1987-periodic in increments" — a valid structural property.
+Applying the relation twice: f(f(f(f(n)))) = f(f(n))+1987 = n+1987+1987 = n+2·1987.
+But also f(f(f(f(n)))) = f(f(n+1987)) = n+1987+1987 = n+2·1987. Both sides agree,
+so the relation is self-consistent and gives no immediate contradiction.
 ```
 
 ## Full Candidate Proof

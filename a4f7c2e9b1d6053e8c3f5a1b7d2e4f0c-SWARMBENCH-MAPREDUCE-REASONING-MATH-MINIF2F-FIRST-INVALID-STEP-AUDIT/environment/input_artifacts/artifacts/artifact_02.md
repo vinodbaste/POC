@@ -15,15 +15,6 @@ Let $a_1, a_2, \ldots, a_{98}$ be an arithmetic progression with common differen
 ### Option A
 
 ```text
-In an AP with common difference d = 1, the even-indexed terms form a subsequence
-where each term exceeds the immediately preceding odd-indexed term by exactly 1:
-  a_{2j} = a_{2j-1} + 1   for j = 1, 2, ..., 49.
-Summing over all 49 pairs gives  sum_even - sum_odd = 49.
-```
-
-### Option B
-
-```text
 The even-indexed subsequence a_2, a_4, ..., a_98 contains 49 terms, and the
 odd-indexed subsequence a_1, a_3, ..., a_97 also contains 49 terms. The two
 subsequences together account for all 98 terms, which sum to 137. Since each
@@ -32,7 +23,7 @@ with the same common difference 2, by symmetry they must each sum to 137/2 = 68.
 so a_2 + a_4 + ... + a_98 = 68.5.
 ```
 
-### Option C
+### Option B
 
 ```text
 From the two equations
@@ -41,10 +32,19 @@ From the two equations
 adding gives 2·sum_even = 186, so sum_even = 93.
 ```
 
-### Option D
+### Option C
 
 ```text
 Therefore a_2 + a_4 + ... + a_98 = 93.
+```
+
+### Option D
+
+```text
+In an AP with common difference d = 1, the even-indexed terms form a subsequence
+where each term exceeds the immediately preceding odd-indexed term by exactly 1:
+  a_{2j} = a_{2j-1} + 1   for j = 1, 2, ..., 49.
+Summing over all 49 pairs gives  sum_even - sum_odd = 49.
 ```
 
 ## Full Candidate Proof

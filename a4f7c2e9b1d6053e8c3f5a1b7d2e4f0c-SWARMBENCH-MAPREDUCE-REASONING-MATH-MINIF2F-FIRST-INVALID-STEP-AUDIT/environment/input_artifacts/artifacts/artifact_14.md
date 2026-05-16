@@ -15,18 +15,10 @@ If $z_1 = 2 + 3i$ and $z_2 = 1 - i$, find $|z_1 \cdot z_2|$.
 ### Option A
 
 ```text
-|z_1| = √(2²+3²) = √(4+9) = √13.
-|z_2| = √(1²+(-1)²) = √(1+1) = √2.
+Since |z_1 · z_2| = |z_1|·|z_2| = √13·√2 = √26, the answer is √26.
 ```
 
 ### Option B
-
-```text
-For complex numbers, |z_1 · z_2| = |z_1| + |z_2|. Therefore
-|z_1 · z_2| = √13 + √2.
-```
-
-### Option C
 
 ```text
 Alternatively, compute z_1·z_2 directly:
@@ -34,10 +26,18 @@ Alternatively, compute z_1·z_2 directly:
   |5+i| = √(25+1) = √26.
 ```
 
+### Option C
+
+```text
+|z_1| = √(2²+3²) = √(4+9) = √13.
+|z_2| = √(1²+(-1)²) = √(1+1) = √2.
+```
+
 ### Option D
 
 ```text
-Since |z_1 · z_2| = |z_1|·|z_2| = √13·√2 = √26, the answer is √26.
+For complex numbers, |z_1 · z_2| = |z_1| + |z_2|. Therefore
+|z_1 · z_2| = √13 + √2.
 ```
 
 ## Full Candidate Proof

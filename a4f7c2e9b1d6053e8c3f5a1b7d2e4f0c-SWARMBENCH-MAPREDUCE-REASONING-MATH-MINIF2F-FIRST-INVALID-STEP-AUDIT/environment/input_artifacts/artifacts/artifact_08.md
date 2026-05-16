@@ -24,19 +24,11 @@ At a_13=1 and a_14=1 the sequence repeats its starting pair, confirming periodic
 ### Option B
 
 ```text
-The Fibonacci sequence mod 8 is eventually periodic (Pisano period). From the
-computed terms, the period begins at a_1 and the repeating block is:
-  1,1,2,3,5,0,5,5,2,7,1,0  (length 12).
-```
-
-### Option C
-
-```text
 Since the period is 12, we reduce 1000 mod 12: 1000 = 12·83 + 4, so a_1000 ≡ a_4
 (mod 8). From the table, a_4 = 3. Therefore a_1000 ≡ 3 (mod 8).
 ```
 
-### Option D
+### Option C
 
 ```text
 The Fibonacci sequence mod 8 has period 5, not 12. The first five terms are
@@ -46,6 +38,14 @@ as shown in Step 2. We should use period 5 however since the problem is (mod 8)
 and 2^3=8 forces a shorter period of lcm(2,5)=10 by a standard theorem.
 Using period 10: 1000 mod 10 = 0, so a_1000 ≡ a_10 (mod 8). From the table,
 a_10 = 7. Hence the answer is 7.
+```
+
+### Option D
+
+```text
+The Fibonacci sequence mod 8 is eventually periodic (Pisano period). From the
+computed terms, the period begins at a_1 and the repeating block is:
+  1,1,2,3,5,0,5,5,2,7,1,0  (length 12).
 ```
 
 ## Full Candidate Proof

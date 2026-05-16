@@ -15,29 +15,29 @@ In triangle $ABC$, $\angle A = 90°$, $AB = 3$, and $AC = 4$. Point $D$ lies on 
 ### Option A
 
 ```text
-By the Pythagorean theorem on triangle ABC (right-angled at A):
-  BC = √(AB² + AC²) = √(9+16) = √25 = 5.
-The area of triangle ABC is (1/2)·AB·AC = (1/2)·3·4 = 6.
+Therefore AD = 12/5.
 ```
 
 ### Option B
 
 ```text
-Since AD is the altitude to the hypotenuse, triangles ABD and ABC are similar
-(both share angle B and have a right angle). The ratio of similarity is AB/BC = 3/5.
-Therefore AD/AC = AB/BC, giving AD = AC·(AB/BC) = 4·(3/5) = 12/5.
+Using the area formula: Area = (1/2)·BC·AD, so 6 = (1/2)·5·AD, giving AD = 12/5.
 ```
 
 ### Option C
 
 ```text
-Using the area formula: Area = (1/2)·BC·AD, so 6 = (1/2)·5·AD, giving AD = 12/5.
+By the Pythagorean theorem on triangle ABC (right-angled at A):
+  BC = √(AB² + AC²) = √(9+16) = √25 = 5.
+The area of triangle ABC is (1/2)·AB·AC = (1/2)·3·4 = 6.
 ```
 
 ### Option D
 
 ```text
-Therefore AD = 12/5.
+Since AD is the altitude to the hypotenuse, triangles ABD and ABC are similar
+(both share angle B and have a right angle). The ratio of similarity is AB/BC = 3/5.
+Therefore AD/AC = AB/BC, giving AD = AC·(AB/BC) = 4·(3/5) = 12/5.
 ```
 
 ## Full Candidate Proof

@@ -33,6 +33,16 @@ Furthermore a'·a = b^2 - k, so a' = (b^2-k)/a. We then compare (a',b) against
 ### Option C
 
 ```text
+The pair (a', b) with a' = kb - a satisfies a'^2 + b^2 = k(a'b+1) as well, since
+substituting into the equation gives:
+  (kb-a)^2 + b^2 = k^2b^2 - 2kab + a^2 + b^2 = k(a^2+b^2) - 2kab + k^2b^2
+  = k(a^2+b^2 - 2ab·k + kb^2) ... [algebra].
+This verification confirms (a',b) is also a valid pair.
+```
+
+### Option D
+
+```text
 Assume for contradiction that k is not a perfect square, so k ≥ 2. Since the
 minimal pair has a ≥ b ≥ 0, consider the companion root a' = kb - a. Because
 (a,b) is minimal, we must have a' < 0 or a' ≥ a. If a' ≥ 0 and a'+b < a+b
@@ -40,16 +50,6 @@ minimal pair has a ≥ b ≥ 0, consider the companion root a' = kb - a. Because
 giving k > b^2 ≥ 0 and b=0 (since b ≥ 0 and b^2 < k). But b=0 gives k=a^2/1=a^2,
 a perfect square, contradicting k not perfect square. In all cases a contradiction
 is reached, so k must be a perfect square.
-```
-
-### Option D
-
-```text
-The pair (a', b) with a' = kb - a satisfies a'^2 + b^2 = k(a'b+1) as well, since
-substituting into the equation gives:
-  (kb-a)^2 + b^2 = k^2b^2 - 2kab + a^2 + b^2 = k(a^2+b^2) - 2kab + k^2b^2
-  = k(a^2+b^2 - 2ab·k + kb^2) ... [algebra].
-This verification confirms (a',b) is also a valid pair.
 ```
 
 ## Full Candidate Proof

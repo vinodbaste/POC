@@ -15,26 +15,19 @@ How many two-digit positive integers have digits that sum to $10$?
 ### Option A
 
 ```text
-A two-digit number has the form 10a+b where a ∈ {1,...,9} and b ∈ {0,...,9}.
-We need a+b = 10. Since b = 10-a and b ≤ 9, we need 10-a ≤ 9, i.e., a ≥ 1.
-Also b ≥ 0 means a ≤ 10, but a ≤ 9. So a ∈ {1,...,9} and b = 10-a ∈ {1,...,9}.
+The 9 two-digit numbers are: 19, 28, 37, 46, 55, 64, 73, 82, 91.
+Each has digit sum 10. ✓
 ```
 
 ### Option B
 
 ```text
-For each valid a ∈ {1,...,9}, b = 10-a is uniquely determined and lies in {1,...,9}.
-So there are exactly 9 ordered pairs: (1,9),(2,8),(3,7),(4,6),(5,5),(6,4),(7,3),(8,2),(9,1).
+A two-digit number has the form 10a+b where a ∈ {1,...,9} and b ∈ {0,...,9}.
+We need a+b = 10. Since b = 10-a and b ≤ 9, we need 10-a ≤ 9, i.e., a ≥ 1.
+Also b ≥ 0 means a ≤ 10, but a ≤ 9. So a ∈ {1,...,9} and b = 10-a ∈ {1,...,9}.
 ```
 
 ### Option C
-
-```text
-The 9 two-digit numbers are: 19, 28, 37, 46, 55, 64, 73, 82, 91.
-Each has digit sum 10. ✓
-```
-
-### Option D
 
 ```text
 Since the digit-sum condition a+b=10 is symmetric (swapping a and b gives the same
@@ -42,6 +35,13 @@ sum), each unordered pair {a,b} with a≠b contributes two distinct numbers. The
 8 pairs with a≠b give 8×2=16 numbers, and the pair {5,5} gives 1, for a total of 17.
 But we also exclude numbers whose tens digit is 0, removing any with a=0 (none
 here since b=10-0=10 is not a single digit). So the final count is 17.
+```
+
+### Option D
+
+```text
+For each valid a ∈ {1,...,9}, b = 10-a is uniquely determined and lies in {1,...,9}.
+So there are exactly 9 ordered pairs: (1,9),(2,8),(3,7),(4,6),(5,5),(6,4),(7,3),(8,2),(9,1).
 ```
 
 ## Full Candidate Proof

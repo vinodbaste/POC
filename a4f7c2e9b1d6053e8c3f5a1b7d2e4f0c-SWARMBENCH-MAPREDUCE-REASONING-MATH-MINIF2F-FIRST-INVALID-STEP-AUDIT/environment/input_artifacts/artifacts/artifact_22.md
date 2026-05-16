@@ -15,16 +15,6 @@ Let $ABC$ be a triangle with incentre $I$. A point $P$ in the interior of the tr
 ### Option A
 
 ```text
-The condition ∠PBA + ∠PCA = ∠PBC + ∠PCB can be rewritten. Since
-∠PBA + ∠PBC = ∠B and ∠PCA + ∠PCB = ∠C, the condition becomes:
-  ∠PBA + ∠PCA = ∠B - ∠PBA + ∠C - ∠PCA,
-  2(∠PBA + ∠PCA) = ∠B + ∠C = π - ∠A,
-  ∠PBA + ∠PCA = (π - ∠A)/2.
-```
-
-### Option B
-
-```text
 Since ∠IBA + ∠ICA = B/2 + C/2 = (B+C)/2 = (π-A)/2, the incentre I satisfies the
 angle condition. The locus of points P satisfying ∠PBA + ∠PCA = (π-A)/2 passes
 through I. By the inscribed angle theorem applied to the circumcircle of BPC,
@@ -32,7 +22,7 @@ all such P lie on a fixed circle through B and C, namely the circumcircle of
 triangle BIC. Point I lies on this circle, so P lies on the circumcircle of BIC.
 ```
 
-### Option C
+### Option B
 
 ```text
 On the circumcircle of BIC: the centre of this circle lies on the perpendicular
@@ -40,6 +30,16 @@ bisectors of BI and IC. Since I is the incentre, BI and IC are angle bisectors,
 and their perpendicular bisectors pass through the circumcentre of BIC. The
 radius R' of the circumcircle of BIC satisfies R' = R/(2 cos(A/2)) by the
 extended law of sines applied to triangle BIC with ∠BIC = π/2 + A/2.
+```
+
+### Option C
+
+```text
+The condition ∠PBA + ∠PCA = ∠PBC + ∠PCB can be rewritten. Since
+∠PBA + ∠PBC = ∠B and ∠PCA + ∠PCB = ∠C, the condition becomes:
+  ∠PBA + ∠PCA = ∠B - ∠PBA + ∠C - ∠PCA,
+  2(∠PBA + ∠PCA) = ∠B + ∠C = π - ∠A,
+  ∠PBA + ∠PCA = (π - ∠A)/2.
 ```
 
 ### Option D

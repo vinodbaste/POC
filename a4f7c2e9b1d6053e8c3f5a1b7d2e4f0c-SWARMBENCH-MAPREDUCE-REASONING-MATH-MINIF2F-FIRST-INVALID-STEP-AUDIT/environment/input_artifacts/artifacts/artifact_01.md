@@ -15,10 +15,10 @@ Find the minimum value of $\displaystyle\sum_{k=1}^{10}|x-k|$ over all real numb
 ### Option A
 
 ```text
-Since f(x) = |x-1|+|x-2|+...+|x-10| is a sum of absolute value functions, its
-global minimum is attained at the arithmetic mean of the centers {1, 2, ..., 10}.
-The arithmetic mean is (1+2+...+10)/10 = 55/10 = 5.5, so the minimizer is x* = 5.5
-and the analysis proceeds from this value.
+Define f(x) = sum_{k=1}^{10} |x-k|. This function is convex (a non-negative sum
+of convex functions) and piecewise linear, with breakpoints at the integers 1
+through 10. Its minimum is therefore attained at one of the breakpoints or on an
+interval between two consecutive breakpoints.
 ```
 
 ### Option B
@@ -35,10 +35,10 @@ Computing f(5.5) directly:
 ### Option C
 
 ```text
-Define f(x) = sum_{k=1}^{10} |x-k|. This function is convex (a non-negative sum
-of convex functions) and piecewise linear, with breakpoints at the integers 1
-through 10. Its minimum is therefore attained at one of the breakpoints or on an
-interval between two consecutive breakpoints.
+Since f(x) = |x-1|+|x-2|+...+|x-10| is a sum of absolute value functions, its
+global minimum is attained at the arithmetic mean of the centers {1, 2, ..., 10}.
+The arithmetic mean is (1+2+...+10)/10 = 55/10 = 5.5, so the minimizer is x* = 5.5
+and the analysis proceeds from this value.
 ```
 
 ### Option D

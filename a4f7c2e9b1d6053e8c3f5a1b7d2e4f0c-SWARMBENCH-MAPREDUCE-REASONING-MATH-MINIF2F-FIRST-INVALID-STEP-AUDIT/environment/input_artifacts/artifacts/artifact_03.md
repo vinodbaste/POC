@@ -15,6 +15,15 @@ How many integers $n$ with $1 \le n \le 1985$ are divisible by none of $2$, $3$,
 ### Option A
 
 ```text
+The integers in [1,1985] divisible by at least one of 2, 3, 5 form the union
+A ∪ B ∪ C. The complement of this set within [1,1985] gives the integers divisible
+by none of the three primes. Using inclusion-exclusion correctly will count
+|A ∪ B ∪ C| and then subtract from 1985.
+```
+
+### Option B
+
+```text
 By the inclusion-exclusion principle, |A ∪ B ∪ C| = |A|+|B|+|C| - |A∩B| - |A∩C|
 - |B∩C| + |A∩B∩C|, where A, B, C are the sets of multiples of 2, 3, 5 in [1,1985].
 The floor values are:
@@ -23,14 +32,14 @@ The floor values are:
   |A∩B∩C| = ⌊1985/30⌋ = 66.
 ```
 
-### Option B
+### Option C
 
 ```text
 Therefore the count of integers in [1,1985] divisible by none of 2, 3, or 5 is
   1985 - 1456 = 529.
 ```
 
-### Option C
+### Option D
 
 ```text
 Applying inclusion-exclusion:
@@ -39,15 +48,6 @@ But only multiples of 2 AND 3 are excluded in the |A∩B| term; multiples of 2 O
 have already been subtracted. To avoid double-subtraction, the |A∩B∩C| term must
 also be subtracted (not added), giving:
   |A ∪ B ∪ C| = 992 + 661 + 397 - 330 - 198 - 132 - 66 = 1324.
-```
-
-### Option D
-
-```text
-The integers in [1,1985] divisible by at least one of 2, 3, 5 form the union
-A ∪ B ∪ C. The complement of this set within [1,1985] gives the integers divisible
-by none of the three primes. Using inclusion-exclusion correctly will count
-|A ∪ B ∪ C| and then subtract from 1985.
 ```
 
 ## Full Candidate Proof

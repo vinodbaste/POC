@@ -15,31 +15,31 @@ Find all real numbers $x$ such that the geometric series $1 + x + x^2 + x^3 + \c
 ### Option A
 
 ```text
+From the equation 1/(1-x) = 4/3, cross-multiplying gives 3 = 4(1-x) = 4-4x,
+hence 4x = 1 and x = 1/4. Since the geometric series converges for |x| < 1 and
+x = 1/4 satisfies this, AND the series also converges for |x| > 1 with negative
+common ratio giving the same algebraic sum, we should also check x = -3, since
+1/(1-(-3)) = 1/4 ≠ 4/3. Having exhausted both cases x = 1/4 is the only value.
+```
+
+### Option B
+
+```text
 A geometric series 1 + x + x^2 + ... converges if and only if |x| < 1, and in
 that case its sum is 1/(1-x). Setting 1/(1-x) = 4/3 gives 1-x = 3/4, so x = 1/4.
 ```
 
-### Option B
+### Option C
 
 ```text
 We must verify x = 1/4 satisfies the convergence condition: |1/4| = 1/4 < 1. ✓
 The series 1 + 1/4 + 1/16 + ... = 1/(1-1/4) = 1/(3/4) = 4/3. ✓
 ```
 
-### Option C
-
-```text
-Therefore the unique value is x = 1/4.
-```
-
 ### Option D
 
 ```text
-From the equation 1/(1-x) = 4/3, cross-multiplying gives 3 = 4(1-x) = 4-4x,
-hence 4x = 1 and x = 1/4. Since the geometric series converges for |x| < 1 and
-x = 1/4 satisfies this, AND the series also converges for |x| > 1 with negative
-common ratio giving the same algebraic sum, we should also check x = -3, since
-1/(1-(-3)) = 1/4 ≠ 4/3. Having exhausted both cases x = 1/4 is the only value.
+Therefore the unique value is x = 1/4.
 ```
 
 ## Full Candidate Proof

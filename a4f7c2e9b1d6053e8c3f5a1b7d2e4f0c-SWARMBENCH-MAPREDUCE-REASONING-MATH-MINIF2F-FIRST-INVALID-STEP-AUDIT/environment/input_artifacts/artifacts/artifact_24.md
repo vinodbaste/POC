@@ -19,29 +19,12 @@ for $n \ge 0$. Prove that there is no index $j$ such that $a_j + a_{j+1}$ is a p
 ### Option A
 
 ```text
-Compute the first few terms:
-  a_0 = 1, a_1 = (1+1)/2 = 1, a_2 = 1, ...
-The sequence is constant: a_n = 1 for all n. Then a_j + a_{j+1} = 2 for all j.
-Since 2 is not a perfect square, the conclusion follows immediately.
-```
-
-### Option B
-
-```text
-If a_0 = 1 and a_1 = 1, then by induction a_n = 1 for all n ≥ 0, since
-a_{n+1} = (a_n^2+1)/2 = (1+1)/2 = 1. The constant sequence is the only trajectory
-starting from a_0 = 1.
-```
-
-### Option C
-
-```text
 For the constant sequence a_n = 1: a_j + a_{j+1} = 1+1 = 2 for all j ≥ 0.
 Since 1^2 = 1 < 2 < 4 = 2^2, the value 2 lies strictly between consecutive
 perfect squares and is therefore not a perfect square. The result follows.
 ```
 
-### Option D
+### Option B
 
 ```text
 The sequence satisfies a_{n+1} - 1 = (a_n^2-1)/2 = (a_n-1)(a_n+1)/2. Since
@@ -53,6 +36,23 @@ only if a_j+a_{j+1} = m^2 exactly; the sequence grows as a_n ~ 2^{2^n/2} (double
 exponential), so consecutive terms a_j, a_{j+1} always satisfy a_j+a_{j+1}
 falling strictly between m^2 and (m+1)^2 for all large j, giving the result
 for the general case and hence for all starting values.
+```
+
+### Option C
+
+```text
+Compute the first few terms:
+  a_0 = 1, a_1 = (1+1)/2 = 1, a_2 = 1, ...
+The sequence is constant: a_n = 1 for all n. Then a_j + a_{j+1} = 2 for all j.
+Since 2 is not a perfect square, the conclusion follows immediately.
+```
+
+### Option D
+
+```text
+If a_0 = 1 and a_1 = 1, then by induction a_n = 1 for all n ≥ 0, since
+a_{n+1} = (a_n^2+1)/2 = (1+1)/2 = 1. The constant sequence is the only trajectory
+starting from a_0 = 1.
 ```
 
 ## Full Candidate Proof

@@ -15,11 +15,9 @@ Let $f(x) = \dfrac{x+1}{x-1}$. How many values of $x$ satisfy $f(f(f(x))) = x$?
 ### Option A
 
 ```text
-Computing f(f(x)): f(f(x)) = f((x+1)/(x-1)) = ((x+1)/(x-1)+1)/((x+1)/(x-1)-1)
-= ((x+1+x-1)/(x-1)) / ((x+1-x+1)/(x-1)) = (2x/x-1)/(2/(x-1)) = 2x/2 = x.
-Therefore f(f(x)) = x for all x in the domain, and so f(f(f(x))) = f(x).
-Since f(x)=x iff (x+1)/(x-1)=x iff x+1=x(x-1)=x²-x iff x²-2x-1=0 iff
-x=(2±√8)/2=1±√2, there are exactly 2 solutions.
+The domain of f is all reals except x=1. The domain of f∘f is all reals except
+x=1 and values where f(x)=1, i.e., (x+1)/(x-1)=1 ⟹ x+1=x-1 ⟹ no solution.
+So the domain of f∘f is ℝ\{1}, same as f. Similarly the domain of f∘f∘f is ℝ\{1}.
 ```
 
 ### Option B
@@ -32,15 +30,17 @@ becomes f(x)=x, giving x²-2x-1=0 with solutions x=1±√2.
 ### Option C
 
 ```text
-The domain of f is all reals except x=1. The domain of f∘f is all reals except
-x=1 and values where f(x)=1, i.e., (x+1)/(x-1)=1 ⟹ x+1=x-1 ⟹ no solution.
-So the domain of f∘f is ℝ\{1}, same as f. Similarly the domain of f∘f∘f is ℝ\{1}.
+Therefore f(f(f(x)))=x has exactly 2 solutions: x=1+√2 and x=1-√2.
 ```
 
 ### Option D
 
 ```text
-Therefore f(f(f(x)))=x has exactly 2 solutions: x=1+√2 and x=1-√2.
+Computing f(f(x)): f(f(x)) = f((x+1)/(x-1)) = ((x+1)/(x-1)+1)/((x+1)/(x-1)-1)
+= ((x+1+x-1)/(x-1)) / ((x+1-x+1)/(x-1)) = (2x/x-1)/(2/(x-1)) = 2x/2 = x.
+Therefore f(f(x)) = x for all x in the domain, and so f(f(f(x))) = f(x).
+Since f(x)=x iff (x+1)/(x-1)=x iff x+1=x(x-1)=x²-x iff x²-2x-1=0 iff
+x=(2±√8)/2=1±√2, there are exactly 2 solutions.
 ```
 
 ## Full Candidate Proof

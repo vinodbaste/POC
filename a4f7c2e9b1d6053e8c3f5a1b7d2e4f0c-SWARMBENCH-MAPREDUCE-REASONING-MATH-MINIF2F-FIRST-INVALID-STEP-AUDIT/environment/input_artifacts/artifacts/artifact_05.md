@@ -15,31 +15,31 @@ What is the remainder when $2^{1987}$ is divided by $15$?
 ### Option A
 
 ```text
-By Fermat's Little Theorem, for any prime p and integer a with gcd(a,p)=1,
-we have a^{p-1} ≡ 1 (mod p). Taking p = 15, this gives 2^{14} ≡ 1 (mod 15),
-so 2^{1987} = 2^{14·141+13} = (2^{14})^{141} · 2^{13} ≡ 1^{141} · 2^{13} = 8192
-≡ 8192 - 546·15 = 8192 - 8190 = 2 (mod 15).
-```
-
-### Option B
-
-```text
 Using the Chinese Remainder Theorem, compute 2^{1987} mod 3 and mod 5 separately.
   mod 3: ord_3(2) = 2, since 2^2 = 4 ≡ 1 (mod 3). 1987 = 2·993+1, so 2^{1987} ≡ 2 (mod 3).
   mod 5: ord_5(2) = 4, since 2^4 = 16 ≡ 1 (mod 5). 1987 = 4·496+3, so 2^{1987} ≡ 2^3 = 8 ≡ 3 (mod 5).
 ```
 
-### Option C
+### Option B
 
 ```text
 By CRT, we need x ≡ 2 (mod 3) and x ≡ 3 (mod 5) with 0 ≤ x < 15.
 Testing: x = 8: 8 mod 3 = 2 ✓, 8 mod 5 = 3 ✓. So 2^{1987} ≡ 8 (mod 15).
 ```
 
-### Option D
+### Option C
 
 ```text
 Therefore the remainder when 2^{1987} is divided by 15 is 8.
+```
+
+### Option D
+
+```text
+By Fermat's Little Theorem, for any prime p and integer a with gcd(a,p)=1,
+we have a^{p-1} ≡ 1 (mod p). Taking p = 15, this gives 2^{14} ≡ 1 (mod 15),
+so 2^{1987} = 2^{14·141+13} = (2^{14})^{141} · 2^{13} ≡ 1^{141} · 2^{13} = 8192
+≡ 8192 - 546·15 = 8192 - 8190 = 2 (mod 15).
 ```
 
 ## Full Candidate Proof

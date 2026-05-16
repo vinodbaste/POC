@@ -22,25 +22,25 @@ Therefore 10^{20} = (10^{10})^2 ≡ 1^2 = 1 (mod 11).
 ### Option B
 
 ```text
-Hence 3×10^{20}+20 ≡ 3·1+20 = 23 ≡ 23-2·11 = 1 (mod 11).
-The remainder is 1.
+To find 3·10^{20} mod 11, we use 3^{-1} mod 11. Since 3·4=12≡1 (mod 11), we have
+3^{-1}≡4 (mod 11). Therefore 3·10^{20} ≡ 3·1 = 3 (mod 11). Wait — we don't
+need the inverse of 3 here; we need 3×(10^{20} mod 11) = 3×1 = 3. The step
+introducing 3^{-1} was unnecessary. Now 3+20=23≡1 (mod 11). Answer: 1.
 ```
 
 ### Option C
 
 ```text
-We need the modular inverse of 10 modulo 11. Since 10 ≡ -1 (mod 11),
-10^2 ≡ 1 (mod 11), so the order of 10 modulo 11 is 2. Hence 10^{20}=(10^2)^{10}≡1^{10}=1 (mod 11).
-[This confirms 10^{20}≡1 (mod 11) via a different route.]
+Hence 3×10^{20}+20 ≡ 3·1+20 = 23 ≡ 23-2·11 = 1 (mod 11).
+The remainder is 1.
 ```
 
 ### Option D
 
 ```text
-To find 3·10^{20} mod 11, we use 3^{-1} mod 11. Since 3·4=12≡1 (mod 11), we have
-3^{-1}≡4 (mod 11). Therefore 3·10^{20} ≡ 3·1 = 3 (mod 11). Wait — we don't
-need the inverse of 3 here; we need 3×(10^{20} mod 11) = 3×1 = 3. The step
-introducing 3^{-1} was unnecessary. Now 3+20=23≡1 (mod 11). Answer: 1.
+We need the modular inverse of 10 modulo 11. Since 10 ≡ -1 (mod 11),
+10^2 ≡ 1 (mod 11), so the order of 10 modulo 11 is 2. Hence 10^{20}=(10^2)^{10}≡1^{10}=1 (mod 11).
+[This confirms 10^{20}≡1 (mod 11) via a different route.]
 ```
 
 ## Full Candidate Proof
