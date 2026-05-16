@@ -1,7 +1,0 @@
-{
-  "artifact_id": "proof_16",
-  "problem_id": "USAMO_2000_5",
-  "competition": "USAMO",
-  "verdict": "incorrect",
-  "first_material_issue_summary": "The proof incorrectly claims the rotation angle of σₖ is 2∠Aₖ when the derivation shows it should be −∠Aₖ (or π − ∠Aₖ), with no valid geometric justification for the doubling."
-}

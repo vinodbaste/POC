@@ -1,7 +1,0 @@
-{
-  "artifact_id": "proof_10",
-  "problem_id": "BMOSL_2018_18",
-  "competition": "BMOSL",
-  "verdict": "incorrect",
-  "first_material_issue_summary": "The proof falsely claims that 4·7^b - 1 has only prime divisor 3, but for b≥2 this number has other prime divisors (e.g., b=2 gives 195=3·5·13 with primes 5 and 13)."
-}

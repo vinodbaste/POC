@@ -1,6 +1,0 @@
-{"shard_id": "shard_04", "artifact_audits": [
-  {"artifact_id": "artifact_13", "selected_option": "D", "error_category": "unjustified_claim"},
-  {"artifact_id": "artifact_14", "selected_option": "B", "error_category": "misapplied_theorem"},
-  {"artifact_id": "artifact_15", "selected_option": "D", "error_category": "misapplied_theorem"},
-  {"artifact_id": "artifact_16", "selected_option": "B", "error_category": "misapplied_theorem"}
-], "choice_counts": {"A": 0, "B": 2, "C": 0, "D": 2}}

@@ -1,3 +1,0 @@
-Score: 0.168 (16/95 passed)
-
-16/95 passed. Artifact audits: 11/75 correct (artifacts 40,48,49,51,55,60,61,66,67,70,73). Shard summaries: 0/15 correct (all have wrong choice_counts). Summary: 5/5 correct (total_artifacts, choice_counts, competition_counts, year_counts, artifacts_by_option all match). Sample failed: artifact_01 (wrong option D vs B, wrong flaw), artifact_02 (wrong flaw), artifact_03 (wrong flaw), artifact_05 (wrong option D vs C), artifact_06 (wrong option B vs A).

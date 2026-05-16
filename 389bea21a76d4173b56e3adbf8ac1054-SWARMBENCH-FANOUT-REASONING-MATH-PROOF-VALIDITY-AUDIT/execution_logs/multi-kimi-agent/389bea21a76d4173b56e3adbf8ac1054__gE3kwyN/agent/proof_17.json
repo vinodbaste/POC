@@ -1,7 +1,0 @@
-{
-  "artifact_id": "proof_17",
-  "problem_id": "USAMO_2004_1",
-  "competition": "USAMO",
-  "verdict": "incorrect",
-  "first_material_issue_summary": "The claimed inequality D(3p) ≤ 3·D(p) is false because 27p² ≤ 9p² is invalid for all positive p, and the proof incorrectly equates 9[p²+p(q+s)+(q²+qs+s²)] with 3·D(p) when the coefficient of (q²+qs+s²) doesn't match."
-}

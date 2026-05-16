@@ -1,6 +1,0 @@
-{"verify_id": "verify_02", "artifact_audits": [
-  {"artifact_id": "artifact_05", "selected_option": "D", "error_category": "misapplied_theorem"},
-  {"artifact_id": "artifact_06", "selected_option": "D", "error_category": "misapplied_theorem"},
-  {"artifact_id": "artifact_07", "selected_option": "D", "error_category": "case_error"},
-  {"artifact_id": "artifact_08", "selected_option": "C", "error_category": "unjustified_claim"}
-]}

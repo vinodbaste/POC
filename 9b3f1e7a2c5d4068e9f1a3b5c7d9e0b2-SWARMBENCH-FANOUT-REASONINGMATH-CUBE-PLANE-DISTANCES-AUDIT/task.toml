@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT"
+description = "Audit nine raw AI-generated proposed solutions to an olympiad geometry problem (OlymMATH-HARD-1-EN): a cube whose eight vertex-to-plane distances are 0..7. Independently determine the sum of squares of possible edge lengths, then label each response's reasoning failures."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end audit workflow: 1.5h to independently derive the gold sum of squares (210) by parametrizing the eight signed vertex-to-plane distances as h0 + (±u)+(±v)+(±w), enumerating the inequivalent sign-pattern families, and confirming s² ∈ {21, 54, 66, 69}; 9 × 0.85h ≈ 7.6h to audit nine heterogeneous AI-generated responses, extract each final numeric answer, and select the applicable failure_reasons subset from the controlled 6-code phrase-triggered vocabulary; 1.9h to reconcile conflicting audits, prepare the 276-point verifier-aligned oracle, and document response-specific rationale. Total: 1.5 + 7.6 + 1.9 = 11.0h."
+estimated_sub_agents = 11
+input_token_estimate = 31000
+why_multi_agent = "The task pairs a fixed gold-answer determination with auditing nine heterogeneous candidate responses against a 6-code phrase-triggered failure vocabulary scored by exact set match per response. A single agent juggling all nine responses in one context tends to confuse near-duplicate codes across candidates (e.g., applying assumes_max_distance_equals_space_diagonal to a response that instead used a fabricated-invariant derivation) and to apply codes whose trigger phrase is only stylistically present in a different response, zeroing 30-point blocks. Fan-out gives the gold-answer adjudication to one sub-agent and each candidate audit to its own sub-agent with an isolated context containing only that response plus the controlled vocabulary, so each audit picks codes whose concrete trigger phrase is directly observable in its single response. A synthesizer reconciles all labels into one schema."
+reference_link = "https://huggingface.co/datasets/RUC-AIBOX/OlymMATH-eval"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

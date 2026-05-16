@@ -1,3 +1,0 @@
-Score: 0.168 (16/95 passed)
-
-16/75 artifact rows correct (01,08,29,31,46,48,49,51,55,56,57,58,60,61,67,70,71,72,73). Shard 15 only correct shard. Summary: total_artifacts matches, others fail. Sample fails: 02(wrong flaw), 03(wrong flaw), 04(wrong flaw), 05(wrong option+flaw), 06(wrong option+flaw).

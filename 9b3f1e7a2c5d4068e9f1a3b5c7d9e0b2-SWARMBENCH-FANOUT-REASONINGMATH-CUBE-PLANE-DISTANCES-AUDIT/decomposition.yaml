@@ -1,0 +1,171 @@
+sub_tasks:
+  - id: adjudicate-gold-answer
+    description: >
+      Read /input_artifacts/problem.md only. Independently determine the sum of squares of all
+      possible cube edge lengths consistent with the eight vertex-to-plane distances being
+      0, 1, 2, 3, 4, 5, 6, 7. Parametrize the eight signed vertex-to-plane distances as
+      h0 + (±u)+(±v)+(±w) with one vertex on the plane, and enumerate the inequivalent
+      sign-pattern families (e.g. all-positive vs. one-axis-flipped). For each family that admits
+      a non-degenerate solution, solve for the squared edge length s². Sum the distinct s² values
+      to obtain the gold numeric answer and report both the gold answer and the set of distinct s².
+      Do not inspect or rely on any proposed response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A. Extract its
+      final stated numeric answer for the sum of squares of edge lengths and decide whether it
+      equals the gold answer (final_answer_correct). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this single response, drawn
+      ONLY from the 6-code vocabulary defined in instruction.md. Most responses have 1 or 2
+      failure reasons. Return failure_reasons=[] when the final answer equals the gold AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B. Extract its
+      final stated numeric answer and decide whether it equals the gold answer
+      (final_answer_correct). Then determine the exact set of failure_reasons whose trigger
+      phrase is concretely present in this single response, drawn ONLY from the 6-code
+      vocabulary defined in instruction.md. Pay attention to whether the response's primary
+      geometric setup is an axis-aligned cube with a plane parallel to one of its faces, which
+      forces the eight distances to take at most two distinct values. Most responses have 1 or
+      2 failure reasons. Return failure_reasons=[] when the final answer equals the gold AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C. Extract its
+      final stated numeric answer and decide whether it equals the gold answer
+      (final_answer_correct). Then determine the exact set of failure_reasons whose trigger
+      phrase is concretely present in this single response, drawn ONLY from the 6-code
+      vocabulary defined in instruction.md. Pay attention to whether the response's load-bearing
+      step equates the maximum vertex-to-plane distance with the cube's space diagonal a√3 to
+      derive the edge length. Most responses have 1 or 2 failure reasons. Return
+      failure_reasons=[] when the final answer equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D. Extract its
+      final stated numeric answer and decide whether it equals the gold answer
+      (final_answer_correct). Then determine the exact set of failure_reasons whose trigger
+      phrase is concretely present in this single response, drawn ONLY from the 6-code
+      vocabulary defined in instruction.md. Pay attention to whether the response equates the
+      maximum vertex-to-plane distance with the cube's space diagonal a√3 and to whether it
+      states a unique edge length in its final conclusion. Most responses have 1 or 2 failure
+      reasons. Return failure_reasons=[] when the final answer equals the gold AND no trigger
+      phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E. Decide whether
+      the response produces an identifiable final numeric answer at all. If it does not produce
+      a boxed answer, contains an extended repetition loop, or is truncated mid-derivation, the
+      non_terminating_or_no_final_answer trigger fires. Most responses have 1 or 2 failure
+      reasons. Apply a code only when its trigger is concretely observable in this response.
+      Return failure_reasons=[] when the final answer equals the gold AND no trigger phrase
+      fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F. Extract its
+      final stated numeric answer and decide whether it equals the gold answer
+      (final_answer_correct). Then determine the exact set of failure_reasons whose trigger
+      phrase is concretely present in this single response, drawn ONLY from the 6-code
+      vocabulary defined in instruction.md. Pay attention to whether the response restricts its
+      search to non-negative subset sums of three positive projections (so all eight vertices on
+      the same side of the plane) and to whether its final conclusion asserts a single edge
+      length. Most responses have 1 or 2 failure reasons. Return failure_reasons=[] when the
+      final answer equals the gold AND no trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G. Extract its
+      final stated numeric answer and decide whether it equals the gold answer
+      (final_answer_correct). Then determine the exact set of failure_reasons whose trigger
+      phrase is concretely present in this single response, drawn ONLY from the 6-code
+      vocabulary defined in instruction.md. Pay attention to whether the response's final answer
+      is derived from a fabricated algebraic identity (e.g., an asserted "sum of squared
+      distances" formula that does not follow from the problem) or from a Vieta-sum step over a
+      quadratic whose coefficients come from such a fabricated identity. The trigger
+      claims_unique_edge_length does NOT fire when the response explicitly treats the final
+      answer as a sum over multiple candidate edge lengths. Most responses have 1 or 2 failure
+      reasons. Return failure_reasons=[] when the final answer equals the gold AND no trigger
+      phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only Response H. Extract its
+      final stated numeric answer and decide whether it equals the gold answer
+      (final_answer_correct). Then determine the exact set of failure_reasons whose trigger
+      phrase is concretely present in this single response, drawn ONLY from the 6-code
+      vocabulary defined in instruction.md. Pay attention to whether the response restricts its
+      search to subset sums of three positive integers / positive projections and to whether its
+      final conclusion asserts a unique edge length. Most responses have 1 or 2 failure reasons.
+      Return failure_reasons=[] when the final answer equals the gold AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-i
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_I.md. Audit only Response I. Extract its
+      final stated numeric answer and decide whether it equals the gold answer
+      (final_answer_correct). Then determine the exact set of failure_reasons whose trigger
+      phrase is concretely present in this single response, drawn ONLY from the 6-code
+      vocabulary defined in instruction.md. Pay attention to whether the response requires the
+      vertex-to-plane projections to be non-negative (equivalently, all eight vertices on the
+      same side of the plane) and to whether its final conclusion asserts a unique edge length.
+      Most responses have 1 or 2 failure reasons. Return failure_reasons=[] when the final
+      answer equals the gold AND no trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Combine the gold-answer adjudication and nine response audits into the final JSON output.
+      Trust each per-response audit's failure_reasons list; do not add codes the audit did not
+      identify, and do not delete codes the audit did identify. Compute acceptable_solution_ids
+      as the uppercase, alphabetically-sorted list of response_ids whose final_answer_correct is
+      true AND failure_reasons is empty. Write the result to /logs/agent/output.json. Top-level
+      keys exactly: gold_final_answer, gold_edge_length_squared_set, acceptable_solution_ids,
+      per_response_assessment. per_response_assessment must contain exactly nine objects, ordered
+      alphabetically A through I, each with exactly the keys response_id, final_answer_correct,
+      failure_reasons.
+    depends_on:
+      - adjudicate-gold-answer
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+    parallel_group: synthesize
