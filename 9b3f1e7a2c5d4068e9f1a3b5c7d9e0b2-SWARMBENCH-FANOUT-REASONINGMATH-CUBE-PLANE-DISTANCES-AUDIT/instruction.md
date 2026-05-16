@@ -1,11 +1,11 @@
-You are auditing raw AI-generated proposed solutions to an olympiad-level 3D geometry problem about a cube and a plane.
+You are conducting an olympiad-level 3D geometry audit. Nine real, unedited model responses from the public `RUC-AIBOX/OlymMATH-eval` benchmark each attempt the same cube-and-plane problem. Your work is primarily mathematical reasoning: you must independently solve the problem from first principles, then mathematically dissect each response's argument and identify where its mathematical reasoning fails.
 
 Working directory: `/workspace`.
 
 Input artifacts:
 - Problem statement: `/input_artifacts/problem.md`
-- Provenance note for the proposed AI-generated responses: `/input_artifacts/provenance.md`
-- Proposed solution files:
+- Provenance note for the released model responses: `/input_artifacts/provenance.md`
+- Released model response files (real outputs from the public benchmark):
   - `/input_artifacts/proposed_solutions/response_A.md`
   - `/input_artifacts/proposed_solutions/response_B.md`
   - `/input_artifacts/proposed_solutions/response_C.md`
@@ -17,11 +17,11 @@ Input artifacts:
   - `/input_artifacts/proposed_solutions/response_I.md`
 
 Task:
-1. Read the problem statement and all nine proposed solutions.
-2. Independently determine the gold final numeric answer (the sum of squares of all possible cube edge lengths) and the underlying SET of possible values of s² (the squared edge lengths).
-3. Determine which proposed response(s), if any, are fully correct (final numeric answer equals the gold answer AND no failure-reason trigger fires on the response's reasoning).
-4. For each proposed response A through I, audit whether its final numeric answer matches the gold answer and identify the exact set of failure-reason codes whose trigger phrase is concretely instantiated in that single response.
-5. Do not decide correctness by majority vote among the proposed responses. Independently solve the problem first, then audit each response against that result.
+1. Solve the geometry problem yourself from first principles. Produce the gold final numeric answer (the sum of squares of all possible cube edge lengths consistent with the eight given vertex-to-plane distances) and the underlying set of distinct values of s² (the squared edge lengths). Do not rely on any of the released responses for this step.
+2. Verify your derivation. The final numeric answer must follow rigorously from the geometric configuration and the constraint that the eight vertex-to-plane distances are 0, 1, 2, 3, 4, 5, 6, 7. Identify every distinct (non-degenerate) cube orientation that satisfies the constraint, and report each s² value once.
+3. Read all nine released responses. For each one, extract its claimed final numeric answer and compare it against your gold answer.
+4. For each released response A through I, audit its mathematical reasoning chain. Identify the load-bearing algebraic identities, the geometric setup assumptions, and the logical steps that determine the response's final answer. Then identify the exact set of failure-reason codes whose trigger phrase is concretely instantiated in that single response's text.
+5. Do not decide correctness by majority vote among the released responses. Independently solve the problem first, then audit each response against your own derivation.
 
 Allowed failure-reason codes (phrase-triggered; each code applies ONLY when its trigger phrase or its near-verbatim paraphrase is present in that single response's text):
 
@@ -46,14 +46,14 @@ Allowed failure-reason codes (phrase-triggered; each code applies ONLY when its 
 Important scoring and selection rules:
 - The audit is evaluated as an EXACT set match per response. Extra failure reasons and missing failure reasons both score zero for that response.
 - Most responses have 1 or 2 failure reasons. Apply a code only when its trigger phrase is directly observable in the response text.
-- Use an empty list `[]` for `failure_reasons` exactly when the response's final answer equals the gold answer (`210`) AND no failure-reason trigger phrase appears in that response.
+- Use an empty list `[]` for `failure_reasons` exactly when the response's final numeric answer equals the gold answer AND no failure-reason trigger phrase appears in that response.
 - `acceptable_solution_ids` is the uppercase, alphabetically-sorted list of response_ids whose `final_answer_correct` is `true` AND whose `failure_reasons` list is empty.
 - `claims_unique_edge_length` and `restricts_to_nonnegative_subset_sums` are distinct codes. `restricts_to_nonnegative_subset_sums` describes the REASONING step (forcing all 7 non-zero distances to be sums of positive projections); `claims_unique_edge_length` describes the FINAL stated conclusion (|S|=1). Both can apply to the same response when both triggers are present.
 - `assumes_plane_parallel_to_cube_face` is distinct from `assumes_max_distance_equals_space_diagonal`. The face-parallel trigger is geometric ("plane parallel to a face", "z = k"). The space-diagonal trigger is algebraic ("a√3 = 7"). A response that uses only one of these triggers gets only that one code; do not apply both unless both triggers are concretely present.
 
-Label definitions for each proposed response:
+Label definitions for each released response:
 - `response_id`: the response letter, one of `"A"`, `"B"`, `"C"`, `"D"`, `"E"`, `"F"`, `"G"`, `"H"`, `"I"`.
-- `final_answer_correct`: `true` exactly when the response's final stated numeric answer equals `210` (or any answer that simplifies to 210, such as `\boxed{210}`). Otherwise `false`.
+- `final_answer_correct`: `true` exactly when the response's final stated numeric answer equals your independently derived gold answer. Otherwise `false`.
 - `failure_reasons`: a JSON list of strings chosen only from the allowed failure-reason codes above.
 
 ---
@@ -62,7 +62,7 @@ Label definitions for each proposed response:
 Write your final answer to `/logs/agent/output.json` in this exact JSON format:
 
 {
-  "gold_final_answer": "210",
+  "gold_final_answer": "<your independently derived numeric answer as a string>",
   "gold_edge_length_squared_set": [<sorted list of all distinct s² values>],
   "acceptable_solution_ids": ["<uppercase response letters that are fully correct>"],
   "per_response_assessment": [
