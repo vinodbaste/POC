@@ -1,0 +1,78 @@
+{
+  "gold_final_answer": "210",
+  "gold_edge_length_squared_set": [21, 54, 66, 69],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "uses_fabricated_invariant_or_invalid_derivation"
+      ]
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_plane_parallel_to_cube_face"
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_max_distance_equals_space_diagonal"
+      ]
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_max_distance_equals_space_diagonal"
+      ]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "restricts_to_nonnegative_subset_sums"
+      ]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "uses_fabricated_invariant_or_invalid_derivation"
+      ]
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "restricts_to_nonnegative_subset_sums"
+      ]
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "restricts_to_nonnegative_subset_sums"
+      ]
+    }
+  ]
+}
+Oracle solution applied.
