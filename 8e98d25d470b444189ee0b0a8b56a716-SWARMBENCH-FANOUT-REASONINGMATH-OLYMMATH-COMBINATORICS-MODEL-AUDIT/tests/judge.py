@@ -2,8 +2,15 @@ import argparse
 import json
 import os
 import re
-import urllib.error
-import urllib.request
+
+
+REQUIRED_TOP_KEYS = {"gold_final_answer", "acceptable_solution_ids", "per_response_assessment"}
+EXPECTED_IDS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"]
+
+POINTS_GOLD = 2
+POINTS_ACCEPTABLE_IDS = 2
+POINTS_PER_RESPONSE = 30
+TOTAL_POINTS = POINTS_GOLD + POINTS_ACCEPTABLE_IDS + POINTS_PER_RESPONSE * len(EXPECTED_IDS)
 
 
 def extract_json(text: str) -> str:
@@ -18,26 +25,16 @@ def extract_json(text: str) -> str:
     return text
 
 
-def call_fireworks(messages, max_tokens=4000, timeout=240):
-    payload = {
-        "model": "accounts/fireworks/models/kimi-k2p5",
-        "messages": messages,
-        "temperature": 0,
-        "max_tokens": max_tokens,
-        "response_format": {"type": "json_object"},
-    }
-    request = urllib.request.Request(
-        "https://api.fireworks.ai/inference/v1/chat/completions",
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {os.environ['FIREWORKS_API_KEY']}",
-            "Content-Type": "application/json",
-        },
-        method="POST",
-    )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        body = json.loads(response.read().decode("utf-8"))
-    return body.get("choices", [{}])[0].get("message", {}).get("content", "") or ""
+def index_by_id(audits):
+    out = {}
+    if not isinstance(audits, list):
+        return out
+    for entry in audits:
+        if isinstance(entry, dict):
+            sid = entry.get("solution_id")
+            if isinstance(sid, str):
+                out[sid.strip().upper()] = entry
+    return out
 
 
 def main():
@@ -47,6 +44,8 @@ def main():
     parser.add_argument("--reward-out")
     args = parser.parse_args()
 
+    os.makedirs(os.path.dirname(args.reward_out) or ".", exist_ok=True)
+    os.makedirs("/logs/agent", exist_ok=True)
     justification_path = "/logs/agent/judge_justification.txt"
 
     try:
@@ -66,91 +65,94 @@ def main():
             f.write("Score: 1.0\n\nAgent output exactly matches oracle.")
         return
 
-    prompt = (
-        "You are an evaluation judge grading an agent's JSON output against a gold oracle for an "
-        "OlymMATH combinatorics solution-audit task.\n\n"
-        f"ORACLE:\n{json.dumps(oracle, indent=2)}\n\n"
-        f"AGENT OUTPUT:\n{json.dumps(agent_output, indent=2)}\n\n"
-        "Grade only the requested JSON fields. Do not reward prose outside the schema.\n\n"
-        "Allowed failure reason codes are exactly:\n"
-        "- incoherent_or_truncated\n"
-        "- deterministic_chain_misconception\n"
-        "- unsupported_constant_answer\n"
-        "- power_of_two_leap\n"
-        "- correct_recurrence_arithmetic_error\n"
-        "- inconsistent_boxing\n\n"
-        "Field meanings:\n"
-        "- gold_final_answer: literal string '948'.\n"
-        "- acceptable_solution_ids: response letters whose extracted answer is 948 AND whose reasoning chain "
-        "establishes 948 without an inconsistent leap (i.e. final_answer_correct is true AND failure_reasons "
-        "is empty).\n"
-        "- final_answer_correct: whether that response's extracted final answer equals the gold integer 948 "
-        "(literal string compare after whitespace strip).\n"
-        "- failure_reasons: exact set of concrete reasons why the response's reasoning is defective. It must "
-        "be empty iff the response's extracted answer is 948 AND the reasoning chain establishes 948.\n\n"
-        "Equivalence and strictness rules:\n"
-        "1. For gold_final_answer, require the literal string '948'.\n"
-        "2. For acceptable_solution_ids, require the same set of uppercase letters as the oracle.\n"
-        "3. per_response_assessment must contain exactly one object for each response A through O.\n"
-        "4. For solution_id and final_answer_correct, require exact equality.\n"
-        "5. For failure_reasons, order does not matter, but the set must match exactly. Extra reasons fail. "
-        "Missing reasons fail. No partial credit inside failure_reasons.\n"
-        "6. A per-response audit receives credit only if solution_id, final_answer_correct, and the exact "
-        "failure_reasons set are all correct for that response.\n\n"
-        "Scoring rubric with weighted points:\n"
-        "- gold_final_answer = 2 points.\n"
-        "- acceptable_solution_ids = 2 points.\n"
-        "- Each response audit A through O is all-or-nothing = 30 points. Award the 30 points only if "
-        "solution_id, final_answer_correct, and exact failure_reasons set all match the oracle for that "
-        "response. Otherwise award 0 for that response.\n"
-        "- Total = 454 points. score = passed/454.\n\n"
-        "Respond in JSON only, no markdown: "
-        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 454, "justification": "<concise weighted '
-        'field-by-field breakdown, under 600 characters>"}'
-    )
+    earned = 0
+    lines = []
 
-    messages = [
-        {"role": "system", "content": "Respond with one valid JSON object only. Keep justification under 600 characters. No prose outside the JSON."},
-        {"role": "user", "content": prompt},
-    ]
-
-    try:
-        raw = call_fireworks(messages, max_tokens=4000)
-    except (urllib.error.URLError, TimeoutError, KeyError) as e:
+    if not isinstance(agent_output, dict):
         json.dump({"reward": 0.0}, open(args.reward_out, "w"))
         with open(justification_path, "w") as f:
-            f.write(f"Score: 0.0\n\nJudge request failed: {e}")
+            f.write("Score: 0.0\n\nAgent output is not a JSON object.")
         return
 
-    try:
-        result = json.loads(extract_json(raw))
-    except json.JSONDecodeError:
-        repair_messages = [
-            {"role": "system", "content": "Convert the user content into one valid JSON object only. Do not add commentary."},
-            {"role": "user", "content": (
-                "The following model output was supposed to follow this schema exactly:\n"
-                '{"score": <float 0.0-1.0>, "passed": <int>, "total": 454, "justification": "<short>"}\n\n'
-                "Convert it to valid JSON without changing the meaning.\n\n"
-                f"MODEL OUTPUT:\n{raw[:6000]}"
-            )},
-        ]
-        try:
-            repaired_raw = call_fireworks(repair_messages, max_tokens=800, timeout=180)
-            result = json.loads(extract_json(repaired_raw))
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
-            json.dump({"reward": 0.0}, open(args.reward_out, "w"))
-            with open(justification_path, "w") as f:
-                f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw[:1000]}")
-            return
+    actual_keys = set(agent_output.keys())
+    if actual_keys != REQUIRED_TOP_KEYS:
+        missing = REQUIRED_TOP_KEYS - actual_keys
+        extra = actual_keys - REQUIRED_TOP_KEYS
+        lines.append(f"Top-level key set mismatch: missing={sorted(missing)}, extra={sorted(extra)}.")
 
-    score = float(result.get("score", 0.0))
-    score = max(0.0, min(1.0, score))
+    oracle_gold = oracle.get("gold_final_answer")
+    agent_gold = agent_output.get("gold_final_answer")
+    if isinstance(agent_gold, str) and agent_gold.strip() == str(oracle_gold).strip():
+        earned += POINTS_GOLD
+        lines.append(f"gold_final_answer: {POINTS_GOLD}/{POINTS_GOLD} (matches '{oracle_gold}').")
+    else:
+        lines.append(f"gold_final_answer: 0/{POINTS_GOLD} (expected '{oracle_gold}', got '{agent_gold}').")
+
+    oracle_accept = set(oracle.get("acceptable_solution_ids", []) or [])
+    agent_accept_raw = agent_output.get("acceptable_solution_ids", []) or []
+    if isinstance(agent_accept_raw, list):
+        agent_accept = {str(x).strip().upper() for x in agent_accept_raw if isinstance(x, str)}
+    else:
+        agent_accept = set()
+    if agent_accept == oracle_accept:
+        earned += POINTS_ACCEPTABLE_IDS
+        lines.append(f"acceptable_solution_ids: {POINTS_ACCEPTABLE_IDS}/{POINTS_ACCEPTABLE_IDS} (matches {sorted(oracle_accept)}).")
+    else:
+        lines.append(f"acceptable_solution_ids: 0/{POINTS_ACCEPTABLE_IDS} (expected {sorted(oracle_accept)}, got {sorted(agent_accept)}).")
+
+    oracle_by_id = index_by_id(oracle.get("per_response_assessment", []))
+    agent_by_id = index_by_id(agent_output.get("per_response_assessment", []))
+
+    per_response_summary = []
+    for sid in EXPECTED_IDS:
+        oracle_entry = oracle_by_id.get(sid)
+        agent_entry = agent_by_id.get(sid)
+        if oracle_entry is None:
+            per_response_summary.append(f"{sid}: skipped (no oracle entry).")
+            continue
+        if agent_entry is None:
+            per_response_summary.append(f"{sid}: 0/{POINTS_PER_RESPONSE} (no agent entry).")
+            continue
+
+        oracle_far = bool(oracle_entry.get("final_answer_correct", False))
+        agent_far = bool(agent_entry.get("final_answer_correct", False)) if isinstance(agent_entry.get("final_answer_correct"), bool) else None
+
+        oracle_reasons = oracle_entry.get("failure_reasons", []) or []
+        agent_reasons_raw = agent_entry.get("failure_reasons", []) or []
+        if not isinstance(oracle_reasons, list):
+            oracle_reasons = []
+        if isinstance(agent_reasons_raw, list):
+            agent_reasons = {str(x).strip() for x in agent_reasons_raw if isinstance(x, str)}
+        else:
+            agent_reasons = set()
+        oracle_reasons_set = {str(x).strip() for x in oracle_reasons if isinstance(x, str)}
+
+        agent_sid = agent_entry.get("solution_id")
+        sid_ok = isinstance(agent_sid, str) and agent_sid.strip().upper() == sid
+        far_ok = (agent_far == oracle_far)
+        reasons_ok = (agent_reasons == oracle_reasons_set)
+
+        if sid_ok and far_ok and reasons_ok:
+            earned += POINTS_PER_RESPONSE
+            per_response_summary.append(f"{sid}: {POINTS_PER_RESPONSE}/{POINTS_PER_RESPONSE}.")
+        else:
+            issues = []
+            if not sid_ok:
+                issues.append(f"id={agent_sid}")
+            if not far_ok:
+                issues.append(f"final_answer_correct={agent_far} (oracle {oracle_far})")
+            if not reasons_ok:
+                issues.append(f"failure_reasons={sorted(agent_reasons)} (oracle {sorted(oracle_reasons_set)})")
+            per_response_summary.append(f"{sid}: 0/{POINTS_PER_RESPONSE} ({'; '.join(issues)}).")
+
+    score = max(0.0, min(1.0, earned / TOTAL_POINTS))
     json.dump({"reward": score}, open(args.reward_out, "w"))
+
     with open(justification_path, "w") as f:
-        f.write(
-            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', 454)} passed)\n\n"
-            f"{result.get('justification', '')}"
-        )
+        f.write(f"Score: {score:.4f} ({earned}/{TOTAL_POINTS} passed)\n\n")
+        f.write("\n".join(lines))
+        f.write("\n\nPer-response:\n")
+        f.write("\n".join(per_response_summary))
 
 
 if __name__ == "__main__":

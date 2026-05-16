@@ -15,7 +15,7 @@ The gold final answer is the integer **948**. The standard solution uses the rec
 
 1. Read every candidate response in `/input_artifacts/response_A.md` through `/input_artifacts/response_O.md`.
 2. For each response, extract the literal final answer the candidate boxed or stated as its conclusion. If the candidate never reached a final answer, treat the extracted answer as missing.
-3. For each response, determine whether the final answer equals the gold integer 948 (`final_answer_correct: true`) or not (`false`). Use literal string comparison after stripping whitespace and surrounding `$`/`\\boxed{}` markup. Forms `"948"` and `"948."` both count as correct; forms like `"2^{44}"`, `"33554432"`, `"4"`, `"1"`, `"950"`, or an empty string do not.
+3. For each response, determine whether the final answer equals the gold integer 948 (`final_answer_correct: true`) or not (`false`). Use literal string comparison after stripping whitespace and surrounding `$`/`\\boxed{}` markup. Forms `"948"` and `"948."` both count as correct; any other integer, closed-form expression, or empty answer does not.
 4. For each response, identify the exact set of failure reasons whose trigger condition is concretely present in that single response, drawn ONLY from the closed vocabulary below. The set must be empty if and only if `final_answer_correct` is true AND the response's reasoning chain establishes 948 (i.e. the response sets up a correct recurrence with correct base cases, computes prefix sums iteratively, and arrives at 948 without an inconsistent leap).
 5. Do not decide correctness by majority vote among the candidate responses. Independently verify the gold answer first, then audit each response against it.
 
@@ -23,12 +23,12 @@ The gold final answer is the integer **948**. The standard solution uses the rec
 
 Use only these strings. The set you assign to a response is unordered but must match exactly: extra codes and missing codes are both wrong.
 
-- `incoherent_or_truncated` — the response loops, drifts into unrelated symbolic manipulation, or hits the token budget without producing any extracted final answer. Trigger: empty extracted answer combined with repetition or off-topic content.
-- `deterministic_chain_misconception` — the response treats the chain as forced (e.g. always step to $\lfloor\sqrt{\cdot}\rfloor$) and reports the count as 1, OR concludes a unique valid sequence such as $(2016, 44, 6, 2, 1)$. Trigger: the response asserts there is one (or essentially one) valid sequence, ignoring the 44+ distinct choices for $a_2$.
-- `unsupported_constant_answer` — the response boxes a small non-power-of-two integer (e.g. 4, 2017) with no recurrence and no iterative computation. Trigger: a final integer answer asserted as constant or formulaic (e.g. "always 4", "$a_1 + 1$") without any derivation.
-- `power_of_two_leap` — the response leaps to a closed-form answer of the form $2^k$ (e.g. $2^{11} = 2048$, $2^{25} = 33554432$, $2^{44}$) without iterative computation of the $f(k)$ values. Trigger: a final answer of the form $2^k$ or its decimal expansion, justified by pattern recognition rather than the recurrence.
-- `correct_recurrence_arithmetic_error` — the recurrence $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ is correctly formulated, but specific $f(k)$ or $S(m)$ values are miscomputed and the boxed answer is consequently wrong (e.g. 474, 950, 1252). Trigger: a recurrence equivalent to the gold one, plus a boxed answer within a factor of two of 948 that is not 948 itself.
-- `inconsistent_boxing` — the candidate's derivation arithmetically concludes one value but they box a different value (e.g. derives $33554425 + 1 = 33554426$ but boxes $2^{25} = 33554432$). Trigger: a numerical discrepancy between the derived value in the response body and the final boxed value.
+- `incoherent_or_truncated` — the response loops, drifts into unrelated symbolic manipulation, or hits a token cap without producing any extracted final answer.
+- `deterministic_chain_misconception` — the response treats the chain of values as forced or unique and concludes there is essentially only one valid sequence, ignoring that $a_2$ has many valid choices in $\{0, 1, \ldots, \lfloor\sqrt{a_1}\rfloor\}$.
+- `unsupported_constant_answer` — the response asserts an integer answer with no recurrence and no iterative computation, typically by claiming the count is always a small constant or is some formulaic function of $a_1$ such as $a_1 + 1$.
+- `power_of_two_leap` — the response concludes a closed-form answer of the form $2^k$ (or its decimal expansion) by pattern recognition rather than by computing the $f(k)$ values from the recurrence.
+- `correct_recurrence_arithmetic_error` — the recurrence $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ is correctly formulated, but specific $f(k)$ or $S(m)$ values are miscomputed and the boxed answer is consequently a wrong integer that is not the gold value.
+- `inconsistent_boxing` — within the response itself, the derivation arithmetically concludes one numerical value while a different numerical value is presented as the final boxed answer.
 
 Multiple codes may apply to a single response. Most responses have zero or one applicable code. Do not include a code unless its trigger condition is concretely present.
 

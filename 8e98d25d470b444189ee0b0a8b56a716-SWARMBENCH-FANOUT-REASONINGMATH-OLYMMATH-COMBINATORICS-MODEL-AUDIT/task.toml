@@ -3,7 +3,7 @@ name = "swarmbench/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGM
 description = "Audit 15 model-produced solutions to an olympiad combinatorics problem (OlymMATH-EASY-0-EN); per response, decide whether the boxed answer equals 948 and assign the exact set of failure-reason codes from a closed vocabulary."
 
 [metadata]
-verifier_type = "llm-judge"
+verifier_type = "executable"
 domain = "reasoning-math"
 coordination_pattern = "fan-out-synthesize"
 human_solving_hours_estimate = 12.0
