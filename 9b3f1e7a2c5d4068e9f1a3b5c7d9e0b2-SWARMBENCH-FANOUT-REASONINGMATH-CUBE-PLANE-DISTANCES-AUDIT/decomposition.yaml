@@ -1,11 +1,16 @@
 sub_tasks:
   - id: adjudicate-gold-answer
     description: >
-      Read /input_artifacts/problem.md and solve the olympiad geometry problem from first
-      principles. Compute the gold final numeric answer (the sum of squares of all possible
-      cube edge lengths) and the underlying set of distinct squared edge-length values.
-      Return both values together with a concise mathematical justification (200-400 words).
-      Do not inspect any candidate response.
+      Read /workspace/instruction.md and /input_artifacts/problem.md, then solve the olympiad
+      geometry problem from first principles. Compute the gold final numeric answer (the sum
+      of squares of all possible cube edge lengths) and the underlying set of distinct
+      squared edge-length values. Be exhaustive about the cube's geometric configurations
+      relative to the plane: in particular, the cutting plane may pass through the cube's
+      interior, so configurations where some vertices have negative signed distance to the
+      plane and others positive must be enumerated alongside the configuration where all
+      vertices lie on the same side. Return the gold numeric answer, the full set of
+      distinct s² values, and a concise mathematical justification (300-500 words). Do not
+      inspect any candidate response.
     depends_on: []
     parallel_group: fan-out
 
