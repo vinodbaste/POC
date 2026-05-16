@@ -1,0 +1,6 @@
+{"verify_id": "verify_06", "artifact_audits": [
+  {"artifact_id": "artifact_21", "selected_option": "B", "error_category": "unjustified_claim"},
+  {"artifact_id": "artifact_22", "selected_option": "A", "error_category": "misapplied_theorem"},
+  {"artifact_id": "artifact_23", "selected_option": "A", "error_category": "unjustified_claim"},
+  {"artifact_id": "artifact_24", "selected_option": "B", "error_category": "unjustified_claim"}
+]}

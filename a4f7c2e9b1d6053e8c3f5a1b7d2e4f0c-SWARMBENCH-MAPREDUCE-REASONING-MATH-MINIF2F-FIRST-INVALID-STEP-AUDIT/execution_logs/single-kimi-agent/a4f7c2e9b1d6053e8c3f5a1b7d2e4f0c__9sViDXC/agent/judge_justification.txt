@@ -1,0 +1,47 @@
+Score: 0.6544 (390/596 passed)
+
+Per-artifact:
+  artifact_01: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_02: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_03: 14/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=0 (expected 'algebraic_error', got 'misapplied_theorem')).
+  artifact_04: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_05: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_06: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_07: 4/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'D', got 'C'), error_category=0 (expected 'algebraic_error', got 'case_error')).
+  artifact_08: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_09: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_10: 9/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'C', got 'A'), error_category=+5).
+  artifact_11: 4/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'D', got 'C'), error_category=0 (expected 'algebraic_error', got 'unjustified_claim')).
+  artifact_12: 9/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'B', got 'D'), error_category=+5).
+  artifact_13: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_14: 9/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'D', got 'B'), error_category=+5).
+  artifact_15: 4/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'B', got 'C'), error_category=0 (expected 'misapplied_theorem', got 'algebraic_error')).
+  artifact_16: 9/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'B', got 'D'), error_category=+5).
+  artifact_17: 4/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'C', got 'A'), error_category=0 (expected 'circular_reasoning', got 'unjustified_claim')).
+  artifact_18: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_19: 14/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=0 (expected 'case_error', got 'unjustified_claim')).
+  artifact_20: 4/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'A', got 'D'), error_category=0 (expected 'unjustified_claim', got 'algebraic_error')).
+  artifact_21: 9/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'B', got 'A'), error_category=+5).
+  artifact_22: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_23: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_24: 4/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'B', got 'D'), error_category=0 (expected 'case_error', got 'unjustified_claim')).
+  artifact_25: 19/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=+5).
+  artifact_26: 4/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'C', got 'B'), error_category=0 (expected 'algebraic_error', got 'unjustified_claim')).
+  artifact_27: 14/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=+10, error_category=0 (expected 'algebraic_error', got 'misapplied_theorem')).
+  artifact_28: 9/19 (artifact_id=+1, problem_id=+1, competition=+1, year=+1, selected_option=0 (expected 'C', got 'D'), error_category=+5).
+
+Per-shard:
+  shard_01: 7/7.
+  shard_02: 4/7.
+  shard_03: 4/7.
+  shard_04: 4/7.
+  shard_05: 4/7.
+  shard_06: 4/7.
+  shard_07: 4/7.
+
+Summary fields:
+  summary.total_artifacts: +1.
+  summary.choice_counts: 0/3 (mismatch).
+  summary.competition_counts: +3.
+  summary.year_counts: +3.
+  summary.artifacts_by_option: 0/5 (mismatch).
