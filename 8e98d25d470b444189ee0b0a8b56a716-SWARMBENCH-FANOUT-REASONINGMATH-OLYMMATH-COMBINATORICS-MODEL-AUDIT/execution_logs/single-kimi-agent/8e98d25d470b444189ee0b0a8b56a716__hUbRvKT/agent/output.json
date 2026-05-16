@@ -15,7 +15,7 @@
     {
       "solution_id": "C",
       "final_answer_correct": false,
-      "failure_reasons": ["deterministic_chain_misconception"]
+      "failure_reasons": ["incoherent_or_truncated", "deterministic_chain_misconception"]
     },
     {
       "solution_id": "D",
@@ -25,7 +25,7 @@
     {
       "solution_id": "E",
       "final_answer_correct": false,
-      "failure_reasons": ["deterministic_chain_misconception"]
+      "failure_reasons": ["deterministic_chain_misconception", "unsupported_constant_answer"]
     },
     {
       "solution_id": "F",

@@ -1,0 +1,21 @@
+Score: 0.9339 (424/454 passed)
+
+gold_final_answer: 2/2 (matches '948').
+acceptable_solution_ids: 2/2 (matches ['D', 'F', 'K', 'N']).
+
+Per-response:
+A: 30/30.
+B: 30/30.
+C: 30/30.
+D: 30/30.
+E: 30/30.
+F: 30/30.
+G: 30/30.
+H: 30/30.
+I: 30/30.
+J: 0/30 (failure_reasons=['deterministic_chain_misconception'] (oracle ['correct_recurrence_arithmetic_error'])).
+K: 30/30.
+L: 30/30.
+M: 30/30.
+N: 30/30.
+O: 30/30.

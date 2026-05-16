@@ -1,13 +1,13 @@
 {
-    "id": "16b90c27-f9ee-41f0-9ede-0e2f373bb58e",
+    "id": "86d32a1a-3835-422f-88f9-61d4a8ee18f2",
     "task_name": "swarmbench/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT",
-    "trial_name": "8e98d25d470b444189ee0b0a8b56a716__tGJWbPh",
-    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT/execution_logs/oracle/8e98d25d470b444189ee0b0a8b56a716__tGJWbPh",
+    "trial_name": "8e98d25d470b444189ee0b0a8b56a716__hUbRvKT",
+    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT/execution_logs/single-kimi-agent/8e98d25d470b444189ee0b0a8b56a716__hUbRvKT",
     "task_id": {
         "path": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT"
     },
     "source": null,
-    "task_checksum": "0ae5111b72bf1afea5ac8dd296700dc2611b24efa3d7be781e7e4a7b048f62ab",
+    "task_checksum": "74e0a864629c6d5a794fc71adf075e117b420b1db7414a5f532b5a3900bee6cb",
     "config": {
         "task": {
             "path": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT",
@@ -19,17 +19,17 @@
             "download_dir": null,
             "source": null
         },
-        "trial_name": "8e98d25d470b444189ee0b0a8b56a716__tGJWbPh",
-        "trials_dir": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT/execution_logs/oracle",
+        "trial_name": "8e98d25d470b444189ee0b0a8b56a716__hUbRvKT",
+        "trials_dir": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT/execution_logs/single-kimi-agent",
         "timeout_multiplier": 1.0,
         "agent_timeout_multiplier": null,
         "verifier_timeout_multiplier": null,
         "agent_setup_timeout_multiplier": null,
         "environment_build_timeout_multiplier": null,
         "agent": {
-            "name": "oracle",
+            "name": "swarm-kimi-single",
             "import_path": null,
-            "model_name": null,
+            "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
             "override_timeout_sec": null,
             "override_setup_timeout_sec": null,
             "max_timeout_sec": null,
@@ -61,44 +61,47 @@
             "disable": false
         },
         "artifacts": [],
-        "job_id": "156e86bf-a905-4e19-994e-350c3ec90976"
+        "job_id": "543f0819-604e-4603-b5e1-f23a20d0450b"
     },
     "agent_info": {
-        "name": "oracle",
-        "version": "1.0.0",
-        "model_info": null
+        "name": "swarm-kimi-single",
+        "version": "unknown",
+        "model_info": {
+            "name": "accounts/fireworks/models/kimi-k2p5",
+            "provider": "fireworks_ai"
+        }
     },
     "agent_result": {
-        "n_input_tokens": null,
-        "n_cache_tokens": null,
-        "n_output_tokens": null,
+        "n_input_tokens": 324380,
+        "n_cache_tokens": 33956,
+        "n_output_tokens": 4077,
         "cost_usd": null,
         "rollout_details": null,
         "metadata": null
     },
     "verifier_result": {
         "rewards": {
-            "reward": 1.0
+            "reward": 0.73568281938326
         }
     },
     "exception_info": null,
-    "started_at": "2026-05-16T08:39:45.177840Z",
-    "finished_at": "2026-05-16T08:39:55.233480Z",
+    "started_at": "2026-05-16T08:55:06.329375Z",
+    "finished_at": "2026-05-16T08:57:36.758460Z",
     "environment_setup": {
-        "started_at": "2026-05-16T08:39:45.403272Z",
-        "finished_at": "2026-05-16T08:39:51.770597Z"
+        "started_at": "2026-05-16T08:55:06.504694Z",
+        "finished_at": "2026-05-16T08:55:11.920937Z"
     },
     "agent_setup": {
-        "started_at": "2026-05-16T08:39:51.770687Z",
-        "finished_at": "2026-05-16T08:39:51.770761Z"
+        "started_at": "2026-05-16T08:55:11.921033Z",
+        "finished_at": "2026-05-16T08:55:28.711827Z"
     },
     "agent_execution": {
-        "started_at": "2026-05-16T08:39:51.770870Z",
-        "finished_at": "2026-05-16T08:39:52.312392Z"
+        "started_at": "2026-05-16T08:55:28.712042Z",
+        "finished_at": "2026-05-16T08:57:33.441346Z"
     },
     "verifier": {
-        "started_at": "2026-05-16T08:39:52.506930Z",
-        "finished_at": "2026-05-16T08:39:53.338565Z"
+        "started_at": "2026-05-16T08:57:33.683913Z",
+        "finished_at": "2026-05-16T08:57:34.446102Z"
     },
     "step_results": null
 }
