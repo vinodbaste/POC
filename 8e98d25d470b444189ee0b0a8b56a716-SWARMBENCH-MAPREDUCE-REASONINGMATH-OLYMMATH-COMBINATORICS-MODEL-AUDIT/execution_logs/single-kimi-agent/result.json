@@ -1,8 +1,8 @@
 {
-    "id": "265a5c53-9253-4443-aa95-77ff71929497",
-    "started_at": "2026-05-15T18:28:45.783387",
-    "updated_at": "2026-05-15T18:35:10.076280",
-    "finished_at": "2026-05-15T18:35:10.076280",
+    "id": "fe06882f-ffa4-4f68-9cfc-0ca4ac3222c8",
+    "started_at": "2026-05-16T13:43:42.622496",
+    "updated_at": "2026-05-16T13:45:03.093318",
+    "finished_at": "2026-05-16T13:45:03.093318",
     "n_total_trials": 1,
     "stats": {
         "n_completed_trials": 1,
@@ -17,23 +17,23 @@
                 "n_errors": 0,
                 "metrics": [
                     {
-                        "mean": 0.79
+                        "mean": 0.0
                     }
                 ],
                 "pass_at_k": {},
                 "reward_stats": {
                     "reward": {
-                        "0.79": [
-                            "8e98d25d470b444189ee0b0a8b56a716__df9MVq7"
+                        "0.0": [
+                            "8e98d25d470b444189ee0b0a8b56a716__9eSypKP"
                         ]
                     }
                 },
                 "exception_stats": {}
             }
         },
-        "n_input_tokens": 717205,
-        "n_cache_tokens": 48993,
-        "n_output_tokens": 5061,
+        "n_input_tokens": 22105,
+        "n_cache_tokens": 15644,
+        "n_output_tokens": 561,
         "cost_usd": null
     }
 }

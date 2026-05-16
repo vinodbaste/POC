@@ -1,13 +1,13 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-15T12:58:45.819710Z",
+    "created_at": "2026-05-16T08:13:42.644387Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
         "is_editable": true
     },
     "invocation": [
-        "/Users/vinodbaste/harbor/.venv/bin/harbor",
+        "/Users/vinodbaste/Turing Projects/harbor/.venv/bin/harbor",
         "run",
         "-p",
         "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-MAPREDUCE-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT",
@@ -33,11 +33,11 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
+            "RewardFileEmptyError",
             "AgentTimeoutError",
-            "VerifierOutputParseError",
-            "VerifierTimeoutError",
             "RewardFileNotFoundError",
-            "RewardFileEmptyError"
+            "VerifierTimeoutError",
+            "VerifierOutputParseError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -48,7 +48,7 @@
             "task": {
                 "name": "8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-MAPREDUCE-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT",
                 "type": "local",
-                "digest": "sha256:1a048cbaece86f86632747a22404108d2bbae0c135cb1c863fc7375afb30dc8d",
+                "digest": "sha256:31e03eac0e0f3d5086db5c8405795f83c11d8a48d3fb5acec3e145955e7acc11",
                 "path": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-MAPREDUCE-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT"
             },
             "timeout_multiplier": 1.0,

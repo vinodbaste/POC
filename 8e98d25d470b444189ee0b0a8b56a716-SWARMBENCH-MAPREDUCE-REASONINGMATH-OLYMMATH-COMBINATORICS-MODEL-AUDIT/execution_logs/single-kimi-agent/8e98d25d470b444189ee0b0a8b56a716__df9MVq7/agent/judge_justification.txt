@@ -1,3 +1,0 @@
-Score: 0.79 (79/100 passed)
-
-Per-solution: 52/60 (A:3/4 verdict mismatch 'incorrect' vs agent's implied; D:2/4 truncated claim wrong, oracle says complete; G:3/4 repairability 'high' vs 'minor_fix'). Fatal-error: 20/24 (A,C,E error_type mismatches; G,J,M arithmetic explanations weak). Labels: 7.2/9 (A missing 'false_math_claim', E missing 'missing_case', L missing 'false_math_claim'). Cross-summary: 5/7 (problem_id case mismatch 'OlymMATH-EASY-0-EN' vs 'olymmath-easy-0-en-combinatorics-audit'; best_solution_id missing; common_failure_modes misses deterministic-chain). Sample issues: D verdict mismatch (agent says truncated, oracle says correct); A failure_labels missing 'false_math_claim'; cross-summary problem_id case error.
