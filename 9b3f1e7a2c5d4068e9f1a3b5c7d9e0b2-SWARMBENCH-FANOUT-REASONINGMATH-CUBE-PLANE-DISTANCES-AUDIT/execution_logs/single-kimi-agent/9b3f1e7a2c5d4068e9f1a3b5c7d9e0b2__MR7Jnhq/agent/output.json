@@ -1,22 +1,15 @@
 {
-  "gold_final_answer": "21",
-  "gold_edge_length_squared_set": [
-    21
-  ],
-  "acceptable_solution_ids": [
-    "G",
-    "H",
-    "I"
-  ],
+  "gold_final_answer": "210",
+  "gold_edge_length_squared_set": [21, 54, 66, 69],
+  "acceptable_solution_ids": [],
   "per_response_assessment": [
     {
       "response_id": "A",
       "final_answer_correct": false,
       "failure_reasons": [
         "claims_unique_edge_length",
-        "accepts_internal_contradictions_in_derivation",
-        "derives_correct_partial_s2_then_discards_it",
         "assumes_zero_distance_vertex_is_axis_corner",
+        "accepts_internal_contradictions_in_derivation",
         "omits_sign_pattern_casework"
       ]
     },
@@ -25,8 +18,9 @@
       "final_answer_correct": false,
       "failure_reasons": [
         "claims_unique_edge_length",
+        "equates_max_distance_with_edge_length_directly",
         "assumes_plane_parallel_to_cube_face",
-        "equates_max_distance_with_edge_length_directly"
+        "omits_sign_pattern_casework"
       ]
     },
     {
@@ -34,7 +28,8 @@
       "final_answer_correct": false,
       "failure_reasons": [
         "claims_unique_edge_length",
-        "assumes_max_distance_equals_space_diagonal"
+        "assumes_max_distance_equals_space_diagonal",
+        "omits_sign_pattern_casework"
       ]
     },
     {
@@ -42,7 +37,8 @@
       "final_answer_correct": false,
       "failure_reasons": [
         "claims_unique_edge_length",
-        "assumes_max_distance_equals_space_diagonal"
+        "assumes_max_distance_equals_space_diagonal",
+        "omits_sign_pattern_casework"
       ]
     },
     {
@@ -56,25 +52,36 @@
       "response_id": "F",
       "final_answer_correct": false,
       "failure_reasons": [
-        "accepts_internal_contradictions_in_derivation",
-        "uses_fabricated_invariant_or_invalid_derivation",
+        "claims_unique_edge_length",
+        "assumes_zero_distance_vertex_is_axis_corner",
         "omits_sign_pattern_casework"
       ]
     },
     {
       "response_id": "G",
-      "final_answer_correct": true,
-      "failure_reasons": []
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "uses_fabricated_invariant_or_invalid_derivation",
+        "accepts_internal_contradictions_in_derivation"
+      ]
     },
     {
       "response_id": "H",
-      "final_answer_correct": true,
-      "failure_reasons": []
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "omits_sign_pattern_casework"
+      ]
     },
     {
       "response_id": "I",
-      "final_answer_correct": true,
-      "failure_reasons": []
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "omits_sign_pattern_casework"
+      ]
     }
   ]
 }
