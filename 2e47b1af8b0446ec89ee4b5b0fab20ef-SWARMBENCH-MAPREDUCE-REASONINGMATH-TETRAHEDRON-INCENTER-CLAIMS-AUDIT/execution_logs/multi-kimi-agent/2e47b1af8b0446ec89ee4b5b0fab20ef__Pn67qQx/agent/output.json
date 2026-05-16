@@ -1,0 +1,15 @@
+{
+  "gold_set": ["a", "b", "c", "d", "e"],
+  "acceptable_solution_ids": ["A", "D"],
+  "per_response_assessment": [
+    {"response_id": "A", "final_answer_correct": true, "failure_reasons": []},
+    {"response_id": "B", "final_answer_correct": false, "failure_reasons": ["rejects_a_with_we_can_have_assertion"]},
+    {"response_id": "C", "final_answer_correct": true, "failure_reasons": ["asserts_universal_face_incenter_tangency"]},
+    {"response_id": "D", "final_answer_correct": true, "failure_reasons": []},
+    {"response_id": "E", "final_answer_correct": false, "failure_reasons": ["asserts_universal_face_incenter_tangency", "counterexample_places_a_above_centroid"]},
+    {"response_id": "F", "final_answer_correct": false, "failure_reasons": ["asserts_universal_face_incenter_tangency", "counterexample_places_a_above_centroid"]},
+    {"response_id": "G", "final_answer_correct": false, "failure_reasons": ["appeals_to_almost_regular_or_slightly_skewed"]},
+    {"response_id": "H", "final_answer_correct": false, "failure_reasons": ["asserts_AI_equals_r", "asserts_universal_face_incenter_tangency"]},
+    {"response_id": "I", "final_answer_correct": true, "failure_reasons": ["asserts_universal_face_incenter_tangency"]}
+  ]
+}

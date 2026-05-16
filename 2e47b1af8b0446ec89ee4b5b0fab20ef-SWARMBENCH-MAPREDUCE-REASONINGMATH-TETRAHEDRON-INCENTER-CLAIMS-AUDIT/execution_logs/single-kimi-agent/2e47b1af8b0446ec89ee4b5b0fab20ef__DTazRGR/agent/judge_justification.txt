@@ -1,3 +1,0 @@
-Score: 0.6642 (182/274 passed)
-
-gold_set 2/2; acceptable_solution_ids 0/2 (erroneously included I); A 30/30; B 30/30; C 0/30 (final_answer_correct should be true); D 30/30; E 30/30; F 0/30 (missing failure reason asserts_universal_face_incenter_tangency); G 30/30; H 30/30; I 0/30 (missing failure reason asserts_universal_face_incenter_tangency).

@@ -9,7 +9,7 @@
         "download_dir": null,
         "source": null
     },
-    "trial_name": "2e47b1af8b0446ec89ee4b5b0fab20ef__uWc8mtK",
+    "trial_name": "2e47b1af8b0446ec89ee4b5b0fab20ef__Pn67qQx",
     "trials_dir": "/Users/vinodbaste/Turing Projects/POC/2e47b1af8b0446ec89ee4b5b0fab20ef-SWARMBENCH-MAPREDUCE-REASONINGMATH-TETRAHEDRON-INCENTER-CLAIMS-AUDIT/execution_logs/multi-kimi-agent",
     "timeout_multiplier": 1.0,
     "agent_timeout_multiplier": null,
@@ -51,5 +51,5 @@
         "disable": false
     },
     "artifacts": [],
-    "job_id": "ba836bad-2e2d-4714-9148-2dff84edac6d"
+    "job_id": "6a6cd983-f4f0-4f99-b031-5fbcffb9be02"
 }
