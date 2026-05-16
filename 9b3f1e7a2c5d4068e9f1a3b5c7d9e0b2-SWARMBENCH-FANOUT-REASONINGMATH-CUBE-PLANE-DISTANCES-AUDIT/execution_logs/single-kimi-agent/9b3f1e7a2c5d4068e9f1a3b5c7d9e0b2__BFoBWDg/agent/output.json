@@ -1,0 +1,80 @@
+{
+  "gold_final_answer": "21",
+  "gold_edge_length_squared_set": [
+    21
+  ],
+  "acceptable_solution_ids": [
+    "G",
+    "H",
+    "I"
+  ],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "accepts_internal_contradictions_in_derivation",
+        "derives_correct_partial_s2_then_discards_it",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "omits_sign_pattern_casework"
+      ]
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_plane_parallel_to_cube_face",
+        "equates_max_distance_with_edge_length_directly"
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_max_distance_equals_space_diagonal"
+      ]
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_max_distance_equals_space_diagonal"
+      ]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "accepts_internal_contradictions_in_derivation",
+        "uses_fabricated_invariant_or_invalid_derivation",
+        "omits_sign_pattern_casework"
+      ]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    }
+  ]
+}
