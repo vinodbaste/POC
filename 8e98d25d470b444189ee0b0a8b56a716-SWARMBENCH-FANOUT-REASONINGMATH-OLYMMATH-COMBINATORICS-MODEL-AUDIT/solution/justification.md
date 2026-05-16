@@ -123,6 +123,7 @@ Citation: *"the number of sequences starting from 2016 is determined to be $2^{4
 ## Part D — Derived top-level fields
 
 - `gold_final_answer`: `"948"`. Matches the gold derivation in Part A.
+- `gold_recurrence_at_44_prefix_sum`: `947` (integer, not string). This is $S(44) = \sum_{k=0}^{44} f(k)$, the load-bearing intermediate value in the iterative recurrence. The recurrence concludes $f(2016) = 1 + S(44) = 1 + 947 = 948$, so producing this field correctly requires an actual iterative computation of $f(0), f(1), \ldots, f(44)$.
 - `acceptable_solution_ids`: `["D", "F", "K", "N"]`. The four responses with `final_answer_correct = true` AND empty `failure_reasons`. Listed in alphabetical uppercase order.
 
 ## Part E — Distribution of expected failure-reason sets

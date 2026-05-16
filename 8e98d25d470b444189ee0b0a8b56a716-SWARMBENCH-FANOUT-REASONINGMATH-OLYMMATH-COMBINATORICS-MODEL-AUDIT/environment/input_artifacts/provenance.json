@@ -4,7 +4,7 @@
   "problem_unique_id": "OlymMATH-EASY-0-EN",
   "split": "en_easy",
   "fetched_at": "2026-05-15",
-  "selection_rule": "response_id=0 from each of 15 distinct model configs",
+  "selection_rule": "response_id=0 from each of 15 distinct model configs, plus 5 trainer-authored responses (P-T) to broaden coverage of failure modes.",
   "license_note": "Proceeding assuming permissive; verify before submission.",
   "responses": [
     {
@@ -141,6 +141,51 @@
       "correctness_groundtruth": false,
       "output_tokens": 19901,
       "response_chars": 55274
+    },
+    {
+      "solution_id": "P",
+      "model_config": "authored-correct-2",
+      "response_id": 0,
+      "extracted_answer": "948",
+      "correctness_groundtruth": true,
+      "output_tokens": 2200,
+      "response_chars": 8700
+    },
+    {
+      "solution_id": "Q",
+      "model_config": "authored-arith-error-2",
+      "response_id": 0,
+      "extracted_answer": "949",
+      "correctness_groundtruth": false,
+      "output_tokens": 2700,
+      "response_chars": 10800
+    },
+    {
+      "solution_id": "R",
+      "model_config": "authored-incoherent-2",
+      "response_id": 0,
+      "extracted_answer": "",
+      "correctness_groundtruth": false,
+      "output_tokens": 4500,
+      "response_chars": 17900
+    },
+    {
+      "solution_id": "S",
+      "model_config": "authored-pow2-leap-2",
+      "response_id": 0,
+      "extracted_answer": "1024",
+      "correctness_groundtruth": false,
+      "output_tokens": 1900,
+      "response_chars": 7600
+    },
+    {
+      "solution_id": "T",
+      "model_config": "authored-det-chain-2",
+      "response_id": 0,
+      "extracted_answer": "5",
+      "correctness_groundtruth": false,
+      "output_tokens": 2100,
+      "response_chars": 8400
     }
   ],
   "problem": "Given a non-negative integer sequence $\\{a_n\\}$ satisfying $a_1 = 2016$, $a_{n+1} \\le \\sqrt{a_n}$, and if the number of terms is at least 2, then any two terms in the sequence are not equal. Find the number of such sequences $\\{a_n\\}$.",

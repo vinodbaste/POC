@@ -4,13 +4,14 @@ import os
 import re
 
 
-REQUIRED_TOP_KEYS = {"gold_final_answer", "acceptable_solution_ids", "per_response_assessment"}
-EXPECTED_IDS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"]
+REQUIRED_TOP_KEYS = {"gold_final_answer", "gold_recurrence_at_44_prefix_sum", "acceptable_solution_ids", "per_response_assessment"}
+EXPECTED_IDS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"]
 
-POINTS_GOLD = 2
+POINTS_GOLD = 50
+POINTS_GOLD_S44 = 50
 POINTS_ACCEPTABLE_IDS = 2
 POINTS_PER_RESPONSE = 30
-TOTAL_POINTS = POINTS_GOLD + POINTS_ACCEPTABLE_IDS + POINTS_PER_RESPONSE * len(EXPECTED_IDS)
+TOTAL_POINTS = POINTS_GOLD + POINTS_GOLD_S44 + POINTS_ACCEPTABLE_IDS + POINTS_PER_RESPONSE * len(EXPECTED_IDS)
 
 
 def extract_json(text: str) -> str:
@@ -88,6 +89,18 @@ def main():
     else:
         lines.append(f"gold_final_answer: 0/{POINTS_GOLD} (expected '{oracle_gold}', got '{agent_gold}').")
 
+    oracle_s44 = oracle.get("gold_recurrence_at_44_prefix_sum")
+    agent_s44 = agent_output.get("gold_recurrence_at_44_prefix_sum")
+    try:
+        agent_s44_int = int(agent_s44) if agent_s44 is not None else None
+    except (TypeError, ValueError):
+        agent_s44_int = None
+    if agent_s44_int == oracle_s44:
+        earned += POINTS_GOLD_S44
+        lines.append(f"gold_recurrence_at_44_prefix_sum: {POINTS_GOLD_S44}/{POINTS_GOLD_S44} (matches {oracle_s44}).")
+    else:
+        lines.append(f"gold_recurrence_at_44_prefix_sum: 0/{POINTS_GOLD_S44} (expected {oracle_s44}, got {agent_s44!r}).")
+
     oracle_accept = set(oracle.get("acceptable_solution_ids", []) or [])
     agent_accept_raw = agent_output.get("acceptable_solution_ids", []) or []
     if isinstance(agent_accept_raw, list):
@@ -132,7 +145,16 @@ def main():
         far_ok = (agent_far == oracle_far)
         reasons_ok = (agent_reasons == oracle_reasons_set)
 
-        if sid_ok and far_ok and reasons_ok:
+        oracle_extracted = oracle_entry.get("extracted_answer", "")
+        agent_extracted = agent_entry.get("extracted_answer", None)
+        if isinstance(agent_extracted, str):
+            extracted_ok = agent_extracted.strip() == str(oracle_extracted).strip()
+        elif agent_extracted is None and oracle_extracted == "":
+            extracted_ok = True
+        else:
+            extracted_ok = False
+
+        if sid_ok and far_ok and reasons_ok and extracted_ok:
             earned += POINTS_PER_RESPONSE
             per_response_summary.append(f"{sid}: {POINTS_PER_RESPONSE}/{POINTS_PER_RESPONSE}.")
         else:
@@ -143,6 +165,8 @@ def main():
                 issues.append(f"final_answer_correct={agent_far} (oracle {oracle_far})")
             if not reasons_ok:
                 issues.append(f"failure_reasons={sorted(agent_reasons)} (oracle {sorted(oracle_reasons_set)})")
+            if not extracted_ok:
+                issues.append(f"extracted_answer={agent_extracted!r} (oracle {oracle_extracted!r})")
             per_response_summary.append(f"{sid}: 0/{POINTS_PER_RESPONSE} ({'; '.join(issues)}).")
 
     score = max(0.0, min(1.0, earned / TOTAL_POINTS))

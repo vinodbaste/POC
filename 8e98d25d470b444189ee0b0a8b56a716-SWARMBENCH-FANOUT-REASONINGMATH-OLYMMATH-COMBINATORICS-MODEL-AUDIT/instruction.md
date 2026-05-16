@@ -1,8 +1,8 @@
-You are auditing raw model-produced solutions to a single olympiad-level combinatorics problem. Working directory: `/workspace`.
+You are performing a mathematical reasoning audit of twenty raw model-produced solutions to a single olympiad-level combinatorics problem. The dominant cognitive activity is original mathematical reasoning: you must independently derive the gold answer by setting up the natural recurrence and computing it iteratively, then use that derivation as a yardstick to verify each candidate's mathematical chain step by step. The structured classification output below is the verifier-aligned record of that mathematical reasoning. Working directory: `/workspace`.
 
 ## Input artifacts
 
-- `/input_artifacts/response_A.md` through `/input_artifacts/response_O.md` (fifteen candidate solutions, one per file)
+- `/input_artifacts/response_A.md` through `/input_artifacts/response_T.md` (twenty candidate solutions, one per file)
 - `/input_artifacts/provenance.json` (per-candidate model name, extracted final answer, and dataset correctness label for reference only — it does NOT tell you whether the candidate's proof is valid)
 
 ## The problem each candidate was asked
@@ -13,11 +13,13 @@ The gold final answer is the integer **948**. The standard solution uses the rec
 
 ## What you must do
 
-1. Read every candidate response in `/input_artifacts/response_A.md` through `/input_artifacts/response_O.md`.
-2. For each response, extract the literal final answer the candidate boxed or stated as its conclusion. If the candidate never reached a final answer, treat the extracted answer as missing.
-3. For each response, determine whether the final answer equals the gold integer 948 (`final_answer_correct: true`) or not (`false`). Use literal string comparison after stripping whitespace and surrounding `$`/`\\boxed{}` markup. Forms `"948"` and `"948."` both count as correct; any other integer, closed-form expression, or empty answer does not.
-4. For each response, identify the exact set of failure reasons whose trigger condition is concretely present in that single response, drawn ONLY from the closed vocabulary below. The set must be empty if and only if `final_answer_correct` is true AND the response's reasoning chain establishes 948 (i.e. the response sets up a correct recurrence with correct base cases, computes prefix sums iteratively, and arrives at 948 without an inconsistent leap).
-5. Do not decide correctness by majority vote among the candidate responses. Independently verify the gold answer first, then audit each response against it.
+1. **Mathematically derive the gold answer first.** Before reading any candidate, set up the natural recurrence $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ for $n \ge 2$ with base cases $f(0) = 1$ and $f(1) = 2$. Compute $f(k)$ iteratively for $k = 0, 1, \ldots, 44$ (since $\lfloor\sqrt{2016}\rfloor = 44$). Maintain the prefix sum $S(m) = \sum_{k=0}^{m} f(k)$. Conclude $f(2016) = 1 + S(44) = 948$. This derivation is your reference for everything that follows.
+2. Read every candidate response in `/input_artifacts/response_A.md` through `/input_artifacts/response_T.md`.
+3. For each response, mathematically verify its reasoning chain against your independently derived recurrence: does its boxed final answer equal the gold 948, do its base cases match, do its iterative values agree with yours, does the prefix sum reach 947, does any step contradict your derivation?
+4. For each response, extract the literal final answer the candidate boxed or stated as its conclusion. If the candidate never reached a final answer, treat the extracted answer as missing.
+5. For each response, determine whether the final answer equals the gold integer 948 (`final_answer_correct: true`) or not (`false`). Use literal string comparison after stripping whitespace and surrounding `$`/`\boxed{}` markup. Forms `"948"` and `"948."` both count as correct; any other integer, closed-form expression, or empty answer does not.
+6. For each response, identify the exact set of failure reasons whose trigger condition is concretely present in that single response, drawn ONLY from the closed vocabulary below. The set must be empty if and only if `final_answer_correct` is true AND the response's reasoning chain establishes 948 (i.e. the response sets up a recurrence equivalent to yours with correct base cases, computes prefix sums iteratively, and arrives at 948 without an inconsistent leap).
+7. Do not decide correctness by majority vote among the candidate responses. Anchor every audit decision in your own independent mathematical derivation.
 
 ## Allowed failure reason codes (closed vocabulary — exactly six codes)
 
@@ -34,15 +36,17 @@ Multiple codes may apply to a single response when more than one distinct failur
 
 ## Output schema
 
-Write your final audit to `/logs/agent/output.json` with exactly this structure. Top-level keys must be exactly: `gold_final_answer`, `acceptable_solution_ids`, `per_response_assessment`. Do not write anything else to that file.
+Write your final audit to `/logs/agent/output.json` with exactly this structure. Top-level keys must be exactly: `gold_final_answer`, `gold_recurrence_at_44_prefix_sum`, `acceptable_solution_ids`, `per_response_assessment`. Do not write anything else to that file.
 
 ```json
 {
   "gold_final_answer": "948",
+  "gold_recurrence_at_44_prefix_sum": 947,
   "acceptable_solution_ids": ["<uppercase response letters that are fully correct>"],
   "per_response_assessment": [
     {
       "solution_id": "A",
+      "extracted_answer": "<literal final answer the candidate boxed/stated, empty string if none>",
       "final_answer_correct": <true or false>,
       "failure_reasons": ["<zero or more allowed failure reason codes>"]
     }
@@ -52,11 +56,13 @@ Write your final audit to `/logs/agent/output.json` with exactly this structure.
 
 Rules for the output:
 
-- `per_response_assessment` must contain exactly fifteen objects, one for each response A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, in that order.
-- `solution_id` must be a single uppercase letter `A` through `O`.
+- `gold_final_answer` must be the literal string `"948"`, computed via the recurrence $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ as $f(2016) = 1 + S(44)$.
+- `gold_recurrence_at_44_prefix_sum` must be the integer value of the prefix sum $S(44) = \sum_{k=0}^{44} f(k)$ computed iteratively from $f(0) = 1$, $f(1) = 2$, and $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ for $n \ge 2$. This field is the load-bearing intermediate value in your derivation; it must be the integer (not a string), and it must match the value implied by your own iterative computation.
+- `per_response_assessment` must contain exactly twenty objects, one for each response A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, in that order.
+- `solution_id` must be a single uppercase letter `A` through `T`.
+- `extracted_answer` must be the literal final answer the candidate boxed or stated as its conclusion. Strip surrounding `$` and `\boxed{}` markup and whitespace. If the candidate never reached a final answer, use the empty string `""`. Examples of expected forms: `"948"`, `"4"`, `"2017"`, `"2048"`, `"33554432"`, `"2^{44}"`, `"1024"`, `""`.
 - `failure_reasons` must be a list (order does not matter for grading) whose elements are drawn only from the six allowed codes above. The list must be empty if and only if the response is fully correct (extracted answer is 948 AND the reasoning chain establishes 948 without an inconsistent leap).
 - `acceptable_solution_ids` is the alphabetical, uppercase list of `solution_id` values whose `final_answer_correct` is `true` AND whose `failure_reasons` is the empty list.
-- `gold_final_answer` must be the literal string `"948"`.
 
 ## Important scoring note
 
