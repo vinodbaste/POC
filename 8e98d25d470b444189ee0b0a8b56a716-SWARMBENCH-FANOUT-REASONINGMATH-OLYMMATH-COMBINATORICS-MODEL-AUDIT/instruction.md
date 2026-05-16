@@ -32,7 +32,23 @@ Use only these strings. The set you assign to a response is unordered but must m
 - `correct_recurrence_arithmetic_error` — the recurrence $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ is correctly formulated, but specific $f(k)$ or $S(m)$ values are miscomputed and the boxed answer is consequently a wrong integer that is not the gold value.
 - `inconsistent_boxing` — within the response itself, the derivation arithmetically concludes one numerical value while a different numerical value is presented as the final boxed answer.
 
-Multiple codes may apply to a single response when more than one distinct failure mechanism is concretely present. For example, a response that boxes a small constant integer WITHOUT a recurrence AND that also asserts the underlying chain is forced or unique exhibits two separate mechanisms and must carry both codes. Do not include a code unless its trigger condition is concretely present in the response; do not omit an applicable code merely because another code already applies.
+Multiple codes may apply to a single response when more than one distinct failure mechanism is concretely present. For example, a response that boxes a small non-power-of-two constant integer WITHOUT a recurrence AND that also asserts the underlying chain is forced or unique exhibits two separate mechanisms and must carry both codes. Do not include a code unless its trigger condition is concretely present in the response; do not omit an applicable code merely because another code already applies.
+
+### Boundary rules between codes (apply strictly)
+
+These rules disambiguate cases where two codes might seem to apply:
+
+1. **`incoherent_or_truncated` is mutually exclusive with every other code.** It applies if and only if the candidate produces no extractable final answer (`extracted_answer == ""`). If the response boxes any value — even a clearly wrong one like 1, 4, 5, 2017, 2048, $2^{44}$, etc. — this code does NOT apply, regardless of how rambling, hedged, or chaotic the surrounding prose is.
+
+2. **`power_of_two_leap` and `unsupported_constant_answer` are mutually exclusive.** A response whose boxed answer is a power of two (e.g., 1024, 2048, 33554432, $2^{44}$) gets `power_of_two_leap` only — never `unsupported_constant_answer` as well. Use `unsupported_constant_answer` only for small non-power-of-two integers (e.g., 4, 5, 2017) or formulaic functions of $a_1$.
+
+3. **`deterministic_chain_misconception` and `unsupported_constant_answer` may co-occur.** If a response simultaneously claims a unique/forced chain AND boxes a small non-power-of-two constant without iterative computation, both codes apply. Look for chain-claim language such as "the only possible sequence", "regardless of starting value", "each step is forced", "unique decreasing path", or "always X regardless of choice".
+
+4. **`inconsistent_boxing` requires a concrete final-value contradiction within the response.** It applies if and only if the response's body derives or states a specific numerical value $V$ in its concluding paragraphs, and then boxes a different specific numerical value $W \ne V$. Mere hedging, flip-flopping between candidate values during reasoning, or revisions in the middle of the response do NOT trigger this code if the response ultimately commits to one value that matches the boxed value.
+
+5. **`correct_recurrence_arithmetic_error` requires the recurrence to be correctly formulated.** It applies when the candidate sets up the recurrence $f(n) = 1 + \sum_{k=0}^{\lfloor\sqrt{n}\rfloor} f(k)$ with reasonable base cases AND iterates it but slips on one or more arithmetic values. Boxed answers like 474, 949, 950, 1252 are typical — but the structural setup must be sound.
+
+6. **Boxing 1 with a "single forced sequence" claim is `deterministic_chain_misconception` only**, NOT `unsupported_constant_answer`. The "1" is derived from the (incorrect) deterministic-chain claim, so the constant-answer code is subsumed.
 
 ## Output schema
 
