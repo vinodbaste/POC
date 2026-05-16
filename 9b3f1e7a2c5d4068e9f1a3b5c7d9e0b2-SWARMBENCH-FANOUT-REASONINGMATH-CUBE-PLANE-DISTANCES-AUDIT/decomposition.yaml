@@ -1,183 +1,197 @@
 sub_tasks:
-  - id: adjudicate-gold-answer
+  - id: adjudicate-gold-derivation
     description: >
       Read /input_artifacts/problem.md and solve the olympiad geometry problem from first
-      principles. Compute the gold final numeric answer (the sum of squares of all possible
-      cube edge lengths) and the underlying set of distinct squared edge-length values.
-      Return both values together with a concise mathematical justification (200-400 words).
-      Do not inspect any candidate response.
+      principles. Independently determine (a) the gold final numeric answer (the sum of
+      squares of all elements of S), (b) the full set of distinct squared edge-length
+      values s² consistent with the constraint, (c) the s² value from the "all-positive"
+      orientation, (d) the sorted list of s² values from the "sign-flipped" orientations,
+      (e) the corresponding sorted (p, q, r) axis-length triples for every valid
+      orientation, and (f) the total number of distinct valid orientations. Return all
+      six values together with a concise mathematical justification (300-500 words). Do
+      not inspect any candidate response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: gold-verification-cross-check
+    description: >
+      Independently re-solve the geometry problem in /input_artifacts/problem.md from
+      first principles using a different methodology than adjudicate-gold-derivation
+      (for example, exhaustive enumeration of vertex sign patterns rather than direct
+      algebraic invariants, or vice versa). Report your independently computed gold
+      final numeric answer, full set of distinct s² values, all-positive-orientation s²,
+      sign-flipped-orientation s² list, axis-length triples, and total orientation
+      count, with a concise justification (200-400 words). This serves as a consensus
+      check for the synthesizer.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-a
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_A.md, extract the response's claimed
       final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response A. Do not infer from
-      other responses.
+      12-code controlled vocabulary defined in instruction.md. A code applies only when
+      its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer, and the concrete evidence justifying each selected code, followed
+      by a JSON object {response_id, extracted_final_answer, final_answer_correct,
+      failure_reasons} for response A. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-b
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_B.md, extract the response's claimed
       final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response B. Do not infer from
-      other responses.
+      12-code controlled vocabulary defined in instruction.md. A code applies only when
+      its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer, and the concrete evidence justifying each selected code, followed
+      by a JSON object {response_id, extracted_final_answer, final_answer_correct,
+      failure_reasons} for response B. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-c
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_C.md, extract the response's claimed
       final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response C. Do not infer from
-      other responses.
+      12-code controlled vocabulary defined in instruction.md. A code applies only when
+      its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer, and the concrete evidence justifying each selected code, followed
+      by a JSON object {response_id, extracted_final_answer, final_answer_correct,
+      failure_reasons} for response C. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-d
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_D.md, extract the response's claimed
       final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response D. Do not infer from
-      other responses.
+      12-code controlled vocabulary defined in instruction.md. A code applies only when
+      its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer, and the concrete evidence justifying each selected code, followed
+      by a JSON object {response_id, extracted_final_answer, final_answer_correct,
+      failure_reasons} for response D. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-e
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_E.md, extract the response's claimed
       final numeric answer if any, and audit its mathematical reasoning chain. Apply the
-      full 12-code controlled vocabulary defined in instruction.md. A code applies only when
-      its triggering condition is concretely instantiated in this single response's text.
-      Most responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer
-      (or its absence), and the concrete evidence justifying each selected code, followed by
-      a JSON object {response_id, final_answer_correct, failure_reasons} for response E. Do
-      not infer from other responses.
+      full 12-code controlled vocabulary defined in instruction.md. A code applies only
+      when its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer (or its absence), and the concrete evidence justifying each
+      selected code, followed by a JSON object {response_id, extracted_final_answer,
+      final_answer_correct, failure_reasons} for response E. Do not infer from other
+      responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-f
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_F.md, extract the response's claimed
       final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response F. Do not infer from
-      other responses.
+      12-code controlled vocabulary defined in instruction.md. A code applies only when
+      its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer, and the concrete evidence justifying each selected code, followed
+      by a JSON object {response_id, extracted_final_answer, final_answer_correct,
+      failure_reasons} for response F. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-g
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_G.md, extract the response's claimed
       final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response G. Do not infer from
-      other responses.
+      12-code controlled vocabulary defined in instruction.md. A code applies only when
+      its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer, and the concrete evidence justifying each selected code, followed
+      by a JSON object {response_id, extracted_final_answer, final_answer_correct,
+      failure_reasons} for response G. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-h
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_H.md, extract the response's claimed
       final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response H. Do not infer from
-      other responses.
+      12-code controlled vocabulary defined in instruction.md. A code applies only when
+      its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer, and the concrete evidence justifying each selected code, followed
+      by a JSON object {response_id, extracted_final_answer, final_answer_correct,
+      failure_reasons} for response H. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-i
     description: >
       Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
+      geometry problem yourself from first principles and record your gold values before
+      touching the candidate response. Then read
       /input_artifacts/proposed_solutions/response_I.md, extract the response's claimed
       final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response I. Do not infer from
-      other responses.
+      12-code controlled vocabulary defined in instruction.md. A code applies only when
+      its triggering condition is concretely instantiated in this single response's
+      text. Most responses have between 1 and 5 applicable codes. Return a brief written
+      audit (150-300 words) explaining your independent derivation, the response's
+      claimed answer, and the concrete evidence justifying each selected code, followed
+      by a JSON object {response_id, extracted_final_answer, final_answer_correct,
+      failure_reasons} for response I. Do not infer from other responses.
     depends_on: []
     parallel_group: fan-out
 
-  - id: synthesize-final-audit
+  - id: aggregate-cross-response-frequency
     description: >
-      Combine the gold-answer adjudication and the nine response audits into the final JSON
-      output. Use the gold-answer adjudication's numeric answer and set of distinct s²
-      values as the top-level gold fields. Use each per-response audit's reported
-      final_answer_correct and failure_reasons set verbatim — do not add codes a per-response
-      audit did not select and do not delete codes a per-response audit did select. Compute
-      acceptable_solution_ids as the uppercase, alphabetically-sorted list of response_ids
-      whose final_answer_correct is true AND failure_reasons is empty. Write the result to
-      /logs/agent/output.json. Top-level keys exactly: gold_final_answer,
-      gold_edge_length_squared_set, acceptable_solution_ids, per_response_assessment.
-      per_response_assessment must contain exactly nine objects, ordered alphabetically A
-      through I, each with exactly the keys response_id, final_answer_correct,
-      failure_reasons.
+      After all nine per-response audit sub-tasks complete, collect their reported
+      failure_reasons lists and compute the cross-response synthesis field
+      failure_reason_frequency: a dictionary whose keys are the 12 allowed failure-reason
+      codes (every code must be present as a key) and whose values are the integer
+      counts of how many of the nine per-response failure_reasons lists contain that
+      code. Do not re-audit the responses; only tally what the per-response audits
+      reported. Return the failure_reason_frequency object together with a short
+      verification note confirming that the per-code counts are consistent with the nine
+      audit outputs.
     depends_on:
-      - adjudicate-gold-answer
       - audit-response-a
       - audit-response-b
       - audit-response-c
@@ -187,4 +201,37 @@ sub_tasks:
       - audit-response-g
       - audit-response-h
       - audit-response-i
+    parallel_group: reduce
+
+  - id: synthesize-final-output
+    description: >
+      Reconcile the two independent gold derivations from adjudicate-gold-derivation and
+      gold-verification-cross-check. If both agree on a top-level value, use it. If they
+      disagree on any of the six gold values, return the value that is mathematically
+      consistent with the constraint (verify by checking the value against the problem
+      yourself before deciding). Use each per-response audit's reported
+      extracted_final_answer, final_answer_correct, and failure_reasons set verbatim —
+      do not add codes a per-response audit did not select and do not delete codes a
+      per-response audit did select. Use the aggregate-cross-response-frequency output
+      as the failure_reason_frequency field. Compute acceptable_solution_ids as the
+      uppercase, alphabetically-sorted list of response_ids whose final_answer_correct
+      is true AND failure_reasons is empty. Write the result to /logs/agent/output.json.
+      Top-level keys exactly: gold_final_answer, gold_edge_length_squared_set,
+      gold_case_a_s_squared, gold_case_b_s_squared_values, gold_axis_lengths_triples,
+      total_distinct_orientations, acceptable_solution_ids, per_response_assessment,
+      failure_reason_frequency. per_response_assessment must contain exactly nine
+      objects, ordered alphabetically A through I.
+    depends_on:
+      - adjudicate-gold-derivation
+      - gold-verification-cross-check
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - aggregate-cross-response-frequency
     parallel_group: synthesize
