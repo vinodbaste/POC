@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-16T15:01:01.142228Z",
+    "created_at": "2026-05-16T15:52:34.996709Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -29,9 +29,9 @@
         "exclude_exceptions": [
             "AgentTimeoutError",
             "VerifierTimeoutError",
-            "VerifierOutputParseError",
             "RewardFileEmptyError",
-            "RewardFileNotFoundError"
+            "RewardFileNotFoundError",
+            "VerifierOutputParseError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -42,7 +42,7 @@
             "task": {
                 "name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT",
                 "type": "local",
-                "digest": "sha256:a2cfc3f789b061516f8cc6e02e977bf69c1d65c39ed6b3aee1760613529b6efa",
+                "digest": "sha256:aecc131478ebd7d69bc7e7c27774632a52f642e888d654b013e822cf11ae702a",
                 "path": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT"
             },
             "timeout_multiplier": 1.0,

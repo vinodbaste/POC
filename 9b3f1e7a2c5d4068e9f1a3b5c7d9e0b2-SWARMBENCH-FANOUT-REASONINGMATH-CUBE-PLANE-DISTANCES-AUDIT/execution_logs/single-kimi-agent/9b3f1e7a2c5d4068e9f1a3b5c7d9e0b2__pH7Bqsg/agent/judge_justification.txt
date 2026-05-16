@@ -1,0 +1,3 @@
+Score: 0.8913 (246/276 passed)
+
+gold_final_answer correct (2/2), gold_edge_length_squared_set correct (2/2), acceptable_solution_ids correct (2/2). Response A: failure_reasons mismatch (0/30, oracle expects [claims_unique_edge_length, uses_fabricated_invariant_or_invalid_derivation], agent provided [claims_unique_edge_length, restricts_to_nonnegative_subset_sums]). Responses B-I: all fields match exactly (30/30 each). Total: 6 + 240 = 246.
