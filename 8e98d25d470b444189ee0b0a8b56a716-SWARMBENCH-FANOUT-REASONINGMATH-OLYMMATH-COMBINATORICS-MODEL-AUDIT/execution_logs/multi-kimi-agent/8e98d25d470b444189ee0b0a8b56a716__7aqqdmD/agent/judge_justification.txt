@@ -1,10 +1,10 @@
-Score: 0.7357 (334/454 passed)
+Score: 0.8018 (364/454 passed)
 
 gold_final_answer: 2/2 (matches '948').
 acceptable_solution_ids: 2/2 (matches ['D', 'F', 'K', 'N']).
 
 Per-response:
-A: 0/30 (failure_reasons=['deterministic_chain_misconception'] (oracle ['unsupported_constant_answer'])).
+A: 30/30.
 B: 30/30.
 C: 0/30 (failure_reasons=['deterministic_chain_misconception', 'incoherent_or_truncated'] (oracle ['deterministic_chain_misconception'])).
 D: 30/30.
@@ -12,8 +12,8 @@ E: 0/30 (failure_reasons=['deterministic_chain_misconception', 'unsupported_cons
 F: 30/30.
 G: 30/30.
 H: 30/30.
-I: 0/30 (failure_reasons=['power_of_two_leap'] (oracle ['inconsistent_boxing', 'power_of_two_leap'])).
-J: 30/30.
+I: 30/30.
+J: 0/30 (failure_reasons=['incoherent_or_truncated'] (oracle ['correct_recurrence_arithmetic_error'])).
 K: 30/30.
 L: 30/30.
 M: 30/30.

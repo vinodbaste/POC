@@ -9,7 +9,7 @@
         "download_dir": null,
         "source": null
     },
-    "trial_name": "8e98d25d470b444189ee0b0a8b56a716__32a5TeD",
+    "trial_name": "8e98d25d470b444189ee0b0a8b56a716__7aqqdmD",
     "trials_dir": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT/execution_logs/multi-kimi-agent",
     "timeout_multiplier": 1.0,
     "agent_timeout_multiplier": null,
@@ -51,5 +51,5 @@
         "disable": false
     },
     "artifacts": [],
-    "job_id": "a238f4a8-3340-4d8f-8b09-c621217395cb"
+    "job_id": "fad94b05-3afd-4317-b6d2-2bad6c6702b9"
 }

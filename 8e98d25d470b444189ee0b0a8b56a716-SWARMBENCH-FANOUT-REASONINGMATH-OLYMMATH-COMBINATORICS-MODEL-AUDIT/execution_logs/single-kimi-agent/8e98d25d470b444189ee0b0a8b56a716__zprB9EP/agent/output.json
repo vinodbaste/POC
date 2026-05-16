@@ -1,11 +1,11 @@
 {
   "gold_final_answer": "948",
-  "acceptable_solution_ids": ["D", "F", "K", "N"],
+  "acceptable_solution_ids": ["F", "K", "N"],
   "per_response_assessment": [
     {
       "solution_id": "A",
       "final_answer_correct": false,
-      "failure_reasons": ["deterministic_chain_misconception"]
+      "failure_reasons": ["unsupported_constant_answer"]
     },
     {
       "solution_id": "B",
@@ -15,17 +15,17 @@
     {
       "solution_id": "C",
       "final_answer_correct": false,
-      "failure_reasons": ["incoherent_or_truncated", "deterministic_chain_misconception"]
+      "failure_reasons": ["incoherent_or_truncated"]
     },
     {
       "solution_id": "D",
-      "final_answer_correct": true,
-      "failure_reasons": []
+      "final_answer_correct": false,
+      "failure_reasons": ["correct_recurrence_arithmetic_error"]
     },
     {
       "solution_id": "E",
       "final_answer_correct": false,
-      "failure_reasons": ["deterministic_chain_misconception", "unsupported_constant_answer"]
+      "failure_reasons": ["deterministic_chain_misconception"]
     },
     {
       "solution_id": "F",
@@ -50,7 +50,7 @@
     {
       "solution_id": "J",
       "final_answer_correct": false,
-      "failure_reasons": ["correct_recurrence_arithmetic_error"]
+      "failure_reasons": ["incoherent_or_truncated"]
     },
     {
       "solution_id": "K",

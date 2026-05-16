@@ -1,13 +1,13 @@
 {
-    "id": "04382138-696a-417d-a111-1176747b5859",
+    "id": "fc78370d-8766-4d46-b21a-7850d6bf7c49",
     "task_name": "swarmbench/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT",
-    "trial_name": "8e98d25d470b444189ee0b0a8b56a716__32a5TeD",
-    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT/execution_logs/multi-kimi-agent/8e98d25d470b444189ee0b0a8b56a716__32a5TeD",
+    "trial_name": "8e98d25d470b444189ee0b0a8b56a716__7aqqdmD",
+    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT/execution_logs/multi-kimi-agent/8e98d25d470b444189ee0b0a8b56a716__7aqqdmD",
     "task_id": {
         "path": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT"
     },
     "source": null,
-    "task_checksum": "6a85a6dbf6afff8a3cfede54b40d4466a726289951d1be6b2732bf573bb2b07b",
+    "task_checksum": "a3dafb399916f284598bddd4859c2417b0576ff8676b000f47f2311dcaec0e5a",
     "config": {
         "task": {
             "path": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT",
@@ -19,7 +19,7 @@
             "download_dir": null,
             "source": null
         },
-        "trial_name": "8e98d25d470b444189ee0b0a8b56a716__32a5TeD",
+        "trial_name": "8e98d25d470b444189ee0b0a8b56a716__7aqqdmD",
         "trials_dir": "/Users/vinodbaste/Turing Projects/POC/8e98d25d470b444189ee0b0a8b56a716-SWARMBENCH-FANOUT-REASONINGMATH-OLYMMATH-COMBINATORICS-MODEL-AUDIT/execution_logs/multi-kimi-agent",
         "timeout_multiplier": 1.0,
         "agent_timeout_multiplier": null,
@@ -61,7 +61,7 @@
             "disable": false
         },
         "artifacts": [],
-        "job_id": "a238f4a8-3340-4d8f-8b09-c621217395cb"
+        "job_id": "fad94b05-3afd-4317-b6d2-2bad6c6702b9"
     },
     "agent_info": {
         "name": "swarm-kimi-multi",
@@ -72,36 +72,36 @@
         }
     },
     "agent_result": {
-        "n_input_tokens": 146180,
-        "n_cache_tokens": 86856,
-        "n_output_tokens": 8068,
+        "n_input_tokens": 162190,
+        "n_cache_tokens": 85561,
+        "n_output_tokens": 12898,
         "cost_usd": null,
         "rollout_details": null,
         "metadata": null
     },
     "verifier_result": {
         "rewards": {
-            "reward": 0.933920704845815
+            "reward": 0.801762114537445
         }
     },
     "exception_info": null,
-    "started_at": "2026-05-16T08:55:23.154134Z",
-    "finished_at": "2026-05-16T09:01:59.516345Z",
+    "started_at": "2026-05-16T09:08:57.116379Z",
+    "finished_at": "2026-05-16T09:13:45.259663Z",
     "environment_setup": {
-        "started_at": "2026-05-16T08:55:23.358416Z",
-        "finished_at": "2026-05-16T08:55:29.037826Z"
+        "started_at": "2026-05-16T09:08:57.292603Z",
+        "finished_at": "2026-05-16T09:09:02.364672Z"
     },
     "agent_setup": {
-        "started_at": "2026-05-16T08:55:29.037923Z",
-        "finished_at": "2026-05-16T08:55:43.683107Z"
+        "started_at": "2026-05-16T09:09:02.364807Z",
+        "finished_at": "2026-05-16T09:09:16.651804Z"
     },
     "agent_execution": {
-        "started_at": "2026-05-16T08:55:43.683274Z",
-        "finished_at": "2026-05-16T09:01:56.194183Z"
+        "started_at": "2026-05-16T09:09:16.651971Z",
+        "finished_at": "2026-05-16T09:13:42.107963Z"
     },
     "verifier": {
-        "started_at": "2026-05-16T09:01:56.571491Z",
-        "finished_at": "2026-05-16T09:01:57.174028Z"
+        "started_at": "2026-05-16T09:13:42.387966Z",
+        "finished_at": "2026-05-16T09:13:42.934498Z"
     },
     "step_results": null
 }
