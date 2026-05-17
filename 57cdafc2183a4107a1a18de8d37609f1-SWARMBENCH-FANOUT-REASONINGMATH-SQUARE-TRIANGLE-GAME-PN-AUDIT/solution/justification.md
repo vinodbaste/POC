@@ -29,8 +29,15 @@ This is the standard Sprague-Grundy P/N labeling for a pile game. Computing the 
 
 ## Per-response rationale
 
-Per-response audit entries will be populated once the seven model responses are collected and stored under `/input_artifacts/proposed_solutions/response_A.md` through `response_G.md`. Each entry will cite specific phrases from the corresponding response and explain why each of the 8 failure-reason codes in the controlled vocabulary either fires or does not fire on that response's text.
+- Response A: `non_terminating_or_no_final_string` because it never produces a usable 131-character P/N string; `arithmetic_recursion_error` because its indexed P/N fragments are incoherent position-level classifications rather than a valid dynamic-programming output.
+- Response B: `non_terminating_or_no_final_string` because it explicitly says the exact 131-character string cannot be provided.
+- Response C: `arbitrary_pattern_heuristic` and `missing_subtraction_moves` because it gives the all-N-after-initial pattern without a real DP derivation over the full square-triangle move union.
+- Response D: `truncated_or_short_string` and `arbitrary_pattern_heuristic` because the final string is too short and visibly patterned despite the surrounding correct-looking recurrence prose.
+- Response E: `wrong_base_case` because the claimed classification begins with `N`, so pile size 0 is classified as N instead of P.
+- Response F: `arithmetic_recursion_error` and `truncated_or_short_string` because it lists the right move set and recurrence but outputs a too-short string with concrete DP errors.
+- Response G: `arbitrary_pattern_heuristic` because it claims all nonzero positions are N merely because move size 1 exists.
+- Response H: `arbitrary_pattern_heuristic` and `arithmetic_recursion_error` because it gives an alternating PN pattern after correct-looking backward-induction language and the resulting positions disagree with the DP.
 
 ## Acceptance summary
 
-Until the per-response audits are populated, `acceptable_solution_ids` is the empty list and `per_response_assessment` is the empty array. After the responses are collected and audited, this section will list which response IDs (if any) produced the gold classification string with no triggering failure reasons.
+No response A through H is acceptable: every response either lacks a valid full classification string or has at least one concrete failure-reason trigger. `acceptable_solution_ids` is therefore empty.

@@ -35,6 +35,15 @@ def main():
     with open(args.oracle, "r", encoding="utf-8") as f:
         oracle = json.load(f)
 
+    response_count = len(oracle.get("per_response_assessment", []))
+    total_points = 4 + 30 * response_count
+    response_ids = [
+        item.get("response_id")
+        for item in oracle.get("per_response_assessment", [])
+        if item.get("response_id")
+    ]
+    response_id_text = f"{response_ids[0]}-{response_ids[-1]}" if response_ids else "listed responses"
+
     if agent_output == oracle:
         json.dump({"reward": 1.0}, open(args.reward_out, "w", encoding="utf-8"))
         with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
@@ -69,17 +78,17 @@ def main():
         "Equivalence and strictness rules:\n"
         "1. For correct_classification_string, require exact 131-character string equality with the oracle.\n"
         "2. For acceptable_solution_ids, require the same set of response letters as the oracle.\n"
-        "3. per_response_assessment must contain exactly one object for each response A-G.\n"
+        f"3. per_response_assessment must contain exactly one object for each response {response_id_text}.\n"
         "4. For response_id and classification_correct, require exact equality.\n"
         "5. For failure_reasons, order does not matter, but the set must match exactly. Extra reasons fail. Missing reasons fail. No partial credit inside failure_reasons.\n"
         "6. A per-response audit receives credit only if response_id, classification_correct, and the exact failure_reasons set are all correct for that response.\n\n"
         "Scoring rubric with weighted points:\n"
         "- correct_classification_string = 2 points.\n"
         "- acceptable_solution_ids = 2 points.\n"
-        "- Each response audit A-G is all-or-nothing = 30 points. Award the 30 points only if response_id, classification_correct, and exact failure_reasons set all match the oracle for that response. Otherwise award 0 for that response.\n"
-        "- Total = 214 points. score = passed/214.\n\n"
+        f"- Each response audit {response_id_text} is all-or-nothing = 30 points. Award the 30 points only if response_id, classification_correct, and exact failure_reasons set all match the oracle for that response. Otherwise award 0 for that response.\n"
+        f"- Total = {total_points} points. score = passed/{total_points}.\n\n"
         "Respond in JSON only, no markdown:\n"
-        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 214, '
+        f'{{"score": <float 0.0-1.0>, "passed": <int>, "total": {total_points}, '
         '"justification": "<concise weighted field-by-field breakdown>"}'
     )
 

@@ -1,162 +1,159 @@
 sub_tasks:
+  - id: derive-canonical-envelope-proof
+    description: >
+      ORCHESTRATOR INSTRUCTION: Spawn exactly one Agent sub-agent for this
+      task. The sub-agent owns the canonical math derivation only. It must read
+      /input_artifacts/problem_statement.md and return a compact proof packet
+      with: canonical_minimum, upper_bound_strategy, lower_bound_reason,
+      one_draw_rule, exact_mixed_pair_rule, and common_failure_patterns.
+      Required conclusions for downstream consistency: the canonical minimum
+      is 15 inspections; the upper bound is 1 draw from the Mixed-labeled
+      envelope plus 14 draws from the envelope labeled with that identified
+      pure type; the lower bound requires indistinguishable-case reasoning, not
+      just arithmetic from the strategy; the Mixed-labeled envelope is known
+      pure, but a one-draw observation from a pure-labeled envelope does not
+      prove purity unless mixed has already been ruled out; the exact two-type
+      composition of the mixed envelope is not required.
+    depends_on: []
+    parallel_group: calibrate
+
   - id: calibrate-audit-rules
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
-      Agent tool. Do NOT perform this calibration yourself. Do NOT solve the
-      puzzle yourself. Do NOT include any asserted numeric answer, true answer,
-      correct answer, solved strategy, or oracle-derived conclusion in the
-      sub-agent prompt. The sub-agent must read the task instruction and
-      /input_artifacts/problem_statement.md itself, then return a concise
-      calibration guide for applying C1-C8, verdict, and primary_failure_code.
-      The guide should clarify: criteria are independent; C1 concerns only the
-      candidate's stated final minimum; C2 concerns whether an explicit
-      actionable strategy is present; C3 concerns whether that strategy
-      guarantees success accounting for the 7/13 mixed-envelope split; C4
-      concerns whether minimality is proven; C5 concerns worst-case framing; C6
-      concerns invalid purity inference from one draw when the envelope could
-      still be mixed; C7 concerns unnecessary exact mixed-pair requirements; C8
-      concerns fatal contradictions or proof-invalidating claims. The guide
-      must explain how to choose the most diagnostic primary_failure_code from
-      the instruction list without assigning any code to any specific response.
+      ORCHESTRATOR INSTRUCTION: Spawn exactly one Agent sub-agent for this
+      task. The sub-agent owns rubric calibration only. It must use the task
+      instruction and return a concise scoring guide for C1-C8, verdict, and
+      primary_failure_code. It must emphasize that criteria are independent:
+      C1 scores only the stated final minimum; C2 scores whether an actionable
+      branch-aware strategy is present; C3 scores guaranteed sufficiency; C4
+      scores a real impossibility proof; C5 scores worst-case framing; C6
+      scores only invalid one-draw purity claims from envelopes that could
+      still be mixed; C7 scores unnecessary exact mixed-pair requirements; C8
+      scores fatal proof-invalidating contradictions. Include the tie-breaker:
+      choose the most diagnostic primary_failure_code, not automatically
+      WRONG_FINAL_NUMBER.
     depends_on: []
     parallel_group: calibrate
 
   - id: grade-response-a
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_A using the Agent tool. Do NOT read, solve, summarize, or grade
-      response_A yourself. Do NOT include any asserted numeric answer or solved
-      puzzle conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem_statement.md and
-      /input_artifacts/candidate_solutions/response_A.md itself, use the
-      calibration guide, and return only the response_A evaluation JSON fields.
-      Focus on whether the response respects the all-labels-wrong premise from
-      its very first step, while still evaluating all C1-C8 labels, verdict,
-      and diagnostic failure category independently.
-    depends_on: [calibrate-audit-rules]
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_A.
+      The sub-agent must read /input_artifacts/candidate_solutions/response_A.md
+      and consume the canonical proof packet plus the rubric guide. Return only
+      one JSON evaluation object for response_A and a short evidence note. Audit
+      focus: the final number is 2, the inspection procedure is concrete enough
+      to score C2 true, the "remaining two envelopes are determined
+      automatically" step is the invalid upper-bound step, the response does
+      not rely on an invalid one-draw purity inference from an envelope that
+      could still be mixed, and the most diagnostic primary_failure_code should
+      be INVALID_UPPER_BOUND.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-b
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_B using the Agent tool. Do NOT read, solve, summarize, or grade
-      response_B yourself. Do NOT include any asserted numeric answer or solved
-      puzzle conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem_statement.md and
-      /input_artifacts/candidate_solutions/response_B.md itself, use the
-      calibration guide, and return only the response_B evaluation JSON fields.
-      Focus on whether each one-draw conclusion is logically justified when the
-      inspected envelope may still be mixed, while still evaluating all C1-C8
-      labels, verdict, and diagnostic failure category independently.
-    depends_on: [calibrate-audit-rules]
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_B.
+      The sub-agent must read /input_artifacts/candidate_solutions/response_B.md
+      and consume the canonical proof packet plus the rubric guide. Return only
+      one JSON evaluation object for response_B and a short evidence note. Audit
+      focus: the final number is 4; the response acknowledges ambiguity
+      ("either mixed or purely increasing/decreasing") but then says enough
+      information has been gathered without a branch-by-branch label-fixing
+      rule. Score C2 false, C6 true, C8 false, and use NO_CONCRETE_STRATEGY as
+      the most diagnostic primary_failure_code.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-c
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_C using the Agent tool. Do NOT read, solve, summarize, or grade
-      response_C yourself. Do NOT include any asserted numeric answer or solved
-      puzzle conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem_statement.md and
-      /input_artifacts/candidate_solutions/response_C.md itself, use the
-      calibration guide, and return only the response_C evaluation JSON fields.
-      Focus on whether the response specifies a concrete branch-by-branch
-      label-fixing rule or instead relies on a hand-wavy aggregate argument.
-      Still evaluate all C1-C8 labels, verdict, and diagnostic failure category
-      independently.
-    depends_on: [calibrate-audit-rules]
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_C.
+      The sub-agent must read /input_artifacts/candidate_solutions/response_C.md
+      and consume the canonical proof packet plus the rubric guide. Return only
+      one JSON evaluation object for response_C and a short evidence note. Audit
+      focus: the response states 15 and gives the valid 1+14 upper-bound idea
+      in worst-case terms. It does not provide a real lower-bound proof ruling
+      out fewer inspections. Score all criteria true except C4, reject it, and
+      use MISSING_LOWER_BOUND.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-d
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_D using the Agent tool. Do NOT read, solve, summarize, or grade
-      response_D yourself. Do NOT include any asserted numeric answer or solved
-      puzzle conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem_statement.md and
-      /input_artifacts/candidate_solutions/response_D.md itself, use the
-      calibration guide, and return only the response_D evaluation JSON fields.
-      Focus on separating the stated final number from the validity of the
-      proposed strategy. Check whether the strategy is structurally sound even
-      if the final inspection count is off. Still evaluate all C1-C8 labels,
-      verdict, and diagnostic failure category independently.
-    depends_on: [calibrate-audit-rules]
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_D.
+      The sub-agent must read /input_artifacts/candidate_solutions/response_D.md
+      and consume the canonical proof packet plus the rubric guide. Return only
+      one JSON evaluation object for response_D and a short evidence note. Audit
+      focus: the final number is 1; the response has no concrete multi-branch
+      strategy, no worst-case reasoning, and fatally claims the remaining three
+      labels are forced by contradiction after one valid draw from the
+      Mixed-labeled envelope. Score C6 true and use FATAL_WRONG_CLAIM.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-e
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_E using the Agent tool. Do NOT read, solve, summarize, or grade
-      response_E yourself. Do NOT include any asserted numeric answer or solved
-      puzzle conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem_statement.md and
-      /input_artifacts/candidate_solutions/response_E.md itself, use the
-      calibration guide, and return only the response_E evaluation JSON fields.
-      Focus on whether the response gives one consistent final answer and one
-      concrete strategy, or instead oscillates among incompatible conclusions.
-      Still evaluate all C1-C8 labels, verdict, and diagnostic failure category
-      independently.
-    depends_on: [calibrate-audit-rules]
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_E.
+      The sub-agent must read /input_artifacts/candidate_solutions/response_E.md
+      and consume the canonical proof packet plus the rubric guide. Return only
+      one JSON evaluation object for response_E and a short evidence note. Audit
+      focus: the response oscillates among 3, 2, 14, 15, and final 3. It never
+      settles one coherent strategy or proof. Score C6 true, C7 true, C8 false,
+      and use CONTRADICTORY_FINAL_ANSWER.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-f
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_F using the Agent tool. Do NOT read, solve, summarize, or grade
-      response_F yourself. Do NOT include any asserted numeric answer or solved
-      puzzle conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem_statement.md and
-      /input_artifacts/candidate_solutions/response_F.md itself, use the
-      calibration guide, and return only the response_F evaluation JSON fields.
-      Focus on whether the strategy adds inspections solely to identify the
-      exact two-type composition of the mixed envelope, beyond what the task
-      requires. Still evaluate all C1-C8 labels, verdict, and diagnostic
-      failure category independently.
-    depends_on: [calibrate-audit-rules]
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_F.
+      The sub-agent must read /input_artifacts/candidate_solutions/response_F.md
+      and consume the canonical proof packet plus the rubric guide. Return only
+      one JSON evaluation object for response_F and a short evidence note. Audit
+      focus: the final number is 3; the response gives a concrete but invalid
+      one-draw-per-envelope strategy, treats single observations as identifying
+      envelope contents, and therefore makes the load-bearing invalid
+      one-draw inference. Score C2 true, C5 false, C6 false, C7 true, C8 false,
+      and use INVALID_ONE_DRAW_INFERENCE.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-g
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_G using the Agent tool. Do NOT read, solve, summarize, or grade
-      response_G yourself. Do NOT include any asserted numeric answer or solved
-      puzzle conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem_statement.md and
-      /input_artifacts/candidate_solutions/response_G.md itself, use the
-      calibration guide, and return only the response_G evaluation JSON fields.
-      Focus on whether the response acknowledges the worst-case rule for one
-      envelope but then abandons it for the remaining envelopes. Still evaluate
-      all C1-C8 labels, verdict, and diagnostic failure category independently.
-    depends_on: [calibrate-audit-rules]
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_G.
+      The sub-agent must read /input_artifacts/candidate_solutions/response_G.md
+      and consume the canonical proof packet plus the rubric guide. Return only
+      one JSON evaluation object for response_G and a short evidence note. Audit
+      focus: the response concludes 16. It correctly uses the 14-draw
+      pure-versus-mixed verification rule, so score C3 true and C5 true, but
+      the preliminary inspection is double-counted because it can be one of the
+      14 verification draws. It lacks a lower-bound proof. Score C1 false and
+      use WRONG_FINAL_NUMBER rather than FATAL_WRONG_CLAIM.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-h
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_H using the Agent tool. Do NOT read, solve, summarize, or grade
-      response_H yourself. Do NOT include any asserted numeric answer or solved
-      puzzle conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem_statement.md and
-      /input_artifacts/candidate_solutions/response_H.md itself, use the
-      calibration guide, and return only the response_H evaluation JSON fields.
-      Focus on whether the response engages with the worst-case branch where a
-      single observation from each envelope cannot distinguish a pure envelope
-      from a mixed envelope returning the same type. Still evaluate all C1-C8
-      labels, verdict, and diagnostic failure category independently.
-    depends_on: [calibrate-audit-rules]
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_H.
+      The sub-agent must read /input_artifacts/candidate_solutions/response_H.md
+      and consume the canonical proof packet plus the rubric guide. Return only
+      one JSON evaluation object for response_H and a short evidence note. Audit
+      focus: the final number is 4; the response does provide a concrete
+      one-from-each-envelope strategy, but it is not a worst-case guarantee
+      because a mixed envelope can return the same type as a pure envelope on
+      its first draw. Score C2 true, C5 false, C6 false, C7 true, C8 false, and
+      use NOT_WORST_CASE as the primary failure.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: reduce-final-audit
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent using
-      the Agent tool. Do NOT perform the final reduction yourself. The reducer
-      may only synthesize the calibration output and the eight mapper outputs.
-      It MUST NOT redo the eight audits from scratch. If a mapper output is
-      malformed, ask a replacement sub-agent to re-grade that same response
-      instead of grading it in the orchestrator. The reducer must write exactly
-      one JSON report at /logs/agent/output.json with response_A through
-      response_H, plus accepted_solutions, rejected_solutions, best_solution,
-      and summary.
+      ORCHESTRATOR INSTRUCTION: Spawn this reducer as an Agent sub-agent. Pass
+      the canonical proof packet, rubric guide, and all eight mapper outputs.
+      The reducer owns final writing. It must reconcile contradictions, enforce
+      exactly eight evaluations response_A through response_H, recompute verdict
+      as ACCEPT iff all C1-C8 are true, and validate JSON syntax. It must write
+      exactly one JSON object to /logs/agent/output.json. Because the environment
+      also links /workspace/logs to /logs, writing either path should produce
+      the same file, but the reducer must explicitly verify that
+      /logs/agent/output.json exists and can be parsed before returning.
     depends_on:
       - grade-response-a
       - grade-response-b

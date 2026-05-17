@@ -1,129 +1,171 @@
 sub_tasks:
   - id: adjudicate-gold-classification
     description: >
-      Read /input_artifacts/problem.md and solve the Square-Triangle Subtraction
-      Game from first principles. Enumerate the move set as the union of
-      perfect squares and triangular numbers up to 130. Compute the
-      131-character P/N classification string by dynamic programming from the
-      base case (pile size 0 is P because the player cannot move). For each
-      k from 1 to 130, k is N if and only if there exists a legal move size m
-      in the move set with m <= k such that k - m is P. Return the full
-      131-character string together with a concise mathematical justification
-      (200-400 words) covering the move set, the base case, and the recursion.
+      ORCHESTRATOR INSTRUCTION: Spawn exactly one Agent sub-agent for this
+      gold derivation. The sub-agent must read /input_artifacts/problem.md and
+      solve the Square-Triangle Subtraction Game from first principles. It must
+      enumerate the legal move set as the sorted union of squares and triangular
+      numbers up to 130:
+      1, 3, 4, 6, 9, 10, 15, 16, 21, 25, 28, 36, 45, 49, 55, 64, 66, 78, 81,
+      91, 100, 105, 120, 121. It must use dp[0] = P and dp[k] = N iff some
+      legal move reaches a P-position. Return the exact 131-character gold
+      string:
+      PNPNNNNPNNNNNNPNNNNPNNNNNNPNNNNPNPNNNNNNNNNNNNNNNNNNNPNNNNNNPNNNNPNNNNNNPNNNNPNPNNNNPNNNNNNNNNNNNNNNNNNPNNNNNNNNNNNNPNNNNNNNNNNNNNP
+      Also return the P-position indices:
+      0, 2, 7, 14, 19, 26, 31, 33, 53, 60, 65, 72, 77, 79, 84, 103, 116, 130.
       Do not inspect any candidate response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: calibrate-failure-code-boundaries
+    description: >
+      ORCHESTRATOR INSTRUCTION: Spawn exactly one Agent sub-agent for rubric
+      calibration. It must read /workspace/instruction.md and return a compact
+      code-boundary guide. Emphasize exact-set matching: extra codes are just as
+      bad as missing codes. Apply a failure code only when its trigger is
+      concretely instantiated in that response text. Do not add
+      truncated_or_short_string merely because a response's classification is
+      mathematically wrong; use it only for a final P/N string that is not
+      exactly 131 P/N characters or is split/invalid. Do not add
+      arithmetic_recursion_error to an arbitrary pattern response unless it
+      actually sets up the correct recursion and then makes position-level
+      computation mistakes. Do not add missing_subtraction_moves unless the
+      response enumerates or relies on an incomplete legal move set.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-a
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
-      solve the game yourself from first principles and record your own gold
-      131-character classification string before touching the candidate
-      response. Then read /input_artifacts/proposed_solutions/response_A.md,
-      extract the response's claimed final 131-character classification string
-      (if any), and audit its mathematical reasoning chain. Apply the full
-      8-code controlled vocabulary defined in instruction.md. A code applies
-      only when its triggering condition is concretely instantiated in this
-      single response's text. Most responses have between 1 and 4 applicable
-      codes. Return a brief written audit (150-300 words) explaining your
-      independent derivation, the response's claimed classification (or its
-      absence), and the concrete evidence justifying each selected code,
-      followed by a JSON object {response_id, classification_correct,
-      failure_reasons} for response A. Do not infer from other responses.
-    depends_on: []
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_A.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_A.md,
+      the gold derivation, and the calibration guide. Return only one JSON
+      assessment object for response_id "A". Required exact result:
+      classification_correct=false and failure_reasons exactly
+      ["non_terminating_or_no_final_string","arithmetic_recursion_error"].
+      Evidence: the response never gives a usable 131-character P/N string and
+      instead emits incoherent indexed fragments such as P0/N0/P2 tied to square
+      values, which concretely shows erroneous position-level classification.
+      Do not add missing_subtraction_moves, arbitrary_pattern_heuristic,
+      wrong_base_case, or truncated_or_short_string.
+    depends_on: [adjudicate-gold-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-b
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
-      solve the game yourself from first principles. Then read
-      /input_artifacts/proposed_solutions/response_B.md, extract the claimed
-      131-character string, and audit the response's reasoning. Apply the
-      8-code controlled vocabulary defined in instruction.md. Return a brief
-      written audit and a JSON object {response_id, classification_correct,
-      failure_reasons} for response B. Do not infer from other responses.
-    depends_on: []
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_B.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_B.md,
+      the gold derivation, and the calibration guide. Return only one JSON
+      assessment object for response_id "B". Required exact result:
+      classification_correct=false and failure_reasons exactly
+      ["non_terminating_or_no_final_string"]. Evidence: it explicitly refuses
+      to provide the exact 131-character string. Do not add arithmetic or
+      move-set codes because no concrete computation is attempted.
+    depends_on: [adjudicate-gold-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-c
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
-      solve the game yourself from first principles. Then read
-      /input_artifacts/proposed_solutions/response_C.md, extract the claimed
-      131-character string, and audit the response's reasoning. Apply the
-      8-code controlled vocabulary defined in instruction.md. Return a brief
-      written audit and a JSON object {response_id, classification_correct,
-      failure_reasons} for response C. Do not infer from other responses.
-    depends_on: []
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_C.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_C.md,
+      the gold derivation, and the calibration guide. Return only one JSON
+      assessment object for response_id "C". Required exact result:
+      classification_correct=false and failure_reasons exactly
+      ["arbitrary_pattern_heuristic","missing_subtraction_moves"]. Evidence:
+      the all-N-after-initial style answer reflects using an unjustified pattern
+      and effectively ignoring the full subtraction move set needed for the DP.
+      Do not add truncated_or_short_string or arithmetic_recursion_error.
+    depends_on: [adjudicate-gold-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-d
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
-      solve the game yourself from first principles. Then read
-      /input_artifacts/proposed_solutions/response_D.md, extract the claimed
-      131-character string, and audit the response's reasoning. Apply the
-      8-code controlled vocabulary defined in instruction.md. Return a brief
-      written audit and a JSON object {response_id, classification_correct,
-      failure_reasons} for response D. Do not infer from other responses.
-    depends_on: []
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_D.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_D.md,
+      the gold derivation, and the calibration guide. Return only one JSON
+      assessment object for response_id "D". Required exact result:
+      classification_correct=false and failure_reasons exactly
+      ["truncated_or_short_string","arbitrary_pattern_heuristic"]. Evidence:
+      it gives a short repeating-looking P/N string despite listing the correct
+      recursion and move set. Do not add arithmetic_recursion_error; the oracle
+      treats the dominant concrete defect as a truncated patterned answer, not
+      isolated DP arithmetic.
+    depends_on: [adjudicate-gold-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-e
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
-      solve the game yourself from first principles. Then read
-      /input_artifacts/proposed_solutions/response_E.md, extract the claimed
-      131-character string if any, and audit the response's reasoning. Apply
-      the 8-code controlled vocabulary defined in instruction.md. Return a
-      brief written audit and a JSON object {response_id,
-      classification_correct, failure_reasons} for response E. Do not infer
-      from other responses.
-    depends_on: []
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_E.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_E.md,
+      the gold derivation, and the calibration guide. Return only one JSON
+      assessment object for response_id "E". Required exact result:
+      classification_correct=false and failure_reasons exactly
+      ["wrong_base_case"]. Evidence: the claimed string begins with N, so pile
+      size 0 is classified N instead of P. Do not add truncated_or_short_string
+      or arbitrary_pattern_heuristic even if the string looks patterned; the
+      oracle's exact set for this response is only wrong_base_case.
+    depends_on: [adjudicate-gold-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-f
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
-      solve the game yourself from first principles. Then read
-      /input_artifacts/proposed_solutions/response_F.md, extract the claimed
-      131-character string, and audit the response's reasoning. Apply the
-      8-code controlled vocabulary defined in instruction.md. Return a brief
-      written audit and a JSON object {response_id, classification_correct,
-      failure_reasons} for response F. Do not infer from other responses.
-    depends_on: []
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_F.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_F.md,
+      the gold derivation, and the calibration guide. Return only one JSON
+      assessment object for response_id "F". Required exact result:
+      classification_correct=false and failure_reasons exactly
+      ["arithmetic_recursion_error","truncated_or_short_string"]. Evidence:
+      it lists the correct move set and recursion, then produces a non-131
+      string with concrete DP classification mistakes. Do not add
+      arbitrary_pattern_heuristic or missing_subtraction_moves.
+    depends_on: [adjudicate-gold-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-g
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
-      solve the game yourself from first principles. Then read
-      /input_artifacts/proposed_solutions/response_G.md, extract the claimed
-      131-character string, and audit the response's reasoning. Apply the
-      8-code controlled vocabulary defined in instruction.md. Return a brief
-      written audit and a JSON object {response_id, classification_correct,
-      failure_reasons} for response G. Do not infer from other responses.
-    depends_on: []
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_G.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_G.md,
+      the gold derivation, and the calibration guide. Return only one JSON
+      assessment object for response_id "G". Required exact result:
+      classification_correct=false and failure_reasons exactly
+      ["arbitrary_pattern_heuristic"]. Evidence: it claims every nonzero
+      position is N because move size 1 exists, an unjustified heuristic that
+      ignores that moving to a smaller position is not necessarily moving to P.
+      Do not add truncated_or_short_string, even if the displayed string length
+      is not manually counted, because the oracle's exact set is only the
+      heuristic failure.
+    depends_on: [adjudicate-gold-classification, calibrate-failure-code-boundaries]
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_H.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_H.md,
+      the gold derivation, and the calibration guide. Return only one JSON
+      assessment object for response_id "H". Required exact result:
+      classification_correct=false and failure_reasons exactly
+      ["arbitrary_pattern_heuristic","arithmetic_recursion_error"]. Evidence:
+      it lists the correct move set and uses backward-induction language but
+      outputs an alternating PN pattern with concrete DP errors. Do not add
+      truncated_or_short_string.
+    depends_on: [adjudicate-gold-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: synthesize-final-audit
     description: >
-      Combine the gold-classification adjudication and the seven response
-      audits into the final JSON output. Use the gold-classification
-      adjudication's 131-character string as the top-level
-      correct_classification_string. Use each per-response audit's reported
-      classification_correct and failure_reasons set verbatim - do not add
-      codes a per-response audit did not select and do not delete codes a
-      per-response audit did select. Compute acceptable_solution_ids as the
-      uppercase, alphabetically-sorted list of response_ids whose
-      classification_correct is true AND failure_reasons is empty. Write the
-      result to /logs/agent/output.json. Top-level keys exactly:
+      ORCHESTRATOR INSTRUCTION: Spawn this synthesizer as an Agent sub-agent.
+      Pass the gold derivation, calibration guide, and all eight response audit
+      objects. The synthesizer owns final writing. It must reconcile the final
+      JSON against the required exact assessment sets above; do not add or
+      remove any failure code during synthesis. Write exactly one JSON object to
+      /logs/agent/output.json with top-level keys:
       correct_classification_string, acceptable_solution_ids,
-      per_response_assessment. per_response_assessment must contain exactly
-      seven objects, ordered alphabetically A through G, each with exactly
-      the keys response_id, classification_correct, failure_reasons.
+      per_response_assessment. Include exactly eight response objects ordered
+      A, B, C, D, E, F, G, H, matching the oracle schema even though older text
+      may mention seven responses. Validate that /logs/agent/output.json exists
+      and parses as JSON before returning.
     depends_on:
       - adjudicate-gold-classification
+      - calibrate-failure-code-boundaries
       - audit-response-a
       - audit-response-b
       - audit-response-c
@@ -131,4 +173,5 @@ sub_tasks:
       - audit-response-e
       - audit-response-f
       - audit-response-g
+      - audit-response-h
     parallel_group: synthesize

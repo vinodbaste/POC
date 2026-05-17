@@ -1,16 +1,16 @@
 [task]
 name = "swarmbench/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT"
-description = "Audit seven proposed solutions to a sequence-envelope deductive reasoning puzzle using deterministic proof-validity criteria. Each candidate proposes a minimum number of inspections to relabel four mislabeled envelopes of strictly-increasing, strictly-decreasing, constant, and mixed (7/13 split) number sequences; auditors apply a fixed C1-C8 rubric, verdict, and primary failure code."
+description = "Audit eight proposed solutions to a sequence-envelope deductive reasoning puzzle using deterministic proof-validity criteria. Each candidate proposes a minimum number of inspections to relabel four mislabeled envelopes of strictly-increasing, strictly-decreasing, constant, and mixed (7/13 split) number sequences; auditors apply a fixed C1-C8 rubric, verdict, and primary failure code."
 
 [metadata]
 verifier_type = "executable"
 domain = "reasoning-math"
 coordination_pattern = "map-reduce"
 human_solving_hours_estimate = 11.0
-human_solving_hours_justification = "11.0 hours total = 1.5h independently deriving and verifying the 15-inspection canonical strategy (1 inspection of the Mixed-labeled envelope plus 14-draw verification against the 7/13 split) and its matching impossibility argument + 7 responses x 1.1h/response = 7.7h auditing the C1-C8 rubric, verdict, and primary_failure_code for each candidate + 1.2h cross-checking the oracle against candidate text and weighted scoring + 0.6h packaging and execution-log consistency checks. Component sum: 1.5 + 7.7 + 1.2 + 0.6 = 11.0 hours."
-estimated_sub_agents = 9
+human_solving_hours_justification = "11.0 hours total = 1.5h independently deriving and verifying the 15-inspection canonical strategy (1 inspection of the Mixed-labeled envelope plus 14-draw verification against the 7/13 split) and its matching impossibility argument + 8 responses x 0.95h/response = 7.6h auditing the C1-C8 rubric, verdict, and primary_failure_code for each candidate + 1.3h cross-checking the oracle against candidate text and weighted scoring + 0.6h packaging and execution-log consistency checks. Component sum: 1.5 + 7.6 + 1.3 + 0.6 = 11.0 hours."
+estimated_sub_agents = 11
 input_token_estimate = 5200
-why_multi_agent = "The task contains seven independent candidate solution audits drawn from heterogeneous real model outputs (incoherent, formal-LaTeX, hand-wavy info-theoretic, careful but over-counting, oscillating, exact-pair-requiring, and worst-case-abandoning). Each audit requires careful local attention to subtle proof errors. A single agent is likely to conflate candidates or default to the most generic failure code as context accumulates. Map-reduce lets seven mapper agents each own one response while a reducer merges verdicts into one deterministic audit report."
+why_multi_agent = "The task contains eight independent candidate solution audits plus a shared canonical proof and rubric-calibration phase. Each audit requires careful local attention to subtle proof errors: wrong final number, missing lower bound, invalid upper bound, invalid one-draw inference, contradictory answer, and not-worst-case reasoning are intentionally close but distinct. A single agent is likely to conflate candidates or default to the most generic failure code as context accumulates. Map-reduce lets one proof agent establish the 15-inspection canonical result, one rubric agent calibrate independent C1-C8 labels, eight mapper agents each own one response, and a reducer reconcile all labels into one deterministic JSON report."
 reference_link = "https://medium.com/@shelvia1039/brain-teasers-3eac53bce2a0"
 
 [agent]

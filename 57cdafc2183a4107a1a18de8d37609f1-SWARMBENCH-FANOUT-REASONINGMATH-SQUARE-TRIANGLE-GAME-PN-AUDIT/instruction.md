@@ -1,4 +1,4 @@
-You are auditing seven real, unedited model responses to a deterministic combinatorial game theory problem about a single-pile subtraction game whose allowed move sizes are the union of perfect squares and triangular numbers.
+You are auditing eight real, unedited model responses to a deterministic combinatorial game theory problem about a single-pile subtraction game whose allowed move sizes are the union of perfect squares and triangular numbers.
 
 Working directory: `/workspace`.
 
@@ -13,13 +13,14 @@ Input artifacts:
   - `/input_artifacts/proposed_solutions/response_E.md`
   - `/input_artifacts/proposed_solutions/response_F.md`
   - `/input_artifacts/proposed_solutions/response_G.md`
+  - `/input_artifacts/proposed_solutions/response_H.md`
 
 Task:
 
-1. Read the problem statement and all seven released responses.
+1. Read the problem statement and all eight released responses.
 2. Independently determine the correct 131-character P/N classification string for pile sizes 0 through 130 using dynamic programming over the move set (the union of perfect squares and triangular numbers).
 3. Determine which response(s), if any, give a classification string that exactly matches the gold string.
-4. For each response A through G, identify the EXACT SET of failure-reason codes from the controlled vocabulary below whose triggering condition is concretely present in that single response's text. Each response typically has 1-4 applicable codes.
+4. For each response A through H, identify the EXACT SET of failure-reason codes from the controlled vocabulary below whose triggering condition is concretely present in that single response's text. Each response typically has 1-4 applicable codes.
 
 Allowed failure-reason codes (each code applies ONLY when its triggering condition is concretely instantiated in that single response's text):
 
@@ -55,7 +56,7 @@ Important scoring and selection rules:
 - `acceptable_solution_ids` is the uppercase, alphabetically-sorted list of `response_id`s whose `classification_correct` is `true` AND whose `failure_reasons` list is empty.
 
 Label definitions for each released response:
-- `response_id`: the response letter, exactly one of `"A"`, `"B"`, `"C"`, `"D"`, `"E"`, `"F"`, `"G"`.
+- `response_id`: the response letter, exactly one of `"A"`, `"B"`, `"C"`, `"D"`, `"E"`, `"F"`, `"G"`, `"H"`.
 - `classification_correct`: `true` exactly when the response's claimed 131-character classification string equals the gold classification string exactly, character by character. Otherwise `false`.
 - `failure_reasons`: a JSON list of strings chosen only from the 8 allowed failure-reason codes above.
 
@@ -76,4 +77,4 @@ Write your final answer to `/logs/agent/output.json` in this exact JSON format:
   ]
 }
 
-In the actual output, include seven objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, in that order. Do not write anything else to that file.
+In the actual output, include eight objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, in that order. Do not write anything else to that file.
