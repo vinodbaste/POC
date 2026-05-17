@@ -1,0 +1,3 @@
+Score: 0.1589 (34/214 passed)
+
+correct_classification_string: 2/2 (exact match), acceptable_solution_ids: 2/2 (both empty), response A: 0/30 (missing 'arithmetic_recursion_error'), response B: 30/30 (exact match), response C: 0/30 (incorrect reasons set), response D: 0/30 (missing 'arbitrary_pattern_heuristic'), response E: 0/30 (extra reasons present), response F: 0/30 (missing 'arithmetic_recursion_error'), response G: 0/30 (extra 'truncated_or_short_string'). Total 34/214.
