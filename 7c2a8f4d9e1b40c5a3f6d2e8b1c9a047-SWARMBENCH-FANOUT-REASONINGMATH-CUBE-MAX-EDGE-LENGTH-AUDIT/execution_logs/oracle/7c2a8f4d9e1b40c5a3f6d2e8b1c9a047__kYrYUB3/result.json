@@ -1,0 +1,104 @@
+{
+    "id": "09605a84-c69a-4e3a-97ab-8ab6e85b49c8",
+    "task_name": "swarmbench/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT",
+    "trial_name": "7c2a8f4d9e1b40c5a3f6d2e8b1c9a047__kYrYUB3",
+    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT/execution_logs/oracle/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047__kYrYUB3",
+    "task_id": {
+        "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "67da590f4137a9ff86d3144adf8757544b4f9bd20e568f14535907cf21e57719",
+    "config": {
+        "task": {
+            "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "7c2a8f4d9e1b40c5a3f6d2e8b1c9a047__kYrYUB3",
+        "trials_dir": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT/execution_logs/oracle",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "5a2f04c2-1184-4321-b011-588a6ab00074"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-16T21:32:39.337758Z",
+    "finished_at": "2026-05-16T21:33:15.280437Z",
+    "environment_setup": {
+        "started_at": "2026-05-16T21:32:39.558735Z",
+        "finished_at": "2026-05-16T21:33:06.326381Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-16T21:33:06.326477Z",
+        "finished_at": "2026-05-16T21:33:06.326557Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-16T21:33:06.326649Z",
+        "finished_at": "2026-05-16T21:33:06.859955Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-16T21:33:07.097964Z",
+        "finished_at": "2026-05-16T21:33:13.053339Z"
+    },
+    "step_results": null
+}

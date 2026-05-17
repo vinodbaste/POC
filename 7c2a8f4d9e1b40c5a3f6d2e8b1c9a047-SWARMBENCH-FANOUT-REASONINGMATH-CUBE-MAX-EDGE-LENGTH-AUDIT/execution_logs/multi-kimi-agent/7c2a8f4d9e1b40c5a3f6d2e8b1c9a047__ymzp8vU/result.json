@@ -1,0 +1,107 @@
+{
+    "id": "b8ea96a5-179d-4265-8808-2440bc1d15e5",
+    "task_name": "swarmbench/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT",
+    "trial_name": "7c2a8f4d9e1b40c5a3f6d2e8b1c9a047__ymzp8vU",
+    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT/execution_logs/multi-kimi-agent/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047__ymzp8vU",
+    "task_id": {
+        "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "d5155928cbb0d6db501f12cd1e08c11cf0c2ef51edf60bd08f6ec4bf0ce404d5",
+    "config": {
+        "task": {
+            "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "7c2a8f4d9e1b40c5a3f6d2e8b1c9a047__ymzp8vU",
+        "trials_dir": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT/execution_logs/multi-kimi-agent",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "swarm-kimi-multi",
+            "import_path": null,
+            "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "1e22b014-da65-47a4-bb52-126e40af90a5"
+    },
+    "agent_info": {
+        "name": "swarm-kimi-multi",
+        "version": "unknown",
+        "model_info": {
+            "name": "accounts/fireworks/models/kimi-k2p5",
+            "provider": "fireworks_ai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 820462,
+        "n_cache_tokens": 212860,
+        "n_output_tokens": 10291,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.9085376661742984
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-16T21:33:31.212288Z",
+    "finished_at": "2026-05-16T21:49:22.725554Z",
+    "environment_setup": {
+        "started_at": "2026-05-16T21:33:31.587036Z",
+        "finished_at": "2026-05-16T21:33:36.878169Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-16T21:33:36.878278Z",
+        "finished_at": "2026-05-16T21:33:55.783425Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-16T21:33:55.784512Z",
+        "finished_at": "2026-05-16T21:49:13.034567Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-16T21:49:13.618169Z",
+        "finished_at": "2026-05-16T21:49:19.637557Z"
+    },
+    "step_results": null
+}

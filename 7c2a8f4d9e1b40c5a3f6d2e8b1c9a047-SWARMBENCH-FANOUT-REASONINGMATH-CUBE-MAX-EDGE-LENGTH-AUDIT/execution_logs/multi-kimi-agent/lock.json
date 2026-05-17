@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-16T22:21:33.859609Z",
+    "created_at": "2026-05-16T21:33:28.047573Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -33,11 +33,11 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
-            "RewardFileNotFoundError",
-            "VerifierTimeoutError",
-            "AgentTimeoutError",
             "RewardFileEmptyError",
-            "VerifierOutputParseError"
+            "VerifierTimeoutError",
+            "VerifierOutputParseError",
+            "AgentTimeoutError",
+            "RewardFileNotFoundError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -48,7 +48,7 @@
             "task": {
                 "name": "7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT",
                 "type": "local",
-                "digest": "sha256:70a0c324d0a4238f25a9189dde7ef170ea924b5e607cc08cfdba43b654988913",
+                "digest": "sha256:bde1a183495f79a2cf08804d8d6f204e6c2bb4aedfd16dda6965b808f1d02eb1",
                 "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT"
             },
             "timeout_multiplier": 1.0,
