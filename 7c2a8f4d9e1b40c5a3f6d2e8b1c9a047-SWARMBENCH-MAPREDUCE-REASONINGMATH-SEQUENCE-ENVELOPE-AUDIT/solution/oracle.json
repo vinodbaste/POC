@@ -1,0 +1,111 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "response_A",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response A concludes 13 inspections. Its strategy inspects the Random-labeled envelope, then a second envelope labeled with the revealed pure type, then continues until 11 identical-type sequences or two distinct types. This counts 1 + 1 + 11 = 13, but the second inspection can be merged into the 11-draw verification, so 12 suffice. The response asserts 13 is the minimum without ruling out 12."
+    },
+    {
+      "solution_id": "response_B",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_UPPER_BOUND",
+      "brief_justification": "Response B claims a 3-inspection strategy. After inspecting Random and Arithmetic Sequence envelopes, it inspects Constant Sequence. In the branch where Constant Sequence yields geometric, the response asserts the assignments are uniquely determined by elimination, but two legal assignments remain consistent with three observations. The proposed 3-step strategy does not guarantee correct relabeling in every worst-case branch."
+    },
+    {
+      "solution_id": "response_C",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response C concludes 3 inspections. After observing geometric from the Arithmetic-labeled envelope, it claims the envelope must be purely geometric. This inference is invalid: the envelope could equally be the mixed envelope containing geometric items, and a single observation cannot rule that out. The 3-inspection strategy rests on this invalid one-draw purity inference."
+    },
+    {
+      "solution_id": "response_D",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response D inspects three envelopes and then asserts that the remaining envelopes are deduced uniquely from the observed sequence types and the all-labels-incorrect condition, without specifying which envelope gets which label in each observation branch. The synthesis step is left implicit; no concrete label-fixing rule is given that works in every branch."
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": true,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "MISSING_LOWER_BOUND",
+      "brief_justification": "Response E proposes 13 inspections via a valid worst-case verification: inspect Random, then continue sampling an uncertain envelope until 11 identical-type sequences or two distinct types appear. The 13-inspection strategy does guarantee identification, but the response provides no impossibility proof for fewer inspections; in particular, the canonical 12-inspection strategy is not ruled out."
+    },
+    {
+      "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NOT_WORST_CASE",
+      "brief_justification": "Response F notes that after the third inspection ambiguity may still remain, then immediately concludes 3 inspections suffice by elimination. The conclusion ignores the worst-case branch where the third observation does not resolve which envelope is mixed; the response substitutes a favorable-branch resolution for a worst-case guarantee."
+    }
+  ],
+  "accepted_solutions": [],
+  "rejected_solutions": [
+    "response_A",
+    "response_B",
+    "response_C",
+    "response_D",
+    "response_E",
+    "response_F"
+  ],
+  "best_solution": null,
+  "summary": "All six candidate solutions are rejected. The canonical minimum is 12 inspections. Responses A and E propose 13 (off by one in the strategy bookkeeping), responses B, C, D, and F propose 3 (failing in one of: invalid upper bound, invalid one-draw inference, vague synthesis, or favorable-branch reasoning)."
+}

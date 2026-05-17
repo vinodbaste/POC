@@ -1,183 +1,499 @@
 sub_tasks:
-  - id: adjudicate-gold-answer
+  # =====================================================================
+  # WAVE 1 - Five independent gold-derivation and validation sub-agents.
+  # Each operates in isolated context, uses a DIFFERENT perspective on the
+  # geometry, and returns a structured JSON intermediate output so the
+  # reducer can compare results and verify consensus. None of these
+  # sub-agents read any candidate response file.
+  # =====================================================================
+
+  - id: derive-method-signpattern
     description: >
-      Read /input_artifacts/problem.md and solve the olympiad geometry problem from first
-      principles. Compute the gold final numeric answer (the sum of squares of all possible
-      cube edge lengths) and the underlying set of distinct squared edge-length values.
-      Return both values together with a concise mathematical justification (200-400 words).
-      Do not inspect any candidate response.
+      Read ONLY /input_artifacts/problem.md. Solve the cube/plane geometry
+      problem from first principles using a sign-pattern perspective: place
+      one cube vertex on the plane, write each of the seven remaining
+      signed vertex-to-plane distances as a signed combination of three
+      independent projection magnitudes (one per cube axis), and enumerate
+      the essentially distinct sign-pattern families that can produce the
+      multiset of absolute distances {1, 2, 3, 4, 5, 6, 7}. For every
+      feasible family, solve for the squared edge length s^2 consistent
+      with the constraints and confirm that all seven distances are
+      accounted for. Do NOT consult any file under
+      /input_artifacts/proposed_solutions/.
+
+      Return, as the final block of your response, a fenced ```json``` block
+      with EXACTLY these keys:
+      {
+        "method": "sign-pattern",
+        "derived_gold_final_answer": "<your derived sum-of-squares of S, as a string>",
+        "derived_s2_set": [<sorted list of distinct s^2 integers you derived>],
+        "sign_families_examined": [
+          {"family_label": "<short name>", "feasible": <bool>, "s2_value_if_feasible": <int or null>, "note": "<one line>"}
+        ],
+        "confidence": "high" | "medium" | "low",
+        "derivation_steps": "<200-400 word self-contained derivation>"
+      }
+      You are working in isolation; do not claim agreement with any other
+      method.
     depends_on: []
-    parallel_group: fan-out
+    parallel_group: derive
+
+  - id: derive-method-bodydiagonal
+    description: >
+      Read ONLY /input_artifacts/problem.md. Solve the cube/plane geometry
+      problem from first principles using a body-diagonal-aligned setup:
+      orient the cube so that its body diagonal points along a chosen axis
+      and write each vertex's plane distance as a linear combination of
+      three projection components onto the plane normal. From the
+      constraint that the absolute vertex distances equal {0, 1, 2, 3, 4,
+      5, 6, 7}, derive a system of equations in the three projection
+      magnitudes (call them p, q, r) and analyze which sign regimes for
+      (p, q, r) are feasible. Solve every feasible regime for the squared
+      edge length s^2. Do NOT consult any file under
+      /input_artifacts/proposed_solutions/.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      {
+        "method": "body-diagonal",
+        "derived_gold_final_answer": "<string>",
+        "derived_s2_set": [<sorted ints>],
+        "regimes_analyzed": [
+          {"regime_label": "...", "feasible": <bool>, "s2_value_if_feasible": <int or null>}
+        ],
+        "confidence": "high" | "medium" | "low",
+        "derivation_steps": "<200-400 word derivation>"
+      }
+    depends_on: []
+    parallel_group: derive
+
+  - id: derive-method-coordinate-search
+    description: >
+      Read ONLY /input_artifacts/problem.md. Solve the geometry problem by
+      direct coordinate parametrization: place a cube of unknown edge
+      length a at a chosen reference position, parametrize the cutting
+      plane by a unit normal direction and an offset, and search
+      algebraically over all distinct assignments of the eight vertex
+      distances to the multiset {0, 1, 2, 3, 4, 5, 6, 7}. For every
+      assignment that yields a consistent normal direction, offset, and
+      edge length, record the resulting s^2 value. Reject assignments that
+      produce no real solution or a degenerate configuration. Do NOT
+      consult any file under /input_artifacts/proposed_solutions/.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      {
+        "method": "coordinate-search",
+        "derived_gold_final_answer": "<string>",
+        "derived_s2_set": [<sorted ints>],
+        "valid_assignments_count": <int>,
+        "rejected_assignments_count": <int>,
+        "representative_valid_assignments": [
+          {"vertex_distance_assignment_sketch": "<one-line summary>", "edge_length_squared": <int>}
+        ],
+        "confidence": "high" | "medium" | "low",
+        "derivation_steps": "<200-400 word derivation>"
+      }
+    depends_on: []
+    parallel_group: derive
+
+  - id: validate-edgecase-witness
+    description: >
+      Read ONLY /input_artifacts/problem.md. Independently propose every
+      candidate squared edge length s^2 you can construct from first
+      principles for this configuration (consider every essentially
+      distinct way the plane can sit relative to the cube, including
+      configurations where the plane cuts through the cube's interior).
+      For each candidate s^2 you propose, build an EXPLICIT witness: a
+      concrete triple of projection magnitudes (or equivalent geometric
+      data) and verify that the resulting eight vertex-to-plane absolute
+      distances are exactly {0, 1, 2, 3, 4, 5, 6, 7} - no duplicates, no
+      omissions. Also list candidates that look plausible but fail the
+      eight-distance check, with the specific reason for rejection. Do
+      NOT consult any file under /input_artifacts/proposed_solutions/.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      {
+        "method": "edge-case-witness",
+        "validated_candidates": [
+          {"s2_value": <int>, "witness_data": "<concise description>", "eight_distances_match": <bool>}
+        ],
+        "rejected_candidates": [
+          {"s2_value": <int>, "rejection_reason": "<one line>"}
+        ],
+        "validated_s2_set": [<sorted ints from validated_candidates>],
+        "confidence": "high" | "medium" | "low"
+      }
+    depends_on: []
+    parallel_group: derive
+
+  - id: validate-numerical-roundtrip
+    description: >
+      Read ONLY /input_artifacts/problem.md. Independently propose
+      candidate cube edge lengths a, and for each candidate set up a
+      concrete numerical placement of the cube and the plane, then compute
+      all eight vertex-to-plane absolute distances. Report whether the
+      computed distance multiset equals {0, 1, 2, 3, 4, 5, 6, 7} exactly
+      (each value appearing once). A candidate passes the round-trip if
+      and only if there exists at least one concrete placement whose
+      distance multiset matches exactly. Do NOT consult any file under
+      /input_artifacts/proposed_solutions/.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      {
+        "method": "numerical-roundtrip",
+        "candidates_tested": [
+          {"s2_value": <int>, "passes_roundtrip": <bool>, "computed_distance_multiset_sketch": "<one line>"}
+        ],
+        "numerically_validated_s2_set": [<sorted ints>],
+        "confidence": "high" | "medium" | "low",
+        "notes": "<short summary>"
+      }
+    depends_on: []
+    parallel_group: derive
+
+  # =====================================================================
+  # WAVE 2 - Nine independent per-response audits. Each consumes the five
+  # Wave 1 structured outputs as its consensus gold context (the
+  # orchestrator forwards depends_on outputs). Audits do NOT re-derive the
+  # geometry from scratch - they apply the 12-code controlled vocabulary
+  # to ONE response with that context already established. Each audit
+  # returns a STRUCTURED intermediate output so the reducer can verify
+  # internal consistency (every asserted code must have a cited trigger).
+  # =====================================================================
 
   - id: audit-response-a
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_A.md, extract the response's claimed
-      final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response A. Do not infer from
-      other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md (for the 12-code controlled
+      vocabulary and its triggering conditions),
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_A.md. The five Wave 1
+      derive-* and validate-* sub-agents have produced structured JSON
+      outputs that constitute the consensus gold answer and consensus
+      s^2 set; treat those as the reference and only re-derive if you
+      cannot recover them from the provided upstream context.
+
+      For response A specifically: extract its claimed final numeric
+      answer (or null if it never produces one), the s^2 value(s) it
+      implicitly or explicitly claims, the geometric setup it uses
+      (axis-aligned-cube-at-origin, body-diagonal-aligned, subset-sum
+      search over positive integers, plane-parallel-to-face, or other),
+      and the load-bearing steps in its reasoning chain.
+
+      For each of the 12 failure-reason codes defined in instruction.md,
+      decide whether response A's TEXT concretely instantiates that
+      code's triggering condition. Quote the exact trigger phrase from
+      the response that satisfies each code you select. Apply a code
+      ONLY when its trigger is concretely present in response A's own
+      text. Use an empty failure_reasons list if and only if A's final
+      answer equals the consensus gold AND no trigger fires.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      {
+        "response_id": "A",
+        "extracted_final_numeric_answer": "<string>" | null,
+        "extracted_s2_claim": [<ints>] | <int> | null,
+        "geometric_setup_used": "<short label>",
+        "load_bearing_steps": [
+          {"step_summary": "<one line>", "supports_which_code_if_any": "<code or null>"}
+        ],
+        "code_triggers": [
+          {"code": "<code name>", "trigger_quote": "<verbatim from response_A.md>", "location_hint": "<line, paragraph, or section>"}
+        ],
+        "final_answer_correct": <bool>,
+        "failure_reasons": ["<code>", ...]
+      }
+      Audit only response A. Do NOT infer codes from other responses.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
 
   - id: audit-response-b
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_B.md, extract the response's claimed
-      final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response B. Do not infer from
-      other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md,
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_B.md. Use the Wave 1
+      consensus gold from the upstream sub-agent outputs; only re-derive
+      if upstream context is unavailable.
+
+      For response B specifically: extract its claimed final numeric
+      answer, its claimed s^2 value(s), and its geometric setup. Identify
+      its load-bearing reasoning steps. Apply the 12-code vocabulary
+      from instruction.md, citing the exact trigger phrase for each code
+      you select. Use an empty failure_reasons list iff B's final answer
+      equals the consensus gold AND no trigger fires.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      response_id, extracted_final_numeric_answer, extracted_s2_claim,
+      geometric_setup_used, load_bearing_steps[], code_triggers[]
+      (with code, trigger_quote, location_hint), final_answer_correct,
+      failure_reasons.
+      Audit only response B.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
 
   - id: audit-response-c
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_C.md, extract the response's claimed
-      final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response C. Do not infer from
-      other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md,
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_C.md. Use the Wave 1
+      consensus gold from upstream outputs. Extract response C's claimed
+      final numeric answer, claimed s^2, and geometric setup. Apply the
+      12-code vocabulary, citing the exact trigger phrase for each code.
+      Use an empty failure_reasons list iff C's final answer equals the
+      consensus gold AND no trigger fires.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      response_id, extracted_final_numeric_answer, extracted_s2_claim,
+      geometric_setup_used, load_bearing_steps[], code_triggers[]
+      (with code, trigger_quote, location_hint), final_answer_correct,
+      failure_reasons.
+      Audit only response C.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
 
   - id: audit-response-d
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_D.md, extract the response's claimed
-      final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response D. Do not infer from
-      other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md,
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_D.md. Use the Wave 1
+      consensus gold from upstream outputs. Extract response D's claimed
+      final numeric answer, claimed s^2, and geometric setup. Apply the
+      12-code vocabulary, citing the exact trigger phrase for each code.
+      Use an empty failure_reasons list iff D's final answer equals the
+      consensus gold AND no trigger fires.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      response_id, extracted_final_numeric_answer, extracted_s2_claim,
+      geometric_setup_used, load_bearing_steps[], code_triggers[]
+      (with code, trigger_quote, location_hint), final_answer_correct,
+      failure_reasons.
+      Audit only response D.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
 
   - id: audit-response-e
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_E.md, extract the response's claimed
-      final numeric answer if any, and audit its mathematical reasoning chain. Apply the
-      full 12-code controlled vocabulary defined in instruction.md. A code applies only when
-      its triggering condition is concretely instantiated in this single response's text.
-      Most responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer
-      (or its absence), and the concrete evidence justifying each selected code, followed by
-      a JSON object {response_id, final_answer_correct, failure_reasons} for response E. Do
-      not infer from other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md,
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_E.md. Use the Wave 1
+      consensus gold from upstream outputs. Determine whether response E
+      ever produces an identifiable final numeric answer at all; if it
+      truncates or repetition-loops without a final answer, that itself
+      is a triggering condition for one specific code in the vocabulary.
+      If a final answer IS present, extract it and identify its load-
+      bearing steps. Apply the 12-code vocabulary, citing the exact
+      trigger phrase for each code you select. Use an empty
+      failure_reasons list iff E's final answer equals the consensus gold
+      AND no trigger fires.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      response_id, extracted_final_numeric_answer, extracted_s2_claim,
+      geometric_setup_used, load_bearing_steps[], code_triggers[]
+      (with code, trigger_quote, location_hint), final_answer_correct,
+      failure_reasons.
+      Audit only response E.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
 
   - id: audit-response-f
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_F.md, extract the response's claimed
-      final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response F. Do not infer from
-      other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md,
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_F.md. Use the Wave 1
+      consensus gold from upstream outputs. Extract response F's claimed
+      final numeric answer, claimed s^2, and geometric setup. Apply the
+      12-code vocabulary, citing the exact trigger phrase for each code.
+      Use an empty failure_reasons list iff F's final answer equals the
+      consensus gold AND no trigger fires.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      response_id, extracted_final_numeric_answer, extracted_s2_claim,
+      geometric_setup_used, load_bearing_steps[], code_triggers[]
+      (with code, trigger_quote, location_hint), final_answer_correct,
+      failure_reasons.
+      Audit only response F.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
 
   - id: audit-response-g
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_G.md, extract the response's claimed
-      final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response G. Do not infer from
-      other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md,
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_G.md. Use the Wave 1
+      consensus gold from upstream outputs. Extract response G's claimed
+      final numeric answer, claimed s^2, and geometric setup. Pay
+      particular attention to whether G derives any candidate s^2 value
+      during its reasoning and then explicitly rejects it - that is a
+      distinct trigger from simply omitting the value. Apply the 12-code
+      vocabulary, citing the exact trigger phrase for each code. Use an
+      empty failure_reasons list iff G's final answer equals the
+      consensus gold AND no trigger fires.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      response_id, extracted_final_numeric_answer, extracted_s2_claim,
+      geometric_setup_used, load_bearing_steps[], code_triggers[]
+      (with code, trigger_quote, location_hint), final_answer_correct,
+      failure_reasons.
+      Audit only response G.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
 
   - id: audit-response-h
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_H.md, extract the response's claimed
-      final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response H. Do not infer from
-      other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md,
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_H.md. Use the Wave 1
+      consensus gold from upstream outputs. Extract response H's claimed
+      final numeric answer, claimed s^2, and geometric setup. Apply the
+      12-code vocabulary, citing the exact trigger phrase for each code.
+      Use an empty failure_reasons list iff H's final answer equals the
+      consensus gold AND no trigger fires.
+
+      Return a fenced ```json``` block with EXACTLY these keys:
+      response_id, extracted_final_numeric_answer, extracted_s2_claim,
+      geometric_setup_used, load_bearing_steps[], code_triggers[]
+      (with code, trigger_quote, location_hint), final_answer_correct,
+      failure_reasons.
+      Audit only response H.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
 
   - id: audit-response-i
     description: >
-      Read /workspace/instruction.md and /input_artifacts/problem.md. First, solve the
-      geometry problem yourself from first principles and record your own gold numeric
-      answer and set of distinct s² values before touching the candidate response. Then read
-      /input_artifacts/proposed_solutions/response_I.md, extract the response's claimed
-      final numeric answer, and audit its mathematical reasoning chain. Apply the full
-      12-code controlled vocabulary defined in instruction.md. A code applies only when its
-      triggering condition is concretely instantiated in this single response's text. Most
-      responses have between 1 and 5 applicable codes. Return a brief written audit
-      (150-300 words) explaining your independent derivation, the response's claimed answer,
-      and the concrete evidence justifying each selected code, followed by a JSON object
-      {response_id, final_answer_correct, failure_reasons} for response I. Do not infer from
-      other responses.
-    depends_on: []
-    parallel_group: fan-out
+      Read /workspace/instruction.md,
+      /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_I.md. Use the Wave 1
+      consensus gold from upstream outputs. Extract response I's claimed
+      final numeric answer, claimed s^2, and geometric setup. Apply the
+      12-code vocabulary, citing the exact trigger phrase for each code.
+      Use an empty failure_reasons list iff I's final answer equals the
+      consensus gold AND no trigger fires.
 
-  - id: synthesize-final-audit
-    description: >
-      Combine the gold-answer adjudication and the nine response audits into the final JSON
-      output. Use the gold-answer adjudication's numeric answer and set of distinct s²
-      values as the top-level gold fields. Use each per-response audit's reported
-      final_answer_correct and failure_reasons set verbatim — do not add codes a per-response
-      audit did not select and do not delete codes a per-response audit did select. Compute
-      acceptable_solution_ids as the uppercase, alphabetically-sorted list of response_ids
-      whose final_answer_correct is true AND failure_reasons is empty. Write the result to
-      /logs/agent/output.json. Top-level keys exactly: gold_final_answer,
-      gold_edge_length_squared_set, acceptable_solution_ids, per_response_assessment.
-      per_response_assessment must contain exactly nine objects, ordered alphabetically A
-      through I, each with exactly the keys response_id, final_answer_correct,
+      Return a fenced ```json``` block with EXACTLY these keys:
+      response_id, extracted_final_numeric_answer, extracted_s2_claim,
+      geometric_setup_used, load_bearing_steps[], code_triggers[]
+      (with code, trigger_quote, location_hint), final_answer_correct,
       failure_reasons.
+      Audit only response I.
     depends_on:
-      - adjudicate-gold-answer
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
+    parallel_group: audit
+
+  # =====================================================================
+  # WAVE 3 - Reconciliation reducer with a real verification job.
+  # NOT a concatenation step. Must verify gold consensus, audit-internal
+  # consistency, and cross-response sanity before composing the final
+  # JSON. The final JSON is composed VERBATIM from per-response audits'
+  # final_answer_correct and failure_reasons (no addition, no deletion).
+  # =====================================================================
+
+  - id: reconcile-and-synthesize
+    description: >
+      You are the reconciliation reducer. You receive structured JSON
+      intermediate outputs from fourteen upstream sub-agents: three
+      independent gold derivations (sign-pattern, body-diagonal,
+      coordinate-search), two validators (edge-case-witness,
+      numerical-roundtrip), and nine per-response audits (A through I).
+      Your job has four steps and they MUST be done in order. You are
+      NOT a concatenation step.
+
+      STEP 1 - Verify gold consensus.
+      Compare the derived_s2_set and derived_gold_final_answer fields
+      across the three derive-method-* sub-agents. Compare the
+      validated_s2_set from validate-edgecase-witness and the
+      numerically_validated_s2_set from validate-numerical-roundtrip.
+      All five should agree on the same set of distinct s^2 integers
+      and the same sum-of-squares total. If any sub-agent disagrees:
+      identify WHICH s^2 value(s) the disagreement is about, decide
+      which sub-agents have the stronger evidence (witnesses with
+      explicit eight-distance accounting beat unsupported algebraic
+      claims), and explicitly resolve the disagreement before
+      continuing. Record the resolution in your reasoning notes.
+
+      STEP 2 - Verify per-response audit internal consistency.
+      For each per-response audit JSON, check that (i) every code
+      listed in failure_reasons also appears in code_triggers (no
+      orphan codes asserted without a cited trigger), (ii) every code
+      in code_triggers also appears in failure_reasons (no trigger
+      collected and then dropped), and (iii) final_answer_correct is
+      true exactly when extracted_final_numeric_answer equals the
+      consensus gold AND failure_reasons is empty. If any audit fails
+      these consistency checks, fix the audit's failure_reasons set by
+      using its own code_triggers as the authoritative evidence list -
+      but only within that one audit, do not move codes between
+      responses.
+
+      STEP 3 - Cross-response sanity scan.
+      For each of the 12 controlled codes, list which responses
+      asserted it. Note (do NOT auto-edit) any cluster patterns: e.g.,
+      responses that share the same geometric_setup_used but disagree
+      on which codes apply. This is a sanity report only - the final
+      per-response code sets remain as the individual audits assigned
+      them after Step 2.
+
+      STEP 4 - Compose final JSON.
+      gold_final_answer = the consensus gold sum-of-squares from Step 1
+      as a string. gold_edge_length_squared_set = the consensus s^2
+      list, sorted ascending. acceptable_solution_ids = uppercase,
+      alphabetically-sorted list of response_ids whose
+      final_answer_correct is true AND failure_reasons is empty.
+      per_response_assessment = exactly nine objects, alphabetical A
+      through I, each with EXACTLY three keys (response_id,
+      final_answer_correct, failure_reasons) - drop all the structured-
+      audit scaffolding the per-response sub-agents returned, keeping
+      only what the verifier reads.
+
+      Write the result to /logs/agent/output.json. Top-level keys
+      exactly: gold_final_answer, gold_edge_length_squared_set,
+      acceptable_solution_ids, per_response_assessment.
+    depends_on:
+      - derive-method-signpattern
+      - derive-method-bodydiagonal
+      - derive-method-coordinate-search
+      - validate-edgecase-witness
+      - validate-numerical-roundtrip
       - audit-response-a
       - audit-response-b
       - audit-response-c
@@ -187,4 +503,4 @@ sub_tasks:
       - audit-response-g
       - audit-response-h
       - audit-response-i
-    parallel_group: synthesize
+    parallel_group: reconcile
