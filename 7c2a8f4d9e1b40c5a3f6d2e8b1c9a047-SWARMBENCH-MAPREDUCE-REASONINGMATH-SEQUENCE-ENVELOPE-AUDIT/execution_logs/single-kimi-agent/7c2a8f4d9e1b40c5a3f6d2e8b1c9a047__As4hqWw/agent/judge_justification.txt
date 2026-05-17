@@ -1,0 +1,24 @@
+Score: 0.766 (1673/2184 weighted label points)
+
+Scored labels per response and weights:
+- C1_correct_final_answer: 8
+- C2_concrete_strategy: 1
+- C3_valid_upper_bound: 12
+- C4_valid_lower_bound: 12
+- C5_worst_case_guarantee: 5
+- C6_no_invalid_one_draw_inference: 15
+- C7_no_exact_mixed_pair_requirement: 15
+- C8_no_fatal_wrong_claim: 30
+- verdict: 35
+- primary_failure_code: 140
+
+brief_justification, summary, accepted_solutions, rejected_solutions, and best_solution are not scored.
+
+response_A: 118/273 weighted points; C6_no_invalid_one_draw_inference: expected True, got False, weight 15; primary_failure_code: expected INVALID_UPPER_BOUND, got WRONG_FINAL_NUMBER, weight 140
+response_B: 117/273 weighted points; C2_concrete_strategy: expected False, got True, weight 1; C6_no_invalid_one_draw_inference: expected True, got False, weight 15; primary_failure_code: expected NO_CONCRETE_STRATEGY, got WRONG_FINAL_NUMBER, weight 140
+response_C: 273/273 weighted points; all scored labels correct
+response_D: 258/273 weighted points; C6_no_invalid_one_draw_inference: expected True, got False, weight 15
+response_E: 258/273 weighted points; C6_no_invalid_one_draw_inference: expected True, got False, weight 15
+response_F: 273/273 weighted points; all scored labels correct
+response_G: 243/273 weighted points; C8_no_fatal_wrong_claim: expected False, got True, weight 30
+response_H: 133/273 weighted points; primary_failure_code: expected NOT_WORST_CASE, got FATAL_WRONG_CLAIM, weight 140
