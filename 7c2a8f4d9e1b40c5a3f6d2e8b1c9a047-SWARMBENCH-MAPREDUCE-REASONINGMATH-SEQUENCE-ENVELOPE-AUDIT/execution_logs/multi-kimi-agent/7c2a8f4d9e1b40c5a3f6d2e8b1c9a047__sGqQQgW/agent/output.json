@@ -1,0 +1,144 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "response_A",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response_A claims answer is 2, but correct answer is 15-16. It fatally assumes one draw proves purity from the 'Strictly Increasing' labeled envelope, failing to account that a mixed envelope with 13 increasing sequences would also yield an increasing draw."
+    },
+    {
+      "solution_id": "response_B",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response B claims the answer is 4, which is wrong. It incorrectly asserts that 2 draws from the 'Mixed'-labeled envelope proves purity, when that envelope is necessarily pure (all labels wrong). It makes unfounded claims about deducing the final arrangement uniquely after only 4 inspections."
+    },
+    {
+      "solution_id": "response_C",
+      "criteria": {
+        "C1_correct_final_answer": true,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": true,
+        "C4_valid_lower_bound": true,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "ACCEPT",
+      "primary_failure_code": "NONE",
+      "brief_justification": "Response_C correctly identifies 15 inspections as the minimum. It provides a concrete strategy (1 from Mixed-labeled, then 14 from one remaining envelope), validates both upper and lower bounds, uses worst-case reasoning, and avoids common errors."
+    },
+    {
+      "solution_id": "response_D",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response D claims 1 inspection suffices and that 'remaining labels cycle uniquely' after one draw. This is incorrect - one draw from the Mixed-labeled envelope only shows one sequence type, which could be from a mixed envelope (up to 13 of one type). Multiple valid derangements remain."
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "CONTRADICTORY_FINAL_ANSWER",
+      "brief_justification": "Response_E oscillates between incompatible answers: 3, 2, 14, 15, and finally 3 again. It never commits to a single coherent answer or strategy, contradicting itself multiple times."
+    },
+    {
+      "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response F commits the C6 error: treats one draw from each of three envelopes as sufficient to prove contents, failing to account that a Mixed envelope (with up to 13 of one type) could produce the 'expected' type on first draw. Answer of 3 is far too low."
+    },
+    {
+      "solution_id": "response_G",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response G claims 16 inspections but the correct answer is 15 (1 from Mixed-labeled + 14 from a pure-labeled envelope to prove purity, since 14 > 13 exceeds mixed max). The count is off by 1. No lower bound proof provided."
+    },
+    {
+      "solution_id": "response_H",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response H claims 4 inspections (one per envelope) is sufficient, committing the cardinal error of assuming a single draw can distinguish pure from mixed envelopes. It ignores that a mixed envelope can return the same type as a pure envelope."
+    }
+  ],
+  "accepted_solutions": ["response_C"],
+  "rejected_solutions": [
+    "response_A",
+    "response_B",
+    "response_D",
+    "response_E",
+    "response_F",
+    "response_G",
+    "response_H"
+  ],
+  "best_solution": "response_C",
+  "summary": "Out of 8 candidate solutions, only response_C was accepted. It correctly identified 15 inspections as the minimum required to guarantee complete knowledge of envelope contents. Seven solutions were rejected due to various errors: most commonly, assuming one or few draws can prove envelope purity (failing to account that mixed envelopes can contain up to 13 sequences of one type), wrong final answers (ranging from 1 to 16), or self-contradictory reasoning."
+}
