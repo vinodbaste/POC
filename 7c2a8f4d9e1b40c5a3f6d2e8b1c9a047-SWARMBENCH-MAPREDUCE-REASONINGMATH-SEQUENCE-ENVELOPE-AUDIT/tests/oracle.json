@@ -45,8 +45,8 @@
         "C8_no_fatal_wrong_claim": false
       },
       "verdict": "REJECT",
-      "primary_failure_code": "NO_CONCRETE_STRATEGY",
-      "brief_justification": "Response C concludes 4. It correctly observes the Mixed-labeled envelope must be pure, then jumps to 'with four inspections... enough information is gathered to correctly relabel all envelopes' via a hand-wavy information-theoretic argument. The response does not specify a branch-by-branch resolution that fixes labels in every observation case."
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response C concludes 4. It correctly observes the Mixed-labeled envelope must be pure, then asserts 'with four inspections... enough information is gathered to correctly relabel all envelopes' and 'the number of possible outcomes from the inspections is sufficient to uniquely determine the content of each envelope'. These are fatal proof-invalidating claims: a single draw from each of E1, E2, E3 cannot distinguish pure from mixed in every legal branch, yet the response asserts sufficiency as established fact. The fatal claim is the load-bearing defect."
     },
     {
       "solution_id": "response_D",
@@ -77,8 +77,8 @@
         "C8_no_fatal_wrong_claim": false
       },
       "verdict": "REJECT",
-      "primary_failure_code": "CONTRADICTORY_FINAL_ANSWER",
-      "brief_justification": "Response E proposes a 5-inspection strategy, then in the middle of its analysis recomputes '2 + 14 + 1 = 17 samples', then returns to 'Minimum number of inspections = 5', then re-examines cases, then concludes 'Final Answer: 5'. The response oscillates between 5 and 17 and never settles a single coherent strategy."
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response E proposes a 5-inspection strategy, then in the middle of its analysis explicitly computes '2 + 14 + 1 = 17 samples', then asserts 'Minimum number of inspections = 5' and concludes 'Final Answer: 5'. Asserting 5 as the final minimum after the response's own arithmetic has just produced 17 is a fatal proof-invalidating claim that contradicts its own analysis."
     },
     {
       "solution_id": "response_F",
@@ -109,8 +109,8 @@
         "C8_no_fatal_wrong_claim": false
       },
       "verdict": "REJECT",
-      "primary_failure_code": "NOT_WORST_CASE",
-      "brief_justification": "Response G concludes 5. It explicitly states 'Mixed envelopes can fool us with up to 13 sequences of one type before revealing a second type', then claims 'the remaining envelopes can be resolved with 1 inspection each due to elimination'. The worst-case rule it acknowledges for the first envelope is abandoned for envelopes two through four, where single inspections cannot in fact distinguish pure from mixed."
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response G concludes 5. It explicitly states 'Mixed envelopes can fool us with up to 13 sequences of one type before revealing a second type', and then asserts 'The remaining envelopes can be resolved with 1 inspection each due to elimination'. The claim that single inspections resolve the remaining envelopes is a fatal proof-invalidating claim that directly contradicts the response's own stated worst-case rule about how mixed envelopes behave."
     }
   ],
   "accepted_solutions": [],

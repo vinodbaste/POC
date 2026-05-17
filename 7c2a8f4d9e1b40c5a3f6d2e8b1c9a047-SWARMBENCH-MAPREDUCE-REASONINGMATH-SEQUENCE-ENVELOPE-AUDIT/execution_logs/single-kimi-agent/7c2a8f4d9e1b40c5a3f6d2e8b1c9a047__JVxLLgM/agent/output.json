@@ -1,0 +1,120 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "response_A",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response A is incoherent, gives multiple conflicting answers (3 and 4), treats labels as potentially correct (fatal error - all labels are wrong per problem statement), and lacks any valid strategy or proof."
+    },
+    {
+      "solution_id": "response_B",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response B claims that one draw from a pure-labeled envelope determines its type, which is invalid. Since labels are wrong, one draw from 'Strictly Increasing' envelope could be from the mixed envelope (7 of one type + 13 of another). The solution also lacks any lower bound proof."
+    },
+    {
+      "solution_id": "response_C",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response C gives answer 4 but strategy is vague. It says inspect one sequence from each of E4, E1, E2, E3, but one draw from pure-labeled envelopes cannot guarantee identification (could be mixed envelope showing its majority type). No valid upper or lower bound proofs."
+    },
+    {
+      "solution_id": "response_D",
+      "criteria": {
+        "C1_correct_final_answer": true,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": true,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "MISSING_LOWER_BOUND",
+      "brief_justification": "Response D gives correct answer 17 and a valid strategy that correctly uses 2 draws to confirm the 'Mixed'-labeled envelope is pure, and 14 draws to distinguish mixed from pure. However, it completely lacks any lower bound proof showing that 16 inspections cannot guarantee success."
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response E gives answer 5 which is incorrect. It claims that 2 draws from the 'Mixed'-labeled envelope are sufficient to confirm it's pure (correct), but then claims only 1 draw each from remaining envelopes suffices, which is invalid - cannot distinguish pure from mixed with just 1 draw when labels are wrong."
+    },
+    {
+      "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response F contains fatal errors. On line 27, it says 'If it is strictly increasing, we know this envelope does not contain strictly increasing sequences' - a direct contradiction. The reasoning is incoherent throughout. It claims answer is 3 with no valid proof."
+    },
+    {
+      "solution_id": "response_G",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response G gives answer 5 which is incorrect. While it correctly uses 2 draws to identify the 'Mixed'-labeled envelope, it fatally claims that only 1 draw from pure-labeled envelopes suffices. This is invalid: one draw from 'Strictly Increasing' envelope could match the majority type from the actual mixed envelope (which has 13 of one type)."
+    }
+  ],
+  "accepted_solutions": [],
+  "rejected_solutions": ["response_A", "response_B", "response_C", "response_D", "response_E", "response_F", "response_G"],
+  "best_solution": "response_D",
+  "summary": "The correct answer is 17 inspections. All solutions except D give wrong answers (3, 4, or 5). Response D correctly identifies 17 as the answer and provides a valid concrete strategy: 2 inspections to confirm the 'Mixed'-labeled envelope is pure, 14 inspections to distinguish a pure envelope from the mixed one (since mixed has at most 13 of any type), and 1 final confirmation. However, D fails to provide any lower bound proof. The other solutions make fatal errors like claiming one draw from pure-labeled envelopes suffices (ignoring the mixed envelope could show its majority type), or giving incoherent/contradictory reasoning."
+}
