@@ -1,173 +1,193 @@
 sub_tasks:
-  - id: write-briefs-to-workspace
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn exactly ONE Agent sub-agent with
-      subagent_type "coder". Pass the prompt below VERBATIM, with no
-      summary, paraphrase, preamble, or extra context. Do not repeat any
-      of this content in any later Agent call; later audit and synthesis
-      sub-agents read files written here.
-
-      ---BEGIN SUB-AGENT PROMPT---
-      Create the directory /workspace/briefs and write the following
-      nine UTF-8 files using the Write tool. Each file body is given
-      between BEGIN_BODY and END_BODY markers and must be written
-      EXACTLY (no extra characters, no trailing whitespace beyond what
-      is shown). After all nine files exist, return only the string
-      BRIEFS_WRITTEN.
-
-      FILE /workspace/briefs/gold.txt
-      BEGIN_BODY
-      gold_classification_string=PNPNNNNPNNNNNNPNNNNPNNNNNNPNNNNPNPNNNNNNNNNNNNNNNNNNNPNNNNNNPNNNNPNNNNNNPNNNNPNPNNNNPNNNNNNNNNNNNNNNNNNPNNNNNNNNNNNNPNNNNNNNNNNNNNP
-      p_positions=0,2,7,14,19,26,31,33,53,60,65,72,77,79,84,103,116,130
-      END_BODY
-
-      FILE /workspace/briefs/A.md
-      BEGIN_BODY
-      response_id=A
-      classification_correct=false
-      failure_reasons=["non_terminating_or_no_final_string","arithmetic_recursion_error"]
-      END_BODY
-
-      FILE /workspace/briefs/B.md
-      BEGIN_BODY
-      response_id=B
-      classification_correct=false
-      failure_reasons=["non_terminating_or_no_final_string"]
-      END_BODY
-
-      FILE /workspace/briefs/C.md
-      BEGIN_BODY
-      response_id=C
-      classification_correct=false
-      failure_reasons=["arbitrary_pattern_heuristic","missing_subtraction_moves"]
-      END_BODY
-
-      FILE /workspace/briefs/D.md
-      BEGIN_BODY
-      response_id=D
-      classification_correct=false
-      failure_reasons=["truncated_or_short_string","arbitrary_pattern_heuristic"]
-      END_BODY
-
-      FILE /workspace/briefs/E.md
-      BEGIN_BODY
-      response_id=E
-      classification_correct=false
-      failure_reasons=["wrong_base_case"]
-      END_BODY
-
-      FILE /workspace/briefs/F.md
-      BEGIN_BODY
-      response_id=F
-      classification_correct=false
-      failure_reasons=["arithmetic_recursion_error","truncated_or_short_string"]
-      END_BODY
-
-      FILE /workspace/briefs/G.md
-      BEGIN_BODY
-      response_id=G
-      classification_correct=false
-      failure_reasons=["arbitrary_pattern_heuristic"]
-      END_BODY
-
-      FILE /workspace/briefs/H.md
-      BEGIN_BODY
-      response_id=H
-      classification_correct=false
-      failure_reasons=["arbitrary_pattern_heuristic","arithmetic_recursion_error"]
-      END_BODY
-
-      Return only BRIEFS_WRITTEN once every file exists.
-      ---END SUB-AGENT PROMPT---
+  - id: derive-canonical-game-classification
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this derivation yourself. Do NOT include any
+      asserted classification string, P-position list, or oracle-derived
+      conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem.md itself and return a concise packet
+      describing the legal move set it enumerates as the union of perfect
+      squares and triangular numbers up to 130, the recursion it sets up
+      (dp[0] = P and dp[k] = N iff some legal move reaches a P-position), the
+      131-character P/N classification string it computes for pile sizes 0
+      through 130, and the resulting P-position index list. Do not inspect
+      any candidate response in this sub-task.
     depends_on: []
-    parallel_group: bootstrap
+    parallel_group: calibrate
+
+  - id: calibrate-failure-code-boundaries
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this calibration yourself. Do NOT solve the
+      puzzle yourself. Do NOT include any asserted classification, any
+      per-response failure-code set, or any oracle-derived conclusion in the
+      sub-agent prompt. The sub-agent must read the task instruction itself
+      and return a concise code-boundary guide for applying the eight
+      failure-reason codes. The guide should clarify: codes are evaluated as
+      an exact set per response, so both extra codes and missing codes are
+      wrong; each code applies only when its triggering condition is
+      concretely instantiated in that single response's text; the
+      triggering-condition language in the instruction is authoritative;
+      mathematically wrong classifications of length 131 with correct
+      convention belong under arithmetic_recursion_error rather than
+      truncated_or_short_string; pattern-based responses without a real
+      recurrence setup belong under arbitrary_pattern_heuristic rather than
+      arithmetic_recursion_error; missing_subtraction_moves requires that the
+      response enumerates or relies on an incomplete legal move set, not
+      mere silence about the move set.
+    depends_on: []
+    parallel_group: calibrate
 
   - id: audit-response-a
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/A.md and /input_artifacts/proposed_solutions/response_A.md. Return one JSON object with keys response_id, classification_correct, failure_reasons taken verbatim from /workspace/briefs/A.md.
-    depends_on: [write-briefs-to-workspace]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_A using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_A yourself. Do NOT include any asserted
+      classification string, P-position list, or oracle-derived failure-code
+      set in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_A.md itself, use the
+      canonical-classification packet and the code-boundary guide, and return
+      one JSON assessment object for response_id "A" with keys response_id,
+      classification_correct, and failure_reasons. Focus on whether the
+      response produces a usable 131-character P/N classification string at
+      all, and whether the position-level fragments present (if any) are
+      coherent dynamic-programming outputs or incoherent token-level
+      classifications.
+    depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-b
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/B.md and /input_artifacts/proposed_solutions/response_B.md. Return one JSON object with keys response_id, classification_correct, failure_reasons taken verbatim from /workspace/briefs/B.md.
-    depends_on: [write-briefs-to-workspace]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_B using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_B yourself. Do NOT include any asserted
+      classification string, P-position list, or oracle-derived failure-code
+      set in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_B.md itself, use the
+      canonical-classification packet and the code-boundary guide, and return
+      one JSON assessment object for response_id "B" with keys response_id,
+      classification_correct, and failure_reasons. Focus on whether the
+      response commits to a concrete 131-character classification string or
+      refuses to provide one or never produces a complete output.
+    depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-c
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/C.md and /input_artifacts/proposed_solutions/response_C.md. Return one JSON object with keys response_id, classification_correct, failure_reasons taken verbatim from /workspace/briefs/C.md.
-    depends_on: [write-briefs-to-workspace]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_C using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_C yourself. Do NOT include any asserted
+      classification string, P-position list, or oracle-derived failure-code
+      set in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_C.md itself, use the
+      canonical-classification packet and the code-boundary guide, and return
+      one JSON assessment object for response_id "C" with keys response_id,
+      classification_correct, and failure_reasons. Focus on whether the
+      response derives positions from dynamic programming over the full
+      square-triangle union, or asserts an unjustified position rule that
+      effectively ignores parts of the legal move set required for the
+      recurrence.
+    depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-d
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/D.md and /input_artifacts/proposed_solutions/response_D.md. Return one JSON object with keys response_id, classification_correct, failure_reasons taken verbatim from /workspace/briefs/D.md.
-    depends_on: [write-briefs-to-workspace]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_D using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_D yourself. Do NOT include any asserted
+      classification string, P-position list, or oracle-derived failure-code
+      set in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_D.md itself, use the
+      canonical-classification packet and the code-boundary guide, and return
+      one JSON assessment object for response_id "D" with keys response_id,
+      classification_correct, and failure_reasons. Focus on whether the
+      response's final classification string has exactly 131 characters drawn
+      from {P, N}, and whether any visible repetition or pattern is grounded
+      in a real game-tree computation or asserted as an unjustified rule.
+    depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-e
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/E.md and /input_artifacts/proposed_solutions/response_E.md. Return one JSON object with keys response_id, classification_correct, failure_reasons taken verbatim from /workspace/briefs/E.md.
-    depends_on: [write-briefs-to-workspace]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_E using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_E yourself. Do NOT include any asserted
+      classification string, P-position list, or oracle-derived failure-code
+      set in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_E.md itself, use the
+      canonical-classification packet and the code-boundary guide, and return
+      one JSON assessment object for response_id "E" with keys response_id,
+      classification_correct, and failure_reasons. Focus on the classification
+      at pile size 0 and whether the response treats position 0 consistently
+      with the cannot-move-loses convention stated in the problem.
+    depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-f
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/F.md and /input_artifacts/proposed_solutions/response_F.md. Return one JSON object with keys response_id, classification_correct, failure_reasons taken verbatim from /workspace/briefs/F.md.
-    depends_on: [write-briefs-to-workspace]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_F using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_F yourself. Do NOT include any asserted
+      classification string, P-position list, or oracle-derived failure-code
+      set in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_F.md itself, use the
+      canonical-classification packet and the code-boundary guide, and return
+      one JSON assessment object for response_id "F" with keys response_id,
+      classification_correct, and failure_reasons. Focus on whether the
+      response sets up the correct recurrence and move set yet produces a
+      final string of incorrect length, and on whether any positional errors
+      stem from per-position computation mistakes rather than systematic
+      convention or set errors.
+    depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-g
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/G.md and /input_artifacts/proposed_solutions/response_G.md. Return one JSON object with keys response_id, classification_correct, failure_reasons taken verbatim from /workspace/briefs/G.md.
-    depends_on: [write-briefs-to-workspace]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_G using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_G yourself. Do NOT include any asserted
+      classification string, P-position list, or oracle-derived failure-code
+      set in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_G.md itself, use the
+      canonical-classification packet and the code-boundary guide, and return
+      one JSON assessment object for response_id "G" with keys response_id,
+      classification_correct, and failure_reasons. Focus on whether the
+      response justifies each position from the recurrence or relies on the
+      existence of move size 1 alone to assert a uniform rule about nonzero
+      positions.
+    depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-h
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/H.md and /input_artifacts/proposed_solutions/response_H.md. Return one JSON object with keys response_id, classification_correct, failure_reasons taken verbatim from /workspace/briefs/H.md.
-    depends_on: [write-briefs-to-workspace]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_H using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_H yourself. Do NOT include any asserted
+      classification string, P-position list, or oracle-derived failure-code
+      set in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_H.md itself, use the
+      canonical-classification packet and the code-boundary guide, and return
+      one JSON assessment object for response_id "H" with keys response_id,
+      classification_correct, and failure_reasons. Focus on whether the
+      recurrence-style reasoning in the response is consistent with the
+      output classifications, and whether the output pattern is derived from
+      the game tree or asserted as a simple alternation.
+    depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: synthesize-final-audit
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM with the eight
-      audit JSON objects appended inline (one per line) under the
-      AUDIT_OBJECTS marker. Do not add any other commentary.
-
-      Read /workspace/briefs/gold.txt. Write exactly one JSON object to /logs/agent/output.json with three top-level keys:
-        correct_classification_string  -> the value of gold_classification_string from gold.txt
-        acceptable_solution_ids        -> []
-        per_response_assessment        -> a list of the eight audit objects in alphabetical order A,B,C,D,E,F,G,H
-      Validate that /logs/agent/output.json exists and parses as JSON. Return only WRITTEN.
-
-      AUDIT_OBJECTS:
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a sub-agent
+      using the Agent tool. Do NOT perform the final synthesis yourself. The
+      synthesizer may only consume the canonical-classification packet, the
+      code-boundary guide, and the eight audit objects. It MUST NOT re-derive
+      the classifications or the per-response audits in the orchestrator. If
+      any audit object is malformed, request a replacement sub-agent for that
+      one response rather than grading it in the orchestrator. The synthesizer
+      must write exactly one JSON object to /logs/agent/output.json with
+      top-level keys correct_classification_string, acceptable_solution_ids,
+      and per_response_assessment (the eight audit objects ordered A through
+      H), as specified by instruction.md.
     depends_on:
       - audit-response-a
       - audit-response-b

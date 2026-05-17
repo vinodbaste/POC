@@ -149,6 +149,50 @@ Use exactly one of these codes for primary_failure_code:
 
 Use NONE only for accepted solutions.
 
+### Primary-failure-code selection guidance
+
+Many candidate solutions exhibit multiple defects simultaneously. The primary_failure_code captures the single most diagnostic failure mode - the one whose absence would have been most likely to produce a valid proof. Use the following disambiguation order when multiple codes plausibly apply:
+
+1. If the final stated number does not equal the canonical minimum and the strategy is otherwise structurally complete, prefer WRONG_FINAL_NUMBER.
+2. If the response oscillates among incompatible inspection counts and never settles, prefer CONTRADICTORY_FINAL_ANSWER over WRONG_FINAL_NUMBER.
+3. If the strategy is missing concrete branch-by-branch label-fixing rules, prefer NO_CONCRETE_STRATEGY over downstream defects that follow from the missing strategy.
+4. If a load-bearing one-draw purity inference from a possibly-mixed envelope drives the proposed minimum, prefer INVALID_ONE_DRAW_INFERENCE over NOT_WORST_CASE.
+5. If the response acknowledges worst-case framing for one envelope but abandons it for others, prefer NOT_WORST_CASE.
+6. If the response adds extra inspections to determine the exact two-type composition of the mixed envelope, prefer UNNECESSARY_MIXED_PAIR_REQUIREMENT.
+7. If the strategy is structurally complete and the upper bound holds but the lower bound is only asserted from the strategy's arithmetic, prefer MISSING_LOWER_BOUND.
+8. If the upper-bound argument leaves multiple legal labelings open in some worst-case branch, prefer INVALID_UPPER_BOUND.
+9. If the response asserts that remaining envelopes are forced by elimination or contradiction when multiple legal assignments remain consistent, prefer FATAL_WRONG_CLAIM.
+
+Apply codes only when the triggering condition is concretely instantiated in the response's text. Do not infer codes from absence of discussion alone.
+
+### Worked example of the canonical strategy
+
+For reviewer calibration, the canonical worst-case strategy structure is: inspect one item from the envelope labeled with the type that cannot match the contents (the Mixed-labeled envelope is the natural choice because its all-labels-wrong constraint forces it to be pure), record the identified pure type, then inspect a fixed number of items from a second envelope chosen to force a decisive distinction between pure and 7/13 mixed in the worst case. The number of items required equals the size of the mixed envelope's majority side plus one, because a 7/13 mixed envelope cannot produce more than thirteen consecutive items of any single type, and a pure envelope produces an unbounded run of one type. After this second inspection, the all-labels-wrong constraint forces the remaining two envelopes by elimination, requiring no additional inspections. The total inspection count is one plus the majority-plus-one count.
+
+A valid lower-bound proof must show that no strategy using fewer inspections suffices. The canonical lower-bound construction exhibits two legal envelope arrangements that produce identical observations under any strictly-smaller inspection budget but require different placements of the Mixed label.
+
+### Common audit anti-patterns
+
+The following patterns recur across candidate responses and require careful classification:
+
+- Asserting that "all labels are wrong" forces a specific assignment after a single observation. This is fatal because four labels and four envelopes with a derangement constraint still leave multiple legal assignments after one observation.
+- Treating one observation per envelope as identifying that envelope's pure type. This violates C6 when the envelope could still be the mixed envelope returning its majority type on the first draw.
+- Inflating the inspection count by adding draws "to determine the exact mixed pair". The task does not require identifying which two pure types compose the mixed envelope; it only requires labeling the mixed envelope correctly.
+- Claiming minimality because the response's own strategy could not be reduced. A valid lower bound must rule out all strategies, not just the proposed one.
+- Treating a probability-of-success argument as a worst-case guarantee. Worst-case guarantees require the proof to hold across every adversarial choice of envelope contents consistent with the observations so far.
+- Confusing a possible success path with a guaranteed strategy. A guarantee must succeed on every legal branch, not merely on a favorable observation sequence.
+
+### Glossary
+
+- Envelope: one of the four physical containers, each labeled with a sequence type that is necessarily wrong.
+- Pure envelope: an envelope whose 20 sequences are all of one type (Strictly Increasing, Strictly Decreasing, or Constant).
+- Mixed envelope: the envelope whose 20 sequences split 7/13 between two of the three sequence types.
+- Pure-labeled envelope: an envelope whose label is one of the pure-type strings ("Strictly Increasing", "Strictly Decreasing", "Constant"). Such an envelope is either a pure envelope of a different type, or the mixed envelope.
+- Mixed-labeled envelope: the envelope whose label is "Mixed". Because all labels are wrong, this envelope is necessarily a pure envelope.
+- Worst-case guarantee: a strategy whose correctness holds for every legal envelope arrangement and every adversarial draw sequence consistent with the envelope contents.
+- Indistinguishable-case argument: a lower-bound technique that constructs two legal envelope arrangements producing identical observations under a smaller inspection budget but requiring different correct labelings.
+- Identified pure type: the sequence type observed in the first draw from the Mixed-labeled envelope; because that envelope is pure, this single observation suffices to identify its type.
+
 ## Output Instructions
 
 Write your final answer to /logs/agent/output.json as a single JSON object with this exact structure:

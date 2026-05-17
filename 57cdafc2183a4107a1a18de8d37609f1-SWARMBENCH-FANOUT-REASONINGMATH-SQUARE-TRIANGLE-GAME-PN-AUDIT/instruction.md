@@ -60,6 +60,45 @@ Label definitions for each released response:
 - `classification_correct`: `true` exactly when the response's claimed 131-character classification string equals the gold classification string exactly, character by character. Otherwise `false`.
 - `failure_reasons`: a JSON list of strings chosen only from the 8 allowed failure-reason codes above.
 
+### Failure-code disambiguation guidance
+
+Many responses exhibit multiple defects that could plausibly map to several codes. Apply the following disambiguation order when more than one code seems to fit:
+
+1. `non_terminating_or_no_final_string` applies when no identifiable 131-character P/N string is produced at all (loops, mid-string truncation, explicit refusal to commit, or fragments that never coalesce into a single classification). It takes precedence over `truncated_or_short_string` because the former covers absence of any commitment, while the latter requires a committed string of wrong length or composition.
+2. `wrong_base_case` is triggered specifically by the classification at index 0 disagreeing with `P`, or by explicit statements that the empty pile can still move or wins. Do not apply this code merely because the rest of the string is wrong; the trigger is the base-case treatment.
+3. `pn_convention_swapped` requires either an explicit reversed definition of P and N, or a final string equal to the bitwise inverse of the correct classification. Mathematical disagreement alone is not sufficient.
+4. `wrong_loss_convention` requires explicit endorsement of the misère convention (last player to move loses) or an explicit inconsistency in the cannot-move-loses base case. Do not infer this from a wrong final number without textual support.
+5. `truncated_or_short_string` applies when a committed final string has the wrong length or contains characters outside {P, N} or is split across newlines. Mathematically-incorrect strings of correct length 131 with correct {P, N} alphabet do not trigger this code.
+6. `arbitrary_pattern_heuristic` applies when the response's classification rests on an unjustified pattern (for example "all even positions are P", "every fifth position is P", "all nonzero positions are N because move size 1 exists") rather than on a dynamic-programming computation. The presence of pattern language is necessary; mere wrong values are not sufficient.
+7. `arithmetic_recursion_error` requires that the response sets up the correct recursion (k is N iff some legal move reaches a P-position) and uses the correct base case and convention, and the final string is 131 characters long, but contains one or more positional errors traceable to per-position computation mistakes. If any of those prerequisites fails (no real recursion, wrong base case, wrong length), this code does not apply.
+8. `missing_subtraction_moves` requires that the response enumerates or relies on an incomplete legal move set (for example, considering only squares and not triangulars, considering only triangulars and not squares, omitting the value 36 which is in both sequences). The response must concretely reference or use the wrong move set; silent omission without enumeration is not sufficient.
+
+### Worked dynamic-programming example
+
+For reviewer calibration, the dynamic-programming recurrence proceeds as follows from base case `dp[0] = P`. Compute the unique legal move set as the sorted union of perfect squares up to 130 (1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121) and triangular numbers up to 130 (1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120), yielding 24 distinct move sizes after de-duplicating 1 and 36. For each pile size `k` from 1 through 130 in increasing order, set `dp[k] = N` if there exists a legal move size `m` with `m <= k` and `dp[k - m] = P`, and otherwise `dp[k] = P`. The classification string is the concatenation of `dp[0]` through `dp[130]` with no separators. P-positions are the indices where this string has the character `P`.
+
+An audit that applies any of the eight failure-reason codes should be able to cite text from the response that concretely instantiates the corresponding trigger. Absent such textual instantiation, the code should not be applied even when the final classification is mathematically wrong.
+
+### Common audit anti-patterns
+
+The following anti-patterns recur across candidate responses and require careful classification:
+
+- Asserting a uniform rule about position parity or position modulus without computing the recurrence. This triggers `arbitrary_pattern_heuristic`, not `arithmetic_recursion_error`, even when the assertion happens to produce a 131-character string.
+- Producing a string of incorrect length and labelling it as the classification. This triggers `truncated_or_short_string`, and additionally `arithmetic_recursion_error` only if the prefix preserves the correct recurrence and convention.
+- Producing labelled fragments such as "P0", "N0", or position-indexed snippets without assembling them into a single 131-character string. This triggers `non_terminating_or_no_final_string` because no committed full classification exists.
+- Confusing the union of squares and triangulars with squares alone or triangulars alone. The union has 24 distinct moves; either subsequence alone has 11 or 15 distinct moves. Using the wrong base set triggers `missing_subtraction_moves`.
+- Conflating the requirement to compute the entire P/N table with the requirement only to compute it for positions up to 130. The problem requires positions 0 through 130 inclusive, which is exactly 131 positions.
+
+### Glossary
+
+- P-position: a position where the player whose turn it is loses under optimal play, including position 0 (the cannot-move-loses base case).
+- N-position: a position where the player whose turn it is wins under optimal play.
+- Legal move set: the sorted union of perfect squares up to 130 and triangular numbers up to 130, with duplicates removed.
+- Move size: an integer drawn from the legal move set; the current player subtracts this number of stones from the pile on each turn.
+- Recurrence / dynamic programming: the standard Sprague-Grundy P/N labeling computed by `dp[0] = P` and `dp[k] = N` iff some legal move leaves a P-position.
+- Classification string: the 131-character string consisting of letters in {P, N} representing `dp[0]` through `dp[130]` concatenated with no separators, no whitespace, and no newlines.
+- Convention: the cannot-move-loses convention is in force; misère interpretations are not used.
+
 ---
 ## Output Instructions
 

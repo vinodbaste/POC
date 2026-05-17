@@ -1,158 +1,202 @@
 sub_tasks:
-  - id: write-evaluation-briefs
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn exactly ONE Agent sub-agent with
-      subagent_type "coder". Pass the prompt below VERBATIM, with no
-      summary, paraphrase, preamble, or extra context. Do not repeat any
-      of this content in any later Agent call; later map and reduce
-      sub-agents read files written here.
-
-      ---BEGIN SUB-AGENT PROMPT---
-      Create the directory /workspace/briefs and write nine UTF-8 files
-      using the Write tool. Each file body is given between BEGIN_BODY
-      and END_BODY markers and must be written EXACTLY as a single line,
-      no surrounding markdown fences, no trailing newline beyond what
-      Write naturally appends. After all nine files exist, return only
-      the string BRIEFS_WRITTEN.
-
-      FILE /workspace/briefs/A.json
-      BEGIN_BODY
-      {"solution_id":"response_A","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":true,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"INVALID_UPPER_BOUND","brief_justification":"Response A concludes 2. After inspecting the Mixed-labeled envelope and the envelope labeled with the identified pure type, it asserts 'the remaining two envelopes are determined automatically by elimination' - but in branches where the second inspection does not return the identified type, multiple legal labelings remain. The two-inspection strategy does not guarantee correct relabeling in every worst-case branch."}
-      END_BODY
-
-      FILE /workspace/briefs/B.json
-      BEGIN_BODY
-      {"solution_id":"response_B","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":false,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"NO_CONCRETE_STRATEGY","brief_justification":"Response B concludes 4. After acknowledging ambiguity in single-draw branches ('this envelope is either mixed or purely increasing'), it asserts 'at this point enough information has been gathered to deduce the final arrangement uniquely' without specifying how the remaining branches collapse. The synthesis step is hand-wavy and no branch-by-branch label-fixing rule is provided."}
-      END_BODY
-
-      FILE /workspace/briefs/C.json
-      BEGIN_BODY
-      {"solution_id":"response_C","criteria":{"C1_correct_final_answer":true,"C2_concrete_strategy":true,"C3_valid_upper_bound":true,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":true,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":true},"verdict":"REJECT","primary_failure_code":"MISSING_LOWER_BOUND","brief_justification":"Response C concludes 15, the correct answer, and provides a valid upper-bound argument: 1 initial inspection of the Mixed-labeled envelope to identify the pure type, plus up to 14 same-type observations to distinguish pure from a 7/13 mixed envelope. The response gives no impossibility proof for fewer than 15 total inspections; the lower bound is asserted by the arithmetic of the strategy alone, not by an indistinguishable-case argument."}
-      END_BODY
-
-      FILE /workspace/briefs/D.json
-      BEGIN_BODY
-      {"solution_id":"response_D","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":false,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"FATAL_WRONG_CLAIM","brief_justification":"Response D concludes 1. It asserts that after one inspection of the Mixed-labeled envelope, 'the remaining three are forced by contradiction' and 'the remaining labels cycle uniquely'. This is a fatal proof-invalidating claim: the derangement constraint over four labels with one mixed envelope does not uniquely determine the assignment from one observation - multiple legal labelings remain consistent."}
-      END_BODY
-
-      FILE /workspace/briefs/E.json
-      BEGIN_BODY
-      {"solution_id":"response_E","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":false,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"CONTRADICTORY_FINAL_ANSWER","brief_justification":"Response E proposes 3 inspections, then writes 'maybe 2', then re-examines and says 'we need 14', then 'maybe a third inspection is needed', then 'worst-case guarantee probably makes it 15', then 'Final answer: 3'. The response oscillates among 2, 3, 14, and 15 and never settles a coherent strategy."}
-      END_BODY
-
-      FILE /workspace/briefs/F.json
-      BEGIN_BODY
-      {"solution_id":"response_F","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":true,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":false,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"INVALID_ONE_DRAW_INFERENCE","brief_justification":"Response F concludes 3. It inspects one sequence from each of three envelopes and then asserts the contents directly: 'the first is increasing, the second is constant, the third is decreasing - then the last envelope must be mixed'. This treats one observation per envelope as proving purity, even though a mixed envelope can match any of those single observations."}
-      END_BODY
-
-      FILE /workspace/briefs/G.json
-      BEGIN_BODY
-      {"solution_id":"response_G","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":true,"C3_valid_upper_bound":true,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":true,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"WRONG_FINAL_NUMBER","brief_justification":"Response G concludes 16. It correctly derives the 14-draw verification rule and proposes 1 inspection of the Mixed-labeled envelope plus 1 preliminary inspection of the envelope labeled with the identified type plus 14 verification draws, totaling 16. The preliminary inspection in step two can be absorbed into the 14-draw verification, so 15 inspections suffice; the strategy is structurally correct but the inspection count is one over the optimal."}
-      END_BODY
-
-      FILE /workspace/briefs/H.json
-      BEGIN_BODY
-      {"solution_id":"response_H","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":true,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":false,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"NOT_WORST_CASE","brief_justification":"Response H concludes 4. It inspects one sequence from each envelope and asserts 'the assignment follows directly' from the four single observations. The response does not engage with the worst-case branch where a mixed envelope returns the same type on its first draw as a pure envelope, leaving multiple legal labelings indistinguishable."}
-      END_BODY
-
-      FILE /workspace/briefs/global.json
-      BEGIN_BODY
-      {"accepted_solutions":[],"rejected_solutions":["response_A","response_B","response_C","response_D","response_E","response_F","response_G","response_H"],"best_solution":null,"summary":"All eight candidate solutions are rejected. The canonical minimum is 15 inspections. Response C states the correct number (15) but provides no lower-bound proof, so it is rejected on C4 alone. The remaining responses fail on combinations of wrong number, invalid upper bound, invalid one-draw inferences, contradictory oscillation, and fatal proof-invalidating claims."}
-      END_BODY
-
-      Return only BRIEFS_WRITTEN once every file exists.
-      ---END SUB-AGENT PROMPT---
+  - id: derive-canonical-envelope-proof
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this derivation yourself. Do NOT include any
+      asserted numeric answer, true answer, correct answer, solved strategy,
+      or oracle-derived conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md itself and return a concise
+      packet describing: the worst-case minimum inspection count it derives
+      from the four-envelope all-labels-wrong setup with a 7/13 mixed split,
+      the upper-bound inspection strategy it identifies (which envelope to
+      inspect first, how many subsequent draws on which envelope, how all four
+      labels are forced afterwards), the lower-bound argument it constructs
+      (using indistinguishable-case reasoning over alternative legal
+      arrangements that produce identical observations under a smaller
+      inspection budget), the one-draw purity rule (only valid for the
+      Mixed-labeled envelope, never for pure-labeled envelopes whose mixed
+      case has not been ruled out), and the exact-mixed-pair non-requirement.
     depends_on: []
-    parallel_group: bootstrap
+    parallel_group: calibrate
+
+  - id: calibrate-audit-rules
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this calibration yourself. Do NOT solve the
+      puzzle yourself. Do NOT include any asserted numeric answer, true answer,
+      correct answer, solved strategy, or oracle-derived conclusion in the
+      sub-agent prompt. The sub-agent must read the task instruction itself and
+      return a concise calibration guide for applying C1-C8, verdict, and
+      primary_failure_code. The guide should clarify that the criteria are
+      independent: C1 concerns only the candidate's stated final minimum; C2
+      concerns whether an explicit actionable strategy is present; C3 concerns
+      whether that strategy guarantees success in every worst-case branch; C4
+      concerns whether minimality is proven via an impossibility argument; C5
+      concerns worst-case framing rather than probabilistic or favorable-case
+      reasoning; C6 concerns invalid purity inference from one draw when the
+      envelope could still be mixed; C7 concerns unnecessary exact-mixed-pair
+      requirements; C8 concerns fatal contradictions or proof-invalidating
+      claims. The guide must explain how to choose the most diagnostic
+      primary_failure_code from the instruction list without assigning any
+      code to any specific response.
+    depends_on: []
+    parallel_group: calibrate
 
   - id: grade-response-a
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/A.json and /input_artifacts/candidate_solutions/response_A.md. Return the JSON object contained in /workspace/briefs/A.json verbatim, with no additional keys or commentary.
-    depends_on: [write-evaluation-briefs]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_A using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_A yourself. Do NOT include any asserted numeric answer or
+      solved-puzzle conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_A.md itself, use the
+      canonical-proof packet and calibration guide, and return only the
+      response_A evaluation JSON fields. Focus on whether the proposed
+      inspection strategy's upper bound holds in every worst-case branch
+      (including the branch where the second observation does not match the
+      identified pure type), and whether elimination-based label-fixing leaves
+      any legal labelings open. Still evaluate all C1-C8 labels, verdict, and
+      diagnostic failure category independently.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-b
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/B.json and /input_artifacts/candidate_solutions/response_B.md. Return the JSON object contained in /workspace/briefs/B.json verbatim, with no additional keys or commentary.
-    depends_on: [write-evaluation-briefs]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_B using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_B yourself. Do NOT include any asserted numeric answer or
+      solved-puzzle conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_B.md itself, use the
+      canonical-proof packet and calibration guide, and return only the
+      response_B evaluation JSON fields. Focus on whether, after the response
+      acknowledges single-draw ambiguity between mixed and pure cases, it
+      provides a concrete branch-by-branch label-fixing rule or instead
+      asserts the arrangement is uniquely determined without supplying that
+      rule. Still evaluate all C1-C8 labels, verdict, and diagnostic failure
+      category independently.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-c
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/C.json and /input_artifacts/candidate_solutions/response_C.md. Return the JSON object contained in /workspace/briefs/C.json verbatim, with no additional keys or commentary.
-    depends_on: [write-evaluation-briefs]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_C using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_C yourself. Do NOT include any asserted numeric answer or
+      solved-puzzle conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_C.md itself, use the
+      canonical-proof packet and calibration guide, and return only the
+      response_C evaluation JSON fields. Focus on whether the response
+      provides a real impossibility argument that fewer inspections than its
+      proposed minimum cannot suffice in some legal arrangement, or merely
+      asserts minimality from the arithmetic of its own strategy. Still
+      evaluate all C1-C8 labels, verdict, and diagnostic failure category
+      independently.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-d
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/D.json and /input_artifacts/candidate_solutions/response_D.md. Return the JSON object contained in /workspace/briefs/D.json verbatim, with no additional keys or commentary.
-    depends_on: [write-evaluation-briefs]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_D using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_D yourself. Do NOT include any asserted numeric answer or
+      solved-puzzle conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_D.md itself, use the
+      canonical-proof packet and calibration guide, and return only the
+      response_D evaluation JSON fields. Focus on whether the response asserts
+      that remaining labels are forced, cycle uniquely, or are determined by
+      contradiction after one observation, and whether such an assertion is
+      consistent with multiple legal labelings still remaining open. Still
+      evaluate all C1-C8 labels, verdict, and diagnostic failure category
+      independently.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-e
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/E.json and /input_artifacts/candidate_solutions/response_E.md. Return the JSON object contained in /workspace/briefs/E.json verbatim, with no additional keys or commentary.
-    depends_on: [write-evaluation-briefs]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_E using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_E yourself. Do NOT include any asserted numeric answer or
+      solved-puzzle conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_E.md itself, use the
+      canonical-proof packet and calibration guide, and return only the
+      response_E evaluation JSON fields. Focus on whether the response commits
+      to a single final inspection count and one coherent strategy or
+      oscillates among incompatible counts and partial strategies. Still
+      evaluate all C1-C8 labels, verdict, and diagnostic failure category
+      independently.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-f
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/F.json and /input_artifacts/candidate_solutions/response_F.md. Return the JSON object contained in /workspace/briefs/F.json verbatim, with no additional keys or commentary.
-    depends_on: [write-evaluation-briefs]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_F using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_F yourself. Do NOT include any asserted numeric answer or
+      solved-puzzle conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_F.md itself, use the
+      canonical-proof packet and calibration guide, and return only the
+      response_F evaluation JSON fields. Focus on whether the response infers
+      an envelope's pure content from a single observation, treating that
+      single draw as proof of purity in the absence of a multi-draw
+      verification ruling out the 7/13 mixed case. Still evaluate all C1-C8
+      labels, verdict, and diagnostic failure category independently.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-g
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/G.json and /input_artifacts/candidate_solutions/response_G.md. Return the JSON object contained in /workspace/briefs/G.json verbatim, with no additional keys or commentary.
-    depends_on: [write-evaluation-briefs]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_G using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_G yourself. Do NOT include any asserted numeric answer or
+      solved-puzzle conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_G.md itself, use the
+      canonical-proof packet and calibration guide, and return only the
+      response_G evaluation JSON fields. Focus on whether the inspection count
+      derived from the response's strategy can be reduced by absorbing one
+      preliminary inspection into the verification phase, while still
+      preserving the proof's worst-case guarantee, and on whether the response
+      acknowledges that reduction. Still evaluate all C1-C8 labels, verdict,
+      and diagnostic failure category independently.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-h
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
-
-      Read /workspace/briefs/H.json and /input_artifacts/candidate_solutions/response_H.md. Return the JSON object contained in /workspace/briefs/H.json verbatim, with no additional keys or commentary.
-    depends_on: [write-evaluation-briefs]
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_H using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_H yourself. Do NOT include any asserted numeric answer or
+      solved-puzzle conclusion in the sub-agent prompt. The sub-agent must
+      read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_H.md itself, use the
+      canonical-proof packet and calibration guide, and return only the
+      response_H evaluation JSON fields. Focus on whether the response engages
+      with the worst-case branch in which a mixed envelope returns the same
+      type as a pure envelope on its first draw, or instead treats favorable
+      single-draw observations as resolving all worst-case ambiguity. Still
+      evaluate all C1-C8 labels, verdict, and diagnostic failure category
+      independently.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: reduce-final-audit
-    description: |
-      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
-      subagent_type "coder". Append the eight mapper JSON objects under
-      the EVALUATIONS marker (one per line, in alphabetical order A..H)
-      and pass the prompt VERBATIM.
-
-      Read /workspace/briefs/global.json. Compose one JSON object with these top-level keys, in this order:
-        evaluations            -> a JSON list of the eight mapper objects below, in the order A, B, C, D, E, F, G, H
-        accepted_solutions     -> the accepted_solutions value from global.json
-        rejected_solutions     -> the rejected_solutions value from global.json
-        best_solution          -> the best_solution value from global.json
-        summary                -> the summary value from global.json
-      Write the final JSON to /logs/agent/output.json. Validate that /logs/agent/output.json exists and parses as JSON. Return only WRITTEN.
-
-      EVALUATIONS:
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent
+      using the Agent tool. Do NOT perform the final reduction yourself. The
+      reducer may only synthesize the canonical-proof packet, calibration
+      output, and the eight mapper outputs. It MUST NOT redo the eight audits
+      from scratch. If a mapper output is malformed, ask a replacement
+      sub-agent to re-grade that same response instead of grading it in the
+      orchestrator. The reducer must write exactly one JSON object to
+      /logs/agent/output.json with top-level keys evaluations (the eight
+      mapper objects in alphabetical order response_A through response_H),
+      accepted_solutions, rejected_solutions, best_solution, and summary, as
+      specified by instruction.md.
     depends_on:
       - grade-response-a
       - grade-response-b
