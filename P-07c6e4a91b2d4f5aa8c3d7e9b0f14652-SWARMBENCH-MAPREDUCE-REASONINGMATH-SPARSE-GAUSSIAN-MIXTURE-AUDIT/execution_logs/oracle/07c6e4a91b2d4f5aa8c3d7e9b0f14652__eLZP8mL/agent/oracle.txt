@@ -1,0 +1,1 @@
+Oracle output written successfully to /logs/agent/output.json via solution/solve.sh. Verifier awarded reward 1.0.

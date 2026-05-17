@@ -1,0 +1,18 @@
+Take \(m\in\{0,\ldots,9999\}\).  The day \(k\) position is \(m^k\) mod \(2197\), except day 1 is just the originally chosen slot.
+
+Here \(2197=13^3\), and
+\[
+\phi(13^3)=13^3-13^2=13^2(13-1)=2028.
+\]
+So the order of a unit modulo \(13^3\) divides \(2028\).  If the first time we see slot \(1\) is day \(2028\), the order should not divide any smaller exponent \(1,\ldots,2027\).  In other words, it should be the full order \(2028\).
+
+At this point the remaining work is to count the \(m\)'s whose residue has this full order.  I write this as
+\[
+\#\{m:m^{2028}\equiv1\pmod {2197},\ m^i\not\equiv1\pmod {2197}\ (1\le i<2028)\}.
+\]
+The probability should be this count divided by the number of possible starting slots.  I take the denominator to be \(9999\).
+
+I therefore get the final requested residue as
+\[
+\boxed{101}.
+\]

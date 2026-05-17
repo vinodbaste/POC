@@ -1,0 +1,3 @@
+Score: 0.943 (777/824 passed)
+
+Top-level fields correct (56/56). Per-response: A 75/96 (denominator/sample-space error and calculation error misclassified), B 96/96, C 95/96 (calculation error misclassified), D 94/96 (calculation error and stepwise structure misclassified), E 93/96 (calculation error, stepwise structure, and latex format misclassified), F 76/96 (denominator/sample-space error misclassified), G 96/96, H 96/96. Total 777/824.

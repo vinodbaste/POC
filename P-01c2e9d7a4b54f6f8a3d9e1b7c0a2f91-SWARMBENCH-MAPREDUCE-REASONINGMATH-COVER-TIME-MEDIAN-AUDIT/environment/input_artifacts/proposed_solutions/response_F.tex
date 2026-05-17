@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Proposed Response F}
+"Let $S_k$ be the simple random walk on $\mathbb{Z}^2$ starting at $S_0 = (0,0)$.
+Let $D_n = \{x \in \mathbb{Z}^2 : \|x\| \leq n\}$ be the discrete disc of radius $n$. Here, $\|x\|$ typically refers to the Euclidean norm.
+Let $T_n$ be the cover time of $D_n$, which is the first time $k$ such that $\{S_0, S_1, \dots, S_k\} \supseteq D_n$.
+
+We are asked to find the constant $c > 0$ such that the median $m_n$ of $\log T_n$ satisfies
+$$
+\lim _{n \rightarrow \infty} \frac{m_n}{(\log(n))^2} = c.
+$$
+
+This problem concerns a well-known result in the theory of random walks on $\mathbb{Z}^2$. For simple random walks in two dimensions, the cover time of growing regions exhibits a characteristic logarithmic squared dependency on the radius of the region.
+
+A key result in this area is due to Lawler (1991), and also appears as Theorem 1.1 in Dembo, Peres, Rosen, and Zeitouni (2002) (""Cover times for random walks on graphs"").
+Specifically, for a simple random walk on $\mathbb{Z}^2$ starting at the origin, and $B(0,n)$ denoting the discrete ball (disc) of radius $n$ centered at the origin, the cover time $T_{B(0,n)}$ satisfies:
+$$
+\lim_{n \rightarrow \infty} \frac{\log T_{B(0,n)}}{(\log n)^2} = \frac{1}{\pi} \quad \text{in probability.}
+$$
+In this problem, $D_n$ is the discrete disc, which is the same as $B(0,n)$. So we have:
+$$
+\frac{\log T_n}{(\log n)^2} \xrightarrow{P} \frac{1}{\pi} \quad \text{as } n \rightarrow \infty.
+$$
+
+Now, let $X_n = \frac{\log T_n}{(\log n)^2}$. We have $X_n \xrightarrow{P} \frac{1}{\pi}$.
+Let $m_n(Y)$ denote the median of a random variable $Y$. We are given that $m_n$ is the median of $\log T_n$. So, $m_n = m_n(\log T_n)$.
+We want to find $\lim_{n \rightarrow \infty} \frac{m_n(\log T_n)}{(\log n)^2}$.
+
+A standard property of medians is that if a sequence of random variables $X_n$ converges to a constant $L$ in probability, then the median of $X_n$ also converges to $L$. That is, $m_n(X_n) \to L$ as $n \to \infty$.
+In our case, $X_n = \frac{\log T_n}{(\log n)^2}$ and $L = \frac{1}{\pi}$.
+Therefore, the median of $X_n$ converges to $1/\pi$:
+$$
+\lim_{n \rightarrow \infty} m_n\left(\frac{\log T_n}{(\log n)^2}\right) = \frac{1}{\pi}.
+$$
+Another property of medians is that for any constant $a > 0$, $m_n(aY) = a \cdot m_n(Y)$.
+In our case, $a = \frac{1}{(\log n)^2}$ (which is positive for large $n$) and $Y = \log T_n$.
+So, we can write:
+$$
+m_n\left(\frac{\log T_n}{(\log n)^2}\right) = \frac{m_n(\log T_n)}{(\log n)^2} = \frac{m_n}{(\log n)^2}.
+$$
+Combining these results, we get:
+$$
+\lim_{n \rightarrow \infty} \frac{m_n}{(\log n)^2} = \frac{1}{\pi}.
+$$
+Thus, the constant $c$ is $1/\pi$.
+
+The final answer is $\boxed{\frac{1}{\pi}}$."
+\end{document}

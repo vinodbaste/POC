@@ -1,0 +1,66 @@
+{
+  "correct_answer_latex": "\\frac{4}{\\pi}",
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "extracted_final_answer_latex": "\\frac{4}{\\ln(2)}",
+      "final_answer_correct": false,
+      "has_mathematical_error": true,
+      "has_calculation_error": false,
+      "has_unjustified_step": false,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "B",
+      "extracted_final_answer_latex": "\\frac{1}{2}",
+      "final_answer_correct": false,
+      "has_mathematical_error": true,
+      "has_calculation_error": false,
+      "has_unjustified_step": true,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "C",
+      "extracted_final_answer_latex": "\\frac{\\pi}{2}",
+      "final_answer_correct": false,
+      "has_mathematical_error": true,
+      "has_calculation_error": false,
+      "has_unjustified_step": false,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "D",
+      "extracted_final_answer_latex": "0",
+      "final_answer_correct": false,
+      "has_mathematical_error": true,
+      "has_calculation_error": false,
+      "has_unjustified_step": false,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "E",
+      "extracted_final_answer_latex": "0",
+      "final_answer_correct": false,
+      "has_mathematical_error": true,
+      "has_calculation_error": false,
+      "has_unjustified_step": false,
+      "has_stepwise_structure": false,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "F",
+      "extracted_final_answer_latex": "\\frac{1}{\\pi}",
+      "final_answer_correct": false,
+      "has_mathematical_error": true,
+      "has_calculation_error": false,
+      "has_unjustified_step": false,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+# Analysis of Sparse Signal Detection Tests
+
+This is a classic problem in sparse signal detection. I'll analyze the asymptotic power of each test under the given parameters.
+
+## Parameter Summary
+
+- Sparsity level: $\varepsilon_n = n^{-0.85}$
+- Expected number of signals: $n\varepsilon_n = n^{0.15}$
+- Signal strength: $\mu_n = \sqrt{0.9\log n}$
+- Detectability condition: Check if $r > 1-\beta$
+
+## Test A: One-sided z-test on $\bar{X}$
+
+**Analysis:**
+
+Under $H_1$, the expected value of the sample mean is:
+$$E[\bar{X}] = \varepsilon_n \mu_n = n^{-0.85} \cdot \sqrt{0.9\log n}$$
+
+The standardized test statistic is:
+$$Z = \sqrt{n}\bar{X} \xrightarrow{E} n^{-0.35}\sqrt{0.9\log n} \to 0 \text{ as } n \to \infty$$
+
+**Conclusion:** The mean effect is too diluted by the vast majority of zero-signal experiments. Power does not approach 1. ❌
+
+## Test B: Reject for large $\max_i X_i$
+
+**Analysis:**
+
+Under $H_0$: $\max_i X_i \approx \sqrt{2\log n}$ (standard extreme value theory)
+
+Under $H_1$: Approximately $n^{0.15}$ experiments show signals with mean $\mu_n = \sqrt{0.9\log n}$. The maximum observation among signals is roughly:
+$$\max(\text{signals}) \approx \mu_n + \sqrt{2\log(n^{0.15})} = \sqrt{0.9\log n} + \sqrt{0.3\log n} \sim \sqrt{\log n}$$
+
+This exceeds the null maximum with high probability. The test separates $H_0$ and $H_1$ with power $\to 1$. ✓
+
+## Test C: Higher Criticism (Donoho-Jin)
+
+**Analysis:**
+
+The Donoho-Jin theory establishes that sparse signal detection is **detectable** when:
+$$r > 1 - \beta$$
+
+With $r = 0.45$ and $\beta = 0.85$:
+$$0.45 > 1 - 0.85 = 0.15 \quad \checkmark$$
+
+We are in the **detectable region**. The Higher Criticism test is specifically designed for sparse signal problems and achieves asymptotic power approaching 1 in this regime. ✓
+
+## Conclusion
+
+Tests B and C both achieve asymptotic power $\to 1$ as $n \to \infty$, while test A fails due to signal dilution.
+
+**Answer: [B, C]**

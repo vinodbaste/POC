@@ -1,0 +1,18 @@
+Let $X_1, \ldots, X_n$ be independent random variables. A scientist at a national laboratory wants to run $n$ separate experiments, where $X_i$ represents a standardized measurement from experiment $i$. Consider a hypothesis test where under the null hypothesis $H_0$ (the experiment is just pure noise), $X_i \sim N(0,1)$ and under the alternative hypothesis $H_1$ (a small fraction of experiments really do show a positive effect), for each $i$ independently,
+
+$$
+X_i \sim \begin{cases}
+N(\mu_n,1) & \text{with probability } \varepsilon_n=n^{-\beta}, \\
+N(0,1) & \text{with probability } 1-\varepsilon_n,
+\end{cases}
+$$
+
+where $\varepsilon_n=n^{-\beta}$ and $\mu_n=\sqrt{2r\log n}$. Take $\beta=0.85$ and $r=0.45$. At fixed size $\alpha=0.05$, his boss is looking for a test, from the three options the lab's current statistical software supports, whose asymptotic power $\to 1$ as $n\to\infty$. Which of the following tests fits the bill?
+
+A) one-sided z-test based on $\bar X$
+
+B) reject for large $\max_i X_i$
+
+C) Higher Criticism test (Donoho-Jin)
+
+Answer as a list with square brackets where letters appear alphabetically. Include rigorous mathematical reasoning in your response.

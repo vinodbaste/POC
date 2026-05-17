@@ -1,0 +1,72 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-05-10T02:22:37.788064Z",
+    "harbor": {
+        "version": "0.6.4",
+        "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
+        "is_editable": true
+    },
+    "invocation": [
+        "C:\\Users\\adane\\Downloads\\swarmbench-assessment\\harbor\\.venv\\Scripts\\harbor",
+        "run",
+        "-p",
+        "../5d97e1776dd14c80a0895e85d286d472-SWARMBENCH-FANOUT-REASONINGMATH-COOKLEVINPROOF",
+        "-a",
+        "oracle",
+        "-k",
+        "1",
+        "-n",
+        "1",
+        "--job-name",
+        "oracle",
+        "--jobs-dir",
+        "../5d97e1776dd14c80a0895e85d286d472-SWARMBENCH-FANOUT-REASONINGMATH-COOKLEVINPROOF/execution_logs",
+        "--ve",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--quiet"
+    ],
+    "n_concurrent_trials": 1,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "VerifierTimeoutError",
+            "VerifierOutputParseError",
+            "RewardFileEmptyError",
+            "AgentTimeoutError",
+            "RewardFileNotFoundError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "5d97e1776dd14c80a0895e85d286d472-SWARMBENCH-FANOUT-REASONINGMATH-COOKLEVINPROOF",
+                "type": "local",
+                "digest": "sha256:1f1d5fd164b0db133fa2892490e043a3e0a98af1133061b85e01ae3c9c9d6ce9",
+                "path": "..\\5d97e1776dd14c80a0895e85d286d472-SWARMBENCH-FANOUT-REASONINGMATH-COOKLEVINPROOF"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "kwargs": {},
+                "env": {}
+            },
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                },
+                "disable": false
+            }
+        }
+    ]
+}

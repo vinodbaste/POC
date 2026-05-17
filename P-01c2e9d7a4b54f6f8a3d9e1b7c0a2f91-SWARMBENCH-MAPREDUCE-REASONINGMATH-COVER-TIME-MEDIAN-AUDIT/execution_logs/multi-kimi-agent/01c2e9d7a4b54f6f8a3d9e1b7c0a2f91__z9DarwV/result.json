@@ -1,0 +1,106 @@
+{
+    "id": "2edf97c2-5d17-4e59-9f2a-e3ff77ab0623",
+    "task_name": "swarmbench/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT",
+    "trial_name": "01c2e9d7a4b54f6f8a3d9e1b7c0a2f91__z9DarwV",
+    "trial_uri": "file:///Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT/execution_logs/multi-kimi-agent/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91__z9DarwV",
+    "task_id": {
+        "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "e6dd75894256e05585a6a7220c3554b2e102e83c2b669ee51ca607a5580864c2",
+    "config": {
+        "task": {
+            "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "01c2e9d7a4b54f6f8a3d9e1b7c0a2f91__z9DarwV",
+        "trials_dir": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT/execution_logs/multi-kimi-agent",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "swarm-kimi-multi",
+            "import_path": null,
+            "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "fw_W****VFf"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "fw_W****VFf"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "1bc3b7a9-c653-4848-b5a3-063c43c23cb2"
+    },
+    "agent_info": {
+        "name": "swarm-kimi-multi",
+        "version": "unknown",
+        "model_info": {
+            "name": "accounts/fireworks/models/kimi-k2p5",
+            "provider": "fireworks_ai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 183173,
+        "n_cache_tokens": 136769,
+        "n_output_tokens": 5542,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.913
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-01T19:53:50.414448Z",
+    "finished_at": "2026-05-01T20:06:59.784796Z",
+    "environment_setup": {
+        "started_at": "2026-05-01T19:53:50.779233Z",
+        "finished_at": "2026-05-01T19:53:57.841615Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-01T19:53:57.841706Z",
+        "finished_at": "2026-05-01T19:55:30.103615Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-01T19:55:30.104347Z",
+        "finished_at": "2026-05-01T20:04:09.861602Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-01T20:04:10.212374Z",
+        "finished_at": "2026-05-01T20:06:56.993604Z"
+    }
+}

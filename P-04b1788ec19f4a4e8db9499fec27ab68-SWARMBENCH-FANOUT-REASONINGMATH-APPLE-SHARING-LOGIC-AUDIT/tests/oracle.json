@@ -1,0 +1,120 @@
+{
+  "derived_final_answer": "(34, 66, 0)",
+  "responses": {
+    "B": {
+      "error_codes": [
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": true,
+        "turn_order_applied_correctly": true
+      },
+      "verdict": "incorrect"
+    },
+    "C": {
+      "error_codes": [
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "POSITIVE_APPLE_CONSTRAINT_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": false,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": true,
+        "turn_order_applied_correctly": true
+      },
+      "verdict": "incorrect"
+    },
+    "D": {
+      "error_codes": [
+        "CYCLIC_TURN_ORDER_ERROR",
+        "EVEN_SPLIT_FALLACY",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": false,
+        "turn_order_applied_correctly": false
+      },
+      "verdict": "incorrect"
+    },
+    "E": {
+      "error_codes": [
+        "FALSE_GOAL_VERIFICATION",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": true,
+        "turn_order_applied_correctly": true
+      },
+      "verdict": "incorrect"
+    },
+    "F": {
+      "error_codes": [
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": false,
+        "turn_order_applied_correctly": true
+      },
+      "verdict": "incorrect"
+    },
+    "G": {
+      "error_codes": [
+        "EVEN_SPLIT_FALLACY",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": false,
+        "turn_order_applied_correctly": true
+      },
+      "verdict": "incorrect"
+    }
+  }
+}

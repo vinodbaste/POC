@@ -1,0 +1,248 @@
+{
+  "theorem_name": "Cook-Levin Theorem",
+  "theorem_statement": "For every language L in NP, there exists a polynomial-time computable mapping f such that for every input x, x is in L if and only if f(x) is a satisfiable Boolean formula.",
+  "proof_goal": "Given a language in NP and a polynomial-time nondeterministic Turing machine that decides it, construct in polynomial time a SAT instance that is satisfiable exactly when the machine has an accepting computation on the input.",
+  "proof_strategy_overview": [
+    "Start with a language L in NP and fix a nondeterministic Turing machine M that decides L within polynomial time p(n).",
+    "For a given input x, represent a possible accepting run of M on x as a bounded computation tableau with polynomially many rows and columns.",
+    "Introduce Boolean variables that describe the contents of each tableau position, including tape symbols, head location, and machine state.",
+    "Build constraint families that force any satisfying assignment to describe a valid computation of M starting from the correct initial configuration.",
+    "Add local transition constraints and an acceptance condition so that satisfying assignments correspond exactly to accepting tableaux.",
+    "Show that the resulting formula is satisfiable if and only if M accepts x, and that the entire construction has polynomial size and is computable in polynomial time."
+  ],
+  "core_definitions": [
+    {
+      "term": "NP",
+      "definition": "NP is the class of decision problems for which membership can be decided by a nondeterministic Turing machine in polynomial time.",
+      "supporting_files": [
+        "/input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "term": "SAT",
+      "definition": "SAT is the decision problem that asks whether a Boolean formula has at least one satisfying assignment.",
+      "supporting_files": [
+        "/input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "term": "Polynomial-time many-one reduction",
+      "definition": "A polynomial-time many-one reduction from a language L to SAT is a polynomial-time computable function f such that x is in L exactly when f(x) is satisfiable.",
+      "supporting_files": [
+        "/input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "term": "Nondeterministic Turing machine computation",
+      "definition": "A nondeterministic Turing machine computation is a sequence of configurations connected by valid transition steps, where acceptance means that at least one computation path reaches an accepting configuration.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "term": "Accepting computation tableau",
+      "definition": "An accepting computation tableau is a finite grid whose rows are successive configurations of the machine on the input and whose final relevant row contains an accepting configuration.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "term": "Local consistency constraint",
+      "definition": "A local consistency constraint is a Boolean condition that checks whether a small neighborhood of tableau cells is compatible with the machine's transition rules, so that global correctness follows from local checks across the tableau.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    }
+  ],
+  "tableau_encoding": {
+    "encoded_object": "The SAT instance encodes a polynomially bounded accepting computation of the chosen nondeterministic Turing machine on a fixed input x.",
+    "tableau_structure": "The tableau is organized as a grid of configurations over time, with each row representing one computation step and each column representing one tape position or tableau location within the bounded computation window.",
+    "variable_scheme": "Boolean variables indicate which symbol, state, and head-position information holds at each tableau location, so that one satisfying assignment specifies one complete candidate computation history.",
+    "why_local_constraints_are_enough": "Because each legal machine step depends only on a constant-size neighborhood of cells between consecutive configurations, enforcing all local neighborhoods to be valid is enough to guarantee that the whole tableau describes a valid global computation.",
+    "supporting_files": [
+      "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+      "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+    ]
+  },
+  "constraint_families": [
+    {
+      "family_name": "exactly-one encoding constraints",
+      "purpose": "These constraints ensure that each tableau position receives a well-formed description rather than multiple incompatible values at once.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "family_name": "initial configuration constraints",
+      "purpose": "These constraints force the first row of the tableau to match the machine's correct starting configuration on the input.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "family_name": "input placement constraints",
+      "purpose": "These constraints ensure that the input string appears in the correct tableau locations and that the remaining required cells are initialized appropriately.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "family_name": "local transition constraints",
+      "purpose": "These constraints guarantee that each adjacent pair of configuration rows is consistent with the machine's allowed transition behavior.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    },
+    {
+      "family_name": "acceptance constraints",
+      "purpose": "These constraints require that the encoded computation contains an accepting configuration so that satisfiability corresponds to acceptance rather than merely to a valid run.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+      ]
+    }
+  ],
+  "soundness_argument": {
+    "claim": "If the constructed SAT formula is satisfiable, then the original input is in the NP language.",
+    "reasoning": "A satisfying assignment determines a tableau that obeys the encoding rules, starts from the correct input configuration, respects the machine's local transition rules, and reaches acceptance. Therefore the tableau describes a genuine accepting computation of the machine on the input, so the machine accepts the input and the input belongs to the language.",
+    "supporting_files": [
+      "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+      "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+    ]
+  },
+  "completeness_argument": {
+    "claim": "If the original input is in the NP language, then the constructed SAT formula is satisfiable.",
+    "reasoning": "If the machine accepts the input within the polynomial bound, then there exists an accepting computation tableau for that run. Assigning truth values to match that tableau satisfies the encoding, initial, transition, and acceptance constraints, so the Boolean formula is satisfiable.",
+    "supporting_files": [
+      "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+      "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+    ]
+  },
+  "polynomial_size_argument": {
+    "claim": "The reduction produces a formula of polynomial size and can be computed in polynomial time.",
+    "reasoning": "If the machine runs in at most p(n) steps, then the tableau has polynomially many rows and columns. The number of variables is polynomial in the tableau size, and each constraint family contributes only polynomially many clauses because it is generated over positions or constant-size windows of the tableau. Therefore the whole formula is polynomial in the input length and can be constructed in polynomial time.",
+    "supporting_files": [
+      "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+      "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt",
+      "/input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt"
+    ]
+  },
+  "worked_example_summary": {
+    "instance_description": "The packet's worked example shows a small nondeterministic machine/input pair and illustrates how one bounded accepting computation is translated into tableau entries and SAT constraints.",
+    "how_the_encoding_reflects_the_instance": "The example makes the abstract reduction concrete by showing how rows correspond to successive configurations, how variables describe local machine information, and how the clause families rule out illegal configurations while preserving the intended accepting run.",
+    "supporting_files": [
+      "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+      "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt"
+    ]
+  },
+  "common_errors_to_avoid": [
+    {
+      "error": "Confusing the Cook-Levin Theorem with the separate statement that SAT is in NP.",
+      "correction": "The theorem establishes that every language in NP reduces to SAT. SAT's membership in NP is a different fact that is needed only when concluding NP-completeness.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt",
+        "/input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt"
+      ]
+    },
+    {
+      "error": "Saying that the reduction works by enumerating all truth assignments.",
+      "correction": "The reduction does not search through assignments. It constructs one Boolean formula whose satisfying assignments correspond to accepting computation tableaux.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt",
+        "/input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt"
+      ]
+    },
+    {
+      "error": "Describing the proof as one giant global verification with no local structure.",
+      "correction": "The key idea is that local consistency constraints over constant-size neighborhoods are sufficient to enforce the correctness of the full computation tableau.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt",
+        "/input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt"
+      ]
+    },
+    {
+      "error": "Ignoring the polynomial bound on the tableau and the formula size.",
+      "correction": "The tableau dimensions are tied to the polynomial running-time bound of the nondeterministic machine, and this is what keeps the reduction polynomial.",
+      "supporting_files": [
+        "/input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt",
+        "/input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt",
+        "/input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt"
+      ]
+    }
+  ],
+  "final_conclusion": "By encoding polynomially bounded accepting computations of a nondeterministic Turing machine as satisfiability instances, and by proving both soundness and completeness of that encoding within polynomial size and construction time, we conclude that every language in NP is polynomial-time reducible to SAT.",
+  "karp_theorem_name": "Karp's 21 NP-Complete Problems",
+  "karp_theorem_statement": "A wide variety of 21 natural problems, from graph theory to set packing to integer programming, are all NP-complete.",
+  "karp_proof_strategy_overview": [
+    "Assume SAT is NP-complete.",
+    "Reduce SAT to 3SAT.",
+    "Build a tree of polynomial-time many-one reductions to other problems, e.g., 3SAT to Clique, proving them NP-complete by transitivity."
+  ],
+  "karp_core_reductions": [
+    {
+      "source_problem": "3SAT",
+      "target_problem": "Clique",
+      "reduction_idea": "Construct a graph where nodes are literals. Connect nodes if they are in different clauses and don't contradict. A k-clique means picking exactly one consistent literal from each clause, yielding a satisfying assignment.",
+      "supporting_files": [
+        "/input_artifacts/berkeley_cs170_karp21_notes.txt",
+        "/input_artifacts/stanford_cs154_karp21_transcript.txt"
+      ]
+    },
+    {
+      "source_problem": "Clique",
+      "target_problem": "Vertex Cover",
+      "reduction_idea": "Take the complement of the graph. A clique of size k in the original graph corresponds to a vertex cover of size |V|-k in the complement graph.",
+      "supporting_files": [
+        "/input_artifacts/berkeley_cs170_karp21_notes.txt",
+        "/input_artifacts/stanford_cs154_karp21_transcript.txt"
+      ]
+    },
+    {
+      "source_problem": "Directed Hamiltonian Cycle",
+      "target_problem": "Undirected Hamiltonian Cycle",
+      "reduction_idea": "Expand each node into three nodes (in, mid, out) to force the undirected cycle to traverse the nodes in the same direction as the directed edges.",
+      "supporting_files": [
+        "/input_artifacts/berkeley_cs170_karp21_notes.txt"
+      ]
+    }
+  ],
+  "karp_common_errors": [
+    {
+      "error": "Reversing the reduction direction.",
+      "correction": "To prove X is NP-complete, you must reduce a KNOWN problem to X. Reducing X to a known problem only proves X is in NP.",
+      "supporting_files": [
+        "/input_artifacts/berkeley_cs170_karp21_notes.txt",
+        "/input_artifacts/stanford_cs154_karp21_transcript.txt"
+      ]
+    },
+    {
+      "error": "Forgetting to prove the problem is in NP.",
+      "correction": "A reduction only proves NP-hardness. You must explicitly state the problem is in NP to call it NP-complete.",
+      "supporting_files": [
+        "/input_artifacts/berkeley_cs170_karp21_notes.txt",
+        "/input_artifacts/stanford_cs154_karp21_transcript.txt"
+      ]
+    },
+    {
+      "error": "Getting the 3SAT to Clique edges wrong.",
+      "correction": "Edges go between DIFFERENT clauses, never inside the same clause.",
+      "supporting_files": [
+        "/input_artifacts/berkeley_cs170_karp21_notes.txt",
+        "/input_artifacts/stanford_cs154_karp21_transcript.txt"
+      ]
+    }
+  ]
+}

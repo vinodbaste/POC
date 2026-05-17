@@ -1,0 +1,39 @@
+I reduce everything modulo \(2197=13^3\).  For the first hit at time \(2028\), the residue of \(m\) has to be a unit and its order modulo \(2197\) has to be exactly \(2028\).  Indeed
+\[
+\varphi(2197)=13^3-13^2=2028.
+\]
+The group of units modulo an odd prime power is cyclic, so the number of residue classes modulo \(2197\) of order \(2028\) is
+\[
+\varphi(2028),\qquad 2028=2^2\cdot 3\cdot 13^2.
+\]
+Thus
+\[
+\varphi(2028)=2028\left(1-\frac12\right)\left(1-\frac13\right)\left(1-\frac1{13}\right)=624.
+\]
+
+Now \(m\) is not chosen from just one complete residue system.  In \(0,\ldots,9999\) each class modulo \(2197\) appears four times, and the first \(1212\) classes appear once more, since
+\[
+10000=4\cdot 2197+1212.
+\]
+So the desired count would be
+\[
+\sum_{\operatorname{ord}_{2197}(a)=2028} w(a),
+\]
+where \(w(a)=5\) for \(0\le a\le 1211\) and \(w(a)=4\) otherwise.
+
+I do not have the exact split of the \(624\) primitive classes in the first \(1212\) residues, so I average the weights over a full period.  The average weight per residue is \(10000/2197\).  This gives
+\[
+624\cdot \frac{10000}{2197}
+\]
+favorable choices, hence the probability is treated as
+\[
+\frac{624}{2197}=\frac{48}{169}.
+\]
+Equivalently, using the unnormalised count gives
+\[
+\frac{6240000}{2197}=\frac{480000}{169}.
+\]
+So my final value for \(p+q\) is
+\[
+480000+169\equiv \boxed{169}\pmod{1000}.
+\]

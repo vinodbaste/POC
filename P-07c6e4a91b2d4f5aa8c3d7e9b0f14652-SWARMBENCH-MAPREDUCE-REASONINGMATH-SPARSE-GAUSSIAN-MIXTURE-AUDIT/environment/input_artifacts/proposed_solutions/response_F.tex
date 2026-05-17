@@ -1,0 +1,46 @@
+Here's a breakdown of the problem and the reasoning to determine the correct test from the options provided.
+
+**Problem Setup**
+
+We have *n* independent random variables, *X<sub>i</sub>*.  Under the null hypothesis (*H<sub>0</sub>*), each *X<sub>i</sub>* follows a standard normal distribution, *N(0, 1)*.  Under the alternative hypothesis (*H<sub>1</sub>*), each *X<sub>i</sub>* follows a normal distribution with mean *mu<sub>n</sub>* and standard deviation 1 with probability *epsilon<sub>n</sub> = n<sup>-beta</sup>*, and follows *N(0, 1)* with probability *1 - epsilon<sub>n</sub>*. We're given beta = 0.85 and r = 0.45. We need to find a test whose asymptotic power approaches 1 as *n* approaches infinity, given a significance level alpha = 0.05.
+
+**Calculating mu<sub>n</sub> and epsilon<sub>n</sub>**
+
+*   mu<sub>n</sub> = sqrt(2r log n) = sqrt(2 * 0.45 * log n) = sqrt(0.9 * log n)
+*   epsilon<sub>n</sub> = n<sup>-beta</sup> = n<sup>-0.85</sup>
+
+**Analyzing the Options**
+
+**A) One-sided z-test based on the sample mean,  $\bar{X}$**
+
+*   The null hypothesis is *H<sub>0</sub>*: *mu<sub>i</sub> = 0* for all *i*.
+*   The alternative hypothesis is *H<sub>1</sub>*: *mu<sub>i</sub> > 0* for at least one *i*.
+*   Under *H<sub>0</sub>*, the sample mean $\bar{X}$ follows a normal distribution with mean 0 and variance 1/n, so $\bar{X} \sim N(0, 1/n)$.
+*   Under *H<sub>1</sub>*, the variance of $\bar{X}$ is more complex due to the different distributions of the individual *X<sub>i</sub>*.
+*   As *n* approaches infinity, $\bar{X}$ converges to a standard normal distribution. The test statistic is, in general, a z-score calculated as  *z = (Xbar - 0) / (1/ sqrt(n)) = n * (Xbar)*, where Xbar is the sample mean.
+*   The power of a one-sided z-test is approximately 1 - Phi(z) where Phi is the standard normal cumulative distribution function.  The power calculation for this test is more involved given the mix of normal distributions, but in general, the power will not approach 1 as n approaches infinity if epsilon<sub>n</sub> is not sufficiently small.  Since epsilon<sub>n</sub> = n<sup>-0.85</sup> decreases quite slowly, the standard z-test is not likely to have asymptotic power approaching 1.
+
+**B) Reject for large max<sub>i</sub> X<sub>i</sub>**
+
+*   This test is based on the maximum value observed in the *n* experiments.  It is often referred to as a "maximum test."
+*   Under *H<sub>0</sub>*, if *X<sub>i</sub>* follows *N(0, 1)*, the probability that *max<sub>i</sub> X<sub>i</sub> > x* is approximately *exp(-x<sup>2</sup> / 2)*.  Therefore, the test statistic is *x*.
+*   Under *H<sub>1</sub>*, the probability that *max<sub>i</sub> X<sub>i</sub> > x* is different, with the possibility that some *X<sub>i</sub>* are from the *N(mu<sub>n</sub>, 1)* distribution.  This complicates the calculation.
+*   However, the asymptotic behavior of the maximum test is known. As *n* approaches infinity and the alternative hypothesis becomes more likely, the maximum test can achieve power close to 1.  The key is that the probability of observing a large maximum under the alternative hypothesis must be sufficiently high for the test to be effective. The key here is that the maximum value is likely to be larger under the alternative hypothesis (with probability epsilon<sub>n</sub>) than under the null.
+
+**C) Higher Criticism test (Donoho-Jin)**
+
+*   The Higher Criticism test is a distribution-free test that is designed to detect a small proportion of deviations from a normal distribution. It's known to have excellent asymptotic power when the deviations are sparse.
+*   The test compares the maximum value observed to a theoretical distribution that accounts for the expected number of deviations.
+*   The higher criticism test has a well-studied asymptotic behavior and is known to have power that approaches 1 when the number of deviations is small and the test is correctly implemented.  It is an appropriate test for situations where a small fraction of the data are significantly different from the null hypothesis.
+
+**Comparison and Conclusion**
+
+*   Option A (one-sided z-test) is generally not the best choice in this scenario, because it will not approach a power of 1 as *n* approaches infinity.
+*   Option B (reject for large max<sub>i</sub> X<sub>i</sub>) is a possibility, and has a reasonable chance of approaching power of 1 as *n* approaches infinity.
+*   Option C (Higher Criticism test) is designed to specifically detect a small proportion of deviations from a normal distribution, and is known to have asymptotic power approaching 1 under suitable conditions.
+
+Given the problem statement, the Higher Criticism Test (Donoho-Jin) appears to be the most suitable test because it is known to have asymptotic power close to 1 under these conditions and is specifically designed to detect a small proportion of deviations, which is exactly what’s happening here.
+
+**Final Answer:**
+
+[C]

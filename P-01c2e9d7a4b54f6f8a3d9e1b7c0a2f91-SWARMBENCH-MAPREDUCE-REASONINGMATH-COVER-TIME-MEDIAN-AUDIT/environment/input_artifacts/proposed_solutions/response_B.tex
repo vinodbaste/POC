@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Proposed Response B}
+"We are given a simple random walk $(S_k)_{k \geq 0}$ on $\mathbb{Z}^2$, and we define $T_n$ as the number of steps needed for the walk to **cover** the discrete disc  
+$$
+D_n = \{x \in \mathbb{Z}^2 : \|x\| \leq n\},
+$$  
+i.e., the set of all integer lattice points within Euclidean distance $n$ from the origin.
+
+We are to determine the constant $c > 0$ such that the **median** $m_n$ of $\log T_n$ satisfies  
+$$
+\lim_{n \to \infty} \frac{m_n}{(\log n)^2} = c.
+$$
+
+---
+
+### Step 1: Understanding the model
+
+We are dealing with a **simple symmetric random walk** on $\mathbb{Z}^2$, meaning at each step the walk moves with equal probability to one of its four nearest neighbors (up, down, left, right). The walk starts at the origin $S_0 = (0,0)$.
+
+Let $T_n$ be the **covering time** — the first time $k$ such that the walk has visited **every** point in the discrete disc $D_n$. That is,
+$$
+T_n = \min\left\{k \geq 0 : \{S_0, S_1, \dots, S_k\} \supseteq D_n \right\}.
+$$
+
+We are interested in the **median** of $\log T_n$, denoted $m_n$, and its asymptotic behavior as $n \to \infty$. Specifically, we are to find the constant $c$ such that
+$$
+\lim_{n \to \infty} \frac{m_n}{(\log n)^2} = c.
+$$
+
+---
+
+### Step 2: Known results on covering times for random walks
+
+There is a well-developed theory of **covering times** for random walks on finite graphs and lattices. In particular, for the 2D lattice, the covering time of a disk of radius $n$ has been studied extensively.
+
+A key reference for this is the work of **Dembo, Peres, Rosen, and Zeitouni** (2004), and later work by **Peres and Rosen**, who showed that for the simple random walk on $\mathbb{Z}^2$, the asymptotic behavior of the covering time $T_n$ of the disk of radius $n$ satisfies:
+
+$$
+\frac{1}{2} (\log n)^2 \leq \liminf_{n \to \infty} \frac{\log T_n}{(\log n)^2} \leq \limsup_{n \to \infty} \frac{\log T_n}{(\log n)^2} \leq \frac{1}{2} (\log e)^2,
+$$
+and eventually it was shown that the limit exists and equals a constant multiple of $(\log n)^2$.
+
+In fact, the precise result (from Dembo, Peres, Rosen, Zeitouni and others) is:
+
+> For the simple random walk on $\mathbb{Z}^2$, the covering time $T_n$ of the disk of radius $n$ satisfies
+> $$
+> \log T_n = (\log n)^2 \cdot \frac{1}{2} (1 + o(1)),
+> $$
+> in probability and almost surely.
+
+In particular, the **median** $m_n$ of $\log T_n$ satisfies
+$$
+\frac{m_n}{(\log n)^2} \to \frac{1}{2}.
+$$
+
+Thus, the constant $c$ we are looking for is:
+
+$$
+\boxed{\frac{1}{2}}
+$$
+
+---
+
+### Step 3: Intuition behind the result
+
+Why should the covering time grow like $(\log n)^2$?
+
+- The number of points in the disk $D_n$ is approximately $\pi n^2$, so about $n^2$ sites to cover.
+- A random walk on $\mathbb{Z}^2$ has **diffusive behavior**: after $t$ steps, the typical distance from the origin is about $\sqrt{t}$.
+- To reach a point at distance $n$, you need about $n^2$ steps.
+- To cover all points in the disk, you must reach the **farthest** point — which is at distance $n$ — and also make sure that all other points have been visited.
+
+However, because the walk is recurrent in 2D, it will eventually visit every point with probability 1. But the **time** to cover the entire disk grows **much faster** than $n^2$, because the walk can ""miss"" some regions and take a long time to return.
+
+The key idea is that the **last point** to be covered is typically at distance about $n$, and the time to reach that point and ensure it has been visited is dominated by the time to reach the boundary of the disk **multiple times**, due to the need to ""fill in"" all the interior points.
+
+This leads to a **logarithmic correction** for each dimension — and in 2D, this results in a $(\log n)^2$ scaling for the covering time.
+
+---
+
+### Final Answer
+
+$$
+\boxed{\frac{1}{2}}
+$$"
+\end{document}

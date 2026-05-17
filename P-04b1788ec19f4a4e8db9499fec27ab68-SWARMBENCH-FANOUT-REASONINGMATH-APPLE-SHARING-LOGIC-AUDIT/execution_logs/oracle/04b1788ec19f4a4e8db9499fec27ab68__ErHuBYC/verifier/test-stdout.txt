@@ -1,0 +1,11 @@
+Reward: 1.000000
+{
+  "awarded": {
+    "derived_final_answer": 5
+  },
+  "invalid_error_codes": [],
+  "max_points": 233.0,
+  "mismatches": [],
+  "missing": [],
+  "points": 233.0
+}

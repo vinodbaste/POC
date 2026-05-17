@@ -1,0 +1,237 @@
+pattern: fanout-synthesize
+orchestrator_instructions: 'The orchestrator MUST delegate substantive work to sub-agents and MUST NOT solve the original
+  puzzle, audit candidate responses, or determine error-code taxonomy by itself.
+
+  The orchestrator''s role is limited to spawning the listed sub-agents, passing their outputs to downstream sub-agents, and
+  checking that the final file exists.
+
+  The final answer.json must be written by the final_writer sub-agent, not synthesized directly by the orchestrator.
+
+  '
+sub_tasks:
+- id: audit_response_B
+  title: Audit response B
+  description: Independently solve the prompt and audit response B; the orchestrator must not perform this audit.
+  role: Response-specific auditor.
+  parallel_group: 1
+  depends_on: []
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_B.md
+  output_contract: 'Return a JSON fragment with exactly key B.
+
+    Independently derive the reference outcome from the prompt, then audit response B against it.
+
+    Include verdict, all seven labels, error_codes, and rationale.
+
+    Check full-allocation assumptions, third-player choice modeling, tie handling, positive-minimum assumptions, and second-player
+    strategic analysis.
+
+    Use only instruction.md definitions. Do not use a pre-decided answer key.
+
+    '
+- id: audit_response_C
+  title: Audit response C
+  description: Independently solve the prompt and audit response C; the orchestrator must not perform this audit.
+  role: Response-specific auditor.
+  parallel_group: 1
+  depends_on: []
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_C.md
+  output_contract: 'Return a JSON fragment with exactly key C.
+
+    Independently derive the reference outcome from the prompt, then audit response C against it.
+
+    Include verdict, all seven labels, error_codes, and rationale.
+
+    Check full-allocation assumptions, third-player choice modeling, explicit positive-minimum assumptions, tie handling,
+    and second-player exception analysis.
+
+    Use only instruction.md definitions. Do not use a pre-decided answer key.
+
+    '
+- id: audit_response_D
+  title: Audit response D
+  description: Independently solve the prompt and audit response D; the orchestrator must not perform this audit.
+  role: Response-specific auditor.
+  parallel_group: 1
+  depends_on: []
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_D.md
+  output_contract: 'Return a JSON fragment with exactly key D.
+
+    Independently derive the reference outcome from the prompt, then audit response D against it.
+
+    Include verdict, all seven labels, error_codes, and rationale.
+
+    Check cyclic turn order, even-split reasoning, tie handling, forced allocation, third-player choice modeling, and second-player
+    analysis.
+
+    Use only instruction.md definitions. Do not use a pre-decided answer key.
+
+    '
+- id: audit_response_E
+  title: Audit response E
+  description: Independently solve the prompt and audit response E; the orchestrator must not perform this audit.
+  role: Response-specific auditor.
+  parallel_group: 1
+  depends_on: []
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_E.md
+  output_contract: 'Return a JSON fragment with exactly key E.
+
+    Independently derive the reference outcome from the prompt, then audit response E against it.
+
+    Include verdict, all seven labels, error_codes, and rationale.
+
+    Check forced-remainder reasoning, full-allocation assumptions, third-player choice modeling, false verification, and second-player
+    analysis.
+
+    Use only instruction.md definitions. Do not use a pre-decided answer key.
+
+    '
+- id: audit_response_F
+  title: Audit response F
+  description: Independently solve the prompt and audit short response F; the orchestrator must not perform this audit.
+  role: Response-specific auditor.
+  parallel_group: 1
+  depends_on: []
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_F.md
+  output_contract: 'Return a JSON fragment with exactly key F.
+
+    Independently derive the reference outcome from the prompt, then audit response F against it.
+
+    Include verdict, all seven labels, error_codes, and rationale.
+
+    Because F is short, separate explicit claims from unstated assumptions. Check tie handling and whether valid second-player
+    and third-player strategic analysis is present.
+
+    Use only instruction.md definitions. Do not use a pre-decided answer key.
+
+    '
+- id: audit_response_G
+  title: Audit response G
+  description: Independently solve the prompt and audit response G; the orchestrator must not perform this audit.
+  role: Response-specific auditor.
+  parallel_group: 1
+  depends_on: []
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_G.md
+  output_contract: 'Return a JSON fragment with exactly key G.
+
+    Independently derive the reference outcome from the prompt, then audit response G against it.
+
+    Include verdict, all seven labels, error_codes, and rationale.
+
+    Check unique-extremum reinterpretation, even-split reasoning, forced allocation, third-player choice modeling, and second-player
+    analysis.
+
+    Use only instruction.md definitions. Do not use a pre-decided answer key.
+
+    '
+- id: crosscheck_forced_allocation_family
+  title: Cross-check B, C, and E
+  description: Cross-check the audits for responses B, C, and E, focusing on consistency of forced-allocation and third-player-choice
+    judgments.
+  role: Family-level consistency checker.
+  parallel_group: 2
+  depends_on:
+  - audit_response_B
+  - audit_response_C
+  - audit_response_E
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_B.md
+  - /testbed/input_artifacts/candidate_solutions/response_C.md
+  - /testbed/input_artifacts/candidate_solutions/response_E.md
+  output_contract: 'Review the B, C, and E audit fragments.
+
+    Return a memo listing any label or error-code corrections needed for consistency with instruction.md.
+
+    Focus on whether full allocation is forced, whether C is modeled as choosing freely, whether any positive-minimum assumption
+    is explicit, and whether B''s analysis is performed under the original game.
+
+    Do not write answer.json.
+
+    '
+- id: crosscheck_even_split_tie_family
+  title: Cross-check D and G
+  description: Cross-check the audits for responses D and G, focusing on even-split, tie-rule, and turn-order taxonomy.
+  role: Family-level consistency checker.
+  parallel_group: 2
+  depends_on:
+  - audit_response_D
+  - audit_response_G
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_D.md
+  - /testbed/input_artifacts/candidate_solutions/response_G.md
+  output_contract: 'Review the D and G audit fragments.
+
+    Return a memo listing any label or error-code corrections needed for consistency with instruction.md.
+
+    Focus on even/near-equal split reasoning, tie-rule interpretation, cyclic turn order, forced allocation, third-player
+    choice, and second-player analysis.
+
+    Do not write answer.json.
+
+    '
+- id: crosscheck_short_response_F
+  title: Cross-check F
+  description: Cross-check response F to avoid over-inferred assumptions from its short wording.
+  role: Short-response consistency checker.
+  parallel_group: 2
+  depends_on:
+  - audit_response_F
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  - /testbed/input_artifacts/candidate_solutions/response_F.md
+  output_contract: 'Review the F audit fragment.
+
+    Return a memo listing any label or error-code corrections needed for consistency with instruction.md.
+
+    Focus on whether any forced-allocation, even-split, or positive-minimum assumptions are explicitly stated versus merely
+    inferred.
+
+    Do not write answer.json.
+
+    '
+- id: final_writer
+  title: Write final answer.json
+  description: Merge sub-agent outputs and write /testbed/answer.json; the orchestrator must not synthesize the final JSON
+    itself.
+  role: Final synthesis writer.
+  parallel_group: 3
+  depends_on:
+  - audit_response_B
+  - audit_response_C
+  - audit_response_D
+  - audit_response_E
+  - audit_response_F
+  - audit_response_G
+  - crosscheck_forced_allocation_family
+  - crosscheck_even_split_tie_family
+  - crosscheck_short_response_F
+  input_files:
+  - /testbed/input_artifacts/problem_statement.md
+  output_contract: 'Create /testbed/answer.json only.
+
+    Use the six response-specific audit fragments as the primary source and the cross-check memos only to repair consistency.
+
+    Do not redo all audits from scratch.
+
+    The JSON must contain derived_final_answer and responses B, C, D, E, F, G.
+
+    Every response must include verdict, all seven labels, error_codes using only allowed codes, and rationale.
+
+    Do not include markdown, comments, code fences, or extra top-level keys.
+
+    Before finishing, ensure that /testbed/answer.json exists, is non-empty, is valid JSON, and follows the required schema.
+
+    '

@@ -1,0 +1,148 @@
+Reward: 0.240343
+{
+  "awarded": {
+    "derived_final_answer": 5
+  },
+  "invalid_error_codes": [],
+  "max_points": 233.0,
+  "mismatches": [
+    {
+      "actual": true,
+      "expected": false,
+      "field": "B.labels.third_player_choice_model_correct"
+    },
+    {
+      "actual": [
+        "FORCED_EXHAUSTION_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "expected": [
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "B.error_codes"
+    },
+    {
+      "actual": [
+        "FORCED_EXHAUSTION_ERROR",
+        "POSITIVE_APPLE_CONSTRAINT_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "expected": [
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "POSITIVE_APPLE_CONSTRAINT_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "C.error_codes"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "D.labels.allows_unexhausted_apples"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "D.labels.third_player_choice_model_correct"
+    },
+    {
+      "actual": [
+        "CYCLIC_TURN_ORDER_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "expected": [
+        "CYCLIC_TURN_ORDER_ERROR",
+        "EVEN_SPLIT_FALLACY",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "D.error_codes"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "E.labels.allows_unexhausted_apples"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "E.labels.third_player_choice_model_correct"
+    },
+    {
+      "actual": [
+        "PLAYER2_ANALYSIS_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "expected": [
+        "FALSE_GOAL_VERIFICATION",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "E.error_codes"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "F.labels.allows_unexhausted_apples"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "F.labels.third_player_choice_model_correct"
+    },
+    {
+      "actual": [
+        "FALSE_GOAL_VERIFICATION",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "expected": [
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "F.error_codes"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "G.labels.allows_unexhausted_apples"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "G.labels.third_player_choice_model_correct"
+    },
+    {
+      "actual": [
+        "EVEN_SPLIT_FALLACY",
+        "FALSE_GOAL_VERIFICATION",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "expected": [
+        "EVEN_SPLIT_FALLACY",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "G.error_codes"
+    }
+  ],
+  "missing": [],
+  "points": 56.0
+}

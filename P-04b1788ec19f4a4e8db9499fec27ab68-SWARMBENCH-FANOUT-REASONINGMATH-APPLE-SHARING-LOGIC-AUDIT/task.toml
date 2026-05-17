@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/04b1788ec19f4a4e8db9499fec27ab68-SWARMBENCH-FANOUT-REASONINGMATH-APPLE-SHARING-LOGIC-AUDIT"
+description = "Audit six proposed solutions to a sequential apple-sharing logic game and produce a deterministic JSON label matrix."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 12.0
+human_solving_hours_justification = "A human expert must first solve a subtle sequential game with lexicographic preferences, optional leftover apples, and tie-failure rules, then read six verbose proposed solutions and assign a consistent multi-label error taxonomy. Estimated breakdown: 3 hours for formal backward induction and edge-case checking, 5 hours for response-by-response audit, 2 hours for label reconciliation, and 2 hours for verifier-format validation."
+estimated_sub_agents = 10
+input_token_estimate = 5445
+why_multi_agent = "The task contains six overlapping but subtly different solution attempts. Single agents commonly conflate the forced-exhaustion error, tie-rule error, and second-player exception analysis after reading all responses in one pass. Fan-out decomposition lets separate auditors focus on response pairs, while a reducer re-solves the game and reconciles label conflicts into one strict JSON schema."
+reference_link = "https://en.wikipedia.org/wiki/Backward_induction"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

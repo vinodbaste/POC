@@ -1,0 +1,79 @@
+Reward: 0.605150
+{
+  "awarded": {},
+  "invalid_error_codes": [],
+  "max_points": 233.0,
+  "mismatches": [
+    {
+      "actual": "(49, 51, 0)",
+      "expected": "(34, 66, 0)",
+      "field": "derived_final_answer"
+    },
+    {
+      "actual": false,
+      "expected": true,
+      "field": "B.labels.avoids_positive_minimum_assumption"
+    },
+    {
+      "actual": [
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "POSITIVE_APPLE_CONSTRAINT_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR"
+      ],
+      "expected": [
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "B.error_codes"
+    },
+    {
+      "actual": false,
+      "expected": true,
+      "field": "E.labels.tie_rule_applied_correctly"
+    },
+    {
+      "actual": true,
+      "expected": false,
+      "field": "F.labels.allows_unexhausted_apples"
+    },
+    {
+      "actual": [
+        "FALSE_GOAL_VERIFICATION",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "expected": [
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "F.error_codes"
+    },
+    {
+      "actual": [
+        "EVEN_SPLIT_FALLACY",
+        "FALSE_GOAL_VERIFICATION",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "expected": [
+        "EVEN_SPLIT_FALLACY",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "field": "G.error_codes"
+    }
+  ],
+  "missing": [],
+  "points": 141.0
+}

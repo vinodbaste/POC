@@ -1,0 +1,3 @@
+Score: 0.9772727272727273 (516/528 passed)
+
+Top-level: 3/3. Response A: 14/14. Response B: 11/13 regular + 1/1 critical (mismatches: has_calculation_error, has_proper_latex_format). Response C: 10/14 regular (mismatches: test_b_conclusion_correct, has_final_answer_critical_math_error, has_calculation_error, has_unjustified_step). Response D: 9/12 regular + 2/2 critical (mismatches: test_b_conclusion_correct, has_final_answer_critical_math_error, has_unjustified_step). Response E: 10/10 regular + 4/4 critical. Response F: 9/12 regular + 2/2 critical (mismatches: test_b_conclusion_correct, test_c_conclusion_correct, has_calculation_error). All 9 critical fields match. Regular fields: 66/78 match.

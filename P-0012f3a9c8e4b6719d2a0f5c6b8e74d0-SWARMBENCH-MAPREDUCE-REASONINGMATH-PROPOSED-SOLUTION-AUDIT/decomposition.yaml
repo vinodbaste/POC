@@ -1,0 +1,108 @@
+orchestrator_directives: |
+  The orchestrator MUST follow the map-reduce plan below.
+  The orchestrator MUST spawn sub-agents for the core mathematical adjudication and for every response audit.
+  The orchestrator MUST NOT solve the entire task itself and MUST NOT perform all per-response audits inside the orchestrator context.
+  The orchestrator may read file names and coordinate, but the mathematical solution and response labels must be obtained from sub-agent work products.
+  The final reducer must synthesize the sub-agent outputs into /logs/agent/output.json and verify that the JSON schema exactly matches instruction.md.
+
+sub_tasks:
+  - id: core-math-adjudicator
+    description: >
+      Read /input_artifacts/problem.tex. Independently solve the modular arithmetic probability problem.
+      Determine the exact order condition for first appearance on day 2028, the exact count of valid initial
+      values m in the full range 0 through 9999, the reduced probability, and p+q modulo 1000.
+      Produce a compact derivation and flag the exact counting step that distinguishes exact counting from
+      uniform-density or averaging approximations. Do not audit any proposed response.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_A.tex only.
+      Audit response A against the label definitions in instruction.md: extract its final residue modulo 1000,
+      decide the primary_error_code and each boolean label, and give one-sentence evidence for every nontrivial decision.
+      Do not audit other responses.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_B.tex only.
+      Audit response B against the label definitions in instruction.md: extract its final residue modulo 1000,
+      decide the primary_error_code and each boolean label, and give one-sentence evidence for every nontrivial decision.
+      Do not audit other responses.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_C.tex only.
+      Audit response C against the label definitions in instruction.md: extract its final residue modulo 1000,
+      decide the primary_error_code and each boolean label, and give one-sentence evidence for every nontrivial decision.
+      Do not audit other responses.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_D.tex only.
+      Audit response D against the label definitions in instruction.md: extract its final residue modulo 1000,
+      decide the primary_error_code and each boolean label, and give one-sentence evidence for every nontrivial decision.
+      Do not audit other responses.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_E.tex only.
+      Audit response E against the label definitions in instruction.md: extract its final residue modulo 1000,
+      decide the primary_error_code and each boolean label, and give one-sentence evidence for every nontrivial decision.
+      Do not audit other responses.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_F.tex only.
+      Audit response F against the label definitions in instruction.md: extract its final residue modulo 1000,
+      decide the primary_error_code and each boolean label, and give one-sentence evidence for every nontrivial decision.
+      Do not audit other responses.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-g
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_G.tex only.
+      Audit response G against the label definitions in instruction.md: extract its final residue modulo 1000,
+      decide the primary_error_code and each boolean label, and give one-sentence evidence for every nontrivial decision.
+      Do not audit other responses.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-h
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_H.tex only.
+      Audit response H against the label definitions in instruction.md: extract its final residue modulo 1000,
+      decide the primary_error_code and each boolean label, and give one-sentence evidence for every nontrivial decision.
+      Do not audit other responses.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final-json
+    description: >
+      Use the core mathematical adjudication and all eight response-audit outputs.
+      Reconcile any disagreement by re-checking the exact definitions in instruction.md, especially the primary_error_code field, the exact nonuniform
+      count over m=0,...,9999 and the distinction between calculation error, invalid uniformity, and sample-space error.
+      Produce the final JSON with exactly the schema requested in instruction.md and write it to /logs/agent/output.json.
+      Do not omit any response object and keep response order A through H.
+    depends_on:
+      - core-math-adjudicator
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+    parallel_group: reduce

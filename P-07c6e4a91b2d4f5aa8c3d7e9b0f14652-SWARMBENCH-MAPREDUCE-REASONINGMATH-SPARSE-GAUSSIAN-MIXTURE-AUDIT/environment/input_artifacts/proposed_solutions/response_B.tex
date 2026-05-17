@@ -1,0 +1,40 @@
+I need to analyze this sparse signal detection problem, which relates to the Donoho-Jin detection boundary theory.
+
+Given parameters:
+- beta = 0.85 (sparsity)
+- r = 0.45 (signal strength)
+- mu_n = sqrt(2r log n)
+- epsilon_n = n^(-beta)
+
+Let me search for the specific detection boundaries for these tests.Based on my research, I can now analyze this sparse signal detection problem using the Donoho-Jin detection boundary theory.
+
+**Given parameters:**
+- beta = 0.85 (sparsity parameter)
+- r = 0.45 (signal strength parameter)  
+- mu_n = sqrt(2r log n)
+- epsilon_n = n^(-beta)
+
+**The detection boundary:**
+
+For sparse normal means testing with beta > 1/2, the detection boundary separates the beta-r plane into the detectable region and the undetectable region. The optimal detection boundary is rho*(beta) = beta - 1/2 for beta in (1/2, 1).
+
+With beta = 0.85: rho*(0.85) = 0.85 - 0.5 = 0.35
+
+Since r = 0.45 > 0.35 = rho*(beta), we are in the **detectable region**.
+
+**Analysis of each test:**
+
+**A) One-sided z-test based on Xbar:**
+The z-test based on the sample mean works when signals are dense (beta <= 1/2). If the sparsity level is such that alpha <= 1/2, then ANOVA is asymptotically optimal. Since beta = 0.85 > 1/2, the signal is too sparse for the z-test to have any power. The expected signal in the mean is n^(1/2-beta) x sqrt(2r log n) -> 0, so the z-test has power -> alpha, **NOT power -> 1**.
+
+**B) Max test:** 
+Check if $\sqrt{r} + \sqrt{1-\beta} > 1$: $\sqrt{0.45} + \sqrt{0.15} = 0.671 + 0.387 = 1.058 > 1$. Thus, following the problem's guidance, the max test doesn't achieve full power here.
+
+**C) Higher Criticism test:**
+Donoho and Jin (2004), following work of Ingster (1999), studied the problem of testing for any signal in a sparse normal means model and showed that there is a "detection boundary" above which the signal can be detected. They showed that Tukey's "higher criticism" statistic achieves the detection boundary.
+
+The higher criticism is successful throughout the same region of amplitude sparsity where the likelihood ratio test would succeed. Since it does not require a specification of the alternative, this shows that higher criticism is in a sense optimally adaptive to unknown sparsity and size of the nonnull effects.
+
+Since r = 0.45 > rho*(0.85) = 0.35, the HC test **has power -> 1**.
+
+**Answer: [C]**

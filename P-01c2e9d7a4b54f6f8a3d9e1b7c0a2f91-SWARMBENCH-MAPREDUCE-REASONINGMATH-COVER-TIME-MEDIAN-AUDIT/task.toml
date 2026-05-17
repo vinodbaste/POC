@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT"
+description = "Audit six proposed LaTeX solutions to a two-dimensional random-walk disc cover-time median problem using canonical error-dimension labels."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 12.0
+human_solving_hours_justification = "A domain expert would need roughly 1 hour to verify the specialized DPRZ/Kesten-Revesz cover-time limit, 6 responses x 45 minutes each = 4.5 hours to audit constants, theorem claims, scaling claims, calculation errors, and missing justifications, and about 6.5 hours to cross-check the median transformation and produce the final structured error-dimension table."
+estimated_sub_agents = 8
+input_token_estimate = 4181
+why_multi_agent = "The task has six independent LaTeX solution artifacts with similar-looking but mutually conflicting theorem/asymptotic claims. A single agent tends to cross-contaminate constants and style labels or follow repeated wrong answers. The map-reduce setup assigns one mapper per response plus a separate theorem-adjudication mapper to resolve the core asymptotic conflict, then a reducer independently verifies all labels and synthesizes the final audit table."
+reference_link = "https://annals.math.princeton.edu/2004/160-2/p02"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

@@ -1,0 +1,79 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-05-08T10:42:32.865033Z",
+    "harbor": {
+        "version": "0.6.4",
+        "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
+        "is_editable": true
+    },
+    "invocation": [
+        "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/harbor/.venv/bin/harbor",
+        "run",
+        "-p",
+        "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT",
+        "-a",
+        "swarm-kimi-multi",
+        "-m",
+        "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+        "-k",
+        "1",
+        "-n",
+        "1",
+        "--job-name",
+        "multi-kimi-agent",
+        "--jobs-dir",
+        "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT/execution_logs",
+        "--ve",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--ae",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--quiet"
+    ],
+    "n_concurrent_trials": 1,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileEmptyError",
+            "VerifierOutputParseError",
+            "AgentTimeoutError",
+            "RewardFileNotFoundError",
+            "VerifierTimeoutError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT",
+                "type": "local",
+                "digest": "sha256:21e61d0f01950ffe24eda81868e89dcdf62c1648162a3fa928332e415802797d",
+                "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "swarm-kimi-multi",
+                "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+                "kwargs": {},
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                }
+            },
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                },
+                "disable": false
+            }
+        }
+    ]
+}

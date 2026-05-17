@@ -1,0 +1,46 @@
+CS 170: Efficient Algorithms and Intractable Problems
+Fall Semester — Lecture Notes
+Topic: Karp's 21 NP-Complete Problems
+Scribe: [student name redacted for distribution]
+Date: Week 11
+
+Note: These notes were reviewed by course staff. One correction appears in Section 3.3 (see errata below). Minor formatting artifacts from the original scan have been left in place.
+
+---
+
+1. Introduction
+While Cook and Levin showed that SAT is NP-complete, Richard Karp showed in 1972 that NP-completeness is not just an isolated phenomenon. He proved that 21 diverse combinatorial, graph-theoretic, and scheduling problems are all NP-complete. This demonstrated that the class of NP-complete problems is vast and captures many natural computational problems.
+
+[MARGIN NOTE by course staff: "Karp's 1972 paper is 'Reducibility Among Combinatorial Problems' in Miller & Thatcher (eds.), Complexity of Computer Computations, pp. 85–103."]
+
+2. Proof Strategy
+The overall proof strategy relies on the transitivity of polynomial-time many-one reductions.
+Step 1: Start with a known NP-complete problem. Karp started with SAT (which was proven NP-complete by Cook).
+Step 2: Reduce SAT to 3SAT.
+Step 3: Build a tree of reductions. For example, reduce 3SAT to Clique, then Clique to Vertex Cover, then Vertex Cover to Hamiltonian Cycle, etc.
+By showing a chain of reductions L1 -> L2 -> L3, if L1 is NP-complete, then L3 is NP-complete (assuming L3 is in NP).
+
+[NOTE: In lecture the professor drew a diagram of the reduction tree on the board. The diagram is not reproduced here — see the lecture slides on bCourses for the figure.]
+
+3. Core Reductions Highlighted
+3.1. 3SAT to Clique
+To reduce 3SAT to Clique, we construct a graph from a 3CNF formula.
+- Nodes: Create a node for every literal in every clause. If there are k clauses, there are 3k nodes.
+- Edges: Connect two nodes if they are in DIFFERENT clauses AND they are logically consistent (i.e., they are not a variable and its negation).
+- Goal: A satisfying assignment corresponds exactly to a k-clique in this graph. A k-clique must pick exactly one true literal per clause without any contradictions.
+
+3.2. Clique to Vertex Cover (VC)
+This is a straightforward graph complement reduction.
+- Reduction: A graph G has a clique of size k if and only if its complement graph G' has a vertex cover of size |V| - k.
+
+3.3. Directed Hamiltonian Cycle to Undirected Hamiltonian Cycle
+- Reduction: Expand each node into three nodes (in, mid, out) to force the undirected cycle to traverse the nodes in the same direction as the directed edges.
+
+[ERRATA — flagged by GSI after Week 11 discussion section: The original scribed version of Section 3.3 incorrectly stated the gadget expands each node into TWO nodes. The correct expansion is THREE nodes (in, mid, out). The above has been corrected.]
+
+4. Common Pitfalls
+When studying Karp's reductions, students often make several mistakes:
+- Reversing the reduction direction: To prove problem B is NP-complete, you must reduce a KNOWN NP-complete problem A to B (A -> B). Students often mistakenly reduce B to A.
+- Forgetting to prove membership in NP: A reduction only proves NP-hardness. To show NP-completeness, one must also explicitly state that the target problem is in NP.
+- Confusing the gadgets: In the 3SAT to Clique reduction, edges connect consistent literals in *different* clauses, not the same clause.
+

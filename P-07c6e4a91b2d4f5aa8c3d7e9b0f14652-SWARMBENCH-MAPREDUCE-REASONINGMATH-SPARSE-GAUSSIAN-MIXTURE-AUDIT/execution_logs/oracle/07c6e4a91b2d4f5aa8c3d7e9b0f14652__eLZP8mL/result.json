@@ -1,0 +1,104 @@
+{
+    "id": "22fec2f6-22cc-4cc6-bed2-59e6d0f4c85d",
+    "task_name": "swarmbench/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT",
+    "trial_name": "07c6e4a91b2d4f5aa8c3d7e9b0f14652__eLZP8mL",
+    "trial_uri": "file:///Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT/execution_logs/oracle/07c6e4a91b2d4f5aa8c3d7e9b0f14652__eLZP8mL",
+    "task_id": {
+        "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "0dc52348e70f204069578c72c48eebc731ce7cb2b0947049a2674f7f7f0fab04",
+    "config": {
+        "task": {
+            "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "07c6e4a91b2d4f5aa8c3d7e9b0f14652__eLZP8mL",
+        "trials_dir": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT/execution_logs/oracle",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "2f2f922d-501b-4830-98bd-f38c1ca29244"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-08T09:56:18.076807Z",
+    "finished_at": "2026-05-08T09:57:14.048284Z",
+    "environment_setup": {
+        "started_at": "2026-05-08T09:56:18.365935Z",
+        "finished_at": "2026-05-08T09:56:29.128568Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-08T09:56:29.128815Z",
+        "finished_at": "2026-05-08T09:56:29.128921Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-08T09:56:29.129031Z",
+        "finished_at": "2026-05-08T09:56:30.139128Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-08T09:56:30.583647Z",
+        "finished_at": "2026-05-08T09:57:11.154345Z"
+    },
+    "step_results": null
+}

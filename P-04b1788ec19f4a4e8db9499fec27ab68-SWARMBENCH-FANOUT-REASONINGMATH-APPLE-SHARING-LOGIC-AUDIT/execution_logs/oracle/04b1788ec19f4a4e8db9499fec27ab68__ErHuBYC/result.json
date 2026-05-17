@@ -1,0 +1,102 @@
+{
+    "id": "dcde7a39-078c-4f7f-bb24-f4fbc98e61d2",
+    "task_name": "swarmbench/04b1788ec19f4a4e8db9499fec27ab68-SWARMBENCH-FANOUT-REASONINGMATH-APPLE-SHARING-LOGIC-AUDIT",
+    "trial_name": "04b1788ec19f4a4e8db9499fec27ab68__ErHuBYC",
+    "trial_uri": "file:///Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/04b1788ec19f4a4e8db9499fec27ab68-SWARMBENCH-FANOUT-REASONINGMATH-APPLE-SHARING-LOGIC-AUDIT/execution_logs/oracle/04b1788ec19f4a4e8db9499fec27ab68__ErHuBYC",
+    "task_id": {
+        "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/04b1788ec19f4a4e8db9499fec27ab68-SWARMBENCH-FANOUT-REASONINGMATH-APPLE-SHARING-LOGIC-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "417c6c302c150aa3809f56b41fadaea44d4a5408dfa8ddc3eec6cc8ba4dea062",
+    "config": {
+        "task": {
+            "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/04b1788ec19f4a4e8db9499fec27ab68-SWARMBENCH-FANOUT-REASONINGMATH-APPLE-SHARING-LOGIC-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "04b1788ec19f4a4e8db9499fec27ab68__ErHuBYC",
+        "trials_dir": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-harness/04b1788ec19f4a4e8db9499fec27ab68-SWARMBENCH-FANOUT-REASONINGMATH-APPLE-SHARING-LOGIC-AUDIT/execution_logs/oracle",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": 5.0,
+        "environment_build_timeout_multiplier": 5.0,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {}
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "56294de7-8208-4137-ad63-ec8343ca78fa"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-08T17:57:15.670231Z",
+    "finished_at": "2026-05-08T17:57:31.516907Z",
+    "environment_setup": {
+        "started_at": "2026-05-08T17:57:15.998744Z",
+        "finished_at": "2026-05-08T17:57:26.566226Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-08T17:57:26.566345Z",
+        "finished_at": "2026-05-08T17:57:26.566442Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-08T17:57:26.566554Z",
+        "finished_at": "2026-05-08T17:57:27.327251Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-08T17:57:27.620092Z",
+        "finished_at": "2026-05-08T17:57:28.811814Z"
+    },
+    "step_results": null
+}

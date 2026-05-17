@@ -1,0 +1,3 @@
+Score: 0.665 (548/824 passed)
+
+correct_answer_mod1000:10/10, correct_probability_latex:0/8 (missing math mode delimiters $...$), valid_m_count:8/8, acceptable_solution_ids:0/30 (oracle [] vs agent [G]), per_response: A:74/96 (has_denominator_or_sample_space_error and has_unjustified_step mismatches), B:76/96, C:74/96 (has_denominator_or_sample_space_error, has_calculation_error, has_unjustified_step mismatches), D:75/96 (has_stepwise_structure mismatch), E:75/96 (has_stepwise_structure mismatch), F:75/96 (has_unjustified_step mismatch), G:5/96 (critical failure: extracted_final_answer_mod1000 321 vs 559, primary_error_code none vs wrong_phi_2028..., final_answer_correct true vs false, and 5 other boolean mismatches), H:76/96; sum:548/824

@@ -1,0 +1,103 @@
+{
+    "id": "a64fd4aa-cbd1-4eb6-824c-f2b267b76382",
+    "task_name": "swarmbench/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT",
+    "trial_name": "01c2e9d7a4b54f6f8a3d9e1b7c0a2f91__zrwi4Z9",
+    "trial_uri": "file:///Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT/execution_logs/oracle/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91__zrwi4Z9",
+    "task_id": {
+        "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "a2e543a9624ed010cff6d6b824c579576daf480d5e89ae3b54f4715f721895e3",
+    "config": {
+        "task": {
+            "path": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "01c2e9d7a4b54f6f8a3d9e1b7c0a2f91__zrwi4Z9",
+        "trials_dir": "/Users/macpro2017/Works/Turing/multi-agent/swarmbench-assessment/example_tasks/01c2e9d7a4b54f6f8a3d9e1b7c0a2f91-SWARMBENCH-MAPREDUCE-REASONINGMATH-COVER-TIME-MEDIAN-AUDIT/execution_logs/oracle",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "fw_W****VFf"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "fw_W****VFf"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "fe449326-1f2a-4e9d-8327-8af3d8d5c419"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-01T19:50:38.096281Z",
+    "finished_at": "2026-05-01T19:51:17.395742Z",
+    "environment_setup": {
+        "started_at": "2026-05-01T19:50:38.559404Z",
+        "finished_at": "2026-05-01T19:50:53.546708Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-01T19:50:53.546801Z",
+        "finished_at": "2026-05-01T19:50:53.546892Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-01T19:50:53.547010Z",
+        "finished_at": "2026-05-01T19:50:54.316118Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-01T19:50:54.644274Z",
+        "finished_at": "2026-05-01T19:51:15.328948Z"
+    }
+}

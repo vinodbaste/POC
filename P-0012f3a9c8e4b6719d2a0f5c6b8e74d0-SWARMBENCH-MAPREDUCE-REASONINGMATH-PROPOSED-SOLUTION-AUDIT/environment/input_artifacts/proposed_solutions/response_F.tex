@@ -1,0 +1,37 @@
+I use the fact that \(2197=13^3\).  The unit group has order
+\[
+\phi(2197)=2197-169=2028.
+\]
+For the first hit at day \(2028\), \(m\) should have order exactly \(2028\) modulo \(2197\).  Since the unit group modulo an odd prime power is cyclic, the number of such residues in one period is
+\[
+\phi(2028).
+\]
+Now
+\[
+2028=2^2\cdot 3\cdot 13^2,
+\]
+and hence
+\[
+\phi(2028)=2028\cdot \frac12\cdot \frac23\cdot \frac{12}{13}=624.
+\]
+
+The interval \(0,\ldots,9999\) consists of four full blocks modulo \(2197\), plus the beginning of another block:
+\[
+9999=4\cdot2197+1211.
+\]
+So a correct exact count would need to know how many primitive roots occur in that initial segment.  I will treat the primitive roots as uniformly spread across the residues.  Then the probability is the same as in a single complete residue system:
+\[
+\frac{624}{2197}.
+\]
+Since \(624=2^4\cdot 3\cdot 13\), this reduces to
+\[
+\frac{48}{169}.
+\]
+Thus
+\[
+p+q=48+169=217,
+\]
+and the answer is
+\[
+\boxed{217}.
+\]

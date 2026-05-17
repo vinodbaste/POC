@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/0012f3a9c8e4b6719d2a0f5c6b8e74d0-SWARMBENCH-MAPREDUCE-REASONINGMATH-PROPOSED-SOLUTION-AUDIT"
+description = "Audit eight proposed solutions to a modular arithmetic probability problem and produce deterministic correctness/error labels."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 12.0
+human_solving_hours_justification = "A math expert needs about 2h to solve the original modular-order and nonuniform-counting problem, about 8h to audit eight long proposed solutions against binary labels (~1h each), and about 2h to reconcile edge cases such as uniformity assumptions, sample-space errors, and calculation-vs-reasoning labels."
+estimated_sub_agents = 10
+input_token_estimate = 32000
+why_multi_agent = "The task has one independent core theorem/counting adjudication plus eight separate response audits. A single agent must keep a long problem, eight conflicting solutions, and many binary label definitions in one context, which encourages cross-contamination between responses and missed label distinctions. A map-reduce swarm assigns one sub-agent to the core math and one sub-agent per response, then a reducer reconciles the labels into one JSON output."
+reference_link = "https://www.math.auckland.ac.nz/class714/08-lect10.pdf, https://www.math.uzh.ch/gorodnik/nt/lecture8.pdf, https://en.wikipedia.org/wiki/Primitive_root_modulo_n"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

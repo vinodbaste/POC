@@ -1,0 +1,35 @@
+CS 154: Introduction to Automata and Complexity Theory
+Stanford University — Lecture Transcript
+Session: Lecture 18 — Karp's 21 Problems
+Transcribed from audio recording. [AUDIO QUALITY: Good. Minor background noise at start of session.]
+
+---
+
+[SHUFFLING] [MICROPHONE FEEDBACK]
+
+Professor: Alright, let's settle down. Last time we went through the Cook-Levin theorem, which was a massive undertaking. We built an entire computation tableau inside a Boolean formula. But nobody wants to do that every time they want to prove a problem is NP-complete.
+
+That's where Richard Karp comes in. In his 1972 paper, he showed a much better way. The theorem statement is essentially that a wide variety of 21 natural problems, from graph theory to set packing to integer programming, are all NP-complete.
+
+How did he prove this? He didn't build 21 tableaux. The proof strategy relies on the fact that polynomial-time many-one reductions compose. That means you can build a tree of reductions. You start with SAT, which we know is NP-complete. Then you reduce SAT to 3SAT. From 3SAT, you can branch out. You reduce 3SAT to Clique. You reduce 3SAT to Directed Hamiltonian Cycle. And from those, you keep going down the tree.
+
+[WRITING ON BOARD]
+
+Let's look at the reduction from 3SAT to Clique, because it's a beautiful gadget. The source problem is 3SAT, the target problem is Clique. You have a 3CNF formula. For every clause, you create a cluster of 3 nodes, one for each literal. When do you put an edge between two nodes? You add an edge if they are in different clauses and they don't contradict each other. A contradiction is a variable and its negation. The reduction idea is that a k-clique in this graph means you picked exactly one consistent literal from each of the k clauses, which gives you a satisfying assignment!
+
+Wait, actually — let me correct myself. I said "k-clique." To be precise: if the formula has k clauses, you are looking for a clique of size k. One node per clause, consistent across clauses. Sorry, I should have stated that upfront.
+
+Then from Clique, you can go to Vertex Cover. The reduction from Clique to Vertex Cover is just taking the complement of the graph. A clique of size k in G is a vertex cover of size |V|-k in the complement graph.
+
+[STUDENT QUESTION — partially audible]
+
+Student: ...so the edges in the complement are exactly the ones...
+
+Professor: Right, exactly. The complement graph has an edge wherever the original graph does NOT. So a clique — where every pair is connected — becomes an independent set in the complement. And an independent set of size k corresponds to a vertex cover of size |V|-k. Good question.
+
+One thing I see students mess up on exams: common errors. The biggest error is reversing the reduction direction. If you want to prove your new problem X is NP-complete, you must reduce a KNOWN problem like 3SAT to X. Many students reduce X to 3SAT, which only proves that X is in NP!
+The second common error is forgetting to prove the problem is in NP. A reduction from 3SAT to X only proves X is NP-hard. You still need to show X is in NP to call it NP-complete.
+And a third one is getting the 3SAT to Clique edges wrong — remember, edges go between DIFFERENT clauses, never inside the same clause.
+
+[END OF RELEVANT SECTION — remaining transcript covers administrative announcements]
+

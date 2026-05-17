@@ -1,0 +1,50 @@
+Let \(M=2197=13^3\).  A hit at day \(2028\), with no earlier hit, should mean
+\[
+\operatorname{ord}_{M}(m)=2028.
+\]
+This already excludes multiples of \(13\).  Also
+\[
+\phi(M)=13^3-13^2=2028,
+\]
+so the relevant residues are primitive roots modulo \(M\).
+
+Since \((\mathbb Z/13^3\mathbb Z)^\times\) is cyclic, there are
+\[
+\phi(2028)
+\]
+primitive residues.  With
+\[
+2028=2^2\cdot 3\cdot 13^2
+\]
+we get
+\[
+\phi(2028)=2\cdot 2\cdot(169-13)=624.
+\]
+
+The range \(0\le m\le 9999\) is not a complete number of periods modulo \(2197\):
+\[
+10000=4\cdot 2197+1212.
+\]
+So every primitive residue contributes four choices, and a primitive residue in \(1,\ldots,1211\) contributes one more.  If
+\[
+N_1=\#\{a\le 1211:\operatorname{ord}_{2197}(a)=2028\},
+\]
+then the count is
+\[
+C=4\cdot 624+N_1.
+\]
+
+I estimate \(N_1\) by the density of primitive roots in the interval:
+\[
+N_1\approx 1211\cdot \frac{624}{2197}\approx 343.48,
+\]
+so I take \(N_1=343\).  Therefore
+\[
+C=2496+343=2839,
+\qquad
+P=\frac{2839}{10000}.
+\]
+The fraction is already reduced because \(2839\) is not divisible by \(2\) or \(5\).  Hence
+\[
+p+q=2839+10000=12839\equiv \boxed{839}\pmod{1000}.
+\]

@@ -1,0 +1,56 @@
+To determine which tests have asymptotic power tending to 1, we analyze the detection boundaries for each test in the context of the "sparse normal means" problem.
+
+The parameters are:
+*   $\beta = 0.85$ (Sparsity parameter, where $\varepsilon_n = n^{-\beta}$)
+*   $r = 0.45$ (Signal strength parameter, where $\mu_n = \sqrt{2r \log n}$)
+*   Sample size $n \to \infty$.
+
+We analyze each test separately:
+
+**A) One-sided z-test based on $\bar{X}$ (Sum test)**
+The sum test statistic is $S_n = \frac{1}{\sqrt{n}} \sum X_i$.
+Under $H_0$, $S_n \sim N(0,1)$.
+Under $H_1$, the mean of the mixture is $\mathbb{E}[X_i] = (1-\varepsilon_n) \cdot 0 + \varepsilon_n \cdot \mu_n = \varepsilon_n \mu_n$.
+The mean of the sum $T = \sum X_i$ is $n \varepsilon_n \mu_n$. The variance is $n(1 + \varepsilon_n \mu_n^2 - (\varepsilon_n \mu_n)^2) \approx n$.
+The standardized shift is roughly $\frac{n \varepsilon_n \mu_n}{\sqrt{n}} = \sqrt{n} \varepsilon_n \mu_n = n^{1/2 - \beta} \sqrt{2r \log n}$.
+For the power to go to 1, the signal-to-noise ratio must go to infinity, or at least be large enough to shift the distribution past the critical value.
+Here, the exponent of $n$ is $1/2 - \beta = 0.5 - 0.85 = -0.35$.
+Since the exponent is negative, the mean shift tends to 0. The signal is too sparse for the global mean test to detect it.
+**Result: Power $\not\to 1$.**
+
+**B) Reject for large $\max_i X_i$ (Maximum test)**
+The maximum of $n$ i.i.d. $N(0,1)$ variables behaves like $\sqrt{2 \log n}$.
+Specifically, we reject if $\max X_i > \sqrt{2 \log n}$.
+This test has full power if there is at least one signal $X_i$ that exceeds the threshold.
+The signal spikes have mean $\mu_n = \sqrt{2r \log n}$.
+The condition for the Max test to succeed is roughly $\mu_n > \sqrt{2 \log n}$.
+In terms of $r$, this requires $r > 1$.
+Here, $r = 0.45$. Since $r < 1$, the signal means $\sqrt{2(0.45)\log n} \approx 0.95 \sqrt{\log n}$ are buried below the maximum noise level $\sqrt{2 \log n}$. The signals are not strong enough to be detected by the maximum.
+**Result: Power $\not\to 1$.**
+
+**C) Higher Criticism test (Donoho-Jin)**
+The Higher Criticism (HC) test is designed to detect sparse mixtures. The detection boundary for the HC test in the $\beta-r$ plane is determined by the function $\rho^*(\beta)$:
+$$
+\rho^*(\beta) = \begin{cases}
+\beta - 1/2 & \text{if } 1/2 < \beta \le 3/4 \\
+(1 - \sqrt{1-\beta})^2 & \text{if } 3/4 < \beta < 1
+\end{cases}
+$$
+Detection is possible if $r > \rho^*(\beta)$.
+
+Given $\beta = 0.85$, we are in the range $3/4 < \beta < 1$. We calculate the boundary:
+$$ \rho^*(0.85) = (1 - \sqrt{1 - 0.85})^2 = (1 - \sqrt{0.15})^2 $$
+$$ \sqrt{0.15} \approx 0.3873 $$
+$$ \rho^*(0.85) \approx (1 - 0.3873)^2 = (0.6127)^2 \approx 0.375 $$
+
+The actual signal intensity is $r = 0.45$.
+Comparing $r$ to the boundary:
+$$ 0.45 > 0.375 $$
+Since $r > \rho^*(\beta)$, the Higher Criticism test is in the detection region and its power tends to 1.
+
+**Conclusion:**
+*   Test A fails (signal too sparse).
+*   Test B fails (signal too weak individually).
+*   Test C succeeds (optimal for sparse, moderate strength signals).
+
+[C]

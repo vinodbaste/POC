@@ -1,0 +1,146 @@
+sub_tasks:
+  - id: adjudicate-test-a
+    description: >
+      Read /input_artifacts/problem.tex. Adjudicate Test A only: the one-sided z-test based
+      on the sample mean. Compute the standardized mean shift sqrt(n) * epsilon_n * mu_n
+      and its asymptotic order for the given beta and r. Return whether Test A has asymptotic
+      power tending to 1 and the reason. Do not audit any proposed response in this subtask.
+    depends_on: []
+    parallel_group: map
+
+  - id: adjudicate-test-b
+    description: >
+      Read /input_artifacts/problem.tex. Adjudicate Test B only: rejection for a large maximum
+      coordinate. Do not decide by comparing only one signal mean mu_n to the null maximum.
+      Instead, account for the maximum over the growing number of nonnull coordinates under
+      the sparse alternative. Derive the relevant extreme-value comparison from the nonnull count,
+      the signal mean scale, and the null maximum scale, then evaluate it using the given beta and r.
+      Return whether Test B has asymptotic power tending to 1. Do not audit any proposed response
+      in this subtask.
+    depends_on: []
+    parallel_group: map
+
+  - id: adjudicate-test-c
+    description: >
+      Read /input_artifacts/problem.tex. Adjudicate Test C only: Higher Criticism in the
+      Donoho-Jin sparse Gaussian mixture model. For beta in the problem's beta range, use
+      the corresponding Donoho-Jin/Ingster sparse-mixture boundary, substitute the given beta,
+      compute its approximate numerical value, compare r to that boundary, and return whether
+      Higher Criticism has asymptotic power tending to 1. Do not audit any proposed response
+      in this subtask.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_A.tex.
+      Audit only Response A. Extract its final claimed test-letter list. Evaluate all labels from
+      the output schema. Use the independently correct original-problem test list, not the response's
+      own internal assumptions, when setting final_answer_correct. For compares_r_to_boundary_correctly,
+      mark true only when the response compares r to the correct applicable boundary or an exactly
+      equivalent valid condition; a comparison to a wrong boundary is false even if the arithmetic
+      comparison to that wrong boundary is internally true. Return a compact JSON-style note for
+      Response A only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_B.tex.
+      Audit only Response B. Extract its final claimed test-letter list. Evaluate all labels from
+      the output schema. Pay special attention to whether the response uses a boundary from the
+      wrong beta range or draws a conclusion from a wrong boundary. For compares_r_to_boundary_correctly,
+      compare against the correct boundary for this problem, not against the response's own formula.
+      Return a compact JSON-style note for Response B only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_C.tex.
+      Audit only Response C. Extract its final claimed test-letter list. Evaluate all labels from
+      the output schema. Pay special attention to whether the response rejects or accepts the
+      maximum test using the one-signal-mean shortcut instead of the nonnull-maximum extreme-value
+      analysis. Return a compact JSON-style note for Response C only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_D.tex.
+      Audit only Response D. Extract its final claimed test-letter list. Evaluate all labels from
+      the output schema. Pay special attention to parameterization mistakes and exponent-sign
+      or algebra mistakes in the Higher Criticism calculation; for example, a negative power of n
+      does not diverge to infinity. For compares_r_to_boundary_correctly, compare against the
+      correct boundary for this problem, not against the response's own wrong parameterization.
+      Return a compact JSON-style note for Response D only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_E.tex.
+      Audit only Response E. Extract its final claimed test-letter list. Evaluate all labels from
+      the output schema. Pay special attention to the distinction between a response that gives
+      the right final test-letter list and a fully correct solution. A response that gives the right
+      final list but uses the wrong sparse-mixture boundary or invalid reasoning should have
+      final_answer_correct true but should not be treated as fully acceptable. Return a compact
+      JSON-style note for Response E only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_F.tex.
+      Audit only Response F. Extract its final claimed test-letter list. Evaluate all labels from
+      the output schema. Pay special attention to vague unsupported conclusions, mistaken
+      z-test statements, and whether substantial mathematical notation is HTML/non-LaTeX markup
+      rather than readable LaTeX. Return a compact JSON-style note for Response F only.
+    depends_on: []
+    parallel_group: map
+
+  - id: critical-label-crosscheck
+    description: >
+      Read /input_artifacts/problem.tex and all six response files. Independently cross-check the
+      labels that are most likely to be confused: compares_r_to_boundary_correctly for Responses
+      B, D, and E; has_calculation_error for Response D; uses_correct_donoho_jin_boundary,
+      boundary_numeric_value_correct, and has_final_answer_critical_math_error for Response E;
+      test_a_conclusion_correct and has_final_answer_critical_math_error for Response F.
+      Use these rules: (1) compares_r_to_boundary_correctly is about the correct boundary for
+      this problem, not the boundary a response happened to state; (2) has_calculation_error
+      includes arithmetic, algebra, and exponent-sign mistakes after stated premises; (3) a response
+      with the right final test-letter list can still be unacceptable if its theorem or boundary is wrong.
+      Return a compact cross-check table for these labels only.
+    depends_on:
+      - adjudicate-test-a
+      - adjudicate-test-b
+      - adjudicate-test-c
+    parallel_group: validate
+
+  - id: reduce-final-audit
+    description: >
+      Read the three test-adjudication notes, all six response-audit notes, and the critical-label
+      cross-check. Then independently re-open /input_artifacts/problem.tex and all six response
+      files to verify the final answer and every label. Do not decide correctness by majority vote.
+      First determine the correct original-problem test-letter list from the three adjudications.
+      Then evaluate final_answer_correct for each response against that list. Apply this acceptance
+      rule: acceptable_solution_ids contains only responses that give the correct final test-letter
+      list, correctly handle Tests A, B, and C, use the correct sparse-mixture boundary or an
+      equivalent valid maximum-test argument where relevant, and have no final-answer-critical
+      mathematical, calculation, or unjustified-step error. Do not include a response merely because
+      its final list is correct. The final JSON must contain correct_answer_letters,
+      acceptable_solution_ids, detection_boundary_latex, and per_response_assessment for A through F
+      in order. Use JSON booleans, not strings. Do not include prose justification fields and do not
+      include fields outside the required schema. Write the final JSON to /logs/agent/output.json.
+    depends_on:
+      - adjudicate-test-a
+      - adjudicate-test-b
+      - adjudicate-test-c
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - critical-label-crosscheck
+    parallel_group: reduce

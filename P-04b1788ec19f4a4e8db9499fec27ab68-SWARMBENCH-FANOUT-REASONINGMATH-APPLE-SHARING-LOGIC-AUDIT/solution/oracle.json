@@ -1,0 +1,126 @@
+{
+  "derived_final_answer": "(34, 66, 0)",
+  "responses": {
+    "B": {
+      "error_codes": [
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": true,
+        "turn_order_applied_correctly": true
+      },
+      "rationale": "Incorrect. It forces A+B+C=100 and repeatedly says C must take the remainder, so it audits a different game and ends with (32, 33, 35).",
+      "verdict": "incorrect"
+    },
+    "C": {
+      "error_codes": [
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "POSITIVE_APPLE_CONSTRAINT_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": false,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": true,
+        "turn_order_applied_correctly": true
+      },
+      "rationale": "Incorrect. It adds a positive-apple constraint, assumes total allocation, and uses an invalid second-player analysis, leading to (50, 49, 1).",
+      "verdict": "incorrect"
+    },
+    "D": {
+      "error_codes": [
+        "CYCLIC_TURN_ORDER_ERROR",
+        "EVEN_SPLIT_FALLACY",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": false,
+        "turn_order_applied_correctly": false
+      },
+      "rationale": "Incorrect. It changes the turn order to a cyclic process and validates a near-even tied split even though ties for most or least are failures.",
+      "verdict": "incorrect"
+    },
+    "E": {
+      "error_codes": [
+        "FALSE_GOAL_VERIFICATION",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": true,
+        "turn_order_applied_correctly": true
+      },
+      "rationale": "Incorrect. It assumes the third player must take all remaining apples and then falsely claims (32, 33, 35) satisfies the primary goal for everyone.",
+      "verdict": "incorrect"
+    },
+    "F": {
+      "error_codes": [
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": false,
+        "turn_order_applied_correctly": true
+      },
+      "rationale": "Incorrect. It directly reverses the tie rule by claiming the tied 33 values avoid failure, so the final triple is invalid.",
+      "verdict": "incorrect"
+    },
+    "G": {
+      "error_codes": [
+        "EVEN_SPLIT_FALLACY",
+        "FORCED_EXHAUSTION_ERROR",
+        "PLAYER2_ANALYSIS_ERROR",
+        "THIRD_PLAYER_MODEL_ERROR",
+        "TIE_RULE_ERROR",
+        "WRONG_FINAL_ANSWER"
+      ],
+      "labels": {
+        "allows_unexhausted_apples": false,
+        "avoids_positive_minimum_assumption": true,
+        "final_answer_correct": false,
+        "player2_exception_analysis_correct": false,
+        "third_player_choice_model_correct": false,
+        "tie_rule_applied_correctly": false,
+        "turn_order_applied_correctly": true
+      },
+      "rationale": "Incorrect. It treats the goal as avoiding a unique extremum, relies on an even-split fallacy, and forces full allocation despite the prompt allowing leftovers.",
+      "verdict": "incorrect"
+    }
+  }
+}

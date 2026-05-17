@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/5d97e1776dd14c80a0895e85d286d472-SWARMBENCH-FANOUT-REASONINGMATH-COOKLEVINPROOF"
+description = "Knowledge engineering: produce a structured Cook-Levin and Karp 21 proof dossier from real academic source documents"
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 10
+human_solving_hours_justification = "Reading 6 source documents x 0.5h/document = 3 hours. Extracting and analyzing 17 major theorem components x 15 min/component = 4.25 hours. Synthesizing 2 major sections (Cook-Levin, Karp) x 1h/section = 2 hours. Final schema and citation alignment review = 0.75 hours. Total = 10 hours."
+estimated_sub_agents = 10
+input_token_estimate = 27000
+reference_link = "https://ocw.mit.edu/courses/18-404j-theory-of-computation-fall-2020/resources/lecture-16-cook-levin-theorem/"
+why_multi_agent = "The input scale (~27,000 tokens) is well within a single agent's context window. The necessity for multi-agent execution relies entirely on coordination quality and isolation of attention. A single agent reading all heterogeneous sources (Cook-Levin transcripts, Karp's 21 reductions, slides) suffers from severe attention dilution and citation cross-pollination, frequently citing Karp reduction files as evidence for Cook-Levin constraints. A fan-out-synthesize structure is required to isolate specialists to specific source files, guaranteeing strict citation hygiene and cross-section consistency that a single agent cannot maintain under context pressure."
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

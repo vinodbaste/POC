@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/07c6e4a91b2d4f5aa8c3d7e9b0f14652-SWARMBENCH-MAPREDUCE-REASONINGMATH-SPARSE-GAUSSIAN-MIXTURE-AUDIT"
+description = "Audit seven proposed solutions to a sparse Gaussian mixture detection problem using boundary-aware mathematical error labels."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 14
+human_solving_hours_justification = "A domain expert would need about 2 hours to verify the Donoho-Jin/Ingster sparse Gaussian mixture boundary, mean-test behavior, and maximum-test boundary; about 7 hours to audit six responses across final answers, boundary claims, extreme-value reasoning, and label dimensions; and about 5 hours to cross-check consistency and produce the structured audit table."
+estimated_sub_agents = 11
+input_token_estimate = 250000
+why_multi_agent = "The task has six independent proposed-solution artifacts with similar-looking but conflicting sparse-mixture boundary claims. A single agent can easily overfollow repeated wrong final answers or conflate the Higher Criticism boundary with the maximum-test condition. The map-reduce setup assigns separate mappers to adjudicate Tests A, B, and C, one mapper per proposed response, a critical-label cross-checker, and then a reducer rechecks all labels and synthesizes the final audit table."
+reference_link = "https://arxiv.org/abs/math/0410072"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

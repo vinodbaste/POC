@@ -1,0 +1,29 @@
+Attempt.  I want \(m^{2028}\equiv 1\pmod {2197}\) and I interpret the first occurrence as forcing the smallest such residue.
+
+I factor the modulus as
+\[
+2197=11\cdot 199.
+\]
+Then the congruence should be checked modulo \(11\) and modulo \(199\).
+
+Modulo \(11\), the possible orders divide \(10\).  In particular \(m\equiv 1\) and \(m\equiv 10\) both give \(m^{2028}\equiv 1\pmod {11}\).  Modulo \(199\), the orders divide
+\[
+\phi(199)=198.
+\]
+The simplest way to satisfy both congruences is to take
+\[
+m\equiv 1\pmod {11},\qquad m\equiv 1\pmod {199}.
+\]
+By CRT this gives
+\[
+m\equiv 1\pmod {2197}.
+\]
+
+Thus I get the single residue \(m=1\) as the first possible value.  The probability is therefore
+\[
+\frac1{2197}.
+\]
+So \(p=1\), \(q=2197\), and
+\[
+p+q=2198\equiv \boxed{198}\pmod {1000}.
+\]

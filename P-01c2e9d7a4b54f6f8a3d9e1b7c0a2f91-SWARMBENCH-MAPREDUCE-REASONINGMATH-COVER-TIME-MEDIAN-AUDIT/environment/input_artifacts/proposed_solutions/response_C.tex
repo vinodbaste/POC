@@ -1,0 +1,40 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Proposed Response C}
+"Let $S_k$ be the position of the simple random walk on $\mathbb{Z}^2$ at time $k$, with $S_0 = (0,0)$.
+Let $V_n = \{x \in \mathbb{Z}^2 : \|x\| \leq n\}$ be the discrete disc of radius $n$. The norm $\|x\|$ is usually interpreted as $L_2$ (Euclidean norm) or $L_\infty$ (maximum norm) in the context of $\mathbb{Z}^2$. Let $T_n$ be the cover time of $V_n$, meaning $T_n = \min \{ k : V_n \subseteq \{S_0, S_1, \dots, S_k\} \}$.
+We are asked to find the unique constant $c > 0$ such that the median $m_n$ of $\log T_n$ satisfies
+
+$$
+\lim _{n \rightarrow \infty} \frac{m_n}{(\log(n))^2} = c.
+$$
+
+This is a well-known result in the theory of random walks on graphs, specifically for the simple random walk on $\mathbb{Z}^2$. The key property of the 2D simple random walk is its recurrence, but it is ""barely recurrent,"" which leads to logarithmic corrections in its asymptotic behavior.
+
+The relevant result is stated in several places in the literature. For example:
+1.  **For $L_\infty$ norm (square region):** Aldous and Fill's ""Reversible Markov Chains and Random Walks on Graphs"" (Chapter 6, Theorem 6.1.1) states that for $V_n = \{x \in \mathbb{Z}^2 : \|x\|_\infty \leq n\}$, the cover time $T_n$ satisfies
+    $$ \lim_{n \rightarrow \infty} \frac{\log T_n}{(\log n)^2} = \frac{\pi}{2} \text{ in probability.} $$
+
+2.  **For $L_2$ norm (Euclidean disc):** Dembo, Peres, Rosen, and Zeitouni's paper ""Cover times for planar Gaussian free fields"" (2004, Theorem 1.1) states that for $V_n = \{z \in \mathbb{Z}^2 : \|z\|_2 \leq n\}$, the cover time $T_n$ satisfies
+    $$ \lim_{n \rightarrow \infty} \frac{\log T_n}{(\log n)^2} = \frac{\pi}{2} \text{ in probability.} $$
+
+Both definitions of ""discrete disc"" lead to the same limiting constant. This is because these domains are ""asymptotically equivalent"" with respect to the scaling factor $n$. More formally, if $B_n = \{x : \|x\|_2 \le n\}$ and $S_n = \{x : \|x\|_\infty \le n\}$, then $S_{\lfloor n/\sqrt{2} \rfloor} \subseteq B_n \subseteq S_n$. The cover times satisfy $T_{S_{\lfloor n/\sqrt{2} \rfloor}} \le T_{B_n} \le T_{S_n}$. Since $\log(\lfloor n/\sqrt{2} \rfloor) = \log n + O(1)$, the sandwich argument implies that the limit is the same for both types of discs.
+
+If a sequence of random variables $X_n$ converges in probability to a constant $L$, i.e., $X_n \xrightarrow{P} L$, then the median $m_n$ of $X_n$ also converges to $L$, i.e., $m_n \to L$.
+In our case, $X_n = \frac{\log T_n}{(\log n)^2}$ and $L = \frac{\pi}{2}$.
+Thus, the median $m_n$ of $\log T_n$ satisfies
+$$
+\lim _{n \rightarrow \infty} \frac{m_n}{(\log n)^2} = \frac{\pi}{2}.
+$$
+The constant $c = \frac{\pi}{2}$ is positive, as required.
+
+The behavior of cover times for SRW in $\mathbb{Z}^d$ is quite distinct for different dimensions:
+*   In $d=1$, for the interval $[-n, n]$, the expected cover time is $E[T_n] \sim n^2$. So $\log T_n$ would scale as $\log(n^2) = 2 \log n$.
+*   In $d=2$, for a disc of radius $n$, the expected cover time is $E[T_n] \sim n^2 (\log n)^2$. However, the median of $\log T_n$ scales as $(\log n)^2$, as shown above. This indicates that $T_n$ is not highly concentrated around its mean.
+*   In $d \geq 3$, the walk is transient. The expected cover time for a ball of radius $n$ is $E[T_n] \sim |V_n| \sim n^d$.
+
+The value $c = \frac{\pi}{2}$ arises from deep connections between the two-dimensional random walk and the Gaussian Free Field, a concept from statistical physics. The logarithmic factor $(\log n)^2$ is characteristic of the ""critical"" behavior of the random walk in two dimensions.
+
+The final answer is $\boxed{\frac{\pi}{2}}$."
+\end{document}

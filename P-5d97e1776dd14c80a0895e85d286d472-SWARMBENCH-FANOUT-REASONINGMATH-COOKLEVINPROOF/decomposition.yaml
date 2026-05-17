@@ -1,0 +1,140 @@
+sub_tasks:
+- id: theorem-framing
+  description: 'Read /input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt,
+    /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt, and /input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt.
+    Extract the theorem framing, reduction goal, and proof strategy from the real
+    sources. Return structured JSON for theorem_name, theorem_statement, proof_goal,
+    and proof_strategy_overview with supporting_files values from the primary source
+    text paths listed in instruction.md.
+
+    '
+  depends_on: []
+  parallel_group: fan-out
+- id: reduction-definitions
+  description: 'Read /input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt
+    and /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt. Extract the
+    source-backed definitions for NP, SAT, and polynomial-time many-one reduction.
+    Return structured JSON entries for those core_definitions, including valid supporting_files
+    paths.
+
+    '
+  depends_on: []
+  parallel_group: fan-out
+- id: computation-definitions
+  description: 'Read /input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt
+    and /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt. Extract the
+    machine-computation definitions needed for the proof, including the nondeterministic
+    computation, accepting tableau, and local consistency ideas. Return structured
+    JSON entries for the relevant core_definitions with valid supporting_files.
+
+    '
+  depends_on: []
+  parallel_group: fan-out
+- id: tableau-encoding
+  description: 'Read /input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt
+    and /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt. Extract how
+    the sources represent an accepting computation as a tableau, how Boolean variables
+    describe tableau cells, and why local windows or neighborhoods are enough to enforce
+    legal computation. Return structured JSON for tableau_encoding with valid supporting_files.
+
+    '
+  depends_on: []
+  parallel_group: fan-out
+- id: constraint-families
+  description: 'Read /input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt,
+    /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt, and /input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt.
+    Identify the source-grounded constraint families required by instruction.md, explain
+    what each enforces, and map source terminology onto the five named constraint families
+    listed in instruction.md. Return structured JSON for constraint_families with valid
+    supporting_files.
+
+    '
+  depends_on: []
+  parallel_group: fan-out
+- id: soundness-completeness
+  description: 'Read /input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt
+    and /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt. Produce two
+    source-grounded arguments: one for satisfiable formula to accepting computation,
+    and one for accepting computation to satisfiable formula. Each argument needs
+    a claim, reasoning, and valid supporting_files.
+
+    '
+  depends_on: []
+  parallel_group: fan-out
+- id: polynomial-size
+  description: 'Read /input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt,
+    /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt, and /input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt.
+    Produce the size and construction-time argument, connecting polynomial running
+    time, tableau dimensions, variable count, formula construction, and reduction
+    time using only the detail supported by the sources. Return structured JSON for
+    polynomial_size_argument with valid supporting_files.
+
+    '
+  depends_on: []
+  parallel_group: fan-out
+- id: example-and-audit-risks
+  description: 'Read /input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt,
+    /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt, and /input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt.
+    Summarize the worked tableau or illustrative construction in the sources, then
+    identify the common technical pitfalls listed in instruction.md and provide the
+    source-grounded correction for each. Return structured JSON for worked_example_summary
+    and common_errors_to_avoid with valid supporting_files.
+
+    '
+  depends_on: []
+  parallel_group: fan-out
+- id: karp-reductions-and-strategy
+  description: Read /input_artifacts/berkeley_cs170_karp21_notes.txt and /input_artifacts/stanford_cs154_karp21_transcript.txt.
+    Extract the theorem statement, proof strategy, core reductions (3SAT to Clique,
+    Clique to Vertex Cover, Directed to Undirected HC) and common errors for Karp's
+    21 problems. Return structured JSON for karp_theorem_name, karp_theorem_statement,
+    karp_proof_strategy_overview, karp_core_reductions, and karp_common_errors with
+    valid supporting_files.
+  depends_on: []
+  parallel_group: fan-out
+- id: synthesize-dossier
+  description: "You are the synthesizer. Collect the outputs from all nine fan-out\
+    \ sub-agents: theorem-framing, reduction-definitions, computation-definitions,\
+    \ tableau-encoding, constraint-families, soundness-completeness, polynomial-size,\
+    \\ example-and-audit-risks, and karp-reductions-and-strategy. Produce a unified\\
+    \\ /logs/agent/output.json where every field is internally consistent with no\\
+    \\ cross-section contradictions, every term and constraint family required by\\
+    \\ instruction.md appears exactly once, and every supporting_files value is a\\
+    \\ valid full-path string that genuinely supports its specific section. Write\\
+    \ the complete merged output to /logs/agent/output.json in exactly this JSON structure\
+    \ (all keys required): {\n  \"theorem_name\": <str>,\n  \"theorem_statement\"\
+    : <str>,\n  \"proof_goal\": <str>,\n  \"proof_strategy_overview\": [<str>],\n\
+    \  \"core_definitions\": [{\"term\": <str>, \"definition\": <str>, \"supporting_files\"\
+    : [<str>]}],\n  \"tableau_encoding\": {\n    \"encoded_object\": <str>,\n    \"\
+    tableau_structure\": <str>,\n    \"variable_scheme\": <str>,\n    \"why_local_constraints_are_enough\"\
+    : <str>,\n    \"supporting_files\": [<str>]\n  },\n  \"constraint_families\":\
+    \ [{\"family_name\": <str>, \"purpose\": <str>, \"supporting_files\": [<str>]}],\n\
+    \  \"soundness_argument\": {\"claim\": <str>, \"reasoning\": <str>, \"supporting_files\"\
+    : [<str>]},\n  \"completeness_argument\": {\"claim\": <str>, \"reasoning\": <str>,\
+    \ \"supporting_files\": [<str>]},\n  \"polynomial_size_argument\": {\"claim\"\
+    : <str>, \"reasoning\": <str>, \"supporting_files\": [<str>]},\n  \"worked_example_summary\"\
+    : {\n    \"instance_description\": <str>,\n    \"how_the_encoding_reflects_the_instance\"\
+    : <str>,\n    \"supporting_files\": [<str>]\n  },\n  \"common_errors_to_avoid\"\
+    : [{\"error\": <str>, \"correction\": <str>, \"supporting_files\": [<str>]}],\n\
+    \  \"final_conclusion\": <str>,\n        \"karp_theorem_name\": <str>,\n     \
+    \   \"karp_theorem_statement\": <str>,\n        \"karp_proof_strategy_overview\"\
+    : [<str>],\n        \"karp_core_reductions\": [{\"source_problem\": <str>, \"\
+    target_problem\": <str>, \"reduction_idea\": <str>, \"supporting_files\": [<str>]}],\n\
+    \        \"karp_common_errors\": [{\"error\": <str>, \"correction\": <str>, \"\
+    supporting_files\": [<str>]}],\n} All supporting_files values must be chosen from\
+    \ these source text paths: /input_artifacts/mit_ocw_18_404j_lecture16_cook_levin_transcript.txt,\
+    \ /input_artifacts/mit_ocw_6_080_lecture9_cook_levin_notes.txt, /input_artifacts/cmu_15451_lecture15_np_completeness_slides.txt,\
+    \ /input_artifacts/source_attribution.md, /input_artifacts/berkeley_cs170_karp21_notes.txt,\
+    \ /input_artifacts/stanford_cs154_karp21_transcript.txt. Do not write anything outside the required\
+    \ JSON.\n"
+  depends_on:
+  - theorem-framing
+  - reduction-definitions
+  - computation-definitions
+  - tableau-encoding
+  - constraint-families
+  - soundness-completeness
+  - polynomial-size
+  - example-and-audit-risks
+  - karp-reductions-and-strategy
+  parallel_group: synthesize

@@ -1,0 +1,58 @@
+```python
+["C"]
+```
+
+### Rigorous Mathematical Reasoning
+
+The problem requires identifying which test has asymptotic power $\to 1$ at fixed size $\alpha=0.05$ under the sparse alternative $H_1$, where $\varepsilon_n = n^{-0.85}$, $\mu_n = \sqrt{2 \cdot 0.45 \log n} = \sqrt{0.9 \log n}$, $\beta=0.85 \in (0.5,1)$, $r=0.45 \in (0,0.5)$.
+
+#### Preliminaries
+- **Expected signals**: $\mathbb{E}[\#\text{signals}] = n \varepsilon_n = n^{1-\beta} = n^{0.15} \to \infty$.
+- **Max signal**: With high probability (w.h.p.), $\max_i X_i \approx \mu_n + Z_{(1)}$, where $Z_{(1)}$ is the max of $n(1-\varepsilon_n) \approx n$ standard normals, so $Z_{(1)} \sim \sqrt{2\log n} - \frac{1}{2}\sqrt{2\log\log n/\log n} + o_p(1/\sqrt{\log n})$ (i.e., $Z_{(1)} = \sqrt{2\log n}(1+o(1))$).
+- **Key quantities**:
+  $$
+  \rho_n := \frac{\mu_n}{\sqrt{2\log n}} = \sqrt{\frac{0.9}{2}} = \sqrt{0.45} \approx 0.6708 < 1, \quad \beta^*=1-\beta=0.15 \in (0,0.5)
+  $$
+- **Detection boundary** (Donoho-Jin, 2004; also Ingster et al.): For sparse Gaussian mixture detection in $\ell_2$-sparse regime $\varepsilon_n = n^{-\beta}$, $\beta\in(0,1)$, the boundary is parameterized by $\rho_* = \sqrt{r/2}$:
+  - **Detectable** ($\rho_* > \rho^*(\beta)$) if $r > 2\rho^*(\beta)$, where $\rho^*(\beta) = \beta-0.5$ for $\beta\in(0.5,1)$.
+  - Here, $\rho^*(\beta^*) = 0.15$, $\rho_* \approx 0.6708 > 0.15$, so **above detection boundary** (power $\to 1$ possible).
+
+#### Test A: One-sided $z$-test on $\bar{X}$
+- Test statistic: $T_A = \sqrt{n} \bar{X} \sim N\left( n\varepsilon_n \mu_n / \sqrt{n}, 1 \right) = N\left( n^{0.5} \varepsilon_n \mu_n, 1 \right)$ under $H_1$.
+- Noncentrality: $\lambda_n := n^{0.5} \varepsilon_n \mu_n = n^{0.5} n^{-0.85} \sqrt{0.9\log n} = n^{-0.35} (\log n)^{0.5} \to 0$.
+- Power: $\beta_A = P(T_A > z_{1-\alpha} \mid H_1) \to \Phi(-z_{0.95}) = 0.05$ (size, no power gain).
+- **Fails**: $\lambda_n \to 0$.
+
+#### Test B: Bonferroni max-test (reject for large $\max_i X_i$)
+- Critical value: $c_{\alpha,n} \approx \sqrt{2\log n + 2\log(1/\alpha)}$ (exact asymptotic $\sqrt{2\log(n/\log\log n)}$ for $\alpha$-FDR control, but fixed $\alpha$ similar).
+- $P(\max X_i > c_{\alpha,n} \mid H_0) = \alpha$.
+- Under $H_1$: w.h.p. $\max X_i \approx \max(\mu_n + Z_1, Z_{(1)}) = Z_{(1)}(1+o(1))$, since $\mu_n/\sqrt{2\log n} < 1$.
+- Type II error: $P(\max X_i \le c_{\alpha,n}) \ge P(Z_{(1)} \le c_{\alpha,n}) \to 1-\alpha$.
+- Power: $\beta_B \to \alpha = 0.05$.
+- **Fails**: Cannot distinguish signal max from noise max (sparse signals "hide" below noise ceiling).
+
+#### Test C: Higher Criticism (HC, Donoho-Jin 2004)
+- **Definition** (one-sided, discretized for rigor):
+  $$
+  \text{HC}_n = \sup_{0<t<1} \frac{ \sqrt{n} \left( \frac{1}{n} \#\{i: X_i > \Phi^{-1}(1-t) \} - t \right) }{ \sqrt{ t(1-t) } }
+  $$
+  Reject if $\text{HC}_n > c_\alpha$ (calibrated for $P(\text{HC}_n > c_\alpha \mid H_0) = \alpha$, $c_\alpha \to \sqrt{2\log\log n}$).
+- **Asymptotics**: For sparse alternatives above detection boundary ($\rho_* > \rho^*(\beta^*)$), 
+  $$
+  \text{HC}_n \stackrel{P}{\to} \sup_{0<t<1} \frac{ \varepsilon_n \left(1-\Phi\left( \frac{\Phi^{-1}(1-t) - \mu_n}{1} \right) / t - 1 \right) }{ \sqrt{ (1-t)/t } } > c_\alpha \quad \text{w.h.p.}
+  $$
+- **Optimal $t_n$**: Bump at $t_n \sim P(N(\mu_n,1) > \sqrt{2\log n}) \sim n^{-\rho_*^2} = n^{-0.45}$.
+  - At $t_n$: numerator $\sim \sqrt{n} (\varepsilon_n - t_n) \sim n^{0.5}(n^{-0.85} - n^{-0.45}) \sim n^{-0.35}$;
+  - Denominator $\sqrt{t_n(1-t_n)} \sim n^{-0.225}$;
+  - $\text{HC}_n(t_n) \sim n^{-0.35 + 0.225} = n^{-0.125} \to \infty$, while $c_\alpha = O(\sqrt{\log\log n}) = o(1)$.
+- Thus, $\text{HC}_n > c_\alpha$ w.h.p., so **power $\beta_C \to 1$**.
+- **Rationale**: HC scans *all* $p$-value quantiles, detecting sparse signals in moderate $p$-values ($10^{-3}\le p \le 10^{-1}$) where signals concentrate but noise fluctuations are controlled.
+
+#### Summary Table
+| Test | Noncentrality/Detectability | Asymp. Power |
+|------|-----------------------------|--------------|
+| A    | $\lambda_n = O(n^{-0.35} (\log n)^{0.5}) \to 0$ | $\to 0.05$ |
+| B    | $\max \approx \sqrt{2\log n}$, undetectable | $\to 0.05$ |
+| **C** | $\text{HC}_n \gg \sqrt{2\log\log n}$ | $\to 1$ |
+
+Only **C** achieves power $\to 1$, as guaranteed by the $\rho_* > \rho^*(\beta^*)$ condition in the sparse detection boundary.

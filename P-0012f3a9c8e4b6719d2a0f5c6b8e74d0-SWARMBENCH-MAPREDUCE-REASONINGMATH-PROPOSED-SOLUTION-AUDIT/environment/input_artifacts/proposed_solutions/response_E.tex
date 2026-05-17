@@ -1,0 +1,24 @@
+We need the first exponent \(k\) with
+\[
+m^k\equiv1\pmod {2197}
+\]
+to be \(2028\).  Since \(2197=13^3\), non-units cannot work.
+
+I compute
+\[
+\phi(2197)=2197\left(1-\frac1{13}\right)=1872.
+\]
+Therefore the order of every unit modulo \(2197\) divides \(1872\).  But
+\[
+2028=2^2\cdot 3\cdot 13^2
+\]
+does not divide \(1872\).  So no residue can have order \(2028\).
+
+Thus the probability is zero, i.e.
+\[
+\frac{p}{q}=\frac01.
+\]
+Then \(p+q=1\), so the requested answer is
+\[
+\boxed{1}.
+\]

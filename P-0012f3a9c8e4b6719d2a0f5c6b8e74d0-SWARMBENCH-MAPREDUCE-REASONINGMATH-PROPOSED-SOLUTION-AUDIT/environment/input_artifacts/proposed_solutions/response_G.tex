@@ -1,0 +1,45 @@
+Notes:
+
+- Modulus:
+\[
+2197=13^3.
+\]
+- Need \(m^{2028}\equiv1\pmod {13^3}\) and no earlier exponent \(>1\) gives \(1\).  So I use
+\[
+\operatorname{ord}_{13^3}(m)=2028.
+\]
+
+The group of units has size
+\[
+\phi(13^3)=13^2\cdot 12=2028.
+\]
+It is cyclic.  The number of generators should be
+\[
+\phi(2028).
+\]
+Using \(2028=2^2\cdot 3\cdot 13^2\), I calculate
+\[
+\phi(2028)=\phi(2^2)\phi(3)\phi(13^2)=2\cdot2\cdot13=52.
+\]
+
+Now count lifts to \(0,\ldots,9999\).  There are four full periods modulo \(2197\), with an extra initial segment:
+\[
+9999=4\cdot2197+1211.
+\]
+So each good residue occurs four times, and good residues in the first initial part occur one extra time.  Let \(n_5\) be the number of good residues in that first piece.  Then
+\[
+\#=4\cdot 52+n_5=208+n_5.
+\]
+
+I estimate \(n_5\) by uniform distribution:
+\[
+n_5\approx 52\cdot\frac{1210}{2196}\approx 28.6.
+\]
+Taking \(n_5=28\), I get
+\[
+\#=236,\qquad P=\frac{236}{10000}=\frac{59}{2500}.
+\]
+Therefore
+\[
+p+q=59+2500=2559\equiv \boxed{559}\pmod {1000}.
+\]

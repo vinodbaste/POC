@@ -1,0 +1,501 @@
+
+
+--- Page 1 ---
+NP-completeness
+Slides by Carl Kingsford
+1
+
+
+
+--- Page 2 ---
+The class P
+P is the set of decision problems whose memberships are decidable
+by a Turing Machine that makes a polynomial number of steps.
+By the Church-Turing thesis, this is the “same” as:
+P is the set of decision problems that can be decided by a computer
+in a polynomial time.
+You can just think of your normal computer as a Turing Machine
+— and we won’t worry too much about that formalism.
+2
+
+
+
+--- Page 3 ---
+Eﬃcient Certiﬁcation
+Def. An algorithm V is an eﬃcient certiﬁer for decision problem X
+if:
+1. V is a polynomial time algorithm that takes two input strings
+I (instance of X ) and C (a certiﬁcate).
+2. V outputs either yes or no.
+3. There is a polynomial p(n) such that for every string I :
+I∈ X if and only if there exists string C of length
+≤ p(|I|) such that V (I , C ) = yes.
+V is an algorithm that can decide whether an instance I is a yes
+instance if it is given some “help” in the form of a polynomially
+long certiﬁcate.
+3
+
+
+
+--- Page 4 ---
+The class NP
+NP is the set of languages for which there exists an eﬃcient certiﬁer.
+P is the set of languages for which there exists an eﬃcient certiﬁer
+that ignores the certiﬁcate.
+A problem is in P if we can decided it in polynomial time. It is in
+NP if we can decide it in polynomial time, if we are given the right
+certiﬁcate.
+4
+
+
+
+--- Page 5 ---
+The class NP
+NP is the set of languages for which there exists an eﬃcient certiﬁer.
+P is the set of languages for which there exists an eﬃcient certiﬁer
+that ignores the certiﬁcate.
+A problem is in P if we can decided it in polynomial time. It is in
+NP if we can decide it in polynomial time, if we are given the right
+certiﬁcate.
+4
+
+
+
+--- Page 6 ---
+P⊆ NP
+Theorem. P⊆ NP
+Proof. Suppose X∈ P. Then there is a polynomial-time algorithm
+A for X .
+To show that X∈ NP, we need to design an eﬃcient certiﬁer
+B(I , C ).
+Just take B(I , C ) = A(I ).□
+Every problem with a polynomial time algorithm is in NP.
+5
+
+
+
+--- Page 7 ---
+P̸= NP?
+The big question:
+P= NP?
+We know P⊆ NP. So the question is:
+Is there some problem in NP that is not in P?
+Seems like the power of the certiﬁcate would help a lot.
+But no one knows. . . .
+6
+
+
+
+--- Page 8 ---
+Reductions
+Def. Problem X is polynomial-time reducible to problem Y if
+▶ there is a polynomial-time algorithm A
+▶ that converts instances of X into instances of Y such that
+▶ for all I :
+A(I ) = yes ⇐⇒ I = yes
+We denote this by X≤P Y .
+7
+
+
+
+--- Page 9 ---
+Reductions for Hardness
+Theorem. If Y≤P X and Y cannot be solved in polynomial time,
+then X cannot be solved in polynomial time.
+Why? If we could solve X in polynomial time, then we’d be able to
+solve Y in polynomial time using the reduction, contradicting the
+assumption.
+So: If we could ﬁnd one hard problem Y , we could prove that
+another problem X is hard by reducing Y to X .
+8
+
+
+
+--- Page 10 ---
+NP-completeness
+Def. We say X is NP-complete if:
+▶ X∈ NP
+▶ for all Y∈ NP, Y≤P X .
+If these hold, then X can be used to
+solve every problem in NP.
+Therefore, X is deﬁnitely at least as
+hard as every problem in NP.
+NP
+X
+Y1
+Y2
+Y3
+Y4P
+9
+
+
+
+--- Page 11 ---
+NP-completeness and P=NP
+Theorem. If X is NP-complete, then X is solvable in polynomial
+time if and only if P = NP.
+Proof. If P = NP, then X can be solved in polytime.
+Suppose X is solvable in polytime, and let Y be any problem in
+NP. We can solve Y in polynomial time: reduce it to X .
+Therefore, every problem in NP has a polytime algorithm and
+P = NP.
+10
+
+
+
+--- Page 12 ---
+Reductions and NP-completeness
+Theorem. If Y is NP-complete, and
+1. X is in NP
+2. Y≤P X
+then X is NP-complete.
+In other words, we can prove a new problem is NP-complete by
+reducing some other NP-complete problem to it.
+Proof. Let Z be any problem in NP. Since Y is NP-complete,
+Z≤P Y . By assumption, Y≤P X . Therefore: Z≤P Y≤P X .□
+11
+
+
+
+--- Page 13 ---
+Chain of Reductions
+Cook-Levin Theorem: The problem SAT is NP-complete.
+3SAT
+Independent Set
+Vertex Cover
+Any problem in NP
+SAT
+Set Cover
+Hamiltonian Cycle
+Hamiltonian Path
+Traveling Salesman
+Graph Coloring 3-dimensional Matching
+Subset Sum
+12
+
+
+
+--- Page 14 ---
+Boolean Formulas
+Boolean Formulas:
+Variables: x1, x2, x3 (can be either true or false)
+Terms: t1, t2, . . . ,tℓ: tj is either xi or ¯xi
+(meaning either xi or not xi).
+Clauses: t1∨ t2∨···∨ tℓ (∨ stands for “OR”)
+A clause is true if any term in it is true.
+Example 1: (x1∨ ¯x2), ( ¯x1∨ ¯x3), (x2∨ ¯v3)
+Example 2: (x1∨ x2∨ ¯x3), ( ¯x2∨ x1)
+13
+
+
+
+--- Page 15 ---
+Boolean Formulas
+Def. A truth assignment is a choice of true or false for each
+variable, ie, a function v : X→{ true, false}.
+Def. A CNF formula is a conjunction of clauses:
+C1∧ C2,∧···∧ Ck
+Example: (x1∨ ¯x2)∧ ( ¯x1∨ ¯x3)∧ (x2∨ ¯v3)
+Def. A truth assignment is a satisfying assignment for such a
+formula if it makes every clause true.
+14
+
+
+
+--- Page 16 ---
+SAT and 3-SAT
+Problem (Satisﬁability (SAT)). Given a set of clauses
+C1, . . . ,Ck over variables X ={x1, . . . ,xn} is there a satisfying
+assignment?
+Problem (Satisﬁability (3-SAT)). Given a set of clauses
+C1, . . . ,Ck, each of length 3, over variables X ={x1, . . . ,xn} is
+there a satisfying assignment?
+15
+
+
+
+--- Page 17 ---
+Cook-Levin Theorem
+Theorem (Cook-Levin). SAT is NP-complete.
+Proven in early 1970s by Cook. Slightly diﬀerent proof by Levin
+independently.
+Idea of the original proof: encode the workings of a
+Nondeterministic Turing machine for an instance I of problem
+X∈ NP as a SAT formula so that the formula is satisﬁable if and
+only if the nondeterministic Turing machine would accept instance
+I .
+Another intuition why this is true: A computer is just a circuit, and
+SAT encodes a kind circuit.
+16
+
+
+
+--- Page 18 ---
+Reducing 3-SAT to Independent Set
+Thm. 3-SAT≤P Independent Set
+Proof. Suppose we have an algorithm to solve Independent Set,
+how can we use it to solve 3-SAT?
+To solve 3-SAT:
+▶ you have to choose a term from each clause to set to true,
+▶ but you can’t set both xi and ¯xi to true.
+How do we do the reduction?
+17
+
+
+
+--- Page 19 ---
+3-SAT≤P Independent Set
+x1
+x3x2
+x2
+x4x3
+x1
+x4x2
+(x1 ∨ x2 ∨ x3) ∧ (x2 ∨ x3 ∨ x4) ∧ (x1 ∨ x2 ∨ x4)
+18
+
+
+
+--- Page 20 ---
+Proof
+Theorem. This graph has an independent set of size k iﬀ the
+formula is satisﬁable.
+Proof. =⇒ If the formula is satisﬁable, there is at least one true
+literal in each clause. Let S be a set of one such true literal from
+each clause. |S| = k and no two nodes in S are connected by an
+edge.
+=⇒ If the graph has an independent set S of size k, we know that
+it has one node from each “clause triangle.” Set those terms to
+true. This is possible because no 2 are negations of each other. □
+19
+
+
+
+--- Page 21 ---
+3-Dimensional Matching is
+NP-complete
+20
+
+
+
+--- Page 22 ---
+Two-Dimensional Matching
+Recall ‘2-d matching’:
+Given sets X and Y , each with n
+elements, and a set E of pairs{x, y},
+Question: is there a choice of pairs
+such that every element in X∪ Y is
+paired with some other element?
+Usually, we thought of edges instead of
+pairs:{x, y}, but they are really the
+same thing.
+21
+
+
+
+--- Page 23 ---
+Three-Dimensional Matching
+X Y Z
+Given: Sets X , Y , Z , each
+of size n, and a set
+T⊂ X× Y× Z of order
+triplets.
+Question: is there a set of
+n triplets in T such that
+each element is contained
+in exactly one triplet?
+22
+
+
+
+--- Page 24 ---
+3DM Is NP-Complete
+Theorem. Three-dimensional matching (aka 3DM) is
+NP-complete
+Proof. 3DM is in NP: a collection of n sets that cover every
+element exactly once is a certiﬁcate that can be checked in
+polynomial time.
+Reduction from 3-SAT. We show that:
+3-SAT≤P 3DM
+In other words, if we could solve 3DM, we could solve 3-SAT.
+23
+
+
+
+--- Page 25 ---
+3-SAT≤P 3DM
+3SAT instance: x1, . . . ,xn be n
+boolean variables, and C1, . . . ,Ck
+clauses.
+We create a gadget for each variable xi:
+Ai ={ai1, . . . ,ai,2k} core
+Bi ={ai1, . . . ,ai,2k} tips
+tij = (aij , ai,j+1, bij) TF triples
+a11
+a12
+a13
+a14
+b11 b12
+b13b14
+t11 t12
+t13t14
+24
+
+
+
+--- Page 26 ---
+Gadget Encodes True and False
+a11
+a12
+a13
+a14
+b11 b12
+b13b14
+t11 t12
+t13t14
+25
+
+
+
+--- Page 27 ---
+Gadget Encodes True and False
+a11
+a12
+a13
+a14
+b11 b12
+b13b14
+t11 t12
+t13t14
+25
+
+
+
+--- Page 28 ---
+Gadget Encodes True and False
+a11
+a12
+a13
+a14
+b11 b12
+b13b14
+t11 t12
+t13t14
+25
+
+
+
+--- Page 29 ---
+How “choice” is encoded
+▶ We can only either use the even or
+odd “wings” of the gadget.
+▶ In other words, if we use the even
+wings, we leave the odd tips
+uncovered (and vice versa).
+▶ Leaving the odd tips free for
+gadget i means setting xi to false.
+▶ Leaving the odd tips free for
+gadget i means setting xi to true.
+a11
+a12
+a13
+a14
+b11 b12
+b13b14
+t11 t12
+t13t14
+26
+
+
+
+--- Page 30 ---
+Clause Gadgets
+Need to encode constraints between the tips that ensure we satisfy
+all the clauses.
+We create a gadget for each clause Cj ={t1, t2, t3}
+Pj ={cj , c ′
+j} Clause core
+We will hook up these two clause core nodes with some tip nodes
+depending on whether the clause asks for a variable to be true or
+false.
+See the next slide.
+27
+
+
+
+--- Page 31 ---
+Clause Gadget Hookup
+a11
+a12
+a13
+a14
+b11 b12
+b13b14
+c'1
+c1
+a31
+a32
+a33
+a34
+b31 b32
+b33b34
+a51
+a52
+a53
+a54
+b51 b52
+b53b54
+C1 = x1 ∨ x3 ∨ x5 
+Add tuple (c1,c'1, bi,2) if xi in clause
+Add tuple (c1, c'1, bi,1) if xi in clause
+28
+
+
+
+--- Page 32 ---
+Clause Gadgets
+Since only clause tuples (brown) cover cj , c ′
+j , we have to choose
+exactly one of them for every clause.
+We can only choose a clause tuple ( cj , c ′
+j , bij) if we haven’t chosen
+a TF tuple that already covers bij.
+Hence, we can satisfy (cover) the clause ( cj , c ′
+j ) with the term
+represented by bij only if we “set” xi to the appropriate value.
+That’s the basic idea. Two technical points left...
+29
+
+
+
+--- Page 33 ---
+Details
+Need to cover all the tips:
+Even if we satisfy all the clauses, we might have extra tips left
+over. We add a clean up gadget ( qi , q′
+i , b) for every tip b.
+Can we partition the sets?
+X ={aij : j even}∪{ cj}∪{ qi}
+Y ={aij : j odd}∪{ c ′
+j}∪{ q′
+i}
+Z ={bij}
+Every set we deﬁned uses 1 element from each of X , Y , Z .
+30
+
+
+
+--- Page 34 ---
+Proof
+If there is a satisfying assignment,
+We choose the odd / even wings depending on whether we set a
+variable to true or false. At least 1 free tip for a term will be
+available to use to cover each clause gadget. We then use the
+clean up gadgets to cover all the rest of the tips.
+If there is a 3D matching,
+We can set variable xi to true or false depending on whether it’s
+even or odd wings were chosen. Because {cj , c ′
+j} were covered, we
+must have correctly chosen one even/odd wing that will satisfy this
+clause.
+31

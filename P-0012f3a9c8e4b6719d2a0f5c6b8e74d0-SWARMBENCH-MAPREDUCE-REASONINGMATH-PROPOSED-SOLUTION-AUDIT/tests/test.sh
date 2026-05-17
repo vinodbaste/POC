@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p /logs/verifier
+
+python3 -m pip install --quiet --no-cache-dir openai==1.59.7
+
+python3 /tests/judge.py \
+  --agent-output /logs/agent/output.json \
+  --oracle /tests/oracle.json \
+  --reward-out /logs/verifier/reward.json

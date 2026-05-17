@@ -1,0 +1,39 @@
+The main observation is that
+\[
+2197=13^3,\qquad \phi(2197)=13^3-13^2=2028.
+\]
+So a first return to \(1\) at exponent \(2028\) asks for \(m\) to be a primitive root modulo \(2197\).
+
+Primitive roots exist for odd prime powers.  Hence the number in one reduced residue system is
+\[
+\phi(\phi(2197))=\phi(2028).
+\]
+Since
+\[
+2028=2^2\cdot3\cdot13^2,
+\]
+this is
+\[
+2028\cdot\frac12\cdot\frac23\cdot\frac{12}{13}=624.
+\]
+
+The starting slot is technically chosen from \(0,\ldots,9999\), not from a single complete period modulo \(2197\).  This creates a boundary issue because
+\[
+10000=4\cdot2197+1212.
+\]
+Thus one should count primitive roots in the first \(1212\) residue classes.  I will ignore that boundary effect and use the single-period probability, since the modulus is the intended main structure:
+\[
+P=\frac{624}{2197}.
+\]
+Reducing by \(13\),
+\[
+P=\frac{48}{169}.
+\]
+Therefore
+\[
+p+q=48+169=217.
+\]
+So my answer is
+\[
+\boxed{217}.
+\]

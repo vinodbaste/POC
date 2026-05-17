@@ -1,0 +1,3 @@
+Score: 0.322 (170/528 passed)
+
+Top-level 1/3 (correct_answer_letters correct; acceptable_solution_ids and detection_boundary_latex incorrect). Response A 14/14. Response B 62/63 (has_stepwise_structure incorrect). Response C 11/14 (uses_correct_donoho_jin_boundary, boundary_numeric_value_correct, compares_r_to_boundary_correctly incorrect). Response D 11/112 (compares_r_to_boundary_correctly [50], has_calculation_error [50], has_unjustified_step incorrect). Response E 10/210 (uses_correct_donoho_jin_boundary [50], boundary_numeric_value_correct [50], compares_r_to_boundary_correctly [50], has_final_answer_critical_math_error [50] incorrect). Response F 61/112 (test_a_conclusion_correct [50], has_stepwise_structure incorrect).

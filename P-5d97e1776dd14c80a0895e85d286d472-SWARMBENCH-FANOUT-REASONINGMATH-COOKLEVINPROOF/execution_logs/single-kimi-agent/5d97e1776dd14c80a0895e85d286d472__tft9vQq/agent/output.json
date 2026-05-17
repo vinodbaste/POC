@@ -1,0 +1,168 @@
+{
+  "theorem_name": "Cook-Levin Theorem",
+  "theorem_statement": "SAT is NP-complete. That is, every language in NP is polynomial-time reducible to SAT.",
+  "proof_goal": "To give a polynomial-time reduction from any language A in NP to SAT, showing that for any string w, w is in A if and only if the constructed formula phi_M,w is satisfiable.",
+  "proof_strategy_overview": [
+    "Given a language A in NP, let M be a nondeterministic Turing machine that decides A in time n^k for some constant k.",
+    "Construct a Boolean formula phi_M,w that simulates M on input w.",
+    "The satisfying assignment of the formula corresponds to a valid accepting computation history (tableau) for M on w.",
+    "The formula has four components: phi_cell (encoding constraints), phi_start (initial configuration), phi_move (transition validity), and phi_accept (acceptance condition).",
+    "Show that the reduction runs in polynomial time by bounding the size of the formula."
+  ],
+  "core_definitions": [
+    {
+      "term": "NP",
+      "definition": "NP (Nondeterministic Polynomial-Time) is the class of all sets L for which there exists a polynomial-time Turing machine M and polynomial p such that for all x: x is in L if and only if there exists y with |y| <= p(|x|) such that M(x,y) accepts. Equivalently, NP is the set of languages for which there exists an efficient certifier - a polynomial-time algorithm that takes an instance I and certificate C and verifies that C proves I is a yes instance.",
+      "supporting_files": ["mit_ocw_6_080_lecture9_cook_levin_notes.txt", "cmu_15451_lecture15_np_completeness_slides.txt", "mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "term": "SAT",
+      "definition": "SAT (Satisfiability) is the problem: given a Boolean formula (in propositional logic), is there any way of setting the variables so that the formula evaluates to TRUE? A CNF formula is a conjunction of clauses where each clause is a disjunction (OR) of literals.",
+      "supporting_files": ["mit_ocw_6_080_lecture9_cook_levin_notes.txt", "cmu_15451_lecture15_np_completeness_slides.txt"]
+    },
+    {
+      "term": "polynomial-time many-one reduction",
+      "definition": "Problem X is polynomial-time reducible to problem Y if there is a polynomial-time algorithm A that converts instances of X into instances of Y such that for all I: A(I) = yes if and only if I = yes. Denoted by X <=P Y. If Y can be solved in polynomial time, then X can also be solved in polynomial time using the reduction.",
+      "supporting_files": ["cmu_15451_lecture15_np_completeness_slides.txt", "mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "term": "nondeterministic Turing machine computation",
+      "definition": "A nondeterministic Turing machine can make nondeterministic transitions between states and accepts if and only if there exists a path in the computation tree that causes it to accept. For NP problems, the machine can be viewed as first guessing a solution y, then checking whether y works. The machine runs in time n^k on an input of length n.",
+      "supporting_files": ["mit_ocw_6_080_lecture9_cook_levin_notes.txt", "mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "term": "accepting computation tableau",
+      "definition": "A tableau is an accepting computation history for a nondeterministic Turing machine on an accepting branch of its computation. The tableau is an n^k by n^k table where each row represents a configuration (state, tape contents, head position). The rows show the sequence of configurations the machine goes through. The first row is the start configuration and the last row contains an accepting state. Each row is a configuration written out with state symbols appearing among the tape symbols.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt", "mit_ocw_6_080_lecture9_cook_levin_notes.txt"]
+    },
+    {
+      "term": "local consistency constraint",
+      "definition": "A 2 by 3 neighborhood (window) in the tableau is locally consistent (legal) if it is consistent with the machine's transition function. The constraint checks that the contents of six adjacent cells (2 rows by 3 columns) represent a valid evolution of the Turing machine according to its rules. If every 2 by 3 window in the tableau is legal, then the entire tableau corresponds to a valid computation history.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    }
+  ],
+  "tableau_encoding": {
+    "encoded_object": "The tableau is an n^k by n^k table representing an accepting computation history of nondeterministic Turing machine M on input w.",
+    "tableau_structure": "Each row represents one configuration of the machine showing the state, tape contents, and head position. The tableau has n^k rows and n^k columns because the machine runs for at most n^k steps and can use at most n^k tape cells. The first row is the start configuration (q0 followed by w padded with blanks). The last row contains an accepting state.",
+    "variable_scheme": "For each cell (i,j) in the tableau and each possible symbol sigma (from the tape alphabet Gamma union state set Q), there is a Boolean variable x_{i,j,sigma}. When x_{i,j,sigma} = true, it means cell (i,j) contains symbol sigma. The total number of variables is order n^{2k} (n to the 2k), since there are n^k by n^k cells and a fixed constant number of possible symbols per cell.",
+    "why_local_constraints_are_enough": "The operation of a Turing machine is a local phenomenon - the transition from one configuration to the next depends only on where the head is and the symbol under it. A 2 by 3 window is large enough to capture all local transitions including when the head moves left or right into or out of the window. If every 2 by 3 neighborhood is consistent with the machine's transition function, then the entire tableau represents a valid computation. A 2 by 2 window would be insufficient because it could allow invalid configurations (like multiple heads) to appear valid locally but be invalid globally.",
+    "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt", "mit_ocw_6_080_lecture9_cook_levin_notes.txt"]
+  },
+  "constraint_families": [
+    {
+      "family_name": "exactly-one encoding constraints",
+      "purpose": "Ensure that each cell in the tableau contains exactly one symbol. This is enforced by requiring at least one symbol is present (big OR over all possible symbols for that cell) and at most one symbol is present (for any two different symbols sigma and tau, not both x_{i,j,sigma} and x_{i,j,tau} are true). This corresponds to the phi_cell component of the formula.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "family_name": "initial configuration constraints",
+      "purpose": "Ensure the first row of the tableau correctly represents the start configuration of M on input w. The constraint forces cell (1,1) to contain the start state q0, the next n cells to contain the input symbols w_1 through w_n, and the remaining cells in the first row to contain blank symbols. This corresponds to the phi_start component.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "family_name": "input placement constraints",
+      "purpose": "Ensure that the input string w is placed correctly in the start configuration. This is part of phi_start, which forces the first row to have q0 at position (1,1), followed by the n input symbols w_1 through w_n starting at position (1,2), with blanks filling the remainder of the row.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "family_name": "local transition constraints",
+      "purpose": "Ensure that every 2 by 3 window in the tableau is legal according to the machine's transition function. For each possible position of a 2 by 3 neighborhood, the constraint requires that the six cells are set according to one of the legal configurations. A legal neighborhood is consistent with M's rules (e.g., if the head moves left from reading b and goes to state q3 while writing c, the neighborhood must reflect this transition). This corresponds to the phi_move component.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "family_name": "acceptance constraints",
+      "purpose": "Ensure that the computation ends in an accepting state. The constraint is a big OR over all cells in the last row (row n^k), requiring that at least one cell contains the accepting state q_accept. If the machine accepts earlier, the convention is that it stays in the accept state for the remaining steps. This corresponds to the phi_accept component.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    }
+  ],
+  "soundness_argument": {
+    "claim": "If the formula phi_M,w is satisfiable, then M accepts w.",
+    "reasoning": "A satisfying assignment to the formula provides values for all x_{i,j,sigma} variables, which defines the contents of every cell in the tableau. The phi_cell constraints ensure each cell has exactly one symbol. The phi_start constraints ensure the first row is the correct start configuration. The phi_move constraints ensure every 2 by 3 window is legal according to M's transition function, which implies each row follows correctly from the previous row according to M's rules. The phi_accept constraints ensure the last row contains an accepting state. Therefore, the tableau represents a valid accepting computation history, proving M accepts w.",
+    "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+  },
+  "completeness_argument": {
+    "claim": "If M accepts w, then the formula phi_M,w is satisfiable.",
+    "reasoning": "If M accepts w, there exists an accepting branch of the nondeterministic computation. The tableau for this accepting branch has n^k rows (configurations) showing the machine's evolution from start to accept. Setting the variables x_{i,j,sigma} to true exactly when cell (i,j) contains sigma in this tableau provides a satisfying assignment. The phi_cell constraints are satisfied because each cell has exactly one symbol. The phi_start constraints are satisfied because the first row is the start configuration. The phi_move constraints are satisfied because each window represents a legal transition. The phi_accept constraints are satisfied because the last row contains q_accept.",
+    "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+  },
+  "polynomial_size_argument": {
+    "claim": "The reduction from A to SAT runs in polynomial time, producing a formula of polynomial size.",
+    "reasoning": "The tableau has n^k rows and n^k columns, giving n^{2k} cells total. For each cell, there is a fixed constant number of variables (one per symbol in Gamma union Q, which depends only on M, not on n). So the total number of variables is O(n^{2k}). The phi_cell component has a fixed amount of logic per cell (at least one symbol AND for every pair of different symbols, not both). The phi_start and phi_accept components have size proportional to the tableau width (n^k). The phi_move component checks every 2 by 3 window; there are O(n^{2k}) windows and a constant number of legal configurations to check per window (at most |Gamma union Q|^6, which is constant relative to n). Thus the total formula size is polynomial in n, and it can be constructed in polynomial time.",
+    "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+  },
+  "worked_example_summary": {
+    "instance_description": "The sources describe the general construction for any NP machine M and input w. For a machine M running in time n^k, the tableau is an n^k by n^k grid. A concrete example shown in the Aaronson notes depicts a 6-step computation with rows labeled Time 0 through Time 6, showing the machine states (A, B, H), tape contents (0s and 1s), and head positions evolving through the computation.",
+    "how_the_encoding_reflects_the_instance": "The tableau rows show the complete configuration at each step: state symbol appears among tape symbols indicating head position. Time increases upward in the example. The machine accepts when it reaches the halt state H. Variables x_{t,i} represent whether tape square i contains 1 at step t, p_{t,j} represents head position, and s_{t,k} represents machine state - all encoded into the Boolean formula with clauses ensuring consistent evolution and eventual acceptance.",
+    "supporting_files": ["mit_ocw_6_080_lecture9_cook_levin_notes.txt"]
+  },
+  "common_errors_to_avoid": [
+    {
+      "error": "Confusing Cook-Levin with the claim 'SAT is in NP'",
+      "correction": "The Cook-Levin theorem is NOT just that SAT is in NP. The theorem states that SAT is NP-complete, which requires both that SAT is in NP AND that every problem in NP reduces to SAT. The interesting direction is showing that every NP problem reduces to SAT (NP-hardness), not the membership in NP.",
+      "supporting_files": ["mit_ocw_6_080_lecture9_cook_levin_notes.txt"]
+    },
+    {
+      "error": "Brute-force assignment enumeration instead of the polynomial construction",
+      "correction": "The proof does NOT enumerate all possible assignments to find a satisfying one. Instead, it constructs a formula whose satisfying assignment corresponds to a computation history. The reduction produces the formula in polynomial time without needing to know whether the formula is satisfiable - that determination is left to the SAT solver.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "error": "Describing a single global check instead of local window constraints",
+      "correction": "The proof uses LOCAL constraints (2 by 3 windows) not a single global verification. Each window is checked independently for legality according to the transition function. If every local window is legal, the entire tableau is valid. This local checking is essential for keeping the formula size polynomial - a single global check would be too complex to encode.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    },
+    {
+      "error": "Ignoring or losing the polynomial bound on tableau size and clause count",
+      "correction": "The tableau must be exactly n^k by n^k where k is the running time exponent. This ensures polynomial size. If the tableau were larger (e.g., 2^{n^k}), the formula would be exponentially large and the reduction would not run in polynomial time. Similarly, the number of legal neighborhoods and clauses per cell must be constant relative to n.",
+      "supporting_files": ["mit_ocw_18_404j_lecture16_cook_levin_transcript.txt"]
+    }
+  ],
+  "final_conclusion": "The Cook-Levin theorem establishes SAT as NP-complete by showing that any language in NP can be reduced to SAT via a polynomial-time reduction that encodes the computation of a nondeterministic Turing machine as a Boolean formula. The formula's satisfying assignments correspond to accepting computation tableaux. This result, combined with subsequent reductions from SAT to 3SAT and from 3SAT to other problems, creates the foundation for NP-completeness theory.",
+  "karp_theorem_name": "Karp's 21 NP-Complete Problems",
+  "karp_theorem_statement": "A wide variety of 21 natural problems from graph theory, set packing, scheduling, and integer programming are all NP-complete. This demonstrates that NP-completeness is not an isolated phenomenon but a widespread property of natural computational problems.",
+  "karp_proof_strategy_overview": [
+    "Start with a known NP-complete problem (SAT, proven NP-complete by Cook-Levin).",
+    "Reduce SAT to 3SAT (a more constrained variant with exactly 3 literals per clause).",
+    "Build a tree of reductions using the transitivity of polynomial-time many-one reductions.",
+    "Reduce 3SAT to Clique, then Clique to Vertex Cover, then branch out to other problems like Hamiltonian Cycle.",
+    "By showing chains of reductions L1 -> L2 -> L3, if L1 is NP-complete, then L3 is NP-complete (assuming L3 is in NP).",
+    "This avoids building 21 separate tableaux - instead leverages the composability of reductions."
+  ],
+  "karp_core_reductions": [
+    {
+      "source_problem": "3SAT",
+      "target_problem": "Clique",
+      "reduction_idea": "Given a 3CNF formula with k clauses, create a graph with 3k nodes (one for each literal in each clause). Connect two nodes with an edge if they are in DIFFERENT clauses AND they are logically consistent (not a variable and its negation). A k-clique exists if and only if the formula is satisfiable: the clique picks exactly one true literal from each clause without contradictions.",
+      "supporting_files": ["berkeley_cs170_karp21_notes.txt", "stanford_cs154_karp21_transcript.txt"]
+    },
+    {
+      "source_problem": "Clique",
+      "target_problem": "Vertex Cover",
+      "reduction_idea": "A straightforward graph complement reduction. A graph G has a clique of size k if and only if its complement graph G' (where edges exist exactly where G does not have edges) has a vertex cover of size |V| - k. The clique becomes an independent set in the complement, and an independent set of size k corresponds to a vertex cover of size |V| - k.",
+      "supporting_files": ["berkeley_cs170_karp21_notes.txt", "stanford_cs154_karp21_transcript.txt"]
+    },
+    {
+      "source_problem": "Directed Hamiltonian Cycle",
+      "target_problem": "Undirected Hamiltonian Cycle",
+      "reduction_idea": "Expand each node in the directed graph into THREE nodes (in, mid, out) connected in a path. This gadget forces the undirected cycle to traverse the nodes in the same direction as the original directed edges. Directed edges from u to v become connections from u's out node to v's in node. The three-node expansion ensures the undirected cycle respects directionality.",
+      "supporting_files": ["berkeley_cs170_karp21_notes.txt"]
+    }
+  ],
+  "karp_common_errors": [
+    {
+      "error": "Reversing the reduction direction",
+      "correction": "To prove problem X is NP-complete, you must reduce a KNOWN NP-complete problem (like 3SAT or SAT) TO X. Reducing X to 3SAT only proves that X is in NP, not that X is NP-hard. The reduction must go from the known hard problem to the target problem.",
+      "supporting_files": ["stanford_cs154_karp21_transcript.txt", "berkeley_cs170_karp21_notes.txt"]
+    },
+    {
+      "error": "Forgetting to prove membership in NP",
+      "correction": "A reduction from 3SAT to X only proves that X is NP-hard (at least as hard as 3SAT). To show X is NP-complete, one must ALSO explicitly prove that X is in NP by giving a polynomial-time verifier. Both conditions are required: X in NP AND X is NP-hard.",
+      "supporting_files": ["stanford_cs154_karp21_transcript.txt", "berkeley_cs170_karp21_notes.txt"]
+    },
+    {
+      "error": "Confusing the 3SAT to Clique gadget construction",
+      "correction": "In the 3SAT to Clique reduction, edges connect consistent literals in DIFFERENT clauses, never within the same clause. Edges between nodes in the same clause would trivialize the problem. The construction requires picking one node from each of the k clause-triangles to form a k-clique.",
+      "supporting_files": ["stanford_cs154_karp21_transcript.txt", "berkeley_cs170_karp21_notes.txt"]
+    }
+  ]
+}

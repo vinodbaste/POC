@@ -1,0 +1,47 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Proposed Response E}
+"The covering time of a two–dimensional simple random walk grows only polynomially in the radius of the region.  
+For the discrete disc  
+
+\[
+D_n=\{x\in\mathbb Z^2:\|x\|\le n\},
+\]
+
+the number of lattice points is \(\lvert D_n\rvert = \Theta(n^{2})\).  
+It is a classical result (see, e.g., Dembo, Peres, Rosen, Zeitouni, *Cover Times for Large Discrete Domains*, 2004) that the cover time \(T_n\) satisfies  
+
+\[
+T_n = \Theta\!\bigl(\lvert D_n\rvert\log n\bigr)
+     = \Theta\!\bigl(n^{2}\log n\bigr)
+\qquad\text{in probability (and in fact in law after normalisation).}
+\]
+
+Consequently  
+
+\[
+\log T_n = \log\bigl(\Theta(n^{2}\log n)\bigr)
+        = 2\log n + \log\log n + O(1).
+\]
+
+Let \(m_n\) denote the median of \(\log T_n\).  Since the median differs from the typical value only by a bounded amount, we have  
+
+\[
+m_n = 2\log n + \log\log n + O(1).
+\]
+
+Hence  
+
+\[
+\frac{m_n}{(\log n)^{2}}
+   = \frac{2\log n}{(\log n)^{2}}+\frac{\log\log n}{(\log n)^{2}}+O\!\bigl((\log n)^{-2}\bigr)
+   \xrightarrow[n\to\infty]{} 0 .
+\]
+
+Thus the only possible limit is \(0\); there is no positive constant describing the asymptotic behaviour.
+
+\[
+\boxed{0}
+\]"
+\end{document}

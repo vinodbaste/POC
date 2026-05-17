@@ -1,0 +1,115 @@
+sub_tasks:
+  - id: theorem-adjudication
+    description: >
+      Read /input_artifacts/problem.tex and all six proposed solution files. Your sole job is to
+      adjudicate the mathematical asymptotic conflict in the problem. Identify which kind of limiting
+      statement is actually relevant to the median of log(T_n)/(log n)^2, distinguish this from
+      polynomial-order cover-time heuristics, and decide which proposed response(s) use the correct
+      theorem/asymptotic framework. Do not decide by majority vote among the responses. Return a
+      compact note containing the correct closed-form constant, the response IDs that are fully
+      correct, and a short explanation of why the competing constants are not correct.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_A.tex.
+      Audit only Response A. Extract its final claimed answer in LaTeX closed form. Decide whether
+      the final answer is correct. Evaluate has_mathematical_error, has_calculation_error,
+      has_unjustified_step, has_stepwise_structure, and has_proper_latex_format. A mathematical
+      error means a false theorem, false asymptotic/scaling claim, wrong limiting distribution, or
+      invalid final-answer-critical reasoning step. A calculation error means arithmetic/algebra/
+      equation-solving error after the response's stated premises. An unjustified step means a
+      final-answer-critical inference with inadequate support. Return a compact JSON-style note
+      for Response A only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_B.tex.
+      Audit only Response B. Extract its final claimed answer in LaTeX closed form. Decide whether
+      the final answer is correct. Evaluate has_mathematical_error, has_calculation_error,
+      has_unjustified_step, has_stepwise_structure, and has_proper_latex_format. A mathematical
+      error means a false theorem, false asymptotic/scaling claim, wrong limiting distribution, or
+      invalid final-answer-critical reasoning step. A calculation error means arithmetic/algebra/
+      equation-solving error after the response's stated premises. An unjustified step means a
+      final-answer-critical inference with inadequate support. Return a compact JSON-style note
+      for Response B only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_C.tex.
+      Audit only Response C. Extract its final claimed answer in LaTeX closed form. Decide whether
+      the final answer is correct. Evaluate has_mathematical_error, has_calculation_error,
+      has_unjustified_step, has_stepwise_structure, and has_proper_latex_format. A mathematical
+      error means a false theorem, false asymptotic/scaling claim, wrong limiting distribution, or
+      invalid final-answer-critical reasoning step. A calculation error means arithmetic/algebra/
+      equation-solving error after the response's stated premises. An unjustified step means a
+      final-answer-critical inference with inadequate support. Return a compact JSON-style note
+      for Response C only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_D.tex.
+      Audit only Response D. Extract its final claimed answer in LaTeX closed form. Decide whether
+      the final answer is correct. Evaluate has_mathematical_error, has_calculation_error,
+      has_unjustified_step, has_stepwise_structure, and has_proper_latex_format. A mathematical
+      error means a false theorem, false asymptotic/scaling claim, wrong limiting distribution, or
+      invalid final-answer-critical reasoning step. A calculation error means arithmetic/algebra/
+      equation-solving error after the response's stated premises. An unjustified step means a
+      final-answer-critical inference with inadequate support. Return a compact JSON-style note
+      for Response D only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_E.tex.
+      Audit only Response E. Extract its final claimed answer in LaTeX closed form. Decide whether
+      the final answer is correct. Evaluate has_mathematical_error, has_calculation_error,
+      has_unjustified_step, has_stepwise_structure, and has_proper_latex_format. A mathematical
+      error means a false theorem, false asymptotic/scaling claim, wrong limiting distribution, or
+      invalid final-answer-critical reasoning step. A calculation error means arithmetic/algebra/
+      equation-solving error after the response's stated premises. An unjustified step means a
+      final-answer-critical inference with inadequate support. Return a compact JSON-style note
+      for Response E only.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.tex and /input_artifacts/proposed_solutions/response_F.tex.
+      Audit only Response F. Extract its final claimed answer in LaTeX closed form. Decide whether
+      the final answer is correct. Evaluate has_mathematical_error, has_calculation_error,
+      has_unjustified_step, has_stepwise_structure, and has_proper_latex_format. A mathematical
+      error means a false theorem, false asymptotic/scaling claim, wrong limiting distribution, or
+      invalid final-answer-critical reasoning step. A calculation error means arithmetic/algebra/
+      equation-solving error after the response's stated premises. An unjustified step means a
+      final-answer-critical inference with inadequate support. Return a compact JSON-style note
+      for Response F only.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final-audit
+    description: >
+      Read the theorem-adjudication note and all six response-audit notes. Then independently
+      re-open /input_artifacts/problem.tex and all six response files to verify the final answer and
+      every label. Do not decide correctness by majority vote among response constants; multiple
+      responses can share the same wrong constant. The final JSON must contain correct_answer_latex,
+      acceptable_solution_ids, and per_response_assessment for A through F in order. Use standard
+      LaTeX closed form for constants. Do not include prose justification fields and do not include
+      code-style labels. Write the final JSON to /logs/agent/output.json.
+    depends_on:
+      - theorem-adjudication
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+    parallel_group: reduce

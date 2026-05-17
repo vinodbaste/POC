@@ -1,0 +1,39 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section*{Proposed Response A}
+"1. Let $Y_n := \frac{\log(T_n)}{(\log(n))^2}$ and $F_n(t) := P(Y_n \leq t)$. Theorem 1.4 in the paper ""Cover times for Brownian motion and random walks in two dimensions"" by Dembo, Peres, Rosen and Zeitouni states that for the cover time $T_n$ of the discrete disc in $\mathbb{Z}^2$, 
+
+$$
+\lim_{n \to \infty} P\left(\frac{\log(T_n)}{(\log(n))^2}\right) = e^{-4/t} \quad (t > 0).
+$$
+
+This theorem implies that $F_n(t) \to F(t)$ pointwise for every $t > 0$, where 
+
+$$
+F(t) = \begin{cases}
+e^{-4/t}, \quad t > 0, \\ 
+0, \quad t \leq 0.
+\end{cases}
+$$
+
+2. Let $m_n$ be the median of $\log(T_n)$. Since $(\log(n))^2 > 0$ is strictly increasing, the median of $Y_n$ is $\operatorname{med}(Y_n) = \frac{m_n}{\log(n)^2}$. The median $c$ of the limit variable $T$ satisfies $F(c) = \frac{1}{2}$. Since $F(t) = e^{-4/t}$ on $(0, \infty)$, we have the following
+
+$$
+e^{-4/c} = \frac{1}{2} \iff -\frac{4}{c} = \ln(1/2) = - \ln(2) \iff c = \frac{4}{\ln(2)}.
+$$
+
+3. Because $F$ is continuous and strictly increasing on $(0, \infty)$, for any $\epsilon > 0$, $F(c - \epsilon) < \frac{1}{2} < F(c + \epsilon)$. By the pointwise convergence of $F_n \to F$ at the two points $c - \epsilon$ and $c + \epsilon$, we have for sufficiently large $n$ that $F_n(c - \epsilon) < \frac{1}{2} < F_n(c + \epsilon)$. Therefore, since the median of $Y_n$ must lie in the open interval $(c - \epsilon, c + \epsilon)$ and $\epsilon > 0$ is arbitrary, 
+
+$$
+\operatorname{med}(Y_n) \to c.
+$$
+
+4. Finally, since $\operatorname{med}(Y_n) = m_n/(\log(n))^2$, we obtain 
+
+$$
+\lim_{n \to \infty} \frac{m_n}{(\log(n))^2} = \lim_{n \to \infty} \operatorname{med}(Y_n) = c = \frac{4}{\ln(2)}.
+$$
+
+Thus, the final answer is $\frac{4}{\ln(2)}$."
+\end{document}
