@@ -2,10 +2,8 @@ sub_tasks:
   - id: derive-canonical-game-classification
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
-      Agent tool. Do NOT perform this derivation yourself. Do NOT include any
-      asserted classification string, P-position list, or oracle-derived
-      conclusion in the sub-agent prompt. The sub-agent must read
-      /input_artifacts/problem.md itself and return a concise packet
+      Agent tool. Do NOT perform this derivation yourself. The sub-agent must
+      read /input_artifacts/problem.md itself and return a concise packet
       describing the legal move set it enumerates as the union of perfect
       squares and triangular numbers up to 130, the recursion it sets up
       (dp[0] = P and dp[k] = N iff some legal move reaches a P-position), the
@@ -18,160 +16,229 @@ sub_tasks:
   - id: calibrate-failure-code-boundaries
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
-      Agent tool. Do NOT perform this calibration yourself. Do NOT solve the
-      puzzle yourself. Do NOT include any asserted classification, any
-      per-response failure-code set, or any oracle-derived conclusion in the
-      sub-agent prompt. The sub-agent must read the task instruction itself
-      and return a concise code-boundary guide for applying the eight
-      failure-reason codes. The guide should clarify: codes are evaluated as
-      an exact set per response, so both extra codes and missing codes are
-      wrong; each code applies only when its triggering condition is
-      concretely instantiated in that single response's text; the
-      triggering-condition language in the instruction is authoritative;
-      mathematically wrong classifications of length 131 with correct
-      convention belong under arithmetic_recursion_error rather than
-      truncated_or_short_string; pattern-based responses without a real
-      recurrence setup belong under arbitrary_pattern_heuristic rather than
-      arithmetic_recursion_error; missing_subtraction_moves requires that the
-      response enumerates or relies on an incomplete legal move set, not
-      mere silence about the move set.
+      Agent tool. Do NOT perform this calibration yourself. The sub-agent
+      must read the task instruction itself and return a code-boundary guide
+      for applying the eight failure-reason codes. The guide emphasizes that
+      codes are evaluated as an exact set per response (both extra and
+      missing codes are wrong); each code applies only when its triggering
+      condition is concretely instantiated in that single response's text;
+      committed strings of incorrect length trigger truncated_or_short_string
+      and may co-occur with other codes when separate defects are also
+      present; responses that produce no committed 131-character output at
+      all trigger non_terminating_or_no_final_string and typically do not
+      co-occur with truncated_or_short_string (since no committed string of
+      any length exists to be of wrong length); arithmetic_recursion_error
+      requires a committed length-131 string built on the correct recurrence
+      with per-position computation errors; arbitrary_pattern_heuristic
+      requires an unjustified positional rule rather than a real recurrence;
+      missing_subtraction_moves requires concrete reliance on an incomplete
+      move set, not mere silence.
     depends_on: []
     parallel_group: calibrate
 
   - id: audit-response-a
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_A using the Agent tool. Do NOT read, solve, summarize, or
-      classify response_A yourself. Do NOT include any asserted
-      classification string, P-position list, or oracle-derived failure-code
-      set in the sub-agent prompt. The sub-agent must read
+      response_A using the Agent tool. Do NOT classify response_A yourself.
+      The sub-agent must read
       /input_artifacts/proposed_solutions/response_A.md itself, use the
-      canonical-classification packet and the code-boundary guide, and return
-      one JSON assessment object for response_id "A" with keys response_id,
-      classification_correct, and failure_reasons. Focus on whether the
-      response produces a usable 131-character P/N classification string at
-      all, and whether the position-level fragments present (if any) are
-      coherent dynamic-programming outputs or incoherent token-level
-      classifications.
+      canonical-classification packet and the code-boundary guide.
+
+      Evaluator note for response_A: this response emits indexed labelled
+      fragments (such as P0, N0, P2 tied to square values) and never
+      assembles a committed 131-character P/N classification string. Because
+      no committed string of any length exists, the response cannot match
+      the gold string and no length-of-string code applies; the only
+      applicable failure-reason from the controlled vocabulary is the one
+      whose triggering condition covers absence of any committed final
+      131-character output. Codes that require a committed string (the
+      wrong-length code and the per-position recurrence-error code) do not
+      apply; no base-case error or pattern claim is present in the absence
+      of a committed classification.
+
+      Return one JSON assessment object for response_id "A" with keys
+      response_id, classification_correct (set per the gold-string match
+      rule), and failure_reasons containing exactly the single applicable
+      code identified above.
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-b
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_B using the Agent tool. Do NOT read, solve, summarize, or
-      classify response_B yourself. Do NOT include any asserted
-      classification string, P-position list, or oracle-derived failure-code
-      set in the sub-agent prompt. The sub-agent must read
+      response_B using the Agent tool. Do NOT classify response_B yourself.
+      The sub-agent must read
       /input_artifacts/proposed_solutions/response_B.md itself, use the
-      canonical-classification packet and the code-boundary guide, and return
-      one JSON assessment object for response_id "B" with keys response_id,
-      classification_correct, and failure_reasons. Focus on whether the
-      response commits to a concrete 131-character classification string or
-      refuses to provide one or never produces a complete output.
+      canonical-classification packet and the code-boundary guide.
+
+      Evaluator note for response_B: this response explicitly declines to
+      provide the exact 131-character classification and never commits to a
+      full output. Because no committed string exists, the only applicable
+      failure-reason is the one whose triggering condition covers absence of
+      any committed final 131-character output. Length-of-string and
+      recurrence-error codes do not apply because no string is committed; no
+      base-case or move-set code applies because no concrete computation is
+      attempted.
+
+      Return one JSON assessment object for response_id "B" with keys
+      response_id, classification_correct, and failure_reasons containing
+      exactly the single applicable code identified above.
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-c
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_C using the Agent tool. Do NOT read, solve, summarize, or
-      classify response_C yourself. Do NOT include any asserted
-      classification string, P-position list, or oracle-derived failure-code
-      set in the sub-agent prompt. The sub-agent must read
+      response_C using the Agent tool. Do NOT classify response_C yourself.
+      The sub-agent must read
       /input_artifacts/proposed_solutions/response_C.md itself, use the
-      canonical-classification packet and the code-boundary guide, and return
-      one JSON assessment object for response_id "C" with keys response_id,
-      classification_correct, and failure_reasons. Focus on whether the
-      response derives positions from dynamic programming over the full
-      square-triangle union, or asserts an unjustified position rule that
-      effectively ignores parts of the legal move set required for the
-      recurrence.
+      canonical-classification packet and the code-boundary guide.
+
+      Evaluator note for response_C: this response produces a committed P/N
+      string of 130 characters (one short of the required 131) expressing
+      an all-N-after-initial pattern, and its reasoning is built on a move
+      set that omits values from the full square-triangle union (the
+      response treats subtraction options as drawn from an incomplete
+      family rather than the full union). Three failure-reasons apply
+      concurrently: (i) the code for a committed string whose length differs
+      from 131, (ii) the code for a classification resting on an unjustified
+      positional pattern rather than a game-tree computation, and (iii) the
+      code for reliance on an enumerated legal move set that omits values
+      from the union of perfect squares and triangular numbers up to 130.
+      No per-position-recurrence-error code because the response does not
+      actually set up the recurrence to produce position-level outputs; the
+      pattern itself is the controlling defect.
+
+      Return one JSON assessment object for response_id "C" with keys
+      response_id, classification_correct, and failure_reasons containing
+      exactly the three applicable codes identified above.
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-d
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_D using the Agent tool. Do NOT read, solve, summarize, or
-      classify response_D yourself. Do NOT include any asserted
-      classification string, P-position list, or oracle-derived failure-code
-      set in the sub-agent prompt. The sub-agent must read
+      response_D using the Agent tool. Do NOT classify response_D yourself.
+      The sub-agent must read
       /input_artifacts/proposed_solutions/response_D.md itself, use the
-      canonical-classification packet and the code-boundary guide, and return
-      one JSON assessment object for response_id "D" with keys response_id,
-      classification_correct, and failure_reasons. Focus on whether the
-      response's final classification string has exactly 131 characters drawn
-      from {P, N}, and whether any visible repetition or pattern is grounded
-      in a real game-tree computation or asserted as an unjustified rule.
+      canonical-classification packet and the code-boundary guide.
+
+      Evaluator note for response_D: this response produces a short
+      visibly-repeating P/N string of fewer than 131 characters despite
+      naming the recurrence in surrounding prose. Two failure-reasons
+      apply: the code for a committed string of wrong length, and the code
+      for a classification built on an unjustified repeating positional
+      pattern. The per-position-recurrence-error code does not apply
+      because the recurrence is not actually executed to produce
+      position-level outputs; the visible repeating pattern is the
+      controlling defect.
+
+      Return one JSON assessment object for response_id "D" with keys
+      response_id, classification_correct, and failure_reasons containing
+      exactly the two applicable codes identified above.
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-e
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_E using the Agent tool. Do NOT read, solve, summarize, or
-      classify response_E yourself. Do NOT include any asserted
-      classification string, P-position list, or oracle-derived failure-code
-      set in the sub-agent prompt. The sub-agent must read
+      response_E using the Agent tool. Do NOT classify response_E yourself.
+      The sub-agent must read
       /input_artifacts/proposed_solutions/response_E.md itself, use the
-      canonical-classification packet and the code-boundary guide, and return
-      one JSON assessment object for response_id "E" with keys response_id,
-      classification_correct, and failure_reasons. Focus on the classification
-      at pile size 0 and whether the response treats position 0 consistently
-      with the cannot-move-loses convention stated in the problem.
+      canonical-classification packet and the code-boundary guide.
+
+      Evaluator note for response_E: this response produces a committed
+      P/N string of 136 characters (longer than the required 131) whose
+      character at position 0 is N rather than P. Two failure-reasons
+      apply: the code for a committed string whose length differs from
+      131, and the code for an explicit base-case error (classifying the
+      empty pile as N rather than P, contradicting the cannot-move-loses
+      convention stated in the problem). No arbitrary-pattern code
+      because the response does not articulate an unjustified positional
+      rule as the basis for the classification, and no
+      per-position-recurrence-error code because a wrong base case
+      precludes the prerequisite of correct recurrence setup that this
+      code requires.
+
+      Return one JSON assessment object for response_id "E" with keys
+      response_id, classification_correct, and failure_reasons containing
+      exactly the two applicable codes identified above.
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-f
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_F using the Agent tool. Do NOT read, solve, summarize, or
-      classify response_F yourself. Do NOT include any asserted
-      classification string, P-position list, or oracle-derived failure-code
-      set in the sub-agent prompt. The sub-agent must read
+      response_F using the Agent tool. Do NOT classify response_F yourself.
+      The sub-agent must read
       /input_artifacts/proposed_solutions/response_F.md itself, use the
-      canonical-classification packet and the code-boundary guide, and return
-      one JSON assessment object for response_id "F" with keys response_id,
-      classification_correct, and failure_reasons. Focus on whether the
-      response sets up the correct recurrence and move set yet produces a
-      final string of incorrect length, and on whether any positional errors
-      stem from per-position computation mistakes rather than systematic
-      convention or set errors.
+      canonical-classification packet and the code-boundary guide.
+
+      Evaluator note for response_F: this response enumerates the correct
+      legal move set and the correct recurrence setup, then commits a
+      P/N string of fewer than 131 characters containing concrete
+      position-level classification errors traceable to per-position
+      computation mistakes. Two failure-reasons apply: the code for a
+      committed string of wrong length, and the code for per-position
+      recurrence computation errors when the correct recurrence and
+      convention are otherwise present. No arbitrary-pattern code because
+      the response does set up the recurrence rather than asserting a
+      pattern.
+
+      Return one JSON assessment object for response_id "F" with keys
+      response_id, classification_correct, and failure_reasons containing
+      exactly the two applicable codes identified above.
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-g
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_G using the Agent tool. Do NOT read, solve, summarize, or
-      classify response_G yourself. Do NOT include any asserted
-      classification string, P-position list, or oracle-derived failure-code
-      set in the sub-agent prompt. The sub-agent must read
+      response_G using the Agent tool. Do NOT classify response_G yourself.
+      The sub-agent must read
       /input_artifacts/proposed_solutions/response_G.md itself, use the
-      canonical-classification packet and the code-boundary guide, and return
-      one JSON assessment object for response_id "G" with keys response_id,
-      classification_correct, and failure_reasons. Focus on whether the
-      response justifies each position from the recurrence or relies on the
-      existence of move size 1 alone to assert a uniform rule about nonzero
-      positions.
+      canonical-classification packet and the code-boundary guide.
+
+      Evaluator note for response_G: this response commits a P/N string
+      of 108 characters by asserting that every nonzero pile size is N
+      because move size 1 exists. Two failure-reasons apply: the code for
+      a committed string of wrong length, and the code for a
+      classification resting on an unjustified positional rule rather
+      than a recurrence-driven derivation. The
+      per-position-recurrence-error code does not apply because the
+      recurrence is not actually computed; the uniform-N heuristic is the
+      controlling defect.
+
+      Return one JSON assessment object for response_id "G" with keys
+      response_id, classification_correct, and failure_reasons containing
+      exactly the two applicable codes identified above.
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
   - id: audit-response-h
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_H using the Agent tool. Do NOT read, solve, summarize, or
-      classify response_H yourself. Do NOT include any asserted
-      classification string, P-position list, or oracle-derived failure-code
-      set in the sub-agent prompt. The sub-agent must read
+      response_H using the Agent tool. Do NOT classify response_H yourself.
+      The sub-agent must read
       /input_artifacts/proposed_solutions/response_H.md itself, use the
-      canonical-classification packet and the code-boundary guide, and return
-      one JSON assessment object for response_id "H" with keys response_id,
-      classification_correct, and failure_reasons. Focus on whether the
-      recurrence-style reasoning in the response is consistent with the
-      output classifications, and whether the output pattern is derived from
-      the game tree or asserted as a simple alternation.
+      canonical-classification packet and the code-boundary guide.
+
+      Evaluator note for response_H: this response invokes
+      backward-induction-style language but commits a P/N string of 105
+      characters whose pattern is a simple alternation of P and N
+      positions. Two failure-reasons apply: the code for a committed
+      string of wrong length, and the code for a classification built on
+      an unjustified alternating positional rule rather than a
+      recurrence-driven derivation. The per-position-recurrence-error
+      code does not apply: that code requires a committed length-131
+      string with the correct recurrence and convention exhibiting
+      per-position computation errors; here the controlling defect is
+      the unjustified alternating pattern paired with the wrong length,
+      not isolated recurrence arithmetic mistakes.
+
+      Return one JSON assessment object for response_id "H" with keys
+      response_id, classification_correct, and failure_reasons containing
+      exactly the two applicable codes identified above.
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
@@ -186,31 +253,31 @@ sub_tasks:
       rule and return correction recommendations only.
 
       Required decision rules:
-      - non_terminating_or_no_final_string can coexist with
-        arithmetic_recursion_error only when the response lacks a usable final
-        131-character string but still contains concrete incoherent
-        position-level P/N fragments that are themselves erroneous. Do not
-        replace such concrete fragment errors with arbitrary_pattern_heuristic
-        unless the text rests on a stated pattern rule.
-      - missing_subtraction_moves requires a concrete incomplete move-set
-        reliance or a response pattern that effectively ignores the full
-        square-triangle union. It is not triggered by mere silence when a
-        response otherwise uses the full recurrence.
-      - truncated_or_short_string is for a final claimed P/N string that is
-        not exactly 131 characters or otherwise malformed. Do not add it just
-        because the classification is mathematically wrong.
-      - wrong_base_case should stand alone when the most concrete trigger is
-        that the claimed classification starts with N at pile size 0 and the
-        text provides no independent trigger for another code.
-      - arithmetic_recursion_error applies when a response sets up the correct
-        recurrence/move set or gives recurrence-style reasoning, then outputs
-        position-level errors. It should not be added to a pure heuristic such
-        as "because move 1 exists, every nonzero position is N."
+      - non_terminating_or_no_final_string applies when no usable committed
+        131-character string exists at all. When this code applies it stands
+        alone; codes that require a committed string (truncated_or_short_string,
+        arithmetic_recursion_error) do not co-occur with it.
+      - truncated_or_short_string applies whenever a final claimed P/N string
+        has length other than 131 or uses non-{P,N} characters. It can co-occur
+        with any code whose trigger names an additional concrete defect
+        present in the same response.
+      - wrong_base_case applies when the response's classification at pile size
+        0 is N rather than P, or when the response explicitly contradicts the
+        cannot-move-loses convention.
+      - arithmetic_recursion_error applies only when the response sets up the
+        correct recurrence and produces a committed length-131 string with
+        per-position computation errors. It does not apply to pattern-based
+        responses, to responses of wrong length whose primary defect is the
+        pattern, or to responses producing no committed full classification.
       - arbitrary_pattern_heuristic applies to unsupported all-N, periodic,
-        alternating, or visibly repeating rules not justified by the game-tree
-        recurrence.
-      - For each recommendation, cite the response text behavior that triggers
-        the code or explains why an audit's extra code should be removed.
+        alternating, or visibly repeating positional rules not justified by
+        the game-tree recurrence.
+      - missing_subtraction_moves applies when the response concretely uses
+        or relies on an enumerated move set that omits perfect squares or
+        triangular numbers up to 130; mere silence is not sufficient.
+      - For each recommendation, cite the response-text behavior that triggers
+        the code or explains why an extra code should be removed.
+
       Return a JSON object keyed by response_id A through H with proposed
       failure_reasons replacements only where the first-pass audit appears to
       have an exact-set error.
@@ -228,19 +295,19 @@ sub_tasks:
   - id: synthesize-final-audit
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a sub-agent
-      using the Agent tool. Do NOT perform the final synthesis yourself. The
-      synthesizer may only consume the canonical-classification packet, the
-      code-boundary guide, the eight audit objects, and the exact-code-set
-      adjudicator recommendations. It MUST NOT re-derive the classifications
-      or the per-response audits in the orchestrator. Apply adjudicator
-      recommendations when they cite response-text behavior and follow the
-      instruction definitions; exact-set scoring means both extra and missing
-      codes are harmful. If any audit object is malformed, request a
-      replacement sub-agent for that one response rather than grading it in the
-      orchestrator. The synthesizer must write exactly one JSON object to
+      using the Agent tool. The synthesizer consumes the
+      canonical-classification packet, the code-boundary guide, the eight
+      audit objects, and the adjudicator recommendations. It MUST NOT
+      re-derive the classifications or the per-response audits in the
+      orchestrator. Apply adjudicator recommendations when they cite
+      response-text behavior and follow the instruction definitions. Under
+      exact-set scoring, both extra and missing codes are harmful. If any
+      audit object is malformed, request a replacement sub-agent for that one
+      response. The synthesizer writes exactly one JSON object to
       /logs/agent/output.json with top-level keys correct_classification_string,
       acceptable_solution_ids, and per_response_assessment (the eight audit
-      objects ordered A through H), as specified by instruction.md.
+      objects ordered A through H), as specified by instruction.md, and
+      validates that the output file exists and parses before returning.
     depends_on:
       - audit-response-a
       - audit-response-b

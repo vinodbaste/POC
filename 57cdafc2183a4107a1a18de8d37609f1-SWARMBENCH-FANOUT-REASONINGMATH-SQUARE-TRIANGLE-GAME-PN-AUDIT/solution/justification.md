@@ -29,14 +29,14 @@ This is the standard Sprague-Grundy P/N labeling for a pile game. Computing the 
 
 ## Per-response rationale
 
-- Response A: `non_terminating_or_no_final_string` because it never produces a usable 131-character P/N string; `arithmetic_recursion_error` because its indexed P/N fragments are incoherent position-level classifications rather than a valid dynamic-programming output.
-- Response B: `non_terminating_or_no_final_string` because it explicitly says the exact 131-character string cannot be provided.
-- Response C: `arbitrary_pattern_heuristic` and `missing_subtraction_moves` because it gives the all-N-after-initial pattern without a real DP derivation over the full square-triangle move union.
-- Response D: `truncated_or_short_string` and `arbitrary_pattern_heuristic` because the final string is too short and visibly patterned despite the surrounding correct-looking recurrence prose.
-- Response E: `wrong_base_case` because the claimed classification begins with `N`, so pile size 0 is classified as N instead of P.
-- Response F: `arithmetic_recursion_error` and `truncated_or_short_string` because it lists the right move set and recurrence but outputs a too-short string with concrete DP errors.
-- Response G: `arbitrary_pattern_heuristic` because it claims all nonzero positions are N merely because move size 1 exists.
-- Response H: `arbitrary_pattern_heuristic` and `arithmetic_recursion_error` because it gives an alternating PN pattern after correct-looking backward-induction language and the resulting positions disagree with the DP.
+- Response A: `non_terminating_or_no_final_string` because the response emits only indexed labelled fragments such as `P0`, `N0`, `P2` and never assembles a committed 131-character P/N classification string. Because no committed string of any length exists, `truncated_or_short_string` does not apply (its trigger is a committed string of wrong length) and `arithmetic_recursion_error` does not apply (its trigger requires a committed length-131 string with the correct recurrence setup and per-position computation errors).
+- Response B: `non_terminating_or_no_final_string` because the response explicitly declines to provide the 131-character classification and never commits to a full output.
+- Response C: `arbitrary_pattern_heuristic`, `missing_subtraction_moves`, and `truncated_or_short_string` because the response produces a 130-character committed string (one short of the required 131) expressing an all-N-after-initial pattern without a real DP derivation, and its reasoning relies on a move set that omits values from the full square-triangle union.
+- Response D: `truncated_or_short_string` and `arbitrary_pattern_heuristic` because the final committed string has fewer than 131 characters and the visible pattern is not derived from a game-tree computation.
+- Response E: `wrong_base_case` and `truncated_or_short_string` because the claimed classification begins with `N` at pile size 0 (an explicit base-case error) and the committed string has 136 characters rather than 131.
+- Response F: `arithmetic_recursion_error` and `truncated_or_short_string` because the response sets up the correct recurrence and move set but outputs a committed string of fewer than 131 characters containing concrete per-position computation errors.
+- Response G: `arbitrary_pattern_heuristic` and `truncated_or_short_string` because the response asserts that every nonzero position is N merely because move size 1 exists, yielding a committed string of 108 characters rather than 131.
+- Response H: `arbitrary_pattern_heuristic` and `truncated_or_short_string` because the response invokes backward-induction language but commits a simple alternating P/N pattern of 105 characters. `arithmetic_recursion_error` does not apply: that code requires a committed length-131 string built on the correct recurrence with per-position computation errors; here the controlling defect is the unjustified alternation paired with the wrong length.
 
 ## Acceptance summary
 
