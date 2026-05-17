@@ -1,6 +1,6 @@
 # Sequence-Envelope Solution Audit
 
-You are auditing proposed solutions to a deductive reasoning puzzle about four mislabeled envelopes of number sequences. Your job is to solve the original puzzle independently from the problem statement, then evaluate whether each proposed solution gives the correct minimum and a valid proof.
+You are auditing proposed solutions to a deductive reasoning puzzle about four mislabeled envelopes of monotonic number sequences. Your job is to solve the original puzzle independently from the problem statement, then evaluate whether each proposed solution gives the correct minimum and a valid proof.
 
 The only puzzle source is the problem statement.
 
@@ -15,11 +15,12 @@ Read these files:
 - /input_artifacts/candidate_solutions/response_D.md
 - /input_artifacts/candidate_solutions/response_E.md
 - /input_artifacts/candidate_solutions/response_F.md
+- /input_artifacts/candidate_solutions/response_G.md
 
 ## Required workflow
 
 1. Solve the original puzzle yourself from /input_artifacts/problem_statement.md.
-2. Determine the minimum number of inspections needed to guarantee correct relabeling in the worst case.
+2. Determine the minimum number of inspections needed to guarantee correct relabeling in the worst case, taking the 7/13 mixed-envelope split into account.
 3. Determine what a valid sufficiency proof and a valid impossibility proof must establish.
 4. Audit each candidate solution independently using criteria C1 through C8 below.
 5. Produce one final JSON report.
@@ -50,7 +51,7 @@ Set to false if the solution only gives a number, gives only a vague idea, or do
 
 Set to true if and only if the solution correctly proves that its proposed number of inspections is sufficient to guarantee correct relabeling.
 
-A valid upper-bound proof must work for every possible legal arrangement of the envelopes and every possible unlucky sequence of draws consistent with the envelope contents.
+A valid upper-bound proof must work for every possible legal arrangement of the envelopes and every possible unlucky sequence of draws consistent with the envelope contents, including the 7/13 split in the mixed envelope.
 
 Set to false if the proof only works in a favorable branch, depends on luck, leaves multiple labelings possible, or does not show how all four labels are fixed.
 
@@ -74,13 +75,13 @@ Set to false if it relies on probability, expected outcomes, likely outcomes, lu
 
 Set to true if and only if the solution never claims that one observed sequence from an envelope that could still be mixed proves that the envelope is pure.
 
-Allowed: one draw from an envelope can prove purity only if the solution has already logically established that the envelope cannot be mixed.
+Allowed: one draw from an envelope can prove purity only if the solution has already logically established that the envelope cannot be mixed. The Mixed-labeled envelope is one such case, since its label is wrong; one draw from it does prove its pure type.
 
-Not allowed: one draw from an envelope labeled "Arithmetic Sequence", "Geometric Sequence", or "Constant Sequence" proves that envelope is pure unless the mixed case has already been ruled out.
+Not allowed: one draw from an envelope labeled "Strictly Increasing", "Strictly Decreasing", or "Constant" proves that envelope is pure unless the mixed case has already been ruled out for that envelope.
 
 ### C7_no_exact_mixed_pair_requirement
 
-Set to true if and only if the solution understands that the task only requires assigning the correct label "Mixed" to the correct envelope. The task does not require determining whether the mixed envelope contains arithmetic-geometric, arithmetic-constant, or geometric-constant sequences.
+Set to true if and only if the solution understands that the task only requires assigning the correct label "Mixed" to the correct envelope. The task does not require determining whether the mixed envelope contains increasing-decreasing, increasing-constant, or decreasing-constant sequences.
 
 Set to false if the solution adds extra inspections solely because it thinks the exact two-type composition of the mixed envelope must be identified.
 
@@ -92,7 +93,7 @@ Set to true if and only if the solution contains no fatal logical claim that con
 
 Fatal wrong claims include:
 - saying an envelope known to be mislabeled with "Mixed" might actually be the mixed envelope;
-- saying the mixed envelope cannot contain a sequence type merely because the pure envelope of that type has already been found;
+- treating any of the pure-labeled envelopes as if its label were correct;
 - saying remaining envelopes are forced when two or more legal assignments remain possible;
 - confusing a possible success path with a guaranteed strategy;
 - treating a probability argument as a guarantee.
@@ -174,4 +175,4 @@ Write your final answer to /logs/agent/output.json as a single JSON object with 
   "summary": <string>
 }
 
-Include exactly one evaluation object for each of response_A through response_F.
+Include exactly one evaluation object for each of response_A through response_G.

@@ -11,13 +11,13 @@ sub_tasks:
       The guide should clarify: criteria are independent; C1 concerns only the
       candidate's stated final minimum; C2 concerns whether an explicit
       actionable strategy is present; C3 concerns whether that strategy
-      guarantees success; C4 concerns whether minimality is proven; C5 concerns
-      worst-case framing; C6 concerns invalid purity inference from one draw
-      when the envelope could still be mixed; C7 concerns unnecessary exact
-      mixed-pair requirements; C8 concerns fatal contradictions or
-      proof-invalidating claims. The guide must explain how to choose the most
-      diagnostic primary_failure_code from the instruction list without
-      assigning any code to any specific response.
+      guarantees success accounting for the 7/13 mixed-envelope split; C4
+      concerns whether minimality is proven; C5 concerns worst-case framing; C6
+      concerns invalid purity inference from one draw when the envelope could
+      still be mixed; C7 concerns unnecessary exact mixed-pair requirements; C8
+      concerns fatal contradictions or proof-invalidating claims. The guide
+      must explain how to choose the most diagnostic primary_failure_code from
+      the instruction list without assigning any code to any specific response.
     depends_on: []
     parallel_group: calibrate
 
@@ -30,10 +30,9 @@ sub_tasks:
       /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_A.md itself, use the
       calibration guide, and return only the response_A evaluation JSON fields.
-      Focus on applying every criterion independently: final number, concrete
-      strategy, sufficiency, minimality, worst-case framing, one-draw inference,
-      exact mixed-pair requirement, fatal claims, verdict, and diagnostic
-      failure category.
+      Focus on whether the response respects the all-labels-wrong premise from
+      its very first step, while still evaluating all C1-C8 labels, verdict,
+      and diagnostic failure category independently.
     depends_on: [calibrate-audit-rules]
     parallel_group: map
 
@@ -46,10 +45,9 @@ sub_tasks:
       /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_B.md itself, use the
       calibration guide, and return only the response_B evaluation JSON fields.
-      Focus on whether the proposed strategy actually forces all four labels
-      in every legal observation branch, or whether it only resolves favorable
-      branches, while still evaluating all C1-C8 labels, verdict, and
-      diagnostic failure category independently.
+      Focus on whether each one-draw conclusion is logically justified when the
+      inspected envelope may still be mixed, while still evaluating all C1-C8
+      labels, verdict, and diagnostic failure category independently.
     depends_on: [calibrate-audit-rules]
     parallel_group: map
 
@@ -62,9 +60,10 @@ sub_tasks:
       /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_C.md itself, use the
       calibration guide, and return only the response_C evaluation JSON fields.
-      Focus on whether each one-draw conclusion is logically justified when the
-      inspected envelope may still be mixed, while still evaluating all C1-C8
-      labels, verdict, and diagnostic failure category independently.
+      Focus on whether the response specifies a concrete branch-by-branch
+      label-fixing rule or instead relies on a hand-wavy aggregate argument.
+      Still evaluate all C1-C8 labels, verdict, and diagnostic failure category
+      independently.
     depends_on: [calibrate-audit-rules]
     parallel_group: map
 
@@ -77,10 +76,10 @@ sub_tasks:
       /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_D.md itself, use the
       calibration guide, and return only the response_D evaluation JSON fields.
-      Focus on whether the response specifies a concrete label-fixing rule that
-      works in every observation branch, or instead leaves the final
-      assignment implicit. Still evaluate all C1-C8 labels, verdict, and
-      diagnostic failure category independently.
+      Focus on separating the stated final number from the validity of the
+      proposed strategy. Check whether the strategy is structurally sound even
+      if the final inspection count is off. Still evaluate all C1-C8 labels,
+      verdict, and diagnostic failure category independently.
     depends_on: [calibrate-audit-rules]
     parallel_group: map
 
@@ -93,9 +92,8 @@ sub_tasks:
       /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_E.md itself, use the
       calibration guide, and return only the response_E evaluation JSON fields.
-      Focus on separating the stated final number from the validity of the
-      proposed strategy. Check whether the strategy guarantees in every legal
-      branch and whether a minimality proof for the stated number is given.
+      Focus on whether the response gives one consistent final answer and one
+      concrete strategy, or instead oscillates among incompatible conclusions.
       Still evaluate all C1-C8 labels, verdict, and diagnostic failure category
       independently.
     depends_on: [calibrate-audit-rules]
@@ -110,10 +108,25 @@ sub_tasks:
       /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_F.md itself, use the
       calibration guide, and return only the response_F evaluation JSON fields.
-      Focus on whether the response acknowledges ambiguity in its own analysis
-      and then asserts a conclusion that the analysis has not established.
-      Still evaluate all C1-C8 labels, verdict, and diagnostic failure category
-      independently.
+      Focus on whether the strategy adds inspections solely to identify the
+      exact two-type composition of the mixed envelope, beyond what the task
+      requires. Still evaluate all C1-C8 labels, verdict, and diagnostic
+      failure category independently.
+    depends_on: [calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-g
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_G using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_G yourself. Do NOT include any asserted numeric answer or solved
+      puzzle conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_G.md itself, use the
+      calibration guide, and return only the response_G evaluation JSON fields.
+      Focus on whether the response acknowledges the worst-case rule for one
+      envelope but then abandons it for the remaining envelopes. Still evaluate
+      all C1-C8 labels, verdict, and diagnostic failure category independently.
     depends_on: [calibrate-audit-rules]
     parallel_group: map
 
@@ -121,12 +134,13 @@ sub_tasks:
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent using
       the Agent tool. Do NOT perform the final reduction yourself. The reducer
-      may only synthesize the calibration output and the six mapper outputs. It
-      MUST NOT redo the six audits from scratch. If a mapper output is malformed,
-      ask a replacement sub-agent to re-grade that same response instead of
-      grading it in the orchestrator. The reducer must write exactly one JSON
-      report at /logs/agent/output.json with response_A through response_F, plus
-      accepted_solutions, rejected_solutions, best_solution, and summary.
+      may only synthesize the calibration output and the seven mapper outputs.
+      It MUST NOT redo the seven audits from scratch. If a mapper output is
+      malformed, ask a replacement sub-agent to re-grade that same response
+      instead of grading it in the orchestrator. The reducer must write exactly
+      one JSON report at /logs/agent/output.json with response_A through
+      response_G, plus accepted_solutions, rejected_solutions, best_solution,
+      and summary.
     depends_on:
       - grade-response-a
       - grade-response-b
@@ -134,4 +148,5 @@ sub_tasks:
       - grade-response-d
       - grade-response-e
       - grade-response-f
+      - grade-response-g
     parallel_group: reduce

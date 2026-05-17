@@ -4,23 +4,7 @@
       "solution_id": "response_A",
       "criteria": {
         "C1_correct_final_answer": false,
-        "C2_concrete_strategy": true,
-        "C3_valid_upper_bound": false,
-        "C4_valid_lower_bound": false,
-        "C5_worst_case_guarantee": true,
-        "C6_no_invalid_one_draw_inference": true,
-        "C7_no_exact_mixed_pair_requirement": true,
-        "C8_no_fatal_wrong_claim": false
-      },
-      "verdict": "REJECT",
-      "primary_failure_code": "WRONG_FINAL_NUMBER",
-      "brief_justification": "Response A concludes 13 inspections. Its strategy inspects the Random-labeled envelope, then a second envelope labeled with the revealed pure type, then continues until 11 identical-type sequences or two distinct types. This counts 1 + 1 + 11 = 13, but the second inspection can be merged into the 11-draw verification, so 12 suffice. The response asserts 13 is the minimum without ruling out 12."
-    },
-    {
-      "solution_id": "response_B",
-      "criteria": {
-        "C1_correct_final_answer": false,
-        "C2_concrete_strategy": true,
+        "C2_concrete_strategy": false,
         "C3_valid_upper_bound": false,
         "C4_valid_lower_bound": false,
         "C5_worst_case_guarantee": false,
@@ -29,11 +13,11 @@
         "C8_no_fatal_wrong_claim": false
       },
       "verdict": "REJECT",
-      "primary_failure_code": "INVALID_UPPER_BOUND",
-      "brief_justification": "Response B claims a 3-inspection strategy. After inspecting Random and Arithmetic Sequence envelopes, it inspects Constant Sequence. In the branch where Constant Sequence yields geometric, the response asserts the assignments are uniquely determined by elimination, but two legal assignments remain consistent with three observations. The proposed 3-step strategy does not guarantee correct relabeling in every worst-case branch."
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response A concludes 4. Its step 1 asserts that the envelope labeled Strictly Increasing 'contains strictly increasing sequences' and 'will always be correct', directly contradicting the all-labels-wrong premise. The subsequent steps are incoherent recombinations of this contradiction. The strategy never gives a worst-case argument."
     },
     {
-      "solution_id": "response_C",
+      "solution_id": "response_B",
       "criteria": {
         "C1_correct_final_answer": false,
         "C2_concrete_strategy": true,
@@ -46,10 +30,10 @@
       },
       "verdict": "REJECT",
       "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
-      "brief_justification": "Response C concludes 3 inspections. After observing geometric from the Arithmetic-labeled envelope, it claims the envelope must be purely geometric. This inference is invalid: the envelope could equally be the mixed envelope containing geometric items, and a single observation cannot rule that out. The 3-inspection strategy rests on this invalid one-draw purity inference."
+      "brief_justification": "Response B concludes 3. After observing one strictly decreasing sequence from envelope E_1 (labeled Strictly Increasing), it asserts E_1 'must be the strictly decreasing envelope'. This inference is invalid: E_1 could equally be the mixed envelope containing strictly decreasing items, and a single observation cannot rule that out. The three-inspection strategy rests on these invalid one-draw purity inferences."
     },
     {
-      "solution_id": "response_D",
+      "solution_id": "response_C",
       "criteria": {
         "C1_correct_final_answer": false,
         "C2_concrete_strategy": false,
@@ -62,10 +46,10 @@
       },
       "verdict": "REJECT",
       "primary_failure_code": "NO_CONCRETE_STRATEGY",
-      "brief_justification": "Response D inspects three envelopes and then asserts that the remaining envelopes are deduced uniquely from the observed sequence types and the all-labels-incorrect condition, without specifying which envelope gets which label in each observation branch. The synthesis step is left implicit; no concrete label-fixing rule is given that works in every branch."
+      "brief_justification": "Response C concludes 4. It correctly observes the Mixed-labeled envelope must be pure, then jumps to 'with four inspections... enough information is gathered to correctly relabel all envelopes' via a hand-wavy information-theoretic argument. The response does not specify a branch-by-branch resolution that fixes labels in every observation case."
     },
     {
-      "solution_id": "response_E",
+      "solution_id": "response_D",
       "criteria": {
         "C1_correct_final_answer": false,
         "C2_concrete_strategy": true,
@@ -74,14 +58,46 @@
         "C5_worst_case_guarantee": true,
         "C6_no_invalid_one_draw_inference": true,
         "C7_no_exact_mixed_pair_requirement": true,
-        "C8_no_fatal_wrong_claim": true
+        "C8_no_fatal_wrong_claim": false
       },
       "verdict": "REJECT",
-      "primary_failure_code": "MISSING_LOWER_BOUND",
-      "brief_justification": "Response E proposes 13 inspections via a valid worst-case verification: inspect Random, then continue sampling an uncertain envelope until 11 identical-type sequences or two distinct types appear. The 13-inspection strategy does guarantee identification, but the response provides no impossibility proof for fewer inspections; in particular, the canonical 12-inspection strategy is not ruled out."
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response D concludes 17. It correctly identifies that the Mixed-labeled envelope is pure, correctly derives the 14-draw verification (since mixed has at most 13 of any single type), and arrives at 2 + 14 + 1 = 17. The strategy works but is two inspections over the optimal: the first envelope needs only 1 inspection (not 2) since it is already known to be pure."
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "CONTRADICTORY_FINAL_ANSWER",
+      "brief_justification": "Response E proposes a 5-inspection strategy, then in the middle of its analysis recomputes '2 + 14 + 1 = 17 samples', then returns to 'Minimum number of inspections = 5', then re-examines cases, then concludes 'Final Answer: 5'. The response oscillates between 5 and 17 and never settles a single coherent strategy."
     },
     {
       "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": false,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "UNNECESSARY_MIXED_PAIR_REQUIREMENT",
+      "brief_justification": "Response F concludes 3. Its strategy includes 'pick one more sequence from the Mixed envelope to determine the exact composition' even though the task only requires assigning the Mixed label to the correct envelope, not determining which two types the mixed envelope contains. The extra inspection is added solely to identify the exact mixed pair."
+    },
+    {
+      "solution_id": "response_G",
       "criteria": {
         "C1_correct_final_answer": false,
         "C2_concrete_strategy": true,
@@ -94,7 +110,7 @@
       },
       "verdict": "REJECT",
       "primary_failure_code": "NOT_WORST_CASE",
-      "brief_justification": "Response F notes that after the third inspection ambiguity may still remain, then immediately concludes 3 inspections suffice by elimination. The conclusion ignores the worst-case branch where the third observation does not resolve which envelope is mixed; the response substitutes a favorable-branch resolution for a worst-case guarantee."
+      "brief_justification": "Response G concludes 5. It explicitly states 'Mixed envelopes can fool us with up to 13 sequences of one type before revealing a second type', then claims 'the remaining envelopes can be resolved with 1 inspection each due to elimination'. The worst-case rule it acknowledges for the first envelope is abandoned for envelopes two through four, where single inspections cannot in fact distinguish pure from mixed."
     }
   ],
   "accepted_solutions": [],
@@ -104,8 +120,9 @@
     "response_C",
     "response_D",
     "response_E",
-    "response_F"
+    "response_F",
+    "response_G"
   ],
   "best_solution": null,
-  "summary": "All six candidate solutions are rejected. The canonical minimum is 12 inspections. Responses A and E propose 13 (off by one in the strategy bookkeeping), responses B, C, D, and F propose 3 (failing in one of: invalid upper bound, invalid one-draw inference, vague synthesis, or favorable-branch reasoning)."
+  "summary": "All seven candidate solutions are rejected. The canonical minimum is 15 inspections (1 inspection of the Mixed-labeled envelope to identify its pure type, plus 14 inspections of the envelope labeled with that identified type to distinguish pure from a 7/13 mixed envelope). Responses A and C propose 4 (incoherent or hand-wavy), responses B and F propose 3 (invalid one-draw inferences and unnecessary mixed-pair identification), responses E and G propose 5 (oscillating and non-worst-case respectively), response D proposes 17 (correct strategy structure, two inspections over optimal)."
 }

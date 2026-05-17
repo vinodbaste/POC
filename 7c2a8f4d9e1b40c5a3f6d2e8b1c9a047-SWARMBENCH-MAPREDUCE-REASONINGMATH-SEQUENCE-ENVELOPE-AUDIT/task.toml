@@ -1,16 +1,16 @@
 [task]
 name = "swarmbench/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT"
-description = "Audit six proposed solutions to a sequence-envelope deductive reasoning puzzle using deterministic proof-validity criteria. Each candidate proposes a minimum number of inspections to relabel four mislabeled envelopes of arithmetic, geometric, constant, and mixed number sequences; auditors apply a fixed C1-C8 rubric, verdict, and primary failure code."
+description = "Audit seven proposed solutions to a sequence-envelope deductive reasoning puzzle using deterministic proof-validity criteria. Each candidate proposes a minimum number of inspections to relabel four mislabeled envelopes of strictly-increasing, strictly-decreasing, constant, and mixed (7/13 split) number sequences; auditors apply a fixed C1-C8 rubric, verdict, and primary failure code."
 
 [metadata]
 verifier_type = "executable"
 domain = "reasoning-math"
 coordination_pattern = "map-reduce"
-human_solving_hours_estimate = 10.0
-human_solving_hours_justification = "10.0 hours total = 1.5h independently deriving and verifying the 12-inspection canonical strategy and its matching impossibility argument + 6 responses x 1.1h/response = 6.6h auditing the C1-C8 rubric, verdict, and primary_failure_code for each candidate + 1.2h cross-checking the oracle against candidate text and weighted scoring + 0.7h packaging and execution-log consistency checks. Component sum: 1.5 + 6.6 + 1.2 + 0.7 = 10.0 hours."
-estimated_sub_agents = 8
-input_token_estimate = 4500
-why_multi_agent = "The task contains six independent candidate solution audits, each requiring careful local attention to subtle proof errors such as favorable-branch reasoning, invalid one-draw inference, vague synthesis steps, and missing lower bounds. A single agent is likely to conflate candidates or miss subtle proof defects as context accumulates. Map-reduce lets six mapper agents each own one response while a reducer merges verdicts into one deterministic audit report."
+human_solving_hours_estimate = 11.0
+human_solving_hours_justification = "11.0 hours total = 1.5h independently deriving and verifying the 15-inspection canonical strategy (1 inspection of the Mixed-labeled envelope plus 14-draw verification against the 7/13 split) and its matching impossibility argument + 7 responses x 1.1h/response = 7.7h auditing the C1-C8 rubric, verdict, and primary_failure_code for each candidate + 1.2h cross-checking the oracle against candidate text and weighted scoring + 0.6h packaging and execution-log consistency checks. Component sum: 1.5 + 7.7 + 1.2 + 0.6 = 11.0 hours."
+estimated_sub_agents = 9
+input_token_estimate = 5200
+why_multi_agent = "The task contains seven independent candidate solution audits drawn from heterogeneous real model outputs (incoherent, formal-LaTeX, hand-wavy info-theoretic, careful but over-counting, oscillating, exact-pair-requiring, and worst-case-abandoning). Each audit requires careful local attention to subtle proof errors. A single agent is likely to conflate candidates or default to the most generic failure code as context accumulates. Map-reduce lets seven mapper agents each own one response while a reducer merges verdicts into one deterministic audit report."
 reference_link = "https://medium.com/@shelvia1039/brain-teasers-3eac53bce2a0"
 
 [agent]
