@@ -97,6 +97,7 @@ def main():
     ap.add_argument("--agent-output", required=True)
     ap.add_argument("--oracle", required=True)
     ap.add_argument("--reward-out", required=True)
+    ap.add_argument("--details-out", required=True, default=None)
     args = ap.parse_args()
 
     os.makedirs(os.path.dirname(args.reward_out), exist_ok=True)

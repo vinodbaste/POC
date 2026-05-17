@@ -1,6 +1,6 @@
 {
     "job_name": "single-kimi-agent",
-    "jobs_dir": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT/execution_logs",
+    "jobs_dir": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT/execution_logs",
     "n_attempts": 1,
     "timeout_multiplier": 1.0,
     "agent_timeout_multiplier": null,
@@ -14,10 +14,10 @@
         "max_retries": 0,
         "include_exceptions": null,
         "exclude_exceptions": [
-            "RewardFileNotFoundError",
             "VerifierTimeoutError",
-            "RewardFileEmptyError",
+            "RewardFileNotFoundError",
             "VerifierOutputParseError",
+            "RewardFileEmptyError",
             "AgentTimeoutError"
         ],
         "wait_multiplier": 1.0,
@@ -64,7 +64,7 @@
     "datasets": [],
     "tasks": [
         {
-            "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT",
+            "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT",
             "git_url": null,
             "git_commit_id": null,
             "name": null,

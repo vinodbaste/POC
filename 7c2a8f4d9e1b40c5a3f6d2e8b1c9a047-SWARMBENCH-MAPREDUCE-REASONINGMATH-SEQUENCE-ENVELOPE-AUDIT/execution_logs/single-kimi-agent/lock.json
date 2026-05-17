@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-16T21:32:39.817162Z",
+    "created_at": "2026-05-17T08:01:13.303510Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -10,7 +10,7 @@
         "/Users/vinodbaste/Turing Projects/harbor/.venv/bin/harbor",
         "run",
         "-p",
-        "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT",
+        "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT",
         "-a",
         "swarm-kimi-single",
         "-m",
@@ -22,7 +22,7 @@
         "--job-name",
         "single-kimi-agent",
         "--jobs-dir",
-        "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT/execution_logs",
+        "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT/execution_logs",
         "--ve",
         "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
         "--ae",
@@ -33,10 +33,10 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
-            "RewardFileNotFoundError",
             "VerifierTimeoutError",
-            "RewardFileEmptyError",
+            "RewardFileNotFoundError",
             "VerifierOutputParseError",
+            "RewardFileEmptyError",
             "AgentTimeoutError"
         ],
         "wait_multiplier": 1.0,
@@ -46,10 +46,10 @@
     "trials": [
         {
             "task": {
-                "name": "7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT",
+                "name": "7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT",
                 "type": "local",
-                "digest": "sha256:bde1a183495f79a2cf08804d8d6f204e6c2bb4aedfd16dda6965b808f1d02eb1",
-                "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-MAX-EDGE-LENGTH-AUDIT"
+                "digest": "sha256:56f557e5cb66b19660484901d079bce38f643909aae0f8c7169128f0ecf9c242",
+                "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT"
             },
             "timeout_multiplier": 1.0,
             "agent": {

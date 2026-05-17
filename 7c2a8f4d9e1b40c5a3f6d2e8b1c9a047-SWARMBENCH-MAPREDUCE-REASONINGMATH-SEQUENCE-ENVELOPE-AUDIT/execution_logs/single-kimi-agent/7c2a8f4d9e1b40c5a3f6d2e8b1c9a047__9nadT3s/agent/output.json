@@ -1,0 +1,104 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "response_A",
+      "criteria": {
+        "C1_correct_final_answer": true,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Claims 13 (correct) but contains fatal flaw in step 2: asserts that one observed geometric sequence proves the envelope is pure geometric. This is invalid—a mixed envelope (geometric-constant) could also yield geometric. The proof relies on this incorrect inference. No lower bound argument provided."
+    },
+    {
+      "solution_id": "response_B",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Claims 3 (incorrect; correct answer is 13). Contains fatal invalid one-draw inference in step 2. Fails to address worst case where up to 11 draws are needed to prove an envelope is pure. No lower bound proof."
+    },
+    {
+      "solution_id": "response_C",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Claims 3 (incorrect; correct answer is 13). Contains fatal invalid one-draw inference in step 2, asserting one constant sequence proves purity. Ignores worst case requiring up to 11 draws to distinguish pure from mixed envelopes. No lower bound proof."
+    },
+    {
+      "solution_id": "response_D",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Claims 3 (incorrect; correct answer is 13). Contains fatal invalid one-draw inference in step 2. Strategy fails in worst case where multiple draws are needed to prove purity. No lower bound argument."
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": true,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Claims 13 (correct) but contains fatal flaw in step 2: asserts that one observed arithmetic sequence proves the envelope contains only arithmetic sequences. This is invalid—a mixed envelope could also yield arithmetic. The reasoning foundation is fatally flawed. No lower bound proof."
+    },
+    {
+      "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Claims 3 (incorrect; correct answer is 13). Contains fatal invalid one-draw inference in step 2. Fails to account for worst case requiring multiple draws to prove purity. No lower bound argument."
+    }
+  ],
+  "accepted_solutions": [],
+  "rejected_solutions": ["response_A", "response_B", "response_C", "response_D", "response_E", "response_F"],
+  "best_solution": null,
+  "summary": "All six candidate solutions are rejected. The correct answer is 13 inspections (worst case: 11 to prove Random is pure + 1 from a second envelope that turns out to be pure + 1 from a third envelope to distinguish the remaining two). Responses A and E state 13 but contain fatal invalid one-draw inferences (claiming one observed sequence proves purity). Responses B, C, D, F claim 3 (incorrect) and also contain invalid one-draw inferences. None provide valid lower bound proofs, and none correctly justify their upper bounds without fatal logical flaws."
+}

@@ -1,3 +1,0 @@
-Score: 1.000000
-
-Agent output exactly matches oracle.
