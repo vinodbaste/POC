@@ -1,6 +1,8 @@
 # Sequence-Envelope Solution Audit
 
-You are auditing proposed solutions to a deductive reasoning puzzle about four mislabeled envelopes of monotonic number sequences. Your job is to solve the original puzzle independently from the problem statement, then evaluate whether each proposed solution gives the correct minimum and a valid proof.
+Working directory: `/workspace`.
+
+You are auditing proposed solutions to a deductive reasoning puzzle about four mislabeled envelopes of monotonic number sequences. Your primary task is to mathematically derive the minimum number of inspections required to guarantee correct relabeling (a worst-case combinatorial reasoning problem), then audit each candidate solution against that derivation. The mathematical derivation - establishing the upper bound via an explicit inspection strategy and the lower bound via indistinguishable-case reasoning - is the dominant cognitive activity of every sub-task in this workflow.
 
 The only puzzle source is the problem statement.
 
@@ -16,6 +18,7 @@ Read these files:
 - /input_artifacts/candidate_solutions/response_E.md
 - /input_artifacts/candidate_solutions/response_F.md
 - /input_artifacts/candidate_solutions/response_G.md
+- /input_artifacts/candidate_solutions/response_H.md
 
 ## Required workflow
 
@@ -175,4 +178,4 @@ Write your final answer to /logs/agent/output.json as a single JSON object with 
   "summary": <string>
 }
 
-Include exactly one evaluation object for each of response_A through response_G.
+Include exactly one evaluation object for each of response_A through response_H.

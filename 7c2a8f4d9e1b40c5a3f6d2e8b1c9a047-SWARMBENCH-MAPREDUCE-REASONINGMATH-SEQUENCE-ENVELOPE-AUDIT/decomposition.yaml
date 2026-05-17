@@ -130,16 +130,32 @@ sub_tasks:
     depends_on: [calibrate-audit-rules]
     parallel_group: map
 
+  - id: grade-response-h
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_H using the Agent tool. Do NOT read, solve, summarize, or grade
+      response_H yourself. Do NOT include any asserted numeric answer or solved
+      puzzle conclusion in the sub-agent prompt. The sub-agent must read
+      /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_H.md itself, use the
+      calibration guide, and return only the response_H evaluation JSON fields.
+      Focus on whether the response engages with the worst-case branch where a
+      single observation from each envelope cannot distinguish a pure envelope
+      from a mixed envelope returning the same type. Still evaluate all C1-C8
+      labels, verdict, and diagnostic failure category independently.
+    depends_on: [calibrate-audit-rules]
+    parallel_group: map
+
   - id: reduce-final-audit
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent using
       the Agent tool. Do NOT perform the final reduction yourself. The reducer
-      may only synthesize the calibration output and the seven mapper outputs.
-      It MUST NOT redo the seven audits from scratch. If a mapper output is
+      may only synthesize the calibration output and the eight mapper outputs.
+      It MUST NOT redo the eight audits from scratch. If a mapper output is
       malformed, ask a replacement sub-agent to re-grade that same response
       instead of grading it in the orchestrator. The reducer must write exactly
       one JSON report at /logs/agent/output.json with response_A through
-      response_G, plus accepted_solutions, rejected_solutions, best_solution,
+      response_H, plus accepted_solutions, rejected_solutions, best_solution,
       and summary.
     depends_on:
       - grade-response-a
@@ -149,4 +165,5 @@ sub_tasks:
       - grade-response-e
       - grade-response-f
       - grade-response-g
+      - grade-response-h
     parallel_group: reduce

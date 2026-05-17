@@ -1,19 +1,24 @@
-Given four sealed envelopes labeled "Strictly Increasing," "Strictly Decreasing," "Constant," and "Mixed," each containing 20 number sequences, none of the labels are correct. The goal is to determine the minimum number of inspections required to correctly relabel all four envelopes.
+# Response C
 
-1. **Understanding the Envelopes**:
-   - Each envelope has sequences of a particular category: strictly increasing (SI), strictly decreasing (SD), constant (C), or mixed (M). However, all labels are incorrect.
-   - The "Mixed" envelope is actually pure because its label is incorrect.
+Let me think carefully.
 
-2. **Strategic Inspections**:
-   - Open one sequence from the "Mixed" envelope (E4). Since it's incorrectly labeled, E4 must be pure (SI, SD, or C).
-   - Use the information from E4 to deduce the content of the other envelopes.
+The mixed envelope contains 7 sequences of one type and 13 of another type. So if I repeatedly inspect sequences from a candidate envelope and only observe one category, I still cannot know whether:
 
-3. **Deducing the Categories**:
-   - After knowing E4 is pure, inspect one sequence from each of the remaining envelopes (E1, E2, E3).
-   - Each inspection provides information about whether the envelope is pure or mixed and which category it belongs to.
+* the envelope is pure, or
+* I simply have not yet encountered the minority type.
 
-4. **Information-Theoretic Approach**:
-   - With four inspections (E4, E1, E2, E3), enough information is gathered to correctly relabel all envelopes.
-   - The number of possible outcomes from the inspections is sufficient to uniquely determine the content of each envelope.
+In the worst case, the minority type appears only after 13 inspections.
 
-Thus, the minimum number of inspections required is 4.
+So:
+
+* first I inspect the "Mixed" envelope once,
+* then I repeatedly inspect one uncertain envelope.
+
+If I see 14 identical sequence types, then the envelope must be pure because a mixed envelope contains at most 13 of one type.
+
+Thus:
+
+* 1 initial inspection,
+* plus 14 worst-case inspections.
+
+Total = **15 inspections**.
