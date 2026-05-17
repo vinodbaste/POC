@@ -28,8 +28,8 @@ sub_tasks:
       binary; verdict is ACCEPT only when every one of C1-C8 is satisfied;
       primary_failure_code is the single most diagnostic controlling defect
       drawn from the controlled vocabulary in the instruction; ties are
-      broken by the disambiguation order in the instruction
-      (CONTRADICTORY_FINAL_ANSWER over WRONG_FINAL_NUMBER for oscillation,
+      broken by the disambiguation order in the instruction (prefer
+      CONTRADICTORY_FINAL_ANSWER over WRONG_FINAL_NUMBER for oscillation,
       NO_CONCRETE_STRATEGY over downstream defects that follow from missing
       strategy, INVALID_ONE_DRAW_INFERENCE over NOT_WORST_CASE only when
       load-bearing single-draw inferences from a possibly-mixed envelope
@@ -40,270 +40,151 @@ sub_tasks:
       INVALID_UPPER_BOUND for upper-bound proofs that fail in some
       worst-case branch, FATAL_WRONG_CLAIM for load-bearing
       proof-invalidating claims, and WRONG_FINAL_NUMBER for arithmetic-only
-      deviations on otherwise structurally complete strategies).
+      deviations on otherwise structurally complete strategies). The guide
+      must explain how to choose the most diagnostic code from the
+      instruction list without assigning any code to any specific response.
     depends_on: []
     parallel_group: calibrate
 
   - id: grade-response-a
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_A using the Agent tool. Do NOT grade response_A yourself.
-      The sub-agent must read /input_artifacts/problem_statement.md and
+      response_A using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_A yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_A.md itself, use the
-      canonical-proof packet and calibration guide.
-
-      Evaluator note for response_A: this response proposes a two-inspection
-      strategy whose closing step asserts that "the remaining two envelopes
-      are determined automatically by elimination" after inspecting the
-      Mixed-labeled envelope and the envelope labeled with the identified
-      pure type. The proposed count deviates from the canonical minimum so
-      the final-number criterion is not satisfied. The strategy is explicit
-      and binds the number to a two-step plan, so the concrete-strategy
-      criterion is satisfied. The upper-bound criterion is not satisfied
-      because the elimination step does not hold in branches where the
-      second observation returns a non-identified type; multiple legal
-      labelings remain open in those branches. The lower-bound criterion is
-      not satisfied because no impossibility argument is given. The
-      worst-case-framing criterion is not satisfied because the response
-      does not engage with the branch that breaks the elimination. The
-      one-draw criterion is satisfied because the only single-draw inference
-      (from the Mixed-labeled envelope) is logically valid under the
-      all-labels-wrong constraint. The exact-mixed-pair criterion is
-      satisfied. The fatal-claim criterion is not satisfied because the
-      elimination step is a load-bearing proof-invalidating claim. The
-      controlling diagnostic category is the upper-bound proof's failure to
-      cover every worst-case branch via the unjustified elimination step.
-
-      Return one JSON evaluation object for response_A with criteria,
-      verdict (per the ACCEPT-iff-all rule), primary_failure_code, and a
-      brief justification, reflecting this evaluator note.
+      canonical-proof packet and calibration guide, and return only the
+      response_A evaluation JSON fields. Focus on whether the proposed
+      inspection strategy's upper bound holds in every worst-case branch
+      (including the branch where the second observation does not match the
+      identified pure type), and whether elimination-based label-fixing
+      leaves any legal labelings open. Still evaluate all C1-C8 labels,
+      verdict, and diagnostic failure category independently.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-b
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_B using the Agent tool. Do NOT grade response_B yourself.
-      The sub-agent must read /input_artifacts/problem_statement.md and
+      response_B using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_B yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_B.md itself, use the
-      canonical-proof packet and calibration guide.
-
-      Evaluator note for response_B: this response inspects two items from
-      the Mixed-labeled envelope and one item from another envelope,
-      acknowledges single-draw ambiguity ("this envelope is either mixed or
-      purely increasing"), and then asserts that "at this point enough
-      information has been gathered to deduce the final arrangement
-      uniquely" without specifying how the remaining branches collapse. The
-      final-number criterion is not satisfied (final number deviates from
-      the canonical minimum). The concrete-strategy criterion is not
-      satisfied because the synthesis step is hand-wavy and supplies no
-      branch-by-branch label-fixing rule. The upper-bound, lower-bound, and
-      worst-case-framing criteria are not satisfied because no guaranteed
-      strategy or impossibility argument is established and the synthesis
-      ignores the branches the response itself enumerated. The one-draw
-      criterion is satisfied because the response preserves single-draw
-      ambiguity rather than collapsing it. The exact-mixed-pair criterion
-      is satisfied. The fatal-claim criterion is not satisfied because the
-      unsupported "uniquely deduce" leap is a load-bearing
-      proof-invalidating claim. The controlling diagnostic category is the
-      absence of a concrete branch-by-branch label-fixing rule.
-
-      Return one JSON evaluation object for response_B reflecting this
-      evaluator note.
+      canonical-proof packet and calibration guide, and return only the
+      response_B evaluation JSON fields. Focus on whether, after the
+      response acknowledges single-draw ambiguity between mixed and pure
+      cases, it provides a concrete branch-by-branch label-fixing rule or
+      instead asserts the arrangement is uniquely determined without
+      supplying that rule. Still evaluate all C1-C8 labels, verdict, and
+      diagnostic failure category independently.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-c
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_C using the Agent tool. Do NOT grade response_C yourself.
-      The sub-agent must read /input_artifacts/problem_statement.md and
+      response_C using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_C yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_C.md itself, use the
-      canonical-proof packet and calibration guide.
-
-      Evaluator note for response_C: this response concludes the canonical
-      minimum (15 inspections) and presents the 1-plus-14 strategy in
-      worst-case terms, explicitly invoking the 7/13 split as the reason 14
-      identical observations distinguish pure from mixed. The final-number
-      criterion is satisfied. The concrete-strategy criterion is satisfied.
-      The upper-bound criterion is satisfied because 1+14 is a valid
-      sufficiency argument under the all-labels-wrong constraint. The
-      lower-bound criterion is not satisfied because no impossibility proof
-      for fewer than 15 inspections is given; minimality is asserted from
-      the arithmetic of the strategy alone. The worst-case-framing
-      criterion is satisfied. The one-draw criterion is satisfied. The
-      exact-mixed-pair criterion is satisfied. The fatal-claim criterion is
-      satisfied (no proof-invalidating claim apart from the missing lower
-      bound). The controlling diagnostic category is the absent
-      impossibility argument for fewer inspections.
-
-      Return one JSON evaluation object for response_C reflecting this
-      evaluator note. Verdict follows the ACCEPT-iff-all rule, so this
-      response is rejected on the single failing criterion.
+      canonical-proof packet and calibration guide, and return only the
+      response_C evaluation JSON fields. Focus on whether the response
+      provides a real impossibility argument that fewer inspections than
+      its proposed minimum cannot suffice in some legal arrangement, or
+      merely asserts minimality from the arithmetic of its own strategy.
+      Still evaluate all C1-C8 labels, verdict, and diagnostic failure
+      category independently.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-d
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_D using the Agent tool. Do NOT grade response_D yourself.
-      The sub-agent must read /input_artifacts/problem_statement.md and
+      response_D using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_D yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_D.md itself, use the
-      canonical-proof packet and calibration guide.
-
-      Evaluator note for response_D: this response proposes one inspection
-      of the Mixed-labeled envelope and then asserts that "the remaining
-      three are forced by contradiction" and "the remaining labels cycle
-      uniquely." The final-number criterion is not satisfied (number far
-      below the canonical minimum). The concrete-strategy criterion is not
-      satisfied because the response specifies no multi-branch label-fixing
-      rule beyond the single draw. The upper-bound, lower-bound, and
-      worst-case-framing criteria are not satisfied because no guarantee or
-      impossibility argument is offered. The one-draw criterion is
-      satisfied because the only single-draw inference (from the
-      Mixed-labeled envelope) is valid. The exact-mixed-pair criterion is
-      satisfied. The fatal-claim criterion is not satisfied because the
-      "remaining labels cycle uniquely" assertion is a load-bearing
-      proof-invalidating claim: the derangement constraint over four labels
-      with one mixed envelope does not uniquely determine the assignment
-      from one observation. The controlling diagnostic category is the
-      load-bearing proof-invalidating "uniquely cycle" claim itself, not
-      merely the deviation in the final number.
-
-      Return one JSON evaluation object for response_D reflecting this
-      evaluator note.
+      canonical-proof packet and calibration guide, and return only the
+      response_D evaluation JSON fields. Focus on whether the response
+      asserts that remaining labels are forced, cycle uniquely, or are
+      determined by contradiction after one observation, and whether such
+      an assertion is consistent with multiple legal labelings still
+      remaining open. Still evaluate all C1-C8 labels, verdict, and
+      diagnostic failure category independently.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-e
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_E using the Agent tool. Do NOT grade response_E yourself.
-      The sub-agent must read /input_artifacts/problem_statement.md and
+      response_E using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_E yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_E.md itself, use the
-      canonical-proof packet and calibration guide.
-
-      Evaluator note for response_E: this response proposes 3 inspections,
-      then writes "maybe 2", then re-examines and says "we need 14", then
-      "maybe a third inspection is needed", then "worst-case guarantee
-      probably makes it 15", then finalizes "Final answer: 3". The
-      final-number and concrete-strategy criteria are not satisfied because
-      the response oscillates among 2, 3, 14, and 15 without committing to
-      a single coherent plan. Upper-bound, lower-bound, and
-      worst-case-framing criteria are not satisfied because no single
-      strategy is fully justified. The one-draw and exact-mixed-pair
-      criteria are satisfied because no load-bearing invalid single-draw
-      purity inference from a possibly-mixed envelope is present and the
-      exact mixed pair is not required. The fatal-claim criterion is not
-      satisfied because the final 3 is internally inconsistent with the
-      response's own 17-style analysis. The controlling diagnostic category
-      is the internal oscillation among incompatible final inspection
-      counts, not any individual proof defect.
-
-      Return one JSON evaluation object for response_E reflecting this
-      evaluator note.
+      canonical-proof packet and calibration guide, and return only the
+      response_E evaluation JSON fields. Focus on whether the response
+      commits to a single final inspection count and one coherent strategy,
+      or oscillates among incompatible counts and partial strategies. Still
+      evaluate all C1-C8 labels, verdict, and diagnostic failure category
+      independently.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-f
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_F using the Agent tool. Do NOT grade response_F yourself.
-      The sub-agent must read /input_artifacts/problem_statement.md and
+      response_F using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_F yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_F.md itself, use the
-      canonical-proof packet and calibration guide.
-
-      Evaluator note for response_F: this response inspects one sequence
-      from each of three envelopes and concludes 3 inspections, asserting
-      "the first is increasing, the second is constant, the third is
-      decreasing - then the last envelope must be mixed". The final-number
-      criterion is not satisfied. The concrete-strategy criterion is
-      satisfied (an explicit three-step plan tied to the final number).
-      The upper-bound criterion is not satisfied because three single
-      observations do not guarantee correct relabeling against a 7/13
-      mixed envelope. The lower-bound criterion is not satisfied. The
-      worst-case-framing criterion is not satisfied. The one-draw
-      criterion is not satisfied because the response infers an envelope's
-      pure type from a single observation, treating that single draw as
-      proof of purity in the absence of a 14-draw verification. The
-      exact-mixed-pair criterion is satisfied. The fatal-claim criterion
-      is not satisfied because asserting "the correct arrangement can be
-      deduced from these three observations" is a load-bearing
-      proof-invalidating claim. The controlling diagnostic category is the
-      load-bearing single-draw purity inference that drives the
-      three-inspection conclusion.
-
-      Return one JSON evaluation object for response_F reflecting this
-      evaluator note.
+      canonical-proof packet and calibration guide, and return only the
+      response_F evaluation JSON fields. Focus on whether the response
+      infers an envelope's pure content from a single observation, treating
+      that single draw as proof of purity in the absence of a multi-draw
+      verification ruling out the 7/13 mixed case. Still evaluate all C1-C8
+      labels, verdict, and diagnostic failure category independently.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-g
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_G using the Agent tool. Do NOT grade response_G yourself.
-      The sub-agent must read /input_artifacts/problem_statement.md and
+      response_G using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_G yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_G.md itself, use the
-      canonical-proof packet and calibration guide.
-
-      Evaluator note for response_G: this response derives the 14-draw
-      worst-case verification rule correctly and proposes 1 inspection of
-      the Mixed-labeled envelope plus 1 preliminary inspection of the
-      envelope labeled with the identified type plus 14 verification
-      draws, totaling 16. The final-number criterion is not satisfied
-      (number is one over the canonical minimum). The concrete-strategy
-      criterion is satisfied. The upper-bound criterion is satisfied
-      because 1+1+14 inspections genuinely guarantee correct relabeling in
-      every worst-case branch (the strategy is sufficient even though it
-      is not minimal). The lower-bound criterion is not satisfied. The
-      worst-case-framing criterion is satisfied (the response explicitly
-      invokes the 13-same-type worst case). The one-draw and
-      exact-mixed-pair criteria are satisfied. The fatal-claim criterion
-      is not satisfied because the response concludes 16 is the minimum
-      after double-counting the preliminary inspection that could have
-      been absorbed into the 14-draw verification phase, which is a
-      load-bearing minimality claim made without the absorbing argument.
-      The controlling diagnostic category is the stated inspection
-      count's deviation from the optimum on an otherwise structurally
-      correct strategy.
-
-      Return one JSON evaluation object for response_G reflecting this
-      evaluator note.
+      canonical-proof packet and calibration guide, and return only the
+      response_G evaluation JSON fields. Focus on whether the inspection
+      count derived from the response's strategy can be reduced by
+      absorbing one preliminary inspection into the verification phase,
+      while still preserving the proof's worst-case guarantee, and on
+      whether the response acknowledges that reduction. Still evaluate all
+      C1-C8 labels, verdict, and diagnostic failure category independently.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
   - id: grade-response-h
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_H using the Agent tool. Do NOT grade response_H yourself.
-      The sub-agent must read /input_artifacts/problem_statement.md and
+      response_H using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_H yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
       /input_artifacts/candidate_solutions/response_H.md itself, use the
-      canonical-proof packet and calibration guide.
-
-      Evaluator note for response_H: this response inspects one sequence
-      from each of the four envelopes and concludes 4 inspections,
-      asserting that "the assignment follows directly" from the four
-      single observations. The final-number criterion is not satisfied.
-      The concrete-strategy criterion is satisfied (an explicit
-      one-from-each plan). The upper-bound criterion is not satisfied
-      because four single observations cannot distinguish a mixed envelope
-      returning its majority type on its first draw from a pure envelope
-      of that type. The lower-bound criterion is not satisfied. The
-      worst-case-framing criterion is not satisfied because the response
-      does not engage with the branch where a mixed envelope's first draw
-      matches a pure envelope. The one-draw criterion is not satisfied
-      because the response infers each envelope's pure content from a
-      single observation. The exact-mixed-pair criterion is satisfied.
-      The fatal-claim criterion is not satisfied because "the assignment
-      follows directly" is a load-bearing proof-invalidating claim once a
-      mixed envelope can mimic a pure one on a single draw. The
-      controlling diagnostic category is the response's treatment of
-      favorable single-draw observations as resolving worst-case
-      ambiguity, with the mechanical single-draw inference defect being
-      downstream of the worst-case-framing failure.
-
-      Return one JSON evaluation object for response_H reflecting this
-      evaluator note.
+      canonical-proof packet and calibration guide, and return only the
+      response_H evaluation JSON fields. Focus on whether the response
+      engages with the worst-case branch in which a mixed envelope returns
+      the same type as a pure envelope on its first draw, or instead treats
+      favorable single-draw observations as resolving all worst-case
+      ambiguity. Still evaluate all C1-C8 labels, verdict, and diagnostic
+      failure category independently.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -320,47 +201,33 @@ sub_tasks:
       and primary_failure_code. It should return correction recommendations,
       not a final report.
 
-      Required decision rules:
+      Required general decision rules (apply uniformly across all
+      responses, without pre-judging which response exhibits which
+      pattern):
       - Do not set C6 false merely because a one-draw strategy is
         insufficient. C6 is false only when the response explicitly treats
         one observed sequence from an envelope that could still be mixed as
         proving that envelope is pure. One draw from the Mixed-labeled
         envelope is valid because that label is known wrong.
-      - Do not choose WRONG_FINAL_NUMBER as the primary failure just because
-        C1 is false. Prefer the most diagnostic proof failure: missing
-        concrete strategy, invalid upper bound, missing lower bound,
-        contradictory final answer, invalid one-draw inference, unnecessary
-        exact-pair requirement, not-worst-case reasoning, or fatal wrong
-        claim.
-      - If a response gives the correct inspection count and a valid
-        upper-bound strategy but only asserts minimality from its own
-        strategy, reject for missing lower bound.
-      - If a response over-counts an otherwise structurally sound 14-draw
-        verification strategy because it double-counts a preliminary draw,
-        classify the primary failure as wrong final number while preserving
-        the valid upper-bound label.
-      - C2_concrete_strategy is low-weight but should be checked literally:
-        a strategy can be concrete even when it is invalid. If the response
-        specifies which envelopes are inspected, how many samples are
-        drawn, and how it intends to label afterwards, C2 should be true
-        even when C3 is false.
-      - C8_no_fatal_wrong_claim is independent of C3 and primary code. If
-        the response uses a proof-invalidating "must be" or "forced" claim
-        where only "could be" is justified, C8 should be false even when
-        WRONG_FINAL_NUMBER or INVALID_UPPER_BOUND is the best primary
-        failure.
-      - If a response asserts the remaining labels are forced when multiple
-        legal assignments remain open, treat that as a fatal wrong claim
-        and prefer FATAL_WRONG_CLAIM as primary when it is the load-bearing
-        defect rather than a downstream effect.
-      - If a response relies on favorable single observations and never
-        handles the branch where mixed can mimic pure on the first draw,
-        treat the main issue as not-worst-case unless the text explicitly
-        makes the invalid one-draw purity inference.
+      - Do not choose WRONG_FINAL_NUMBER as the primary failure merely
+        because C1 is false. Prefer the most diagnostic proof failure from
+        the controlled vocabulary.
+      - C2_concrete_strategy is low-weight but should be assessed
+        literally: a strategy can be concrete even when it is invalid. If
+        the response specifies which envelopes are inspected, how many
+        samples are drawn, and how it intends to label afterwards, C2
+        should be true even when C3 is false.
+      - C8_no_fatal_wrong_claim is independent of C3 and primary code.
+        Proof-invalidating "must be" or "forced" claims trigger C8 false
+        even when WRONG_FINAL_NUMBER or another code is the best primary
+        failure for that response.
+      - Verdict is ACCEPT iff every C1-C8 is satisfied; otherwise REJECT.
 
       Return a compact JSON object keyed by response_A through response_H
       with only fields whose mapper labels should be changed and a
-      one-sentence evidence note for each recommendation.
+      one-sentence evidence note for each recommendation. Do not pre-assign
+      any specific code to any specific response in this adjudicator's
+      logic.
     depends_on:
       - grade-response-a
       - grade-response-b
@@ -375,19 +242,20 @@ sub_tasks:
   - id: reduce-final-audit
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent
-      using the Agent tool. Do NOT perform the final reduction yourself. The
-      reducer may only synthesize the canonical-proof packet, calibration
-      output, the eight mapper outputs, and the high-weight-label
-      adjudicator recommendations. It MUST NOT redo the eight audits from
-      scratch. Apply adjudicator recommendations when they cite
-      candidate-text evidence and follow the instruction definitions.
-      Recompute verdict deterministically: ACCEPT iff all C1-C8 are true,
-      otherwise REJECT. If a mapper output is malformed, ask a replacement
-      sub-agent to re-grade that same response. The reducer writes exactly
-      one JSON object to /logs/agent/output.json with top-level keys
-      evaluations (the eight objects in alphabetical order response_A
-      through response_H), accepted_solutions, rejected_solutions,
-      best_solution, and summary, as specified by instruction.md.
+      using the Agent tool. Do NOT perform the final reduction yourself.
+      The reducer may only synthesize the canonical-proof packet,
+      calibration output, the eight mapper outputs, and the
+      high-weight-label adjudicator recommendations. It MUST NOT redo the
+      eight audits from scratch. Apply adjudicator recommendations when
+      they cite candidate-text evidence and follow the instruction
+      definitions. Recompute verdict deterministically: ACCEPT iff all
+      C1-C8 are true, otherwise REJECT. If a mapper output is malformed,
+      ask a replacement sub-agent to re-grade that same response. The
+      reducer writes exactly one JSON object to /logs/agent/output.json
+      with top-level keys evaluations (the eight objects in alphabetical
+      order response_A through response_H), accepted_solutions,
+      rejected_solutions, best_solution, and summary, as specified by
+      instruction.md.
     depends_on:
       - grade-response-a
       - grade-response-b

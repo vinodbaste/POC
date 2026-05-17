@@ -194,6 +194,48 @@ The following patterns recur across candidate responses and require careful clas
 - Indistinguishable-case argument: a lower-bound technique that constructs two legal envelope arrangements producing identical observations under a smaller inspection budget but requiring different correct labelings.
 - Identified pure type: the sequence type observed in the first draw from the Mixed-labeled envelope; because that envelope is pure, this single observation suffices to identify its type.
 
+### Criterion-by-criterion adjudication examples
+
+For each binary criterion, the following examples illustrate the boundary between trigger and non-trigger. Use these examples only as calibration; the authoritative trigger language is the criterion definition above.
+
+- C1_correct_final_answer fires when the response commits to one number that equals the canonical worst-case minimum. It does NOT fire when the response gives a range such as "15 or more", lists alternatives ("either 15 or 16"), or never states a single committed final value.
+- C2_concrete_strategy fires when the response specifies which envelopes are inspected, how many items are drawn from each, what observations are expected, and how each branch fixes the four labels. It does NOT fire when the response replaces the per-branch label-fixing rule with an aggregate appeal such as "by the all-labels-wrong constraint the remaining labels are determined" without showing the determination.
+- C3_valid_upper_bound fires when the response's strategy produces a unique label assignment in every legal envelope arrangement and every observation sequence consistent with the envelope contents, including the 7/13 mixed-envelope branch. It does NOT fire when the proof works only in the favorable branch where the second inspection returns the identified pure type.
+- C4_valid_lower_bound fires when the response gives a real impossibility proof for fewer-than-claimed inspections, typically via an indistinguishable-case construction. It does NOT fire when the response says "fewer cannot work because my strategy uses k" - that is an assertion about the proposed strategy, not about all strategies.
+- C5_worst_case_guarantee fires when the response explicitly addresses the unlucky-draw branches and shows the strategy still succeeds. It does NOT fire when the response invokes probability, expected outcomes, "likely" assumptions, or stops at one favorable draw sequence.
+- C6_no_invalid_one_draw_inference fires (true) when the response never claims that one observed item from an envelope that could still be mixed proves the envelope is pure. The Mixed-labeled envelope is exempt because its label is known wrong. C6 should NOT be set false merely because a strategy is insufficient; it is false only when a specific one-draw purity claim is the load-bearing inference.
+- C7_no_exact_mixed_pair_requirement fires (true) when the strategy works without identifying which two pure types compose the mixed envelope. C7 is false only when the response explicitly adds inspections solely to determine the mixed pair (e.g., "we then take a second sequence to identify which two types are combined").
+- C8_no_fatal_wrong_claim fires (true) when no proof-invalidating claim is asserted. Common C8-false patterns include "the remaining labels are forced" when multiple legal labelings remain, treating a pure-labeled envelope as if its label were correct, and "must be" claims where only "could be" is justified.
+
+### Walked scoring example
+
+Consider a hypothetical response that proposes the following: inspect two items from each of three envelopes (six inspections total) and label each envelope by majority type observed; if all three envelopes show distinct types, the fourth is the mixed envelope. The response concludes "the minimum is 6".
+
+- C1 is false because 6 differs from the canonical worst-case minimum.
+- C2 is true because the strategy is explicit: which envelopes, how many items, how labels are assigned.
+- C3 is false because in the branch where the mixed envelope's two drawn items happen to be the same type as a pure envelope's, the assignment is ambiguous.
+- C4 is false because the response gives no impossibility proof for fewer than 6 inspections.
+- C5 is false because the strategy depends on a favorable observation pattern.
+- C6 is false because the response infers an envelope's pure type from two same-type draws, which is insufficient against a 7/13 mixed envelope returning 13 of one type before its first second-type draw.
+- C7 is true because the strategy does not require identifying the exact mixed pair.
+- C8 is false because the "if all three show distinct types, the fourth is mixed" assertion is a load-bearing claim that fails on adversarial draw sequences.
+
+Verdict: REJECT (multiple criteria false). The most diagnostic primary_failure_code is INVALID_ONE_DRAW_INFERENCE because the load-bearing defect is the two-draw purity inference, not the arithmetic of the final count.
+
+### Resolution rules for borderline cases
+
+The following pairings disambiguate frequent edge cases in primary_failure_code selection:
+
+- Correct final number, valid upper-bound strategy, but no impossibility proof for fewer inspections: primary code is MISSING_LOWER_BOUND. Verdict is REJECT because C4 is false.
+- Correct strategy structure and worst-case framing, but inspection count is one over the optimum due to a preliminary inspection that could be absorbed into the verification phase: primary code is WRONG_FINAL_NUMBER. The upper-bound label C3 may remain true.
+- Strategy explicitly oscillates among two or more incompatible final numbers without committing to one: primary code is CONTRADICTORY_FINAL_ANSWER, taking precedence over WRONG_FINAL_NUMBER.
+- Strategy provides an explicit inspection plan but the closing synthesis step ("at this point enough information has been gathered") fails to specify how each branch resolves the four labels: primary code is NO_CONCRETE_STRATEGY.
+- Strategy treats a single observation per envelope as proving that envelope's pure type in branches where the envelope could still be mixed: primary code is INVALID_ONE_DRAW_INFERENCE.
+- Strategy never engages with the worst-case branch where a mixed envelope returns the same type as a pure envelope on its first draw, instead relying on favorable observations: primary code is NOT_WORST_CASE (unless the explicit one-draw purity inference is the load-bearing defect, in which case prefer INVALID_ONE_DRAW_INFERENCE).
+- Strategy depends on a load-bearing "must be" or "forced by contradiction" claim where multiple legal labelings remain consistent: primary code is FATAL_WRONG_CLAIM.
+
+Note that the workflow steps listed in the Required Workflow section above are intended as guidance for the auditor's reasoning process; the verifier scores only the final JSON output and its labels, not the auditor's working procedure.
+
 ## Output Instructions
 
 Write your final answer to /logs/agent/output.json as a single JSON object with this exact structure:
