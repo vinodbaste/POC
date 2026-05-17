@@ -1,0 +1,134 @@
+sub_tasks:
+  - id: adjudicate-gold-classification
+    description: >
+      Read /input_artifacts/problem.md and solve the Square-Triangle Subtraction
+      Game from first principles. Enumerate the move set as the union of
+      perfect squares and triangular numbers up to 130. Compute the
+      131-character P/N classification string by dynamic programming from the
+      base case (pile size 0 is P because the player cannot move). For each
+      k from 1 to 130, k is N if and only if there exists a legal move size m
+      in the move set with m <= k such that k - m is P. Return the full
+      131-character string together with a concise mathematical justification
+      (200-400 words) covering the move set, the base case, and the recursion.
+      Do not inspect any candidate response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
+      solve the game yourself from first principles and record your own gold
+      131-character classification string before touching the candidate
+      response. Then read /input_artifacts/proposed_solutions/response_A.md,
+      extract the response's claimed final 131-character classification string
+      (if any), and audit its mathematical reasoning chain. Apply the full
+      8-code controlled vocabulary defined in instruction.md. A code applies
+      only when its triggering condition is concretely instantiated in this
+      single response's text. Most responses have between 1 and 4 applicable
+      codes. Return a brief written audit (150-300 words) explaining your
+      independent derivation, the response's claimed classification (or its
+      absence), and the concrete evidence justifying each selected code,
+      followed by a JSON object {response_id, classification_correct,
+      failure_reasons} for response A. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
+      solve the game yourself from first principles. Then read
+      /input_artifacts/proposed_solutions/response_B.md, extract the claimed
+      131-character string, and audit the response's reasoning. Apply the
+      8-code controlled vocabulary defined in instruction.md. Return a brief
+      written audit and a JSON object {response_id, classification_correct,
+      failure_reasons} for response B. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
+      solve the game yourself from first principles. Then read
+      /input_artifacts/proposed_solutions/response_C.md, extract the claimed
+      131-character string, and audit the response's reasoning. Apply the
+      8-code controlled vocabulary defined in instruction.md. Return a brief
+      written audit and a JSON object {response_id, classification_correct,
+      failure_reasons} for response C. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
+      solve the game yourself from first principles. Then read
+      /input_artifacts/proposed_solutions/response_D.md, extract the claimed
+      131-character string, and audit the response's reasoning. Apply the
+      8-code controlled vocabulary defined in instruction.md. Return a brief
+      written audit and a JSON object {response_id, classification_correct,
+      failure_reasons} for response D. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
+      solve the game yourself from first principles. Then read
+      /input_artifacts/proposed_solutions/response_E.md, extract the claimed
+      131-character string if any, and audit the response's reasoning. Apply
+      the 8-code controlled vocabulary defined in instruction.md. Return a
+      brief written audit and a JSON object {response_id,
+      classification_correct, failure_reasons} for response E. Do not infer
+      from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
+      solve the game yourself from first principles. Then read
+      /input_artifacts/proposed_solutions/response_F.md, extract the claimed
+      131-character string, and audit the response's reasoning. Apply the
+      8-code controlled vocabulary defined in instruction.md. Return a brief
+      written audit and a JSON object {response_id, classification_correct,
+      failure_reasons} for response F. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md. First,
+      solve the game yourself from first principles. Then read
+      /input_artifacts/proposed_solutions/response_G.md, extract the claimed
+      131-character string, and audit the response's reasoning. Apply the
+      8-code controlled vocabulary defined in instruction.md. Return a brief
+      written audit and a JSON object {response_id, classification_correct,
+      failure_reasons} for response G. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Combine the gold-classification adjudication and the seven response
+      audits into the final JSON output. Use the gold-classification
+      adjudication's 131-character string as the top-level
+      correct_classification_string. Use each per-response audit's reported
+      classification_correct and failure_reasons set verbatim - do not add
+      codes a per-response audit did not select and do not delete codes a
+      per-response audit did select. Compute acceptable_solution_ids as the
+      uppercase, alphabetically-sorted list of response_ids whose
+      classification_correct is true AND failure_reasons is empty. Write the
+      result to /logs/agent/output.json. Top-level keys exactly:
+      correct_classification_string, acceptable_solution_ids,
+      per_response_assessment. per_response_assessment must contain exactly
+      seven objects, ordered alphabetically A through G, each with exactly
+      the keys response_id, classification_correct, failure_reasons.
+    depends_on:
+      - adjudicate-gold-classification
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+    parallel_group: synthesize
