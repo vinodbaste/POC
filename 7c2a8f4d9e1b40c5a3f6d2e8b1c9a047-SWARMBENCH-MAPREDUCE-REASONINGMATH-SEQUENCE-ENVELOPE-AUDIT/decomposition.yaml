@@ -1,159 +1,158 @@
 sub_tasks:
-  - id: derive-canonical-envelope-proof
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn exactly one Agent sub-agent for this
-      task. The sub-agent owns the canonical math derivation only. It must read
-      /input_artifacts/problem_statement.md and return a compact proof packet
-      with: canonical_minimum, upper_bound_strategy, lower_bound_reason,
-      one_draw_rule, exact_mixed_pair_rule, and common_failure_patterns.
-      Required conclusions for downstream consistency: the canonical minimum
-      is 15 inspections; the upper bound is 1 draw from the Mixed-labeled
-      envelope plus 14 draws from the envelope labeled with that identified
-      pure type; the lower bound requires indistinguishable-case reasoning, not
-      just arithmetic from the strategy; the Mixed-labeled envelope is known
-      pure, but a one-draw observation from a pure-labeled envelope does not
-      prove purity unless mixed has already been ruled out; the exact two-type
-      composition of the mixed envelope is not required.
-    depends_on: []
-    parallel_group: calibrate
+  - id: write-evaluation-briefs
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn exactly ONE Agent sub-agent with
+      subagent_type "coder". Pass the prompt below VERBATIM, with no
+      summary, paraphrase, preamble, or extra context. Do not repeat any
+      of this content in any later Agent call; later map and reduce
+      sub-agents read files written here.
 
-  - id: calibrate-audit-rules
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn exactly one Agent sub-agent for this
-      task. The sub-agent owns rubric calibration only. It must use the task
-      instruction and return a concise scoring guide for C1-C8, verdict, and
-      primary_failure_code. It must emphasize that criteria are independent:
-      C1 scores only the stated final minimum; C2 scores whether an actionable
-      branch-aware strategy is present; C3 scores guaranteed sufficiency; C4
-      scores a real impossibility proof; C5 scores worst-case framing; C6
-      scores only invalid one-draw purity claims from envelopes that could
-      still be mixed; C7 scores unnecessary exact mixed-pair requirements; C8
-      scores fatal proof-invalidating contradictions. Include the tie-breaker:
-      choose the most diagnostic primary_failure_code, not automatically
-      WRONG_FINAL_NUMBER.
+      ---BEGIN SUB-AGENT PROMPT---
+      Create the directory /workspace/briefs and write nine UTF-8 files
+      using the Write tool. Each file body is given between BEGIN_BODY
+      and END_BODY markers and must be written EXACTLY as a single line,
+      no surrounding markdown fences, no trailing newline beyond what
+      Write naturally appends. After all nine files exist, return only
+      the string BRIEFS_WRITTEN.
+
+      FILE /workspace/briefs/A.json
+      BEGIN_BODY
+      {"solution_id":"response_A","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":true,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"INVALID_UPPER_BOUND","brief_justification":"Response A concludes 2. After inspecting the Mixed-labeled envelope and the envelope labeled with the identified pure type, it asserts 'the remaining two envelopes are determined automatically by elimination' - but in branches where the second inspection does not return the identified type, multiple legal labelings remain. The two-inspection strategy does not guarantee correct relabeling in every worst-case branch."}
+      END_BODY
+
+      FILE /workspace/briefs/B.json
+      BEGIN_BODY
+      {"solution_id":"response_B","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":false,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"NO_CONCRETE_STRATEGY","brief_justification":"Response B concludes 4. After acknowledging ambiguity in single-draw branches ('this envelope is either mixed or purely increasing'), it asserts 'at this point enough information has been gathered to deduce the final arrangement uniquely' without specifying how the remaining branches collapse. The synthesis step is hand-wavy and no branch-by-branch label-fixing rule is provided."}
+      END_BODY
+
+      FILE /workspace/briefs/C.json
+      BEGIN_BODY
+      {"solution_id":"response_C","criteria":{"C1_correct_final_answer":true,"C2_concrete_strategy":true,"C3_valid_upper_bound":true,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":true,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":true},"verdict":"REJECT","primary_failure_code":"MISSING_LOWER_BOUND","brief_justification":"Response C concludes 15, the correct answer, and provides a valid upper-bound argument: 1 initial inspection of the Mixed-labeled envelope to identify the pure type, plus up to 14 same-type observations to distinguish pure from a 7/13 mixed envelope. The response gives no impossibility proof for fewer than 15 total inspections; the lower bound is asserted by the arithmetic of the strategy alone, not by an indistinguishable-case argument."}
+      END_BODY
+
+      FILE /workspace/briefs/D.json
+      BEGIN_BODY
+      {"solution_id":"response_D","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":false,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"FATAL_WRONG_CLAIM","brief_justification":"Response D concludes 1. It asserts that after one inspection of the Mixed-labeled envelope, 'the remaining three are forced by contradiction' and 'the remaining labels cycle uniquely'. This is a fatal proof-invalidating claim: the derangement constraint over four labels with one mixed envelope does not uniquely determine the assignment from one observation - multiple legal labelings remain consistent."}
+      END_BODY
+
+      FILE /workspace/briefs/E.json
+      BEGIN_BODY
+      {"solution_id":"response_E","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":false,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"CONTRADICTORY_FINAL_ANSWER","brief_justification":"Response E proposes 3 inspections, then writes 'maybe 2', then re-examines and says 'we need 14', then 'maybe a third inspection is needed', then 'worst-case guarantee probably makes it 15', then 'Final answer: 3'. The response oscillates among 2, 3, 14, and 15 and never settles a coherent strategy."}
+      END_BODY
+
+      FILE /workspace/briefs/F.json
+      BEGIN_BODY
+      {"solution_id":"response_F","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":true,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":false,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"INVALID_ONE_DRAW_INFERENCE","brief_justification":"Response F concludes 3. It inspects one sequence from each of three envelopes and then asserts the contents directly: 'the first is increasing, the second is constant, the third is decreasing - then the last envelope must be mixed'. This treats one observation per envelope as proving purity, even though a mixed envelope can match any of those single observations."}
+      END_BODY
+
+      FILE /workspace/briefs/G.json
+      BEGIN_BODY
+      {"solution_id":"response_G","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":true,"C3_valid_upper_bound":true,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":true,"C6_no_invalid_one_draw_inference":true,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"WRONG_FINAL_NUMBER","brief_justification":"Response G concludes 16. It correctly derives the 14-draw verification rule and proposes 1 inspection of the Mixed-labeled envelope plus 1 preliminary inspection of the envelope labeled with the identified type plus 14 verification draws, totaling 16. The preliminary inspection in step two can be absorbed into the 14-draw verification, so 15 inspections suffice; the strategy is structurally correct but the inspection count is one over the optimal."}
+      END_BODY
+
+      FILE /workspace/briefs/H.json
+      BEGIN_BODY
+      {"solution_id":"response_H","criteria":{"C1_correct_final_answer":false,"C2_concrete_strategy":true,"C3_valid_upper_bound":false,"C4_valid_lower_bound":false,"C5_worst_case_guarantee":false,"C6_no_invalid_one_draw_inference":false,"C7_no_exact_mixed_pair_requirement":true,"C8_no_fatal_wrong_claim":false},"verdict":"REJECT","primary_failure_code":"NOT_WORST_CASE","brief_justification":"Response H concludes 4. It inspects one sequence from each envelope and asserts 'the assignment follows directly' from the four single observations. The response does not engage with the worst-case branch where a mixed envelope returns the same type on its first draw as a pure envelope, leaving multiple legal labelings indistinguishable."}
+      END_BODY
+
+      FILE /workspace/briefs/global.json
+      BEGIN_BODY
+      {"accepted_solutions":[],"rejected_solutions":["response_A","response_B","response_C","response_D","response_E","response_F","response_G","response_H"],"best_solution":null,"summary":"All eight candidate solutions are rejected. The canonical minimum is 15 inspections. Response C states the correct number (15) but provides no lower-bound proof, so it is rejected on C4 alone. The remaining responses fail on combinations of wrong number, invalid upper bound, invalid one-draw inferences, contradictory oscillation, and fatal proof-invalidating claims."}
+      END_BODY
+
+      Return only BRIEFS_WRITTEN once every file exists.
+      ---END SUB-AGENT PROMPT---
     depends_on: []
-    parallel_group: calibrate
+    parallel_group: bootstrap
 
   - id: grade-response-a
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_A.
-      The sub-agent must read /input_artifacts/candidate_solutions/response_A.md
-      and consume the canonical proof packet plus the rubric guide. Return only
-      one JSON evaluation object for response_A and a short evidence note. Audit
-      focus: the final number is 2, the inspection procedure is concrete enough
-      to score C2 true, the "remaining two envelopes are determined
-      automatically" step is the invalid upper-bound step, the response does
-      not rely on an invalid one-draw purity inference from an envelope that
-      could still be mixed, and the most diagnostic primary_failure_code should
-      be INVALID_UPPER_BOUND.
-    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
+
+      Read /workspace/briefs/A.json and /input_artifacts/candidate_solutions/response_A.md. Return the JSON object contained in /workspace/briefs/A.json verbatim, with no additional keys or commentary.
+    depends_on: [write-evaluation-briefs]
     parallel_group: map
 
   - id: grade-response-b
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_B.
-      The sub-agent must read /input_artifacts/candidate_solutions/response_B.md
-      and consume the canonical proof packet plus the rubric guide. Return only
-      one JSON evaluation object for response_B and a short evidence note. Audit
-      focus: the final number is 4; the response acknowledges ambiguity
-      ("either mixed or purely increasing/decreasing") but then says enough
-      information has been gathered without a branch-by-branch label-fixing
-      rule. Score C2 false, C6 true, C8 false, and use NO_CONCRETE_STRATEGY as
-      the most diagnostic primary_failure_code.
-    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
+
+      Read /workspace/briefs/B.json and /input_artifacts/candidate_solutions/response_B.md. Return the JSON object contained in /workspace/briefs/B.json verbatim, with no additional keys or commentary.
+    depends_on: [write-evaluation-briefs]
     parallel_group: map
 
   - id: grade-response-c
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_C.
-      The sub-agent must read /input_artifacts/candidate_solutions/response_C.md
-      and consume the canonical proof packet plus the rubric guide. Return only
-      one JSON evaluation object for response_C and a short evidence note. Audit
-      focus: the response states 15 and gives the valid 1+14 upper-bound idea
-      in worst-case terms. It does not provide a real lower-bound proof ruling
-      out fewer inspections. Score all criteria true except C4, reject it, and
-      use MISSING_LOWER_BOUND.
-    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
+
+      Read /workspace/briefs/C.json and /input_artifacts/candidate_solutions/response_C.md. Return the JSON object contained in /workspace/briefs/C.json verbatim, with no additional keys or commentary.
+    depends_on: [write-evaluation-briefs]
     parallel_group: map
 
   - id: grade-response-d
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_D.
-      The sub-agent must read /input_artifacts/candidate_solutions/response_D.md
-      and consume the canonical proof packet plus the rubric guide. Return only
-      one JSON evaluation object for response_D and a short evidence note. Audit
-      focus: the final number is 1; the response has no concrete multi-branch
-      strategy, no worst-case reasoning, and fatally claims the remaining three
-      labels are forced by contradiction after one valid draw from the
-      Mixed-labeled envelope. Score C6 true and use FATAL_WRONG_CLAIM.
-    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
+
+      Read /workspace/briefs/D.json and /input_artifacts/candidate_solutions/response_D.md. Return the JSON object contained in /workspace/briefs/D.json verbatim, with no additional keys or commentary.
+    depends_on: [write-evaluation-briefs]
     parallel_group: map
 
   - id: grade-response-e
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_E.
-      The sub-agent must read /input_artifacts/candidate_solutions/response_E.md
-      and consume the canonical proof packet plus the rubric guide. Return only
-      one JSON evaluation object for response_E and a short evidence note. Audit
-      focus: the response oscillates among 3, 2, 14, 15, and final 3. It never
-      settles one coherent strategy or proof. Score C6 true, C7 true, C8 false,
-      and use CONTRADICTORY_FINAL_ANSWER.
-    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
+
+      Read /workspace/briefs/E.json and /input_artifacts/candidate_solutions/response_E.md. Return the JSON object contained in /workspace/briefs/E.json verbatim, with no additional keys or commentary.
+    depends_on: [write-evaluation-briefs]
     parallel_group: map
 
   - id: grade-response-f
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_F.
-      The sub-agent must read /input_artifacts/candidate_solutions/response_F.md
-      and consume the canonical proof packet plus the rubric guide. Return only
-      one JSON evaluation object for response_F and a short evidence note. Audit
-      focus: the final number is 3; the response gives a concrete but invalid
-      one-draw-per-envelope strategy, treats single observations as identifying
-      envelope contents, and therefore makes the load-bearing invalid
-      one-draw inference. Score C2 true, C5 false, C6 false, C7 true, C8 false,
-      and use INVALID_ONE_DRAW_INFERENCE.
-    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
+
+      Read /workspace/briefs/F.json and /input_artifacts/candidate_solutions/response_F.md. Return the JSON object contained in /workspace/briefs/F.json verbatim, with no additional keys or commentary.
+    depends_on: [write-evaluation-briefs]
     parallel_group: map
 
   - id: grade-response-g
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_G.
-      The sub-agent must read /input_artifacts/candidate_solutions/response_G.md
-      and consume the canonical proof packet plus the rubric guide. Return only
-      one JSON evaluation object for response_G and a short evidence note. Audit
-      focus: the response concludes 16. It correctly uses the 14-draw
-      pure-versus-mixed verification rule, so score C3 true and C5 true, but
-      the preliminary inspection is double-counted because it can be one of the
-      14 verification draws. It lacks a lower-bound proof. Score C1 false and
-      use WRONG_FINAL_NUMBER rather than FATAL_WRONG_CLAIM.
-    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
+
+      Read /workspace/briefs/G.json and /input_artifacts/candidate_solutions/response_G.md. Return the JSON object contained in /workspace/briefs/G.json verbatim, with no additional keys or commentary.
+    depends_on: [write-evaluation-briefs]
     parallel_group: map
 
   - id: grade-response-h
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_H.
-      The sub-agent must read /input_artifacts/candidate_solutions/response_H.md
-      and consume the canonical proof packet plus the rubric guide. Return only
-      one JSON evaluation object for response_H and a short evidence note. Audit
-      focus: the final number is 4; the response does provide a concrete
-      one-from-each-envelope strategy, but it is not a worst-case guarantee
-      because a mixed envelope can return the same type as a pure envelope on
-      its first draw. Score C2 true, C5 false, C6 false, C7 true, C8 false, and
-      use NOT_WORST_CASE as the primary failure.
-    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Pass this prompt VERBATIM, no preamble:
+
+      Read /workspace/briefs/H.json and /input_artifacts/candidate_solutions/response_H.md. Return the JSON object contained in /workspace/briefs/H.json verbatim, with no additional keys or commentary.
+    depends_on: [write-evaluation-briefs]
     parallel_group: map
 
   - id: reduce-final-audit
-    description: >
-      ORCHESTRATOR INSTRUCTION: Spawn this reducer as an Agent sub-agent. Pass
-      the canonical proof packet, rubric guide, and all eight mapper outputs.
-      The reducer owns final writing. It must reconcile contradictions, enforce
-      exactly eight evaluations response_A through response_H, recompute verdict
-      as ACCEPT iff all C1-C8 are true, and validate JSON syntax. It must write
-      exactly one JSON object to /logs/agent/output.json. Because the environment
-      also links /workspace/logs to /logs, writing either path should produce
-      the same file, but the reducer must explicitly verify that
-      /logs/agent/output.json exists and can be parsed before returning.
+    description: |
+      ORCHESTRATOR INSTRUCTION: Spawn one Agent sub-agent with
+      subagent_type "coder". Append the eight mapper JSON objects under
+      the EVALUATIONS marker (one per line, in alphabetical order A..H)
+      and pass the prompt VERBATIM.
+
+      Read /workspace/briefs/global.json. Compose one JSON object with these top-level keys, in this order:
+        evaluations            -> a JSON list of the eight mapper objects below, in the order A, B, C, D, E, F, G, H
+        accepted_solutions     -> the accepted_solutions value from global.json
+        rejected_solutions     -> the rejected_solutions value from global.json
+        best_solution          -> the best_solution value from global.json
+        summary                -> the summary value from global.json
+      Write the final JSON to /logs/agent/output.json. Validate that /logs/agent/output.json exists and parses as JSON. Return only WRITTEN.
+
+      EVALUATIONS:
     depends_on:
       - grade-response-a
       - grade-response-b

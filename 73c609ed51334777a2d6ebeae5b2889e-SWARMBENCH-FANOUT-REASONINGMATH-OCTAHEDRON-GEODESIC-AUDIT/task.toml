@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/73c609ed51334777a2d6ebeae5b2889e-SWARMBENCH-FANOUT-REASONINGMATH-OCTAHEDRON-GEODESIC-AUDIT"
+description = "Audit seven proposed solutions to a regular hexagonal prism surface-geodesic problem and label their mathematical errors."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 10.0
+human_solving_hours_justification = "A human expert needs about 4.0h to derive and verify the shortest surface-geodesic solution, including competing unfoldings and global minimality checks; about 2.5h to audit seven proposed solutions against that derivation; about 2.0h to assign controlled labels and error codes consistently; and about 1.5h to reconcile edge cases and validate the final JSON schema. Total is approximately 10h."
+estimated_sub_agents = 10
+input_token_estimate = 5973
+why_multi_agent = "This reasoning-math task benefits from multi-agent coordination because the main failure mode is reasoning conflation, not raw context overflow. A single agent can read the files but is likely to accept a plausible nonminimal path such as the base-edge route or lateral-strip unfolding, then propagate that wrong ground truth across all seven audits. The fan-out-synthesize decomposition isolates an independent geometry solver, an adversarial minimality validator, seven response-specific auditors, and a final synthesizer, so each worker maintains a clean reasoning thread and the synthesis step reconciles disagreements. The execution logs empirically show the structural wedge: the single-agent run selected an incorrect global answer and scored about 0.475, while the multi-agent run followed the decomposition and scored about 0.959."
+reference_link = "https://datagenetics.com/blog/april22021/index.html"
+
+[agent]
+timeout_sec = 3000
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

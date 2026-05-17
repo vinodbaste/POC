@@ -8,9 +8,9 @@ domain = "reasoning-math"
 coordination_pattern = "map-reduce"
 human_solving_hours_estimate = 11.0
 human_solving_hours_justification = "11.0 hours total = 1.5h independently deriving and verifying the 15-inspection canonical strategy (1 inspection of the Mixed-labeled envelope plus 14-draw verification against the 7/13 split) and its matching impossibility argument + 8 responses x 0.95h/response = 7.6h auditing the C1-C8 rubric, verdict, and primary_failure_code for each candidate + 1.3h cross-checking the oracle against candidate text and weighted scoring + 0.6h packaging and execution-log consistency checks. Component sum: 1.5 + 7.6 + 1.3 + 0.6 = 11.0 hours."
-estimated_sub_agents = 11
+estimated_sub_agents = 10
 input_token_estimate = 5200
-why_multi_agent = "The task contains eight independent candidate solution audits plus a shared canonical proof and rubric-calibration phase. Each audit requires careful local attention to subtle proof errors: wrong final number, missing lower bound, invalid upper bound, invalid one-draw inference, contradictory answer, and not-worst-case reasoning are intentionally close but distinct. A single agent is likely to conflate candidates or default to the most generic failure code as context accumulates. Map-reduce lets one proof agent establish the 15-inspection canonical result, one rubric agent calibrate independent C1-C8 labels, eight mapper agents each own one response, and a reducer reconcile all labels into one deterministic JSON report."
+why_multi_agent = "The task contains eight independent candidate solution audits over a shared mathematical derivation. Each audit requires careful local attention to subtle proof errors: wrong final number, missing lower bound, invalid upper bound, invalid one-draw inference, contradictory answer, and not-worst-case reasoning are intentionally close but distinct. A single agent is likely to conflate candidates or default to the most generic failure code as context accumulates. Map-reduce lets one setup agent establish the shared canonical derivation and rubric calibration, eight mapper agents each own one response with isolated context, and a reducer reconcile all labels into one deterministic JSON report."
 reference_link = "https://medium.com/@shelvia1039/brain-teasers-3eac53bce2a0"
 
 [agent]
