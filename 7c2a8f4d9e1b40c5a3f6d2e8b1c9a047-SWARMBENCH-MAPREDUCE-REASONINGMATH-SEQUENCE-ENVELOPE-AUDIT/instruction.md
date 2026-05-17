@@ -4,13 +4,14 @@ Working directory: `/workspace`.
 
 You are auditing proposed solutions to a deductive reasoning puzzle about four mislabeled envelopes of monotonic number sequences. Your primary task is to mathematically derive the minimum number of inspections required to guarantee correct relabeling (a worst-case combinatorial reasoning problem), then audit each candidate solution against that derivation. The mathematical derivation - establishing the upper bound via an explicit inspection strategy and the lower bound via indistinguishable-case reasoning - is the dominant cognitive activity of every sub-task in this workflow.
 
-The only puzzle source is the problem statement.
+The only puzzle source is the problem statement. The provenance file describes where the candidate responses came from; it is not a source for solving the puzzle and does not contain oracle labels.
 
 ## Input files
 
 Read these files:
 
 - /input_artifacts/problem_statement.md
+- /input_artifacts/provenance.md
 - /input_artifacts/candidate_solutions/response_A.md
 - /input_artifacts/candidate_solutions/response_B.md
 - /input_artifacts/candidate_solutions/response_C.md

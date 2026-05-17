@@ -175,19 +175,45 @@ sub_tasks:
     depends_on: [derive-canonical-game-classification, calibrate-failure-code-boundaries]
     parallel_group: fan-out
 
-  - id: synthesize-final-audit
+  - id: adjudicate-exact-code-sets
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a sub-agent
-      using the Agent tool. Do NOT perform the final synthesis yourself. The
-      synthesizer may only consume the canonical-classification packet, the
-      code-boundary guide, and the eight audit objects. It MUST NOT re-derive
-      the classifications or the per-response audits in the orchestrator. If
-      any audit object is malformed, request a replacement sub-agent for that
-      one response rather than grading it in the orchestrator. The synthesizer
-      must write exactly one JSON object to /logs/agent/output.json with
-      top-level keys correct_classification_string, acceptable_solution_ids,
-      and per_response_assessment (the eight audit objects ordered A through
-      H), as specified by instruction.md.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this adjudicator as a sub-agent
+      using the Agent tool after all eight response audits finish. Do NOT
+      adjudicate in the orchestrator. The adjudicator must consume the
+      canonical-classification packet, the code-boundary guide, all eight
+      audit objects, and the eight response files. Its job is to identify
+      likely extra or missing failure-reason codes under the exact-set scoring
+      rule and return correction recommendations only.
+
+      Required decision rules:
+      - non_terminating_or_no_final_string can coexist with
+        arithmetic_recursion_error only when the response lacks a usable final
+        131-character string but still contains concrete incoherent
+        position-level P/N fragments that are themselves erroneous. Do not
+        replace such concrete fragment errors with arbitrary_pattern_heuristic
+        unless the text rests on a stated pattern rule.
+      - missing_subtraction_moves requires a concrete incomplete move-set
+        reliance or a response pattern that effectively ignores the full
+        square-triangle union. It is not triggered by mere silence when a
+        response otherwise uses the full recurrence.
+      - truncated_or_short_string is for a final claimed P/N string that is
+        not exactly 131 characters or otherwise malformed. Do not add it just
+        because the classification is mathematically wrong.
+      - wrong_base_case should stand alone when the most concrete trigger is
+        that the claimed classification starts with N at pile size 0 and the
+        text provides no independent trigger for another code.
+      - arithmetic_recursion_error applies when a response sets up the correct
+        recurrence/move set or gives recurrence-style reasoning, then outputs
+        position-level errors. It should not be added to a pure heuristic such
+        as "because move 1 exists, every nonzero position is N."
+      - arbitrary_pattern_heuristic applies to unsupported all-N, periodic,
+        alternating, or visibly repeating rules not justified by the game-tree
+        recurrence.
+      - For each recommendation, cite the response text behavior that triggers
+        the code or explains why an audit's extra code should be removed.
+      Return a JSON object keyed by response_id A through H with proposed
+      failure_reasons replacements only where the first-pass audit appears to
+      have an exact-set error.
     depends_on:
       - audit-response-a
       - audit-response-b
@@ -197,4 +223,32 @@ sub_tasks:
       - audit-response-f
       - audit-response-g
       - audit-response-h
+    parallel_group: adjudicate
+
+  - id: synthesize-final-audit
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a sub-agent
+      using the Agent tool. Do NOT perform the final synthesis yourself. The
+      synthesizer may only consume the canonical-classification packet, the
+      code-boundary guide, the eight audit objects, and the exact-code-set
+      adjudicator recommendations. It MUST NOT re-derive the classifications
+      or the per-response audits in the orchestrator. Apply adjudicator
+      recommendations when they cite response-text behavior and follow the
+      instruction definitions; exact-set scoring means both extra and missing
+      codes are harmful. If any audit object is malformed, request a
+      replacement sub-agent for that one response rather than grading it in the
+      orchestrator. The synthesizer must write exactly one JSON object to
+      /logs/agent/output.json with top-level keys correct_classification_string,
+      acceptable_solution_ids, and per_response_assessment (the eight audit
+      objects ordered A through H), as specified by instruction.md.
+    depends_on:
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - adjudicate-exact-code-sets
     parallel_group: synthesize

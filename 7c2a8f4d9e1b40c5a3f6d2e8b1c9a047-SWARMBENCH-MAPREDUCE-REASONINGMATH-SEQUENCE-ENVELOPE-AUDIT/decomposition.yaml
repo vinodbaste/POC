@@ -184,19 +184,56 @@ sub_tasks:
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
-  - id: reduce-final-audit
+  - id: adjudicate-high-weight-labels
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent
-      using the Agent tool. Do NOT perform the final reduction yourself. The
-      reducer may only synthesize the canonical-proof packet, calibration
-      output, and the eight mapper outputs. It MUST NOT redo the eight audits
-      from scratch. If a mapper output is malformed, ask a replacement
-      sub-agent to re-grade that same response instead of grading it in the
-      orchestrator. The reducer must write exactly one JSON object to
-      /logs/agent/output.json with top-level keys evaluations (the eight
-      mapper objects in alphabetical order response_A through response_H),
-      accepted_solutions, rejected_solutions, best_solution, and summary, as
-      specified by instruction.md.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this adjudicator as a
+      sub-agent using the Agent tool after all response mappers finish. Do NOT
+      do this adjudication in the orchestrator. The adjudicator must consume
+      the canonical-proof packet, calibration guide, all eight mapper outputs,
+      and the eight candidate response files. Its job is narrowly to
+      re-check the labels that dominate scoring and are easy to conflate:
+      C3_valid_upper_bound, C4_valid_lower_bound,
+      C6_no_invalid_one_draw_inference, C8_no_fatal_wrong_claim, verdict, and
+      primary_failure_code. It should return correction recommendations, not a
+      final report.
+
+      Required decision rules:
+      - Do not set C6 false merely because a one-draw strategy is insufficient.
+        C6 is false only when the response explicitly treats one observed
+        sequence from an envelope that could still be mixed as proving that
+        envelope is pure. One draw from the Mixed-labeled envelope is valid
+        because that label is known wrong.
+      - Do not choose WRONG_FINAL_NUMBER as the primary failure just because
+        C1 is false. Prefer the most diagnostic proof failure: missing concrete
+        strategy, invalid upper bound, missing lower bound, contradictory final
+        answer, invalid one-draw inference, unnecessary exact-pair requirement,
+        not-worst-case reasoning, or fatal wrong claim.
+      - If a response gives the correct inspection count and a valid
+        upper-bound strategy but only asserts minimality from its own strategy,
+        reject for missing lower bound.
+      - If a response over-counts an otherwise structurally sound 14-draw
+        verification strategy because it double-counts a preliminary draw,
+        classify the primary failure as wrong final number while preserving
+        the valid upper-bound label.
+      - C2_concrete_strategy is low-weight but still should be checked
+        literally: a strategy can be concrete even when it is invalid. If the
+        response specifies which envelopes are inspected, how many samples are
+        drawn, and how it intends to label afterwards, C2 should be true even
+        when C3 is false.
+      - C8_no_fatal_wrong_claim is independent of C3 and primary code. If the
+        response uses a proof-invalidating "must be" or "forced" claim where
+        only "could be" is justified, C8 should be false even if another label
+        such as WRONG_FINAL_NUMBER or INVALID_UPPER_BOUND is the best primary
+        failure.
+      - If a response asserts the remaining labels are forced when multiple
+        legal assignments remain open, treat that as a fatal wrong claim.
+      - If a response relies on favorable single observations and never handles
+        the branch where mixed can mimic pure on the first draw, treat the main
+        issue as not-worst-case unless the text explicitly makes the invalid
+        one-draw purity inference.
+      Return a compact JSON object keyed by response_A through response_H with
+      only fields whose mapper labels should be changed and a one-sentence
+      evidence note for each recommendation.
     depends_on:
       - grade-response-a
       - grade-response-b
@@ -206,4 +243,32 @@ sub_tasks:
       - grade-response-f
       - grade-response-g
       - grade-response-h
+    parallel_group: adjudicate
+
+  - id: reduce-final-audit
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent
+      using the Agent tool. Do NOT perform the final reduction yourself. The
+      reducer may only synthesize the canonical-proof packet, calibration
+      output, the eight mapper outputs, and the high-weight-label adjudicator
+      recommendations. It MUST NOT redo the eight audits from scratch. Apply
+      adjudicator recommendations when they cite candidate-text evidence and
+      follow the instruction definitions. Recompute verdict deterministically:
+      ACCEPT iff all C1-C8 are true, otherwise REJECT. If a mapper output is
+      malformed, ask a replacement sub-agent to re-grade that same response
+      instead of grading it in the orchestrator. The reducer must write exactly
+      one JSON object to /logs/agent/output.json with top-level keys
+      evaluations (the eight objects in alphabetical order response_A through
+      response_H), accepted_solutions, rejected_solutions, best_solution, and
+      summary, as specified by instruction.md.
+    depends_on:
+      - grade-response-a
+      - grade-response-b
+      - grade-response-c
+      - grade-response-d
+      - grade-response-e
+      - grade-response-f
+      - grade-response-g
+      - grade-response-h
+      - adjudicate-high-weight-labels
     parallel_group: reduce
