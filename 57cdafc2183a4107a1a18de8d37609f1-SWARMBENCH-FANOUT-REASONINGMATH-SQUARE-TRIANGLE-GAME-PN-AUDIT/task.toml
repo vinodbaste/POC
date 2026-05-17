@@ -14,7 +14,7 @@ why_multi_agent = "The task is a mathematical-reasoning workload with brittle ex
 reference_link = "https://en.wikipedia.org/wiki/Sprague%E2%80%93Grundy_theorem"
 
 [agent]
-timeout_sec = 3600
+timeout_sec = 660
 
 [verifier]
 timeout_sec = 600

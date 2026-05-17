@@ -1,0 +1,3 @@
+Score: 0.5082 (124/244 passed)
+
+correct_classification_string: 2/2 (exact match); acceptable_solution_ids: 2/2 (exact match); per_response_assessment: A=30/30, B=30/30, C=0/30 (missing 'missing_subtraction_moves'), D=0/30 (missing 'arbitrary_pattern_heuristic'), E=0/30 (extra 'arbitrary_pattern_heuristic'), F=0/30 (missing 'arithmetic_recursion_error'), G=30/30 (set match), H=30/30 (set match); total 124/244

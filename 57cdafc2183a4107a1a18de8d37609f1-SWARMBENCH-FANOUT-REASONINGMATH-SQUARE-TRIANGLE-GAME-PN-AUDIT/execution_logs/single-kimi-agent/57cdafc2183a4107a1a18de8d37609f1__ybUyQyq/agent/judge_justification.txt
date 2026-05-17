@@ -1,3 +1,0 @@
-Score: 0.2623 (64/244 passed)
-
-correct_classification_string: 2/2 (exact match); acceptable_solution_ids: 2/2 (exact match); Response A: 0/30 (missing 'arithmetic_recursion_error'); Response B: 30/30 (exact match); Response C: 0/30 (incorrect set: has 'truncated_or_short_string' instead of 'missing_subtraction_moves'); Response D: 0/30 (missing 'arbitrary_pattern_heuristic'); Response E: 0/30 (extra 'arbitrary_pattern_heuristic'); Response F: 30/30 (exact set match, order irrelevant); Response G: 0/30 (extra 'truncated_or_short_string'); Response H: 0/30 (incorrect set: has 'truncated_or_short_string' instead of 'arithmetic_recursion_error')
