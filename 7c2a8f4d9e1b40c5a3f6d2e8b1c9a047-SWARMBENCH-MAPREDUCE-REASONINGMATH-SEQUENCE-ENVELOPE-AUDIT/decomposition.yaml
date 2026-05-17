@@ -27,22 +27,78 @@ sub_tasks:
       clarifies that the criteria are independent and each is assessed
       binary; verdict is ACCEPT only when every one of C1-C8 is satisfied;
       primary_failure_code is the single most diagnostic controlling defect
-      drawn from the controlled vocabulary in the instruction; ties are
-      broken by the disambiguation order in the instruction (prefer
-      CONTRADICTORY_FINAL_ANSWER over WRONG_FINAL_NUMBER for oscillation,
-      NO_CONCRETE_STRATEGY over downstream defects that follow from missing
-      strategy, INVALID_ONE_DRAW_INFERENCE over NOT_WORST_CASE only when
-      load-bearing single-draw inferences from a possibly-mixed envelope
-      drive the count, NOT_WORST_CASE for inconsistent worst-case framing,
-      UNNECESSARY_MIXED_PAIR_REQUIREMENT for unnecessary identification of
-      the two-type composition, MISSING_LOWER_BOUND when the strategy is
-      otherwise complete but no impossibility argument exists,
-      INVALID_UPPER_BOUND for upper-bound proofs that fail in some
-      worst-case branch, FATAL_WRONG_CLAIM for load-bearing
-      proof-invalidating claims, and WRONG_FINAL_NUMBER for arithmetic-only
-      deviations on otherwise structurally complete strategies). The guide
-      must explain how to choose the most diagnostic code from the
-      instruction list without assigning any code to any specific response.
+      drawn from the controlled vocabulary in the instruction.
+
+      The guide must include the following universal phrase-pattern rules
+      (these apply uniformly to every candidate response; no response is
+      pre-assigned to any rule):
+
+      C2 (concrete strategy) is true only when the response specifies a
+      multi-branch plan: which envelopes are inspected, how many items
+      are drawn from each, what each observation implies, and how each
+      branch fixes all four labels. A single-inspection plan followed by
+      a sentence like "forced by contradiction" or "the remaining are
+      determined" is NOT a concrete strategy and C2 should be false.
+
+      C4 (valid lower bound) is true only when the response constructs an
+      indistinguishable-case argument showing that no strategy with fewer
+      inspections suffices. A response that derives the correct count
+      from its own strategy's arithmetic without an impossibility
+      construction has C4 false even when its strategy and count are
+      structurally correct.
+
+      C6 (no invalid one-draw inference) is TRUE by default. It becomes
+      false ONLY when the response explicitly treats one observed
+      sequence from an envelope that could still be mixed as proving
+      that envelope is pure. C6 does NOT fire false when:
+      (a) the single-draw observation is from the Mixed-labeled envelope
+      (that label is known wrong, so the inference is valid);
+      (b) the response acknowledges single-draw ambiguity (such as "this
+      envelope is either mixed or purely increasing") without collapsing
+      it to a purity claim;
+      (c) the response's strategy is merely insufficient without an
+      explicit single-draw purity claim.
+
+      C8 (no fatal wrong claim) is TRUE by default. It becomes false when
+      the response asserts a proof-invalidating claim. Triggering phrase
+      patterns include: "determined automatically by elimination" after
+      too-few observations, "the remaining are forced by contradiction",
+      "the remaining labels cycle uniquely", "enough information has been
+      gathered to deduce the final arrangement uniquely" after
+      acknowledged ambiguity, "the assignment follows directly" from
+      single observations. Any of these patterns triggers C8=false even
+      when WRONG_FINAL_NUMBER or another code is also the best primary
+      failure for the response.
+
+      Primary failure code selection (ties are broken in this order):
+      CONTRADICTORY_FINAL_ANSWER for responses that oscillate among
+      incompatible final counts. NO_CONCRETE_STRATEGY for responses
+      whose closing synthesis step is hand-wavy and does not specify how
+      remaining branches collapse. INVALID_ONE_DRAW_INFERENCE only when
+      a load-bearing single-draw purity inference from a possibly-mixed
+      envelope drives the count; do NOT pick this code when the only
+      single-draw observation present is from the Mixed-labeled envelope.
+      NOT_WORST_CASE when the response treats favorable single-draw
+      observations as resolving worst-case ambiguity without an explicit
+      one-draw purity inference. UNNECESSARY_MIXED_PAIR_REQUIREMENT when
+      the response adds inspections solely to identify the exact mixed
+      two-type composition. MISSING_LOWER_BOUND when the strategy is
+      otherwise complete (correct number, valid upper bound, worst-case
+      framing) but no impossibility argument is given. INVALID_UPPER_BOUND
+      when the upper-bound proof fails in some worst-case branch (e.g.,
+      elimination-based label-fixing leaves multiple legal labelings
+      open). FATAL_WRONG_CLAIM when the load-bearing defect is a
+      proof-invalidating "forced" or "cycle uniquely" assertion not
+      consistent with multiple legal labelings remaining open.
+      WRONG_FINAL_NUMBER only when the strategy is structurally correct
+      and the defect is the arithmetic deviation alone (e.g., an
+      otherwise sound 14-draw verification strategy whose preliminary
+      inspection could have been absorbed).
+
+      Do NOT default to WRONG_FINAL_NUMBER simply because C1 is false.
+      Do NOT default to INVALID_ONE_DRAW_INFERENCE simply because the
+      response is insufficient. Pick the most diagnostic code that
+      describes the load-bearing defect.
     depends_on: []
     parallel_group: calibrate
 
@@ -61,6 +117,21 @@ sub_tasks:
       identified pure type), and whether elimination-based label-fixing
       leaves any legal labelings open. Still evaluate all C1-C8 labels,
       verdict, and diagnostic failure category independently.
+
+      In addition to the eight criteria booleans, the verdict, and the
+      primary_failure_code, the sub-agent MUST also produce the following
+      required scored fields for this response: criterion_evidence (a
+      JSON object with exactly the eight criteria keys; each value a
+      non-empty string of at least 20 characters citing or paraphrasing
+      the response text justifying the corresponding boolean),
+      primary_failure_code_evidence (a string of at least 50 characters
+      explaining why the chosen primary_failure_code is the most
+      diagnostic for this response), and alternative_codes_considered (a
+      JSON array of at least two objects, each with a code field naming
+      one of the controlled-vocabulary codes other than the selected
+      primary and a reason_excluded field with a brief textual
+      justification). These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -79,6 +150,21 @@ sub_tasks:
       instead asserts the arrangement is uniquely determined without
       supplying that rule. Still evaluate all C1-C8 labels, verdict, and
       diagnostic failure category independently.
+
+      In addition to the eight criteria booleans, the verdict, and the
+      primary_failure_code, the sub-agent MUST also produce the following
+      required scored fields for this response: criterion_evidence (a
+      JSON object with exactly the eight criteria keys; each value a
+      non-empty string of at least 20 characters citing or paraphrasing
+      the response text justifying the corresponding boolean),
+      primary_failure_code_evidence (a string of at least 50 characters
+      explaining why the chosen primary_failure_code is the most
+      diagnostic for this response), and alternative_codes_considered (a
+      JSON array of at least two objects, each with a code field naming
+      one of the controlled-vocabulary codes other than the selected
+      primary and a reason_excluded field with a brief textual
+      justification). These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -97,6 +183,21 @@ sub_tasks:
       merely asserts minimality from the arithmetic of its own strategy.
       Still evaluate all C1-C8 labels, verdict, and diagnostic failure
       category independently.
+
+      In addition to the eight criteria booleans, the verdict, and the
+      primary_failure_code, the sub-agent MUST also produce the following
+      required scored fields for this response: criterion_evidence (a
+      JSON object with exactly the eight criteria keys; each value a
+      non-empty string of at least 20 characters citing or paraphrasing
+      the response text justifying the corresponding boolean),
+      primary_failure_code_evidence (a string of at least 50 characters
+      explaining why the chosen primary_failure_code is the most
+      diagnostic for this response), and alternative_codes_considered (a
+      JSON array of at least two objects, each with a code field naming
+      one of the controlled-vocabulary codes other than the selected
+      primary and a reason_excluded field with a brief textual
+      justification). These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -115,6 +216,21 @@ sub_tasks:
       an assertion is consistent with multiple legal labelings still
       remaining open. Still evaluate all C1-C8 labels, verdict, and
       diagnostic failure category independently.
+
+      In addition to the eight criteria booleans, the verdict, and the
+      primary_failure_code, the sub-agent MUST also produce the following
+      required scored fields for this response: criterion_evidence (a
+      JSON object with exactly the eight criteria keys; each value a
+      non-empty string of at least 20 characters citing or paraphrasing
+      the response text justifying the corresponding boolean),
+      primary_failure_code_evidence (a string of at least 50 characters
+      explaining why the chosen primary_failure_code is the most
+      diagnostic for this response), and alternative_codes_considered (a
+      JSON array of at least two objects, each with a code field naming
+      one of the controlled-vocabulary codes other than the selected
+      primary and a reason_excluded field with a brief textual
+      justification). These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -132,6 +248,21 @@ sub_tasks:
       or oscillates among incompatible counts and partial strategies. Still
       evaluate all C1-C8 labels, verdict, and diagnostic failure category
       independently.
+
+      In addition to the eight criteria booleans, the verdict, and the
+      primary_failure_code, the sub-agent MUST also produce the following
+      required scored fields for this response: criterion_evidence (a
+      JSON object with exactly the eight criteria keys; each value a
+      non-empty string of at least 20 characters citing or paraphrasing
+      the response text justifying the corresponding boolean),
+      primary_failure_code_evidence (a string of at least 50 characters
+      explaining why the chosen primary_failure_code is the most
+      diagnostic for this response), and alternative_codes_considered (a
+      JSON array of at least two objects, each with a code field naming
+      one of the controlled-vocabulary codes other than the selected
+      primary and a reason_excluded field with a brief textual
+      justification). These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -149,6 +280,21 @@ sub_tasks:
       that single draw as proof of purity in the absence of a multi-draw
       verification ruling out the 7/13 mixed case. Still evaluate all C1-C8
       labels, verdict, and diagnostic failure category independently.
+
+      In addition to the eight criteria booleans, the verdict, and the
+      primary_failure_code, the sub-agent MUST also produce the following
+      required scored fields for this response: criterion_evidence (a
+      JSON object with exactly the eight criteria keys; each value a
+      non-empty string of at least 20 characters citing or paraphrasing
+      the response text justifying the corresponding boolean),
+      primary_failure_code_evidence (a string of at least 50 characters
+      explaining why the chosen primary_failure_code is the most
+      diagnostic for this response), and alternative_codes_considered (a
+      JSON array of at least two objects, each with a code field naming
+      one of the controlled-vocabulary codes other than the selected
+      primary and a reason_excluded field with a brief textual
+      justification). These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -167,6 +313,21 @@ sub_tasks:
       while still preserving the proof's worst-case guarantee, and on
       whether the response acknowledges that reduction. Still evaluate all
       C1-C8 labels, verdict, and diagnostic failure category independently.
+
+      In addition to the eight criteria booleans, the verdict, and the
+      primary_failure_code, the sub-agent MUST also produce the following
+      required scored fields for this response: criterion_evidence (a
+      JSON object with exactly the eight criteria keys; each value a
+      non-empty string of at least 20 characters citing or paraphrasing
+      the response text justifying the corresponding boolean),
+      primary_failure_code_evidence (a string of at least 50 characters
+      explaining why the chosen primary_failure_code is the most
+      diagnostic for this response), and alternative_codes_considered (a
+      JSON array of at least two objects, each with a code field naming
+      one of the controlled-vocabulary codes other than the selected
+      primary and a reason_excluded field with a brief textual
+      justification). These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -185,6 +346,21 @@ sub_tasks:
       favorable single-draw observations as resolving all worst-case
       ambiguity. Still evaluate all C1-C8 labels, verdict, and diagnostic
       failure category independently.
+
+      In addition to the eight criteria booleans, the verdict, and the
+      primary_failure_code, the sub-agent MUST also produce the following
+      required scored fields for this response: criterion_evidence (a
+      JSON object with exactly the eight criteria keys; each value a
+      non-empty string of at least 20 characters citing or paraphrasing
+      the response text justifying the corresponding boolean),
+      primary_failure_code_evidence (a string of at least 50 characters
+      explaining why the chosen primary_failure_code is the most
+      diagnostic for this response), and alternative_codes_considered (a
+      JSON array of at least two objects, each with a code field naming
+      one of the controlled-vocabulary codes other than the selected
+      primary and a reason_excluded field with a brief textual
+      justification). These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
@@ -195,39 +371,106 @@ sub_tasks:
       NOT do this adjudication in the orchestrator. The adjudicator must
       consume the canonical-proof packet, calibration guide, all eight
       mapper outputs, and the eight candidate response files. Its job is
-      narrowly to re-check the labels that dominate scoring and are easy to
-      conflate: C3_valid_upper_bound, C4_valid_lower_bound,
-      C6_no_invalid_one_draw_inference, C8_no_fatal_wrong_claim, verdict,
-      and primary_failure_code. It should return correction recommendations,
-      not a final report.
+      narrowly to re-check the labels that dominate scoring and are easy
+      to conflate: C2_concrete_strategy, C3_valid_upper_bound,
+      C4_valid_lower_bound, C6_no_invalid_one_draw_inference,
+      C8_no_fatal_wrong_claim, verdict, and primary_failure_code. It must
+      return a structured correction object that the reducer applies
+      mechanically.
 
-      Required general decision rules (apply uniformly across all
-      responses, without pre-judging which response exhibits which
-      pattern):
-      - Do not set C6 false merely because a one-draw strategy is
-        insufficient. C6 is false only when the response explicitly treats
-        one observed sequence from an envelope that could still be mixed as
-        proving that envelope is pure. One draw from the Mixed-labeled
-        envelope is valid because that label is known wrong.
-      - Do not choose WRONG_FINAL_NUMBER as the primary failure merely
-        because C1 is false. Prefer the most diagnostic proof failure from
-        the controlled vocabulary.
-      - C2_concrete_strategy is low-weight but should be assessed
-        literally: a strategy can be concrete even when it is invalid. If
-        the response specifies which envelopes are inspected, how many
-        samples are drawn, and how it intends to label afterwards, C2
-        should be true even when C3 is false.
-      - C8_no_fatal_wrong_claim is independent of C3 and primary code.
-        Proof-invalidating "must be" or "forced" claims trigger C8 false
-        even when WRONG_FINAL_NUMBER or another code is the best primary
-        failure for that response.
-      - Verdict is ACCEPT iff every C1-C8 is satisfied; otherwise REJECT.
+      Apply the following universal phrase-pattern rules across ALL eight
+      responses uniformly. No response is pre-assigned to any rule; each
+      rule fires only when its textual pattern is concretely present in
+      that response's text.
 
-      Return a compact JSON object keyed by response_A through response_H
-      with only fields whose mapper labels should be changed and a
-      one-sentence evidence note for each recommendation. Do not pre-assign
-      any specific code to any specific response in this adjudicator's
-      logic.
+      C2 correction rules:
+      - If the response specifies only ONE inspection followed by an
+        elimination claim about remaining envelopes (e.g., "after this
+        one draw the remaining are determined by contradiction"), C2
+        must be false because the post-observation label-fixing is not
+        branched across alternative observations.
+      - If the response oscillates among multiple incompatible
+        inspection counts (e.g., proposes 2, then 3, then 14, then a
+        final 3) without committing to one coherent plan, C2 must be
+        false.
+      - If the response acknowledges single-draw ambiguity (e.g., "this
+        envelope is either mixed or purely X") and then concludes
+        "enough information has been gathered" without specifying the
+        branch-by-branch label-fixing rule, C2 must be false even when
+        a partial inspection plan exists.
+
+      C4 correction rules:
+      - C4 is false unless the response constructs an indistinguishable-
+        case argument exhibiting two legal envelope arrangements that
+        produce identical observations under a strictly smaller
+        inspection budget. Arithmetic derivation of the count from the
+        response's own strategy does not satisfy C4 even when the count
+        and strategy are correct.
+
+      C6 correction rules:
+      - C6 must be TRUE when the response's only single-draw observation
+        is from the Mixed-labeled envelope (that envelope is known not
+        mixed, so one draw validly identifies its pure type).
+      - C6 must be TRUE when the response preserves single-draw
+        ambiguity (saying "either mixed or purely X") rather than
+        collapsing it to a purity claim.
+      - C6 is FALSE only when the response treats a single observed
+        sequence from an envelope that could still be mixed as proving
+        that envelope is pure (e.g., "one draw from envelope X gave
+        type T, therefore envelope X is the pure T envelope" without
+        14-draw verification).
+
+      C8 correction rules:
+      - C8 must be FALSE when the response asserts that remaining
+        envelopes are "determined automatically by elimination",
+        "forced by contradiction", "cycle uniquely", "follow directly",
+        or "deduced uniquely" after fewer observations than necessary
+        to rule out alternatives. Any of these phrase patterns is a
+        load-bearing proof-invalidating claim.
+      - C8 false is INDEPENDENT of C3 and of the primary_failure_code.
+        Apply C8 false whenever the phrase pattern fires, even when
+        the strategy is otherwise concrete or the primary code is
+        WRONG_FINAL_NUMBER.
+
+      Primary failure code correction rules:
+      - INVALID_ONE_DRAW_INFERENCE applies only when a load-bearing
+        single-draw purity inference from a possibly-mixed envelope
+        drives the conclusion. Do NOT pick this code merely because
+        the strategy is insufficient.
+      - NOT_WORST_CASE applies when the response treats favorable
+        single-draw observations as resolving worst-case ambiguity but
+        does not explicitly claim purity from a single observation.
+      - NO_CONCRETE_STRATEGY applies when the synthesis step is hand-
+        wavy (acknowledged ambiguity collapsed to "uniquely deduced"
+        without a branch-by-branch rule).
+      - FATAL_WRONG_CLAIM applies when the load-bearing defect is a
+        proof-invalidating "forced" or "cycle uniquely" assertion
+        rather than an arithmetic or strategy-completeness issue.
+      - MISSING_LOWER_BOUND applies when the strategy is structurally
+        complete (correct number, valid upper bound, worst-case
+        framing, no fatal claim) but no impossibility argument is
+        given.
+      - INVALID_UPPER_BOUND applies when the upper-bound elimination
+        leaves multiple legal labelings open in some worst-case branch.
+      - WRONG_FINAL_NUMBER applies when the strategy is structurally
+        correct in every other way but the inspection count deviates
+        from the optimum, typically due to a preliminary inspection
+        that could have been absorbed into the verification phase.
+      - CONTRADICTORY_FINAL_ANSWER applies when the response oscillates
+        among incompatible final inspection counts.
+      - Do NOT default to WRONG_FINAL_NUMBER simply because C1 is
+        false. Do NOT default to INVALID_ONE_DRAW_INFERENCE simply
+        because a single-draw observation appears.
+
+      Verdict rule: ACCEPT iff every C1-C8 is satisfied; otherwise
+      REJECT.
+
+      Return a structured JSON object: a top-level dict keyed by
+      response_id (A through H), each value containing only the
+      criterion or label keys whose mapper value should be CORRECTED,
+      together with the corrected value and a one-sentence textual
+      evidence quotation from the response. The reducer applies every
+      correction mechanically without re-deriving.
     depends_on:
       - grade-response-a
       - grade-response-b
@@ -243,19 +486,66 @@ sub_tasks:
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this reducer as a sub-agent
       using the Agent tool. Do NOT perform the final reduction yourself.
-      The reducer may only synthesize the canonical-proof packet,
-      calibration output, the eight mapper outputs, and the
-      high-weight-label adjudicator recommendations. It MUST NOT redo the
-      eight audits from scratch. Apply adjudicator recommendations when
-      they cite candidate-text evidence and follow the instruction
-      definitions. Recompute verdict deterministically: ACCEPT iff all
-      C1-C8 are true, otherwise REJECT. If a mapper output is malformed,
-      ask a replacement sub-agent to re-grade that same response. The
-      reducer writes exactly one JSON object to /logs/agent/output.json
-      with top-level keys evaluations (the eight objects in alphabetical
-      order response_A through response_H), accepted_solutions,
-      rejected_solutions, best_solution, and summary, as specified by
-      instruction.md.
+      The reducer consumes the canonical-proof packet, calibration output,
+      the eight mapper outputs, and the high-weight-label adjudicator's
+      structured correction object. It MUST NOT redo the eight audits from
+      scratch.
+
+      Reducer procedure (apply mechanically, in order):
+      (1) Start from the eight mapper evaluation objects (each of which
+          must already contain its own criteria, verdict,
+          primary_failure_code, brief_justification, criterion_evidence,
+          primary_failure_code_evidence, and alternative_codes_considered
+          fields as produced by the mapper).
+      (2) For each response_id, overwrite each criterion or label that
+          appears in the adjudicator's correction object for that
+          response with the corrected value. Adjudicator corrections
+          always win over mapper outputs because the adjudicator has
+          access to all mapper outputs and the calibration guide and
+          re-checks against universal phrase-pattern rules.
+      (3) Recompute verdict deterministically per response: ACCEPT iff
+          every C1-C8 is satisfied; otherwise REJECT.
+      (4) Recompute acceptable_solution_ids as the alphabetically-sorted
+          list of response_ids whose verdict is ACCEPT.
+      (5) Recompute rejected_solutions as the alphabetically-sorted list
+          of response_ids whose verdict is REJECT.
+      (6) best_solution is the response_id with the most criteria
+          satisfied (ties broken alphabetically) when no response is
+          accepted, or the single accepted response when one exists.
+      (7) Compose the summary string describing acceptance status and
+          dominant defect categories.
+      (8) Build the top-level consistency_table by iterating the eight
+          (post-correction) evaluations and assigning each response_id
+          to the list indexed by its primary_failure_code. The
+          consistency_table MUST contain exactly the ten primary-code
+          keys defined in instruction.md (NONE, WRONG_FINAL_NUMBER,
+          CONTRADICTORY_FINAL_ANSWER, NO_CONCRETE_STRATEGY,
+          INVALID_UPPER_BOUND, MISSING_LOWER_BOUND, NOT_WORST_CASE,
+          INVALID_ONE_DRAW_INFERENCE, UNNECESSARY_MIXED_PAIR_REQUIREMENT,
+          FATAL_WRONG_CLAIM); codes with no matching response have an
+          empty list. The union of the ten lists must equal the set of
+          eight response_ids exactly. The verifier scores each key
+          against the oracle at 70 points per key, so accuracy on this
+          field cascades from the per-response primary_failure_code
+          values.
+      (9) Compose the top-level cross_response_observations string of at
+          least 300 characters identifying shared defect patterns across
+          the eight responses (which responses share elimination
+          assertions, single-draw inferences, oscillation, missing
+          lower bounds, etc.). The verifier scores this field at 30
+          points by presence and minimum length.
+
+      If a mapper output is malformed or missing the required per-
+      response evidence/alternatives fields, ask a replacement sub-agent
+      to re-grade that same response rather than completing those fields
+      in the orchestrator. The reducer writes exactly one JSON object to
+      /logs/agent/output.json with top-level keys evaluations (eight
+      objects in alphabetical order response_A through response_H, each
+      including all required scored fields), accepted_solutions,
+      rejected_solutions, best_solution, summary, consistency_table,
+      and cross_response_observations, as specified by instruction.md.
+      Validate that the output file exists and parses as JSON before
+      returning.
     depends_on:
       - grade-response-a
       - grade-response-b

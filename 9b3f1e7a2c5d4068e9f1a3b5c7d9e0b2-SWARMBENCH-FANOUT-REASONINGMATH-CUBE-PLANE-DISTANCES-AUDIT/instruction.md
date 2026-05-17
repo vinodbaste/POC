@@ -72,6 +72,67 @@ Label definitions for each released response:
 - `final_answer_correct`: `true` exactly when the response's final stated numeric answer equals the gold answer. Otherwise `false`.
 - `failure_reasons`: a JSON list of strings chosen only from the 12 allowed failure-reason codes above.
 
+### Failure-code disambiguation guidance
+
+Many candidate solutions exhibit multiple defects simultaneously. The full code vocabulary is enumerated above; the following disambiguation rules clarify boundaries between near-overlapping codes:
+
+- `equates_max_distance_with_edge_length_directly` (a = 7) and `assumes_max_distance_equals_space_diagonal` (a = 7/√3) are mutually exclusive. A response cannot simultaneously identify the maximum distance with both the edge and the space diagonal; pick the one its load-bearing derivation actually uses.
+- `claims_unique_edge_length` fires when the response's final stated conclusion asserts |S| = 1, regardless of whether the value is itself correct or wrong. It does NOT fire when the final stated value is presented as a sum over multiple candidate edge lengths.
+- `treats_one_orientation_as_proof_of_uniqueness` fires when the response solves exactly one cube orientation and asserts the resulting s² as the only solution. It overlaps with but is distinct from `claims_unique_edge_length`: the former targets the geometric step (one orientation solved, asserted unique), the latter targets the final-answer wording (|S| = 1 in conclusion).
+- `assumes_zero_distance_vertex_is_axis_corner` fires when the response fixes the zero-distance vertex at a specific cube-local corner such as (0,0,0). It does NOT fire when the response uses a symmetric signed (±, ±, ±) sign-pattern setup or a body-diagonal-aligned setup that does not pin a specific corner.
+- `restricts_to_nonnegative_subset_sums` fires when the response's load-bearing search assumes all seven nonzero distances arise as non-negative subset sums of positive quantities {p, q, r}. It typically co-occurs with `assumes_zero_distance_vertex_is_axis_corner` and `omits_sign_pattern_casework`.
+- `omits_sign_pattern_casework` fires when the response reaches a numeric conclusion without enumerating the sign-pattern families. It does NOT fire when the response never reaches a numeric conclusion.
+- `accepts_internal_contradictions_in_derivation` requires BOTH (a) an explicit contradictory equation in the response text (such as "6 = 7") and (b) a final numeric answer extracted despite the contradiction. Either alone is insufficient.
+- `uses_fabricated_invariant_or_invalid_derivation` fires when the response's final numeric answer rests on an invented algebraic identity (e.g., a fabricated "sum-of-squared-distances" identity) or an unsupported derivation step. The trigger requires that the load-bearing step traces back to fabrication.
+- `derives_correct_partial_s2_then_discards_it` requires both (a) the value 21 (or equivalently 1² + 2² + 4²) appearing as a derived s² intermediate and (b) explicit rejection of it in favor of a different final numeric answer.
+- `non_terminating_or_no_final_answer` fires when no committed final numeric answer exists at all. It is mutually incompatible with any code that requires extracting a final numeric answer; if it fires, it stands alone.
+- `assumes_plane_parallel_to_cube_face` fires only when the response's primary geometric setup uses a face-parallel or axis-aligned cube with the plane at constant z. It does NOT fire when the response merely entertains and discards this hypothesis.
+
+### Worked scoring example
+
+Consider a hypothetical response that places one cube vertex at the origin (0,0,0), assumes the seven nonzero distances arise as non-negative sums of three positive quantities {p, q, r}, finds the unique positive-integer solution (p, q, r) = (1, 2, 4) giving s² = 21, and concludes "the cube edge length is √21, so the answer is 21". The applicable failure-reason codes are:
+
+- `assumes_zero_distance_vertex_is_axis_corner` because the zero-distance vertex is fixed at the cube-local origin.
+- `restricts_to_nonnegative_subset_sums` because the seven distances are required to be non-negative subset sums of {p, q, r}.
+- `omits_sign_pattern_casework` because the response derives a numeric conclusion without considering sign-flipped configurations.
+- `treats_one_orientation_as_proof_of_uniqueness` because one geometric configuration is solved and asserted unique.
+- `claims_unique_edge_length` because the final stated conclusion is a single numeric edge length.
+
+Five codes apply; `final_answer_correct` is false because 21 ≠ gold answer.
+
+### Common audit anti-patterns
+
+The following patterns recur across candidate responses and require careful classification:
+
+- Asserting that the cube must be axis-aligned with one vertex at the origin and then computing the seven non-zero distances as subset sums of three positive integers. This triggers both `assumes_zero_distance_vertex_is_axis_corner` and `restricts_to_nonnegative_subset_sums`; typically also triggers `omits_sign_pattern_casework`.
+- Identifying the maximum vertex-to-plane distance with the cube edge length (a = 7) directly, without projecting the cube edge through the plane normal. Triggers `equates_max_distance_with_edge_length_directly`.
+- Identifying the maximum vertex-to-plane distance with the space diagonal (a√3 = 7). Triggers `assumes_max_distance_equals_space_diagonal` and is mutually exclusive with the previous code.
+- Reaching a single numeric answer from one cube orientation and asserting it as unique without ruling out other orientations. Triggers `treats_one_orientation_as_proof_of_uniqueness`.
+- Inventing an algebraic identity such as "sum of squared distances = 3a²(1 + T²)" and using it as the load-bearing derivation. Triggers `uses_fabricated_invariant_or_invalid_derivation`.
+- Looping on a phrase or truncating mid-sentence without reaching a final numeric answer. Triggers `non_terminating_or_no_final_answer` alone; do NOT add other codes.
+- Deriving s² = 21 as a partial result, then rejecting it in favor of a fabricated final value. Triggers `derives_correct_partial_s2_then_discards_it` and typically also `uses_fabricated_invariant_or_invalid_derivation`.
+
+### Resolution rules for borderline cases
+
+When multiple codes plausibly apply, use the following resolution rules:
+
+- A response that gives the correct final answer but with internal logical gaps still requires its applicable failure codes; correctness of the numeric answer is independent of trigger detection.
+- A response that gives the wrong final answer with a sound partial argument should receive only the codes whose triggers concretely fire in its text; do not add codes that describe defects absent from the response.
+- When a response produces a final numeric value via a clearly fabricated derivation step, prefer `uses_fabricated_invariant_or_invalid_derivation` even if other codes (e.g., `omits_sign_pattern_casework`) also apply.
+- When a response halts mid-derivation without a final numeric value, `non_terminating_or_no_final_answer` is the only applicable code; no other code fires in the absence of a final answer.
+
+### Glossary
+
+- s²: the squared cube edge length (the square of any allowed edge length).
+- S: the set of distinct edge-length values consistent with the seven non-zero vertex-to-plane distances 1, 2, 3, 4, 5, 6, 7.
+- gold final answer: the sum of squares of all elements of S, i.e., the sum of all distinct s² values.
+- Sign-pattern family: a choice of signs (±, ±, ±) applied to the three "axis projection" magnitudes (u, v, w) of the cube relative to the plane. The all-same-sign family gives one s² value; one-axis-flipped families give additional s² values when feasible.
+- Axis-aligned cube: a cube with edges parallel to the coordinate axes, typically with one vertex at the origin and the opposite vertex at (a, a, a).
+- Body-diagonal-aligned cube: a cube oriented so that one of its body diagonals lies along a chosen direction (often the normal to the cutting plane).
+- Subset sum of {p, q, r}: any sum of zero or more of p, q, r, used to model vertex-to-plane distances when projections are assumed non-negative.
+
+Note that the workflow steps in the Task section above are intended as guidance for the auditor's reasoning process; the verifier scores only the final JSON output and its labels, not the auditor's working procedure.
+
 ---
 ## Output Instructions
 

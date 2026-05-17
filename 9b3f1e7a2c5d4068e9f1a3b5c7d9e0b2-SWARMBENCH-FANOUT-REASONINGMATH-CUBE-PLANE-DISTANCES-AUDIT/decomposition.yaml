@@ -1,175 +1,191 @@
 sub_tasks:
   - id: adjudicate-gold-geometry
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn exactly one Agent sub-agent for this
-      gold derivation. The sub-agent must read /input_artifacts/problem.md and
-      return a compact authoritative gold packet. Required gold:
-      gold_final_answer = "210"; gold_edge_length_squared_set = [21, 54, 66, 69].
-      Required derivation summary: place one cube vertex on the plane and write
-      the seven nonzero absolute signed distances as
-      {2|u|, 2|v|, 2|w|, 2|u+v|, 2|u+w|, 2|v+w|, 2|u+v+w|} = {1,2,3,4,5,6,7},
-      with s^2 = 4(u^2+v^2+w^2). The all-same-sign family gives s^2=21.
-      The one-axis-flipped feasible family gives (p,q,r) = (1,2,7),
-      (1,4,7), (2,4,7), hence s^2 = 54, 66, 69. The sum is 210.
-      Explicitly warn downstream agents that [21] is incomplete and
-      [21,35,49,105] is wrong.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this derivation yourself. The sub-agent must
+      read /input_artifacts/problem.md itself and return a compact gold
+      packet containing the gold final numeric answer it derives, the
+      complete set of distinct s² values it finds, and a short proof sketch
+      covering both the all-same-sign vertex family and any axis-flipped
+      sign-pattern families. Do not inspect any candidate response.
     depends_on: []
     parallel_group: fan-out
 
   - id: calibrate-failure-code-boundaries
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn exactly one Agent sub-agent for rubric
-      calibration. It must read /workspace/instruction.md and return a compact
-      code-boundary guide. Emphasize exact-set matching: extra codes and
-      missing codes both zero a response. Apply a code only when its trigger is
-      concretely present. non_terminating_or_no_final_answer is mutually
-      incompatible with codes that require a final numeric answer. Do not add
-      claims_unique_edge_length to response G merely because it has a numeric
-      final answer; G presents a fabricated sum over multiple candidates, not a
-      singleton edge length. Do not omit assumes_zero_distance_vertex_is_axis_corner
-      when a response pins the zero-distance vertex at (0,0,0) or the cube-local
-      origin and then builds distances from that corner.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this calibration yourself. The sub-agent
+      must read the task instruction itself and return a concise code-
+      boundary guide for applying the twelve failure-reason codes. The
+      guide emphasizes that codes are evaluated as an exact set per
+      response (both extra and missing codes are wrong); each code applies
+      only when its triggering condition is concretely instantiated in
+      that single response's text; the triggering-condition language in
+      the instruction is authoritative;
+      non_terminating_or_no_final_answer is mutually incompatible with any
+      code that requires extracting a final numeric answer;
+      equates_max_distance_with_edge_length_directly and
+      assumes_max_distance_equals_space_diagonal are mutually exclusive
+      (the first sets a=7, the second sets a=7/√3);
+      claims_unique_edge_length requires an explicit unique-answer
+      assertion in the response text and does not fire when the response
+      presents its final answer as a sum over multiple candidate edge
+      lengths; assumes_zero_distance_vertex_is_axis_corner does not fire
+      when the response uses a symmetric (±,±,±) sign-pattern setup that
+      does not pin a specific corner.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-a
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_A.
-      Read /input_artifacts/proposed_solutions/response_A.md plus the gold and
-      calibration packets. Return only one JSON assessment object for "A".
-      Required exact result: final_answer_correct=false and failure_reasons
-      exactly ["accepts_internal_contradictions_in_derivation",
-      "assumes_zero_distance_vertex_is_axis_corner","claims_unique_edge_length",
-      "omits_sign_pattern_casework","uses_fabricated_invariant_or_invalid_derivation"].
-      Evidence: it places a cube vertex at the origin/on the plane, accepts
-      contradictions such as 6=7 or 3=4, invents a duplicate distance assignment,
-      and declares a unique edge length. Do not add
-      treats_one_orientation_as_proof_of_uniqueness; the oracle does not include
-      it for A.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_A using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_A yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_A.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "A" with keys response_id,
+      final_answer_correct, and failure_reasons. Focus on whether the
+      response openly carries internal contradictions through its
+      derivation, whether it fixes the zero-distance vertex at a specific
+      cube-local corner, and whether the final stated conclusion is a
+      single unique numeric edge length.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: audit-response-b
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_B.
-      Read /input_artifacts/proposed_solutions/response_B.md plus gold and
-      calibration packets. Required exact result for "B":
-      final_answer_correct=false and failure_reasons exactly
-      ["assumes_plane_parallel_to_cube_face","claims_unique_edge_length",
-      "equates_max_distance_with_edge_length_directly","omits_sign_pattern_casework"].
-      Evidence: it uses a face-parallel / z-coordinate setup, sets edge length
-      directly to 7, concludes a unique value, and never performs sign-pattern
-      casework.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_B using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_B yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_B.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "B". Focus on the primary geometric setup
+      (whether the cutting plane is assumed parallel to a cube face or
+      the cube is taken axis-aligned with the plane at constant z),
+      whether the response directly identifies the maximum vertex-to-
+      plane distance with the cube edge length without projecting through
+      a plane normal, and whether the final conclusion claims uniqueness.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: audit-response-c
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_C.
-      Read /input_artifacts/proposed_solutions/response_C.md plus gold and
-      calibration packets. Required exact result for "C":
-      final_answer_correct=false and failure_reasons exactly
-      ["assumes_max_distance_equals_space_diagonal","claims_unique_edge_length",
-      "omits_sign_pattern_casework","treats_one_orientation_as_proof_of_uniqueness"].
-      Evidence: it sets a√3=7 or equivalent, returns 49/3 as a unique answer,
-      and uses one orientation without ruling out sign families.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_C using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_C yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_C.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "C". Focus on whether the response equates
+      the maximum vertex-to-plane distance with the cube's space diagonal
+      (a√3 = 7 or equivalent), whether it works from a single cube
+      orientation, and whether the final stated conclusion is a single
+      unique edge length.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: audit-response-d
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_D.
-      Read /input_artifacts/proposed_solutions/response_D.md plus gold and
-      calibration packets. Required exact result for "D":
-      final_answer_correct=false and failure_reasons exactly
-      ["assumes_max_distance_equals_space_diagonal","claims_unique_edge_length",
-      "omits_sign_pattern_casework","treats_one_orientation_as_proof_of_uniqueness"].
-      Evidence: same structural failure as C: a√3=7 leading to 49/3, asserted
-      as the unique result, with no sign-pattern family enumeration.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_D using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_D yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_D.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "D". Focus on whether the response equates
+      the maximum vertex-to-plane distance with the cube's space diagonal
+      and derives a single numeric answer from one orientation, without
+      enumerating sign-pattern families.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: audit-response-e
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_E.
-      Read /input_artifacts/proposed_solutions/response_E.md plus gold and
-      calibration packets. Required exact result for "E":
-      final_answer_correct=false and failure_reasons exactly
-      ["non_terminating_or_no_final_answer"]. Evidence: the response loops or
-      truncates without an identifiable final numeric answer. Do not add any
-      other code.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_E using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_E yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_E.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "E". Focus on whether the response produces
+      an identifiable final numeric answer at all (e.g., a boxed value or
+      a "final answer is ..." sentence), or instead loops, truncates, or
+      never commits to a numeric conclusion.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: audit-response-f
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_F.
-      Read /input_artifacts/proposed_solutions/response_F.md plus gold and
-      calibration packets. Required exact result for "F":
-      final_answer_correct=false and failure_reasons exactly
-      ["assumes_zero_distance_vertex_is_axis_corner","claims_unique_edge_length",
-      "omits_sign_pattern_casework","restricts_to_nonnegative_subset_sums",
-      "treats_one_orientation_as_proof_of_uniqueness"]. Evidence: it fixes the
-      zero vertex at the cube-local origin, searches positive subset sums,
-      derives only s^2=21, and calls that unique.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_F using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_F yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_F.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "F". Focus on whether the response fixes the
+      zero-distance vertex at a specific cube-local corner, restricts its
+      search to non-negative subset sums of positive quantities (rather
+      than considering signed projections), and concludes a single unique
+      edge length from one orientation.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: audit-response-g
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_G.
-      Read /input_artifacts/proposed_solutions/response_G.md plus gold and
-      calibration packets. Required exact result for "G":
-      final_answer_correct=false and failure_reasons exactly
-      ["assumes_zero_distance_vertex_is_axis_corner",
-      "derives_correct_partial_s2_then_discards_it",
-      "uses_fabricated_invariant_or_invalid_derivation"]. Evidence: it places
-      the cube at/or from the origin, invents an invariant such as
-      3a^2(1+T^2)=140, derives s^2=21 in the all-positive case and rejects it,
-      then reports a fabricated summed value. Do not add claims_unique_edge_length,
-      omits_sign_pattern_casework, or treats_one_orientation_as_proof_of_uniqueness.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_G using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_G yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_G.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "G". Focus on whether the response invents
+      an algebraic identity not derivable from the problem, whether it
+      derives the all-positive-case s² value at some point and then
+      explicitly discards or rejects it, and whether the response's final
+      conclusion is a single unique edge length or a fabricated sum over
+      candidates.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: audit-response-h
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_H.
-      Read /input_artifacts/proposed_solutions/response_H.md plus gold and
-      calibration packets. Required exact result for "H":
-      final_answer_correct=false and failure_reasons exactly
-      ["assumes_zero_distance_vertex_is_axis_corner","claims_unique_edge_length",
-      "omits_sign_pattern_casework","restricts_to_nonnegative_subset_sums",
-      "treats_one_orientation_as_proof_of_uniqueness"]. Evidence: same structural
-      failure as F: zero corner, positive subset sums, unique {1,2,4} / s^2=21,
-      no signed casework.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_H using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_H yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_H.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "H". Focus on the same setup pattern as
+      response_F: whether the zero-distance vertex is fixed at a specific
+      cube-local corner, whether the search is restricted to non-negative
+      subset sums, and whether the final stated conclusion is a single
+      unique edge length from one orientation.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: audit-response-i
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn a separate Agent sub-agent for response_I.
-      Read /input_artifacts/proposed_solutions/response_I.md plus gold and
-      calibration packets. Required exact result for "I":
-      final_answer_correct=false and failure_reasons exactly
-      ["assumes_zero_distance_vertex_is_axis_corner","claims_unique_edge_length",
-      "omits_sign_pattern_casework","restricts_to_nonnegative_subset_sums",
-      "treats_one_orientation_as_proof_of_uniqueness"]. Evidence: same structural
-      failure as F/H: cube-local origin as zero vertex, nonnegative subset sums,
-      unique (1,2,4), S={sqrt(21)}, no signed casework.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_I using the Agent tool. Do NOT read, solve, summarize, or
+      classify response_I yourself. The sub-agent must read
+      /input_artifacts/proposed_solutions/response_I.md itself, use the
+      gold packet and code-boundary guide, and return one JSON assessment
+      object for response_id "I". Focus on whether the response fixes the
+      zero-distance vertex at a specific cube-local corner, restricts its
+      search to non-negative subset sums of positive quantities, derives
+      a single s² from one cube orientation, and asserts that value as
+      the unique answer.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
   - id: synthesize-final-audit
     description: >
-      ORCHESTRATOR INSTRUCTION: Spawn this synthesizer as an Agent sub-agent.
-      Pass the gold packet, calibration guide, and all nine audit objects. It
-      owns final writing. It must write exactly one JSON object to
-      /logs/agent/output.json with gold_final_answer "210",
-      gold_edge_length_squared_set [21,54,66,69], acceptable_solution_ids [],
-      and exactly nine per_response_assessment objects ordered A through I.
-      Reconcile against the required exact sets above; do not add or remove
-      failure codes. Validate that /logs/agent/output.json exists and parses as
-      JSON before returning.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a
+      sub-agent using the Agent tool. Do NOT perform the final synthesis
+      yourself. The synthesizer consumes the gold packet, the code-
+      boundary guide, and the nine audit objects. It MUST NOT re-derive
+      the gold answer or re-audit individual responses. If any audit
+      object is malformed, request a replacement sub-agent for that one
+      response. The synthesizer writes exactly one JSON object to
+      /logs/agent/output.json with the four top-level keys defined in
+      instruction.md (gold_final_answer, gold_edge_length_squared_set,
+      acceptable_solution_ids, per_response_assessment with nine objects
+      ordered A through I) and validates that the file exists and parses
+      before returning.
     depends_on:
       - adjudicate-gold-geometry
       - calibrate-failure-code-boundaries

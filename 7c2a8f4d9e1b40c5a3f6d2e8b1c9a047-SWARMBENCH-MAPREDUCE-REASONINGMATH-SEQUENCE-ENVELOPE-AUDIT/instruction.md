@@ -256,13 +256,53 @@ Write your final answer to /logs/agent/output.json as a single JSON object with 
       },
       "verdict": "ACCEPT" or "REJECT",
       "primary_failure_code": <string>,
-      "brief_justification": <string>
+      "brief_justification": <string>,
+      "criterion_evidence": {
+        "C1_correct_final_answer": <string, at least 20 characters, citing or paraphrasing the response text that justifies the C1 boolean above>,
+        "C2_concrete_strategy": <string, at least 20 characters, citing or paraphrasing the response text that justifies the C2 boolean above>,
+        "C3_valid_upper_bound": <string, at least 20 characters, citing or paraphrasing the response text that justifies the C3 boolean above>,
+        "C4_valid_lower_bound": <string, at least 20 characters, citing or paraphrasing the response text that justifies the C4 boolean above>,
+        "C5_worst_case_guarantee": <string, at least 20 characters, citing or paraphrasing the response text that justifies the C5 boolean above>,
+        "C6_no_invalid_one_draw_inference": <string, at least 20 characters, citing or paraphrasing the response text that justifies the C6 boolean above>,
+        "C7_no_exact_mixed_pair_requirement": <string, at least 20 characters, citing or paraphrasing the response text that justifies the C7 boolean above>,
+        "C8_no_fatal_wrong_claim": <string, at least 20 characters, citing or paraphrasing the response text that justifies the C8 boolean above>
+      },
+      "primary_failure_code_evidence": <string, at least 50 characters, explaining why the chosen primary_failure_code is the most diagnostic for this response>,
+      "alternative_codes_considered": [
+        {"code": <one of the controlled-vocabulary primary failure codes>, "reason_excluded": <string, brief justification for why this code is NOT the primary diagnostic>},
+        {"code": <another code>, "reason_excluded": <string>}
+      ]
     }
   ],
   "accepted_solutions": [<string>],
   "rejected_solutions": [<string>],
   "best_solution": <string or null>,
-  "summary": <string>
+  "summary": <string>,
+  "consistency_table": {
+    "NONE": [<list of response_ids whose primary_failure_code is NONE>],
+    "WRONG_FINAL_NUMBER": [<list of response_ids whose primary_failure_code is WRONG_FINAL_NUMBER>],
+    "CONTRADICTORY_FINAL_ANSWER": [<list>],
+    "NO_CONCRETE_STRATEGY": [<list>],
+    "INVALID_UPPER_BOUND": [<list>],
+    "MISSING_LOWER_BOUND": [<list>],
+    "NOT_WORST_CASE": [<list>],
+    "INVALID_ONE_DRAW_INFERENCE": [<list>],
+    "UNNECESSARY_MIXED_PAIR_REQUIREMENT": [<list>],
+    "FATAL_WRONG_CLAIM": [<list>]
+  },
+  "cross_response_observations": <string, at least 300 characters, identifying shared defect patterns across responses>
 }
 
 Include exactly one evaluation object for each of response_A through response_H.
+
+### Required output-field details (all fields below are MANDATORY)
+
+The verifier scores fields beyond the basic C1-C8/verdict/primary_failure_code labels. Producing complete and well-formed values for every required field is essential. The following details apply to all eight evaluation objects and to the two top-level synthesis fields:
+
+- `criterion_evidence` is a JSON object whose eight keys EXACTLY match the eight criteria names. Each value must be a string of at least 20 characters that either cites a short phrase from the response text or paraphrases the response's specific reasoning that justifies the corresponding boolean. Generic boilerplate (such as "the criterion is not met") that does not refer to the response's actual content is insufficient.
+- `primary_failure_code_evidence` is a string of at least 50 characters that names the controlling diagnostic defect in plain language. It should reference response-specific text or reasoning rather than restating the criterion definition. It must explain why this code (and not another) is the load-bearing diagnostic.
+- `alternative_codes_considered` is a JSON array of at least 2 objects. Each object must have a `code` field naming one of the controlled-vocabulary primary failure codes (drawn from {NONE, WRONG_FINAL_NUMBER, CONTRADICTORY_FINAL_ANSWER, NO_CONCRETE_STRATEGY, INVALID_UPPER_BOUND, MISSING_LOWER_BOUND, NOT_WORST_CASE, INVALID_ONE_DRAW_INFERENCE, UNNECESSARY_MIXED_PAIR_REQUIREMENT, FATAL_WRONG_CLAIM}) other than the selected primary, and a `reason_excluded` field with a brief textual justification. The point of this field is to demonstrate that the auditor considered alternative diagnostic codes and chose the most appropriate one.
+- `consistency_table` is a JSON object whose ten keys are exactly the ten primary failure codes from the controlled vocabulary (NONE through FATAL_WRONG_CLAIM). Each value is an alphabetically-sorted JSON list of the response_ids whose `primary_failure_code` matches that code. Every response_id in `evaluations` must appear in exactly one of the ten lists, and the union of all ten lists must equal {response_A, response_B, response_C, response_D, response_E, response_F, response_G, response_H}. Codes with no matching response have an empty list. The verifier compares this object against the oracle's `consistency_table` per-key; mismatches penalize the score.
+- `cross_response_observations` is a single string of at least 300 characters describing shared defect patterns across the eight responses. It should identify which responses share which failure mechanisms (for example, which responses rely on elimination assertions, which exhibit oscillation, which rest on invalid single-draw inferences). It is not scored for content accuracy, only for presence and minimum length, but a well-grounded synthesis is expected.
+
+The verifier scoring rule above (with weights for C1-C8, verdict, and primary_failure_code) is supplemented by additional weights for the fields described in this section. The total scored weight per response is therefore higher than the sum of C1-C8 + verdict + primary_failure_code weights; the additional weight comes from per-criterion evidence presence (5 points per criterion), primary_failure_code_evidence presence (8 points), and alternative_codes_considered well-formedness (8 points). At the report level, consistency_table contributes 70 points per key (exact match against oracle) and cross_response_observations contributes 30 points (presence + minimum length).
