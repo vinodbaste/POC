@@ -1,0 +1,128 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "response_A",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response A concludes 4. Its step 1 asserts that the envelope labeled Strictly Increasing 'contains strictly increasing sequences' and 'will always be correct', directly contradicting the all-labels-wrong premise. The subsequent steps are incoherent recombinations of this contradiction. The strategy never gives a worst-case argument."
+    },
+    {
+      "solution_id": "response_B",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response B concludes 3. After observing one strictly decreasing sequence from envelope E_1 (labeled Strictly Increasing), it asserts E_1 'must be the strictly decreasing envelope'. This inference is invalid: E_1 could equally be the mixed envelope containing strictly decreasing items, and a single observation cannot rule that out. The three-inspection strategy rests on these invalid one-draw purity inferences."
+    },
+    {
+      "solution_id": "response_C",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response C concludes 4. It correctly observes the Mixed-labeled envelope must be pure, then asserts 'with four inspections... enough information is gathered to correctly relabel all envelopes' and 'the number of possible outcomes from the inspections is sufficient to uniquely determine the content of each envelope'. These are fatal proof-invalidating claims: a single draw from each of E1, E2, E3 cannot distinguish pure from mixed in every legal branch, yet the response asserts sufficiency as established fact. The fatal claim is the load-bearing defect."
+    },
+    {
+      "solution_id": "response_D",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": true,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response D concludes 17. It correctly identifies that the Mixed-labeled envelope is pure, correctly derives the 14-draw verification (since mixed has at most 13 of any single type), and arrives at 2 + 14 + 1 = 17. The strategy works but is two inspections over the optimal: the first envelope needs only 1 inspection (not 2) since it is already known to be pure."
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response E proposes a 5-inspection strategy, then in the middle of its analysis explicitly computes '2 + 14 + 1 = 17 samples', then asserts 'Minimum number of inspections = 5' and concludes 'Final Answer: 5'. Asserting 5 as the final minimum after the response's own arithmetic has just produced 17 is a fatal proof-invalidating claim that contradicts its own analysis."
+    },
+    {
+      "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": false,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "UNNECESSARY_MIXED_PAIR_REQUIREMENT",
+      "brief_justification": "Response F concludes 3. Its strategy includes 'pick one more sequence from the Mixed envelope to determine the exact composition' even though the task only requires assigning the Mixed label to the correct envelope, not determining which two types the mixed envelope contains. The extra inspection is added solely to identify the exact mixed pair."
+    },
+    {
+      "solution_id": "response_G",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response G concludes 5. It explicitly states 'Mixed envelopes can fool us with up to 13 sequences of one type before revealing a second type', and then asserts 'The remaining envelopes can be resolved with 1 inspection each due to elimination'. The claim that single inspections resolve the remaining envelopes is a fatal proof-invalidating claim that directly contradicts the response's own stated worst-case rule about how mixed envelopes behave."
+    }
+  ],
+  "accepted_solutions": [],
+  "rejected_solutions": [
+    "response_A",
+    "response_B",
+    "response_C",
+    "response_D",
+    "response_E",
+    "response_F",
+    "response_G"
+  ],
+  "best_solution": null,
+  "summary": "All seven candidate solutions are rejected. The canonical minimum is 15 inspections (1 inspection of the Mixed-labeled envelope to identify its pure type, plus 14 inspections of the envelope labeled with that identified type to distinguish pure from a 7/13 mixed envelope). Responses A and C propose 4 (incoherent or hand-wavy), responses B and F propose 3 (invalid one-draw inferences and unnecessary mixed-pair identification), responses E and G propose 5 (oscillating and non-worst-case respectively), response D proposes 17 (correct strategy structure, two inspections over optimal)."
+}
