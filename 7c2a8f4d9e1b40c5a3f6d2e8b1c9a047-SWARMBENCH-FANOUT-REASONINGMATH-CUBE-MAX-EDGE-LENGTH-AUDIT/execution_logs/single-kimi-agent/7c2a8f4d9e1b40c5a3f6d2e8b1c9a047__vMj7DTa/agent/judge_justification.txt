@@ -1,0 +1,15 @@
+Score: 0.931896
+
+Deterministic weighted score: 315.4467/338.5000.
+Global GTFA: correct; location=derived_final_answer.
+
+Per-response scores:
+- A: 22.5800/26.5000
+- B: 23.7000/26.5000
+- C: 23.2000/26.5000
+- D: 23.9000/26.5000
+- E: 23.4000/26.5000
+- F: 25.9667/26.5000
+- G: 20.9667/26.5000
+- H: 25.9667/26.5000
+- I: 25.7667/26.5000
