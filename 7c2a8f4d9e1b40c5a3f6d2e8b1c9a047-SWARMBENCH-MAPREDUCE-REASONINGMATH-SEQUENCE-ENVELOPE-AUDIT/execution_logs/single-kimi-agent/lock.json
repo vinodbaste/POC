@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-17T09:18:48.622362Z",
+    "created_at": "2026-05-17T10:22:59.501868Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -34,10 +34,10 @@
         "max_retries": 0,
         "exclude_exceptions": [
             "RewardFileNotFoundError",
+            "AgentTimeoutError",
             "VerifierTimeoutError",
             "RewardFileEmptyError",
-            "VerifierOutputParseError",
-            "AgentTimeoutError"
+            "VerifierOutputParseError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -48,7 +48,7 @@
             "task": {
                 "name": "7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT",
                 "type": "local",
-                "digest": "sha256:1538e34f9d9004a3c85ade5fcade598b8bddc120c56e7c60ceec3134440d9196",
+                "digest": "sha256:38bbd3c54cb48f3e080f4b0e62498f2b491f18d49a78b5b18aa335636ab6092f",
                 "path": "/Users/vinodbaste/Turing Projects/POC/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONINGMATH-SEQUENCE-ENVELOPE-AUDIT"
             },
             "timeout_multiplier": 1.0,
