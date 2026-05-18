@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/a1b2c3d4e5f60718293a4b5c6d7e8f90-SWARMBENCH-FANOUT-REASONINGMATH-FIBONACCI-SUBTRACTION-GAME-PN-AUDIT"
+description = "Solve a deterministic combinatorial game theory problem (P/N classification for the Fibonacci Subtraction Game on pile sizes 0 through 100) and audit eight real, unedited model responses from public weak-model sources. A shared gold-derivation agent establishes the 101-character P/N classification string by dynamic programming over the Fibonacci move set; a rubric-calibration agent re-states the instruction's twelve failure-code triggers; eight isolated response auditors each own one response; a primary-code adjudicator re-checks failure_reasons sets and primary_failure_code selections; a synthesizer assembles the deterministic top-level code_application_table and response_count_per_code."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 14
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end mathematical workflow. (a) Independent derivation of the gold 101-character P/N classification string from first principles, enumerating the Fibonacci move set up to 100 and computing the DP from base case n = 0 = P: 1.4h. (b) Calibration of the twelve failure-code triggers (move-set codes, convention codes, framework code, DP codes, presentation codes) and the universal primary-code selection rules: 1.0h. (c) Per-response mathematical analysis of each released response's reasoning chain, claimed move set, base-case convention, DP arithmetic, and final P/N string: 8 x 0.85h = 6.8h. (d) Mapping each response to its exact failure-reasons set, choosing the primary_failure_code per the universal selection rules, drafting per-code evidence quotations and alternative-codes-considered entries: 8 x 0.4h = 3.2h. (e) Building the cross-response code_application_table, response_count_per_code, and cross_response_observations synthesis, plus scoring-schema consistency checks: 1.6h. Total: 1.4 + 1.0 + 6.8 + 3.2 + 1.6 = 14.0h. Mathematical reasoning remains the primary cognitive activity because every audit depends on the dynamic-programming gold and exact code interpretation; the burdens on evidence quotation, primary-code selection, and cross-response aggregation add structured-output volume that does not change the underlying combinatorics."
+estimated_sub_agents = 12
+input_token_estimate = 30000
+why_multi_agent = "The task decomposes into a fan-out audit workflow with a deterministic Python verifier whose total weight (1769 points) is spread across the gold 101-character P/N string (4 points), set-match per-response failure_reasons (240 points), per-response primary_failure_code (200 points), per-response evidence and alternatives (≈297 points including variable per-code evidence), a top-level code_application_table whose 12 keys are scored 70 points each (840 points), a top-level response_count_per_code whose 12 keys are scored 15 points each (180 points), and cross_response_observations (30 points). The gold derivation requires enumerating the Fibonacci move set up to 100 (a frequent off-by-one source: dropping 1, including 0, or applying a Lucas-style recurrence) and running the DP from the correct base case under the correct play convention; a single agent juggling eight responses simultaneously confuses near-overlapping codes (wrong_move_set_excluding_one vs incorrect_fibonacci_enumeration, confused_pn_convention vs base_case_set_to_n, arithmetic_recursion_error vs framework misapplication) and frequently misses the load-bearing primary code. The per-response set match (30 points, all-or-nothing) over a 12-code controlled vocabulary with near-overlapping triggers zeros entire response blocks on a single missing or extra code, and any per-response primary-code error cascades into the code_application_table at 70 points per affected key and into the response_count_per_code at 15 points per affected key. The decomposition assigns one gold-derivation agent, one rubric-calibration agent, eight isolated response auditors, a primary-code adjudicator that re-checks the failure_reasons set and primary_failure_code per response against universal phrase-pattern rules already published in instruction.md, and a synthesizer that builds both deterministic top-level tables mechanically from the corrected per-response failure_reasons. The structured-output burden is large enough that a single agent producing all required fields in one context regularly omits required keys or under-fills minimum-length checks."
+reference_link = "https://en.wikipedia.org/wiki/Subtraction_game"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

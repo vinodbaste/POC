@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-POWERS-OF-TWO-SUBTRACTION-PN-AUDIT"
+description = "Solve a deterministic combinatorial game theory problem (P/N classification for the Powers-of-Two Subtraction Game on pile sizes 0 through 100) and audit eight real, unedited model responses. A shared gold-derivation agent establishes the 101-character P/N classification string by dynamic programming over the powers-of-two move set {1, 2, 4, 8, 16, 32, 64}; a rubric-calibration agent re-states the instruction's thirteen failure-code triggers; eight isolated response auditors each own one response; a primary-code adjudicator re-checks failure_reasons sets and primary_failure_code selections; a synthesizer assembles the deterministic top-level code_application_table and response_count_per_code."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 13
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end mathematical workflow. (a) Independent derivation of the gold 101-character P/N classification string by running the DP over the powers-of-two move set up to 100 (move set has 7 elements: {1, 2, 4, 8, 16, 32, 64}), verifying the period-3 NPN repetition: 1.0h. (b) Calibration of the thirteen failure-code triggers (three move-set variants, two convention variants, explicit misère, two framework misapplications, DP arithmetic, periodicity, heuristic, presentation, non-terminating) and the universal primary-code selection rules: 1.0h. (c) Per-response mathematical analysis of each released response's reasoning chain, claimed move set, base-case convention, DP arithmetic, framework choice, and final P/N string: 8 x 0.8h = 6.4h. (d) Mapping each response to its exact failure-reasons set, choosing the primary_failure_code per the universal selection rules, drafting per-code evidence quotations and alternative-codes-considered entries: 8 x 0.4h = 3.2h. (e) Building the cross-response code_application_table, response_count_per_code, and cross_response_observations synthesis: 1.4h. Total: 1.0 + 1.0 + 6.4 + 3.2 + 1.4 = 13.0h."
+estimated_sub_agents = 12
+input_token_estimate = 28000
+why_multi_agent = "The task decomposes into a fan-out audit workflow with a deterministic Python verifier whose total weight (1849 points) is spread across the gold 101-character P/N string (4 points), set-match per-response failure_reasons (240 points), per-response primary_failure_code (200 points), per-response evidence and alternatives (≈268 points including variable per-code evidence), a top-level code_application_table whose 13 keys are scored 70 points each (910 points), a top-level response_count_per_code whose 13 keys are scored 15 points each (195 points), and cross_response_observations (30 points). The Powers-of-Two Subtraction Game admits a clean period-3 NPN solution under the correct move set, but weak models frequently misidentify the period (asserting period 2 'alternating' or period 4) and frequently break the move set (drop 1, include 0, or extend to non-powers like Mersenne values). A single agent juggling eight responses simultaneously confuses near-overlapping framework codes (computes_grundy_instead_of_pn vs confuses_with_nim_xor) and convention codes (confused_pn_convention vs base_case_set_to_n) and frequently misses the load-bearing primary code under the all-or-nothing set-match scoring. The decomposition assigns one gold-derivation agent, one rubric-calibration agent, eight isolated response auditors, a primary-code adjudicator, and a synthesizer that builds both deterministic top-level tables mechanically. The structured-output burden is large enough that a single agent producing all required fields in one context regularly omits required keys or under-fills minimum-length checks."
+reference_link = "https://en.wikipedia.org/wiki/Subtraction_game"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600
