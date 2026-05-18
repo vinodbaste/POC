@@ -332,7 +332,6 @@ sub_tasks:
       - audit-response-i
       - adjudicate-primary-failure-codes
       - build-code-application-tables
-      - build-response-pair-and-triple-tables
       - validate-output-consistency
     parallel_group: synthesize
 
@@ -350,34 +349,6 @@ sub_tasks:
       matching response carry an empty list. No key is null and no key
       is omitted. The fragment is returned to the final synthesizer
       for embedding in the output JSON.
-    depends_on:
-      - audit-response-a
-      - audit-response-b
-      - audit-response-c
-      - audit-response-d
-      - audit-response-e
-      - audit-response-f
-      - audit-response-g
-      - audit-response-h
-      - audit-response-i
-      - adjudicate-primary-failure-codes
-    parallel_group: aggregate
-
-  - id: build-response-pair-and-triple-tables
-    description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
-      the Agent tool. Do NOT compute these aggregations yourself. The
-      sub-agent receives the nine adjudicated per-response evaluations
-      and computes three top-level aggregation fields: (66 pairs of codes "code_i & code_j" with
-      i<j alphabetical, integer values = count of responses with both
-      codes) (36 unordered response pairs
-      "X & Y" with X<Y alphabetical, sorted-list values = codes in both
-      responses' failure_reasons), and (84
-      unordered response triples "X & Y & Z" with X<Y<Z alphabetical,
-      sorted-list values = codes in all three responses' failure_reasons).
-      EVERY pair/triple key MUST appear with a JSON-valid value (0 for
-      empty counts, [] for empty lists — NEVER null, NEVER omit a key).
-      The sub-agent returns these three JSON fragments.
     depends_on:
       - audit-response-a
       - audit-response-b
