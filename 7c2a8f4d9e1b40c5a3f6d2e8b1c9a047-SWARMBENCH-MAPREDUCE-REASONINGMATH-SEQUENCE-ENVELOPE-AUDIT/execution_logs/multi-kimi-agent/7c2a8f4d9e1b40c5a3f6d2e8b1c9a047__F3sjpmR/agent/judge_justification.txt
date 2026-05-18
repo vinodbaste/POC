@@ -1,0 +1,34 @@
+Score: 0.6809 (2752/4042 weighted points)
+
+Scored fields and weights:
+- C1_correct_final_answer: 8 (per response)
+- C2_concrete_strategy: 1 (per response)
+- C3_valid_upper_bound: 12 (per response)
+- C4_valid_lower_bound: 12 (per response)
+- C5_worst_case_guarantee: 5 (per response)
+- C6_no_invalid_one_draw_inference: 15 (per response)
+- C7_no_exact_mixed_pair_requirement: 15 (per response)
+- C8_no_fatal_wrong_claim: 30 (per response)
+- verdict: 35 (per response)
+- primary_failure_code: 140 (per response)
+- criterion_evidence per criterion (presence + min length): 5 (per response per criterion)
+- primary_failure_code_evidence (presence + min length): 8 (per response)
+- alternative_codes_considered (>=2 items, well-formed): 8 (per response)
+- criteria_satisfied_count (integer match): 10 (per response)
+- consistency_table per key (exact match against oracle): 70
+- criterion_pass_rate per key (integer match): 50
+- verdict_distribution per key (sorted list match): 100
+- cross_response_observations (presence + min length): 30
+
+response_A: 168/339; C2_concrete_strategy: expected True, got False, weight 1; C5_worst_case_guarantee: expected False, got True, weight 5; C6_no_invalid_one_draw_inference: expected True, got False, weight 15; primary_failure_code: expected INVALID_UPPER_BOUND, got INVALID_ONE_DRAW_INFERENCE, weight 140; criteria_satisfied_count: expected 3, got None
+response_B: 314/339; C6_no_invalid_one_draw_inference: expected True, got False, weight 15; criteria_satisfied_count: expected 2, got None
+response_C: 329/339; criteria_satisfied_count: expected 7, got None
+response_D: 324/339; C5_worst_case_guarantee: expected False, got True, weight 5; criteria_satisfied_count: expected 2, got None
+response_E: 299/339; C8_no_fatal_wrong_claim: expected False, got True, weight 30; criteria_satisfied_count: expected 2, got None
+response_F: 183/339; C2_concrete_strategy: expected True, got False, weight 1; C5_worst_case_guarantee: expected False, got True, weight 5; primary_failure_code: expected INVALID_ONE_DRAW_INFERENCE, got NO_CONCRETE_STRATEGY, weight 140; criteria_satisfied_count: expected 2, got None
+response_G: 317/339; C3_valid_upper_bound: expected True, got False, weight 12; criteria_satisfied_count: expected 5, got None
+response_H: 158/339; C2_concrete_strategy: expected True, got False, weight 1; C8_no_fatal_wrong_claim: expected False, got True, weight 30; primary_failure_code: expected NOT_WORST_CASE, got NO_CONCRETE_STRATEGY, weight 140; criteria_satisfied_count: expected 2, got None
+consistency_table: 280/700; consistency_table[NONE]: expected [], got None; consistency_table[NO_CONCRETE_STRATEGY]: expected ['response_B'], got ['response_B', 'response_F', 'response_H']; consistency_table[INVALID_UPPER_BOUND]: expected ['response_A'], got None; consistency_table[NOT_WORST_CASE]: expected ['response_H'], got None; consistency_table[INVALID_ONE_DRAW_INFERENCE]: expected ['response_F'], got ['response_A']; consistency_table[UNNECESSARY_MIXED_PAIR_REQUIREMENT]: expected [], got None
+criterion_pass_rate: 150/400; criterion_pass_rate[C2_concrete_strategy]: expected 5, got 2; criterion_pass_rate[C3_valid_upper_bound]: expected 2, got 1; criterion_pass_rate[C5_worst_case_guarantee]: expected 2, got 5; criterion_pass_rate[C6_no_invalid_one_draw_inference]: expected 6, got 4; criterion_pass_rate[C8_no_fatal_wrong_claim]: expected 1, got 4
+verdict_distribution: 200/200; all keys correct
+cross_response_observations: 30/30; ok

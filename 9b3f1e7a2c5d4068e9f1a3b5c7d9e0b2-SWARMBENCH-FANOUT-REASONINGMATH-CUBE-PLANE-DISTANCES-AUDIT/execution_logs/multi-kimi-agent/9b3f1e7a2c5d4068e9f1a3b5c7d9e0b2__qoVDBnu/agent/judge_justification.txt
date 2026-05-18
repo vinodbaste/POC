@@ -1,0 +1,26 @@
+Score: 0.5980 (1041/1740 weighted points)
+
+{
+  "score": 0.598,
+  "total_earned": 1041,
+  "total_possible": 1740,
+  "top_level": {
+    "gold_final_answer": 2,
+    "gold_edge_length_squared_set": 2,
+    "acceptable_solution_ids": 2
+  },
+  "per_response": {
+    "A": 63,
+    "B": 71,
+    "C": 79,
+    "D": 79,
+    "E": 81,
+    "F": 58,
+    "G": 38,
+    "H": 58,
+    "I": 58
+  },
+  "code_application_table_total": 420,
+  "cross_response_observations": 30,
+  "justification": "Top-level fields match perfectly (6/6). Per-response scoring: A (63/101) missed primary code and added spurious reasons; B (71/96) matched primary but omitted one failure reason and evidence; C/D (79/96 each) matched primary but omitted one reason; E (81/81) perfect; F/H/I (58/101 each) selected downstream primary code and missed two failure reasons; G (38/91) had low overlap on failure reasons. Code application table: 6/12 keys matched exactly (420/840), failing on restricts_to_nonnegative_subset_sums, uses_fabricated_invariant (missing A), assumes_zero_distance_vertex (missing F,G,H,I), omits_sign_pattern (missing B,C,D), treats_one_orientation (extra A,B), and derives_correct_partial (missing G). Cross-response observations were substantive and length-compliant (30/30)."
+}

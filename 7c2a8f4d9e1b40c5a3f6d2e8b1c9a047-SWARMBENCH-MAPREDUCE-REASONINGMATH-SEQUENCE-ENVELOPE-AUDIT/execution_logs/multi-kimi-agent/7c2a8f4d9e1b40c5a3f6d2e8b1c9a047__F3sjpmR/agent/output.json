@@ -1,0 +1,327 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "response_A",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response claims 2 inspections suffice but uses invalid one-draw inference to identify mixed envelope. After identifying Mixed-labeled as pure, claims remaining two are 'determined by elimination' when they cannot be distinguished without additional draws.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states 'minimum number of inspections required is 2' but canonical answer is 15.",
+        "C2_concrete_strategy": "Response lacks branch-by-branch rules for all observation sequences; hand-wavy elimination claim.",
+        "C3_valid_upper_bound": "Claims 2 inspections suffice but one draw from possibly-mixed envelope cannot distinguish pure from 7/13 mixed.",
+        "C4_valid_lower_bound": "No indistinguishable-case argument constructed; no proof that fewer inspections cannot work.",
+        "C5_worst_case_guarantee": "Attempts worst-case framing but underestimates required inspections.",
+        "C6_no_invalid_one_draw_inference": "Claims one draw from 'Strictly Increasing' labeled proves it 'must be the mixed envelope' - invalid inference.",
+        "C7_no_exact_mixed_pair_requirement": "Only aims to identify which envelope is mixed, not exact 7/13 composition.",
+        "C8_no_fatal_wrong_claim": "States 'the remaining two envelopes are determined automatically by elimination' - forced claim after acknowledged ambiguity."
+      },
+      "primary_failure_code_evidence": "Load-bearing claim that one draw from possibly-mixed envelope proves it is mixed. Response states that after drawing from Mixed-labeled (showing increasing) and Strictly Increasing-labeled (also showing increasing), the remaining two are 'determined by elimination.' This is false: Decreasing-labeled and Constant-labeled (both pure) cannot be distinguished without more draws.",
+      "alternative_codes_considered": [
+        {
+          "code": "WRONG_FINAL_NUMBER",
+          "reason_excluded": "Answer 2 is wrong but INVALID_ONE_DRAW_INFERENCE is the structural defect causing the underestimate."
+        },
+        {
+          "code": "FATAL_WRONG_CLAIM",
+          "reason_excluded": "The 'determined by elimination' claim is a forced conclusion, but the root cause is invalid one-draw inference method."
+        }
+      ]
+    },
+    {
+      "solution_id": "response_B",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response claims 4 inspections suffice with hand-wavy strategy lacking explicit branch-by-branch rules. No concrete plan for envelope selection and label-fixing per observation sequence.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states 'minimum number of inspections is 4' but canonical answer is 15.",
+        "C2_concrete_strategy": "Concludes with hand-wavy 'At this point enough information has been gathered to deduce' without enumerating branch-by-branch rules.",
+        "C3_valid_upper_bound": "4 inspections insufficient for worst case with 7/13 split; after 2 from Mixed and 1 from another, still cannot distinguish pure from mixed.",
+        "C4_valid_lower_bound": "No indistinguishable-case argument; no construction of two arrangements with same observations but different required labelings.",
+        "C5_worst_case_guarantee": "Response does not consider worst-case scenarios like 13 consecutive same-type sequences in mixed envelope.",
+        "C6_no_invalid_one_draw_inference": "Response implies one draw can help distinguish mixed from pure without considering that one draw never proves purity.",
+        "C7_no_exact_mixed_pair_requirement": "Response does not incorrectly require finding exact 7/13 composition.",
+        "C8_no_fatal_wrong_claim": "Response claims 'enough information has been gathered to deduce the final arrangement uniquely' after only 4 draws, which is false."
+      },
+      "primary_failure_code_evidence": "Missing explicit branch-by-branch rules with envelope selection, draw counts, and label-fixing per branch. Response uses vague 'At this point enough information has been gathered to deduce' without specifying how observations map to label assignments for all possible sequences.",
+      "alternative_codes_considered": [
+        {
+          "code": "WRONG_FINAL_NUMBER",
+          "reason_excluded": "While answer 4 is wrong, the primary defect is lack of concrete strategy to justify any number."
+        },
+        {
+          "code": "INVALID_UPPER_BOUND",
+          "reason_excluded": "Upper bound is invalid, but this stems from lack of concrete worst-case analysis in the strategy."
+        }
+      ]
+    },
+    {
+      "solution_id": "response_C",
+      "criteria": {
+        "C1_correct_final_answer": true,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": true,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "MISSING_LOWER_BOUND",
+      "brief_justification": "Response provides valid upper bound of 15 inspections with concrete strategy but fails to prove this is minimum - no indistinguishable-case argument showing fewer inspections cannot work.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Total = 15 inspections (line 24).",
+        "C2_concrete_strategy": "First inspect the 'Mixed' envelope once, then repeatedly inspect one uncertain envelope (lines 14-15).",
+        "C3_valid_upper_bound": "If I see 14 identical sequence types, then the envelope must be pure because a mixed envelope contains at most 13 of one type (line 17).",
+        "C4_valid_lower_bound": "Response only states '1 initial inspection, plus 14 worst-case inspections' as derivation - no indistinguishable-case argument constructed.",
+        "C5_worst_case_guarantee": "In the worst case, the minority type appears only after 13 inspections (line 10), mentions 'worst-case inspections' (line 22).",
+        "C6_no_invalid_one_draw_inference": "Correctly notes 'only observe one category, I still cannot know whether: the envelope is pure, or I simply have not yet encountered the minority type' (lines 5-8).",
+        "C7_no_exact_mixed_pair_requirement": "Only aims to identify mixed vs pure, never mentions needing exact 7/13 composition.",
+        "C8_no_fatal_wrong_claim": "No claims of 'forced' conclusions when ambiguity remains."
+      },
+      "primary_failure_code_evidence": "Response states 'Thus: 1 initial inspection, plus 14 worst-case inspections. Total = 15 inspections' but provides no argument that 14 total inspections could be insufficient. No construction of two arrangements producing same observations with fewer inspections but requiring different labelings.",
+      "alternative_codes_considered": [
+        {
+          "code": "INVALID_UPPER_BOUND",
+          "reason_excluded": "Upper bound reasoning is actually valid - 15 is the correct answer."
+        },
+        {
+          "code": "NO_CONCRETE_STRATEGY",
+          "reason_excluded": "Despite brevity, response does give concrete envelope selection and draw counts."
+        }
+      ]
+    },
+    {
+      "solution_id": "response_D",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response claims 'the remaining labels cycle uniquely' and are 'forced by contradiction' after one inspection, which is demonstrably false. After identifying Mixed-labeled envelope as pure, multiple valid labelings remain for other three envelopes.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Answer states 'The answer is obviously 1' when correct answer is 15.",
+        "C2_concrete_strategy": "Uses 'forced by contradiction' without any branch enumeration or explicit draw count rules per scenario.",
+        "C3_valid_upper_bound": "1 inspection from Mixed-labeled envelope only identifies its pure type; remaining three envelopes with three categories cannot be distinguished with 0 more draws.",
+        "C4_valid_lower_bound": "No indistinguishable-case argument constructed.",
+        "C5_worst_case_guarantee": "Claims to use worst-case (no probability mentioned), so this criterion passes.",
+        "C6_no_invalid_one_draw_inference": "Does not claim one draw proves purity for possibly-mixed envelope.",
+        "C7_no_exact_mixed_pair_requirement": "Does not require identifying exact mixed composition.",
+        "C8_no_fatal_wrong_claim": "FALSE: States 'forced by contradiction' and 'cycle uniquely' when multiple legal labelings remain after one observation."
+      },
+      "primary_failure_code_evidence": "Response explicitly claims 'the remaining three are forced by contradiction' and 'the remaining labels cycle uniquely' after just one inspection. This is mathematically incorrect: after identifying the Mixed-labeled envelope contains (say) increasing sequences, there are still 6 possible valid labelings for the remaining three envelopes (assigning decreasing and constant to the other pure envelopes in different arrangements).",
+      "alternative_codes_considered": [
+        {
+          "code": "WRONG_FINAL_NUMBER",
+          "reason_excluded": "While answer is wrong, the primary defect is the 'forced by contradiction' claim which is a logical error claiming uniqueness when ambiguity remains."
+        },
+        {
+          "code": "NO_CONCRETE_STRATEGY",
+          "reason_excluded": "Strategy is present (just flawed); the fatal error is claiming uniqueness when multiple labelings remain valid."
+        }
+      ]
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "CONTRADICTORY_FINAL_ANSWER",
+      "brief_justification": "Response oscillates among incompatible inspection counts (3 → 2 → 3 → 15 → 3) without committing to any coherent strategy, ultimately landing on incorrect final answer 3 while acknowledging worst-case might need 15.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response oscillates: '3 inspections' (line 3), 'maybe 2' (line 7), 'minimum is 3' (line 30), 'worst-case guarantee probably makes it 15' (line 32), but 'Final answer: 3' (line 34). Never commits to 15.",
+        "C2_concrete_strategy": "Exploratory format 'Let me test' (line 9) trails off without completing branches. Only partial branch analysis.",
+        "C3_valid_upper_bound": "No proof that any strategy works for all arrangements. Partial reasoning about 14 draws 'still does not prove purity' (line 24) but no coherent bound established.",
+        "C4_valid_lower_bound": "No indistinguishable-case argument or impossibility proof. No construction of two arrangements with same observations requiring different labelings.",
+        "C5_worst_case_guarantee": "Explicitly mentions 'worst-case guarantee probably makes it 15' (line 32) but then ignores this and asserts 'Final answer: 3' (line 34), abandoning worst-case framing.",
+        "C6_no_invalid_one_draw_inference": "Response correctly notes 'third inspection also gives Decreasing, that still does not prove purity' (line 24), showing understanding that multiple draws needed for purity proofs.",
+        "C7_no_exact_mixed_pair_requirement": "Does not incorrectly require finding exact 7/13 composition.",
+        "C8_no_fatal_wrong_claim": "No 'forced by contradiction' or similar claims after acknowledged ambiguity."
+      },
+      "primary_failure_code_evidence": "Response_E oscillates among three different counts: starts with 3 (line 3), revises down to 2 (line 7), then back to 3 (line 30), then up to 15 for worst-case (line 32), but finally settles on incorrect 3 (line 34). This incoherent vacillation among incompatible final answers (2, 3, and 15) without resolving to a single committed answer is the primary defect.",
+      "alternative_codes_considered": [
+        {
+          "code": "NO_CONCRETE_STRATEGY",
+          "reason_excluded": "Present but secondary: the exploratory format is incomplete, but the oscillation among final answers is more fundamental."
+        },
+        {
+          "code": "WRONG_FINAL_NUMBER",
+          "reason_excluded": "Would apply if response had structurally correct reasoning with wrong number, but here the reasoning itself is contradictory among multiple numbers."
+        }
+      ]
+    },
+    {
+      "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response claims 3 inspections suffice by inspecting one sequence from each of three envelopes. Lacks explicit branch-by-branch rules; concludes with vague 'In every case, the correct arrangement can be deduced' without enumerating all observation sequences.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Answer claims 3 inspections, not correct 15. Line 29-30: 'Hence the minimum number of inspections required is: 3'.",
+        "C2_concrete_strategy": "Has partial strategy but wrong. Concludes with 'In every case, the correct arrangement can be deduced from these three observations' without enumerating branches or label-fixing rules.",
+        "C3_valid_upper_bound": "3 inspections from three pure-labeled envelopes cannot distinguish if one is mixed with 7/13 split; remaining envelope could still be either mixed or pure.",
+        "C4_valid_lower_bound": "No lower bound argument. Response provides no impossibility proof or indistinguishable-case construction.",
+        "C5_worst_case_guarantee": "Claims deterministic guarantee. Line 27: 'In every case, the correct arrangement can be deduced from these three observations.' Treats as worst-case.",
+        "C6_no_invalid_one_draw_inference": "FALSE - commits invalid inference. Line 16-18 claims single draws proving increasing, constant, decreasing from three envelopes proves they are those pure types. Ignores 7/13 mixed could show dominant type.",
+        "C7_no_exact_mixed_pair_requirement": "TRUE - does not require finding exact 7/13 split, only identifies which envelope is mixed via elimination.",
+        "C8_no_fatal_wrong_claim": "FALSE - makes false certainty claim. Line 27: 'In every case, the correct arrangement can be deduced from these three observations' - this is false given mixed envelope ambiguity."
+      },
+      "primary_failure_code_evidence": "Missing branch-by-branch rules with explicit envelope selection and label-fixing per observation sequence. Response F claims inspecting one sequence from each of three envelopes suffices, but fails to enumerate how observations map to label assignments for all possible cases.",
+      "alternative_codes_considered": [
+        {
+          "code": "INVALID_ONE_DRAW_INFERENCE",
+          "reason_excluded": "Response does make invalid one-draw inferences, but this is symptomatic of the deeper issue - lack of concrete strategy to handle all cases."
+        },
+        {
+          "code": "WRONG_FINAL_NUMBER",
+          "reason_excluded": "While answer is wrong (3 vs 15), the structural defect is the incomplete strategy with hand-wavy deduction claim."
+        }
+      ]
+    },
+    {
+      "solution_id": "response_G",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "States 16 inspections instead of 15; fails to recognize that preliminary inspection of Mixed-labeled envelope (1 draw) can be absorbed into verification requiring only 14 more from second envelope. Strategy is valid but count is off by one.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states 'minimum guaranteed number of inspections is 16' but canonical answer is 15.",
+        "C2_concrete_strategy": "Provides valid strategy with envelope selection and conditional continuation based on observations.",
+        "C3_valid_upper_bound": "Answer 16 is incorrect; 15 is sufficient (1 from Mixed-labeled + 14 from second envelope).",
+        "C4_valid_lower_bound": "No indistinguishability argument or impossibility proof provided in response.",
+        "C5_worst_case_guarantee": "Uses 'to guarantee correctness' and 'continue inspecting until' framing consistent with worst-case.",
+        "C6_no_invalid_one_draw_inference": "Correctly states 'could still be mixed' for single observations of increasing/constant.",
+        "C7_no_exact_mixed_pair_requirement": "Strategy aims to identify which envelope is mixed without requiring exact 7/13 split.",
+        "C8_no_fatal_wrong_claim": "Contains claim 'another decreasing sequence, then it must be mixed' which contradicts prior identification."
+      },
+      "primary_failure_code_evidence": "Response concludes with 'minimum guaranteed number of inspections is 16' when optimal is 15. The 15-count strategy inspects 1 from Mixed-labeled (identifies pure type), then 14 from second envelope to distinguish pure from mixed (7/13 split means at most 13 same-type consecutive). Response fails to recognize this optimization - the 1 preliminary draw + 14 verification draws = 15, not 16.",
+      "alternative_codes_considered": [
+        {
+          "code": "FATAL_WRONG_CLAIM",
+          "reason_excluded": "The 'another decreasing then must be mixed' claim is contradictory but not the primary reason for rejection - the count error is more fundamental."
+        },
+        {
+          "code": "NO_CONCRETE_STRATEGY",
+          "reason_excluded": "Strategy is actually concrete and mostly correct; main issue is wrong number."
+        }
+      ]
+    },
+    {
+      "solution_id": "response_H",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response claims 4 inspections suffice by inspecting one sequence from each envelope. Lacks explicit multi-branch plan with draw counts and label-fixing rules per branch.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states answer is 4: 'Thus the answer is: 4' - incorrect, should be 15.",
+        "C2_concrete_strategy": "Claims 'the assignment follows directly' without any branch enumeration or explicit rules for handling observation sequences.",
+        "C3_valid_upper_bound": "4 inspections (one from each envelope) cannot distinguish pure from 7/13 mixed envelope; 13 draws of same type from mixed could still appear pure.",
+        "C4_valid_lower_bound": "No lower bound argument provided, no indistinguishable-case construction.",
+        "C5_worst_case_guarantee": "Assumes one draw per envelope suffices without addressing worst-case where mixed returns same type.",
+        "C6_no_invalid_one_draw_inference": "Claims 'By inspecting a single sequence from each envelope, we can identify which categories are present' - invalid since mixed envelope (13 of one type) could match pure.",
+        "C7_no_exact_mixed_pair_requirement": "No mention of exact 7/13 split, doesn't add unnecessary inspections for it.",
+        "C8_no_fatal_wrong_claim": "No 'forced by contradiction' claims found."
+      },
+      "primary_failure_code_evidence": "Missing explicit multi-branch plan with draw counts and label-fixing rules per branch. Response fundamentally misunderstands the problem complexity. Claims only 4 draws needed (one per envelope) when distinguishing a mixed envelope (13 of one type, 7 of another) from pure requires up to 14 draws from a single envelope in worst case.",
+      "alternative_codes_considered": [
+        {
+          "code": "INVALID_ONE_DRAW_INFERENCE",
+          "reason_excluded": "Response does claim single draws identify categories, but this is symptomatic of the deeper error - completely wrong strategy."
+        },
+        {
+          "code": "WRONG_FINAL_NUMBER",
+          "reason_excluded": "While answer 4 is wrong, the bigger issue is the fundamental misunderstanding of the problem requiring concrete multi-branch strategy."
+        }
+      ]
+    }
+  ],
+  "accepted_solutions": [],
+  "rejected_solutions": ["response_A", "response_B", "response_C", "response_D", "response_E", "response_F", "response_G", "response_H"],
+  "best_solution": "response_C",
+  "summary": "Zero solutions accepted. All 8 responses were rejected. response_C was closest to correct with valid upper bound (15), concrete strategy, and correct answer, but failed on lower bound proof (C4). Primary defect categories: NO_CONCRETE_STRATEGY (4 responses), WRONG_FINAL_NUMBER (2 responses), FATAL_WRONG_CLAIM (1 response), CONTRADICTORY_FINAL_ANSWER (1 response), INVALID_ONE_DRAW_INFERENCE (1 response), MISSING_LOWER_BOUND (1 response). All responses except C gave incorrect final answers ranging from 1 to 16.",
+  "criterion_pass_rate": {
+    "C1_correct_final_answer": 1,
+    "C2_concrete_strategy": 2,
+    "C3_valid_upper_bound": 1,
+    "C4_valid_lower_bound": 0,
+    "C5_worst_case_guarantee": 5,
+    "C6_no_invalid_one_draw_inference": 4,
+    "C7_no_exact_mixed_pair_requirement": 8,
+    "C8_no_fatal_wrong_claim": 4
+  },
+  "verdict_distribution": {
+    "ACCEPT": [],
+    "REJECT": ["response_A", "response_B", "response_C", "response_D", "response_E", "response_F", "response_G", "response_H"]
+  },
+  "consistency_table": {
+    "NO_CONCRETE_STRATEGY": ["response_B", "response_F", "response_H"],
+    "WRONG_FINAL_NUMBER": ["response_G"],
+    "INVALID_ONE_DRAW_INFERENCE": ["response_A"],
+    "FATAL_WRONG_CLAIM": ["response_D"],
+    "CONTRADICTORY_FINAL_ANSWER": ["response_E"],
+    "MISSING_LOWER_BOUND": ["response_C"]
+  },
+  "cross_response_observations": "Across all 8 responses, several shared defect patterns emerge. First, the 7/13 split in the mixed envelope was widely misunderstood or overlooked - 5 responses (A, B, F, H, and implicitly G) failed to recognize that distinguishing a mixed envelope from pure requires up to 14 draws in worst case when the mixed shows 13 of the dominant type. Second, lower bound arguments (C4) were universally absent; no response constructed an indistinguishability argument showing that fewer than 15 inspections cannot guarantee correct labeling. Third, concrete branch-by-branch strategies (C2) were lacking in 6 responses, with many using hand-wavy language like 'forced by contradiction' or 'determined by elimination' instead of explicit enumeration of observation sequences and label assignments. Fourth, invalid one-draw inferences were present in 4 responses, where single observations were treated as definitive proof of purity or mixed status. Fifth, the correct answer of 15 was only given by response_C; other answers ranged from 1 to 16, with a cluster around small numbers (2, 3, 4) reflecting fundamental underestimation of problem complexity. Finally, while all responses correctly avoided requiring exact 7/13 composition identification (C7), this was often simply because they failed to understand the full problem structure rather than deliberate constraint awareness."
+}

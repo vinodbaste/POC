@@ -1,0 +1,265 @@
+{
+  "gold_final_answer": "210",
+  "gold_edge_length_squared_set": [21, 54, 66, 69],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "extracted_final_answer": "6",
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "omits_sign_pattern_casework",
+        "claims_unique_edge_length",
+        "accepts_internal_contradictions_in_derivation",
+        "treats_one_orientation_as_proof_of_uniqueness"
+      ],
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "place the cube with one vertex at the origin (0,0,0)",
+        "restricts_to_nonnegative_subset_sums": "distances from these vertices to the plane would be |ax + by + cz| / k where all projections are treated as positive-only",
+        "omits_sign_pattern_casework": "Response never considers configurations where some vertices have negative signed distance to the plane",
+        "claims_unique_edge_length": "the only possible edge length is sqrt(6)",
+        "accepts_internal_contradictions_in_derivation": "Explicitly accepts '6 = 7' contradiction in derivation: '6 = 7, which is impossible... Contradiction... Therefore, the answer is 6'",
+        "treats_one_orientation_as_proof_of_uniqueness": "Solves only one cube orientation (axis-aligned with vertex at origin) and asserts result as unique answer without ruling out other sign pattern families"
+      },
+      "primary_failure_code": "accepts_internal_contradictions_in_derivation",
+      "primary_failure_evidence": "Response explicitly derives contradictory equations (6=7) in the derivation chain, acknowledges the contradiction, yet proceeds to extract final numeric answer (6) despite this internal contradiction. The derivation shows 'Therefore, 6 = 7, which is impossible... Contradiction. Therefore, the answer is 6.' This acceptance of contradictory equations while proceeding to final answer is the most load-bearing defect.",
+      "alternative_codes_considered": [
+        {
+          "code": "restricts_to_nonnegative_subset_sums",
+          "reason_excluded": "While present, this is an upstream geometric assumption. The contradiction acceptance is more directly responsible for the invalid final answer extraction."
+        },
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "This is also an upstream assumption that contributes to the wrong setup, but the explicit acceptance of contradictory equations (6=7) is the more distinctive and load-bearing defect in this response."
+        }
+      ]
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "extracted_final_answer": "49",
+      "failure_reasons": [
+        "assumes_plane_parallel_to_cube_face",
+        "equates_max_distance_with_edge_length_directly",
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness"
+      ],
+      "failure_reason_evidence": {
+        "assumes_plane_parallel_to_cube_face": "If the plane is z = k, then the distance from a vertex (x, y, z) to the plane would be |z - k|. The cube is axis-aligned with edges parallel to the coordinate axes.",
+        "equates_max_distance_with_edge_length_directly": "maximum distance is 7, implying the edge length of the cube is 7",
+        "claims_unique_edge_length": "The only possible edge length is 7",
+        "treats_one_orientation_as_proof_of_uniqueness": "Only considers plane parallel to cube face (z=k) orientation and asserts edge=7 as unique solution"
+      },
+      "primary_failure_code": "assumes_plane_parallel_to_cube_face",
+      "primary_failure_evidence": "Response primarily assumes axis-aligned cube with plane parallel to a face (z=k): 'If the plane is z = k, then the distance from a vertex (x, y, z) to the plane would be |z - k|' and 'The cube is axis-aligned'. This face-parallel setup is the foundational geometric defect that leads directly to equating max distance with edge length. Per resolution priorities, assumes_plane_parallel_to_cube_face is preferred over equates_max_distance_with_edge_length_directly as the upstream defect.",
+      "alternative_codes_considered": [
+        {
+          "code": "equates_max_distance_with_edge_length_directly",
+          "reason_excluded": "While present, this is a downstream consequence of the face-parallel assumption. The plane-parallel-to-face assumption is the more fundamental upstream defect."
+        },
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "This is a downstream symptom of the single orientation analysis, not the primary load-bearing defect."
+        }
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "extracted_final_answer": "49/3",
+      "failure_reasons": [
+        "assumes_max_distance_equals_space_diagonal",
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness"
+      ],
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": "the space diagonal of the cube must be 7... a√3 = 7... a = 7/√3",
+        "claims_unique_edge_length": "the only possible edge length is 7/√3",
+        "treats_one_orientation_as_proof_of_uniqueness": "Solves only space-diagonal-aligned orientation and asserts result as unique answer"
+      },
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "primary_failure_evidence": "Response explicitly equates max distance (7) with cube's space diagonal: 'the space diagonal of the cube must be 7' and 'a√3 = 7'. This is the defining load-bearing defect. Per resolution priorities, assumes_max_distance_equals_space_diagonal is preferred over treats_one_orientation_as_proof_of_uniqueness and claims_unique_edge_length when max distance is identified with space diagonal.",
+      "alternative_codes_considered": [
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "Do NOT pick as primary when other codes apply per calibration guide. The space diagonal identification is the upstream defect."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "The space diagonal assumption is more specific and load-bearing than the general single-orientation pattern."
+        }
+      ]
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "extracted_final_answer": "49/3",
+      "failure_reasons": [
+        "assumes_max_distance_equals_space_diagonal",
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness"
+      ],
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": "the space diagonal of the cube is a√3... the maximum distance from the plane to a vertex is 7, the space diagonal of the cube must be 7",
+        "claims_unique_edge_length": "the only possible edge length is 7/√3",
+        "treats_one_orientation_as_proof_of_uniqueness": "Solves only one geometric configuration and asserts uniqueness"
+      },
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "primary_failure_evidence": "Response explicitly states: 'the maximum distance from the plane to a vertex is 7, the space diagonal of the cube must be 7' and derives 'a = 7/√3'. This direct equation of max distance with space diagonal is the load-bearing defect. Per resolution priorities hierarchy, assumes_max_distance_equals_space_diagonal takes precedence over other codes when present.",
+      "alternative_codes_considered": [
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "Downstream symptom, not primary per guide rules."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "Space diagonal assumption is more specific and upstream."
+        }
+      ]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "extracted_final_answer": null,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ],
+      "failure_reason_evidence": {
+        "non_terminating_or_no_final_answer": "Response enters repetitive loop starting at line 91 with 'Let\\'s let\\'s define:' followed by hundreds of lines of 'Let\\'s let\\'s denote:' patterns without reaching numeric conclusion. Generation loops on phrase tens/hundreds of times until truncation."
+      },
+      "primary_failure_code": "non_terminating_or_no_final_answer",
+      "primary_failure_evidence": "Response demonstrates clear generation loop starting at line 91, repeating 'Let\\'s let\\'s denote:' pattern hundreds of times (lines 91-1000+). No boxed answer or 'final answer is N' sentence is present. Mid-sentence cut-off before any conclusion. Per calibration guide: 'STANDS ALONE - mutually incompatible with any code requiring final numeric answer'. This code fires regardless of whether early portion is mathematically reasonable.",
+      "alternative_codes_considered": [
+        {
+          "code": "NONE",
+          "reason_excluded": "Not applicable - non_terminating is present and stands alone."
+        },
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "Not applicable - non_terminating stands alone and blocks all other codes."
+        }
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "extracted_final_answer": "21",
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "omits_sign_pattern_casework"
+      ],
+      "failure_reason_evidence": {
+        "claims_unique_edge_length": "the only possible edge length squared is 21... S = {21}",
+        "treats_one_orientation_as_proof_of_uniqueness": "Only analyzes one sign pattern family (all positive projections 1,2,4) and asserts result as unique without considering other configurations",
+        "omits_sign_pattern_casework": "Only considers the configuration where signed projections are 0,1,2,3,4,5,6,7 (all same sign). Does not enumerate other sign pattern families like (0,±1,±2,±4) with mixed signs that produce other valid edge lengths."
+      },
+      "primary_failure_code": "claims_unique_edge_length",
+      "primary_failure_evidence": "Response correctly derives s²=21 for one valid configuration but explicitly asserts uniqueness: 'the only possible edge length squared is 21' and 'S = {21}'. This is factually incorrect as the gold set contains [21, 54, 66, 69]. The claim of single edge length when multiple exist is the most load-bearing defect. Response does reach numeric conclusion but with incorrect uniqueness claim.",
+      "alternative_codes_considered": [
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "While present, this is the mechanism by which other solutions were missed. The explicit claim of uniqueness (|S|=1) is the more direct defect. Per calibration guide, claims_unique_edge_length should not be primary when other codes apply, but in this case the derivation is otherwise valid - the only error is the uniqueness assertion."
+        },
+        {
+          "code": "derives_correct_partial_s2_then_discards_it",
+          "reason_excluded": "Response does NOT discard s²=21 - it keeps it. This code does not apply."
+        }
+      ]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "extracted_final_answer": "140/3",
+      "failure_reasons": [
+        "uses_fabricated_invariant_or_invalid_derivation"
+      ],
+      "failure_reason_evidence": {
+        "uses_fabricated_invariant_or_invalid_derivation": "Response invents key formula 'sum of squared distances = 3a²(1 + T²)' which is not derivable from problem geometry. This invented algebraic identity is used as the load-bearing derivation step to produce final answer 140/3."
+      },
+      "primary_failure_code": "uses_fabricated_invariant_or_invalid_derivation",
+      "primary_failure_evidence": "Response fabricates algebraic identity: 'Sum of squares of distances = 3a²(1 + T²)' and uses this invented formula as the foundation for solving. The key indicator is present: 'Final boxed value is output of fabricated algebraic chain'. The derivation rests on this unsupported identity which is not derivable from cube-plane geometry. Per calibration guide: 'PREFERRED over accepts_internal_contradictions_in_derivation (upstream defect)'.",
+      "alternative_codes_considered": [
+        {
+          "code": "accepts_internal_contradictions_in_derivation",
+          "reason_excluded": "Response does not explicitly accept contradictions like 6=7. The fabricated invariant is the distinctive defect."
+        },
+        {
+          "code": "derives_correct_partial_s2_then_discards_it",
+          "reason_excluded": "Response does not derive correct s²=21 at any point - it derives 140/3 via fabricated formula."
+        }
+      ]
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "extracted_final_answer": "21",
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "omits_sign_pattern_casework"
+      ],
+      "failure_reason_evidence": {
+        "claims_unique_edge_length": "the only possible edge length is √21... S = {√21}",
+        "treats_one_orientation_as_proof_of_uniqueness": "Only solves one configuration with subset sums {1,2,4} and asserts it as unique",
+        "omits_sign_pattern_casework": "Reaches numeric conclusion without enumerating sign-pattern families. Only considers positive subset sums (1,2,4)."
+      },
+      "primary_failure_code": "claims_unique_edge_length",
+      "primary_failure_evidence": "Response correctly derives s²=21 via the valid (1,2,4) subset sum configuration, but explicitly asserts 'the only possible edge length is √21' and 'S = {√21}'. This uniqueness claim is incorrect as there are other valid edge lengths (54, 66, 69 per gold set). The explicit claim that |S|=1 when multiple solutions exist is the most distinctive and load-bearing defect in this response.",
+      "alternative_codes_considered": [
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "This is the mechanism for missing other solutions, but the explicit |S|=1 claim is more directly the defect."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "Similar to above, the claims_unique_edge_length code more precisely captures the final conclusion defect."
+        }
+      ]
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "extracted_final_answer": "21",
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "omits_sign_pattern_casework"
+      ],
+      "failure_reason_evidence": {
+        "claims_unique_edge_length": "the only possible edge length squared is 21... the answer is 21",
+        "treats_one_orientation_as_proof_of_uniqueness": "Only considers the (1,2,4) subset configuration and asserts it as the unique solution",
+        "omits_sign_pattern_casework": "Does not consider configurations where some vertices have negative signed projections. Only analyzes all-positive case."
+      },
+      "primary_failure_code": "claims_unique_edge_length",
+      "primary_failure_evidence": "Response explicitly states 'the only possible edge length squared is 21' and concludes with answer 21. While the derivation of s²=21 for the (1,2,4) configuration is mathematically valid, the assertion that this is the ONLY possible edge length is factually incorrect. The gold set contains [21, 54, 66, 69]. The distinctive and load-bearing defect is the explicit claim of uniqueness (|S|=1) when multiple edge lengths are possible.",
+      "alternative_codes_considered": [
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "This is how other solutions were missed, but the explicit uniqueness claim is more directly the error."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "The claims_unique_edge_length code more precisely captures the final assertion defect."
+        }
+      ]
+    }
+  ],
+  "code_application_table": {
+    "claims_unique_edge_length": ["A", "B", "C", "D", "F", "H", "I"],
+    "restricts_to_nonnegative_subset_sums": ["A"],
+    "assumes_max_distance_equals_space_diagonal": ["C", "D"],
+    "assumes_plane_parallel_to_cube_face": ["B"],
+    "equates_max_distance_with_edge_length_directly": ["B"],
+    "uses_fabricated_invariant_or_invalid_derivation": ["G"],
+    "accepts_internal_contradictions_in_derivation": ["A"],
+    "assumes_zero_distance_vertex_is_axis_corner": ["A"],
+    "omits_sign_pattern_casework": ["A", "F", "H", "I"],
+    "treats_one_orientation_as_proof_of_uniqueness": ["A", "B", "C", "D", "F", "H", "I"],
+    "derives_correct_partial_s2_then_discards_it": [],
+    "non_terminating_or_no_final_answer": ["E"]
+  },
+  "cross_response_observations": "Analysis reveals several widespread systematic defects across the 9 responses. First, the 'claims_unique_edge_length' defect appears in 7 of 9 responses (A, B, C, D, F, H, I), demonstrating a pervasive tendency to assert single-edge-length solutions even when multiple valid configurations exist per the gold set [21, 54, 66, 69]. Second, 'treats_one_orientation_as_proof_of_uniqueness' co-occurs in 7 responses, showing that solvers commonly analyze only one geometric configuration (typically axis-aligned or space-diagonal-aligned) without considering alternative sign patterns. Third, the axis-aligned-with-corner-at-origin setup (combining 'assumes_zero_distance_vertex_is_axis_corner' and 'restricts_to_nonnegative_subset_sums') appears in Response A, leading to internal contradictions that are explicitly accepted. Fourth, two distinct max-distance identification patterns emerge: 'equates_max_distance_with_edge_length_directly' (Response B) and 'assumes_max_distance_equals_space_diagonal' (Responses C, D), both producing incorrect edge lengths (7 and 7/√3 respectively). Fifth, Response E demonstrates the 'non_terminating_or_no_final_answer' pattern with extensive repetitive generation loops. Finally, Response G is distinctive for 'uses_fabricated_invariant_or_invalid_derivation', inventing a non-existent algebraic identity 'sum of squared distances = 3a²(1 + T²)'. The most concerning pattern is that 3 responses (F, H, I) correctly derive s²=21 but incorrectly claim uniqueness, missing the other three valid edge lengths due to insufficient sign-pattern casework."
+}

@@ -1,0 +1,26 @@
+Score: 0.4870 (847/1740 weighted points)
+
+{
+  "score": 0.487,
+  "total_earned": 847,
+  "total_possible": 1740,
+  "top_level": {
+    "gold_final_answer": 0,
+    "gold_edge_length_squared_set": 0,
+    "acceptable_solution_ids": 0
+  },
+  "per_response": {
+    "A": 63,
+    "B": 79,
+    "C": 79,
+    "D": 79,
+    "E": 81,
+    "F": 16,
+    "G": 38,
+    "H": 16,
+    "I": 16
+  },
+  "code_application_table_total": 350,
+  "cross_response_observations": 30,
+  "justification": "Agent failed all top-level fields: gold_final_answer (21 vs 210), gold_edge_length_squared_set ([21] vs [21,54,66,69]), and acceptable_solution_ids (incorrectly listed F,H,I). Per-response booleans were correct for A,B,C,D,E,G but catastrophically wrong for F,H,I (marked true, should be false). Failure reason sets showed partial overlap (10-30 points each) with critical omissions like fabricated_invariant for A and sign_casework for B,C,D. Primary codes matched exactly for B,C,D,E but were plausible alternatives for A,G (12 pts each). Structural fields (evidence, alternatives) scored perfectly (8 pts each). Failure reason evidence was incomplete, missing keys for fabricated_invariant (A), sign_casework (B,C,D), and all codes for F,H,I. Code application table matched only 5 of 12 keys (350/840). Cross-response observations were substantive (30 pts)."
+}

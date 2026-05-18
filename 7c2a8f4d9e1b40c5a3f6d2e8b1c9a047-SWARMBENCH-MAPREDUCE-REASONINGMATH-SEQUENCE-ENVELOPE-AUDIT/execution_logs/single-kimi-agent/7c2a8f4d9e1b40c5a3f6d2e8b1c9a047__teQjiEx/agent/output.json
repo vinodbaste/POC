@@ -1,0 +1,291 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "response_A",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response claims answer is 2, which is incorrect. The fatal flaw is the claim that one draw from 'Strictly Increasing' envelope proves it must be mixed - this ignores that the mixed envelope could have 13 sequences of that type, making one draw insufficient.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states 'So the minimum number of inspections required is **2**' but the correct answer is 15.",
+        "C2_concrete_strategy": "Response provides explicit strategy: inspect one from Mixed-labeled, then one from Strictly Increasing-labeled, then claims remaining are determined.",
+        "C3_valid_upper_bound": "Strategy fails in worst case: if mixed envelope (with 13 increasing) is inspected second, one increasing draw doesn't distinguish it from pure increasing.",
+        "C4_valid_lower_bound": "Response provides no proof that fewer than 2 inspections cannot work - no indistinguishable-case argument.",
+        "C5_worst_case_guarantee": "Strategy assumes favorable outcome where one draw distinguishes mixed from pure, but fails when mixed envelope's first 13 draws are all majority type.",
+        "C6_no_invalid_one_draw_inference": "FALSE: Response claims 'If that sequence is also strictly increasing, then this envelope must be the mixed envelope' - this is invalid one-draw inference from possibly-mixed envelope.",
+        "C7_no_exact_mixed_pair_requirement": "Response does not require identifying exact mixed pair composition - only cares about which envelope is mixed.",
+        "C8_no_fatal_wrong_claim": "FALSE: Claims 'the remaining two envelopes are determined automatically by elimination' without sufficient information after only 2 inspections with ambiguous outcomes."
+      },
+      "primary_failure_code_evidence": "The load-bearing defect is the explicit invalid one-draw inference: Response A states 'inspect one sequence from the envelope labeled Strictly Increasing. If that sequence is also strictly increasing, then this envelope must be the mixed envelope.' This is mathematically wrong because the mixed envelope could contain 13 increasing sequences - one increasing draw does not prove the envelope is mixed. This invalid inference drives the incorrect count of 2. While C8 is also false due to the 'determined automatically' claim, the invalid one-draw inference is the primary mathematical error that invalidates the strategy.",
+      "alternative_codes_considered": [
+        {"code": "WRONG_FINAL_NUMBER", "reason_excluded": "The answer 2 is wrong, but the primary issue is not merely arithmetic - it's that the strategy relies on an invalid one-draw inference which is the load-bearing defect."},
+        {"code": "FATAL_WRONG_CLAIM", "reason_excluded": "The 'remaining determined automatically' claim is problematic, but the invalid one-draw inference is the root cause that makes the strategy fail."}
+      ],
+      "criteria_satisfied_count": 2
+    },
+    {
+      "solution_id": "response_B",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response oscillates and ends with hand-wavy 'enough information has been gathered' without specifying how labels are fixed. Uses invalid one-draw inferences from possibly-mixed envelopes.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states 'Therefore, the minimum number of inspections is **4**' but the correct answer is 15.",
+        "C2_concrete_strategy": "FALSE: Response lacks branch-by-branch label fixing rules. After describing inspections, it vaguely states 'At this point enough information has been gathered to deduce the final arrangement uniquely' without showing how each observation branch determines all four labels.",
+        "C3_valid_upper_bound": "Strategy uses single draws from Constant and Strictly Increasing labeled envelopes, which cannot distinguish pure from mixed envelopes, leaving ambiguous labelings possible.",
+        "C4_valid_lower_bound": "Response provides no impossibility proof for fewer than 4 inspections - no indistinguishable-case construction.",
+        "C5_worst_case_guarantee": "Strategy relies on favorable observation patterns without addressing worst-case where mixed envelope returns majority type on early draws.",
+        "C6_no_invalid_one_draw_inference": "FALSE: Response claims one draw from 'Constant' labeled envelope suffices to narrow to 'either mixed or purely increasing/decreasing' but doesn't verify this with 14 draws needed for certainty.",
+        "C7_no_exact_mixed_pair_requirement": "Response does not add extra inspections to determine exact mixed pair composition.",
+        "C8_no_fatal_wrong_claim": "Response contains no explicit fatal claim like 'forced' or 'determined automatically' - it just says 'enough information has been gathered' which is vague but not a specific false claim."
+      },
+      "primary_failure_code_evidence": "The primary defect is NO_CONCRETE_STRATEGY. Response B describes inspecting 2 from Mixed-labeled, 1 from Constant-labeled, and 1 from Strictly Increasing-labeled, but then simply asserts 'At this point enough information has been gathered to deduce the final arrangement uniquely' without specifying how each observation branch fixes all four labels. After one draw from Constant-labeled and one from Strictly Increasing-labeled (both of which could be mixed), there are multiple consistent labelings possible. The response never provides the branch-by-branch label-fixing rules required by C2. The oscillating count (implied 2, then 3, then 4) also contributes to the lack of coherent strategy.",
+      "alternative_codes_considered": [
+        {"code": "INVALID_ONE_DRAW_INFERENCE", "reason_excluded": "The response does use single draws insufficiently, but this is a symptom of the lack of concrete strategy - the primary issue is not showing how labels are fixed in each branch."},
+        {"code": "WRONG_FINAL_NUMBER", "reason_excluded": "The answer 4 is wrong, but the deeper issue is that even if the count were different, the strategy lacks concrete branch specifications."}
+      ],
+      "criteria_satisfied_count": 2
+    },
+    {
+      "solution_id": "response_C",
+      "criteria": {
+        "C1_correct_final_answer": true,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": true,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "MISSING_LOWER_BOUND",
+      "brief_justification": "Response gives correct answer 15 and valid strategy, but lacks proof that fewer than 15 inspections cannot guarantee success. No indistinguishable-case argument provided.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response correctly states 'Total = **15 inspections**' which matches the canonical answer.",
+        "C2_concrete_strategy": "Response specifies: inspect Mixed-labeled once, then repeatedly inspect one uncertain envelope until either two categories appear or 14 identical categories appear.",
+        "C3_valid_upper_bound": "Strategy correctly uses 14 inspections from second envelope because mixed envelope has at most 13 of one type - 14 identical proves purity, two different proves mixed.",
+        "C4_valid_lower_bound": "FALSE: Response provides no proof that fewer than 15 inspections cannot work. No construction of indistinguishable cases is given.",
+        "C5_worst_case_guarantee": "Response explicitly considers worst case where minority type appears only after 13 inspections from mixed envelope.",
+        "C6_no_invalid_one_draw_inference": "Response correctly notes one draw from Mixed-labeled envelope identifies pure type (valid since label is known wrong). Does not claim one draw from other envelopes proves purity.",
+        "C7_no_exact_mixed_pair_requirement": "Response only requires identifying which envelope is mixed, not the exact two-type composition.",
+        "C8_no_fatal_wrong_claim": "Response contains no invalid claims - correctly reasons about 13/7 split requiring 14 draws for verification."
+      },
+      "primary_failure_code_evidence": "Response C has the correct answer (15) and a valid upper-bound strategy. It correctly identifies that 14 draws are needed from the second envelope because a mixed envelope contains at most 13 of one type. However, the response completely lacks a lower-bound proof. It never shows that no strategy using fewer than 15 inspections can guarantee success. A valid lower-bound proof would construct two different legal envelope arrangements that produce identical observations under any 14-inspection strategy but require different labelings. Without this impossibility argument, the 'minimum' claim is unjustified. This is the classic structure of a correct-strategy-missing-lower-bound defect.",
+      "alternative_codes_considered": [
+        {"code": "NONE", "reason_excluded": "Cannot use NONE because the response is rejected due to missing lower bound proof."},
+        {"code": "WRONG_FINAL_NUMBER", "reason_excluded": "The answer 15 is correct, not wrong."}
+      ],
+      "criteria_satisfied_count": 7
+    },
+    {
+      "solution_id": "response_D",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response claims answer is 1. Contains fatal claim that 'the remaining three are forced by contradiction' and 'the remaining labels cycle uniquely' after only one inspection - but multiple legal labelings remain possible.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states 'The answer is obviously **1**' but correct answer is 15.",
+        "C2_concrete_strategy": "Response gives explicit strategy: inspect one from Mixed-labeled, then claims remaining three are determined.",
+        "C3_valid_upper_bound": "Strategy fails - after one inspection identifying Mixed-labeled's true type, three envelopes remain with three labels (two pure, one mixed) under derangement constraint - still multiple legal assignments.",
+        "C4_valid_lower_bound": "No lower bound proof provided - just asserts 1 is sufficient without argument about fewer being impossible.",
+        "C5_worst_case_guarantee": "Strategy doesn't consider worst case - assumes one inspection suffices for all scenarios.",
+        "C6_no_invalid_one_draw_inference": "Response correctly notes Mixed-labeled envelope is pure (valid). Does not make one-draw claims about other envelopes.",
+        "C7_no_exact_mixed_pair_requirement": "Response does not concern itself with exact mixed pair composition.",
+        "C8_no_fatal_wrong_claim": "FALSE: Response claims 'the remaining three are forced by contradiction' and 'the remaining labels cycle uniquely' - these are false claims because after one inspection, multiple legal labelings remain possible under the derangement constraint."
+      },
+      "primary_failure_code_evidence": "The load-bearing defect is the explicit fatal wrong claim. Response D states: 'one inspection immediately identifies the true category of that envelope, and the remaining three are forced by contradiction' and 'the remaining labels cycle uniquely.' These claims are mathematically false. After identifying the Mixed-labeled envelope's true pure type, we have three remaining envelopes (labels: Strictly Increasing, Strictly Decreasing, Constant) and three remaining types to assign (the other two pure types plus mixed). With the all-labels-wrong constraint, there are still multiple legal derangements possible. For example, if Mixed-labeled was actually Increasing, we need to assign Decreasing, Constant, and Mixed to the other three envelopes such that none matches its label - multiple valid assignments exist. The 'forced by contradiction' and 'cycle uniquely' claims are proof-invalidating errors.",
+      "alternative_codes_considered": [
+        {"code": "WRONG_FINAL_NUMBER", "reason_excluded": "The answer 1 is wrong, but the primary issue is the fatal wrong claim about remaining labels being 'forced' and 'cycling uniquely' which is mathematically false."},
+        {"code": "INVALID_UPPER_BOUND", "reason_excluded": "The upper bound fails, but this follows from the fatal wrong claim about forced assignments."}
+      ],
+      "criteria_satisfied_count": 3
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "CONTRADICTORY_FINAL_ANSWER",
+      "brief_justification": "Response oscillates between 2, 3, 14, 15, and finally settles on 3 without coherent reasoning. Never commits to one inspection count with a consistent strategy.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response oscillates: 'I think this can be solved in 3 inspections', 'Wait. Actually maybe 2', 'So perhaps we need 14', 'No, wait... worst-case guarantee probably makes it 15', 'Final answer: **3**'. Never commits to one correct number.",
+        "C2_concrete_strategy": "FALSE: Response explores branches but never settles on one coherent inspection strategy with branch-by-branch label fixing rules.",
+        "C3_valid_upper_bound": "No valid upper bound proven - the response considers various counts but doesn't show any guarantees success.",
+        "C4_valid_lower_bound": "No lower bound proof provided.",
+        "C5_worst_case_guarantee": "Response acknowledges worst-case should be considered but then ignores it in final answer of 3.",
+        "C6_no_invalid_one_draw_inference": "FALSE: Response considers 'If it gives Increasing again, then that must be Mixed' - this is invalid one-draw inference from possibly-mixed envelope.",
+        "C7_no_exact_mixed_pair_requirement": "Response does not concern itself with exact mixed pair composition.",
+        "C8_no_fatal_wrong_claim": "Response contains no explicit 'forced' or 'determined automatically' claims - it remains exploratory throughout."
+      },
+      "primary_failure_code_evidence": "The primary defect is CONTRADICTORY_FINAL_ANSWER. Response E oscillates through multiple incompatible inspection counts: starts with 'I think this can be solved in 3 inspections', then 'Actually maybe 2', explores needing 14 or 15 for worst-case, and finally asserts 'Final answer: **3**' without any coherent strategy to justify this number. The response never commits to a single inspection count with a valid supporting strategy. It explores possibilities but doesn't settle on one concrete plan. According to the disambiguation rules, oscillation among incompatible final counts takes precedence over other codes.",
+      "alternative_codes_considered": [
+        {"code": "WRONG_FINAL_NUMBER", "reason_excluded": "The answer 3 is wrong, but the primary issue is the oscillation between multiple counts without commitment, not merely the arithmetic of the final number."},
+        {"code": "NO_CONCRETE_STRATEGY", "reason_excluded": "While the strategy is also incomplete, the more diagnostic defect is the oscillation among final answers - the response never settles on what it's actually claiming."}
+      ],
+      "criteria_satisfied_count": 2
+    },
+    {
+      "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NOT_WORST_CASE",
+      "brief_justification": "Response claims answer is 3 with strategy of one draw from each of three envelopes. Strategy relies on favorable observations and fails in worst case where mixed envelope matches a pure envelope's first draw.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states 'Hence the minimum number of inspections required is: ## **3**' but correct answer is 15.",
+        "C2_concrete_strategy": "Response gives explicit strategy: inspect one sequence from each of three envelopes, then claims the last must be mixed or deduced from the pattern.",
+        "C3_valid_upper_bound": "Strategy fails - if mixed envelope's first draw matches a pure envelope's type, the 'distinct categories' case fails and assignment becomes ambiguous.",
+        "C4_valid_lower_bound": "No lower bound proof provided.",
+        "C5_worst_case_guarantee": "FALSE: Strategy assumes favorable case where three draws show three distinct categories. Doesn't handle worst case where mixed envelope's majority type matches a pure envelope.",
+        "C6_no_invalid_one_draw_inference": "FALSE: Strategy treats one draw per envelope as identifying that envelope's type, but one draw from possibly-mixed envelope doesn't prove purity.",
+        "C7_no_exact_mixed_pair_requirement": "Response does not concern itself with exact mixed pair composition.",
+        "C8_no_fatal_wrong_claim": "Response claims 'In every case, the correct arrangement can be deduced' - this is a wrong claim but the response acknowledges ambiguity in its analysis rather than asserting specific forced assignments."
+      },
+      "primary_failure_code_evidence": "The primary defect is NOT_WORST_CASE. Response F proposes inspecting one sequence from each of three envelopes and claims 'In every case, the correct arrangement can be deduced from these three observations.' However, this only works in favorable branches. In the worst case, if the mixed envelope's first 13 sequences are all the same type, and that type matches one of the pure envelopes, one draw from each envelope cannot distinguish the pure envelope from the mixed one. The strategy relies on 'if two envelopes produce the same category, then one of them must be mixed' but doesn't provide a rule for determining which is which. The response never engages with the worst-case scenario where the mixed envelope returns its majority type on the first draw, matching a pure envelope's type.",
+      "alternative_codes_considered": [
+        {"code": "INVALID_ONE_DRAW_INFERENCE", "reason_excluded": "While the strategy uses single draws, the more fundamental issue is that it doesn't consider worst-case scenarios where these single draws are ambiguous."},
+        {"code": "FATAL_WRONG_CLAIM", "reason_excluded": "The 'In every case' claim is problematic but the response doesn't make specific 'forced by contradiction' assertions - it's more that the strategy simply fails in worst cases."}
+      ],
+      "criteria_satisfied_count": 3
+    },
+    {
+      "solution_id": "response_G",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": true,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response gives correct strategy (1 from Mixed-labeled + up to 14 from second envelope = 15) but incorrectly states total is 16. Strategy is sound but final number is off by one.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states 'Therefore the minimum guaranteed number of inspections is **16**' but strategy described uses 1 + 14 = 15. The correct answer is 15.",
+        "C2_concrete_strategy": "Response gives explicit strategy: one from Mixed-labeled, then up to 14 from second envelope until two categories appear or 14 identical categories prove purity.",
+        "C3_valid_upper_bound": "Strategy correctly identifies that 14 draws from second envelope suffices because mixed envelope has at most 13 of one type.",
+        "C4_valid_lower_bound": "FALSE: Response provides no proof that fewer than 16 (or 15) inspections cannot guarantee success.",
+        "C5_worst_case_guarantee": "Response explicitly considers worst case: 'continue inspecting until either two sequence categories appear, or 14 identical categories appear.'",
+        "C6_no_invalid_one_draw_inference": "Response correctly uses one draw from Mixed-labeled (valid since known wrong label). For second envelope, uses up to 14 draws - does not claim one draw proves purity.",
+        "C7_no_exact_mixed_pair_requirement": "Response does not require identifying exact mixed pair - only cares about identifying which envelope is mixed.",
+        "C8_no_fatal_wrong_claim": "Response correctly reasons about strategy - only error is arithmetic (says 16 instead of 15). No fatal logical claims."
+      },
+      "primary_failure_code_evidence": "The primary defect is WRONG_FINAL_NUMBER. Response G correctly identifies the canonical strategy: one draw from the Mixed-labeled envelope to identify its pure type, then up to 14 draws from a second envelope to verify purity (since mixed has at most 13 of one type). The strategy is mathematically sound and worst-case complete. However, the response incorrectly computes the total as 1 + 14 + 1 = 16 (perhaps double-counting or adding an extra). The strategy itself uses 15 inspections maximum, but the stated answer is 16. According to the disambiguation rules, when the strategy is structurally correct in every other way but the inspection count deviates from the optimum, the primary code is WRONG_FINAL_NUMBER.",
+      "alternative_codes_considered": [
+        {"code": "MISSING_LOWER_BOUND", "reason_excluded": "While the lower bound is also missing, the arithmetic error in the final count is the more specific defect."},
+        {"code": "NONE", "reason_excluded": "Cannot use NONE because the final answer 16 is incorrect (should be 15)."}
+      ],
+      "criteria_satisfied_count": 6
+    },
+    {
+      "solution_id": "response_H",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response claims answer is 4 with fatal claim that 'By inspecting a single sequence from each envelope, we can identify which categories are present' and 'the assignment follows directly' - ignoring that one draw from mixed envelope doesn't prove its purity.",
+      "criterion_evidence": {
+        "C1_correct_final_answer": "Response states answer is 'boxed{4}' but correct answer is 15.",
+        "C2_concrete_strategy": "FALSE: Response says 'inspect a single sequence from each envelope' but provides no branch-by-branch label fixing rules after observations.",
+        "C3_valid_upper_bound": "Strategy fails - one draw from mixed envelope that happens to be majority type looks like a pure envelope, creating ambiguity.",
+        "C4_valid_lower_bound": "No lower bound proof provided.",
+        "C5_worst_case_guarantee": "Strategy assumes favorable observations where four distinct categories are identified, but there are only three pure categories - one draw from each of four envelopes cannot show four distinct categories.",
+        "C6_no_invalid_one_draw_inference": "FALSE: The entire strategy rests on the claim that 'inspecting a single sequence from each envelope, we can identify which categories are present' - this assumes one draw proves purity for possibly-mixed envelopes.",
+        "C7_no_exact_mixed_pair_requirement": "Response does not concern itself with exact mixed pair composition.",
+        "C8_no_fatal_wrong_claim": "FALSE: Response claims 'the assignment follows directly' from single observations - this is false because one draw from mixed envelope doesn't distinguish it from pure envelope of same type."
+      },
+      "primary_failure_code_evidence": "The primary defect is FATAL_WRONG_CLAIM. Response H asserts: 'By inspecting a single sequence from each envelope, we can identify which categories are present. Since there are only four envelopes and four labels, the assignment follows directly.' This claim is mathematically false. With only three pure categories (Increasing, Decreasing, Constant), one cannot see four distinct categories from four envelopes. More critically, one draw from the mixed envelope (which contains 13 of one type and 7 of another) cannot be distinguished from one draw from the pure envelope of that same type. The 'assignment follows directly' claim assumes that one observation per envelope uniquely identifies that envelope's type, which is false when an envelope could be mixed. This proof-invalidating claim is the load-bearing defect.",
+      "alternative_codes_considered": [
+        {"code": "INVALID_ONE_DRAW_INFERENCE", "reason_excluded": "While the response does make invalid one-draw inferences, the more specific defect is the explicit 'follows directly' claim which is a fatal wrong claim about the reasoning structure."},
+        {"code": "NOT_WORST_CASE", "reason_excluded": "The strategy does fail in worst case, but the primary issue is the explicit false claim that assignment 'follows directly' from single observations."}
+      ],
+      "criteria_satisfied_count": 1
+    }
+  ],
+  "accepted_solutions": [],
+  "rejected_solutions": ["response_A", "response_B", "response_C", "response_D", "response_E", "response_F", "response_G", "response_H"],
+  "best_solution": "response_C",
+  "summary": "All eight candidate solutions are rejected. Response_C has the correct answer (15) and a valid worst-case strategy, but lacks a lower-bound impossibility proof. Response_G has a valid strategy but states 16 instead of 15. Responses A, B, D, E, F, and H have various combinations of wrong answers, invalid one-draw inferences, fatal wrong claims, lack of concrete strategies, and failure to consider worst cases. The canonical answer is 15: one inspection from the Mixed-labeled envelope (which must be pure) plus 14 inspections from a second envelope to distinguish pure from mixed (since mixed has at most 13 of one type).",
+  "criterion_pass_rate": {
+    "C1_correct_final_answer": 1,
+    "C2_concrete_strategy": 5,
+    "C3_valid_upper_bound": 2,
+    "C4_valid_lower_bound": 0,
+    "C5_worst_case_guarantee": 2,
+    "C6_no_invalid_one_draw_inference": 3,
+    "C7_no_exact_mixed_pair_requirement": 8,
+    "C8_no_fatal_wrong_claim": 5
+  },
+  "verdict_distribution": {
+    "ACCEPT": [],
+    "REJECT": ["response_A", "response_B", "response_C", "response_D", "response_E", "response_F", "response_G", "response_H"]
+  },
+  "consistency_table": {
+    "NONE": [],
+    "WRONG_FINAL_NUMBER": ["response_G"],
+    "CONTRADICTORY_FINAL_ANSWER": ["response_E"],
+    "NO_CONCRETE_STRATEGY": ["response_B"],
+    "INVALID_UPPER_BOUND": [],
+    "MISSING_LOWER_BOUND": ["response_C"],
+    "NOT_WORST_CASE": ["response_F"],
+    "INVALID_ONE_DRAW_INFERENCE": ["response_A"],
+    "UNNECESSARY_MIXED_PAIR_REQUIREMENT": [],
+    "FATAL_WRONG_CLAIM": ["response_D", "response_H"]
+  },
+  "cross_response_observations": "Several shared defect patterns emerge across the eight responses. First, the invalid one-draw inference appears in multiple responses (A, B, E, F, H), where candidates assume that observing one sequence from an envelope proves that envelope's purity, ignoring that the mixed envelope could have 13 sequences of that type. Second, the 'forced by elimination' or 'follows directly' assertion appears in responses A, D, and H, where candidates claim remaining labels are uniquely determined when multiple legal derangements actually remain possible. Third, the oscillation without commitment pattern appears in response E, which explores multiple inspection counts without settling on a coherent strategy. Fourth, the missing lower-bound proof is common (A, B, D, E, F, G, H) - only response C has the correct upper bound strategy, but even it fails to prove that fewer than 15 inspections cannot suffice. Fifth, the confusion about what needs to be identified - several responses (A, B, F, H) seem to think that identifying which categories appear suffices, without realizing that distinguishing the mixed envelope from pure envelopes of the same observed type requires multiple draws. Response C stands out as having the correct strategy and answer but lacking the lower bound proof. Response G has the correct strategy but an arithmetic error in the final count."
+}
