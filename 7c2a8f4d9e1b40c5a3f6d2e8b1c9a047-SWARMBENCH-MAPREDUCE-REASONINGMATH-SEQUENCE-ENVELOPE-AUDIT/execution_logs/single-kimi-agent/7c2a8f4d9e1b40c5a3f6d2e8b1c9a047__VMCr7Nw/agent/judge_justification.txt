@@ -1,0 +1,31 @@
+Score: 0.686 (2305/3362 weighted points)
+
+Scored fields and weights:
+- C1_correct_final_answer: 8 (per response)
+- C2_concrete_strategy: 1 (per response)
+- C3_valid_upper_bound: 12 (per response)
+- C4_valid_lower_bound: 12 (per response)
+- C5_worst_case_guarantee: 5 (per response)
+- C6_no_invalid_one_draw_inference: 15 (per response)
+- C7_no_exact_mixed_pair_requirement: 15 (per response)
+- C8_no_fatal_wrong_claim: 30 (per response)
+- verdict: 35 (per response)
+- primary_failure_code: 140 (per response)
+- criterion_evidence per criterion (presence + min length): 5 (per response per criterion)
+- primary_failure_code_evidence (presence + min length): 8 (per response)
+- alternative_codes_considered (>=2 items, well-formed): 8 (per response)
+- consistency_table per key (exact match against oracle): 70
+- cross_response_observations (presence + min length): 30
+
+brief_justification, summary, accepted_solutions, rejected_solutions, and best_solution are not scored.
+
+response_A: 174/329; C6_no_invalid_one_draw_inference: expected True, got False, weight 15; primary_failure_code: expected INVALID_UPPER_BOUND, got INVALID_ONE_DRAW_INFERENCE, weight 140
+response_B: 173/329; C2_concrete_strategy: expected False, got True, weight 1; C6_no_invalid_one_draw_inference: expected True, got False, weight 15; primary_failure_code: expected NO_CONCRETE_STRATEGY, got INVALID_ONE_DRAW_INFERENCE, weight 140
+response_C: 329/329; all scored fields correct
+response_D: 314/329; C6_no_invalid_one_draw_inference: expected True, got False, weight 15
+response_E: 329/329; all scored fields correct
+response_F: 329/329; all scored fields correct
+response_G: 299/329; C8_no_fatal_wrong_claim: expected False, got True, weight 30
+response_H: 188/329; C2_concrete_strategy: expected True, got False, weight 1; primary_failure_code: expected NOT_WORST_CASE, got INVALID_ONE_DRAW_INFERENCE, weight 140
+consistency_table: 140/700; consistency_table[WRONG_FINAL_NUMBER]: expected ['G'], got ['response_G']; consistency_table[CONTRADICTORY_FINAL_ANSWER]: expected ['E'], got ['response_E']; consistency_table[NO_CONCRETE_STRATEGY]: expected ['B'], got []; consistency_table[INVALID_UPPER_BOUND]: expected ['A'], got []; consistency_table[MISSING_LOWER_BOUND]: expected ['C'], got ['response_C']; consistency_table[NOT_WORST_CASE]: expected ['H'], got []
+cross_response_observations: 30/30; ok

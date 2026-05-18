@@ -1,0 +1,268 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "A",
+      "criteria": {
+        "C1": false,
+        "C2": false,
+        "C3": true,
+        "C4": false,
+        "C5": false,
+        "C6": true,
+        "C7": true,
+        "C8": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response claims answer is 2 (incorrect; canonical is 3). Strategy is incomplete: uses hand-wavy 'the remaining two envelopes are determined automatically by elimination' without concrete deduction chains. Missing valid lower bound argument. C8 violation with 'determined automatically' phrase masks unresolved ambiguity.",
+      "criterion_evidence": {
+        "C1": "Final answer claims 2 inspections, but canonical minimum is 3",
+        "C2": "Uses 'determined automatically by elimination' without specifying explicit deduction chains for remaining envelopes",
+        "C3": "Maintains consistent final answer of 2 throughout",
+        "C4": "No lower bound argument provided; no adversary or indistinguishable-case reasoning",
+        "C5": "Strategy fails in worst case - after two inspections, ambiguity remains unresolved",
+        "C6": "Single draw from 'Mixed'-labeled envelope is valid (known not mixed), so C6 holds",
+        "C7": "Acknowledges need to check multiple possibilities, maintaining worst-case perspective",
+        "C8": "Fatal claim: 'the remaining two envelopes are determined automatically by elimination' - ambiguity not actually resolved"
+      },
+      "primary_failure_code_evidence": "Response concludes with 'the remaining two envelopes are determined automatically by elimination' without specifying how deduction works. This is classic hand-wavy closing that avoids concrete strategy specification. Priority 2 NO_CONCRETE_STRATEGY applies because the fundamental defect is lack of executable strategy, not merely the C8 claim.",
+      "alternative_codes_considered": [
+        {"code": "FATAL_WRONG_CLAIM", "reason_excluded": "C8 violation exists but underlying issue is C2 - no concrete strategy provided"},
+        {"code": "MISSING_LOWER_BOUND", "reason_excluded": "C4 is false but lower priority than C2 per tie-breaking"}
+      ]
+    },
+    {
+      "solution_id": "B",
+      "criteria": {
+        "C1": false,
+        "C2": false,
+        "C3": true,
+        "C4": false,
+        "C5": false,
+        "C6": true,
+        "C7": false,
+        "C8": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response claims answer is 4 (incorrect). Uses fatal claim 'At this point enough information has been gathered to deduce the final arrangement uniquely' after acknowledging ambiguity (Increasing-labeled could be mixed or pure). This C8 violation contradicts explicit worst-case reasoning.",
+      "criterion_evidence": {
+        "C1": "Final answer claims 4 inspections, but canonical minimum is 3",
+        "C2": "Incomplete strategy - claims sufficiency without showing concrete deduction for all branches",
+        "C3": "Maintains consistent final answer of 4 throughout",
+        "C4": "No valid lower bound argument; no indistinguishable-case or adversary reasoning",
+        "C5": "Strategy has gaps - claims uniqueness without demonstrating resolution path",
+        "C6": "Inspects two sequences from 'Mixed' envelope (valid) and one from others with proper ambiguity handling",
+        "C7": "Treats ambiguous case as resolved - 'enough information has been gathered' despite acknowledging envelope could be mixed OR pure",
+        "C8": "Fatal claim: 'At this point enough information has been gathered to deduce the final arrangement uniquely' - contradicts acknowledged ambiguity"
+      },
+      "primary_failure_code_evidence": "Response explicitly acknowledges that 'Strictly Increasing'-labeled envelope could be 'either mixed or purely increasing' after one inspection, then claims 'At this point enough information has been gathered to deduce the final arrangement uniquely.' This is a direct contradiction - acknowledging ambiguity then claiming sufficiency. Per priority 8, FATAL_WRONG_CLAIM applies when C8 violation is the primary diagnostic defect.",
+      "alternative_codes_considered": [
+        {"code": "NO_CONCRETE_STRATEGY", "reason_excluded": "C2 is also false, but the fatal claim is more diagnostic of the fundamental error"},
+        {"code": "NOT_WORST_CASE", "reason_excluded": "C7 is false due to favorable-case assumption, but C8 violation is more specific and diagnostic"}
+      ]
+    },
+    {
+      "solution_id": "C",
+      "criteria": {
+        "C1": false,
+        "C2": false,
+        "C3": true,
+        "C4": false,
+        "C5": false,
+        "C6": true,
+        "C7": true,
+        "C8": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response claims answer is 15 (incorrect; double-counting). Provides partial strategy framework but lacks concrete envelope-by-envelope inspection plan. No valid lower bound. Strategy mentions 'repeatedly inspect one uncertain envelope' without specifying which envelope or complete decision tree.",
+      "criterion_evidence": {
+        "C1": "Final answer claims 15 inspections (1 + 14), but canonical minimum is 3",
+        "C2": "Hand-wavy strategy: 'then I repeatedly inspect one uncertain envelope' without specifying which envelope, how many per envelope, or full decision tree",
+        "C3": "Maintains consistent final answer of 15 throughout",
+        "C4": "Calculates 1+14 arithmetically from own strategy rather than providing adversary/indistinguishable-case argument",
+        "C5": "Strategy does not solve in 15 - conflates worst-case with optimal; 3 suffices so 15 is suboptimal strategy claim",
+        "C6": "Uses 14-draw rule correctly (not one-draw inference) to establish purity",
+        "C7": "Properly considers worst-case (minority type appears only after 13 inspections)",
+        "C8": "No fatal 'forced' or 'automatic' claims; reasoning is internally consistent"
+      },
+      "primary_failure_code_evidence": "Response calculates '1 initial inspection, plus 14 worst-case inspections' for total of 15, but never provides concrete envelope selection strategy - 'repeatedly inspect one uncertain envelope' lacks specificity about which envelope to inspect when. No explicit deduction chains mapping observations to final labelings. This is the hand-wavy approach described in C2 definition.",
+      "alternative_codes_considered": [
+        {"code": "WRONG_FINAL_NUMBER", "reason_excluded": "While answer is wrong, underlying issue is incomplete strategy (C2) and invalid lower bound (C4); priority hierarchy selects NO_CONCRETE_STRATEGY over WRONG_FINAL_NUMBER"},
+        {"code": "MISSING_LOWER_BOUND", "reason_excluded": "C4 is false with arithmetic derivation, but C2 is more fundamental to why solution fails"}
+      ]
+    },
+    {
+      "solution_id": "D",
+      "criteria": {
+        "C1": false,
+        "C2": false,
+        "C3": true,
+        "C4": false,
+        "C5": false,
+        "C6": true,
+        "C7": false,
+        "C8": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NO_CONCRETE_STRATEGY",
+      "brief_justification": "Response claims answer is 1 (incorrect). Uses fatal claims 'forced by contradiction' and 'labels cycle uniquely' without derivation. No concrete strategy beyond first inspection. Fails worst-case analysis. C2 and C8 violations indicate fundamental strategy incompleteness.",
+      "criterion_evidence": {
+        "C1": "Final answer claims 1 inspection, but canonical minimum is 3",
+        "C2": "No concrete strategy - only describes first inspection, then claims remaining three are 'forced' without explicit deduction",
+        "C3": "Maintains consistent final answer of 1 throughout",
+        "C4": "No lower bound argument; claims 1 is sufficient without proving 0 or fewer is impossible",
+        "C5": "Strategy fails - one inspection from 'Mixed' only identifies one envelope; three remain ambiguous",
+        "C6": "Single draw from 'Mixed'-labeled envelope is valid (known not mixed)",
+        "C7": "Assumes favorable case where 'remaining labels cycle uniquely' without proving this resolves all ambiguity",
+        "C8": "Multiple fatal claims: 'forced by contradiction', 'labels cycle uniquely' - no derivation provided"
+      },
+      "primary_failure_code_evidence": "Response states 'the remaining three are forced by contradiction' and 'the labels cycle uniquely' without any explicit contradiction derivation or cycle uniqueness proof. These are hand-wavy phrases that mask the fact that after one inspection, three envelopes remain with multiple valid labelings possible. This matches the canonical C2 failure pattern.",
+      "alternative_codes_considered": [
+        {"code": "FATAL_WRONG_CLAIM", "reason_excluded": "C8 violations exist ('forced by contradiction', 'cycle uniquely'), but C2 is the broader category encompassing this defect type"},
+        {"code": "INVALID_UPPER_BOUND", "reason_excluded": "Strategy is invalid (C5 false), but the root cause is lack of concrete strategy specification"}
+      ]
+    },
+    {
+      "solution_id": "E",
+      "criteria": {
+        "C1": true,
+        "C2": false,
+        "C3": false,
+        "C4": false,
+        "C5": false,
+        "C6": true,
+        "C7": true,
+        "C8": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "CONTRADICTORY_FINAL_ANSWER",
+      "brief_justification": "Response oscillates among 3, 2, 3, 15, and finally settles on 3. Contains explicit contradictions: 'I think this can be solved in 3 inspections' → 'Wait' → 'Actually maybe 2' → ... → 'Final answer: 3'. C3 violation is Priority 1 per tie-breaking hierarchy.",
+      "criterion_evidence": {
+        "C1": "Final settled answer is 3, which matches canonical minimum",
+        "C2": "No concrete strategy provided - only exploratory reasoning with dead-ends",
+        "C3": "FALSE: Oscillates among 3, 2, 15, and back to 3. Contains explicit contradictions with 'Wait', 'Actually', 'No, wait'",
+        "C4": "No lower bound argument; explores possibilities without proving impossibility",
+        "C5": "No valid strategy; explores paths but abandons them due to ambiguity",
+        "C6": "Recognizes that single observations do not prove purity (e.g., 'that still does not prove purity')",
+        "C7": "Considers worst-case scenarios (14 inspections to guarantee purity)",
+        "C8": "No fatal 'forced' or 'automatic' claims in final reasoning"
+      },
+      "primary_failure_code_evidence": "Response explicitly oscillates: 'I think this can be solved in 3 inspections' → 'Wait' → 'Actually maybe 2' → explores path → 'Hmm' → 'Then maybe a third inspection is needed' → 'So perhaps we need 14' → 'No, wait' → 'Actually I think the minimum is 3' → 'No — worst-case guarantee probably makes it 15' → 'Final answer: 3'. This is textbook CONTRADICTORY_FINAL_ANSWER pattern (Priority 1).",
+      "alternative_codes_considered": [
+        {"code": "NO_CONCRETE_STRATEGY", "reason_excluded": "While C2 is false, C3 contradiction takes Priority 1 per hierarchy"},
+        {"code": "MISSING_LOWER_BOUND", "reason_excluded": "C4 is false but lower priority than contradictory answer"}
+      ]
+    },
+    {
+      "solution_id": "F",
+      "criteria": {
+        "C1": true,
+        "C2": false,
+        "C3": true,
+        "C4": false,
+        "C5": false,
+        "C6": false,
+        "C7": false,
+        "C8": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response claims answer is 3 (correct) but reasoning is invalid. Makes load-bearing inference: 'if two envelopes produce the same category, then one of them must be mixed' - this is invalid one-draw inference where single observations from potentially mixed envelopes are used to prove properties. C6 violation is Priority 3.",
+      "criterion_evidence": {
+        "C1": "Final answer is 3, matching canonical minimum",
+        "C2": "Incomplete strategy - claims 'In every case, the correct arrangement can be deduced' without showing deduction chains",
+        "C3": "Maintains consistent final answer of 3 throughout",
+        "C4": "No lower bound argument; no proof that 2 inspections are insufficient",
+        "C5": "Strategy invalid - claims 3 inspections suffice but uses invalid inference logic",
+        "C6": "FALSE: Claims 'if two envelopes produce the same category, then one of them must be mixed' - this is invalid one-draw inference from potentially mixed envelopes",
+        "C7": "Treats favorable case as sufficient; does not consider worst-case where observations are ambiguous",
+        "C8": "Claims 'the correct arrangement can be deduced' and 'follows directly' without derivation"
+      },
+      "primary_failure_code_evidence": "Response explicitly states: 'if two envelopes produce the same category, then one of them must be mixed.' This is an invalid inference because: (1) A single draw from an I/D/C-labeled envelope does not prove purity, (2) Two envelopes showing the same category could both be pure (different wrong labels), or one could be mixed. This is a load-bearing single-draw inference that violates C6 (Priority 3).",
+      "alternative_codes_considered": [
+        {"code": "NO_CONCRETE_STRATEGY", "reason_excluded": "C2 is false, but INVALID_ONE_DRAW_INFERENCE (Priority 3) is more specific and diagnostic of the reasoning error"},
+        {"code": "FATAL_WRONG_CLAIM", "reason_excluded": "C8 violation exists, but C6 violation is more specific and fundamental to the logic error"}
+      ]
+    },
+    {
+      "solution_id": "G",
+      "criteria": {
+        "C1": false,
+        "C2": true,
+        "C3": true,
+        "C4": true,
+        "C5": true,
+        "C6": true,
+        "C7": true,
+        "C8": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response provides the most complete reasoning (7/8 criteria true) with concrete strategy, valid lower bound (implicit worst-case reasoning about 14 draws), valid upper bound, proper worst-case analysis, and no invalid inferences. Only defect is final answer 16 instead of 3. Arithmetic error in summing phase inspections.",
+      "criterion_evidence": {
+        "C1": "FALSE: Final answer claims 16 inspections, but canonical minimum is 3",
+        "C2": "TRUE: Concrete strategy - specifies inspecting 'Mixed'-labeled first, then 'Strictly Decreasing'-labeled, with explicit continuation rule (until 2 categories OR 14 identical)",
+        "C3": "TRUE: Maintains consistent final answer of 16 throughout",
+        "C4": "TRUE: Implicit valid lower bound - 'To guarantee correctness, continue inspecting until...14 identical categories appear' acknowledges worst-case need for 14 inspections in some phases",
+        "C5": "TRUE: Strategy is valid - envelope-by-envelope elimination with explicit termination condition would correctly solve the problem",
+        "C6": "TRUE: Uses 14-draw rule correctly; does not claim single-draw proves purity for potentially mixed envelopes",
+        "C7": "TRUE: Explicitly considers worst-case with 'guarantee' language and 14-draw safety threshold",
+        "C8": "TRUE: No fatal 'forced' or 'automatic' claims; uses explicit elimination logic"
+      },
+      "primary_failure_code_evidence": "Response correctly identifies that the 'Mixed'-labeled envelope is pure, provides concrete envelope selection strategy ('Strictly Decreasing'-labeled next), and specifies exact termination conditions ('until either two sequence categories appear, or 14 identical categories appear'). The only error is arithmetic: summing phase inspections yields 16 instead of 3. This is Priority 9 WRONG_FINAL_NUMBER - structurally correct reasoning with arithmetic deviation.",
+      "alternative_codes_considered": [
+        {"code": "NONE", "reason_excluded": "C1 is false (answer 16 ≠ 3), so cannot be NONE"}
+      ]
+    },
+    {
+      "solution_id": "H",
+      "criteria": {
+        "C1": false,
+        "C2": false,
+        "C3": true,
+        "C4": false,
+        "C5": false,
+        "C6": true,
+        "C7": false,
+        "C8": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "NOT_WORST_CASE",
+      "brief_justification": "Response claims answer is 4 (incorrect). Strategy relies on favorable-case assumption that 'the assignment follows directly' from single inspections. Fails to consider worst-case where single observations from I/D/C-labeled envelopes do not distinguish pure from mixed. Treats expected-case as worst-case.",
+      "criterion_evidence": {
+        "C1": "Final answer claims 4 inspections, but canonical minimum is 3",
+        "C2": "Incomplete strategy - 'the assignment follows directly' without showing concrete deduction for ambiguous cases",
+        "C3": "Maintains consistent final answer of 4 throughout",
+        "C4": "No lower bound argument; no proof that fewer inspections can fail",
+        "C5": "Strategy invalid - single inspection from each envelope does not guarantee identification (I/D/C-labeled could be mixed)",
+        "C6": "Single draw from each envelope does not prove purity, but response doesn't explicitly claim it does - treats it as sufficient implicitly",
+        "C7": "FALSE: Assumes 'the assignment follows directly' - treats favorable observation pattern as guaranteed, ignoring worst-case ambiguity",
+        "C8": "Claims 'the assignment follows directly' without demonstrating the deduction chain"
+      },
+      "primary_failure_code_evidence": "Response states 'By inspecting a single sequence from each envelope, we can identify which categories are present. Since there are only four envelopes and four labels, the assignment follows directly.' This ignores the critical ambiguity: when drawing from I/D/C-labeled envelopes, a single observation matching the label's type could mean pure OR mixed (if that type is a component of the mixed envelope). The response treats this as automatically resolved - a favorable-case assumption violating C7 (Priority 4).",
+      "alternative_codes_considered": [
+        {"code": "NO_CONCRETE_STRATEGY", "reason_excluded": "C2 is false due to 'follows directly' hand-waving, but NOT_WORST_CASE more specifically captures the reasoning defect"},
+        {"code": "FATAL_WRONG_CLAIM", "reason_excluded": "C8 violation exists, but the claim stems from the favorable-case assumption"}
+      ]
+    }
+  ],
+  "accepted_solutions": [],
+  "rejected_solutions": ["A", "B", "C", "D", "E", "F", "G", "H"],
+  "best_solution": "G",
+  "summary": "All 8 candidate solutions are REJECTED. No solution satisfies all 8 criteria (C1-C8). Response G is the strongest candidate with 7/8 criteria true (only C1 wrong answer), featuring a complete concrete strategy with valid lower/upper bounds, proper worst-case analysis, and no invalid inferences. The dominant defect category is NO_CONCRETE_STRATEGY (responses A, C, D) followed by fatal wrong claims and worst-case failures. Primary failure code distribution: NO_CONCRETE_STRATEGY (3), FATAL_WRONG_CLAIM (1), CONTRADICTORY_FINAL_ANSWER (1), INVALID_ONE_DRAW_INFERENCE (1), WRONG_FINAL_NUMBER (1), NOT_WORST_CASE (1). The canonical answer of 3 inspections is only achieved by responses E and F, but both have critical reasoning defects preventing acceptance.",
+  "consistency_table": {
+    "NONE": [],
+    "CONTRADICTORY_FINAL_ANSWER": ["E"],
+    "NO_CONCRETE_STRATEGY": ["A", "C", "D"],
+    "INVALID_ONE_DRAW_INFERENCE": ["F"],
+    "NOT_WORST_CASE": ["H"],
+    "UNNECESSARY_MIXED_PAIR_REQUIREMENT": [],
+    "MISSING_LOWER_BOUND": [],
+    "INVALID_UPPER_BOUND": [],
+    "FATAL_WRONG_CLAIM": ["B"],
+    "WRONG_FINAL_NUMBER": ["G"]
+  },
+  "cross_response_observations": "Cross-response analysis reveals three pervasive defect patterns. First, the 'single inspection fallacy' appears in responses A, B, D, F, and H - all incorrectly assume or imply that 1-2 inspections suffice to distinguish pure from mixed envelopes, failing to account for worst-case ambiguity where a single matching observation could indicate either a pure envelope or the mixed envelope containing that type. Second, 'hand-wavy resolution' plagues responses A, B, C, D, and H, which use phrases like 'determined automatically', 'forced by contradiction', 'follows directly', or 'enough information has been gathered' to avoid providing explicit deduction chains for all observation branches. Only response G provides concrete continuation rules with explicit termination conditions. Third, the 'missing lower bound epidemic' affects 7/8 responses (all except G), which either provide no impossibility argument or derive lower bounds circularly from their own strategy's inspection count. Notably, responses C and G correctly reason about the 14-draw safety threshold for establishing purity, but C incorrectly sums this to 15 total while G overcounts phase inspections to 16. The canonical solution requires recognizing that 3 inspections suffice by leveraging the 'Mixed'-labeled envelope's guaranteed purity and elimination logic, yet no response achieves both the correct answer AND valid complete reasoning."
+}

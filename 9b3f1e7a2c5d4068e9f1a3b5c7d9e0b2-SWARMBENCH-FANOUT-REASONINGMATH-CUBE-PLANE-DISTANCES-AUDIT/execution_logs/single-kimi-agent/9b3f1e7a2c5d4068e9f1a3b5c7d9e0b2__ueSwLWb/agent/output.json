@@ -1,0 +1,90 @@
+{
+  "gold_final_answer": "21",
+  "gold_edge_length_squared_set": [21],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "claims_unique_edge_length",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "omits_sign_pattern_casework",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "accepts_internal_contradictions_in_derivation"
+      ]
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "equates_max_distance_with_edge_length_directly",
+        "claims_unique_edge_length"
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_max_distance_equals_space_diagonal",
+        "claims_unique_edge_length"
+      ]
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_max_distance_equals_space_diagonal",
+        "claims_unique_edge_length"
+      ]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "uses_fabricated_invariant_or_invalid_derivation"
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": true,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "omits_sign_pattern_casework",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length"
+      ]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "uses_fabricated_invariant_or_invalid_derivation"
+      ]
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": true,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "omits_sign_pattern_casework",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length"
+      ]
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": true,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "omits_sign_pattern_casework",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length"
+      ]
+    }
+  ]
+}
