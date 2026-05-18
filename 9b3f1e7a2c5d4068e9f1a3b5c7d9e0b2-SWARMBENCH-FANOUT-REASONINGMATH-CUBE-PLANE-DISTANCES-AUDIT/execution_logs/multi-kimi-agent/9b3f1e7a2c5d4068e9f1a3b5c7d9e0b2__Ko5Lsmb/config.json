@@ -9,7 +9,7 @@
         "download_dir": null,
         "source": null
     },
-    "trial_name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__j2Yhx75",
+    "trial_name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__Ko5Lsmb",
     "trials_dir": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT/execution_logs/multi-kimi-agent",
     "timeout_multiplier": 1.0,
     "agent_timeout_multiplier": null,
@@ -51,5 +51,5 @@
         "disable": false
     },
     "artifacts": [],
-    "job_id": "79ebf404-1d52-41fa-99b5-c5c51c31c657"
+    "job_id": "dd04c414-8a32-47ff-abb9-b5f28183211d"
 }

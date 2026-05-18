@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-18T01:10:05.486883Z",
+    "created_at": "2026-05-18T01:25:23.722708Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -33,10 +33,10 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
+            "RewardFileEmptyError",
             "RewardFileNotFoundError",
             "AgentTimeoutError",
             "VerifierTimeoutError",
-            "RewardFileEmptyError",
             "VerifierOutputParseError"
         ],
         "wait_multiplier": 1.0,
