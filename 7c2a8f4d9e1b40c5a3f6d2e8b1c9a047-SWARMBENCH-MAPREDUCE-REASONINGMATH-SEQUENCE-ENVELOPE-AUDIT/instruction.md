@@ -132,12 +132,15 @@ The weights are:
 - primary_failure_code_evidence (presence + >=50 chars): 8 (per response)
 - alternative_codes_considered (>=2 well-formed entries): 8 (per response)
 - criteria_satisfied_count (integer match against oracle): 10 (per response)
+- verdict_consistency_check (bool match against oracle): 15 (per response)
 - consistency_table per key (sorted-list match against oracle): 70 (top level, 10 keys)
 - criterion_pass_rate per key (integer match against oracle): 50 (top level, 8 keys)
 - verdict_distribution per key (sorted-list match against oracle): 100 (top level, 2 keys)
+- criterion_pair_co_pass_count per key (integer match against oracle): 12 (top level, 28 pairs)
+- response_pair_criterion_agreement per key (integer match against oracle): 10 (top level, 28 pairs)
 - cross_response_observations (presence + >=300 chars): 30 (top level)
 
-The total possible weight per task is 4042. The reported reward is total_earned / 4042 clipped to [0.0, 1.0]. An exact JSON-equality match between agent output and oracle short-circuits to reward = 1.0.
+The total possible weight per task is 4778. The reported reward is total_earned / 4778 clipped to [0.0, 1.0]. An exact JSON-equality match between agent output and oracle short-circuits to reward = 1.0. Every dict aggregation field MUST contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key); the verifier penalizes null or missing keys as the full weight loss for that key.
 
 brief_justification, summary, accepted_solutions, rejected_solutions, and best_solution are required for report completeness, but they are not scored.
 
@@ -307,7 +310,8 @@ Write your final answer to /logs/agent/output.json as a single JSON object with 
         {"code": <one of the controlled-vocabulary primary failure codes>, "reason_excluded": <string, brief justification for why this code is NOT the primary diagnostic>},
         {"code": <another code>, "reason_excluded": <string>}
       ],
-      "criteria_satisfied_count": <integer 0 through 8, equal to the count of C1-C8 that are true for this response>
+      "criteria_satisfied_count": <integer 0 through 8, equal to the count of C1-C8 that are true for this response>,
+      "verdict_consistency_check": <boolean: true iff verdict matches the deterministic rule "ACCEPT iff every C1-C8 is true, else REJECT", false otherwise>
     }
   ],
   "accepted_solutions": [<string>],
@@ -327,6 +331,12 @@ Write your final answer to /logs/agent/output.json as a single JSON object with 
   "verdict_distribution": {
     "ACCEPT": [<alphabetically-sorted list of response_ids whose verdict is ACCEPT>],
     "REJECT": [<alphabetically-sorted list of response_ids whose verdict is REJECT>]
+  },
+  "criterion_pair_co_pass_count": {
+    "<Ci_name & Cj_name for each of the 28 ordered i<j pairs>": <integer count of responses with both criteria true>
+  },
+  "response_pair_criterion_agreement": {
+    "<response_X & response_Y for each of the 28 ordered X<Y pairs>": <integer count, 0-8, of criteria where both responses have the same boolean value>
   },
   "consistency_table": {
     "NONE": [<list of response_ids whose primary_failure_code is NONE>],

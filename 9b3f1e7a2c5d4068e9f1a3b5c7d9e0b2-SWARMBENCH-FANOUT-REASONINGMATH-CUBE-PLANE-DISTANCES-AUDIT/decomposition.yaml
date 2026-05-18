@@ -317,44 +317,62 @@ sub_tasks:
       (4) Recompute acceptable_solution_ids as the alphabetically-sorted
           list of response_ids whose final_answer_correct is true AND
           failure_reasons is the empty list.
-      (5) Build the top-level code_application_table by iterating the
-          nine (post-correction) evaluations and, for each code in the
-          12-code vocabulary, listing alphabetically the response_ids
-          whose failure_reasons set contains that code. The
-          code_application_table MUST contain exactly the 12 keys
-          (claims_unique_edge_length, restricts_to_nonnegative_subset_sums,
-          assumes_max_distance_equals_space_diagonal,
-          assumes_plane_parallel_to_cube_face,
-          equates_max_distance_with_edge_length_directly,
-          uses_fabricated_invariant_or_invalid_derivation,
-          accepts_internal_contradictions_in_derivation,
-          assumes_zero_distance_vertex_is_axis_corner,
-          omits_sign_pattern_casework,
-          treats_one_orientation_as_proof_of_uniqueness,
-          derives_correct_partial_s2_then_discards_it,
-          non_terminating_or_no_final_answer); codes with no matching
-          response have an empty list. A response with K codes appears
-          in exactly K buckets. The verifier scores each key against
-          the oracle at 70 points per key, so accuracy on this field
-          cascades from per-response failure_reasons accuracy.
-      (6) Compose the top-level cross_response_observations string of at
-          least 300 characters identifying shared defect patterns
-          across the nine responses (which responses share elimination
-          assertions, single-orientation closure, fabricated invariants,
-          corner-and-subset-sum setups, space-diagonal misidentifications,
-          oscillation, etc.). The verifier scores this field at 30
-          points by presence and minimum length.
+      (5) For each evaluation object, set per-response derived fields:
+          code_application_count = len(failure_reasons); primary_in_set_check
+          = (primary_failure_code in failure_reasons) OR (primary == "NONE"
+          and failure_reasons is []); evidence_key_completeness = number of
+          keys in failure_reason_evidence that are also in failure_reasons.
+          These are MECHANICAL aggregations of per-response data scored
+          deterministically by the verifier.
+      (6) Build the top-level code_application_table with EXACTLY the
+          12 keys of the failure-code vocabulary; for each code, list
+          alphabetically the response_ids whose failure_reasons set
+          contains that code. Codes with no matching response have an
+          empty list []. NEVER use null, NEVER omit a key. Verifier
+          scores 100 points per key.
+      (7) Build the top-level response_count_per_code with EXACTLY the
+          same 12 keys; each value is an integer equal to the length of
+          the corresponding code_application_table list. Verifier scores
+          20 points per key.
+      (8) Build the top-level code_co_occurrence_count: for each
+          unordered pair of distinct codes (c_i, c_j) where i < j in
+          alphabetical order, key = "c_i & c_j" (66 keys total). Value
+          is the integer count of responses whose failure_reasons set
+          contains BOTH c_i and c_j. Use 0 for pairs with no matching
+          response. NEVER null, NEVER omit. Verifier scores 5 per key.
+      (9) Build the top-level response_pair_shared_codes: for each
+          unordered pair of distinct response_ids (A, B) where A < B
+          alphabetically, key = "A & B" (36 keys total). Value is the
+          alphabetically-sorted list of codes appearing in BOTH responses'
+          failure_reasons. Use [] for pairs with no shared codes.
+          NEVER null, NEVER omit. Verifier scores 8 per key.
+      (10) Build the top-level response_triple_shared_codes: for each
+           unordered triple of distinct response_ids (A, B, C) where
+           A < B < C alphabetically, key = "A & B & C" (84 keys total).
+           Value is the alphabetically-sorted list of codes appearing
+           in ALL THREE responses' failure_reasons. Use [] for triples
+           with no shared codes. NEVER null, NEVER omit. Verifier
+           scores 5 per key.
+      (11) Compose the top-level cross_response_observations string of
+           at least 300 characters identifying shared defect patterns.
+           Verifier scores 30 points.
 
       The synthesizer writes exactly one JSON object to
-      /logs/agent/output.json with the top-level keys gold_final_answer,
-      gold_edge_length_squared_set, acceptable_solution_ids,
-      per_response_assessment (nine objects ordered A through I, each
-      including response_id, final_answer_correct, failure_reasons,
-      primary_failure_code, primary_failure_code_evidence,
-      failure_reason_evidence, alternative_codes_considered),
-      code_application_table, and cross_response_observations, as
-      specified by instruction.md. Validate that the output file exists
-      and parses as JSON before returning.
+      /logs/agent/output.json with these top-level keys:
+      gold_final_answer, gold_edge_length_squared_set,
+      acceptable_solution_ids, per_response_assessment (nine objects
+      ordered A through I, each including response_id,
+      final_answer_correct, failure_reasons, primary_failure_code,
+      primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count,
+      primary_in_set_check, evidence_key_completeness),
+      code_application_table, response_count_per_code,
+      code_co_occurrence_count, response_pair_shared_codes,
+      response_triple_shared_codes, and cross_response_observations.
+      CRITICAL: every dict aggregation field MUST contain every required
+      key with a JSON-valid value (use [] for empty lists, 0 for empty
+      integer counts — NEVER null, NEVER omit a key). Validate that the
+      output file exists and parses as JSON before returning.
     depends_on:
       - adjudicate-gold-geometry
       - calibrate-failure-code-boundaries

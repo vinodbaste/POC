@@ -26,7 +26,10 @@
           "code": "arithmetic_recursion_error",
           "reason_excluded": "Recursion errors are mechanical consequences of trusting the wrong period rather than running the DP."
         }
-      ]
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
     },
     {
       "response_id": "B",
@@ -52,7 +55,10 @@
           "code": "claims_wrong_period",
           "reason_excluded": "The false periodicity is a downstream rationalization once the wrong move set produces unexpected labels."
         }
-      ]
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
     },
     {
       "response_id": "C",
@@ -76,7 +82,10 @@
           "code": "treats_game_as_misere",
           "reason_excluded": "The mis\u00e8re framing is not explicitly named; an implicit convention swap is captured by confused_pn_convention."
         }
-      ]
+      ],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2
     },
     {
       "response_id": "D",
@@ -102,7 +111,10 @@
           "code": "truncated_or_short_string",
           "reason_excluded": "Truncation is a presentation defect; the load-bearing error is the inverted base case."
         }
-      ]
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
     },
     {
       "response_id": "E",
@@ -126,7 +138,10 @@
           "code": "arithmetic_recursion_error",
           "reason_excluded": "The framework misapplication is upstream; per-position arithmetic correctness within Grundy computation does not redeem the wrong framework."
         }
-      ]
+      ],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2
     },
     {
       "response_id": "F",
@@ -152,7 +167,10 @@
           "code": "arithmetic_recursion_error",
           "reason_excluded": "Recursion arithmetic is mechanically applied to the wrong move set; the move-set expansion is upstream."
         }
-      ]
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
     },
     {
       "response_id": "G",
@@ -178,7 +196,10 @@
           "code": "claims_wrong_period",
           "reason_excluded": "The false periodicity follows from the XOR framework; the framework misapplication is upstream."
         }
-      ]
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
     },
     {
       "response_id": "H",
@@ -200,7 +221,10 @@
           "code": "arithmetic_recursion_error",
           "reason_excluded": "Not applicable; the response terminates pathologically before any DP arithmetic could be assessed."
         }
-      ]
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
     }
   ],
   "code_application_table": {
@@ -264,5 +288,250 @@
     "truncated_or_short_string": 2,
     "non_terminating_or_no_final_answer": 1
   },
-  "cross_response_observations": "The dominant failure category across responses A through G is some structural break in the upstream specification of either the move set, the play convention, the base case, or the dynamic-programming framework. Responses B and F break the move set in opposite directions (B drops 1, F adds non-power values), and although both produce wrong P/N strings the specific code differs. Responses A, B, and G all assert a wrong period for the P-positions: A claims period 2 (alternating P and N), B inherits a wrong period from its truncated move set, and G derives a wrong period from a misapplied Nim XOR framework. Responses E and G both misapply Sprague-Grundy-style frameworks: E computes Grundy values via mex of reachable values, while G applies the Nim XOR rule directly to a single pile. Responses D and E both truncate the output before 101 characters; for D the truncation co-occurs with a flipped base case, for E with the Grundy framework misapplication. Response C is the cleanest deviation: a consistent P/N convention swap that inverts every label without otherwise breaking the DP, producing a string that is the bitwise complement of the gold. Response H is pathological: it loops or truncates before committing to a final classification, so non_terminating_or_no_final_answer is its only applicable code. The single most common downstream code is arithmetic_recursion_error, present in six of the eight responses; it almost never appears as the load-bearing primary diagnostic because in each case some upstream error (move set, convention, base case, or framework) accounts for the wrong labels."
+  "cross_response_observations": "The dominant failure category across responses A through G is some structural break in the upstream specification of either the move set, the play convention, the base case, or the dynamic-programming framework. Responses B and F break the move set in opposite directions (B drops 1, F adds non-power values), and although both produce wrong P/N strings the specific code differs. Responses A, B, and G all assert a wrong period for the P-positions: A claims period 2 (alternating P and N), B inherits a wrong period from its truncated move set, and G derives a wrong period from a misapplied Nim XOR framework. Responses E and G both misapply Sprague-Grundy-style frameworks: E computes Grundy values via mex of reachable values, while G applies the Nim XOR rule directly to a single pile. Responses D and E both truncate the output before 101 characters; for D the truncation co-occurs with a flipped base case, for E with the Grundy framework misapplication. Response C is the cleanest deviation: a consistent P/N convention swap that inverts every label without otherwise breaking the DP, producing a string that is the bitwise complement of the gold. Response H is pathological: it loops or truncates before committing to a final classification, so non_terminating_or_no_final_answer is its only applicable code. The single most common downstream code is arithmetic_recursion_error, present in six of the eight responses; it almost never appears as the load-bearing primary diagnostic because in each case some upstream error (move set, convention, base case, or framework) accounts for the wrong labels.",
+  "code_co_occurrence_count": {
+    "wrong_move_set_including_zero & wrong_move_set_missing_one": 0,
+    "wrong_move_set_including_zero & extended_move_set_with_extras": 0,
+    "wrong_move_set_including_zero & confused_pn_convention": 0,
+    "wrong_move_set_including_zero & base_case_set_to_n": 0,
+    "wrong_move_set_including_zero & treats_game_as_misere": 0,
+    "wrong_move_set_including_zero & computes_grundy_instead_of_pn": 0,
+    "wrong_move_set_including_zero & confuses_with_nim_xor": 0,
+    "wrong_move_set_including_zero & arithmetic_recursion_error": 0,
+    "wrong_move_set_including_zero & claims_wrong_period": 0,
+    "wrong_move_set_including_zero & arbitrary_pattern_heuristic": 0,
+    "wrong_move_set_including_zero & truncated_or_short_string": 0,
+    "wrong_move_set_including_zero & non_terminating_or_no_final_answer": 0,
+    "wrong_move_set_missing_one & extended_move_set_with_extras": 0,
+    "wrong_move_set_missing_one & confused_pn_convention": 0,
+    "wrong_move_set_missing_one & base_case_set_to_n": 0,
+    "wrong_move_set_missing_one & treats_game_as_misere": 0,
+    "wrong_move_set_missing_one & computes_grundy_instead_of_pn": 0,
+    "wrong_move_set_missing_one & confuses_with_nim_xor": 0,
+    "wrong_move_set_missing_one & arithmetic_recursion_error": 1,
+    "wrong_move_set_missing_one & claims_wrong_period": 1,
+    "wrong_move_set_missing_one & arbitrary_pattern_heuristic": 0,
+    "wrong_move_set_missing_one & truncated_or_short_string": 0,
+    "wrong_move_set_missing_one & non_terminating_or_no_final_answer": 0,
+    "extended_move_set_with_extras & confused_pn_convention": 0,
+    "extended_move_set_with_extras & base_case_set_to_n": 0,
+    "extended_move_set_with_extras & treats_game_as_misere": 0,
+    "extended_move_set_with_extras & computes_grundy_instead_of_pn": 0,
+    "extended_move_set_with_extras & confuses_with_nim_xor": 0,
+    "extended_move_set_with_extras & arithmetic_recursion_error": 1,
+    "extended_move_set_with_extras & claims_wrong_period": 0,
+    "extended_move_set_with_extras & arbitrary_pattern_heuristic": 1,
+    "extended_move_set_with_extras & truncated_or_short_string": 0,
+    "extended_move_set_with_extras & non_terminating_or_no_final_answer": 0,
+    "confused_pn_convention & base_case_set_to_n": 0,
+    "confused_pn_convention & treats_game_as_misere": 0,
+    "confused_pn_convention & computes_grundy_instead_of_pn": 0,
+    "confused_pn_convention & confuses_with_nim_xor": 0,
+    "confused_pn_convention & arithmetic_recursion_error": 1,
+    "confused_pn_convention & claims_wrong_period": 0,
+    "confused_pn_convention & arbitrary_pattern_heuristic": 0,
+    "confused_pn_convention & truncated_or_short_string": 0,
+    "confused_pn_convention & non_terminating_or_no_final_answer": 0,
+    "base_case_set_to_n & treats_game_as_misere": 0,
+    "base_case_set_to_n & computes_grundy_instead_of_pn": 0,
+    "base_case_set_to_n & confuses_with_nim_xor": 0,
+    "base_case_set_to_n & arithmetic_recursion_error": 1,
+    "base_case_set_to_n & claims_wrong_period": 0,
+    "base_case_set_to_n & arbitrary_pattern_heuristic": 0,
+    "base_case_set_to_n & truncated_or_short_string": 1,
+    "base_case_set_to_n & non_terminating_or_no_final_answer": 0,
+    "treats_game_as_misere & computes_grundy_instead_of_pn": 0,
+    "treats_game_as_misere & confuses_with_nim_xor": 0,
+    "treats_game_as_misere & arithmetic_recursion_error": 0,
+    "treats_game_as_misere & claims_wrong_period": 0,
+    "treats_game_as_misere & arbitrary_pattern_heuristic": 0,
+    "treats_game_as_misere & truncated_or_short_string": 0,
+    "treats_game_as_misere & non_terminating_or_no_final_answer": 0,
+    "computes_grundy_instead_of_pn & confuses_with_nim_xor": 0,
+    "computes_grundy_instead_of_pn & arithmetic_recursion_error": 0,
+    "computes_grundy_instead_of_pn & claims_wrong_period": 0,
+    "computes_grundy_instead_of_pn & arbitrary_pattern_heuristic": 0,
+    "computes_grundy_instead_of_pn & truncated_or_short_string": 1,
+    "computes_grundy_instead_of_pn & non_terminating_or_no_final_answer": 0,
+    "confuses_with_nim_xor & arithmetic_recursion_error": 1,
+    "confuses_with_nim_xor & claims_wrong_period": 1,
+    "confuses_with_nim_xor & arbitrary_pattern_heuristic": 0,
+    "confuses_with_nim_xor & truncated_or_short_string": 0,
+    "confuses_with_nim_xor & non_terminating_or_no_final_answer": 0,
+    "arithmetic_recursion_error & claims_wrong_period": 3,
+    "arithmetic_recursion_error & arbitrary_pattern_heuristic": 2,
+    "arithmetic_recursion_error & truncated_or_short_string": 1,
+    "arithmetic_recursion_error & non_terminating_or_no_final_answer": 0,
+    "claims_wrong_period & arbitrary_pattern_heuristic": 1,
+    "claims_wrong_period & truncated_or_short_string": 0,
+    "claims_wrong_period & non_terminating_or_no_final_answer": 0,
+    "arbitrary_pattern_heuristic & truncated_or_short_string": 0,
+    "arbitrary_pattern_heuristic & non_terminating_or_no_final_answer": 0,
+    "truncated_or_short_string & non_terminating_or_no_final_answer": 0
+  },
+  "response_pair_shared_codes": {
+    "A & B": [
+      "arithmetic_recursion_error",
+      "claims_wrong_period"
+    ],
+    "A & C": [
+      "arithmetic_recursion_error"
+    ],
+    "A & D": [
+      "arithmetic_recursion_error"
+    ],
+    "A & E": [],
+    "A & F": [
+      "arbitrary_pattern_heuristic",
+      "arithmetic_recursion_error"
+    ],
+    "A & G": [
+      "arithmetic_recursion_error",
+      "claims_wrong_period"
+    ],
+    "A & H": [],
+    "B & C": [
+      "arithmetic_recursion_error"
+    ],
+    "B & D": [
+      "arithmetic_recursion_error"
+    ],
+    "B & E": [],
+    "B & F": [
+      "arithmetic_recursion_error"
+    ],
+    "B & G": [
+      "arithmetic_recursion_error",
+      "claims_wrong_period"
+    ],
+    "B & H": [],
+    "C & D": [
+      "arithmetic_recursion_error"
+    ],
+    "C & E": [],
+    "C & F": [
+      "arithmetic_recursion_error"
+    ],
+    "C & G": [
+      "arithmetic_recursion_error"
+    ],
+    "C & H": [],
+    "D & E": [
+      "truncated_or_short_string"
+    ],
+    "D & F": [
+      "arithmetic_recursion_error"
+    ],
+    "D & G": [
+      "arithmetic_recursion_error"
+    ],
+    "D & H": [],
+    "E & F": [],
+    "E & G": [],
+    "E & H": [],
+    "F & G": [
+      "arithmetic_recursion_error"
+    ],
+    "F & H": [],
+    "G & H": []
+  },
+  "response_triple_shared_codes": {
+    "A & B & C": [
+      "arithmetic_recursion_error"
+    ],
+    "A & B & D": [
+      "arithmetic_recursion_error"
+    ],
+    "A & B & E": [],
+    "A & B & F": [
+      "arithmetic_recursion_error"
+    ],
+    "A & B & G": [
+      "arithmetic_recursion_error",
+      "claims_wrong_period"
+    ],
+    "A & B & H": [],
+    "A & C & D": [
+      "arithmetic_recursion_error"
+    ],
+    "A & C & E": [],
+    "A & C & F": [
+      "arithmetic_recursion_error"
+    ],
+    "A & C & G": [
+      "arithmetic_recursion_error"
+    ],
+    "A & C & H": [],
+    "A & D & E": [],
+    "A & D & F": [
+      "arithmetic_recursion_error"
+    ],
+    "A & D & G": [
+      "arithmetic_recursion_error"
+    ],
+    "A & D & H": [],
+    "A & E & F": [],
+    "A & E & G": [],
+    "A & E & H": [],
+    "A & F & G": [
+      "arithmetic_recursion_error"
+    ],
+    "A & F & H": [],
+    "A & G & H": [],
+    "B & C & D": [
+      "arithmetic_recursion_error"
+    ],
+    "B & C & E": [],
+    "B & C & F": [
+      "arithmetic_recursion_error"
+    ],
+    "B & C & G": [
+      "arithmetic_recursion_error"
+    ],
+    "B & C & H": [],
+    "B & D & E": [],
+    "B & D & F": [
+      "arithmetic_recursion_error"
+    ],
+    "B & D & G": [
+      "arithmetic_recursion_error"
+    ],
+    "B & D & H": [],
+    "B & E & F": [],
+    "B & E & G": [],
+    "B & E & H": [],
+    "B & F & G": [
+      "arithmetic_recursion_error"
+    ],
+    "B & F & H": [],
+    "B & G & H": [],
+    "C & D & E": [],
+    "C & D & F": [
+      "arithmetic_recursion_error"
+    ],
+    "C & D & G": [
+      "arithmetic_recursion_error"
+    ],
+    "C & D & H": [],
+    "C & E & F": [],
+    "C & E & G": [],
+    "C & E & H": [],
+    "C & F & G": [
+      "arithmetic_recursion_error"
+    ],
+    "C & F & H": [],
+    "C & G & H": [],
+    "D & E & F": [],
+    "D & E & G": [],
+    "D & E & H": [],
+    "D & F & G": [
+      "arithmetic_recursion_error"
+    ],
+    "D & F & H": [],
+    "D & G & H": [],
+    "E & F & G": [],
+    "E & F & H": [],
+    "E & G & H": [],
+    "F & G & H": []
+  }
 }

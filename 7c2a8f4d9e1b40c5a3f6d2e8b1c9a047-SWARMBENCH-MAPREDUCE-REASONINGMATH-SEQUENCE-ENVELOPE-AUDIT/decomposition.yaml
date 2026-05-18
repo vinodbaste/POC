@@ -238,14 +238,19 @@ sub_tasks:
       (8) Build the top-level consistency_table by iterating the eight
           (post-correction) evaluations and assigning each response_id
           (full string, such as "response_A") to the list indexed by its
-          primary_failure_code. The consistency_table MUST contain
-          exactly the ten primary-code keys defined in instruction.md;
-          codes with no matching response have an empty list. The union
-          of the ten lists must equal {response_A, response_B,
+          primary_failure_code. The consistency_table MUST contain ALL
+          TEN keys verbatim: NONE, WRONG_FINAL_NUMBER,
+          CONTRADICTORY_FINAL_ANSWER, NO_CONCRETE_STRATEGY,
+          INVALID_UPPER_BOUND, MISSING_LOWER_BOUND, NOT_WORST_CASE,
+          INVALID_ONE_DRAW_INFERENCE, UNNECESSARY_MIXED_PAIR_REQUIREMENT,
+          FATAL_WRONG_CLAIM. Codes with no matching response MUST be
+          assigned an empty JSON array (i.e., []) — do NOT use null,
+          do NOT omit the key, do NOT use a string placeholder. The
+          union of the ten lists must equal {response_A, response_B,
           response_C, response_D, response_E, response_F, response_G,
           response_H} exactly. The verifier scores each key against
-          the oracle at 70 points per key, so accuracy on this field
-          cascades from the per-response primary_failure_code values.
+          the oracle at 70 points per key; outputting null or omitting
+          a key forfeits the full 70 points for that key.
       (9) For each evaluation object, set the per-response
           criteria_satisfied_count field to the integer count of C1-C8
           booleans that are true (a value between 0 and 8 inclusive).
@@ -264,12 +269,33 @@ sub_tasks:
            response_C, response_D, response_E, response_F, response_G,
            response_H}. The verifier scores each key at 100 points by
            sorted-list match against the oracle.
-      (12) Compose the top-level cross_response_observations string of
+      (12) For each evaluation object, set the per-response
+           verdict_consistency_check boolean to true if and only if
+           the response's verdict matches the deterministic rule
+           (ACCEPT iff every C1-C8 boolean is true, otherwise REJECT).
+           If the verdict does NOT match that rule the value is false.
+           The verifier scores this field at 15 points per response.
+      (13) Build the top-level criterion_pair_co_pass_count dict whose
+           keys are exactly the 28 unordered pairs of the eight
+           criteria, written as "Ci_name & Cj_name" with i < j by name
+           order matching instruction.md (e.g., "C1_correct_final_answer
+           & C2_concrete_strategy"). For each pair, the value is the
+           integer count of responses whose criteria object has BOTH
+           criteria set to true. The verifier scores each key at 12
+           points by integer match against the oracle (336 points total
+           when all 28 pairs are correct).
+      (14) Build the top-level response_pair_criterion_agreement dict
+           whose keys are exactly the 28 unordered pairs of the eight
+           response_ids, written as "response_X & response_Y" with X<Y
+           alphabetically. For each pair, the value is the integer
+           count of criteria (out of C1-C8) where both responses have
+           the same boolean value. The verifier scores each key at 10
+           points by integer match against the oracle (280 points total
+           when all 28 pairs are correct).
+      (15) Compose the top-level cross_response_observations string of
            at least 300 characters identifying shared defect patterns
-           across the eight responses (which responses share elimination
-           assertions, single-draw inferences, oscillation, missing
-           lower bounds, etc.). The verifier scores this field at 30
-           points by presence and minimum length.
+           across the eight responses. The verifier scores this field
+           at 30 points by presence and minimum length.
 
       If a mapper output is malformed or missing the required per-
       response evidence/alternatives fields, ask a replacement sub-agent
@@ -277,13 +303,19 @@ sub_tasks:
       in the orchestrator. The reducer writes exactly one JSON object to
       /logs/agent/output.json with top-level keys evaluations (eight
       objects in alphabetical order response_A through response_H, each
-      including all required scored fields and the per-response
-      criteria_satisfied_count integer), accepted_solutions,
-      rejected_solutions, best_solution, summary, criterion_pass_rate,
-      verdict_distribution, consistency_table, and
-      cross_response_observations, as specified by instruction.md.
-      Validate that the output file exists and parses as JSON before
-      returning.
+      including all required scored fields including
+      criteria_satisfied_count and verdict_consistency_check),
+      accepted_solutions, rejected_solutions, best_solution, summary,
+      criterion_pass_rate, verdict_distribution,
+      criterion_pair_co_pass_count, response_pair_criterion_agreement,
+      consistency_table, and cross_response_observations, as specified
+      by instruction.md. CRITICAL: every dict aggregation field
+      (consistency_table, criterion_pass_rate, verdict_distribution,
+      criterion_pair_co_pass_count, response_pair_criterion_agreement)
+      MUST contain every required key verbatim with a JSON-valid value
+      (use [] for empty lists, 0 for empty counts — NEVER null, NEVER
+      omit a key). Validate the output file exists and parses as JSON
+      before returning.
     depends_on:
       - grade-response-a
       - grade-response-b

@@ -191,29 +191,52 @@ sub_tasks:
       (4) Recompute acceptable_solution_ids as the alphabetically-
           sorted list of response_ids whose final_answer_correct is
           true AND failure_reasons is the empty list.
-      (5) Build the top-level code_application_table by iterating the
-          eight (post-correction) evaluations and, for each of the
-          twelve codes in the controlled vocabulary, listing
-          alphabetically the response_ids whose failure_reasons set
-          contains that code. Codes with no matching response have an
-          empty list. The verifier scores each key at 70 points.
-      (6) Build the top-level response_count_per_code by counting the
-          length of each code_application_table list. The verifier
-          scores each key at 15 points. The integers MUST equal the
-          list lengths exactly; any mismatch loses the per-key weight.
-      (7) Compose the top-level cross_response_observations string of
-          at least 300 characters identifying shared defect patterns
-          across the eight responses. The verifier scores this field
-          at 30 points by presence and minimum length.
+      (5) For each evaluation object, set per-response derived fields:
+          code_application_count = len(failure_reasons); primary_in_set_check
+          = (primary_failure_code in failure_reasons) OR (primary == "NONE"
+          and failure_reasons is []); evidence_key_completeness = number of
+          keys in failure_reason_evidence that are also in failure_reasons.
+          Verifier scores these deterministically.
+      (6) Build the top-level code_application_table with EXACTLY the
+          13 keys of the failure-code vocabulary. Codes with no matching
+          response have []. NEVER null, NEVER omit. Verifier scores
+          100 per key.
+      (7) Build the top-level response_count_per_code with EXACTLY the
+          same 13 keys; integer values = lengths of the code_application_table
+          lists. Verifier scores 20 per key.
+      (8) Build the top-level code_co_occurrence_count: for each unordered
+          pair of distinct codes (c_i, c_j) with i<j alphabetical, key =
+          "c_i & c_j" (78 keys total). Value = count of responses with
+          BOTH codes. Use 0 for empty pairs. NEVER null. Scores 5/key.
+      (9) Build the top-level response_pair_shared_codes: for each
+          unordered pair of response_ids (A, B) with A<B alphabetical,
+          key = "A & B" (28 keys total). Value = sorted list of codes
+          appearing in BOTH responses' failure_reasons. Use [] for pairs
+          with no shared codes. NEVER null. Scores 8/key.
+      (10) Build the top-level response_triple_shared_codes: for each
+           unordered triple (A, B, C) with A<B<C alphabetical, key =
+           "A & B & C" (56 keys total). Value = sorted list of codes
+           appearing in ALL THREE responses' failure_reasons. Use [] for
+           triples with no shared codes. NEVER null. Scores 5/key.
+      (11) Compose the top-level cross_response_observations string of
+           at least 300 characters identifying shared defect patterns.
+           Scores 30 by presence + length.
 
       The synthesizer writes exactly one JSON object to
       /logs/agent/output.json with the top-level keys gold_final_answer,
       acceptable_solution_ids, per_response_assessment (eight objects
-      ordered A through H, each including all required scored fields),
-      code_application_table, response_count_per_code, and
-      cross_response_observations, as specified by instruction.md.
-      Validate that the output file exists and parses as JSON before
-      returning.
+      ordered A through H, each including response_id,
+      final_answer_correct, failure_reasons, primary_failure_code,
+      primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count,
+      primary_in_set_check, evidence_key_completeness),
+      code_application_table, response_count_per_code,
+      code_co_occurrence_count, response_pair_shared_codes,
+      response_triple_shared_codes, and cross_response_observations.
+      CRITICAL: every dict aggregation field MUST contain every required
+      key with a JSON-valid value (use [] for empty lists, 0 for empty
+      integer counts — NEVER null, NEVER omit a key). Validate that the
+      output file exists and parses as JSON before returning.
     depends_on:
       - derive-gold-pn-string
       - calibrate-failure-code-boundaries

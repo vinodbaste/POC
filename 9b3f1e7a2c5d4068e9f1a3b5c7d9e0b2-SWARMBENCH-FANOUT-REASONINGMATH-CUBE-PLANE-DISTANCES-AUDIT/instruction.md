@@ -157,22 +157,29 @@ When multiple codes plausibly apply, use the following resolution rules:
 
 ## Verifier scoring rule
 
-The verifier scores the final JSON deterministically against the oracle. Field weights:
+The verifier (llm-judge) scores the final JSON against the oracle. Field weights:
 
 - `gold_final_answer` (string match): 2 points
 - `gold_edge_length_squared_set` (sorted-list match): 2 points
 - `acceptable_solution_ids` (set match): 2 points
 - Per response (nine times):
   - `final_answer_correct` (exact bool match): 5 points
-  - `failure_reasons` (exact set match against oracle, all-or-nothing): 30 points
-  - `primary_failure_code` (exact string match): 25 points
+  - `failure_reasons` (substantive set match against oracle; 30 for exact, 15 for off-by-one substantively equivalent code, 8 for overlap >= 50% with more divergence, 0 otherwise): 30 points max
+  - `primary_failure_code` (25 if exact; 10 if in oracle's failure_reasons set but not its primary): 25 points max
   - `primary_failure_code_evidence` (presence + at least 50 characters): 8 points
-  - `alternative_codes_considered` (at least 2 well-formed entries; each `code` from the controlled vocabulary or `"NONE"`, each `code` different from this response's `primary_failure_code`, each `reason_excluded` at least 20 characters): 8 points
+  - `alternative_codes_considered` (at least 2 well-formed unique entries; each `code` from the controlled vocabulary or `"NONE"`, each `code` different from this response's `primary_failure_code`, each `reason_excluded` at least 20 characters): 8 points
   - `failure_reason_evidence` per code in the oracle's `failure_reasons` set (presence + at least 20 characters): 5 points per code
-- `code_application_table` per key (12 keys, each value an exact sorted-list match against the oracle): 70 points per key
+  - `code_application_count` (integer match against oracle = len(failure_reasons)): 10 points
+  - `primary_in_set_check` (bool match against oracle: true iff primary_failure_code is in failure_reasons OR primary == "NONE" and failure_reasons is []): 5 points
+  - `evidence_key_completeness` (integer match against oracle = number of evidence keys matching failure_reasons): 8 points
+- `code_application_table` per key (12 keys, each value an exact sorted-list match against the oracle): 100 points per key
+- `response_count_per_code` per key (12 keys, each value an exact integer match against the oracle): 20 points per key
+- `code_co_occurrence_count` per key (66 unordered pairs of codes "code_i & code_j" with i<j alphabetical; integer match): 5 points per key
+- `response_pair_shared_codes` per key (36 unordered pairs of response_ids "X & Y" with X<Y alphabetical; sorted-list match): 8 points per key
+- `response_triple_shared_codes` per key (84 unordered triples of response_ids "X & Y & Z" with X<Y<Z alphabetical; sorted-list match): 5 points per key
 - `cross_response_observations` (presence + at least 300 characters): 30 points
 
-The total possible score for this task is 1740 weighted points. The reported reward is total_earned / 1740 rounded to a float. The reducer must produce all required fields with the exact key names above; missing fields cost the weighted points for those fields. Producing complete, well-formed values for every field listed above is essential to achieve a high reward.
+Every dict aggregation field MUST contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key). Outputting null or omitting a key forfeits the full weight for that key. Producing complete, well-formed values for every field listed above is essential to achieve a high reward.
 
 Note that the workflow steps in the Task section above are intended as guidance for the auditor's reasoning process; the verifier scores only the final JSON output and its labels, not the auditor's working procedure.
 
@@ -198,7 +205,10 @@ Write your final answer to `/logs/agent/output.json` in this exact JSON format:
       "alternative_codes_considered": [
         {"code": "<one of the controlled-vocabulary codes or \"NONE\", different from this response's primary_failure_code>", "reason_excluded": "<string, at least 20 characters>"},
         {"code": "<another code>", "reason_excluded": "<string, at least 20 characters>"}
-      ]
+      ],
+      "code_application_count": <integer equal to the length of this response's failure_reasons array>,
+      "primary_in_set_check": <boolean: true if primary_failure_code is in failure_reasons, OR primary_failure_code == "NONE" and failure_reasons is []>,
+      "evidence_key_completeness": <integer equal to the number of keys in failure_reason_evidence that match a code in failure_reasons>
     }
   ],
   "code_application_table": {
@@ -215,7 +225,30 @@ Write your final answer to `/logs/agent/output.json` in this exact JSON format:
     "derives_correct_partial_s2_then_discards_it": [<sorted list>],
     "non_terminating_or_no_final_answer": [<sorted list>]
   },
+  "response_count_per_code": {
+    "claims_unique_edge_length": <integer count>,
+    "restricts_to_nonnegative_subset_sums": <integer count>,
+    "assumes_max_distance_equals_space_diagonal": <integer count>,
+    "assumes_plane_parallel_to_cube_face": <integer count>,
+    "equates_max_distance_with_edge_length_directly": <integer count>,
+    "uses_fabricated_invariant_or_invalid_derivation": <integer count>,
+    "accepts_internal_contradictions_in_derivation": <integer count>,
+    "assumes_zero_distance_vertex_is_axis_corner": <integer count>,
+    "omits_sign_pattern_casework": <integer count>,
+    "treats_one_orientation_as_proof_of_uniqueness": <integer count>,
+    "derives_correct_partial_s2_then_discards_it": <integer count>,
+    "non_terminating_or_no_final_answer": <integer count>
+  },
+  "code_co_occurrence_count": {
+    "<code_i & code_j for each of 66 unordered pairs, alphabetical>": <integer count of responses with both codes in failure_reasons>
+  },
+  "response_pair_shared_codes": {
+    "<response_X & response_Y for each of 36 unordered pairs, alphabetical>": [<sorted list of codes appearing in both responses' failure_reasons>]
+  },
+  "response_triple_shared_codes": {
+    "<response_X & response_Y & response_Z for each of 84 unordered triples, alphabetical>": [<sorted list of codes appearing in all three responses' failure_reasons>]
+  },
   "cross_response_observations": "<single string, at least 300 characters, identifying shared defect patterns across the nine responses>"
 }
 
-In the actual output, include nine objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, I, in that order. Every response_id from A through I must appear in exactly one bucket in `code_application_table` for each of its `failure_reasons` codes (so a response with five codes appears in five buckets). Codes whose triggers do not fire on any response have empty lists.
+In the actual output, include nine objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, I, in that order. Every response_id from A through I must appear in `code_application_table` once per code in its `failure_reasons` set. `response_count_per_code[code]` must equal the length of `code_application_table[code]` for every code. Every dict aggregation field (`code_application_table`, `response_count_per_code`, `code_co_occurrence_count`, `response_pair_shared_codes`, `response_triple_shared_codes`) must contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key).

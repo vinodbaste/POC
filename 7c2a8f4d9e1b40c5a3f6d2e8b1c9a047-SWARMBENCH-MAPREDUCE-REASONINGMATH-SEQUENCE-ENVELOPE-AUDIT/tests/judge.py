@@ -47,9 +47,13 @@ PER_RESPONSE_EVIDENCE_WEIGHT = 5
 PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT = 8
 PER_RESPONSE_ALT_CODES_WEIGHT = 8
 PER_RESPONSE_CRITERIA_COUNT_WEIGHT = 10
-CONSISTENCY_TABLE_PER_KEY_WEIGHT = 70
-CRITERION_PASS_RATE_PER_KEY_WEIGHT = 50
-VERDICT_DISTRIBUTION_PER_KEY_WEIGHT = 100
+PER_RESPONSE_VERDICT_CONSISTENCY_WEIGHT = 15
+CONSISTENCY_TABLE_PER_KEY_WEIGHT = 100
+CRITERION_PASS_RATE_PER_KEY_WEIGHT = 80
+VERDICT_DISTRIBUTION_PER_KEY_WEIGHT = 150
+CRITERION_PAIR_CO_PASS_PER_KEY_WEIGHT = 12
+RESPONSE_PAIR_CRITERION_AGREEMENT_PER_KEY_WEIGHT = 10
+RESPONSE_TRIPLE_CRITERION_AGREEMENT_PER_KEY_WEIGHT = 8
 CROSS_RESPONSE_OBSERVATIONS_WEIGHT = 30
 EVIDENCE_MIN_CHARS = 20
 PRIMARY_EVIDENCE_MIN_CHARS = 50
@@ -130,6 +134,69 @@ def score_per_response_criteria_count(o, a):
     return 0, total, [f"criteria_satisfied_count: expected {expected}, got {actual}"]
 
 
+def score_per_response_verdict_consistency(o, a):
+    total = PER_RESPONSE_VERDICT_CONSISTENCY_WEIGHT
+    expected = o.get("verdict_consistency_check")
+    actual = a.get("verdict_consistency_check")
+    if isinstance(actual, bool) and actual == expected:
+        return PER_RESPONSE_VERDICT_CONSISTENCY_WEIGHT, total, []
+    return 0, total, [f"verdict_consistency_check: expected {expected}, got {actual}"]
+
+
+def score_criterion_pair_co_pass(agent_pairs, oracle_pairs):
+    if not isinstance(agent_pairs, dict):
+        return 0, CRITERION_PAIR_CO_PASS_PER_KEY_WEIGHT * len(oracle_pairs), [
+            "criterion_pair_co_pass_count missing or non-object"
+        ]
+    earned = 0
+    total = 0
+    misses = []
+    for key, expected_count in oracle_pairs.items():
+        total += CRITERION_PAIR_CO_PASS_PER_KEY_WEIGHT
+        actual_count = agent_pairs.get(key)
+        if isinstance(actual_count, int) and actual_count == expected_count:
+            earned += CRITERION_PAIR_CO_PASS_PER_KEY_WEIGHT
+        else:
+            misses.append(f"criterion_pair_co_pass_count[{key}]: expected {expected_count}, got {actual_count}")
+    return earned, total, misses
+
+
+def score_response_pair_agreement(agent_pairs, oracle_pairs):
+    if not isinstance(agent_pairs, dict):
+        return 0, RESPONSE_PAIR_CRITERION_AGREEMENT_PER_KEY_WEIGHT * len(oracle_pairs), [
+            "response_pair_criterion_agreement missing or non-object"
+        ]
+    earned = 0
+    total = 0
+    misses = []
+    for key, expected_count in oracle_pairs.items():
+        total += RESPONSE_PAIR_CRITERION_AGREEMENT_PER_KEY_WEIGHT
+        actual_count = agent_pairs.get(key)
+        if isinstance(actual_count, int) and actual_count == expected_count:
+            earned += RESPONSE_PAIR_CRITERION_AGREEMENT_PER_KEY_WEIGHT
+        else:
+            misses.append(f"response_pair_criterion_agreement[{key}]: expected {expected_count}, got {actual_count}")
+    return earned, total, misses
+
+
+def score_response_triple_agreement(agent_triples, oracle_triples):
+    if not isinstance(agent_triples, dict):
+        return 0, RESPONSE_TRIPLE_CRITERION_AGREEMENT_PER_KEY_WEIGHT * len(oracle_triples), [
+            "response_triple_criterion_agreement missing or non-object"
+        ]
+    earned = 0
+    total = 0
+    misses = []
+    for key, expected_count in oracle_triples.items():
+        total += RESPONSE_TRIPLE_CRITERION_AGREEMENT_PER_KEY_WEIGHT
+        actual_count = agent_triples.get(key)
+        if isinstance(actual_count, int) and actual_count == expected_count:
+            earned += RESPONSE_TRIPLE_CRITERION_AGREEMENT_PER_KEY_WEIGHT
+        else:
+            misses.append(f"response_triple_criterion_agreement[{key}]: expected {expected_count}, got {actual_count}")
+    return earned, total, misses
+
+
 def score_consistency_table(agent_table, oracle_table):
     if not isinstance(agent_table, dict):
         return 0, CONSISTENCY_TABLE_PER_KEY_WEIGHT * len(oracle_table), [f"consistency_table missing or non-object; lost all keys"]
@@ -202,13 +269,16 @@ def weighted_score(agent_output, oracle):
         lbl_earned, lbl_total, lbl_issues = score_per_response_labels(o, a)
         ev_earned, ev_total, ev_issues = score_per_response_evidence(a)
         ct_earned, ct_total, ct_issues = score_per_response_criteria_count(o, a)
-        earned += lbl_earned + ev_earned + ct_earned
-        total += lbl_total + ev_total + ct_total
-        all_issues = lbl_issues + ev_issues + ct_issues
+        vc_earned, vc_total, vc_issues = score_per_response_verdict_consistency(o, a)
+        r_earned = lbl_earned + ev_earned + ct_earned + vc_earned
+        r_total = lbl_total + ev_total + ct_total + vc_total
+        earned += r_earned
+        total += r_total
+        all_issues = lbl_issues + ev_issues + ct_issues + vc_issues
         if all_issues:
-            lines.append(f"{sid}: {lbl_earned + ev_earned + ct_earned}/{lbl_total + ev_total + ct_total}; " + "; ".join(all_issues))
+            lines.append(f"{sid}: {r_earned}/{r_total}; " + "; ".join(all_issues))
         else:
-            lines.append(f"{sid}: {lbl_earned + ev_earned + ct_earned}/{lbl_total + ev_total + ct_total}; all scored fields correct")
+            lines.append(f"{sid}: {r_earned}/{r_total}; all scored fields correct")
 
     ct_earned, ct_total, ct_issues = score_consistency_table(agent_output.get("consistency_table"), oracle.get("consistency_table", {}))
     earned += ct_earned
@@ -233,6 +303,30 @@ def weighted_score(agent_output, oracle):
         lines.append(f"verdict_distribution: {vd_earned}/{vd_total}; " + "; ".join(vd_issues))
     else:
         lines.append(f"verdict_distribution: {vd_earned}/{vd_total}; all keys correct")
+
+    cp_earned, cp_total, cp_issues = score_criterion_pair_co_pass(agent_output.get("criterion_pair_co_pass_count"), oracle.get("criterion_pair_co_pass_count", {}))
+    earned += cp_earned
+    total += cp_total
+    if cp_issues:
+        lines.append(f"criterion_pair_co_pass_count: {cp_earned}/{cp_total}; " + "; ".join(cp_issues[:6]))
+    else:
+        lines.append(f"criterion_pair_co_pass_count: {cp_earned}/{cp_total}; all 28 pairs correct")
+
+    rp_earned, rp_total, rp_issues = score_response_pair_agreement(agent_output.get("response_pair_criterion_agreement"), oracle.get("response_pair_criterion_agreement", {}))
+    earned += rp_earned
+    total += rp_total
+    if rp_issues:
+        lines.append(f"response_pair_criterion_agreement: {rp_earned}/{rp_total}; " + "; ".join(rp_issues[:6]))
+    else:
+        lines.append(f"response_pair_criterion_agreement: {rp_earned}/{rp_total}; all 28 pairs correct")
+
+    rt_earned, rt_total, rt_issues = score_response_triple_agreement(agent_output.get("response_triple_criterion_agreement"), oracle.get("response_triple_criterion_agreement", {}))
+    earned += rt_earned
+    total += rt_total
+    if rt_issues:
+        lines.append(f"response_triple_criterion_agreement: {rt_earned}/{rt_total}; " + "; ".join(rt_issues[:6]))
+    else:
+        lines.append(f"response_triple_criterion_agreement: {rt_earned}/{rt_total}; all 56 triples correct")
 
     cro_earned, cro_total, cro_issues = score_cross_response_observations(agent_output.get("cross_response_observations"))
     earned += cro_earned

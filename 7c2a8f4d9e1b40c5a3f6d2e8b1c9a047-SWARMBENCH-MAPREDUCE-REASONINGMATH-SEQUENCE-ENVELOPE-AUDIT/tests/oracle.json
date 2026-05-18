@@ -36,7 +36,8 @@
           "reason_excluded": "The number deviates because the strategy is structurally insufficient, not because of arithmetic error in an otherwise valid strategy."
         }
       ],
-      "criteria_satisfied_count": 3
+      "criteria_satisfied_count": 3,
+      "verdict_consistency_check": true
     },
     {
       "solution_id": "response_B",
@@ -74,7 +75,8 @@
           "reason_excluded": "The 'uniquely deduced' assertion is downstream of the missing strategy; the primary diagnostic is the strategy gap."
         }
       ],
-      "criteria_satisfied_count": 2
+      "criteria_satisfied_count": 2,
+      "verdict_consistency_check": true
     },
     {
       "solution_id": "response_C",
@@ -112,7 +114,8 @@
           "reason_excluded": "The stated number is correct; the defect is the missing lower-bound impossibility argument."
         }
       ],
-      "criteria_satisfied_count": 7
+      "criteria_satisfied_count": 7,
+      "verdict_consistency_check": true
     },
     {
       "solution_id": "response_D",
@@ -150,7 +153,8 @@
           "reason_excluded": "The number is wrong because the underlying assertion is wrong, not because of arithmetic error."
         }
       ],
-      "criteria_satisfied_count": 2
+      "criteria_satisfied_count": 2,
+      "verdict_consistency_check": true
     },
     {
       "solution_id": "response_E",
@@ -188,7 +192,8 @@
           "reason_excluded": "The arithmetic is not the issue; the response cannot decide which number to commit to."
         }
       ],
-      "criteria_satisfied_count": 2
+      "criteria_satisfied_count": 2,
+      "verdict_consistency_check": true
     },
     {
       "solution_id": "response_F",
@@ -226,7 +231,8 @@
           "reason_excluded": "The upper-bound defect is downstream of the single-draw purity inference."
         }
       ],
-      "criteria_satisfied_count": 2
+      "criteria_satisfied_count": 2,
+      "verdict_consistency_check": true
     },
     {
       "solution_id": "response_G",
@@ -264,7 +270,8 @@
           "reason_excluded": "The double-count is an arithmetic over-count, not an independent proof-invalidating claim."
         }
       ],
-      "criteria_satisfied_count": 5
+      "criteria_satisfied_count": 5,
+      "verdict_consistency_check": true
     },
     {
       "solution_id": "response_H",
@@ -302,7 +309,8 @@
           "reason_excluded": "The upper-bound failure is downstream of treating single observations as worst-case proof."
         }
       ],
-      "criteria_satisfied_count": 2
+      "criteria_satisfied_count": 2,
+      "verdict_consistency_check": true
     }
   ],
   "accepted_solutions": [],
@@ -369,5 +377,123 @@
       "response_G",
       "response_H"
     ]
+  },
+  "criterion_pair_co_pass_count": {
+    "C1_correct_final_answer & C2_concrete_strategy": 1,
+    "C1_correct_final_answer & C3_valid_upper_bound": 1,
+    "C1_correct_final_answer & C4_valid_lower_bound": 0,
+    "C1_correct_final_answer & C5_worst_case_guarantee": 1,
+    "C1_correct_final_answer & C6_no_invalid_one_draw_inference": 1,
+    "C1_correct_final_answer & C7_no_exact_mixed_pair_requirement": 1,
+    "C1_correct_final_answer & C8_no_fatal_wrong_claim": 1,
+    "C2_concrete_strategy & C3_valid_upper_bound": 2,
+    "C2_concrete_strategy & C4_valid_lower_bound": 0,
+    "C2_concrete_strategy & C5_worst_case_guarantee": 2,
+    "C2_concrete_strategy & C6_no_invalid_one_draw_inference": 3,
+    "C2_concrete_strategy & C7_no_exact_mixed_pair_requirement": 5,
+    "C2_concrete_strategy & C8_no_fatal_wrong_claim": 1,
+    "C3_valid_upper_bound & C4_valid_lower_bound": 0,
+    "C3_valid_upper_bound & C5_worst_case_guarantee": 2,
+    "C3_valid_upper_bound & C6_no_invalid_one_draw_inference": 2,
+    "C3_valid_upper_bound & C7_no_exact_mixed_pair_requirement": 2,
+    "C3_valid_upper_bound & C8_no_fatal_wrong_claim": 1,
+    "C4_valid_lower_bound & C5_worst_case_guarantee": 0,
+    "C4_valid_lower_bound & C6_no_invalid_one_draw_inference": 0,
+    "C4_valid_lower_bound & C7_no_exact_mixed_pair_requirement": 0,
+    "C4_valid_lower_bound & C8_no_fatal_wrong_claim": 0,
+    "C5_worst_case_guarantee & C6_no_invalid_one_draw_inference": 2,
+    "C5_worst_case_guarantee & C7_no_exact_mixed_pair_requirement": 2,
+    "C5_worst_case_guarantee & C8_no_fatal_wrong_claim": 1,
+    "C6_no_invalid_one_draw_inference & C7_no_exact_mixed_pair_requirement": 6,
+    "C6_no_invalid_one_draw_inference & C8_no_fatal_wrong_claim": 1,
+    "C7_no_exact_mixed_pair_requirement & C8_no_fatal_wrong_claim": 1
+  },
+  "response_pair_criterion_agreement": {
+    "response_A & response_B": 7,
+    "response_A & response_C": 4,
+    "response_A & response_D": 7,
+    "response_A & response_E": 7,
+    "response_A & response_F": 7,
+    "response_A & response_G": 6,
+    "response_A & response_H": 7,
+    "response_B & response_C": 3,
+    "response_B & response_D": 8,
+    "response_B & response_E": 8,
+    "response_B & response_F": 6,
+    "response_B & response_G": 5,
+    "response_B & response_H": 6,
+    "response_C & response_D": 3,
+    "response_C & response_E": 3,
+    "response_C & response_F": 3,
+    "response_C & response_G": 6,
+    "response_C & response_H": 3,
+    "response_D & response_E": 8,
+    "response_D & response_F": 6,
+    "response_D & response_G": 5,
+    "response_D & response_H": 6,
+    "response_E & response_F": 6,
+    "response_E & response_G": 5,
+    "response_E & response_H": 6,
+    "response_F & response_G": 5,
+    "response_F & response_H": 8,
+    "response_G & response_H": 5
+  },
+  "response_triple_criterion_agreement": {
+    "response_A & response_B & response_C": 3,
+    "response_A & response_B & response_D": 7,
+    "response_A & response_B & response_E": 7,
+    "response_A & response_B & response_F": 6,
+    "response_A & response_B & response_G": 5,
+    "response_A & response_B & response_H": 6,
+    "response_A & response_C & response_D": 3,
+    "response_A & response_C & response_E": 3,
+    "response_A & response_C & response_F": 3,
+    "response_A & response_C & response_G": 4,
+    "response_A & response_C & response_H": 3,
+    "response_A & response_D & response_E": 7,
+    "response_A & response_D & response_F": 6,
+    "response_A & response_D & response_G": 5,
+    "response_A & response_D & response_H": 6,
+    "response_A & response_E & response_F": 6,
+    "response_A & response_E & response_G": 5,
+    "response_A & response_E & response_H": 6,
+    "response_A & response_F & response_G": 5,
+    "response_A & response_F & response_H": 7,
+    "response_A & response_G & response_H": 5,
+    "response_B & response_C & response_D": 3,
+    "response_B & response_C & response_E": 3,
+    "response_B & response_C & response_F": 2,
+    "response_B & response_C & response_G": 3,
+    "response_B & response_C & response_H": 2,
+    "response_B & response_D & response_E": 8,
+    "response_B & response_D & response_F": 6,
+    "response_B & response_D & response_G": 5,
+    "response_B & response_D & response_H": 6,
+    "response_B & response_E & response_F": 6,
+    "response_B & response_E & response_G": 5,
+    "response_B & response_E & response_H": 6,
+    "response_B & response_F & response_G": 4,
+    "response_B & response_F & response_H": 6,
+    "response_B & response_G & response_H": 4,
+    "response_C & response_D & response_E": 3,
+    "response_C & response_D & response_F": 2,
+    "response_C & response_D & response_G": 3,
+    "response_C & response_D & response_H": 2,
+    "response_C & response_E & response_F": 2,
+    "response_C & response_E & response_G": 3,
+    "response_C & response_E & response_H": 2,
+    "response_C & response_F & response_G": 3,
+    "response_C & response_F & response_H": 3,
+    "response_C & response_G & response_H": 3,
+    "response_D & response_E & response_F": 6,
+    "response_D & response_E & response_G": 5,
+    "response_D & response_E & response_H": 6,
+    "response_D & response_F & response_G": 4,
+    "response_D & response_F & response_H": 6,
+    "response_D & response_G & response_H": 4,
+    "response_E & response_F & response_G": 4,
+    "response_E & response_F & response_H": 6,
+    "response_E & response_G & response_H": 4,
+    "response_F & response_G & response_H": 5
   }
 }
