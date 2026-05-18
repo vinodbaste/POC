@@ -1,0 +1,149 @@
+{
+  "evaluations": [
+    {
+      "solution_id": "response_A",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response claims that drawing one strictly increasing sequence from the 'Strictly Increasing' labeled envelope proves it 'must be the mixed envelope'. This is invalid because a mixed envelope with 13 SI + 7 C split could also produce an SI observation. Single draws from possibly-mixed envelopes cannot establish purity. The final answer of 2 is catastrophically wrong (should be 15)."
+    },
+    {
+      "solution_id": "response_B",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response claims 4 inspections with hand-wavy synthesis. It inspects only 1 draw from Constant-labeled and Strictly Increasing-labeled envelopes (which could be mixed), makes invalid single-draw purity inferences, and claims 'enough information has been gathered' without explicit branch-by-branch label-fixing rules. No indistinguishable-case argument for lower bound."
+    },
+    {
+      "solution_id": "response_C",
+      "criteria": {
+        "C1_correct_final_answer": true,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": true,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": true,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "MISSING_LOWER_BOUND",
+      "brief_justification": "Response C correctly computes 15 inspections as 1+14 but fails to provide an indistinguishable-case argument proving 14 inspections are insufficient. It merely derives the number arithmetically from its own strategy without demonstrating why fewer observations cannot distinguish between pure and mixed envelopes in the worst case."
+    },
+    {
+      "solution_id": "response_D",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "FATAL_WRONG_CLAIM",
+      "brief_justification": "Response claims answer is 1 with 'forced by contradiction' reasoning. Violates C1 (wrong number), C6 (invalid single-draw purity claim), and C8 (fatal 'forced' claim when ambiguity remains). The 'remaining labels are forced by contradiction' and 'labels cycle uniquely' claims are proof-invalidating per calibration packet."
+    },
+    {
+      "solution_id": "response_E",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": true
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "CONTRADICTORY_FINAL_ANSWER",
+      "brief_justification": "Response_E oscillates wildly among incompatible final answers (3, 2, 14, 15, then back to 3) without ever committing to a coherent strategy. The final answer of 3 is incorrect, and the response fails to provide any valid upper bound, lower bound, or concrete inspection plan."
+    },
+    {
+      "solution_id": "response_F",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response F claims only 3 inspections are needed, treating single draws from three envelopes as proof of their purity. This violates C6: one draw from an envelope labeled 'Strictly Increasing' that could actually be mixed (13 SI + 7 C) does NOT prove it's pure SI. The response fails to account for the 7/13 mixed envelope composition and the fact that a mixed envelope can produce observations matching pure types."
+    },
+    {
+      "solution_id": "response_G",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": true,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": true,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "WRONG_FINAL_NUMBER",
+      "brief_justification": "Response claims 16 inspections but canonical answer is 15. The first inspection from the Mixed-labeled envelope can be absorbed into the 14-draw verification phase, giving 1+14=15 total, not 16. Response fails to recognize this optimization."
+    },
+    {
+      "solution_id": "response_H",
+      "criteria": {
+        "C1_correct_final_answer": false,
+        "C2_concrete_strategy": false,
+        "C3_valid_upper_bound": false,
+        "C4_valid_lower_bound": false,
+        "C5_worst_case_guarantee": false,
+        "C6_no_invalid_one_draw_inference": false,
+        "C7_no_exact_mixed_pair_requirement": true,
+        "C8_no_fatal_wrong_claim": false
+      },
+      "verdict": "REJECT",
+      "primary_failure_code": "INVALID_ONE_DRAW_INFERENCE",
+      "brief_justification": "Response claims 4 inspections suffice by drawing once from each envelope, assuming this identifies categories. This commits invalid one-draw purity inference for envelopes not labeled 'Mixed' - a single matching draw doesn't prove purity since mixed envelope could contain that type. Fails to engage worst-case where mixed envelope's first draw matches a pure type."
+    }
+  ],
+  "accepted_solutions": [],
+  "rejected_solutions": ["response_A", "response_B", "response_C", "response_D", "response_E", "response_F", "response_G", "response_H"],
+  "best_solution": "response_C",
+  "summary": "All 8 responses rejected. Response C is best with 6/8 criteria satisfied (correct answer, valid upper bound, worst-case coverage, no invalid inferences, no unnecessary requirements, no fatal claims). Only responses lacking lower bound proof and concrete strategy. Dominant defect categories: INVALID_ONE_DRAW_INFERENCE (4 responses: A, B, F, H), NO_CONCRETE_STRATEGY (5 responses: A, B, E, F, H). All responses except C have wrong final answers.",
+  "consistency_table": {
+    "NONE": [],
+    "WRONG_FINAL_NUMBER": ["response_G"],
+    "CONTRADICTORY_FINAL_ANSWER": ["response_E"],
+    "NO_CONCRETE_STRATEGY": [],
+    "INVALID_UPPER_BOUND": [],
+    "MISSING_LOWER_BOUND": ["response_C"],
+    "NOT_WORST_CASE": [],
+    "INVALID_ONE_DRAW_INFERENCE": ["response_A", "response_B", "response_F", "response_H"],
+    "UNNECESSARY_MIXED_PAIR_REQUIREMENT": [],
+    "FATAL_WRONG_CLAIM": ["response_D"]
+  },
+  "cross_response_observations": "The most pervasive defect across responses is the INVALID_ONE_DRAW_INFERENCE error, appearing in 4 responses (A, B, F, H). These responses all treat single draws from envelopes that could potentially be mixed (containing 7 sequences of one type and 13 of another) as definitive proof of that envelope's purity. This fundamentally misunderstands the 7/13 split composition of the mixed envelope, which can produce observations identical to pure envelopes. Five responses (A, B, E, F, H) lack concrete strategies with explicit branch-by-branch label-fixing rules, instead providing hand-wavy assertions like 'enough information has been gathered' or 'determined automatically by elimination'. Seven responses (all except C) fail to provide the correct final answer of 15, with estimates ranging from 1 to 16. Only Response C achieves the correct answer but lacks a lower bound proof via indistinguishable-case argument and lacks full concreteness in strategy description. The FATAL_WRONG_CLAIM defect in Response D features proof-invalidating 'forced by contradiction' and 'labels cycle uniquely' assertions that are specifically proscribed in the calibration criteria. Response G's error is minor (16 vs 15) - an off-by-one counting error that fails to absorb the initial inspection into the verification phase."
+}
