@@ -22,8 +22,8 @@ sub_tasks:
       criterion definitions, criterion-by-criterion adjudication examples,
       the walked scoring example, the resolution rules for borderline
       cases, and the universal phrase-pattern rules section) and return a
-      concise calibration packet summarizing how to apply C1-C8, the
-      verdict rule, and the primary_failure_code selection rules. The
+      concise calibration packet summarizing how to apply the 10-code failure_reasons vocabulary,
+      the set-match scoring, and the primary_failure_code selection rules. The
       sub-agent must not introduce new analytical rules beyond what
       instruction.md already specifies; its output is a structured
       re-statement of the instruction's universal phrase-pattern rules
@@ -41,10 +41,10 @@ sub_tasks:
       /input_artifacts/candidate_solutions/response_A.md itself, use the
       canonical-proof packet and calibration packet, and return only the
       response_A evaluation JSON fields specified in instruction.md
-      (criteria C1-C8, verdict, primary_failure_code, brief_justification,
-      criterion_evidence, primary_failure_code_evidence, and
-      alternative_codes_considered, with the minimum-length and well-
-      formedness requirements stated in instruction.md). Focus on whether
+      (failure_reasons set from the 10-code vocabulary, primary_failure_code,
+      primary_failure_code_evidence, failure_reason_evidence, alternative_codes_considered,
+      code_application_count, primary_in_set_check, evidence_key_completeness;
+      see instruction.md for minimum-length and well-formedness requirements). Focus on whether
       the proposed inspection strategy's upper bound holds in every
       worst-case branch and whether elimination-based label-fixing leaves
       any legal labelings open.
@@ -179,7 +179,7 @@ sub_tasks:
       must consume the canonical-proof packet, calibration packet, all
       eight mapper outputs, and the eight candidate response files. Its
       job is narrowly to re-check the labels that dominate scoring and
-      are easy to conflate (C2, C3, C4, C6, C8, verdict, and
+      are easy to conflate (the failure_reasons set and the
       primary_failure_code) by applying the universal phrase-pattern
       rules already specified in instruction.md to each response's text.
       The adjudicator must not introduce new analytical rules beyond
@@ -257,14 +257,11 @@ sub_tasks:
       /logs/agent/output.json with top-level keys evaluations (eight
       objects in alphabetical order response_A through response_H, each
       including all required scored fields including
-      criteria_satisfied_count and verdict_consistency_check),
-      accepted_solutions, rejected_solutions, best_solution, summary,
-      criterion_pass_rate, verdict_distribution,
-      criterion_pair_co_pass_count, response_pair_criterion_agreement,
-      consistency_table, and cross_response_observations, as specified
+      code_application_count, primary_in_set_check, evidence_key_completeness),
+      acceptable_solution_ids, code_application_table,
+      response_count_per_code, and cross_response_observations, as specified
       by instruction.md. CRITICAL: every dict aggregation field
-      (consistency_table, criterion_pass_rate, verdict_distribution,
-      criterion_pair_co_pass_count, response_pair_criterion_agreement)
+      (code_application_table, response_count_per_code)
       MUST contain every required key verbatim with a JSON-valid value
       (use [] for empty lists, 0 for empty counts — NEVER null, NEVER
       omit a key). Validate the output file exists and parses as JSON

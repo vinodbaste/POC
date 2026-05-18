@@ -63,7 +63,7 @@ Write to `/logs/agent/output.json`:
   "acceptable_solution_ids": [],
   "per_response_assessment": [
     {
-      "response_id": "A",
+      "response_id": "response_A",
       "final_answer_correct": <bool>,
       "failure_reasons": [<sorted list of codes from the 10-code vocabulary>],
       "primary_failure_code": "<one code in failure_reasons, or \"NONE\">",
