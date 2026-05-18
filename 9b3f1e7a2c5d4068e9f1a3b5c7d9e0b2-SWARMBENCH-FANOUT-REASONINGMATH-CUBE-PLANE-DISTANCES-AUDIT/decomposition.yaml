@@ -1,326 +1,201 @@
 sub_tasks:
-  - id: adjudicate-gold-geometry
+  - id: derive-canonical-gold-geometry
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
-      Agent tool. Do NOT perform this derivation yourself. The sub-agent must
-      read /input_artifacts/problem.md itself and return a compact gold
-      packet containing the gold final numeric answer it derives, the
-      complete set of distinct s² values it finds, and a short proof sketch
-      covering both the all-same-sign vertex family and any axis-flipped
-      sign-pattern families. Do not inspect any candidate response.
-    depends_on: []
-    parallel_group: fan-out
-
-  - id: calibrate-failure-code-boundaries
-    description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
-      Agent tool. Do NOT perform this calibration yourself. The sub-agent
-      must read the task instruction itself (which contains the
-      authoritative TRIGGER definitions for the twelve failure-reason
-      codes, the Failure-code disambiguation guidance section, the
-      Primary failure code selection guidance section, the Common audit
-      anti-patterns section, and the Resolution rules for borderline
-      cases section) and return a concise calibration packet
-      summarizing how to apply the twelve codes, the failure_reasons
-      set-match rule, and the primary_failure_code selection rules.
-      The sub-agent must not introduce new analytical rules beyond
-      what instruction.md already specifies; its output is a structured
-      re-statement of the instruction's authoritative trigger and
-      selection rules for downstream auditors to reference.
+      Read /input_artifacts/problem.md only. Independently determine the gold
+      final numeric answer (the sum of squares of all elements of S) and the
+      sorted set of distinct s^2 values, enumerating every sign-pattern family
+      (the all-same-sign vertex family AND each of the three one-axis-flipped
+      sign-pattern families). For each family, solve for plane coefficients
+      (a,b,c,d) such that the multiset of vertex distances equals
+      {0,1,2,3,4,5,6,7}, then compute s^2 = (a^2+b^2+c^2). Return the derived
+      gold_final_answer string (the integer sum of all distinct s^2 values),
+      the sorted gold_edge_length_squared_set list, and a short proof sketch
+      covering each family. Do not inspect any candidate response.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-a
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_A using the Agent tool. Do NOT classify response_A
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_A.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "A" with keys response_id,
-      final_answer_correct, failure_reasons, primary_failure_code,
-      failure_reason_evidence, primary_failure_code_evidence, and
-      alternative_codes_considered. Focus on whether the response openly
-      carries internal contradictions through its derivation, whether it
-      fixes the zero-distance vertex at a specific cube-local corner, and
-      whether the final stated conclusion is a single unique numeric edge
-      length.
-
-      The sub-agent MUST also produce the following required scored
-      fields for this response: primary_failure_code (one code from the
-      response's failure_reasons set, or "NONE" if empty); a
-      failure_reason_evidence JSON object whose keys are exactly the
-      codes in the response's failure_reasons set, each value a non-
-      empty string of at least 20 characters citing or paraphrasing the
-      response text justifying that code; a primary_failure_code_evidence
-      string of at least 50 characters explaining why the chosen
-      primary_failure_code is the most diagnostic; and an
-      alternative_codes_considered JSON array of at least two objects,
-      each with a code field different from this response's
-      primary_failure_code and drawn from the controlled vocabulary
-      (including "NONE"), and a reason_excluded field of at least 20
-      characters. These fields are scored by presence and minimum-
-      length checks; omitting them costs significant weighted points.
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A.
+      Decide whether its final stated numeric answer matches the independently
+      computed gold answer. If it is wrong, return the exact applicable
+      failure_reasons chosen from:
+        claims_unique_edge_length, restricts_to_nonnegative_subset_sums,
+        assumes_max_distance_equals_space_diagonal, assumes_plane_parallel_to_cube_face,
+        equates_max_distance_with_edge_length_directly,
+        uses_fabricated_invariant_or_invalid_derivation,
+        accepts_internal_contradictions_in_derivation,
+        assumes_zero_distance_vertex_is_axis_corner, omits_sign_pattern_casework,
+        treats_one_orientation_as_proof_of_uniqueness,
+        derives_correct_partial_s2_then_discards_it,
+        non_terminating_or_no_final_answer.
+      If the response derives a contradiction such as "6 = 7" inside its
+      derivation and still extracts a final numeric answer, include
+      accepts_internal_contradictions_in_derivation. If the response invents an
+      algebraic identity unsupported by the problem and uses it as the load-
+      bearing step, include uses_fabricated_invariant_or_invalid_derivation.
+      Apply non_terminating_or_no_final_answer only when no committed final
+      numeric answer exists. Do not infer correctness from other proposed
+      responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-b
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_B using the Agent tool. Do NOT classify response_B
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_B.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "B" with all required fields. Focus on the
-      primary geometric setup (whether the cutting plane is assumed
-      parallel to a cube face or the cube is taken axis-aligned with the
-      plane at constant z), whether the response directly identifies the
-      maximum vertex-to-plane distance with the cube edge length without
-      projecting through a plane normal, and whether the final conclusion
-      claims uniqueness.
-
-      Required scored fields are: primary_failure_code,
-      failure_reason_evidence (keys exactly the codes in failure_reasons,
-      each value at least 20 characters), primary_failure_code_evidence
-      (at least 50 characters), and alternative_codes_considered (at
-      least two well-formed entries, each code different from
-      primary_failure_code).
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B.
+      Decide whether its final stated numeric answer matches the independently
+      computed gold answer. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same twelve-code vocabulary listed above
+      for Response A.
+      If the response's primary geometric setup uses a face-parallel or
+      axis-aligned cube cut by a plane z = k, include
+      assumes_plane_parallel_to_cube_face. If the response identifies the
+      maximum vertex-to-plane distance directly with the cube edge length
+      (a = 7), include equates_max_distance_with_edge_length_directly. Do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-c
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_C using the Agent tool. Do NOT classify response_C
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_C.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "C" with all required fields. Focus on
-      whether the response equates the maximum vertex-to-plane distance
-      with the cube's space diagonal (a√3 = 7 or equivalent), whether it
-      works from a single cube orientation, and whether the final stated
-      conclusion is a single unique edge length.
-
-      Required scored fields are: primary_failure_code,
-      failure_reason_evidence (keys exactly the codes in failure_reasons,
-      each value at least 20 characters), primary_failure_code_evidence
-      (at least 50 characters), and alternative_codes_considered (at
-      least two well-formed entries, each code different from
-      primary_failure_code).
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C.
+      Decide whether its final stated numeric answer matches the independently
+      computed gold answer. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same twelve-code vocabulary.
+      If the response identifies the maximum vertex-to-plane distance with the
+      cube's space diagonal a*sqrt(3) and derives a = 7/sqrt(3), include
+      assumes_max_distance_equals_space_diagonal. If the response solves one
+      cube orientation and asserts the resulting s^2 as the unique answer
+      without ruling out other orientations, include
+      treats_one_orientation_as_proof_of_uniqueness. Do not infer correctness
+      from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-d
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_D using the Agent tool. Do NOT classify response_D
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_D.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "D" with all required fields. Focus on
-      whether the response equates the maximum vertex-to-plane distance
-      with the cube's space diagonal and derives a single numeric answer
-      from one orientation, without enumerating sign-pattern families.
-
-      Required scored fields are: primary_failure_code,
-      failure_reason_evidence (keys exactly the codes in failure_reasons,
-      each value at least 20 characters), primary_failure_code_evidence
-      (at least 50 characters), and alternative_codes_considered (at
-      least two well-formed entries, each code different from
-      primary_failure_code).
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D.
+      Decide whether its final stated numeric answer matches the independently
+      computed gold answer. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same twelve-code vocabulary.
+      If the load-bearing geometric step identifies the maximum vertex-to-plane
+      distance with the cube's space diagonal, include
+      assumes_max_distance_equals_space_diagonal. If the response asserts the
+      single derived s^2 as the only answer, include
+      treats_one_orientation_as_proof_of_uniqueness and
+      claims_unique_edge_length when both triggers fire. Do not infer
+      correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-e
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_E using the Agent tool. Do NOT classify response_E
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_E.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "E" with all required fields. Focus on
-      whether the response produces an identifiable final numeric answer
-      at all (e.g., a boxed value or a "final answer is ..." sentence),
-      or instead loops, truncates, or never commits to a numeric
-      conclusion.
-
-      Required scored fields are: primary_failure_code,
-      failure_reason_evidence (keys exactly the codes in failure_reasons,
-      each value at least 20 characters), primary_failure_code_evidence
-      (at least 50 characters), and alternative_codes_considered (at
-      least two well-formed entries, each code different from
-      primary_failure_code).
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E.
+      Decide whether the response produces an identifiable final numeric
+      answer at all. If the response loops on a repeated phrase, truncates
+      mid-derivation, or otherwise never commits to a final numeric value,
+      classify as non_terminating_or_no_final_answer; this code is the SOLE
+      applicable code when it fires (other codes that require extracting a
+      final numeric answer do not co-apply). Otherwise return the exact
+      applicable failure_reasons chosen from the same twelve-code vocabulary.
+      Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-f
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_F using the Agent tool. Do NOT classify response_F
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_F.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "F" with all required fields. Focus on
-      whether the response fixes the zero-distance vertex at a specific
-      cube-local corner, restricts its search to non-negative subset
-      sums of positive quantities (rather than considering signed
-      projections), and concludes a single unique edge length from one
-      orientation.
-
-      Required scored fields are: primary_failure_code,
-      failure_reason_evidence (keys exactly the codes in failure_reasons,
-      each value at least 20 characters), primary_failure_code_evidence
-      (at least 50 characters), and alternative_codes_considered (at
-      least two well-formed entries, each code different from
-      primary_failure_code).
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F.
+      Decide whether its final stated numeric answer matches the independently
+      computed gold answer. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same twelve-code vocabulary.
+      If the response fixes the zero-distance vertex at (0,0,0), include
+      assumes_zero_distance_vertex_is_axis_corner. If the response restricts
+      the search to non-negative subset sums of three positive quantities and
+      drops absolute-value signs, include restricts_to_nonnegative_subset_sums.
+      If the response derives one s^2 from one orientation and asserts it is
+      the only answer, include treats_one_orientation_as_proof_of_uniqueness
+      and claims_unique_edge_length. Do not infer correctness from other
+      proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-g
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_G using the Agent tool. Do NOT classify response_G
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_G.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "G" with all required fields. Focus on
-      whether the response invents an algebraic identity not derivable
-      from the problem, whether it derives the all-positive-case s²
-      value at some point and then explicitly discards or rejects it,
-      and whether the response's final conclusion is a single unique
-      edge length or a fabricated sum over candidates.
-
-      Required scored fields are: primary_failure_code,
-      failure_reason_evidence (keys exactly the codes in failure_reasons,
-      each value at least 20 characters), primary_failure_code_evidence
-      (at least 50 characters), and alternative_codes_considered (at
-      least two well-formed entries, each code different from
-      primary_failure_code).
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G.
+      Decide whether its final stated numeric answer matches the independently
+      computed gold answer. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same twelve-code vocabulary.
+      If the response derives s^2 = 21 as a partial intermediate and then
+      explicitly rejects it in favor of a different final numeric answer,
+      include derives_correct_partial_s2_then_discards_it. If the response's
+      final numeric answer rests on an invented algebraic identity such as a
+      fabricated quadratic, include
+      uses_fabricated_invariant_or_invalid_derivation. Do not infer correctness
+      from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-h
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_H using the Agent tool. Do NOT classify response_H
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_H.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "H" with all required fields. Focus on the
-      same setup pattern as response_F: whether the zero-distance vertex
-      is fixed at a specific cube-local corner, whether the search is
-      restricted to non-negative subset sums, and whether the final
-      stated conclusion is a single unique edge length from one
-      orientation.
-
-      Required scored fields are: primary_failure_code,
-      failure_reason_evidence (keys exactly the codes in failure_reasons,
-      each value at least 20 characters), primary_failure_code_evidence
-      (at least 50 characters), and alternative_codes_considered (at
-      least two well-formed entries, each code different from
-      primary_failure_code).
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only Response H.
+      Decide whether its final stated numeric answer matches the independently
+      computed gold answer. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same twelve-code vocabulary.
+      Focus on the same setup pattern as response_F: whether the zero-distance
+      vertex is fixed at a specific cube-local corner (
+      assumes_zero_distance_vertex_is_axis_corner), whether the search is
+      restricted to non-negative subset sums (
+      restricts_to_nonnegative_subset_sums), and whether the final stated
+      conclusion is a single unique edge length from one orientation (
+      treats_one_orientation_as_proof_of_uniqueness and
+      claims_unique_edge_length). Do not infer correctness from other proposed
+      responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-i
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_I using the Agent tool. Do NOT classify response_I
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_I.md itself, use the
-      gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "I" with all required fields. Focus on
-      whether the response fixes the zero-distance vertex at a specific
-      cube-local corner, restricts its search to non-negative subset
-      sums of positive quantities, derives a single s² from one cube
-      orientation, and asserts that value as the unique answer.
-
-      Required scored fields are: primary_failure_code,
-      failure_reason_evidence (keys exactly the codes in failure_reasons,
-      each value at least 20 characters), primary_failure_code_evidence
-      (at least 50 characters), and alternative_codes_considered (at
-      least two well-formed entries, each code different from
-      primary_failure_code).
-    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
-    parallel_group: audit
-
-  - id: adjudicate-primary-failure-codes
-    description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this adjudicator as a
-      sub-agent using the Agent tool after all nine response auditors
-      finish. Do NOT do this adjudication in the orchestrator. The
-      adjudicator must consume the gold packet, the calibration guide,
-      the nine mapper outputs, and the nine candidate response files. Its
-      job is narrowly to re-check the labels that dominate scoring and
-      are easy to conflate: the failure_reasons set and the
-      primary_failure_code per response. It must return a structured
-      correction object that the reducer applies mechanically.
-
-      The adjudicator must apply the universal trigger-pattern rules
-      and primary-code selection rules already specified in
-      instruction.md (the Failure-code disambiguation guidance section,
-      the Primary failure code selection guidance section, and the
-      Common audit anti-patterns section) uniformly to all nine
-      responses. The adjudicator must not introduce new analytical
-      rules beyond what instruction.md already specifies; it re-checks
-      each mapper's failure_reasons set and primary_failure_code
-      against the response text and instruction.md's authoritative
-      trigger language.
-
-      Return a structured JSON object: a top-level dict keyed by
-      response_id (A through I), each value containing only the fields
-      whose mapper value should be CORRECTED, together with the
-      corrected value and a one-sentence textual evidence quotation
-      from the response. The reducer applies every correction
-      mechanically without re-deriving.
-    depends_on:
-      - adjudicate-gold-geometry
-      - calibrate-failure-code-boundaries
-      - audit-response-a
-      - audit-response-b
-      - audit-response-c
-      - audit-response-d
-      - audit-response-e
-      - audit-response-f
-      - audit-response-g
-      - audit-response-h
-      - audit-response-i
-    parallel_group: adjudicate
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_I.md. Audit only Response I.
+      Decide whether its final stated numeric answer matches the independently
+      computed gold answer. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same twelve-code vocabulary.
+      Focus on whether the response restricts its search to positive integer
+      triples (restricts_to_nonnegative_subset_sums), fixes one vertex at the
+      origin (assumes_zero_distance_vertex_is_axis_corner), derives a single
+      s^2 from one cube orientation
+      (treats_one_orientation_as_proof_of_uniqueness), and asserts that value
+      as the only edge length (claims_unique_edge_length). Do not infer
+      correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: synthesize-final-audit
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a
-      sub-agent using the Agent tool. Do NOT perform the final synthesis
-      yourself. The synthesizer consumes the gold packet, the code-
-      boundary guide, the nine audit objects, and the adjudicator's
-      structured correction object. It MUST NOT re-derive the gold
-      answer or re-audit individual responses.
-
-      Required output state at /logs/agent/output.json: a single JSON
-      object matching the schema declared in instruction.md, with all
-      required top-level keys present and JSON-valid. Where the
-      adjudicator's correction object differs from a mapper's output
-      for a given response field, the synthesizer's output for that
-      field reflects the adjudicator's corrected value. The
-      synthesizer's per_response_assessment contains nine entries in
-      alphabetical order A through I, each carrying every scored field
-      named in instruction.md. The synthesizer's top-level
-      code_application_table contains all 12 vocabulary codes as keys
-      with sorted lists of response_ids whose failure_reasons set
-      contains that code (empty list for codes with no matching
-      response, never null, never omitted). The synthesizer's
-      top-level cross_response_observations is a single string of at
-      least 300 characters describing shared defect patterns across
-      the nine responses. The synthesizer's acceptable_solution_ids
-      is the alphabetically-sorted list of response_ids whose
-      final_answer_correct is true and whose failure_reasons set is
-      empty. If any audit object is malformed or missing required
-      fields, the synthesizer requests a replacement audit for that
-      one response rather than fabricating fields locally. The output
-      file must exist and parse as JSON before the synthesizer returns.
+      Read the canonical gold geometry packet produced by
+      derive-canonical-gold-geometry and the nine per-response audit objects
+      produced by audit-response-a through audit-response-i. Compose one JSON
+      object with top-level keys gold_final_answer, gold_edge_length_squared_set,
+      acceptable_solution_ids, and per_response_assessment (nine objects
+      ordered A through I), as specified by instruction.md. Set
+      final_answer_correct on each per-response object based on whether its
+      claimed numeric answer equals the gold answer exactly. Compute
+      acceptable_solution_ids as the alphabetically-sorted list of response_ids
+      whose final_answer_correct is true AND whose failure_reasons list is
+      empty. Do not re-derive the gold answer or re-audit individual responses
+      in this step. If any audit object is malformed, request a replacement
+      sub-agent for that one response. Write the JSON to /logs/agent/output.json
+      and validate that the file exists and parses before returning.
     depends_on:
-      - adjudicate-gold-geometry
-      - calibrate-failure-code-boundaries
+      - derive-canonical-gold-geometry
       - audit-response-a
       - audit-response-b
       - audit-response-c
@@ -330,61 +205,4 @@ sub_tasks:
       - audit-response-g
       - audit-response-h
       - audit-response-i
-      - adjudicate-primary-failure-codes
-      - build-code-application-tables
-      - validate-output-consistency
     parallel_group: synthesize
-
-  - id: build-code-application-tables
-    description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
-      the Agent tool. Do NOT compute the aggregation yourself. The
-      sub-agent receives the nine adjudicated per-response evaluations
-      (from the adjudicator's correction object plus the original mapper
-      outputs). Required output state: a JSON fragment for the
-      code_application_table top-level field whose keys are exactly the
-      12 codes of the failure-reason vocabulary; for each code, the
-      value is the alphabetically-sorted list of response_ids whose
-      corrected failure_reasons set contains that code. Codes with no
-      matching response carry an empty list. No key is null and no key
-      is omitted. The fragment is returned to the final synthesizer
-      for embedding in the output JSON.
-    depends_on:
-      - audit-response-a
-      - audit-response-b
-      - audit-response-c
-      - audit-response-d
-      - audit-response-e
-      - audit-response-f
-      - audit-response-g
-      - audit-response-h
-      - audit-response-i
-      - adjudicate-primary-failure-codes
-    parallel_group: aggregate
-
-  - id: validate-output-consistency
-    description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
-      the Agent tool. The sub-agent receives the nine adjudicated per-
-      response evaluations and computes the three derived per-response
-      fields for every response: code_application_count (= length of
-      failure_reasons), primary_in_set_check (= boolean: primary in
-      failure_reasons OR (primary == "NONE" and failure_reasons empty)),
-      evidence_key_completeness (= number of keys in
-      failure_reason_evidence that match a code in failure_reasons).
-      The sub-agent also assembles the per_response_assessment list of
-      nine objects in alphabetical order A through I with all required
-      scored fields. Returns the per_response_assessment JSON fragment
-      for the final synthesizer to embed.
-    depends_on:
-      - audit-response-a
-      - audit-response-b
-      - audit-response-c
-      - audit-response-d
-      - audit-response-e
-      - audit-response-f
-      - audit-response-g
-      - audit-response-h
-      - audit-response-i
-      - adjudicate-primary-failure-codes
-    parallel_group: aggregate

@@ -2,147 +2,53 @@ import argparse
 import json
 import os
 import re
-
 from openai import OpenAI
-
-
-JUDGE_MODEL = "accounts/fireworks/models/kimi-k2p5"
-
-ALL_FAILURE_CODES = [
-    "claims_unique_edge_length",
-    "restricts_to_nonnegative_subset_sums",
-    "assumes_max_distance_equals_space_diagonal",
-    "assumes_plane_parallel_to_cube_face",
-    "equates_max_distance_with_edge_length_directly",
-    "uses_fabricated_invariant_or_invalid_derivation",
-    "accepts_internal_contradictions_in_derivation",
-    "assumes_zero_distance_vertex_is_axis_corner",
-    "omits_sign_pattern_casework",
-    "treats_one_orientation_as_proof_of_uniqueness",
-    "derives_correct_partial_s2_then_discards_it",
-    "non_terminating_or_no_final_answer",
-]
 
 
 def extract_json(text: str) -> str:
     text = text.strip()
-    m = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
-    if m:
-        return m.group(1).strip()
-    m = re.search(r"\{[\s\S]*\}", text)
-    if m:
-        return m.group(0)
+    match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
+    if match:
+        return match.group(1).strip()
     return text
 
 
-def build_prompt(oracle: dict, agent: dict) -> str:
-    rubric = (
-        "You are a strict expert judge for a SwarmBench math/reasoning audit task. "
-        "Score the agent output against the oracle on a multi-field weighted rubric. "
-        "Apply substantive expert interpretation on per-response failure_reasons and primary_failure_code "
-        "(allow plausible alternative codes that are concretely supported by the response text), "
-        "but apply STRICT scoring on structural and aggregation fields (presence, minimum lengths, "
-        "exact string match on the gold answer, exact sorted-list match per key of code_application_table).\n\n"
-        "ORACLE (ground truth):\n"
-        f"{json.dumps(oracle, indent=2)}\n\n"
-        "AGENT OUTPUT (to be scored):\n"
-        f"{json.dumps(agent, indent=2)}\n\n"
-        "Allowed failure codes vocabulary (size 12):\n"
-        + "\n".join(f"- {c}" for c in ALL_FAILURE_CODES)
-        + "\n\n"
-        "Weighted scoring rubric. Sum the per-field points to get total_earned. "
-        "The maximum total possible is the sum of all the per-field weights below (compute it as you score).\n\n"
-        "TOP-LEVEL FIELDS:\n"
-        "1) gold_final_answer: exact string match against oracle's gold_final_answer. Award 2 if equal, else 0.\n"
-        "2) gold_edge_length_squared_set: exact sorted-list match against oracle. Award 2 if equal as sorted lists, else 0.\n"
-        "3) acceptable_solution_ids: exact set match against oracle. Award 2 if equal, else 0.\n\n"
-        "PER-RESPONSE FIELDS (apply for each of the 9 entries in per_response_assessment, A..I):\n"
-        "4) final_answer_correct: exact bool match against oracle. Award 5 if equal, else 0.\n"
-        "5) failure_reasons: substantive set match against oracle's failure_reasons.\n"
-        "   - Award 30 if the agent set EXACTLY equals the oracle set.\n"
-        "   - Award 15 if the agent set differs from the oracle by at most one substantively-equivalent code "
-        "(e.g., agent picked a near-synonymous code that is plausibly supported by the response text).\n"
-        "   - Award 8 if overlap is at least half (|A intersect O| / |O| >= 0.5) but the set differs by more than one code.\n"
-        "   - Award 0 otherwise.\n"
-        "6) primary_failure_code: \n"
-        "   - Award 25 if agent's primary equals oracle's primary exactly.\n"
-        "   - Award 10 if agent's primary is in the oracle's failure_reasons set but not the oracle's primary "
-        "(plausible alternative).\n"
-        "   - Award 0 otherwise.\n"
-        "7) primary_failure_code_evidence: STRICT structural check. Award 8 if the value is a string of "
-        ">=50 characters that substantively references the response's text; otherwise award 0.\n"
-        "8) alternative_codes_considered: STRICT structural check. Award 8 if the value is a list with at "
-        ">=2 unique well-formed objects, each having a 'code' from the controlled vocabulary (or \"NONE\") that "
-        "is DIFFERENT from this response's primary_failure_code and unique within the list, and a 'reason_excluded' "
-        "string of >=20 characters; otherwise award 0.\n"
-        "9) failure_reason_evidence per code: For each code in the ORACLE's failure_reasons for this response, "
-        "check that the agent's failure_reason_evidence has that key with a string value of >=20 characters. "
-        "Award 5 per code if present and >=20 chars, else 0. Do NOT award points for evidence keys the oracle does "
-        "not have.\n"
-        "10) code_application_count: STRICT integer match against oracle (oracle value = len(failure_reasons)). "
-        "Award 10 if equal, else 0.\n"
-        "11) primary_in_set_check: STRICT bool match against oracle (oracle: true iff primary_failure_code in failure_reasons, "
-        "or primary_failure_code == 'NONE' and failure_reasons is []). Award 5 if equal, else 0.\n"
-        "12) evidence_key_completeness: STRICT integer match (oracle value = # of evidence keys matching failure_reasons). "
-        "Award 8 if equal, else 0.\n\n"
-        "TOP-LEVEL AGGREGATION FIELDS:\n"
-        "13) code_application_table: For each of the 12 codes (keys), STRICT sorted-list match against the oracle's "
-        "list for that key. Award 100 per key if the agent's list (sorted) equals the oracle's list (sorted); else 0. "
-        "Outputting null or omitting a key forfeits the full 100 for that key.\n"
-        "14) cross_response_observations: Award 30 if the value is a single string of >=300 characters that "
-        "substantively describes shared defect patterns across responses; award 15 if the string is >=300 chars but "
-        "generic / boilerplate / does not reference response-specific defects; award 0 if <300 chars or missing.\n\n"
-        "Be strict on every structural minimum (length, presence, list-match, integer-match). Be substantive but "
-        "fair on the per-response interpretive fields (failure_reasons set match and primary_failure_code).\n\n"
-        "Output JSON only, no markdown, in this exact form:\n"
-        "{\n"
-        "  \"score\": <float in [0.0, 1.0], computed as total_earned / total_possible>,\n"
-        "  \"total_earned\": <int>,\n"
-        "  \"total_possible\": <int>,\n"
-        "  \"top_level\": {\"gold_final_answer\": int, \"gold_edge_length_squared_set\": int, \"acceptable_solution_ids\": int},\n"
-        "  \"per_response\": {\"A\": int, \"B\": int, \"C\": int, \"D\": int, \"E\": int, \"F\": int, \"G\": int, \"H\": int, \"I\": int},\n"
-        "  \"code_application_table_total\": int,\n"
-        "  \"cross_response_observations\": int,\n"
-        "  \"justification\": \"<concise field-by-field reasoning, 200-600 chars>\"\n"
-        "}\n"
-    )
-    return rubric
-
-
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--agent-output", required=True)
-    ap.add_argument("--oracle", required=True)
-    ap.add_argument("--reward-out", required=True)
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--agent-output")
+    parser.add_argument("--oracle")
+    parser.add_argument("--reward-out")
+    parser.add_argument("--details-out", required=False, default=None)
+    args = parser.parse_args()
 
     os.makedirs(os.path.dirname(args.reward_out), exist_ok=True)
-    if os.path.exists("/logs"):
-        os.makedirs("/logs/agent", exist_ok=True)
 
     try:
         with open(args.agent_output, "r", encoding="utf-8") as f:
             agent_output = json.load(f)
-        with open(args.oracle, "r", encoding="utf-8") as f:
-            oracle = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError) as e:
-        with open(args.reward_out, "w", encoding="utf-8") as f:
-            json.dump({"reward": 0.0}, f)
-        try:
-            with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-                f.write(f"Score: 0.0\n\nAgent output missing or invalid: {e}\n")
-        except OSError:
-            pass
+        json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
+        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+            f.write(f"Score: 0.0\n\nAgent output missing or invalid: {e}")
         return
 
+    with open(args.oracle, "r", encoding="utf-8") as f:
+        oracle = json.load(f)
+
+    response_count = len(oracle.get("per_response_assessment", []))
+    # 2 pts gold_final_answer + 2 pts gold_edge_length_squared_set + 2 pts acceptable_solution_ids + 30 per response
+    total_points = 6 + 30 * response_count
+    response_ids = [
+        item.get("response_id")
+        for item in oracle.get("per_response_assessment", [])
+        if item.get("response_id")
+    ]
+    response_id_text = f"{response_ids[0]}-{response_ids[-1]}" if response_ids else "listed responses"
+
     if agent_output == oracle:
-        with open(args.reward_out, "w", encoding="utf-8") as f:
-            json.dump({"reward": 1.0}, f)
-        try:
-            with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-                f.write("Score: 1.0\n\nAgent output exactly matches oracle (shortcut).\n")
-        except OSError:
-            pass
+        json.dump({"reward": 1.0}, open(args.reward_out, "w", encoding="utf-8"))
+        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+            f.write("Score: 1.0\n\nAgent output exactly matches oracle.")
         return
 
     client = OpenAI(
@@ -150,10 +56,52 @@ def main():
         base_url="https://api.fireworks.ai/inference/v1",
     )
 
-    prompt = build_prompt(oracle, agent_output)
+    prompt = (
+        "You are an evaluation judge grading an agent's JSON output against a gold oracle "
+        "for a Cube-Plane Distances 3D geometry audit task.\n\n"
+        f"ORACLE:\n{json.dumps(oracle, indent=2)}\n\n"
+        f"AGENT OUTPUT:\n{json.dumps(agent_output, indent=2)}\n\n"
+        "Grade only the requested JSON fields. Do not reward prose outside the schema.\n\n"
+        "Allowed failure reason codes are exactly:\n"
+        "- claims_unique_edge_length\n"
+        "- restricts_to_nonnegative_subset_sums\n"
+        "- assumes_max_distance_equals_space_diagonal\n"
+        "- assumes_plane_parallel_to_cube_face\n"
+        "- equates_max_distance_with_edge_length_directly\n"
+        "- uses_fabricated_invariant_or_invalid_derivation\n"
+        "- accepts_internal_contradictions_in_derivation\n"
+        "- assumes_zero_distance_vertex_is_axis_corner\n"
+        "- omits_sign_pattern_casework\n"
+        "- treats_one_orientation_as_proof_of_uniqueness\n"
+        "- derives_correct_partial_s2_then_discards_it\n"
+        "- non_terminating_or_no_final_answer\n\n"
+        "Field meanings:\n"
+        "- gold_final_answer: the string form of the integer sum of squares over all distinct edge-length values in S.\n"
+        "- gold_edge_length_squared_set: the sorted integer list of all distinct s^2 values across every sign-pattern family.\n"
+        "- acceptable_solution_ids: the response letters whose final answer equals the gold answer AND whose failure_reasons list is empty.\n"
+        "- final_answer_correct: whether that response's claimed final answer equals the gold answer exactly.\n"
+        "- failure_reasons: exact set of concrete reasons why the response's reasoning is defective. Must be empty iff final_answer_correct is true AND no failure-reason trigger fires on the response.\n\n"
+        "Equivalence and strictness rules:\n"
+        "1. For gold_final_answer, require exact string equality with the oracle.\n"
+        "2. For gold_edge_length_squared_set, require equality as a sorted integer list.\n"
+        "3. For acceptable_solution_ids, require the same set of response letters as the oracle.\n"
+        f"4. per_response_assessment must contain exactly one object for each response {response_id_text}.\n"
+        "5. For response_id and final_answer_correct, require exact equality.\n"
+        "6. For failure_reasons, order does not matter, but the set must match exactly. Extra reasons fail. Missing reasons fail. No partial credit inside failure_reasons.\n"
+        "7. A per-response audit receives credit only if response_id, final_answer_correct, and the exact failure_reasons set are all correct for that response.\n\n"
+        "Scoring rubric with weighted points:\n"
+        "- gold_final_answer = 2 points.\n"
+        "- gold_edge_length_squared_set = 2 points.\n"
+        "- acceptable_solution_ids = 2 points.\n"
+        f"- Each response audit {response_id_text} is all-or-nothing = 30 points. Award the 30 points only if response_id, final_answer_correct, and exact failure_reasons set all match the oracle for that response. Otherwise award 0 for that response.\n"
+        f"- Total = {total_points} points. score = passed/{total_points}.\n\n"
+        "Respond in JSON only, no markdown:\n"
+        f'{{"score": <float 0.0-1.0>, "passed": <int>, "total": {total_points}, '
+        '"justification": "<concise weighted field-by-field breakdown>"}'
+    )
 
     response = client.chat.completions.create(
-        model=JUDGE_MODEL,
+        model="accounts/fireworks/models/kimi-k2p5",
         messages=[{"role": "user", "content": prompt}],
         temperature=0,
     )
@@ -163,29 +111,19 @@ def main():
     try:
         result = json.loads(extract_json(raw))
     except json.JSONDecodeError as e:
-        with open(args.reward_out, "w", encoding="utf-8") as f:
-            json.dump({"reward": 0.0}, f)
-        try:
-            with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-                f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw:\n{raw}\n")
-        except OSError:
-            pass
+        json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
+        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+            f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw}")
         return
 
     score = max(0.0, min(1.0, float(result.get("score", 0.0))))
-    with open(args.reward_out, "w", encoding="utf-8") as f:
-        json.dump({"reward": score}, f)
+    json.dump({"reward": score}, open(args.reward_out, "w", encoding="utf-8"))
 
-    try:
-        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-            f.write(
-                f"Score: {score:.4f} "
-                f"({result.get('total_earned', '?')}/{result.get('total_possible', '?')} weighted points)\n\n"
-            )
-            f.write(json.dumps(result, indent=2))
-            f.write("\n")
-    except OSError:
-        pass
+    with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+        f.write(
+            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', '?')} passed)\n\n"
+            f"{result.get('justification', '')}"
+        )
 
 
 if __name__ == "__main__":

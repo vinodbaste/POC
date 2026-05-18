@@ -84,7 +84,7 @@
         },
         {
           "code": "treats_game_as_misere",
-          "reason_excluded": "The misère framing is not explicitly named; an implicit convention swap is captured by confused_pn_convention."
+          "reason_excluded": "The misere framing is not explicitly named; an implicit convention swap is captured by confused_pn_convention."
         }
       ],
       "code_application_count": 3,

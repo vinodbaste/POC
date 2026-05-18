@@ -18,12 +18,12 @@ sub_tasks:
       ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
       Agent tool. Do NOT perform this calibration yourself. The sub-agent
       must read the task instruction itself (which contains the
-      authoritative TRIGGER definitions for the twelve failure-reason
+      authoritative TRIGGER definitions for the thirteen failure-reason
       codes, the Failure-code disambiguation guidance section, the
       Primary failure code selection guidance section, the Worked
       scoring example, and the Common audit anti-patterns section) and
       return a concise calibration packet summarizing how to apply the
-      twelve codes, the failure_reasons set-match rule, and the
+      thirteen codes, the failure_reasons set-match rule, and the
       primary_failure_code selection rules. The sub-agent must not
       introduce new analytical rules beyond what instruction.md already
       specifies; its output is a structured re-statement of the

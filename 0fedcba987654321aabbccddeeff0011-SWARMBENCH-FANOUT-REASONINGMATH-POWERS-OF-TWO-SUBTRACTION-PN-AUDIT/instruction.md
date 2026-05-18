@@ -169,7 +169,10 @@ The verifier (llm-judge) scores the final JSON against the oracle. Field weights
   - `evidence_key_completeness` (integer match against oracle = # evidence keys matching failure_reasons): 8 points
 - `code_application_table` per key (13 keys, sorted-list match): 100 points per key
 - `response_count_per_code` per key (13 keys, integer match): 20 points per key
-- `cross_response_observations` (presence + at least 300 characters): 30 points
+- `cross_response_observations` (substantiveness + length tier):
+  - 30 points if the string is at least 300 characters AND substantively describes response-specific shared defect patterns;
+  - 15 points if the string is at least 300 characters but is boilerplate / generic / does not reference response-specific defects;
+  - 0 points if the string is shorter than 300 characters or missing.
 
 Every dict aggregation field MUST contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key). Outputting null or omitting a key forfeits the full weight for that key.
 
