@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/57cdafc2183a4107a1a18de8d37609f1-SWARMBENCH-FANOUT-REASONINGMATH-SQUARE-TRIANGLE-GAME-PN-AUDIT"
+description = "Solve a deterministic combinatorial game theory problem (P/N classification for the Square-Triangle Subtraction Game on pile sizes 0 through 130) and audit eight real, unedited model responses. Each sub-task consumes a shared gold 131-character classification string derived by dynamic programming over the union of perfect squares and triangular numbers, then identifies the exact set of failure-reason codes whose triggering conditions are concretely instantiated in each response's text."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end mathematical workflow. (a) Independent derivation of the gold 131-character P/N classification string from first principles, including correct enumeration of the move set (union of perfect squares and triangular numbers up to 130) and dynamic-programming computation from the base case: 1.2h. (b) Rubric boundary calibration for exact-set failure-code matching: 0.8h. (c) Mathematical analysis of each released response's reasoning chain - identifying its enumerated move set, P/N convention, base-case treatment, final classification string, and exact failure-code set: 8 x 0.85h = 6.8h. (d) Reconciling the eight audits into a coherent verifier-aligned output: 1.4h. (e) Cross-check of weighted scoring and execution-log consistency: 0.8h. Total: 1.2 + 0.8 + 6.8 + 1.4 + 0.8 = 11.0h. Mathematical reasoning remains the primary cognitive activity because every audit depends on the dynamic-programming gold and exact P/N/code interpretation."
+estimated_sub_agents = 10
+input_token_estimate = 28000
+why_multi_agent = "The task is a mathematical-reasoning workload with brittle exact-set scoring. One gold-classification agent derives the Square-Triangle Subtraction Game P/N string, eight response auditors each own a single candidate with isolated context, and one synthesizer reconciles the final JSON. A single agent juggling all eight responses in one context is likely to confuse close codes such as truncated_or_short_string versus arbitrary_pattern_heuristic, or arithmetic_recursion_error versus missing_subtraction_moves; exact-set scoring zeros a whole response for either extra or missing codes. Fan-out gives each response an isolated audit while the shared gold derivation preserves consistency."
+reference_link = "https://en.wikipedia.org/wiki/Sprague%E2%80%93Grundy_theorem"
+
+[agent]
+timeout_sec = 660
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600
