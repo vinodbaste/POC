@@ -1,0 +1,145 @@
+{
+  "calibration_packet": {
+    "description": "Structured re-statement of the 10-code failure_reasons vocabulary, set-match scoring rules, and primary_failure_code selection rules for the envelope-sequence audit task",
+    
+    "canonical_answer": {
+      "correct_final_number": "15",
+      "derivation_summary": "1 inspection of Mixed-labeled envelope to identify its pure type + 14 same-type observations to force distinction against 7/13 mixed envelope worst case"
+    },
+
+    "ten_code_vocabulary": {
+      "codes": [
+        {
+          "code": "wrong_final_number",
+          "definition": "Final stated number deviates from 15",
+          "triggering_condition": "Response states any numeric answer other than 15 as the minimum inspections required",
+          "example_patterns": ["answer is 2", "answer is 3", "answer is 14", "total = 14"]
+        },
+        {
+          "code": "contradictory_final_answer",
+          "definition": "Response oscillates among incompatible counts without committing",
+          "triggering_condition": "Multiple conflicting numeric answers proposed; answer vacillates (e.g., 2, 3, 14, 15); final commitment differs from earlier claims without clear resolution logic",
+          "example_patterns": ["I think 3... Wait... Actually maybe 2... Final answer: 3", "probably 14... or maybe 15"]
+        },
+        {
+          "code": "no_concrete_strategy",
+          "definition": "Closing synthesis step is hand-wavy or lacks branch-by-branch label-fixing rule",
+          "triggering_condition": "Response substitutes abstract reasoning (information theory, entropy) for concrete inspection strategy; no explicit statement of which envelopes to inspect, in what order, what conclusions to draw per outcome; 'deduce' or 'determined' without specifying how",
+          "example_patterns": ["at this point the remaining are determined", "deduced by elimination", "information theory shows 3 inspections suffice"]
+        },
+        {
+          "code": "invalid_upper_bound",
+          "definition": "Proposed strategy's upper-bound proof fails in some worst-case branch",
+          "triggering_condition": "Strategy does not achieve guaranteed correct labeling in all branches; some branch leaves ambiguity unresolved; verification threshold insufficient to distinguish pure from mixed",
+          "example_patterns": ["14 inspections sufficient", "verify with 7 observations"]
+        },
+        {
+          "code": "missing_lower_bound",
+          "definition": "No impossibility proof for fewer-than-claimed inspections",
+          "triggering_condition": "Response asserts minimality but only justifies count of its own strategy; lacks indistinguishable-case argument showing no alternative strategy with fewer inspections can succeed",
+          "example_patterns": ["this is optimal because my strategy uses N inspections", "minimum is N because I can solve it in N"]
+        },
+        {
+          "code": "not_worst_case",
+          "definition": "Strategy treats favorable single-draw observations as resolving worst-case ambiguity",
+          "triggering_condition": "Analysis assumes best-case outcomes (first draw reveals minority type); fails to account for branch where mixed envelope returns same type as pure envelope on initial draws",
+          "example_patterns": ["inspect one from each envelope to determine their types", "if we see increasing, that envelope is increasing"]
+        },
+        {
+          "code": "invalid_one_draw_inference",
+          "definition": "Claims one observed sequence from an envelope that could still be mixed proves the envelope is pure",
+          "triggering_condition": "Response infers an envelope's pure category from single observation without multi-draw verification ruling out 7/13 mixed case; treats first observation as definitive proof",
+          "example_patterns": ["inspect one from Mixed envelope... it must be strictly increasing", "if first draw is increasing, envelope is increasing"]
+        },
+        {
+          "code": "unnecessary_mixed_pair_requirement",
+          "definition": "Response adds inspections solely to determine exact 2-type composition of the mixed envelope",
+          "triggering_condition": "Strategy includes additional inspections beyond what is needed for guaranteed relabeling; attempts to identify both types in mixed envelope rather than just identifying one envelope as pure to force the rest by derangement logic",
+          "example_patterns": ["need to find which 7 and which 13", "must determine both types in mixed envelope"]
+        },
+        {
+          "code": "fatal_wrong_claim",
+          "definition": "Load-bearing 'forced by contradiction', 'remaining are determined', 'cycle uniquely', or 'follow directly' assertion",
+          "triggering_condition": "Response contains a categorical claim that labels are forced/derived/determined without valid deductive support; elimination assertion ignoring derangement of 3 envelopes; 'automatically' without accounting for mixed envelope among remaining",
+          "example_patterns": ["remaining two envelopes are determined automatically by elimination", "the rest follow directly", "forced by contradiction", "uniquely determined"]
+        },
+        {
+          "code": "non_terminating_or_no_final_answer",
+          "definition": "No committed final numeric answer at all; stands alone when present",
+          "triggering_condition": "Response declines to commit any finite number; appeals to objections outside problem structure; infinitely recursive reasoning; no boxed or bold final answer",
+          "example_patterns": ["the problem is ill-posed", "depends on the observer", "cannot be determined"]
+        }
+      ]
+    },
+
+    "set_match_scoring_rules": {
+      "exact_match": {
+        "score": 30,
+        "condition": "failure_reasons set identical to oracle set (same codes, no extras, no omissions)"
+      },
+      "off_by_one_substantively_equivalent": {
+        "score": 15,
+        "condition": "Sets differ by exactly one code, but the substantive analysis is equivalent (e.g., both capture same underlying defect)"
+      },
+      "overlap_50_percent": {
+        "score": 8,
+        "condition": "Intersection size >= 50% of union; partial overlap with substantive divergence in analysis"
+      },
+      "no_match": {
+        "score": 0,
+        "condition": "Overlap < 50% or completely divergent analysis"
+      }
+    },
+
+    "primary_failure_code_selection_rules": {
+      "requirement": "Choose exactly ONE primary_failure_code per response",
+      "selection_criteria": [
+        "Must be a code from the response's failure_reasons set, OR 'NONE' if failure_reasons is empty",
+        "Select the single most load-bearing diagnostic defect",
+        "The defect that most fundamentally undermines the response's correctness",
+        "Prefer: wrong_final_number if answer deviates from 15, unless reasoning is so incoherent that non_terminating_or_no_final_answer applies",
+        "Prefer: fatal_wrong_claim when response contains categorical elimination assertion that is mathematically invalid",
+        "Prefer: invalid_one_draw_inference when the core error is treating single observations as proof",
+        "Prefer: no_concrete_strategy when response lacks any inspection procedure",
+        "non_terminating_or_no_final_answer stands alone - if present, it is typically the primary code"
+      ],
+      "scoring": {
+        "exact_match": 25,
+        "in_set_but_not_primary": 10,
+        "not_in_set": 0
+      }
+    },
+
+    "code_application_count_rules": {
+      "description": "Integer equal to length of failure_reasons list",
+      "typical_range": "1-7 codes per response",
+      "empty_set": "Use 0 when response has no failure reasons (correct answer with valid reasoning)"
+    },
+
+    "primary_in_set_check_rules": {
+      "true_condition": "(primary_failure_code in failure_reasons) OR (primary_failure_code == 'NONE' AND failure_reasons == [])"
+    },
+
+    "evidence_key_completeness_rules": {
+      "description": "Number of keys in failure_reason_evidence that are also in failure_reasons",
+      "requirement": "Every code in failure_reasons must have a corresponding evidence entry"
+    },
+
+    "universal_phrase_pattern_rules": {
+      "rule_1": "When response claims 'the remaining envelopes are determined/forced/unique' after N inspections where N < 15, and N observations do not actually force a unique labeling, apply fatal_wrong_claim",
+      "rule_2": "When response claims 'inspect one sequence from each envelope' or treats first observation as definitive type identification, apply invalid_one_draw_inference AND not_worst_case",
+      "rule_3": "When response uses information theory or entropy without concrete inspection steps, apply no_concrete_strategy",
+      "rule_4": "When response oscillates between multiple numeric answers (e.g., 2, 3, 14, 15) without clear resolution, apply contradictory_final_answer",
+      "rule_5": "When response asserts 'elimination' or 'by contradiction' without valid deductive support, apply fatal_wrong_claim",
+      "rule_6": "When response states any number other than 15 as final answer, apply wrong_final_number",
+      "rule_7": "When response admits it cannot determine answer or appeals outside problem structure, apply non_terminating_or_no_final_answer (stands alone)"
+    },
+
+    "borderline_resolution_rules": {
+      "ambiguous_strategy": "If strategy is vague but seems to imply correct count, prefer no_concrete_strategy over invalid_upper_bound",
+      "partial_verification": "If response mentions verification but with wrong threshold, apply invalid_upper_bound",
+      "multiple_errors": "Include all instantiated codes; do not truncate to single error",
+      "substantive_equivalence": "Two codes may overlap in practice (e.g., invalid_one_draw_inference and not_worst_case often co-occur); include both when both conditions are met"
+    }
+  }
+}

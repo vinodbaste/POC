@@ -1,0 +1,842 @@
+{
+  "gold_final_answer": "15",
+  "acceptable_solution_ids": [
+    "response_C",
+    "response_K",
+    "response_W"
+  ],
+  "per_response_assessment": [
+    {
+      "response_id": "response_A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response A states 'At this point, the remaining two envelopes are determined automatically by elimination' after only 2 inspections. This is a load-bearing 'forced by contradiction' assertion that is mathematically invalid - after seeing two increasing sequences, the envelope labeled 'Strictly Increasing' could still be mixed with 13 increasing and 7 decreasing sequences.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims 'the remaining two envelopes are determined automatically by elimination' after just 2 inspections",
+        "invalid_one_draw_inference": "Claims that seeing one increasing from 'Strictly Increasing' envelope proves it's mixed if also increasing",
+        "missing_lower_bound": "No proof that fewer than 2 inspections cannot succeed",
+        "wrong_final_number": "States answer is 2 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "not_worst_case",
+          "reason_excluded": "Response does consider the scenario where both observations are increasing, but fails to recognize the ambiguity persists"
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "The response does provide a concrete (though flawed) branch-by-branch strategy"
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number",
+        "no_concrete_strategy"
+      ],
+      "primary_failure_code": "invalid_one_draw_inference",
+      "primary_failure_code_evidence": "Response B claims 'At this point enough information has been gathered to deduce the final arrangement uniquely' after only 4 inspections. But after inspecting 'Mixed' (2 draws to 'verify'), 'Constant' (1 draw), and 'Strictly Increasing' (1 draw), there's no guaranteed resolution - a single draw cannot distinguish pure from mixed containing 7 of that type.",
+      "failure_reason_evidence": {
+        "invalid_one_draw_inference": "Claims single draws are sufficient to distinguish pure from mixed envelopes",
+        "missing_lower_bound": "No argument why 3 inspections cannot suffice",
+        "not_worst_case": "Treats favorable observations as resolving worst-case ambiguity",
+        "wrong_final_number": "Answer is 4 instead of correct 15",
+        "no_concrete_strategy": "Hand-wavy conclusion without explicit branch resolution"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "unnecessary_mixed_pair_requirement",
+          "reason_excluded": "Response doesn't try to determine exact 2-type composition, just makes wrong claims about sufficiency"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Not the best fit - the upper bound proof isn't attempted and shown failing, rather single draws are treated as sufficient"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_C",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "Response C correctly identifies that 14 identical observations are needed to prove purity against a 7/13 mixed envelope. The reasoning about minority type appearing only after 13 inspections, requiring 14 to prove purity, is mathematically sound.",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_final_number",
+          "reason_excluded": "Answer is correctly 15"
+        },
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Response implicitly shows 14+1 structure is necessary via the 7/13 minority argument"
+        }
+      ],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    },
+    {
+      "response_id": "response_D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "wrong_final_number",
+        "not_worst_case"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response D contains the explicit claim 'the remaining labels cycle uniquely' - a load-bearing 'uniquely/cycle/follow directly' assertion. After one inspection of 'Mixed' showing increasing, the envelope labeled 'Strictly Increasing' could still be mixed (7 incr + 13 decr), making the remaining assignments NOT uniquely determined.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Explicit 'remaining labels cycle uniquely' assertion is mathematically false",
+        "invalid_one_draw_inference": "Claims one inspection immediately identifies and resolves everything",
+        "missing_lower_bound": "No proof that 0 inspections cannot suffice",
+        "wrong_final_number": "Answer is 1 instead of correct 15",
+        "not_worst_case": "Assumes best case where logic resolves everything after one draw"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "contradictory_final_answer",
+          "reason_excluded": "Response commits to 1 without oscillation"
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Strategy is concrete (though fatally flawed)"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "contradictory_final_answer",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "contradictory_final_answer",
+      "primary_failure_code_evidence": "Response E oscillates through multiple incompatible counts: 'I think this can be solved in 3 inspections', 'Actually maybe 2', 'So perhaps we need 14', 'No, wait...', 'Actually I think the minimum is 3', 'No \u2014 worst-case guarantee probably makes it 15', 'Final answer: 3'. The response commits to 3 despite acknowledging 15 as the worst-case guarantee.",
+      "failure_reason_evidence": {
+        "contradictory_final_answer": "Oscillates among 3, 2, 14, 15 without coherent commitment",
+        "invalid_one_draw_inference": "Thinks 2-3 inspections might suffice without accounting for 7/13 mixed structure",
+        "not_worst_case": "Fails to properly incorporate worst-case reasoning into final answer",
+        "wrong_final_number": "Commits to 3 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "The response briefly acknowledges 15 but dismisses it without proper reasoning"
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does attempt some branching analysis"
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number",
+        "fatal_wrong_claim"
+      ],
+      "primary_failure_code": "invalid_one_draw_inference",
+      "primary_failure_code_evidence": "Response F claims inspecting one sequence from each of three envelopes suffices, with 'In every case, the correct arrangement can be deduced from these three observations'. But a single draw from each envelope cannot distinguish: if 'Strictly Increasing' shows increasing, it could be pure increasing OR mixed (7 increasing + 13 constant) - one draw cannot prove purity against 7/13 mixed.",
+      "failure_reason_evidence": {
+        "invalid_one_draw_inference": "Single draws from three envelopes claimed sufficient",
+        "missing_lower_bound": "No proof that 2 inspections cannot suffice",
+        "not_worst_case": "Does not account for worst-case where mixed envelope shows majority type",
+        "wrong_final_number": "Answer is 3 instead of correct 15",
+        "fatal_wrong_claim": "Claims 'the correct arrangement can be deduced' when it cannot"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does provide some branching logic"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound isn't really attempted - just wrong claims about sufficiency"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "wrong_final_number",
+      "primary_failure_code_evidence": "Response G correctly identifies the need for 1 initial inspection plus 14 worst-case inspections to prove purity (seeing 14 identical categories proves purity since mixed has at most 13), but incorrectly sums to 16 instead of 15. The correct calculation is 1 + 14 = 15, not 16.",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Sums 1 + 14 to get 16 instead of 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "The reasoning about 14 to prove purity is actually correct, just arithmetic error"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound logic is sound, just arithmetic error in sum"
+        }
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    },
+    {
+      "response_id": "response_H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number",
+        "fatal_wrong_claim"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response H states 'the assignment follows directly' after 4 inspections. This is a load-bearing 'follows directly' assertion. After seeing one sequence from each envelope, if 'Strictly Increasing' shows increasing, it could be pure increasing OR mixed (7 increasing + 13 of another type). The assignment does NOT follow directly - 14 more inspections of that envelope may be needed.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims 'the assignment follows directly' when it does not",
+        "invalid_one_draw_inference": "One draw from each envelope cannot prove purity against 7/13 mixed",
+        "missing_lower_bound": "No proof that 3 inspections cannot suffice",
+        "not_worst_case": "Assumes observations immediately resolve identities",
+        "wrong_final_number": "Answer is 4 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does describe a concrete (flawed) approach"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound proof not really attempted"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_I",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "wrong_final_number",
+        "not_worst_case"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response I claims 'the remaining labels are forced by elimination' after just 1 inspection. This is a load-bearing 'forced' assertion. After identifying 'Mixed' as increasing, the envelope labeled 'Strictly Increasing' could be: (1) pure decreasing, (2) pure constant, or (3) mixed (7 increasing + 13 decreasing OR 7 increasing + 13 constant OR 7 decreasing + 13 constant, etc.). The labels are NOT forced by elimination.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims 'forced by elimination' when multiple valid assignments remain",
+        "invalid_one_draw_inference": "One inspection cannot resolve remaining three envelopes",
+        "missing_lower_bound": "No proof that 0 inspections cannot suffice",
+        "wrong_final_number": "Answer is 1 instead of correct 15",
+        "not_worst_case": "Assumes elimination works immediately"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Strategy is concrete (though flawed)"
+        },
+        {
+          "code": "contradictory_final_answer",
+          "reason_excluded": "Commits cleanly to 1 without oscillation"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_J",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number",
+        "no_concrete_strategy"
+      ],
+      "primary_failure_code": "invalid_one_draw_inference",
+      "primary_failure_code_evidence": "Response J claims that after 3 inspections, the puzzle is solved. But if the second and third inspections both show decreasing from 'Strictly Increasing' envelope, this doesn't prove purity - the envelope could be mixed with 13 decreasing + 7 increasing. One more inspection (the 14th same-type) would be needed to prove purity.",
+      "failure_reason_evidence": {
+        "invalid_one_draw_inference": "Treats 3 inspections as sufficient when 15 are needed",
+        "missing_lower_bound": "No proof that 2 inspections cannot suffice",
+        "not_worst_case": "Does not account for seeing 13 of majority type before minority appears",
+        "wrong_final_number": "Answer is 3 instead of correct 15",
+        "no_concrete_strategy": "Conclusion is hand-wavy without explicit branch resolution"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "Doesn't use explicit 'forced' language but implication is similar"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound not explicitly attempted"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_K",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "Response K correctly understands that 14 identical observations prove purity (since mixed contains at most 13 of one type). The calculation 1 + 14 = 15 is correct and complete.",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_final_number",
+          "reason_excluded": "Answer is correctly 15"
+        },
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Implicitly covers necessity through 7/13 structure"
+        }
+      ],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    },
+    {
+      "response_id": "response_L",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number",
+        "fatal_wrong_claim"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response L claims 'the mapping becomes unique automatically' after 4 inspections. This is a load-bearing 'unique/becomes unique automatically' assertion. After one draw from each envelope, multiple valid assignments typically remain. For example, if 'Strictly Increasing' shows increasing, it could be pure increasing OR mixed with 7 increasing + 13 of another type. The mapping is NOT unique.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims mapping 'becomes unique automatically' when it does not",
+        "invalid_one_draw_inference": "One draw from each envelope cannot prove purity",
+        "missing_lower_bound": "No proof that 3 inspections cannot suffice",
+        "not_worst_case": "Assumes immediate uniqueness without considering mixed possibilities",
+        "wrong_final_number": "Answer is 4 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does describe a concrete (flawed) approach"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound proof not attempted"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_M",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number",
+        "no_concrete_strategy"
+      ],
+      "primary_failure_code": "invalid_one_draw_inference",
+      "primary_failure_code_evidence": "Response M claims 3 inspections suffice with conclusion 'Thus 3 inspections are sufficient'. But after 3 inspections showing constant from 'Mixed', then from 'Constant' showing increasing (which could be pure increasing OR mixed with 7 increasing + 13 constant), a 3rd inspection of 'another envelope' doesn't prove purity - you need 14 of the same type to distinguish from 7/13 mixed.",
+      "failure_reason_evidence": {
+        "invalid_one_draw_inference": "3 inspections treated as sufficient when 15 are needed",
+        "missing_lower_bound": "No proof that 2 inspections cannot suffice",
+        "not_worst_case": "Does not account for worst-case where mixed shows majority type",
+        "wrong_final_number": "Answer is 3 instead of correct 15",
+        "no_concrete_strategy": "Conclusion 'inspect another envelope' is vague without explicit branch resolution"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "Doesn't use explicit 'forced' language but treats 3 as sufficient"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound argument not really attempted"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_N",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "contradictory_final_answer",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "contradictory_final_answer",
+      "primary_failure_code_evidence": "Response N oscillates: 'I think the answer is 2', 'So maybe 3', 'But then even with 3...', 'Actually this suggests 14', 'No, because logical elimination helps', 'I'll say the answer is 3'. The response considers 2, 3, 14, and mentions elimination helping, but commits to 3 despite acknowledging 14 might be needed.",
+      "failure_reason_evidence": {
+        "contradictory_final_answer": "Oscillates among 2, 3, 14 without coherent resolution",
+        "invalid_one_draw_inference": "Initially thinks 2 might work, then 3, without proper worst-case analysis",
+        "not_worst_case": "Acknowledges 14 might be needed but dismisses it with 'logical elimination' handwave",
+        "wrong_final_number": "Commits to 3 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Briefly acknowledges 14 but doesn't properly analyze"
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Some branching analysis attempted"
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_O",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number",
+        "invalid_upper_bound"
+      ],
+      "primary_failure_code": "invalid_upper_bound",
+      "primary_failure_code_evidence": "Response O attempts an information theory argument: 'Each inspection yields one of three outcomes... Thus one inspection gives at most log_2(3) bits'. This upper-bound proof fails because worst-case analysis requires considering adversarial sequence arrangement (mixed envelope showing majority type for first 13 draws), not just information content. The information-theoretic bound is insufficient for worst-case guarantee.",
+      "failure_reason_evidence": {
+        "invalid_upper_bound": "Information theory argument fails to establish correct upper bound for worst case",
+        "missing_lower_bound": "No impossibility proof for fewer than 3",
+        "not_worst_case": "Information theory doesn't capture adversarial mixed envelope behavior",
+        "wrong_final_number": "Answer is 3 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "invalid_one_draw_inference",
+          "reason_excluded": "Uses information theory rather than single-draw inference claims"
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does provide an information-theoretic argument (flawed)"
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_P",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_upper_bound",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "invalid_upper_bound",
+      "primary_failure_code_evidence": "Response P claims 8 copies of same category proves purity because 'minority category would already have been exhausted'. This is mathematically wrong - mixed envelope contains 7 of minority and 13 of majority. You need 14 (not 8) of the same type to prove purity: 7+1=8 would only prove you've exceeded the minority count, but since you could have drawn 7 minority followed by 7 majority, you need 14 total same-type observations to guarantee purity against 7/13.",
+      "failure_reason_evidence": {
+        "invalid_upper_bound": "Claims 8 same-type proves purity when 14 are needed - misunderstands 7/13 structure",
+        "wrong_final_number": "Calculates 1+8=9 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "invalid_one_draw_inference",
+          "reason_excluded": "Does multiple draws, just wrong count"
+        },
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Not applicable - wrong upper bound is the main issue"
+        }
+      ],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2
+    },
+    {
+      "response_id": "response_Q",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "wrong_final_number",
+        "not_worst_case"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response Q claims 'The remaining two envelopes are resolved by elimination' after just 2 inspections. This is a load-bearing 'resolved by elimination' assertion. After seeing decreasing from 'Mixed' and another decreasing from 'Strictly Decreasing', the second envelope could still be mixed (7 decreasing + 13 of another type). The remaining envelopes are NOT resolved.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims remaining envelopes 'resolved by elimination' when ambiguity remains",
+        "invalid_one_draw_inference": "2 inspections cannot prove purity against 7/13 mixed",
+        "missing_lower_bound": "No proof that 1 inspection cannot suffice",
+        "wrong_final_number": "Answer is 2 instead of correct 15",
+        "not_worst_case": "Assumes best-case resolution"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does describe a concrete (flawed) strategy"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound not really attempted"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_R",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_final_number",
+        "missing_lower_bound"
+      ],
+      "primary_failure_code": "wrong_final_number",
+      "primary_failure_code_evidence": "Response R correctly identifies that 13 inspections for one envelope plus one setup inspection gives 14, but fails to account for the initial inspection of 'Mixed' envelope. The correct calculation is: 1 (inspect 'Mixed' to identify its pure type) + 14 (prove another envelope is pure) = 15. Response gives 14 instead of 15.",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Gives 14 instead of correct 15 - misses initial 'Mixed' inspection",
+        "missing_lower_bound": "Response gives the total count but doesn't prove 13 cannot suffice"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "No 'forced by contradiction' type claims"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound is actually correct for the secondary envelope, just missing one"
+        }
+      ],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2
+    },
+    {
+      "response_id": "response_S",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "wrong_final_number",
+        "not_worst_case"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response S claims 'Thus 2 inspections solve the puzzle' and that if second inspection shows decreasing from 'Strictly Increasing' envelope, then it is 'decreasing' (pure). But this envelope could be mixed with 7 decreasing + 13 of another type. The claim 'Thus 2 inspections solve the puzzle' is a load-bearing assertion that is false.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims '2 inspections solve the puzzle' when they do not",
+        "invalid_one_draw_inference": "2 inspections treated as sufficient when 15 are needed",
+        "missing_lower_bound": "No proof that 1 inspection cannot suffice",
+        "wrong_final_number": "Answer is 2 instead of correct 15",
+        "not_worst_case": "Does not account for mixed envelope showing majority type"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does describe a concrete (flawed) strategy"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound not attempted"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_T",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_upper_bound",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "invalid_upper_bound",
+      "primary_failure_code_evidence": "Response T claims 'If we inspect 8 sequences from a candidate envelope and all belong to the same category, then the envelope must be pure because a mixed envelope could contain at most 7 copies of its minority category'. This misunderstands the structure - to prove purity, you need 14 of the same type (7 minority + 7 majority doesn't prove anything - you need 8 minority to exhaust it, OR 14 majority to prove you've exceeded 13). The 8 count is insufficient.",
+      "failure_reason_evidence": {
+        "invalid_upper_bound": "Claims 8 same-type proves purity when 14 are needed",
+        "wrong_final_number": "Calculates 1+8=9 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "invalid_one_draw_inference",
+          "reason_excluded": "Does multiple draws, just wrong count"
+        },
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Not the primary issue"
+        }
+      ],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2
+    },
+    {
+      "response_id": "response_U",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "missing_lower_bound",
+        "wrong_final_number",
+        "not_worst_case",
+        "invalid_one_draw_inference"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response U claims 'the remaining three are uniquely determined by permutation constraints' and 'relabel everything' after 1 inspection. This is a load-bearing 'uniquely determined' assertion. After identifying 'Mixed' as increasing, the envelope labeled 'Strictly Increasing' could be: pure decreasing, pure constant, or mixed. These are NOT uniquely determined by permutation constraints alone.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims 'uniquely determined by permutation constraints' when they are not",
+        "invalid_one_draw_inference": "1 inspection cannot resolve remaining ambiguity",
+        "missing_lower_bound": "No proof that 0 inspections cannot suffice",
+        "wrong_final_number": "Answer is 1 instead of correct 15",
+        "not_worst_case": "Assumes derangement logic immediately resolves everything"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does describe a concrete (flawed) derangement argument"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound not attempted in the usual sense"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_V",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number",
+        "fatal_wrong_claim"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response V claims 'In every case, the actual configuration can be deduced' after 4 inspections. This is a load-bearing 'can be deduced' assertion. After one draw from each envelope, if 'Strictly Increasing' shows increasing, it could be pure increasing OR mixed. The configuration cannot be deduced.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims 'the actual configuration can be deduced' when it cannot",
+        "invalid_one_draw_inference": "One draw from each envelope cannot prove purity against 7/13 mixed",
+        "missing_lower_bound": "No proof that 3 inspections cannot suffice",
+        "not_worst_case": "Assumes observations immediately resolve identities",
+        "wrong_final_number": "Answer is 4 instead of correct 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Does describe a concrete (flawed) approach"
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Upper bound proof not attempted"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_W",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "Response W correctly identifies that 1 initial inspection plus 14 worst-case inspections are needed. The reasoning that 'the envelope is mixed with 13 increasing sequences, so the first 13 inspections may all appear increasing' and 'Only the 14th inspection guarantees a second category' (or proves purity if no second category) is mathematically sound. The sum 1+14=15 is correct.",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_final_number",
+          "reason_excluded": "Answer is correctly 15"
+        },
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Implicitly demonstrates necessity through 13-majority argument"
+        }
+      ],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    },
+    {
+      "response_id": "response_X",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ],
+      "primary_failure_code": "non_terminating_or_no_final_answer",
+      "primary_failure_code_evidence": "Response X concludes 'Hence no finite number of inspections guarantees correct relabeling' and does not provide any committed numeric answer. This stands alone as the non_terminating_or_no_final_answer code - the response rejects the premise that a solution exists rather than computing the correct minimum of 15.",
+      "failure_reason_evidence": {
+        "non_terminating_or_no_final_answer": "Claims no finite solution exists instead of providing the correct answer 15"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_final_number",
+          "reason_excluded": "No numeric answer is provided to be wrong"
+        },
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Not applicable when denying finite solution exists"
+        }
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    }
+  ],
+  "code_application_table": {
+    "contradictory_final_answer": [
+      "response_E",
+      "response_N"
+    ],
+    "fatal_wrong_claim": [
+      "response_A",
+      "response_D",
+      "response_F",
+      "response_H",
+      "response_I",
+      "response_L",
+      "response_Q",
+      "response_S",
+      "response_U",
+      "response_V"
+    ],
+    "invalid_one_draw_inference": [
+      "response_A",
+      "response_B",
+      "response_D",
+      "response_E",
+      "response_F",
+      "response_H",
+      "response_I",
+      "response_J",
+      "response_L",
+      "response_M",
+      "response_N",
+      "response_Q",
+      "response_S",
+      "response_U",
+      "response_V"
+    ],
+    "invalid_upper_bound": [
+      "response_O",
+      "response_P",
+      "response_T"
+    ],
+    "missing_lower_bound": [
+      "response_A",
+      "response_B",
+      "response_D",
+      "response_F",
+      "response_H",
+      "response_I",
+      "response_J",
+      "response_L",
+      "response_M",
+      "response_O",
+      "response_Q",
+      "response_R",
+      "response_S",
+      "response_U",
+      "response_V"
+    ],
+    "no_concrete_strategy": [
+      "response_B",
+      "response_J",
+      "response_M"
+    ],
+    "non_terminating_or_no_final_answer": [
+      "response_X"
+    ],
+    "not_worst_case": [
+      "response_B",
+      "response_D",
+      "response_E",
+      "response_F",
+      "response_H",
+      "response_I",
+      "response_J",
+      "response_L",
+      "response_M",
+      "response_N",
+      "response_O",
+      "response_Q",
+      "response_S",
+      "response_U",
+      "response_V"
+    ],
+    "unnecessary_mixed_pair_requirement": [],
+    "wrong_final_number": [
+      "response_A",
+      "response_B",
+      "response_D",
+      "response_E",
+      "response_F",
+      "response_G",
+      "response_H",
+      "response_I",
+      "response_J",
+      "response_L",
+      "response_M",
+      "response_N",
+      "response_O",
+      "response_P",
+      "response_Q",
+      "response_R",
+      "response_S",
+      "response_T",
+      "response_U",
+      "response_V"
+    ]
+  },
+  "response_count_per_code": {
+    "contradictory_final_answer": 2,
+    "fatal_wrong_claim": 10,
+    "invalid_one_draw_inference": 15,
+    "invalid_upper_bound": 3,
+    "missing_lower_bound": 15,
+    "no_concrete_strategy": 3,
+    "non_terminating_or_no_final_answer": 1,
+    "not_worst_case": 15,
+    "unnecessary_mixed_pair_requirement": 0,
+    "wrong_final_number": 20
+  },
+  "cross_response_observations": "Analysis of 24 candidate responses reveals systematic failure patterns in worst-case reasoning for the sequence-envelope puzzle. The canonical answer of 15 inspections (1 for initial 'Mixed' identification + 14 to prove purity against 7/13 mixed envelope) was correctly identified by only 3 responses (C, K, W). The most common error (appearing in responses A, D, I, Q, S, U) was the 'fatal wrong claim' that remaining envelopes are 'forced by elimination' or 'uniquely determined' after minimal inspections, ignoring that a single observation cannot distinguish pure from mixed envelopes. Many responses (B, F, H, J, L, M, V) failed with 'invalid one-draw inference', assuming 1-4 inspections suffice when 15 are needed. Information-theoretic approaches (Response O) and minority-majority miscounts (P, T claiming 8-9 instead of 15) show misunderstanding of the adversarial worst-case where mixed envelopes reveal majority type for first 13 draws. The 'non-terminating' response X uniquely denies a finite solution exists. Two responses (E, N) exhibited 'contradictory final answer' by oscillating among incompatible counts without coherent commitment. Only responses C, K, and W correctly applied the 7/13 structure to derive 14+1=15."
+}

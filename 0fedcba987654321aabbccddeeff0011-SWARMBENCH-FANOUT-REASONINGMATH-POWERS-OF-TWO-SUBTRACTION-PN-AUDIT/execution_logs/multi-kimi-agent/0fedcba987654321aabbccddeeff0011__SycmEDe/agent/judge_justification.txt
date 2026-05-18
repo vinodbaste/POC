@@ -1,0 +1,25 @@
+Score: 0.6780 (1686/2488 weighted points)
+
+{
+  "score": 0.678,
+  "total_earned": 1686,
+  "total_possible": 2488,
+  "top_level": {
+    "gold_final_answer": 4,
+    "acceptable_solution_ids": 2
+  },
+  "per_response": {
+    "A": 69,
+    "B": 56,
+    "C": 64,
+    "D": 56,
+    "E": 109,
+    "F": 56,
+    "G": 56,
+    "H": 104
+  },
+  "code_application_table_total": 900,
+  "response_count_per_code_total": 180,
+  "cross_response_observations": 30,
+  "justification": "Top-level fields exact match (6/6). Per-response: Primary failure codes all correct (25 each). Failure_reasons exact for E and H (30 pts); A and C had partial overlap (8 pts); B/D/F/G had <50% overlap (0 pts). Strict fields (code_application_count, evidence_key_completeness) frequently mismatched because agent listed fewer codes than oracle (e.g., agent 1-2 vs oracle 3). Aggregation: code_application_table and response_count_per_code lost 400+80 pts because agent omitted arithmetic_recursion_error, claims_wrong_period (B,G), arbitrary_pattern_heuristic (F), and truncated_or_short_string (D) entries, under-reporting downstream errors. Cross-response observations substantive and sufficient length (30/30)."
+}

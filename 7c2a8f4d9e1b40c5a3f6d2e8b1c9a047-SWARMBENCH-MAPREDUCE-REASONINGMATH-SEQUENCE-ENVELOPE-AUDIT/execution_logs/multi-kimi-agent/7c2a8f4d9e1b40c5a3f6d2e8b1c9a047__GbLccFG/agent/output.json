@@ -1,0 +1,699 @@
+{
+  "gold_final_answer": "15",
+  "acceptable_solution_ids": [
+    "response_C",
+    "response_K",
+    "response_W"
+  ],
+  "per_response_assessment": [
+    {
+      "response_id": "response_A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "At this point, the remaining two envelopes are determined automatically by elimination - This categorical claim that labels are forced without valid deductive support",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 2, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Response assumes one draw from Mixed-labeled envelope definitively identifies its type, ignoring 7/13 mixed composition.",
+        "not_worst_case": "Fails to account for scenario where Mixed envelope first draw happens to match what a pure envelope would show.",
+        "fatal_wrong_claim": "At this point, the remaining two envelopes are determined automatically by elimination - This categorical claim that labels are forced without valid deductive support"
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "no_concrete_strategy",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "At this point enough information has been gathered to deduce the final arrangement uniquely - This is a load-bearing categorical claim after only 4 inspections that cannot force unique labeling",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 4, but the correct answer is 15.",
+        "fatal_wrong_claim": "At this point enough information has been gathered to deduce the final arrangement uniquely - This is a load-bearing categorical claim after only 4 inspections that cannot force unique labeling",
+        "not_worst_case": "Response assumes favorable outcomes without accounting for adversarial worst-case branch.",
+        "no_concrete_strategy": "Response provides vague branch-by-branch rule without clear envelope selection logic."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_C",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "Response provides correct answer of 15 with valid reasoning including worst-case analysis and understanding that 14 same-type observations are needed to distinguish pure from 7/13 mixed envelope.",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    },
+    {
+      "response_id": "response_D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "the remaining three are forced by contradiction and therefore the remaining labels cycle uniquely - Mathematically invalid elimination assertion",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 3, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Response assumes single observation proves envelope type.",
+        "not_worst_case": "Fails to account for worst-case where Mixed envelope produces majority type first.",
+        "fatal_wrong_claim": "the remaining three are forced by contradiction and therefore the remaining labels cycle uniquely - Mathematically invalid elimination assertion"
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "contradictory_final_answer",
+        "invalid_upper_bound",
+        "missing_lower_bound",
+        "no_concrete_strategy",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "contradictory_final_answer",
+      "primary_failure_code_evidence": "I think the answer is 2. Wait. Maybe not... So maybe 3... Actually this suggests 14... I'll say the answer is **3** - Response oscillates among incompatible answers without clear resolution",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 3, but the correct answer is 15.",
+        "contradictory_final_answer": "I think the answer is 2. Wait. Maybe not... So maybe 3... Actually this suggests 14... I'll say the answer is **3** - Response oscillates among incompatible answers without clear resolution",
+        "no_concrete_strategy": "Response lacks explicit statement of which envelopes to inspect or conclusions to draw.",
+        "invalid_upper_bound": "Claims answer is 3 but provides no strategy showing how 3 inspections guarantee relabeling.",
+        "missing_lower_bound": "Response asserts final answer 3 but provides no impossibility proof.",
+        "not_worst_case": "Briefly acknowledges mixed envelope problem but abandons without resolving."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 6,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 6
+    },
+    {
+      "response_id": "response_F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Then the last envelope must be mixed - Categorical claim that assumes conclusion without valid deductive support",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 4, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Response treats single observation as definitive.",
+        "fatal_wrong_claim": "Then the last envelope must be mixed - Categorical claim that assumes conclusion without valid deductive support",
+        "not_worst_case": "Fails to handle worst-case branch properly."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "After that, the remaining envelopes are determined by elimination - Invalid elimination assertion after insufficient inspections",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 2, but the correct answer is 15.",
+        "fatal_wrong_claim": "After that, the remaining envelopes are determined by elimination - Invalid elimination assertion after insufficient inspections"
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2
+    },
+    {
+      "response_id": "response_H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "no_concrete_strategy",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Since there are only four envelopes and four labels, the assignment follows directly - Categorical claim that labels follow directly without valid deductive support",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 4, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Inspecting one from each envelope does not definitively identify types.",
+        "fatal_wrong_claim": "Since there are only four envelopes and four labels, the assignment follows directly - Categorical claim that labels follow directly without valid deductive support",
+        "not_worst_case": "Assumes first observations reveal true types.",
+        "no_concrete_strategy": "Response provides no branch-by-branch inspection procedure."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response states: 'Now only three envelopes remain. Since one category has already been identified, the remaining labels are forced by elimination.' This is a mathematically invalid assertion. After identifying E_M (labeled 'Mixed') as pure (e.g., Increasing), the remaining three envelopes {E_I, E_D, E_C} must be assigned {Decreasing, Constant, Mixed}, with wrong-label constraints producing a valid derangement with multiple valid labelings, not a unique forced assignment.",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Final answer is incorrect. The correct answer is 15 inspections, but this response concludes with a different number.",
+        "invalid_one_draw_inference": "Response treats a single observation as definitive proof of envelope type, ignoring that Mixed envelope can produce either of its two types on first draw.",
+        "fatal_wrong_claim": "Response contains a categorical claim that labels are forced/derived/determined without valid deductive support. The assertion ignores derangement complexity of remaining envelopes.",
+        "not_worst_case": "Response assumes favorable outcomes rather than accounting for adversarial worst-case where Mixed envelope produces all 13 majority-type sequences first."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        },
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4,
+      "response_id": "response_I"
+    },
+    {
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "no_concrete_strategy",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "failure_reason_evidence": {
+        "wrong_final_number": "Final answer is incorrect. The correct answer is 15 inspections, but this response concludes with a different number.",
+        "invalid_one_draw_inference": "Response treats a single observation as definitive proof of envelope type, ignoring that Mixed envelope can produce either of its two types on first draw.",
+        "not_worst_case": "Response assumes favorable outcomes rather than accounting for adversarial worst-case where Mixed envelope produces all 13 majority-type sequences first.",
+        "no_concrete_strategy": "Response substitutes abstract reasoning for concrete inspection procedure without specifying which envelopes to inspect, in what order, or what conclusions to draw per outcome.",
+        "fatal_wrong_claim": "Response contains a categorical claim that labels are forced/derived/determined without valid deductive support. The assertion ignores derangement complexity of remaining envelopes."
+      },
+      "primary_failure_code": "wrong_final_number",
+      "primary_failure_code_evidence": "Thus the minimum is **3 inspections** - Response concludes 3 but the correct answer is 15",
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_final_number",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        },
+        {
+          "code": "invalid_one_draw_inference",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        },
+        {
+          "code": "not_worst_case",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        },
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5,
+      "response_id": "response_J"
+    },
+    {
+      "response_id": "response_K",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "Response provides correct answer of 15 with valid reasoning including worst-case analysis and understanding that 14 same-type observations are needed to distinguish pure from 7/13 mixed envelope.",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    },
+    {
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "the mapping becomes unique automatically - This categorical claim that labels are automatically determined lacks valid deductive support",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Final answer is incorrect. The correct answer is 15 inspections, but this response concludes with a different number.",
+        "invalid_one_draw_inference": "Response treats a single observation as definitive proof of envelope type, ignoring that Mixed envelope can produce either of its two types on first draw.",
+        "not_worst_case": "Response assumes favorable outcomes rather than accounting for adversarial worst-case where Mixed envelope produces all 13 majority-type sequences first.",
+        "fatal_wrong_claim": "Response contains a categorical claim that labels are forced/derived/determined without valid deductive support. The assertion ignores derangement complexity of remaining envelopes."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "contradictory_final_answer",
+          "reason_excluded": "Response commits to a single answer (4) without oscillation between multiple numeric values."
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "While the strategy fails, this code is more about a strategy that attempts verification but with wrong threshold. Here the error is more fundamental - treating single draws as definitive identification."
+        },
+        {
+          "code": "unnecessary_mixed_pair_requirement",
+          "reason_excluded": "Response does not attempt to determine exact 2-type composition of Mixed envelope; it simply ignores the Mixed envelope complexity entirely."
+        },
+        {
+          "code": "non_terminating_or_no_final_answer",
+          "reason_excluded": "Response provides a clear committed final answer (4) in boxed notation."
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4,
+      "response_id": "response_L"
+    },
+    {
+      "response_id": "response_M",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "no_concrete_strategy",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "no_concrete_strategy",
+      "primary_failure_code_evidence": "In the latter cases, inspect another envelope - Vague branch-by-branch rule without specifying which envelope or what conclusion to draw",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 3, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Response assumes one draw proves envelope type.",
+        "not_worst_case": "In the latter cases, inspect another envelope - Vague branch-by-branch rule without specifics.",
+        "no_concrete_strategy": "Vague branch-by-branch rule without specifying which envelope or what conclusion to draw."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "contradictory_final_answer",
+        "invalid_upper_bound",
+        "missing_lower_bound",
+        "no_concrete_strategy",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "contradictory_final_answer",
+      "primary_failure_code_evidence": "Response cycles through incompatible answers without clear resolution: 'I think the answer is 2. Wait. Maybe not.' ... 'So maybe 3.' ... 'Actually this suggests 14.' ... 'No, because logical elimination helps.' ... 'I'll say the answer is **3**.' The final commitment to 3 contradicts earlier consideration of 14 and lacks logical justification for dismissing 14.",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Final answer is incorrect. The correct answer is 15 inspections, but this response concludes with a different number.",
+        "contradictory_final_answer": "Response oscillates among multiple incompatible numeric answers without clear resolution logic.",
+        "no_concrete_strategy": "Response substitutes abstract reasoning for concrete inspection procedure without specifying which envelopes to inspect, in what order, or what conclusions to draw per outcome.",
+        "invalid_upper_bound": "Proposed strategy fails to achieve guaranteed correct labeling in all branches. Verification threshold is insufficient to distinguish pure from mixed envelopes.",
+        "missing_lower_bound": "Response asserts minimality but provides no impossibility proof showing no strategy with fewer inspections can succeed.",
+        "not_worst_case": "Response assumes favorable outcomes rather than accounting for adversarial worst-case where Mixed envelope produces all 13 majority-type sequences first."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "fatal_wrong_claim",
+          "reason_for_rejection": "Response does not contain categorical 'forced by contradiction' or 'remaining are determined' assertions. The reasoning is too incoherent to support such load-bearing claims.",
+          "reason_excluded": "Alternative code considered but not applied."
+        },
+        {
+          "code": "invalid_one_draw_inference",
+          "reason_for_rejection": "Response does not explicitly claim that single draws prove purity. The one-draw scenarios are presented as hypothetical fragments, not as definitive proofs.",
+          "reason_excluded": "Alternative code considered but not applied."
+        },
+        {
+          "code": "non_terminating_or_no_final_answer",
+          "reason_for_rejection": "Response does commit to a final numeric answer (3), so this code does not apply despite the oscillation.",
+          "reason_excluded": "Alternative code considered but not applied."
+        }
+      ],
+      "code_application_count": 6,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 6,
+      "response_id": "response_N"
+    },
+    {
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "no_concrete_strategy",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "wrong_final_number",
+      "primary_failure_code_evidence": "Therefore the minimum is: \\boxed{3} - Response concludes 3 but the correct answer is 15",
+      "failure_reason_evidence": {
+        "no_concrete_strategy": "Response substitutes abstract reasoning for concrete inspection procedure without specifying which envelopes to inspect, in what order, or what conclusions to draw per outcome.",
+        "wrong_final_number": "Final answer is incorrect. The correct answer is 15 inspections, but this response concludes with a different number."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "Response O does provide an information-theoretic lower bound argument (entropy > 2 ternary observations), so this code does not apply. The issue is not that it lacks lower bound reasoning, but that it substitutes this abstract reasoning for concrete strategy."
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "Response O does not propose any upper-bound strategy at all\u2014it only gives a lower bound via entropy. Since there's no claimed strategy to audit, this code doesn't apply."
+        },
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "Response O contains no claims about 'forced' or 'determined' labels or elimination assertions. It only makes an entropy calculation. This code does not apply."
+        }
+      ],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2,
+      "response_id": "response_O"
+    },
+    {
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_upper_bound",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "wrong_final_number",
+      "primary_failure_code_evidence": "guarantees correctness in at most: 1+8=9 inspections - Response concludes 9 but the correct answer is 15",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Final answer is incorrect. The correct answer is 15 inspections, but this response concludes with a different number.",
+        "invalid_upper_bound": "Proposed strategy fails to achieve guaranteed correct labeling in all branches. Verification threshold is insufficient to distinguish pure from mixed envelopes.",
+        "not_worst_case": "Response assumes favorable outcomes rather than accounting for adversarial worst-case where Mixed envelope produces all 13 majority-type sequences first."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        },
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "Alternative code considered but not applied based on analysis."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3,
+      "response_id": "response_P"
+    },
+    {
+      "response_id": "response_Q",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "The remaining two envelopes are resolved by elimination - Invalid elimination assertion after only 2 inspections",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 2, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Response treats single observation as definitive.",
+        "fatal_wrong_claim": "The remaining two envelopes are resolved by elimination - Invalid elimination assertion after only 2 inspections",
+        "not_worst_case": "Fails to handle worst-case properly."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_R",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_upper_bound",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "wrong_final_number",
+      "primary_failure_code_evidence": "Total: \\boxed{14} - Response concludes 14 but the correct answer is 15",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Total: 14 - Response concludes 14 but the correct answer is 15",
+        "invalid_upper_bound": "Response claims 14 inspections suffice, but correct answer is 15."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2
+    },
+    {
+      "response_id": "response_S",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Thus 2 inspections solve the puzzle - Categorical claim that puzzle is solved without valid deductive support",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 2, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Response treats single observation as definitive.",
+        "fatal_wrong_claim": "Thus 2 inspections solve the puzzle - Categorical claim that puzzle is solved without valid deductive support",
+        "not_worst_case": "Fails to handle worst-case properly."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_T",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_upper_bound",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "invalid_upper_bound",
+      "primary_failure_code_evidence": "8 for certainty - Threshold of 8 is insufficient because Mixed envelope can produce up to 13 consecutive majority-type sequences",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 8, but the correct answer is 15.",
+        "invalid_upper_bound": "8 for certainty - Threshold of 8 is insufficient because Mixed envelope can produce up to 13 consecutive majority-type sequences",
+        "not_worst_case": "Fails to account for adversarial worst-case where all 13 majority-type sequences appear first."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "response_U",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "the remaining three are uniquely determined by permutation constraints - Invalid elimination assertion ignoring derangement complexity",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 3, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Response treats single observation as definitive.",
+        "fatal_wrong_claim": "the remaining three are uniquely determined by permutation constraints - Invalid elimination assertion ignoring derangement complexity",
+        "not_worst_case": "Fails to handle worst-case properly."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "response_V",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "no_concrete_strategy",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "the actual configuration can be deduced because only one envelope is mixed - Categorical deduction claim without valid deductive support",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Response gives final answer as 2, but the correct answer is 15.",
+        "invalid_one_draw_inference": "Response treats single observation as definitive.",
+        "fatal_wrong_claim": "the actual configuration can be deduced because only one envelope is mixed - Categorical deduction claim without valid deductive support",
+        "not_worst_case": "Fails to handle worst-case properly.",
+        "no_concrete_strategy": "Response lacks concrete branch-by-branch strategy."
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "response_W",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "Response provides correct answer of 15 with valid reasoning including worst-case analysis and understanding that 14 same-type observations are needed to distinguish pure from 7/13 mixed envelope.",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    },
+    {
+      "response_id": "response_X",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ],
+      "primary_failure_code": "non_terminating_or_no_final_answer",
+      "primary_failure_code_evidence": "I think this puzzle has no finite solution - Response declines to commit any finite number",
+      "failure_reason_evidence": {
+        "non_terminating_or_no_final_answer": "I think this puzzle has no finite solution - Response declines to commit any finite number"
+      },
+      "alternative_codes_considered": [],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    }
+  ],
+  "code_application_table": {
+    "contradictory_final_answer": [
+      "response_E",
+      "response_N"
+    ],
+    "fatal_wrong_claim": [
+      "response_A",
+      "response_B",
+      "response_D",
+      "response_F",
+      "response_G",
+      "response_H",
+      "response_I",
+      "response_J",
+      "response_L",
+      "response_Q",
+      "response_S",
+      "response_U",
+      "response_V"
+    ],
+    "invalid_one_draw_inference": [
+      "response_A",
+      "response_D",
+      "response_F",
+      "response_H",
+      "response_I",
+      "response_J",
+      "response_L",
+      "response_M",
+      "response_Q",
+      "response_S",
+      "response_U",
+      "response_V"
+    ],
+    "invalid_upper_bound": [
+      "response_E",
+      "response_N",
+      "response_P",
+      "response_R",
+      "response_T"
+    ],
+    "missing_lower_bound": [
+      "response_E",
+      "response_N"
+    ],
+    "no_concrete_strategy": [
+      "response_B",
+      "response_E",
+      "response_H",
+      "response_J",
+      "response_M",
+      "response_N",
+      "response_O",
+      "response_V"
+    ],
+    "non_terminating_or_no_final_answer": [
+      "response_X"
+    ],
+    "not_worst_case": [
+      "response_A",
+      "response_B",
+      "response_D",
+      "response_E",
+      "response_F",
+      "response_H",
+      "response_I",
+      "response_J",
+      "response_L",
+      "response_M",
+      "response_N",
+      "response_P",
+      "response_Q",
+      "response_S",
+      "response_T",
+      "response_U",
+      "response_V"
+    ],
+    "unnecessary_mixed_pair_requirement": [],
+    "wrong_final_number": [
+      "response_A",
+      "response_B",
+      "response_D",
+      "response_E",
+      "response_F",
+      "response_G",
+      "response_H",
+      "response_I",
+      "response_J",
+      "response_L",
+      "response_M",
+      "response_N",
+      "response_O",
+      "response_P",
+      "response_Q",
+      "response_R",
+      "response_S",
+      "response_T",
+      "response_U",
+      "response_V"
+    ]
+  },
+  "response_count_per_code": {
+    "contradictory_final_answer": 2,
+    "fatal_wrong_claim": 13,
+    "invalid_one_draw_inference": 12,
+    "invalid_upper_bound": 5,
+    "missing_lower_bound": 2,
+    "no_concrete_strategy": 8,
+    "non_terminating_or_no_final_answer": 1,
+    "not_worst_case": 17,
+    "unnecessary_mixed_pair_requirement": 0,
+    "wrong_final_number": 20
+  },
+  "cross_response_observations": "Across the 24 responses analyzed, several systematic defect patterns emerge in the reasoning strategies employed. \n\nThe most prevalent error is the invalid_one_draw_inference, where many responses incorrectly assume that inspecting a single sequence from an envelope definitively identifies its type. This fails to account for the 7/13 composition of the mixed envelope, where drawing one of the 13 majority-type sequences is indistinguishable from a pure envelope in the initial draw.\n\nA second major pattern is the fatal_wrong_claim, where responses assert that remaining envelope labels are \"determined by elimination\" or \"follow directly\" after insufficient inspections. These categorical claims lack valid deductive support because the derangement constraints among three remaining envelopes (with the mixed envelope among them) do not force a unique labeling without additional information.\n\nThe not_worst_case pattern appears when strategies assume favorable outcomes, such as the mixed envelope revealing its minority type early, rather than accounting for the adversarial worst-case where all 13 majority-type sequences appear first. Responses also frequently lack missing_lower_bound arguments, asserting minimality without proving that no alternative strategy with fewer inspections could succeed. Several responses exhibit contradictory_final_answer behavior, oscillating among multiple incompatible numeric answers without coherent resolution logic. The wrong_final_number code appears in nearly all incorrect responses, with answers ranging from 1 to 14 instead of the correct 15."
+}
