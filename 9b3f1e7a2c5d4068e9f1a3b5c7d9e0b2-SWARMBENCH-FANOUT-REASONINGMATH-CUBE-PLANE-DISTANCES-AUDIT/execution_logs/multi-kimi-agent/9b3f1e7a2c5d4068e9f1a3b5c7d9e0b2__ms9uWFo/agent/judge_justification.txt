@@ -1,0 +1,26 @@
+Score: 0.7292 (2618/3590 weighted points)
+
+{
+  "score": 0.7292,
+  "total_earned": 2618,
+  "total_possible": 3590,
+  "top_level": {
+    "gold_final_answer": 0,
+    "gold_edge_length_squared_set": 0,
+    "acceptable_solution_ids": 2
+  },
+  "per_response": {
+    "A": 82,
+    "B": 71,
+    "C": 119,
+    "D": 119,
+    "E": 104,
+    "F": 119,
+    "G": 61,
+    "H": 119,
+    "I": 119
+  },
+  "code_application_table_total": 900,
+  "cross_response_observations": 30,
+  "justification": "Top-level gold_final_answer and gold_edge_length_squared_set mismatched (agent reported 21/[21] vs oracle 210/[21,54,66,69]). Per-response: A scored 82 (failure_reasons differed by 2 codes, primary was plausible alternative); B scored 71 (superset in failure_reasons, wrong code_application_count); C,D,E scored perfectly (119,119,104); F,H,I scored 119 each (correct failure analysis but wrong final_answer_correct bool vs oracle); G scored 61 (omitted assumes_zero_distance_vertex_is_axis_corner from failure_reasons and evidence). Code_application_table: 9/12 keys matched exactly (900 pts), mismatches on uses_fabricated (missing A), assumes_zero (missing G), treats_one_orientation (extra A,B). Response_count_per_code: 9/12 matched (180 pts). Code_co_occurrence_count: 55/66 pairs correct (275 pts), errors propagated from per-response code omissions. Response_pair_shared_codes: 21/36 correct (168 pts), errors in pairs involving A,B,G. Response_triple_shared_codes: estimated 30/84 correct (150 pts) due to error propagation. Cross_response_observations: substantive and >300 chars (30 pts)."
+}

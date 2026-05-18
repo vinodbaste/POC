@@ -1,0 +1,65 @@
+TEST_SH_VERSION=universal-reward-paths
+FINAL_REWARD=0.718036140470508
+=== reward files before sync/sleep ===
+/logs/reward.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/reward.txt
+0.718036140470508
+/logs/verifier/reward.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/verifier/reward.json
+{"reward": 0.718036140470508}
+/logs/verifier/score.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/verifier/score.json
+{"reward": 0.718036140470508}
+/logs/verifier/reward.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/verifier/reward.txt
+0.718036140470508
+/logs/verifier/score.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/verifier/score.txt
+0.718036140470508
+/logs/artifacts/reward.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/artifacts/reward.json
+{"reward": 0.718036140470508}
+/logs/artifacts/reward.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/artifacts/reward.txt
+0.718036140470508
+/logs/agent/reward.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/agent/reward.json
+{"reward": 0.718036140470508}
+/logs/agent/reward.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/agent/reward.txt
+0.718036140470508
+/logs/reward.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/reward.json
+{"reward": 0.718036140470508}
+Sleeping 5 seconds before Harbor reward collection...
+=== reward files after sleep ===
+/logs/reward.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/reward.txt
+0.718036140470508
+/logs/verifier/reward.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/verifier/reward.json
+{"reward": 0.718036140470508}
+/logs/verifier/score.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/verifier/score.json
+{"reward": 0.718036140470508}
+/logs/verifier/reward.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/verifier/reward.txt
+0.718036140470508
+/logs/verifier/score.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/verifier/score.txt
+0.718036140470508
+/logs/artifacts/reward.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/artifacts/reward.json
+{"reward": 0.718036140470508}
+/logs/artifacts/reward.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/artifacts/reward.txt
+0.718036140470508
+/logs/agent/reward.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/agent/reward.json
+{"reward": 0.718036140470508}
+/logs/agent/reward.txt
+-rw-r--r-- 1 root root 18 May 18 05:35 /logs/agent/reward.txt
+0.718036140470508
+/logs/reward.json
+-rw-r--r-- 1 root root 30 May 18 05:35 /logs/reward.json
+{"reward": 0.718036140470508}
