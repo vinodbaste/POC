@@ -1,3 +1,0 @@
-Score: 0.007246 (2/276 passed)
-
-gold_final_answer:0/2(expected '210',got '21'), gold_edge_length_squared_set:0/2(expected [21,54,66,69],got [21]), acceptable_solution_ids:2/2(match), per_response_assessment:0/270(A-E,G have incorrect failure_reasons sets; F,H,I have correct failure_reasons but wrong final_answer_correct flags)

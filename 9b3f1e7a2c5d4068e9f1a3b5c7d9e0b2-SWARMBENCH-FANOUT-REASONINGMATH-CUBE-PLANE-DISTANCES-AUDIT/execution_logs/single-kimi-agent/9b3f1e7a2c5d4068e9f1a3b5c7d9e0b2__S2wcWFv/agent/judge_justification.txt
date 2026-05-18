@@ -1,0 +1,3 @@
+Score: 0.2174 (60/276 passed)
+
+gold_final_answer 0/2 (expected "210", got "140/3"), gold_edge_length_squared_set 0/2 (expected [21,54,66,69], got [21,"(70+7*sqrt(91))/3"]), acceptable_solution_ids 0/2 (expected [], got ["G"]), response audits: A 0/30 (failure reasons mismatch), B 0/30 (failure reasons mismatch), C 0/30 (missing 'omits_sign_pattern_casework'), D 0/30 (missing 'omits_sign_pattern_casework'), E 0/30 (wrong failure reason), F 0/30 (wrong failure reason), G 0/30 (final_answer_correct should be false), H 30/30 (correct), I 30/30 (correct); total 60/276

@@ -1,13 +1,13 @@
 {
-    "id": "55c8b428-7ec4-4ee6-9c4e-8576bbe7b991",
+    "id": "79a3d1e2-c1d9-4fd8-bc61-cda5b9dc8432",
     "task_name": "swarmbench/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT",
-    "trial_name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__wYFSfET",
-    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT/execution_logs/multi-kimi-agent/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__wYFSfET",
+    "trial_name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__gkdx8kR",
+    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT/execution_logs/oracle/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__gkdx8kR",
     "task_id": {
         "path": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT"
     },
     "source": null,
-    "task_checksum": "b1a74fdd7fe69f60a61ece7910c45bc8a04850bdde23bc787ec707fc75628f31",
+    "task_checksum": "7ee2ec93703b783f69f513e995bf553016fbce260e0f585cfd1f813752f82d8a",
     "config": {
         "task": {
             "path": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT",
@@ -19,17 +19,17 @@
             "download_dir": null,
             "source": null
         },
-        "trial_name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__wYFSfET",
-        "trials_dir": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT/execution_logs/multi-kimi-agent",
+        "trial_name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__gkdx8kR",
+        "trials_dir": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT/execution_logs/oracle",
         "timeout_multiplier": 1.0,
         "agent_timeout_multiplier": null,
         "verifier_timeout_multiplier": null,
         "agent_setup_timeout_multiplier": null,
         "environment_build_timeout_multiplier": null,
         "agent": {
-            "name": "swarm-kimi-multi",
+            "name": "oracle",
             "import_path": null,
-            "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+            "model_name": null,
             "override_timeout_sec": null,
             "override_setup_timeout_sec": null,
             "max_timeout_sec": null,
@@ -61,47 +61,44 @@
             "disable": false
         },
         "artifacts": [],
-        "job_id": "ce9ab9c5-9a48-4737-9c03-692f85103796"
+        "job_id": "5ffd73da-570e-483a-b3b9-07990c7616da"
     },
     "agent_info": {
-        "name": "swarm-kimi-multi",
-        "version": "unknown",
-        "model_info": {
-            "name": "accounts/fireworks/models/kimi-k2p5",
-            "provider": "fireworks_ai"
-        }
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
     },
     "agent_result": {
-        "n_input_tokens": 159552,
-        "n_cache_tokens": 96558,
-        "n_output_tokens": 7873,
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
         "cost_usd": null,
         "rollout_details": null,
         "metadata": null
     },
     "verifier_result": {
         "rewards": {
-            "reward": 0.2391304347826087
+            "reward": 1.0
         }
     },
     "exception_info": null,
-    "started_at": "2026-05-17T21:34:11.441558Z",
-    "finished_at": "2026-05-17T21:57:59.188497Z",
+    "started_at": "2026-05-18T01:10:02.642940Z",
+    "finished_at": "2026-05-18T01:10:23.645582Z",
     "environment_setup": {
-        "started_at": "2026-05-17T21:34:11.678055Z",
-        "finished_at": "2026-05-17T21:34:22.157089Z"
+        "started_at": "2026-05-18T01:10:02.854640Z",
+        "finished_at": "2026-05-18T01:10:09.216740Z"
     },
     "agent_setup": {
-        "started_at": "2026-05-17T21:34:22.158186Z",
-        "finished_at": "2026-05-17T21:34:58.021801Z"
+        "started_at": "2026-05-18T01:10:09.216871Z",
+        "finished_at": "2026-05-18T01:10:09.216993Z"
     },
     "agent_execution": {
-        "started_at": "2026-05-17T21:34:58.031433Z",
-        "finished_at": "2026-05-17T21:57:14.398566Z"
+        "started_at": "2026-05-18T01:10:09.217105Z",
+        "finished_at": "2026-05-18T01:10:09.840394Z"
     },
     "verifier": {
-        "started_at": "2026-05-17T21:57:14.832899Z",
-        "finished_at": "2026-05-17T21:57:56.705017Z"
+        "started_at": "2026-05-18T01:10:10.091174Z",
+        "finished_at": "2026-05-18T01:10:21.177712Z"
     },
     "step_results": null
 }
