@@ -171,6 +171,146 @@ Derivation:
 - Verdict is REJECT.
 - primary_failure_code is NOT_WORST_CASE because the defining defect is treating favorable single-draw observations as resolving all worst-case ambiguity, rather than the one-draw step being mechanically invalid in isolation.
 
+## Response I
+
+Relevant candidate text:
+- "Inspect one sequence from that envelope."
+- "Now only three envelopes remain. Since one category has already been identified, the remaining labels are forced by elimination."
+- "Therefore only **1 inspection** is required."
+
+Derivation: One inspection cannot guarantee labeling of three remaining envelopes when one of them is mixed — multiple legal labelings remain. failure_reasons contains fatal_wrong_claim (the elimination assertion), invalid_upper_bound (1 insufficient), missing_lower_bound (no impossibility argument), no_concrete_strategy (no branch-by-branch rule for the three remaining envelopes), not_worst_case (no worst-case engagement), and wrong_final_number (1 ≠ 15). Primary is fatal_wrong_claim because the load-bearing elimination assertion is the proof-invalidating claim that drives the wrong count.
+
+## Response J
+
+Relevant candidate text:
+- "Inspect the envelope labeled 'Strictly Increasing.' If the observed sequence is: increasing → this envelope must be mixed, decreasing → could be mixed or pure decreasing, constant → could be mixed or pure constant."
+- "So another inspection is required."
+- "Thus the minimum is **3 inspections**."
+
+Derivation: Three inspections cannot resolve the ambiguous branches against a 7/13 mixed envelope. failure_reasons contains invalid_one_draw_inference (treating one draw from Strictly Increasing as identifying mixed), invalid_upper_bound (3 insufficient), missing_lower_bound, no_concrete_strategy ("another inspection is required" is hand-wavy), not_worst_case, and wrong_final_number. Primary is invalid_upper_bound because the dominant defect is the three-inspection upper bound's failure under worst-case branches.
+
+## Response K
+
+Relevant candidate text:
+- "The mixed envelope contains 7 sequences of one type and 13 of another."
+- "observing 14 identical sequence types proves it is pure."
+- "1 initial inspection, plus 14 more. Hence the answer is **15**."
+
+Derivation: Correctly derives 1+14=15 with sound upper-bound reasoning grounded in the 7/13 split. failure_reasons contains only missing_lower_bound: the response gives an upper-bound rule but does not prove that no alternative strategy with fewer total inspections can suffice. Primary is missing_lower_bound. final_answer_correct is true.
+
+## Response L
+
+Relevant candidate text:
+- "Inspect one sequence from each envelope. This immediately reveals which categories are present in each envelope."
+- "Since all four labels are already known to be wrong, the mapping becomes unique automatically."
+- "Thus the minimum number of inspections is: \\[\\boxed{4}\\]"
+
+Derivation: One observation per envelope does not identify each envelope's true category because a mixed envelope can return its majority type on a single draw, matching a pure envelope of that type. failure_reasons contains fatal_wrong_claim ("mapping becomes unique automatically"), invalid_one_draw_inference (single draws claim to reveal categories), invalid_upper_bound, missing_lower_bound, not_worst_case, and wrong_final_number. Primary is invalid_one_draw_inference because the load-bearing mechanical defect is treating one observation per envelope as identifying its pure type.
+
+## Response M
+
+Relevant candidate text:
+- "Inspect one sequence from the envelope labeled 'Constant.' If we observe: constant → impossible for a pure constant envelope, so it must be mixed, increasing → possibly pure increasing or mixed, decreasing → possibly pure decreasing or mixed."
+- "In the latter cases, inspect another envelope."
+- "Thus **3 inspections** are sufficient."
+
+Derivation: The branches that "inspect another envelope" do not commit to a concrete count, and the underlying single-draw logic does not handle a mixed envelope returning its majority type. failure_reasons contains invalid_one_draw_inference, invalid_upper_bound, missing_lower_bound, no_concrete_strategy (open-ended follow-up), not_worst_case, and wrong_final_number. Primary is invalid_upper_bound because the three-inspection upper bound cannot be guaranteed in the worst case.
+
+## Response N
+
+Relevant candidate text:
+- "I think the answer is 2. Wait. Maybe not. ... So maybe 3. ... Actually this suggests 14. No, because logical elimination helps. I'll say the answer is **3**."
+
+Derivation: The response oscillates among 2, 3, 14 before committing, exemplifying internal inconsistency without coherent supporting reasoning. failure_reasons contains contradictory_final_answer, invalid_upper_bound (final 3 insufficient), missing_lower_bound, no_concrete_strategy, not_worst_case, and wrong_final_number. Primary is contradictory_final_answer because the defining defect is the oscillation across incompatible counts.
+
+## Response O
+
+Relevant candidate text:
+- "Each inspection yields one of three outcomes... Thus one inspection gives at most log_2(3) bits of information."
+- "Since the total entropy exceeds two ternary observations, at least 3 inspections are required."
+- "Therefore the minimum is: \\[\\boxed{3}\\]"
+
+Derivation: The response substitutes an entropy calculation for a concrete inspection strategy and never specifies which envelopes to inspect or what conclusions to draw. The entropy argument also ignores adversarial 7/13 mixed configurations. failure_reasons contains invalid_upper_bound (3 insufficient), missing_lower_bound (entropy is not a valid impossibility proof here), no_concrete_strategy, not_worst_case, and wrong_final_number. Primary is no_concrete_strategy because no inspection strategy is offered at all.
+
+## Response P
+
+Relevant candidate text:
+- "if we see 8 copies of the same category, the envelope cannot be mixed anymore because the minority category would already have been exhausted."
+- "inspect the 'Mixed' envelope once, then inspect another envelope up to 8 times."
+- "This guarantees correctness in at most: 1+8=9 inspections."
+
+Derivation: The threshold of 8 is derived from the minority count of 7+1, ignoring the worst case where a mixed envelope has 13 sequences of the observed type. 8 identical observations do not rule out mixed. failure_reasons contains fatal_wrong_claim (the "minority would have been exhausted" claim), invalid_upper_bound, missing_lower_bound, not_worst_case, and wrong_final_number. Primary is not_worst_case because the controlling mechanism is the worst-case framing error that treats minority as the binding side.
+
+## Response Q
+
+Relevant candidate text:
+- "Then inspect the envelope labeled 'Strictly Decreasing.' If we observe: another decreasing sequence, this envelope must be mixed, otherwise it is pure."
+- "The remaining two envelopes are resolved by elimination."
+- "Hence the answer is **2**."
+
+Derivation: Two inspections do not suffice when the second draw matches a pure or mixed envelope ambiguously, and the elimination claim leaves two envelopes undetermined. failure_reasons contains fatal_wrong_claim (the elimination assertion), invalid_one_draw_inference, invalid_upper_bound, missing_lower_bound, not_worst_case, and wrong_final_number. Primary is fatal_wrong_claim because the load-bearing elimination claim is the proof-invalidating assertion that drives the two-inspection conclusion.
+
+## Response R
+
+Relevant candidate text:
+- "Since the minority category may appear only after 13 observations, we require: 13 inspections for one envelope, plus one setup inspection."
+- "Total: 14"
+
+Derivation: After 13 identical observations a 13/7 mixed envelope is not yet ruled out — the majority side has 13 sequences. The same-type threshold is 14, not 13, so the total is 15, not 14. failure_reasons contains invalid_upper_bound (the off-by-one threshold), missing_lower_bound, not_worst_case (the worst-case analysis confuses majority count with threshold), and wrong_final_number. Primary is invalid_upper_bound because the off-by-one threshold is the precise diagnostic defect.
+
+## Response S
+
+Relevant candidate text:
+- "Draw from 'Strictly Increasing.' If: increasing → mixed, decreasing → decreasing, constant → constant."
+- "Thus 2 inspections solve the puzzle."
+- "So the answer is: \\[\\boxed{2}\\]"
+
+Derivation: One observation from Strictly Increasing does not identify its true category — a mixed envelope can return any of the three types on a single draw, matching a pure envelope of that type. failure_reasons contains invalid_one_draw_inference, invalid_upper_bound, missing_lower_bound, not_worst_case, and wrong_final_number. Primary is invalid_one_draw_inference because the load-bearing mechanical defect is treating each branch's single observation as identifying the envelope's true pure category.
+
+## Response T
+
+Relevant candidate text:
+- "If we inspect 8 sequences from a candidate envelope and all belong to the same category, then the envelope must be pure because a mixed envelope could contain at most 7 copies of its minority category."
+- "1 inspection for setup, 8 for certainty, giving 9 inspections total."
+
+Derivation: Eight identical observations do not rule out a mixed envelope with 13 sequences of the observed (majority) type. failure_reasons contains fatal_wrong_claim (8-proves-pure is a load-bearing wrong claim), invalid_upper_bound, missing_lower_bound, not_worst_case, and wrong_final_number. Primary is invalid_upper_bound because the diagnostic surface defect is the wrong same-type threshold of 8.
+
+## Response U
+
+Relevant candidate text:
+- "There are: 4 envelopes, 4 hidden assignments, all labels incorrect. This is simply a derangement."
+- "After identifying the true category of one envelope, the remaining three are uniquely determined by permutation constraints."
+- "Answer: 1"
+
+Derivation: The derangement-and-permutation constraint does not uniquely determine three remaining envelopes when one of them is mixed. failure_reasons contains fatal_wrong_claim ("uniquely determined by permutation constraints"), invalid_upper_bound, missing_lower_bound, no_concrete_strategy, not_worst_case, and wrong_final_number. Primary is fatal_wrong_claim because the derangement-uniqueness claim is the load-bearing assertion driving the count.
+
+## Response V
+
+Relevant candidate text:
+- "Suppose we inspect one sequence from each envelope."
+- "In every case, the actual configuration can be deduced because only one envelope is mixed."
+- "Therefore the minimum number of inspections required is: 4"
+
+Derivation: Four single observations do not distinguish a mixed envelope returning its majority type from a pure envelope of that type. failure_reasons contains fatal_wrong_claim ("configuration can be deduced"), invalid_one_draw_inference, invalid_upper_bound, missing_lower_bound, not_worst_case, and wrong_final_number. Primary is not_worst_case because the controlling defect is treating one observation per envelope as resolving worst-case ambiguity.
+
+## Response W
+
+Relevant candidate text:
+- "Then the envelope labeled 'Strictly Increasing' cannot be pure increasing. Now continue inspecting sequences from that envelope."
+- "the envelope is mixed with 13 increasing sequences, so the first 13 inspections may all appear increasing. Only the 14th inspection guarantees a second category."
+- "1 initial inspection, 14 more, for a total of: 15"
+
+Derivation: Correctly derives the 1+14=15 upper bound with explicit worst-case engagement (13 majority observations from mixed). The response argues why its specific strategy needs 15 but does not provide a general impossibility argument against alternative strategies. failure_reasons contains only missing_lower_bound. Primary is missing_lower_bound. final_answer_correct is true.
+
+## Response X
+
+Relevant candidate text:
+- "I think this puzzle has no finite solution."
+- "A mixed envelope could continue producing the majority category indefinitely from the observer's perspective unless sampling without replacement is explicitly stated."
+- "Hence no finite number of inspections guarantees correct relabeling."
+
+Derivation: The response refuses to commit any specific numeric answer, instead asserting that no finite count suffices, on grounds (sampling-with-replacement) inconsistent with the problem's stated 20-sequence-per-envelope structure. failure_reasons contains only non_terminating_or_no_final_answer (this code stands alone when present per the controlled vocabulary). Primary is non_terminating_or_no_final_answer.
+
 ## Acceptance summary
 
-No candidate among response_A through response_H is accepted. Every response has at least one failed criterion among C1-C8. The oracle therefore sets `accepted_solutions` to an empty list, `rejected_solutions` to all eight response IDs in alphabetical order (response_A through response_H), `best_solution` to null, and `summary` to a brief narrative noting that response_C states the correct number 15 but is rejected on C4 alone, while the remaining seven responses fail on combinations of wrong number, invalid upper bound, invalid one-draw inferences, contradictory oscillation, and fatal proof-invalidating claims.
+No candidate among response_A through response_X is accepted. Three responses (C, K, W) state the correct number 15 but each is rejected because the impossibility argument is missing — failure_reasons contains missing_lower_bound for all three. Response X is uniquely rejected on non_terminating_or_no_final_answer because it declines to commit any numeric answer. The remaining twenty responses fail on combinations of wrong final number, invalid upper bound, invalid one-draw inferences, contradictory oscillation, fatal proof-invalidating claims, worst-case framing errors, and missing or absent concrete strategies. The oracle therefore sets `acceptable_solution_ids` to an empty list and populates per_response_assessment with twenty-four entries, code_application_table and response_count_per_code over the ten failure-code vocabulary, and a substantive cross_response_observations narrative describing the dominant defect patterns.

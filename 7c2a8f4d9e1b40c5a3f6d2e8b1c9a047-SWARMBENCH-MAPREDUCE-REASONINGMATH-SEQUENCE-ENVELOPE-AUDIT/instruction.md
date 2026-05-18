@@ -1,6 +1,6 @@
 # Sequence-Envelope Solution Audit
 
-You are auditing eight real, unedited model responses to a deductive reasoning puzzle: four mislabeled envelopes of monotonic number sequences. The canonical worst-case minimum is **15 inspections** (1 inspection of the Mixed-labeled envelope to identify its pure type, plus 14 same-type observations to force a distinction against a 7/13 mixed envelope).
+You are auditing twenty-four real, unedited model responses to a deductive reasoning puzzle: four mislabeled envelopes of monotonic number sequences. The canonical worst-case minimum is **15 inspections** (1 inspection of the Mixed-labeled envelope to identify its pure type, plus 14 same-type observations to force a distinction against a 7/13 mixed envelope).
 
 Working directory: `/workspace`.
 
@@ -8,12 +8,12 @@ Working directory: `/workspace`.
 
 - `/input_artifacts/problem_statement.md`
 - `/input_artifacts/provenance.md`
-- `/input_artifacts/candidate_solutions/response_A.md` ... `response_H.md`
+- `/input_artifacts/candidate_solutions/response_A.md` ... `response_X.md`
 
 ## Task
 
 1. Read problem_statement.md and derive the canonical minimum (15) yourself.
-2. Audit each of the 8 candidate responses (A-H).
+2. Audit each of the 24 candidate responses (A-X).
 3. For each response, identify the EXACT SET of `failure_reasons` codes (from the controlled vocabulary below) whose triggering conditions are concretely instantiated in that response's text. Each response typically has 1-7 applicable codes.
 4. For each response, choose ONE `primary_failure_code` from its `failure_reasons` set (or `"NONE"` if empty) — the single most load-bearing diagnostic defect.
 5. Produce all required per-response and top-level fields per the output schema below.
@@ -37,7 +37,7 @@ The verifier (llm-judge) scores deterministically against the oracle with substa
 
 - `gold_final_answer` (string match against "15"): 4 points
 - `acceptable_solution_ids` (set match): 2 points
-- Per response (8 entries):
+- Per response (24 entries):
   - `final_answer_correct` (exact bool): 5
   - `failure_reasons` (substantive set match; 30 exact, 15 off-by-one substantively-equivalent, 8 overlap >=50% with divergence, 0 otherwise): 30 max
   - `primary_failure_code` (25 exact; 10 if in oracle's failure_reasons set but not primary): 25 max
@@ -92,4 +92,4 @@ Write to `/logs/agent/output.json`:
 }
 ```
 
-Include exactly 8 entries in `per_response_assessment` for response_A through response_H in alphabetical order. Every response_id from response_A through response_H must appear in `code_application_table` once per code in its `failure_reasons` set. `response_count_per_code[code]` must equal `len(code_application_table[code])` for every code.
+Include exactly 24 entries in `per_response_assessment` for response_A through response_X in alphabetical order. Every response_id from response_A through response_X must appear in `code_application_table` once per code in its `failure_reasons` set. `response_count_per_code[code]` must equal `len(code_application_table[code])` for every code.

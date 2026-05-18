@@ -171,25 +171,296 @@ sub_tasks:
     depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
     parallel_group: map
 
+  - id: grade-response-i
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_I using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_I yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_I.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_I evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether identifying one envelope's pure
+      type genuinely forces the remaining three labels, or whether the
+      response leans on an elimination assertion that ignores the
+      derangement of three envelopes (one of which is mixed).
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-j
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_J using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_J yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_J.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_J evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response's branching after
+      the second inspection commits to a concrete branch-by-branch rule
+      or leaves the ambiguous branches with an unspecified follow-up
+      that does not bound the worst case.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-k
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_K using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_K yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_K.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_K evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response provides an
+      indistinguishable-case impossibility argument that no strategy with
+      fewer inspections suffices, or only justifies the count of its own
+      strategy without ruling out alternatives.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-l
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_L using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_L yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_L.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_L evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response infers each
+      envelope's pure category from a single observation, treating one
+      draw per envelope as identifying its true type in the absence of
+      multi-draw verification.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-m
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_M using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_M yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_M.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_M evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response's three-inspection
+      branching commits to a concrete count in every branch or trails
+      off with an unspecified "inspect another envelope" follow-up.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-n
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_N using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_N yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_N.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_N evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response commits to a single
+      final inspection count and one coherent strategy, or oscillates
+      among incompatible counts and partial strategies before its final
+      commitment.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-o
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_O using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_O yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_O.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_O evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response provides any
+      concrete inspection strategy at all (which envelopes to inspect,
+      in what order, what conclusions to draw) or substitutes an
+      information-theoretic count for a strategy.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-p
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_P using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_P yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_P.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_P evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response's same-type
+      observation threshold accounts for the worst-case majority side of
+      the 7/13 mixed split or only treats the minority side as the
+      controlling bound.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-q
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_Q using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_Q yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_Q.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_Q evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the closing elimination claim
+      after two inspections truly forces the remaining two envelope
+      labels in every legal branch, or whether the second observation
+      can match either a pure or mixed envelope.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-r
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_R using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_R yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_R.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_R evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the same-type observation
+      threshold used to force a distinction against a 13/7 mixed
+      envelope is calculated correctly or falls one short of the
+      worst-case requirement.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-s
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_S using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_S yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_S.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_S evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the three-case single-draw
+      mapping treats one observation per envelope as identifying its
+      true pure category or accounts for the mixed envelope returning
+      its majority type on a single draw.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-t
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_T using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_T yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_T.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_T evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response's same-type
+      threshold accounts for the majority count of 13 in the mixed
+      envelope or only for the minority count of 7 when concluding that
+      an envelope is pure.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-u
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_U using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_U yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_U.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_U evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the derangement-and-permutation
+      argument actually forces a unique labeling of the three remaining
+      envelopes or whether multiple legal labelings remain after
+      identifying one envelope's true type.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-v
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_V using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_V yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_V.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_V evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response's claim that the
+      configuration "can be deduced in every case" from four single
+      observations accounts for a mixed envelope mimicking another
+      envelope's pure type on its single draw.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-w
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_W using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_W yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_W.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_W evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response provides a
+      general indistinguishable-case impossibility argument ruling out
+      alternative strategies with fewer inspections, or only justifies
+      the count of its specific inspect-then-verify strategy.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
+  - id: grade-response-x
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_X using the Agent tool. Do NOT read, solve, summarize, or
+      grade response_X yourself. Do NOT include any asserted numeric answer
+      or solved-puzzle conclusion in the sub-agent prompt. The sub-agent
+      must read /input_artifacts/problem_statement.md and
+      /input_artifacts/candidate_solutions/response_X.md itself, use the
+      canonical-proof packet and calibration packet, and return only the
+      response_X evaluation JSON fields specified in instruction.md (all
+      required fields). Focus on whether the response commits a
+      specific numeric final answer to the problem at all, or declines
+      to commit any finite number by appealing to objections outside
+      the problem's stated structure.
+    depends_on: [derive-canonical-envelope-proof, calibrate-audit-rules]
+    parallel_group: map
+
   - id: adjudicate-high-weight-labels
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this adjudicator as a
       sub-agent using the Agent tool after all response mappers finish.
       Do NOT do this adjudication in the orchestrator. The adjudicator
       must consume the canonical-proof packet, calibration packet, all
-      eight mapper outputs, and the eight candidate response files. Its
-      job is narrowly to re-check the labels that dominate scoring and
-      are easy to conflate (the failure_reasons set and the
+      twenty-four mapper outputs, and the twenty-four candidate response
+      files. Its job is narrowly to re-check the labels that dominate
+      scoring and are easy to conflate (the failure_reasons set and the
       primary_failure_code) by applying the universal phrase-pattern
       rules already specified in instruction.md to each response's text.
       The adjudicator must not introduce new analytical rules beyond
       what instruction.md already specifies; it applies instruction.md's
-      universal phrase-pattern rules uniformly to all eight responses
-      and returns a structured correction object that the reducer
-      applies mechanically.
+      universal phrase-pattern rules uniformly to all twenty-four
+      responses and returns a structured correction object that the
+      reducer applies mechanically.
 
       Return a structured JSON object: a top-level dict keyed by
-      response_id (response_A through response_H), each value containing
+      response_id (response_A through response_X), each value containing
       only the criterion or label keys whose mapper value should be
       CORRECTED, together with the corrected value and a one-sentence
       textual evidence quotation from the response. The reducer applies
@@ -203,6 +474,22 @@ sub_tasks:
       - grade-response-f
       - grade-response-g
       - grade-response-h
+      - grade-response-i
+      - grade-response-j
+      - grade-response-k
+      - grade-response-l
+      - grade-response-m
+      - grade-response-n
+      - grade-response-o
+      - grade-response-p
+      - grade-response-q
+      - grade-response-r
+      - grade-response-s
+      - grade-response-t
+      - grade-response-u
+      - grade-response-v
+      - grade-response-w
+      - grade-response-x
     parallel_group: adjudicate
 
   - id: reduce-final-audit
@@ -215,8 +502,8 @@ sub_tasks:
       scratch.
 
       Reducer procedure (apply mechanically, in order):
-      (1) Start from the eight mapper evaluation objects. Each must
-          contain response_id, final_answer_correct, failure_reasons
+      (1) Start from the twenty-four mapper evaluation objects. Each
+          must contain response_id, final_answer_correct, failure_reasons
           (set of codes from the 10-code vocabulary), primary_failure_code,
           primary_failure_code_evidence, failure_reason_evidence,
           alternative_codes_considered.
@@ -254,9 +541,9 @@ sub_tasks:
       response evidence/alternatives fields, ask a replacement sub-agent
       to re-grade that same response rather than completing those fields
       in the orchestrator. The reducer writes exactly one JSON object to
-      /logs/agent/output.json with top-level keys evaluations (eight
-      objects in alphabetical order response_A through response_H, each
-      including all required scored fields including
+      /logs/agent/output.json with top-level keys per_response_assessment
+      (twenty-four objects in alphabetical order response_A through
+      response_X, each including all required scored fields including
       code_application_count, primary_in_set_check, evidence_key_completeness),
       acceptable_solution_ids, code_application_table,
       response_count_per_code, and cross_response_observations, as specified
@@ -275,5 +562,21 @@ sub_tasks:
       - grade-response-f
       - grade-response-g
       - grade-response-h
+      - grade-response-i
+      - grade-response-j
+      - grade-response-k
+      - grade-response-l
+      - grade-response-m
+      - grade-response-n
+      - grade-response-o
+      - grade-response-p
+      - grade-response-q
+      - grade-response-r
+      - grade-response-s
+      - grade-response-t
+      - grade-response-u
+      - grade-response-v
+      - grade-response-w
+      - grade-response-x
       - adjudicate-high-weight-labels
     parallel_group: reduce
