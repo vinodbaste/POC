@@ -1,0 +1,295 @@
+{
+  "gold_final_answer": "210",
+  "gold_edge_length_squared_set": [21, 54, 66, 69],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length",
+        "accepts_internal_contradictions_in_derivation"
+      ],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "primary_failure_code_evidence": "Response A explicitly places one vertex at (0,0,0) and assumes the seven non-zero distances arise as non-negative combinations of three positive quantities. The response derives a contradiction '4 = 5' from its equations but then proceeds to ignore this and concludes 'the edge length is uniquely determined' with answer 6, showing the load-bearing defect is the subset-sum restriction.",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Let me assume that one of the vertices is at (0,0,0). Since the plane passes through this vertex, which is at distance 0.",
+        "restricts_to_nonnegative_subset_sums": "For (a,0,0): distance = 1, For (0,a,0): distance = 2, For (0,0,a): distance = 3, leading to A=k/a, B=2k/a, C=3k/a with all positive values.",
+        "treats_one_orientation_as_proof_of_uniqueness": "Therefore, the edge length is uniquely determined, and the set S contains only one element, which is sqrt(6).",
+        "claims_unique_edge_length": "the only possible edge length, which is sqrt(6). Therefore, the set S contains only one element",
+        "accepts_internal_contradictions_in_derivation": "6 = 7, which is impossible. Therefore, this suggests that there is no such cube, which contradicts the problem statement. The edge length is uniquely determined, and thus the set S contains only one element, which is sqrt(6)"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "While this is present, the load-bearing defect is the restriction to non-negative subset sums which prevents finding other valid edge lengths."
+        },
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "This is a downstream symptom of assuming non-negative projections; the primary restriction is what causes the omission."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_plane_parallel_to_cube_face",
+        "equates_max_distance_with_edge_length_directly",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "assumes_plane_parallel_to_cube_face",
+      "primary_failure_code_evidence": "Response B's primary geometric setup assumes the plane is z = k and the distance from each vertex (x, y, z) to the plane would be |z - k|. This axis-aligned face-parallel assumption is the load-bearing defect that directly leads to the incorrect conclusion that a=7.",
+      "failure_reason_evidence": {
+        "assumes_plane_parallel_to_cube_face": "If the plane is z = k, then the distance from a vertex (x, y, z) to the plane would be |z - k|. Since the cube is axis-aligned, the z-coordinates of the vertices would be from 0 to a. Therefore, if a=7, then the distances would be 0,1,2,...7",
+        "equates_max_distance_with_edge_length_directly": "the maximum distance is 7, and the minimum is 0 implying the edge length of the cube is 7. Therefore, a = 7.",
+        "claims_unique_edge_length": "the only possible edge length is 7, so set S is {7}, and the sum of squares is 49."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "equates_max_distance_with_edge_length_directly",
+          "reason_excluded": "While the response does equate max distance to edge length, this is downstream of the face-parallel assumption which is the primary geometric framing defect."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "The response does consider only one orientation, but this is already captured by the face-parallel code; uniqueness is asserted but the framing is the key defect."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_max_distance_equals_space_diagonal",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "primary_failure_code_evidence": "Response C explicitly states 'the maximum distance from the plane to any vertex is 7, which must correspond to the space diagonal... 7 = a*sqrt(3), so a = 7/sqrt(3)'. This misidentification of the maximum vertex-to-plane distance with the space diagonal is the load-bearing geometric defect.",
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": "the maximum distance from the plane to any vertex is 7, which could be related to the space diagonal... 7 = a*sqrt(3), so a = 7/sqrt(3)",
+        "treats_one_orientation_as_proof_of_uniqueness": "Therefore, the only possible edge length is 7 / sqrt(3), so the sum of squares is (7/sqrt(3))^2 = 49/3.",
+        "claims_unique_edge_length": "the only possible edge length is 7 / sqrt(3) the set S contains only the element 7 / sqrt(3)"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "While present, this is a downstream symptom of the space-diagonal misidentification which is the primary geometric error."
+        },
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "The uniqueness claim is present but secondary to the geometric misidentification of max distance with space diagonal."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_max_distance_equals_space_diagonal",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "primary_failure_code_evidence": "Response D explicitly concludes 'the maximum distance from the plane to a vertex is 7... a*sqrt(3) = 7, so a = 7/sqrt(3)'. This direct equation of max distance with space diagonal is the load-bearing geometric defect.",
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": "the maximum distance from the plane to a vertex is 7 The space diagonal of the cube is a*sqrt(3)... a*sqrt(3) = 7 implies a = 7/sqrt(3)",
+        "treats_one_orientation_as_proof_of_uniqueness": "the only possible edge length is 7 / sqrt(3), so the sum of squares is 49/3",
+        "claims_unique_edge_length": "the only possible edge length is 7 / sqrt(3)"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "The response treats one orientation as unique, but this is downstream of the space-diagonal misidentification."
+        },
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "Uniqueness is claimed but the primary defect is the geometric misidentification of the max distance."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ],
+      "primary_failure_code": "non_terminating_or_no_final_answer",
+      "primary_failure_code_evidence": "Response E enters an infinite loop starting at line 90 with repetitive define and denote statements that continue for hundreds of lines until truncation. The response never reaches a final numeric answer, with the last substantive content being an attempt to define variables that loops indefinitely.",
+      "failure_reason_evidence": {
+        "non_terminating_or_no_final_answer": "Lines 90-1000+ consist of repetitive define and denote phrases without any mathematical progress or final answer. The response truncates mid-sentence without providing a boxed answer or final numeric conclusion."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "While the response starts with axis-corner setup, it never completes the derivation, so the non-termination is the sole applicable code."
+        },
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "The response never reaches any conclusion due to the loop, so non-termination is the only applicable code per instructions."
+        }
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "uses_fabricated_invariant_or_invalid_derivation",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "uses_fabricated_invariant_or_invalid_derivation",
+      "primary_failure_code_evidence": "Response F invents the identity 'sum of squares of distances = 3a^2(1 + T^2)' where T is an invented parameter, then uses this to derive a quadratic equation '3a^4 - 140a^2 + 147 = 0' which is fabricated without valid geometric foundation. The load-bearing defect is this algebraic fabrication that leads to the incorrect answer 140/3.",
+      "failure_reason_evidence": {
+        "uses_fabricated_invariant_or_invalid_derivation": "the sum of the squares of the distances is also equal to: 3a^2 [1 + (x + y + z)^2]... This leads to the quadratic 3a^4 - 140a^2 + 147 = 0... the sum of squares of all possible edge lengths is 140/3",
+        "treats_one_orientation_as_proof_of_uniqueness": "the only possible edge length is sqrt([70 -7*sqrt(91)]/3)... the sum of squares is 140/3",
+        "claims_unique_edge_length": "there is only one possible edge length... the sum of squares of all elements in S is 140/3"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "While present, the fabrication of the algebraic invariant is the more load-bearing defect as it provides the false mathematical foundation."
+        },
+        {
+          "code": "accepts_internal_contradictions_in_derivation",
+          "reason_excluded": "The response does not explicitly accept contradictions; it presents a coherent but fabricated derivation."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "restricts_to_nonnegative_subset_sums",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "omits_sign_pattern_casework",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "primary_failure_code_evidence": "Response G explicitly restricts the search to non-negative values: 'we can assume without loss of generality that u, v, w >= 0'. This is the load-bearing defect because it prevents discovery of the other three valid edge lengths from sign-flipped configurations. The response finds the (1,2,4) case giving s^2=21 but incorrectly asserts this is the only solution due to this restriction.",
+      "failure_reason_evidence": {
+        "restricts_to_nonnegative_subset_sums": "we can assume without loss of generality that u, v, w are positive real numbers, and all combinations are positive. Therefore, we can drop the absolute value signs and consider u, v, w >= 0",
+        "assumes_zero_distance_vertex_is_axis_corner": "Assume that the vertex (0,0,0) is on the plane, so s = 0. Then the plane equation is px + qy + rz = 0",
+        "treats_one_orientation_as_proof_of_uniqueness": "the only possible edge length is sqrt(21)... S would have only one element... the answer is 21",
+        "omits_sign_pattern_casework": "the response does not branch on whether the plane intersects the cube's interior or whether some vertices have negative signed distance",
+        "claims_unique_edge_length": "the only possible edge length is sqrt(21), so the sum of squares is 21"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "While this is present, it is less load-bearing than the subset-sum restriction which actively prevents finding other solutions."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "This is a downstream symptom; the non-negative restriction is what prevents considering other orientations."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "restricts_to_nonnegative_subset_sums",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "omits_sign_pattern_casework",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "primary_failure_code_evidence": "Response H explicitly states 'the subset sums can produce all numbers from 1 to 7' and searches only for positive integers, finding {1,2,4} as the unique solution. The load-bearing defect is this restriction to non-negative subset sums, which prevents finding the other valid configurations with sign-flipped projections like (1,2,-7) that give different edge lengths.",
+      "failure_reason_evidence": {
+        "restricts_to_nonnegative_subset_sums": "Such a set is called a sum basis for the interval 1 to n. The classic example is {1, 2, 4}, whose subset sums are 1, 2, 3, 4, 5, 6, 7. Is there another set of three positive integers whose subset sums are exactly 1 through 7?",
+        "assumes_zero_distance_vertex_is_axis_corner": "The cube has vertices at (0 or a, 0 or a, 0 or a)... one vertex is at the origin (0,0,0) on the plane",
+        "treats_one_orientation_as_proof_of_uniqueness": "the only possible edge length is sqrt(21)... Therefore, the sum of squares is 21",
+        "omits_sign_pattern_casework": "the response searches only for positive integer triples and does not consider configurations where some projections are negative",
+        "claims_unique_edge_length": "the only possible edge length is sqrt(21), so the sum of squares is 21"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "The axis-corner setup is present but the load-bearing defect is the restriction to positive subset sums."
+        },
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "This is a downstream symptom of the non-negative restriction; the primary defect is the search restriction itself."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "restricts_to_nonnegative_subset_sums",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "omits_sign_pattern_casework",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "primary_failure_code_evidence": "Response I explicitly searches for 'three positive integers p, q, r such that the set {p, q, r, p+q, p+r, q+r, p+q+r} equals {1,2,3,4,5,6,7}'. The load-bearing defect is this restriction to positive integers, which prevents discovery of the mixed-sign configurations like (1,2,-7), (1,4,-7), and (2,4,-7) that yield the other three valid edge lengths.",
+      "failure_reason_evidence": {
+        "restricts_to_nonnegative_subset_sums": "find three positive integers p, q, r such that the set {p, q, r, p+q, p+r, q+r, p+q+r} equals {1,2,3,4,5,6,7}",
+        "assumes_zero_distance_vertex_is_axis_corner": "one vertex is at the origin (0,0,0) on the plane the coordinates of the vertices are (0 or a, 0 or a, 0 or a)",
+        "treats_one_orientation_as_proof_of_uniqueness": "the only possible edge length is sqrt(21). The set S contains only sqrt(21), so the sum of squares is 21",
+        "omits_sign_pattern_casework": "the response only considers the case where all projections are positive, missing configurations with mixed signs",
+        "claims_unique_edge_length": "the only possible edge length is sqrt(21)"
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "While the axis-corner assumption is present, it is less diagnostic than the non-negative restriction which directly prevents finding other solutions."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "The uniqueness claim is a downstream effect of the subset-sum restriction; the latter is more load-bearing."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    }
+  ],
+  "code_application_table": {
+    "claims_unique_edge_length": ["A", "B", "C", "D", "F", "G", "H", "I"],
+    "restricts_to_nonnegative_subset_sums": ["A", "G", "H", "I"],
+    "assumes_max_distance_equals_space_diagonal": ["C", "D"],
+    "assumes_plane_parallel_to_cube_face": ["B"],
+    "equates_max_distance_with_edge_length_directly": ["B"],
+    "uses_fabricated_invariant_or_invalid_derivation": ["F"],
+    "accepts_internal_contradictions_in_derivation": ["A"],
+    "assumes_zero_distance_vertex_is_axis_corner": ["A", "G", "H", "I"],
+    "omits_sign_pattern_casework": ["G", "H", "I"],
+    "treats_one_orientation_as_proof_of_uniqueness": ["A", "C", "D", "F", "G", "H", "I"],
+    "derives_correct_partial_s2_then_discards_it": [],
+    "non_terminating_or_no_final_answer": ["E"]
+  },
+  "cross_response_observations": "Five responses (G, H, I, and partially A) share the same core defect: they correctly identify the subset-sum structure of the problem but restrict their search to non-negative (or positive) values, finding only the s^2=21 solution from the (1,2,4) configuration while missing the three mixed-sign configurations (1,2,-7), (1,4,-7), and (2,4,-7) that yield s^2=54, 66, and 69. Two responses (C and D) share the distinct defect of equating the maximum vertex-to-plane distance with the cube's space diagonal, deriving a=7/sqrt(3). Response B uniquely assumes the plane is parallel to a cube face, reducing the problem to a trivial z-coordinate assignment. Response F fabricates an algebraic invariant involving '3a^2(1+T^2)' to derive an incorrect answer. Response E enters a non-terminating loop with repetitive define and denote phrases. None of the nine responses discover the complete set of four edge lengths or the correct final answer of 210."
+}

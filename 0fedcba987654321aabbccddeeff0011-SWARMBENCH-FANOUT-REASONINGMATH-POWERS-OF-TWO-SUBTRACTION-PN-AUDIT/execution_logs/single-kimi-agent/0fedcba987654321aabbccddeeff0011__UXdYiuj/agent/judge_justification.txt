@@ -1,0 +1,25 @@
+Score: 0.7420 (1858/2503 weighted points)
+
+{
+  "score": 0.742,
+  "total_earned": 1858,
+  "total_possible": 2503,
+  "top_level": {
+    "gold_final_answer": 4,
+    "acceptable_solution_ids": 2
+  },
+  "per_response": {
+    "A": 114,
+    "B": 69,
+    "C": 76,
+    "D": 114,
+    "E": 109,
+    "F": 69,
+    "G": 87,
+    "H": 104
+  },
+  "code_application_table_total": 900,
+  "response_count_per_code_total": 180,
+  "cross_response_observations": 30,
+  "justification": "Agent matched gold_final_answer and acceptable_solution_ids. Per-response assessments: A, D, E, H scored high (104-114) with exact or near-exact matches on failure_reasons and primaries. B, C, F lost points on failure_reasons set mismatches (missing codes like claims_wrong_period or truncated_or_short_string) and strict fields code_application_count/evidence_key_completeness. G lost points for substituting arbitrary_pattern_heuristic for arithmetic_recursion_error. Top-level aggregates: code_application_table and response_count_per_code had 4 mismatched keys (arithmetic_recursion_error, claims_wrong_period, arbitrary_pattern_heuristic, truncated_or_short_string lists/counts), forfeiting 400+80 points. Cross-response observations met length/substance for full 30. Total 1858/2503."
+}

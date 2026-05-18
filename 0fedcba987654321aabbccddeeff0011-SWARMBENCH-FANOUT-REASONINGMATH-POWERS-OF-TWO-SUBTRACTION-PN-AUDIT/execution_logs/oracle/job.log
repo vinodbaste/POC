@@ -1,5 +1,2 @@
 Skipping image OS validation for hb__swarmbench-0fedcba987654321aabbccddeeff0011-swarmbench-fanout-reasoningmath-powers-of-two-subtraction-pn-audit: docker inspect returned 1
 The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
-Trial 0fedcba987654321aabbccddeeff0011__8RwtReC failed: No reward file found at /Users/vinodbaste/Turing Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-POWERS-OF-TWO-SUBTRACTION-PN-AUDIT/execution_logs/oracle/0fedcba987654321aabbccddeeff0011__8RwtReC/verifier/reward.txt or /Users/vinodbaste/Turing Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-POWERS-OF-TWO-SUBTRACTION-PN-AUDIT/execution_logs/oracle/0fedcba987654321aabbccddeeff0011__8RwtReC/verifier/reward.json
-Exception RewardFileNotFoundError is in exclude_exceptions, not retrying
-Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached

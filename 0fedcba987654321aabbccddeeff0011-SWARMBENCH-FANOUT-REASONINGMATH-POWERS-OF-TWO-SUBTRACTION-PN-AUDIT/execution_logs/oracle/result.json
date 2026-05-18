@@ -1,32 +1,34 @@
 {
-    "id": "2ef38441-63fa-4564-bc4e-aa92fd727b3d",
-    "started_at": "2026-05-18T17:42:48.949796",
-    "updated_at": "2026-05-18T17:43:10.619859",
-    "finished_at": "2026-05-18T17:43:10.619859",
+    "id": "2e7569c5-9b2f-4574-889d-df89c7335c90",
+    "started_at": "2026-05-18T18:07:12.220403",
+    "updated_at": "2026-05-18T18:07:46.221962",
+    "finished_at": "2026-05-18T18:07:46.221962",
     "n_total_trials": 1,
     "stats": {
         "n_completed_trials": 1,
-        "n_errored_trials": 1,
+        "n_errored_trials": 0,
         "n_running_trials": 0,
         "n_pending_trials": 0,
         "n_cancelled_trials": 0,
         "n_retries": 0,
         "evals": {
             "oracle__adhoc": {
-                "n_trials": 0,
-                "n_errors": 1,
+                "n_trials": 1,
+                "n_errors": 0,
                 "metrics": [
                     {
-                        "mean": 0.0
+                        "mean": 1.0
                     }
                 ],
                 "pass_at_k": {},
-                "reward_stats": {},
-                "exception_stats": {
-                    "RewardFileNotFoundError": [
-                        "0fedcba987654321aabbccddeeff0011__8RwtReC"
-                    ]
-                }
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "0fedcba987654321aabbccddeeff0011__ioBfjFj"
+                        ]
+                    }
+                },
+                "exception_stats": {}
             }
         },
         "n_input_tokens": null,

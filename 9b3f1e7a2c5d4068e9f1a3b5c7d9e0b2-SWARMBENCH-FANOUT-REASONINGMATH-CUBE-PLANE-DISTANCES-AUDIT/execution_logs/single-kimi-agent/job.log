@@ -14,3 +14,5 @@ agent:
 ' > /tmp/single_agent.yaml
 Command outputs captured
 Running command: export PATH="$HOME/.local/bin:$PATH"; (cat /tmp/kimi-prompt.json; sleep 86400) | kimi --config-file /tmp/kimi-config.json --agent-file /tmp/single_agent.yaml --wire --yolo 2>/dev/null | (while IFS= read -r line; do echo "$line" >> /logs/agent/kimi-cli.txt; case "$line" in *'"id":"1"'*) break ;; esac; done; kill 0 2>/dev/null)
+Command failed
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
