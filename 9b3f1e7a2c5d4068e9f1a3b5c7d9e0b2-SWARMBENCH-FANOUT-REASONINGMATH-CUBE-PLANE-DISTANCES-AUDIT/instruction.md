@@ -174,9 +174,6 @@ The verifier (llm-judge) scores the final JSON against the oracle. Field weights
   - `evidence_key_completeness` (integer match against oracle = number of evidence keys matching failure_reasons): 8 points
 - `code_application_table` per key (12 keys, each value an exact sorted-list match against the oracle): 100 points per key
 - `response_count_per_code` per key (12 keys, each value an exact integer match against the oracle): 20 points per key
-- `code_co_occurrence_count` per key (66 unordered pairs of codes "code_i & code_j" with i<j alphabetical; integer match): 5 points per key
-- `response_pair_shared_codes` per key (36 unordered pairs of response_ids "X & Y" with X<Y alphabetical; sorted-list match): 8 points per key
-- `response_triple_shared_codes` per key (84 unordered triples of response_ids "X & Y & Z" with X<Y<Z alphabetical; sorted-list match): 5 points per key
 - `cross_response_observations` (presence + at least 300 characters): 30 points
 
 Every dict aggregation field MUST contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key). Outputting null or omitting a key forfeits the full weight for that key. Producing complete, well-formed values for every field listed above is essential to achieve a high reward.
@@ -239,16 +236,7 @@ Write your final answer to `/logs/agent/output.json` in this exact JSON format:
     "derives_correct_partial_s2_then_discards_it": <integer count>,
     "non_terminating_or_no_final_answer": <integer count>
   },
-  "code_co_occurrence_count": {
-    "<code_i & code_j for each of 66 unordered pairs, alphabetical>": <integer count of responses with both codes in failure_reasons>
-  },
-  "response_pair_shared_codes": {
-    "<response_X & response_Y for each of 36 unordered pairs, alphabetical>": [<sorted list of codes appearing in both responses' failure_reasons>]
-  },
-  "response_triple_shared_codes": {
-    "<response_X & response_Y & response_Z for each of 84 unordered triples, alphabetical>": [<sorted list of codes appearing in all three responses' failure_reasons>]
-  },
   "cross_response_observations": "<single string, at least 300 characters, identifying shared defect patterns across the nine responses>"
 }
 
-In the actual output, include nine objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, I, in that order. Every response_id from A through I must appear in `code_application_table` once per code in its `failure_reasons` set. `response_count_per_code[code]` must equal the length of `code_application_table[code]` for every code. Every dict aggregation field (`code_application_table`, `response_count_per_code`, `code_co_occurrence_count`, `response_pair_shared_codes`, `response_triple_shared_codes`) must contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key).
+In the actual output, include nine objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, I, in that order. Every response_id from A through I must appear in `code_application_table` once per code in its `failure_reasons` set. `response_count_per_code[code]` must equal the length of `code_application_table[code]` for every code. Every dict aggregation field (`code_application_table`, `response_count_per_code`) must contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key).

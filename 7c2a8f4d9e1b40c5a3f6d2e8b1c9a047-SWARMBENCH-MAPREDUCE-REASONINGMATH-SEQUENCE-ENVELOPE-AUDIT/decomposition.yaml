@@ -246,24 +246,6 @@ sub_tasks:
       (6) Build the top-level response_count_per_code with EXACTLY the
           same 10 keys; integer values = lengths of code_application_table
           lists. Verifier scores 20 per key.
-      (7) Build the top-level code_co_occurrence_count: for each
-          unordered pair of distinct codes (c_i, c_j) with i<j
-          alphabetical, key = "c_i & c_j" (45 keys total). Value =
-          integer count of responses whose failure_reasons contains
-          BOTH codes. Use 0 for pairs with no matching response. NEVER
-          null, NEVER omit. Verifier scores 5 per key.
-      (8) Build the top-level response_pair_shared_codes: for each
-          unordered pair of distinct response_ids (A, B) with A<B
-          alphabetical, key = "A & B" (28 keys total). Value =
-          alphabetically-sorted list of codes appearing in BOTH
-          responses' failure_reasons. Use [] for pairs with no shared
-          codes. NEVER null, NEVER omit. Verifier scores 8 per key.
-      (9) Build the top-level response_triple_shared_codes: for each
-          unordered triple (A, B, C) with A<B<C alphabetical, key =
-          "A & B & C" (56 keys total). Value = alphabetically-sorted
-          list of codes appearing in ALL THREE responses' failure_reasons.
-          Use [] for triples with no shared codes. NEVER null, NEVER omit.
-          Verifier scores 5 per key.
       (10) Compose the top-level cross_response_observations string of
            at least 300 characters identifying shared defect patterns.
            Verifier scores 30 by presence + length.

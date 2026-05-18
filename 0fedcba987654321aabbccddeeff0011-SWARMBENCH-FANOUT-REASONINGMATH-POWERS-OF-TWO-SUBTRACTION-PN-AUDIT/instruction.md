@@ -169,9 +169,6 @@ The verifier (llm-judge) scores the final JSON against the oracle. Field weights
   - `evidence_key_completeness` (integer match against oracle = # evidence keys matching failure_reasons): 8 points
 - `code_application_table` per key (13 keys, sorted-list match): 100 points per key
 - `response_count_per_code` per key (13 keys, integer match): 20 points per key
-- `code_co_occurrence_count` per key (78 unordered pairs of codes "code_i & code_j" with i<j alphabetical, integer match): 5 points per key
-- `response_pair_shared_codes` per key (28 unordered pairs of response_ids "X & Y" with X<Y alphabetical, sorted-list match): 8 points per key
-- `response_triple_shared_codes` per key (56 unordered triples of response_ids "X & Y & Z" with X<Y<Z alphabetical, sorted-list match): 5 points per key
 - `cross_response_observations` (presence + at least 300 characters): 30 points
 
 Every dict aggregation field MUST contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key). Outputting null or omitting a key forfeits the full weight for that key.
@@ -231,15 +228,6 @@ Write your final answer to `/logs/agent/output.json` as a single JSON object wit
     "arbitrary_pattern_heuristic": <integer>,
     "truncated_or_short_string": <integer>,
     "non_terminating_or_no_final_answer": <integer>
-  },
-  "code_co_occurrence_count": {
-    "<code_i & code_j for each of 78 unordered pairs, alphabetical>": <integer count of responses with both codes in failure_reasons>
-  },
-  "response_pair_shared_codes": {
-    "<response_X & response_Y for each of 28 unordered pairs, alphabetical>": [<sorted list of codes appearing in both responses' failure_reasons>]
-  },
-  "response_triple_shared_codes": {
-    "<response_X & response_Y & response_Z for each of 56 unordered triples, alphabetical>": [<sorted list of codes appearing in all three responses' failure_reasons>]
   },
   "cross_response_observations": "<string, at least 300 characters>"
 }

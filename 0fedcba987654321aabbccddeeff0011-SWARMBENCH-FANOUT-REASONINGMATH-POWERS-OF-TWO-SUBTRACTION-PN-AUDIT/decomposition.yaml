@@ -204,20 +204,6 @@ sub_tasks:
       (7) Build the top-level response_count_per_code with EXACTLY the
           same 13 keys; integer values = lengths of the code_application_table
           lists. Verifier scores 20 per key.
-      (8) Build the top-level code_co_occurrence_count: for each unordered
-          pair of distinct codes (c_i, c_j) with i<j alphabetical, key =
-          "c_i & c_j" (78 keys total). Value = count of responses with
-          BOTH codes. Use 0 for empty pairs. NEVER null. Scores 5/key.
-      (9) Build the top-level response_pair_shared_codes: for each
-          unordered pair of response_ids (A, B) with A<B alphabetical,
-          key = "A & B" (28 keys total). Value = sorted list of codes
-          appearing in BOTH responses' failure_reasons. Use [] for pairs
-          with no shared codes. NEVER null. Scores 8/key.
-      (10) Build the top-level response_triple_shared_codes: for each
-           unordered triple (A, B, C) with A<B<C alphabetical, key =
-           "A & B & C" (56 keys total). Value = sorted list of codes
-           appearing in ALL THREE responses' failure_reasons. Use [] for
-           triples with no shared codes. NEVER null. Scores 5/key.
       (11) Compose the top-level cross_response_observations string of
            at least 300 characters identifying shared defect patterns.
            Scores 30 by presence + length.
@@ -230,9 +216,7 @@ sub_tasks:
       primary_failure_code_evidence, failure_reason_evidence,
       alternative_codes_considered, code_application_count,
       primary_in_set_check, evidence_key_completeness),
-      code_application_table, response_count_per_code,
-      code_co_occurrence_count, response_pair_shared_codes,
-      response_triple_shared_codes, and cross_response_observations.
+      code_application_table, response_count_per_code and cross_response_observations.
       CRITICAL: every dict aggregation field MUST contain every required
       key with a JSON-valid value (use [] for empty lists, 0 for empty
       integer counts — NEVER null, NEVER omit a key). Validate that the

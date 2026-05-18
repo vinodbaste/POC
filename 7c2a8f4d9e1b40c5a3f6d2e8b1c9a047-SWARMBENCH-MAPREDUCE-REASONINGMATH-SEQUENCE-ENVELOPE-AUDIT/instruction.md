@@ -49,9 +49,6 @@ The verifier (llm-judge) scores deterministically against the oracle with substa
   - `evidence_key_completeness` (integer = # evidence keys matching failure_reasons): 8
 - `code_application_table` per key (10 keys × sorted-list match): 100 each
 - `response_count_per_code` per key (10 keys × integer match): 20 each
-- `code_co_occurrence_count` per key (45 unordered code pairs "code_i & code_j" with i<j alphabetical × integer match): 5 each
-- `response_pair_shared_codes` per key (28 unordered response_id pairs "X & Y" with X<Y alphabetical × sorted-list match): 8 each
-- `response_triple_shared_codes` per key (56 unordered response_id triples "X & Y & Z" × sorted-list match): 5 each
 - `cross_response_observations` (>=300 chars): 30
 
 Every dict aggregation field MUST contain every required key with a JSON-valid value (use `[]` for empty lists, `0` for empty integer counts — NEVER `null`, NEVER omit a key). Outputting `null` or omitting a key forfeits the full weight for that key.
@@ -91,9 +88,6 @@ Write to `/logs/agent/output.json`:
     "wrong_final_number": [<sorted>]
   },
   "response_count_per_code": {"<each of 10 codes>": <integer>},
-  "code_co_occurrence_count": {"<code_i & code_j for each of 45 pairs alphabetical>": <integer>},
-  "response_pair_shared_codes": {"<response_X & response_Y for each of 28 pairs alphabetical>": [<sorted codes>]},
-  "response_triple_shared_codes": {"<response_X & response_Y & response_Z for each of 56 triples alphabetical>": [<sorted codes>]},
   "cross_response_observations": "<string >=300 chars>"
 }
 ```
