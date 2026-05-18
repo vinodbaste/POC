@@ -17,19 +17,17 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_A.md. Audit only Response A.
       Decide whether its claimed classification matches the independently
       computed gold string. If it is wrong, return the exact applicable
-      failure_reasons chosen from:
+      failure_reasons chosen from the eight-code vocabulary defined in
+      instruction.md:
         wrong_base_case, missing_subtraction_moves, pn_convention_swapped,
         wrong_loss_convention, truncated_or_short_string,
         arbitrary_pattern_heuristic, arithmetic_recursion_error,
         non_terminating_or_no_final_string.
-      If the response emits only labelled fragments (such as P0, N0, P2 tied
-      to individual values) and never assembles a single committed
-      131-character P/N classification string, classify as
-      non_terminating_or_no_final_string. Codes that require a committed
-      P/N string of some length (truncated_or_short_string,
-      arithmetic_recursion_error) do not apply when no committed string of
-      any length exists. Do not infer correctness from other proposed
-      responses.
+      Focus on Response A's overall output form: whether it commits to a
+      single full 131-character P/N classification string at all, or whether
+      it emits only labelled fragments without assembling them. Apply codes
+      strictly per the universal trigger and disambiguation rules in
+      instruction.md. Do not infer correctness from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -39,15 +37,12 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_B.md. Audit only Response B.
       Decide whether its claimed classification matches the independently
       computed gold string. If it is wrong, return the exact applicable
-      failure_reasons chosen from the same eight-code vocabulary listed
-      above for Response A.
-      If the response explicitly declines to provide a 131-character
-      classification string and never commits to a full output, classify as
-      non_terminating_or_no_final_string. Codes that require a committed
-      string do not apply when no committed string of any length exists.
-      Codes that require concrete reasoning about move sets, base cases, or
-      conventions do not apply when no concrete computation is attempted in
-      the response. Do not infer correctness from other proposed responses.
+      failure_reasons chosen from the same eight-code vocabulary defined in
+      instruction.md. Focus on Response B's overall output form: whether it
+      ever commits to a complete classification or instead declines to
+      provide one. Apply codes strictly per the universal trigger and
+      disambiguation rules in instruction.md. Do not infer correctness from
+      other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -57,17 +52,12 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_C.md. Audit only Response C.
       Decide whether its claimed classification matches the independently
       computed gold string. If it is wrong, return the exact applicable
-      failure_reasons chosen from the same eight-code vocabulary.
-      If a response commits a P/N classification whose length differs from
-      131, include truncated_or_short_string. If the response's
-      classification is built on a uniform, all-N, periodic, or visibly
-      repeating positional rule rather than a recurrence-driven derivation,
-      include arbitrary_pattern_heuristic. Apply missing_subtraction_moves
-      only when the response concretely enumerates or relies on an
-      incomplete legal move set in its reasoning text; do not include it
-      when the response provides only a bare classification string without
-      reasoning about subtraction options. Do not infer correctness from
-      other proposed responses.
+      failure_reasons chosen from the same eight-code vocabulary defined in
+      instruction.md. Focus on Response C's classification length and
+      composition and on the form of any positional rule it invokes (pattern,
+      modulus, or recurrence). Apply codes strictly per the universal trigger
+      and disambiguation rules in instruction.md. Do not infer correctness
+      from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -77,16 +67,12 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_D.md. Audit only Response D.
       Decide whether its claimed classification matches the independently
       computed gold string. If it is wrong, return the exact applicable
-      failure_reasons chosen from the same eight-code vocabulary.
-      If the committed P/N string has length other than 131, include
-      truncated_or_short_string. If the visible structure of the string is
-      a repetition or unjustified positional rule rather than the output of
-      a game-tree computation, include arbitrary_pattern_heuristic. Do not
-      include arithmetic_recursion_error when the recurrence is not
-      actually executed to produce position-level outputs; that code's
-      trigger requires a committed length-131 string built on the correct
-      recurrence with per-position computation errors. Do not infer
-      correctness from other proposed responses.
+      failure_reasons chosen from the same eight-code vocabulary defined in
+      instruction.md. Focus on Response D's classification length and the
+      visible structure of its output (whether the result is a positional
+      rule or a game-tree computation). Apply codes strictly per the
+      universal trigger and disambiguation rules in instruction.md. Do not
+      infer correctness from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -96,15 +82,12 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_E.md. Audit only Response E.
       Decide whether its claimed classification matches the independently
       computed gold string. If it is wrong, return the exact applicable
-      failure_reasons chosen from the same eight-code vocabulary.
-      If the response's classification at pile size 0 is N rather than P,
-      or the response otherwise contradicts the cannot-move-loses base-case
-      convention, include wrong_base_case. If the committed P/N string has
-      length other than 131, include truncated_or_short_string. Do not
-      include arithmetic_recursion_error when the base case is wrong,
-      because that code's trigger requires correct base-case and recurrence
-      setup as prerequisites. Do not infer correctness from other proposed
-      responses.
+      failure_reasons chosen from the same eight-code vocabulary defined in
+      instruction.md. Focus on Response E's treatment of the base case at
+      pile size 0 and on the length and composition of its committed
+      classification string. Apply codes strictly per the universal trigger
+      and disambiguation rules in instruction.md. Do not infer correctness
+      from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -114,15 +97,12 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_F.md. Audit only Response F.
       Decide whether its claimed classification matches the independently
       computed gold string. If it is wrong, return the exact applicable
-      failure_reasons chosen from the same eight-code vocabulary.
-      If the response enumerates the correct legal move set and sets up the
-      correct recurrence and produces a committed P/N string containing
-      per-position computation errors, include arithmetic_recursion_error.
-      If the committed P/N string has length other than 131, include
-      truncated_or_short_string. Do not include arbitrary_pattern_heuristic
-      when the response actually sets up the recurrence rather than
-      asserting a positional rule. Do not infer correctness from other
-      proposed responses.
+      failure_reasons chosen from the same eight-code vocabulary defined in
+      instruction.md. Focus on Response F's stated move set, whether it sets
+      up the standard recurrence, and the length and per-position values of
+      its committed classification string. Apply codes strictly per the
+      universal trigger and disambiguation rules in instruction.md. Do not
+      infer correctness from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -132,15 +112,12 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_G.md. Audit only Response G.
       Decide whether its claimed classification matches the independently
       computed gold string. If it is wrong, return the exact applicable
-      failure_reasons chosen from the same eight-code vocabulary.
-      If the committed P/N string has length other than 131, include
-      truncated_or_short_string. If the classification rests on a uniform
-      rule about nonzero positions (such as "every nonzero position is N
-      because move size 1 exists") rather than a recurrence-driven
-      derivation, include arbitrary_pattern_heuristic. Do not include
-      arithmetic_recursion_error when the recurrence is not actually
-      computed; the uniform positional rule itself is the controlling
-      defect. Do not infer correctness from other proposed responses.
+      failure_reasons chosen from the same eight-code vocabulary defined in
+      instruction.md. Focus on Response G's classification length and on
+      whether its result rests on a uniform positional rule or on a
+      recurrence-driven derivation. Apply codes strictly per the universal
+      trigger and disambiguation rules in instruction.md. Do not infer
+      correctness from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -150,16 +127,13 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_H.md. Audit only Response H.
       Decide whether its claimed classification matches the independently
       computed gold string. If it is wrong, return the exact applicable
-      failure_reasons chosen from the same eight-code vocabulary.
-      If the committed P/N string presents an alternating or visibly
-      periodic positional pattern rather than a recurrence-derived
-      classification, include arbitrary_pattern_heuristic. If the committed
-      string has length other than 131, include truncated_or_short_string.
-      Do not include arithmetic_recursion_error when the alternating
-      pattern is the controlling defect rather than per-position recurrence
-      computation errors; that code's trigger requires a committed
-      length-131 string with the correct recurrence and convention. Do not
-      infer correctness from other proposed responses.
+      failure_reasons chosen from the same eight-code vocabulary defined in
+      instruction.md. Focus on Response H's classification length and on the
+      form of its committed output (whether it shows an alternating or
+      visibly periodic positional pattern, or a recurrence-derived
+      classification). Apply codes strictly per the universal trigger and
+      disambiguation rules in instruction.md. Do not infer correctness from
+      other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
