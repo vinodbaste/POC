@@ -1,0 +1,322 @@
+{
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": ["accepts_internal_contradictions_in_derivation", "claims_unique_edge_length", "restricts_to_nonnegative_subset_sums", "assumes_zero_distance_vertex_is_axis_corner", "omits_sign_pattern_casework"],
+      "primary_failure_code": "accepts_internal_contradictions_in_derivation",
+      "failure_reason_evidence": {
+        "accepts_internal_contradictions_in_derivation": {
+          "quote": "Response contains explicit contradictory equations such as '6 = 7' or similar and proceeds to extract a numeric answer despite the contradiction",
+          "location": "final_derivation_section"
+        },
+        "claims_unique_edge_length": {
+          "quote": "Response asserts 'the only possible edge length' or 'uniquely determined' with a single numeric value",
+          "location": "conclusion_section"
+        },
+        "restricts_to_nonnegative_subset_sums": {
+          "quote": "Response requires all seven non-zero vertex-to-plane distances to arise as non-negative sums of three axis projections",
+          "location": "geometric_setup_section"
+        },
+        "assumes_zero_distance_vertex_is_axis_corner": {
+          "quote": "Places the cube with one vertex at the origin (0,0,0) lying on the plane",
+          "location": "coordinate_setup_section"
+        },
+        "omits_sign_pattern_casework": {
+          "quote": "Response reaches numeric conclusion without enumerating sign-pattern families of vertex configurations relative to the plane",
+          "location": "throughout"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response explicitly shows contradictory equations (e.g., '6 = 7') within its derivation chain yet proceeds to select a final numeric answer",
+        "location": "critical_derivation_step"
+      },
+      "alternative_codes_considered": [
+        {"code": "claims_unique_edge_length", "reason_not_selected": "Secondary to the internal contradiction defect"},
+        {"code": "restricts_to_nonnegative_subset_sums", "reason_not_selected": "Present but not the primary load-bearing defect"},
+        {"code": "omits_sign_pattern_casework", "reason_not_selected": "Present but internal contradiction takes precedence"},
+        {"code": "uses_fabricated_invariant_or_invalid_derivation", "reason_not_selected": "Not applicable - contradiction is explicit, not fabricated invariant"}
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": ["assumes_plane_parallel_to_cube_face", "equates_max_distance_with_edge_length_directly", "claims_unique_edge_length"],
+      "primary_failure_code": "assumes_plane_parallel_to_cube_face",
+      "failure_reason_evidence": {
+        "assumes_plane_parallel_to_cube_face": {
+          "quote": "Response's primary geometric setup assumes plane parallel to one cube face with distances as z-coordinates",
+          "location": "geometric_setup_section"
+        },
+        "equates_max_distance_with_edge_length_directly": {
+          "quote": "Response identifies maximum vertex-to-plane distance (7) directly with cube edge length a = 7",
+          "location": "derivation_section"
+        },
+        "claims_unique_edge_length": {
+          "quote": "Response asserts a single unique edge length as the only solution",
+          "location": "conclusion_section"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response explicitly uses 'plane z = k' with axis-aligned cube, assuming plane parallel to a face",
+        "location": "primary_geometric_framing"
+      },
+      "alternative_codes_considered": [
+        {"code": "equates_max_distance_with_edge_length_directly", "reason_not_selected": "Secondary - the face-parallel assumption enables this direct identification"},
+        {"code": "assumes_max_distance_equals_space_diagonal", "reason_not_selected": "Not applicable - response uses a = 7 not a = 7/√3"},
+        {"code": "claims_unique_edge_length", "reason_not_selected": "Secondary - follows from the geometric framing"},
+        {"code": "restricts_to_nonnegative_subset_sums", "reason_not_selected": "Not present in this response"}
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": ["assumes_max_distance_equals_space_diagonal", "claims_unique_edge_length", "treats_one_orientation_as_proof_of_uniqueness", "assumes_zero_distance_vertex_is_axis_corner", "omits_sign_pattern_casework"],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": {
+          "quote": "Response equates maximum vertex-to-plane distance (7) with cube's space diagonal a√3 = 7",
+          "location": "derivation_section"
+        },
+        "claims_unique_edge_length": {
+          "quote": "Response asserts single unique edge length as the final answer",
+          "location": "conclusion_section"
+        },
+        "treats_one_orientation_as_proof_of_uniqueness": {
+          "quote": "Response solves one geometric configuration and asserts the resulting s² as the only solution",
+          "location": "conclusion_section"
+        },
+        "assumes_zero_distance_vertex_is_axis_corner": {
+          "quote": "Response places cube with vertex at (0,0,0) on the plane",
+          "location": "coordinate_setup_section"
+        },
+        "omits_sign_pattern_casework": {
+          "quote": "Response does not consider sign-pattern families of vertex configurations",
+          "location": "throughout"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response explicitly states 'space diagonal = 7' or 'a√3 = 7' as a load-bearing step",
+        "location": "critical_derivation_step"
+      },
+      "alternative_codes_considered": [
+        {"code": "treats_one_orientation_as_proof_of_uniqueness", "reason_not_selected": "Secondary - the space-diagonal misidentification is the primary geometric defect"},
+        {"code": "claims_unique_edge_length", "reason_not_selected": "Secondary - follows from the diagonal misidentification"},
+        {"code": "assumes_plane_parallel_to_cube_face", "reason_not_selected": "Not applicable - response uses space diagonal not face-parallel"}
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": ["assumes_max_distance_equals_space_diagonal", "claims_unique_edge_length", "omits_sign_pattern_casework", "treats_one_orientation_as_proof_of_uniqueness"],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": {
+          "quote": "Response equates maximum distance (7) with space diagonal a√3",
+          "location": "derivation_section"
+        },
+        "claims_unique_edge_length": {
+          "quote": "Response asserts a single edge length is the only solution",
+          "location": "conclusion_section"
+        },
+        "omits_sign_pattern_casework": {
+          "quote": "Response does not enumerate sign-pattern families",
+          "location": "throughout"
+        },
+        "treats_one_orientation_as_proof_of_uniqueness": {
+          "quote": "Response derives from one orientation and claims uniqueness",
+          "location": "conclusion_section"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response explicitly uses a√3 = 7 as the basis for deriving edge length",
+        "location": "critical_derivation_step"
+      },
+      "alternative_codes_considered": [
+        {"code": "treats_one_orientation_as_proof_of_uniqueness", "reason_not_selected": "Secondary to space diagonal misidentification"},
+        {"code": "claims_unique_edge_length", "reason_not_selected": "Secondary to the primary geometric defect"},
+        {"code": "restricts_to_nonnegative_subset_sums", "reason_not_selected": "Not present in this response"}
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": ["non_terminating_or_no_final_answer"],
+      "primary_failure_code": "non_terminating_or_no_final_answer",
+      "failure_reason_evidence": {
+        "non_terminating_or_no_final_answer": {
+          "quote": "Response does not produce an identifiable final numeric answer - either truncated, loops on phrases, or mid-sentence cut-off",
+          "location": "end_of_response"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response shows no boxed answer and no 'final answer is N' sentence; generation appears truncated or non-terminating",
+        "location": "throughout"
+      },
+      "alternative_codes_considered": [
+        {"code": "accepts_internal_contradictions_in_derivation", "reason_not_selected": "Not applicable - no final answer to extract"},
+        {"code": "claims_unique_edge_length", "reason_not_selected": "Not applicable - no final answer claimed"},
+        {"code": "assumes_max_distance_equals_space_diagonal", "reason_not_selected": "Not applicable when there is no final answer"}
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": ["restricts_to_nonnegative_subset_sums", "assumes_zero_distance_vertex_is_axis_corner", "treats_one_orientation_as_proof_of_uniqueness", "omits_sign_pattern_casework", "claims_unique_edge_length"],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "failure_reason_evidence": {
+        "restricts_to_nonnegative_subset_sums": {
+          "quote": "Response requires all seven non-zero distances as non-negative subset sums of {p, q, r}",
+          "location": "load_bearing_argument_section"
+        },
+        "assumes_zero_distance_vertex_is_axis_corner": {
+          "quote": "Response fixes zero-distance vertex at (0,0,0)",
+          "location": "coordinate_setup_section"
+        },
+        "treats_one_orientation_as_proof_of_uniqueness": {
+          "quote": "Solves one orientation and asserts uniqueness",
+          "location": "conclusion_section"
+        },
+        "omits_sign_pattern_casework": {
+          "quote": "Does not enumerate sign-pattern families",
+          "location": "throughout"
+        },
+        "claims_unique_edge_length": {
+          "quote": "Claims single edge length as the only solution",
+          "location": "conclusion_section"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response's load-bearing argument requires all seven distances arise as non-negative sums of three 'axis projections'",
+        "location": "critical_search_constraint"
+      },
+      "alternative_codes_considered": [
+        {"code": "assumes_zero_distance_vertex_is_axis_corner", "reason_not_selected": "Secondary - the non-negative restriction is the primary defect"},
+        {"code": "treats_one_orientation_as_proof_of_uniqueness", "reason_not_selected": "Present but secondary to subset sum restriction"}
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": ["derives_correct_partial_s2_then_discards_it", "uses_fabricated_invariant_or_invalid_derivation"],
+      "primary_failure_code": "derives_correct_partial_s2_then_discards_it",
+      "failure_reason_evidence": {
+        "derives_correct_partial_s2_then_discards_it": {
+          "quote": "Response correctly derives s² = 21 (or 1² + 2² + 4²) as intermediate but then explicitly rejects it",
+          "location": "intermediate_then_discard_section"
+        },
+        "uses_fabricated_invariant_or_invalid_derivation": {
+          "quote": "Response rests final answer on invented algebraic identity not following from the problem",
+          "location": "final_derivation_section"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response shows s² = 21 appearing as derived intermediate value and then explicitly rejects this value",
+        "location": "critical_misstep"
+      },
+      "alternative_codes_considered": [
+        {"code": "uses_fabricated_invariant_or_invalid_derivation", "reason_not_selected": "Secondary - the discarding of correct partial result takes precedence per disambiguation rules"},
+        {"code": "accepts_internal_contradictions_in_derivation", "reason_not_selected": "Not applicable - different type of defect"},
+        {"code": "claims_unique_edge_length", "reason_not_selected": "Not the primary issue when correct value was derived then discarded"}
+      ],
+      "code_application_count": 2,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 2
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": ["restricts_to_nonnegative_subset_sums", "assumes_zero_distance_vertex_is_axis_corner", "claims_unique_edge_length", "omits_sign_pattern_casework"],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "failure_reason_evidence": {
+        "restricts_to_nonnegative_subset_sums": {
+          "quote": "Response requires all seven non-zero distances as non-negative subset sums",
+          "location": "load_bearing_argument_section"
+        },
+        "assumes_zero_distance_vertex_is_axis_corner": {
+          "quote": "Response fixes zero vertex at (0,0,0)",
+          "location": "coordinate_setup_section"
+        },
+        "claims_unique_edge_length": {
+          "quote": "Response claims unique edge length",
+          "location": "conclusion_section"
+        },
+        "omits_sign_pattern_casework": {
+          "quote": "Response does not consider sign patterns",
+          "location": "throughout"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response's search restricted to positive-integer triples with non-empty subset sums equal to {1,...,7}",
+        "location": "critical_search_constraint"
+      },
+      "alternative_codes_considered": [
+        {"code": "assumes_zero_distance_vertex_is_axis_corner", "reason_not_selected": "Secondary to non-negative restriction per selection rules"},
+        {"code": "claims_unique_edge_length", "reason_not_selected": "Secondary - follows from the restricted search"},
+        {"code": "treats_one_orientation_as_proof_of_uniqueness", "reason_not_selected": "Not present in this response"}
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "failure_reasons": ["restricts_to_nonnegative_subset_sums", "assumes_zero_distance_vertex_is_axis_corner", "claims_unique_edge_length", "treats_one_orientation_as_proof_of_uniqueness", "omits_sign_pattern_casework"],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "failure_reason_evidence": {
+        "restricts_to_nonnegative_subset_sums": {
+          "quote": "Response restricts search to non-negative subset sums of {p, q, r}",
+          "location": "load_bearing_argument_section"
+        },
+        "assumes_zero_distance_vertex_is_axis_corner": {
+          "quote": "Response places cube with vertex at origin on the plane",
+          "location": "coordinate_setup_section"
+        },
+        "claims_unique_edge_length": {
+          "quote": "Response asserts only one edge length solution",
+          "location": "conclusion_section"
+        },
+        "treats_one_orientation_as_proof_of_uniqueness": {
+          "quote": "Response solves single orientation and claims uniqueness",
+          "location": "conclusion_section"
+        },
+        "omits_sign_pattern_casework": {
+          "quote": "Response does not enumerate sign-pattern families",
+          "location": "throughout"
+        }
+      },
+      "primary_failure_code_evidence": {
+        "quote": "Response's load-bearing argument requires all distances arise as non-negative sums of three positive quantities",
+        "location": "critical_search_constraint"
+      },
+      "alternative_codes_considered": [
+        {"code": "assumes_zero_distance_vertex_is_axis_corner", "reason_not_selected": "Secondary to non-negative restriction per selection rules"},
+        {"code": "treats_one_orientation_as_proof_of_uniqueness", "reason_not_selected": "Present but secondary"},
+        {"code": "claims_unique_edge_length", "reason_not_selected": "Secondary - follows from restricted search"}
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    }
+  ],
+  "acceptable_solution_ids": []
+}

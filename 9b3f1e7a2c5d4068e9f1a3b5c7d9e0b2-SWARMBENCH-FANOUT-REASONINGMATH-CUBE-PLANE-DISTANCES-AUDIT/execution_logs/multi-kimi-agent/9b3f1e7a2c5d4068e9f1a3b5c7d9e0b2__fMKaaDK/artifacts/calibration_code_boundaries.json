@@ -1,0 +1,85 @@
+{
+  "code_definitions": {
+    "claims_unique_edge_length": {
+      "trigger": "the response's final stated conclusion asserts that there is exactly one possible cube edge length (|S| = 1), regardless of the value claimed",
+      "fires_when": "trigger phrases include 'only possible edge length', 'the only solution', 'uniquely determined', 'the cube edge length is', or a final boxed answer that equals (one numeric edge-length value)² rather than a sum of squares over multiple values",
+      "does_not_fire_when": "the response presents its final answer as a sum over multiple candidate edge lengths, or if the response never reaches a final numeric conclusion"
+    },
+    "restricts_to_nonnegative_subset_sums": {
+      "trigger": "the response's load-bearing argument requires all seven non-zero vertex-to-plane distances to arise as non-negative sums of three 'axis projections' or 'subset sums' of three positive quantities {p, q, r}",
+      "fires_when": "trigger phrases: 'projections must be non-negative', 'subset sums of {p, q, r}', 'non-empty subset sums', 'signed projections have the same sign', or a search restricted to positive-integer triples whose subset sums equal {1, ..., 7}",
+      "does_not_fire_when": "N/A"
+    },
+    "assumes_max_distance_equals_space_diagonal": {
+      "trigger": "the response equates the maximum vertex-to-plane distance (7) with the cube's space diagonal a√3, deriving a = 7/√3 and s² = 49/3 (or equivalent) as a load-bearing step",
+      "fires_when": "trigger phrases: 'space diagonal = 7', 'a√3 = 7', 'a = 7/√3', 'the space diagonal must equal 7', 'maximum distance is the space diagonal'",
+      "does_not_fire_when": "N/A"
+    },
+    "assumes_plane_parallel_to_cube_face": {
+      "trigger": "the response's primary geometric setup assumes the cutting plane is parallel to one face of the cube (or an axis-aligned cube cut by z = k), so the eight vertex distances take at most two distinct values",
+      "fires_when": "trigger phrases: 'distances would be the z-coordinates', 'plane parallel to a face', 'plane z = k' with an axis-aligned cube",
+      "does_not_fire_when": "the response merely entertains and discards this hypothesis"
+    },
+    "equates_max_distance_with_edge_length_directly": {
+      "trigger": "the response directly identifies the maximum vertex-to-plane distance (7) with the cube's edge length a (so a = 7 and s² = 49), without projecting through any plane normal",
+      "fires_when": "N/A",
+      "does_not_fire_when": "Mutually exclusive with assumes_max_distance_equals_space_diagonal (the first sets a = 7, the second sets a = 7/√3)"
+    },
+    "uses_fabricated_invariant_or_invalid_derivation": {
+      "trigger": "the response's final numeric answer rests on an invented algebraic identity that does not follow from the problem (e.g., asserting a 'sum of squared distances = 3a²(1 + T²)' identity, or summing roots of a quadratic whose coefficients come from a fabricated invariant), OR the response openly invents a derivation step without algebraic backing",
+      "fires_when": "the response's final boxed value is the output of a fabricated algebraic chain",
+      "does_not_fire_when": "N/A"
+    },
+    "accepts_internal_contradictions_in_derivation": {
+      "trigger": "the response openly accepts mutually contradictory equations such as '6 = 7' or '3 = 4' inside its derivation and then proceeds to select a numeric answer that the surviving algebra does not justify",
+      "fires_when": "both (a) an explicit contradiction in the response text and (b) a final numeric answer extracted despite the contradiction",
+      "does_not_fire_when": "N/A"
+    },
+    "assumes_zero_distance_vertex_is_axis_corner": {
+      "trigger": "the response fixes the vertex at distance 0 to be a specific cube-local corner (typically (0,0,0) of an axis-aligned cube) and treats every other vertex's signed distance to the plane as a non-negative coordinate combination of three outgoing edge directions from that corner, without justifying why the zero-vertex must be that specific corner",
+      "fires_when": "trigger phrases: 'place the cube with one vertex at the origin', 'vertex (0,0,0) lies on the plane', 'the cube has vertices at {0, a}³'",
+      "does_not_fire_when": "the response uses a symbolic (±, ±, ±) sign-pattern setup or a body-diagonal aligned setup that does not fix a specific corner"
+    },
+    "omits_sign_pattern_casework": {
+      "trigger": "the response reaches a numeric conclusion (correct or wrong) without enumerating the sign-pattern families of the cube's vertex configurations relative to the plane (i.e., it does not consider configurations in which some vertices have negative signed distance to the plane and others positive)",
+      "fires_when": "the response does not branch on whether the plane intersects the cube's interior",
+      "does_not_fire_when": "the response never reaches a numeric conclusion"
+    },
+    "treats_one_orientation_as_proof_of_uniqueness": {
+      "trigger": "the response solves a single cube orientation (axis-aligned, body-diagonal-aligned, face-parallel, or any other single geometric configuration), derives some s² value from that one orientation, and then asserts (explicitly or implicitly) that this s² value is the only solution without ruling out other orientations",
+      "fires_when": "ONE derivation chain producing ONE numeric value that the response then names as the unique answer",
+      "does_not_fire_when": "the load-bearing defect is internal contradictory equations inside one derivation chain (the response did not produce a clean single-orientation derivation), nor when the load-bearing defect is direct edge=7 identification under a face-parallel or axis-aligned setup (those framings are captured by other codes), nor when the load-bearing defect is a space-diagonal a√3=7 identification (the geometric defect is the diagonal misidentification, not the orientation), nor when the response works through multiple sign branches even if it discards one"
+    },
+    "derives_correct_partial_s2_then_discards_it": {
+      "trigger": "the response correctly derives s² = 21 (the all-positive case value) at some point in its reasoning chain and then explicitly rejects or discards that value, choosing a different final numeric answer",
+      "fires_when": "both (a) the value 21 (or equivalently 1² + 2² + 4²) appearing as a derived s² intermediate and (b) explicit rejection of it",
+      "does_not_fire_when": "N/A"
+    },
+    "non_terminating_or_no_final_answer": {
+      "trigger": "the response does not produce an identifiable final numeric answer",
+      "fires_when": "no boxed answer and no 'final answer is N' sentence; a generation that loops on a phrase tens or hundreds of times until truncation; a mid-sentence cut-off before any conclusion",
+      "does_not_fire_when": "N/A - Fires regardless of whether the early portion of the response is mathematically reasonable. Mutually incompatible with any other code that requires extracting a final numeric answer"
+    }
+  },
+  "primary_selection_rules": [
+    "If failure_reasons is empty, primary_failure_code MUST be 'NONE'",
+    "If non_terminating_or_no_final_answer is present, it stands alone and is the primary code",
+    "When the load-bearing defect is a fabricated algebraic invariant AND the response also accepts internal contradictions, prefer uses_fabricated_invariant_or_invalid_derivation over accepts_internal_contradictions_in_derivation",
+    "When the response derives the correct partial s² = 21 and then explicitly discards it, prefer derives_correct_partial_s2_then_discards_it over uses_fabricated_invariant_or_invalid_derivation",
+    "When the response restricts its search to non-negative subset sums AND also fixes the zero-distance vertex at a specific corner, prefer restricts_to_nonnegative_subset_sums over assumes_zero_distance_vertex_is_axis_corner",
+    "When the load-bearing geometric step is identifying the maximum vertex-to-plane distance with the cube's space diagonal (a√3 = 7), prefer assumes_max_distance_equals_space_diagonal over treats_one_orientation_as_proof_of_uniqueness and over claims_unique_edge_length",
+    "When the response's primary geometric setup is face-parallel or axis-aligned with the plane at constant z, prefer assumes_plane_parallel_to_cube_face over equates_max_distance_with_edge_length_directly",
+    "Do NOT pick claims_unique_edge_length or omits_sign_pattern_casework as the primary code when other codes apply"
+  ],
+  "disambiguation_rules": [
+    "equates_max_distance_with_edge_length_directly (a = 7) and assumes_max_distance_equals_space_diagonal (a = 7/√3) are mutually exclusive",
+    "treats_one_orientation_as_proof_of_uniqueness fires when the response solves exactly one cube orientation and asserts the resulting s² as the only solution. It overlaps with but is distinct from claims_unique_edge_length",
+    "assumes_zero_distance_vertex_is_axis_corner fires when the response fixes the zero-distance vertex at a specific cube-local corner such as (0,0,0)",
+    "restricts_to_nonnegative_subset_sums fires when the response's load-bearing search assumes all seven nonzero distances arise as non-negative subset sums of positive quantities {p, q, r}",
+    "omits_sign_pattern_casework fires when the response reaches a numeric conclusion without enumerating the sign-pattern families",
+    "accepts_internal_contradictions_in_derivation requires BOTH (a) an explicit contradictory equation in the response text and (b) a final numeric answer extracted despite the contradiction",
+    "uses_fabricated_invariant_or_invalid_derivation fires when the response's final numeric answer rests on an invented algebraic identity",
+    "derives_correct_partial_s2_then_discards_it requires both (a) the value 21 appearing as a derived s² intermediate and (b) explicit rejection of it",
+    "non_terminating_or_no_final_answer fires when no committed final numeric answer exists at all"
+  ]
+}
