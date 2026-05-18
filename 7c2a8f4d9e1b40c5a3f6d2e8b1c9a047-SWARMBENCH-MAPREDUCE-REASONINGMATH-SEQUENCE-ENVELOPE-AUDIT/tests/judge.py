@@ -1,343 +1,88 @@
 import argparse
 import json
 import os
+import re
+
+from openai import OpenAI
 
 
-WEIGHTS = {
-    "C1_correct_final_answer": 8,
-    "C2_concrete_strategy": 1,
-    "C3_valid_upper_bound": 12,
-    "C4_valid_lower_bound": 12,
-    "C5_worst_case_guarantee": 5,
-    "C6_no_invalid_one_draw_inference": 15,
-    "C7_no_exact_mixed_pair_requirement": 15,
-    "C8_no_fatal_wrong_claim": 30,
-    "verdict": 35,
-    "primary_failure_code": 140,
-}
+JUDGE_MODEL = "accounts/fireworks/models/kimi-k2p5"
 
-
-CRITERIA = [
-    "C1_correct_final_answer",
-    "C2_concrete_strategy",
-    "C3_valid_upper_bound",
-    "C4_valid_lower_bound",
-    "C5_worst_case_guarantee",
-    "C6_no_invalid_one_draw_inference",
-    "C7_no_exact_mixed_pair_requirement",
-    "C8_no_fatal_wrong_claim",
+ALL_FAILURE_CODES = [
+    "contradictory_final_answer",
+    "fatal_wrong_claim",
+    "invalid_one_draw_inference",
+    "invalid_upper_bound",
+    "missing_lower_bound",
+    "no_concrete_strategy",
+    "non_terminating_or_no_final_answer",
+    "not_worst_case",
+    "unnecessary_mixed_pair_requirement",
+    "wrong_final_number",
 ]
 
 
-PRIMARY_CODES = [
-    "NONE",
-    "WRONG_FINAL_NUMBER",
-    "CONTRADICTORY_FINAL_ANSWER",
-    "NO_CONCRETE_STRATEGY",
-    "INVALID_UPPER_BOUND",
-    "MISSING_LOWER_BOUND",
-    "NOT_WORST_CASE",
-    "INVALID_ONE_DRAW_INFERENCE",
-    "UNNECESSARY_MIXED_PAIR_REQUIREMENT",
-    "FATAL_WRONG_CLAIM",
-]
+def extract_json(text):
+    text = text.strip()
+    m = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
+    if m:
+        return m.group(1).strip()
+    m = re.search(r"\{[\s\S]*\}", text)
+    return m.group(0) if m else text
 
 
-PER_RESPONSE_EVIDENCE_WEIGHT = 5
-PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT = 8
-PER_RESPONSE_ALT_CODES_WEIGHT = 8
-PER_RESPONSE_CRITERIA_COUNT_WEIGHT = 10
-PER_RESPONSE_VERDICT_CONSISTENCY_WEIGHT = 15
-CONSISTENCY_TABLE_PER_KEY_WEIGHT = 100
-CRITERION_PASS_RATE_PER_KEY_WEIGHT = 80
-VERDICT_DISTRIBUTION_PER_KEY_WEIGHT = 150
-CRITERION_PAIR_CO_PASS_PER_KEY_WEIGHT = 12
-RESPONSE_PAIR_CRITERION_AGREEMENT_PER_KEY_WEIGHT = 10
-RESPONSE_TRIPLE_CRITERION_AGREEMENT_PER_KEY_WEIGHT = 8
-CROSS_RESPONSE_OBSERVATIONS_WEIGHT = 30
-EVIDENCE_MIN_CHARS = 20
-PRIMARY_EVIDENCE_MIN_CHARS = 50
-ALT_CODES_MIN_COUNT = 2
-CROSS_OBSERVATIONS_MIN_CHARS = 300
-
-
-def load_json(path):
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def by_id(obj):
-    return {item.get("solution_id"): item for item in obj.get("evaluations", [])}
-
-
-def score_per_response_labels(o, a):
-    response_earned = 0
-    response_total = 0
-    mismatches = []
-    for key in CRITERIA:
-        w = WEIGHTS[key]
-        response_total += w
-        expected = o.get("criteria", {}).get(key)
-        actual = a.get("criteria", {}).get(key)
-        if actual == expected:
-            response_earned += w
-        else:
-            mismatches.append(f"{key}: expected {expected}, got {actual}, weight {w}")
-    for key in ["verdict", "primary_failure_code"]:
-        w = WEIGHTS[key]
-        response_total += w
-        expected = o.get(key)
-        actual = a.get(key)
-        if actual == expected:
-            response_earned += w
-        else:
-            mismatches.append(f"{key}: expected {expected}, got {actual}, weight {w}")
-    return response_earned, response_total, mismatches
-
-
-def score_per_response_evidence(a):
-    earned = 0
-    total = 0
-    issues = []
-    crit_evidence = a.get("criterion_evidence", {}) if isinstance(a.get("criterion_evidence"), dict) else {}
-    for crit in CRITERIA:
-        total += PER_RESPONSE_EVIDENCE_WEIGHT
-        val = crit_evidence.get(crit, "")
-        if isinstance(val, str) and len(val.strip()) >= EVIDENCE_MIN_CHARS:
-            earned += PER_RESPONSE_EVIDENCE_WEIGHT
-        else:
-            issues.append(f"criterion_evidence.{crit}: missing or too short")
-    total += PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT
-    pfe = a.get("primary_failure_code_evidence", "")
-    if isinstance(pfe, str) and len(pfe.strip()) >= PRIMARY_EVIDENCE_MIN_CHARS:
-        earned += PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT
-    else:
-        issues.append("primary_failure_code_evidence: missing or too short")
-    total += PER_RESPONSE_ALT_CODES_WEIGHT
-    acc = a.get("alternative_codes_considered", [])
-    if isinstance(acc, list) and len(acc) >= ALT_CODES_MIN_COUNT and all(
-        isinstance(it, dict) and isinstance(it.get("code"), str) and isinstance(it.get("reason_excluded"), str) and it.get("code") in PRIMARY_CODES + ["NONE"]
-        for it in acc
-    ):
-        earned += PER_RESPONSE_ALT_CODES_WEIGHT
-    else:
-        issues.append("alternative_codes_considered: missing, too short, or malformed")
-    return earned, total, issues
-
-
-def score_per_response_criteria_count(o, a):
-    total = PER_RESPONSE_CRITERIA_COUNT_WEIGHT
-    expected = o.get("criteria_satisfied_count")
-    actual = a.get("criteria_satisfied_count")
-    if isinstance(actual, int) and actual == expected:
-        return PER_RESPONSE_CRITERIA_COUNT_WEIGHT, total, []
-    return 0, total, [f"criteria_satisfied_count: expected {expected}, got {actual}"]
-
-
-def score_per_response_verdict_consistency(o, a):
-    total = PER_RESPONSE_VERDICT_CONSISTENCY_WEIGHT
-    expected = o.get("verdict_consistency_check")
-    actual = a.get("verdict_consistency_check")
-    if isinstance(actual, bool) and actual == expected:
-        return PER_RESPONSE_VERDICT_CONSISTENCY_WEIGHT, total, []
-    return 0, total, [f"verdict_consistency_check: expected {expected}, got {actual}"]
-
-
-def score_criterion_pair_co_pass(agent_pairs, oracle_pairs):
-    if not isinstance(agent_pairs, dict):
-        return 0, CRITERION_PAIR_CO_PASS_PER_KEY_WEIGHT * len(oracle_pairs), [
-            "criterion_pair_co_pass_count missing or non-object"
-        ]
-    earned = 0
-    total = 0
-    misses = []
-    for key, expected_count in oracle_pairs.items():
-        total += CRITERION_PAIR_CO_PASS_PER_KEY_WEIGHT
-        actual_count = agent_pairs.get(key)
-        if isinstance(actual_count, int) and actual_count == expected_count:
-            earned += CRITERION_PAIR_CO_PASS_PER_KEY_WEIGHT
-        else:
-            misses.append(f"criterion_pair_co_pass_count[{key}]: expected {expected_count}, got {actual_count}")
-    return earned, total, misses
-
-
-def score_response_pair_agreement(agent_pairs, oracle_pairs):
-    if not isinstance(agent_pairs, dict):
-        return 0, RESPONSE_PAIR_CRITERION_AGREEMENT_PER_KEY_WEIGHT * len(oracle_pairs), [
-            "response_pair_criterion_agreement missing or non-object"
-        ]
-    earned = 0
-    total = 0
-    misses = []
-    for key, expected_count in oracle_pairs.items():
-        total += RESPONSE_PAIR_CRITERION_AGREEMENT_PER_KEY_WEIGHT
-        actual_count = agent_pairs.get(key)
-        if isinstance(actual_count, int) and actual_count == expected_count:
-            earned += RESPONSE_PAIR_CRITERION_AGREEMENT_PER_KEY_WEIGHT
-        else:
-            misses.append(f"response_pair_criterion_agreement[{key}]: expected {expected_count}, got {actual_count}")
-    return earned, total, misses
-
-
-def score_response_triple_agreement(agent_triples, oracle_triples):
-    if not isinstance(agent_triples, dict):
-        return 0, RESPONSE_TRIPLE_CRITERION_AGREEMENT_PER_KEY_WEIGHT * len(oracle_triples), [
-            "response_triple_criterion_agreement missing or non-object"
-        ]
-    earned = 0
-    total = 0
-    misses = []
-    for key, expected_count in oracle_triples.items():
-        total += RESPONSE_TRIPLE_CRITERION_AGREEMENT_PER_KEY_WEIGHT
-        actual_count = agent_triples.get(key)
-        if isinstance(actual_count, int) and actual_count == expected_count:
-            earned += RESPONSE_TRIPLE_CRITERION_AGREEMENT_PER_KEY_WEIGHT
-        else:
-            misses.append(f"response_triple_criterion_agreement[{key}]: expected {expected_count}, got {actual_count}")
-    return earned, total, misses
-
-
-def score_consistency_table(agent_table, oracle_table):
-    if not isinstance(agent_table, dict):
-        return 0, CONSISTENCY_TABLE_PER_KEY_WEIGHT * len(oracle_table), [f"consistency_table missing or non-object; lost all keys"]
-    earned = 0
-    total = 0
-    misses = []
-    for code, expected_list in oracle_table.items():
-        total += CONSISTENCY_TABLE_PER_KEY_WEIGHT
-        agent_list = agent_table.get(code)
-        if isinstance(agent_list, list) and sorted(agent_list) == sorted(expected_list):
-            earned += CONSISTENCY_TABLE_PER_KEY_WEIGHT
-        else:
-            misses.append(f"consistency_table[{code}]: expected {expected_list}, got {agent_list}")
-    return earned, total, misses
-
-
-def score_criterion_pass_rate(agent_rate, oracle_rate):
-    if not isinstance(agent_rate, dict):
-        return 0, CRITERION_PASS_RATE_PER_KEY_WEIGHT * len(oracle_rate), [f"criterion_pass_rate missing or non-object"]
-    earned = 0
-    total = 0
-    misses = []
-    for crit, expected_count in oracle_rate.items():
-        total += CRITERION_PASS_RATE_PER_KEY_WEIGHT
-        actual_count = agent_rate.get(crit)
-        if isinstance(actual_count, int) and actual_count == expected_count:
-            earned += CRITERION_PASS_RATE_PER_KEY_WEIGHT
-        else:
-            misses.append(f"criterion_pass_rate[{crit}]: expected {expected_count}, got {actual_count}")
-    return earned, total, misses
-
-
-def score_verdict_distribution(agent_dist, oracle_dist):
-    if not isinstance(agent_dist, dict):
-        return 0, VERDICT_DISTRIBUTION_PER_KEY_WEIGHT * len(oracle_dist), [f"verdict_distribution missing or non-object"]
-    earned = 0
-    total = 0
-    misses = []
-    for verdict, expected_list in oracle_dist.items():
-        total += VERDICT_DISTRIBUTION_PER_KEY_WEIGHT
-        agent_list = agent_dist.get(verdict)
-        if isinstance(agent_list, list) and sorted(agent_list) == sorted(expected_list):
-            earned += VERDICT_DISTRIBUTION_PER_KEY_WEIGHT
-        else:
-            misses.append(f"verdict_distribution[{verdict}]: expected {expected_list}, got {agent_list}")
-    return earned, total, misses
-
-
-def score_cross_response_observations(agent_text):
-    if isinstance(agent_text, str) and len(agent_text.strip()) >= CROSS_OBSERVATIONS_MIN_CHARS:
-        return CROSS_RESPONSE_OBSERVATIONS_WEIGHT, CROSS_RESPONSE_OBSERVATIONS_WEIGHT, []
-    return 0, CROSS_RESPONSE_OBSERVATIONS_WEIGHT, ["cross_response_observations: missing or too short"]
-
-
-def weighted_score(agent_output, oracle):
-    agent_evals = by_id(agent_output)
-    oracle_evals = by_id(oracle)
-    earned = 0
-    total = 0
-    lines = []
-
-    for sid in sorted(oracle_evals):
-        o = oracle_evals[sid]
-        a = agent_evals.get(sid)
-        if a is None:
-            response_total = sum(WEIGHTS.values()) + len(CRITERIA) * PER_RESPONSE_EVIDENCE_WEIGHT + PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT + PER_RESPONSE_ALT_CODES_WEIGHT + PER_RESPONSE_CRITERIA_COUNT_WEIGHT
-            total += response_total
-            lines.append(f"{sid}: 0/{response_total} weighted points; missing evaluation")
-            continue
-        lbl_earned, lbl_total, lbl_issues = score_per_response_labels(o, a)
-        ev_earned, ev_total, ev_issues = score_per_response_evidence(a)
-        ct_earned, ct_total, ct_issues = score_per_response_criteria_count(o, a)
-        vc_earned, vc_total, vc_issues = score_per_response_verdict_consistency(o, a)
-        r_earned = lbl_earned + ev_earned + ct_earned + vc_earned
-        r_total = lbl_total + ev_total + ct_total + vc_total
-        earned += r_earned
-        total += r_total
-        all_issues = lbl_issues + ev_issues + ct_issues + vc_issues
-        if all_issues:
-            lines.append(f"{sid}: {r_earned}/{r_total}; " + "; ".join(all_issues))
-        else:
-            lines.append(f"{sid}: {r_earned}/{r_total}; all scored fields correct")
-
-    ct_earned, ct_total, ct_issues = score_consistency_table(agent_output.get("consistency_table"), oracle.get("consistency_table", {}))
-    earned += ct_earned
-    total += ct_total
-    if ct_issues:
-        lines.append(f"consistency_table: {ct_earned}/{ct_total}; " + "; ".join(ct_issues[:6]))
-    else:
-        lines.append(f"consistency_table: {ct_earned}/{ct_total}; all keys correct")
-
-    cpr_earned, cpr_total, cpr_issues = score_criterion_pass_rate(agent_output.get("criterion_pass_rate"), oracle.get("criterion_pass_rate", {}))
-    earned += cpr_earned
-    total += cpr_total
-    if cpr_issues:
-        lines.append(f"criterion_pass_rate: {cpr_earned}/{cpr_total}; " + "; ".join(cpr_issues[:6]))
-    else:
-        lines.append(f"criterion_pass_rate: {cpr_earned}/{cpr_total}; all keys correct")
-
-    vd_earned, vd_total, vd_issues = score_verdict_distribution(agent_output.get("verdict_distribution"), oracle.get("verdict_distribution", {}))
-    earned += vd_earned
-    total += vd_total
-    if vd_issues:
-        lines.append(f"verdict_distribution: {vd_earned}/{vd_total}; " + "; ".join(vd_issues))
-    else:
-        lines.append(f"verdict_distribution: {vd_earned}/{vd_total}; all keys correct")
-
-    cp_earned, cp_total, cp_issues = score_criterion_pair_co_pass(agent_output.get("criterion_pair_co_pass_count"), oracle.get("criterion_pair_co_pass_count", {}))
-    earned += cp_earned
-    total += cp_total
-    if cp_issues:
-        lines.append(f"criterion_pair_co_pass_count: {cp_earned}/{cp_total}; " + "; ".join(cp_issues[:6]))
-    else:
-        lines.append(f"criterion_pair_co_pass_count: {cp_earned}/{cp_total}; all 28 pairs correct")
-
-    rp_earned, rp_total, rp_issues = score_response_pair_agreement(agent_output.get("response_pair_criterion_agreement"), oracle.get("response_pair_criterion_agreement", {}))
-    earned += rp_earned
-    total += rp_total
-    if rp_issues:
-        lines.append(f"response_pair_criterion_agreement: {rp_earned}/{rp_total}; " + "; ".join(rp_issues[:6]))
-    else:
-        lines.append(f"response_pair_criterion_agreement: {rp_earned}/{rp_total}; all 28 pairs correct")
-
-    rt_earned, rt_total, rt_issues = score_response_triple_agreement(agent_output.get("response_triple_criterion_agreement"), oracle.get("response_triple_criterion_agreement", {}))
-    earned += rt_earned
-    total += rt_total
-    if rt_issues:
-        lines.append(f"response_triple_criterion_agreement: {rt_earned}/{rt_total}; " + "; ".join(rt_issues[:6]))
-    else:
-        lines.append(f"response_triple_criterion_agreement: {rt_earned}/{rt_total}; all 56 triples correct")
-
-    cro_earned, cro_total, cro_issues = score_cross_response_observations(agent_output.get("cross_response_observations"))
-    earned += cro_earned
-    total += cro_total
-    if cro_issues:
-        lines.append(f"cross_response_observations: {cro_earned}/{cro_total}; " + cro_issues[0])
-    else:
-        lines.append(f"cross_response_observations: {cro_earned}/{cro_total}; ok")
-
-    score = earned / total if total else 0.0
-    return score, earned, total, "\n".join(lines)
+def build_prompt(oracle, agent):
+    return (
+        "You are a strict expert judge for a SwarmBench math/reasoning audit task on the Sequence-Envelope "
+        "puzzle (four mislabeled envelopes of monotonic sequences). Score the agent output against the oracle "
+        "on a multi-field weighted rubric. Apply substantive expert interpretation on per-response "
+        "failure_reasons and primary_failure_code (allow plausible alternative codes that are concretely "
+        "supported by the response text), but apply STRICT scoring on structural and aggregation fields.\n\n"
+        f"ORACLE:\n{json.dumps(oracle, indent=2)}\n\n"
+        f"AGENT OUTPUT:\n{json.dumps(agent, indent=2)}\n\n"
+        "Allowed failure codes vocabulary (size 10):\n"
+        + "\n".join(f"- {c}" for c in ALL_FAILURE_CODES)
+        + "\n\nRubric:\n"
+        "1) gold_final_answer (string match): 4 if equal, else 0.\n"
+        "2) acceptable_solution_ids (set match): 2 if equal, else 0.\n\n"
+        "PER-RESPONSE (8 entries, A..H):\n"
+        "3) final_answer_correct (exact bool): 5 / 0.\n"
+        "4) failure_reasons: 30 exact set, 15 off-by-one substantively-equivalent, 8 overlap>=50% with more "
+        "divergence, else 0.\n"
+        "5) primary_failure_code: 25 exact; 10 if in oracle's failure_reasons set but not primary; else 0.\n"
+        "6) primary_failure_code_evidence: 8 if >=50 chars and substantive; else 0.\n"
+        "7) alternative_codes_considered: 8 if >=2 unique well-formed entries (code from vocab or \"NONE\", "
+        "different from primary, unique, reason_excluded >=20 chars); else 0.\n"
+        "8) failure_reason_evidence: 5 per oracle-listed code if present and >=20 chars; else 0.\n"
+        "9) code_application_count (integer match = len(failure_reasons)): 10 / 0.\n"
+        "10) primary_in_set_check (bool match): 5 / 0.\n"
+        "11) evidence_key_completeness (integer match): 8 / 0.\n\n"
+        "TOP-LEVEL AGGREGATION:\n"
+        "12) code_application_table: 10 keys, STRICT sorted-list match per key. Award 100 per key if equal, "
+        "else 0. Null/missing forfeits the full 100.\n"
+        "13) response_count_per_code: 10 keys, integer match. Award 20 per key if equal, else 0.\n"
+        "14) code_co_occurrence_count: 45 unordered code pairs. Keys may use any of these delimiter forms: "
+        "' & ', ' | ', '_AND_', '&', '|', '_'. Normalize agent keys by stripping whitespace, splitting on any "
+        "of these delimiters, and re-joining as ' & ' before comparing. After normalization, integer match per "
+        "key. Award 5 per key if equal, else 0.\n"
+        "15) response_pair_shared_codes: 28 unordered response_id pairs. Same delimiter normalization. "
+        "Sorted-list match per key. Award 8 per key if equal, else 0.\n"
+        "16) response_triple_shared_codes: 56 unordered response_id triples. Same delimiter normalization. "
+        "Sorted-list match per key. Award 5 per key if equal, else 0.\n"
+        "17) cross_response_observations: 30 if >=300 chars substantive; 15 if >=300 chars boilerplate; "
+        "0 otherwise.\n\n"
+        "Be strict on every structural minimum. Be substantive but fair on interpretive per-response fields.\n\n"
+        "Output JSON only:\n"
+        "{\n"
+        "  \"score\": <float 0.0-1.0 = total_earned/total_possible>,\n"
+        "  \"total_earned\": <int>, \"total_possible\": <int>,\n"
+        "  \"top_level\": {\"gold_final_answer\": int, \"acceptable_solution_ids\": int},\n"
+        "  \"per_response\": {\"A\": int, \"B\": int, \"C\": int, \"D\": int, \"E\": int, \"F\": int, \"G\": int, \"H\": int},\n"
+        "  \"code_application_table_total\": int, \"response_count_per_code_total\": int,\n"
+        "  \"code_co_occurrence_total\": int, \"response_pair_total\": int, \"response_triple_total\": int,\n"
+        "  \"cross_response_observations\": int, \"justification\": \"<200-600 chars>\"\n"
+        "}\n"
+    )
 
 
 def main():
@@ -353,11 +98,10 @@ def main():
         os.makedirs("/logs/agent", exist_ok=True)
 
     try:
-        agent_output = load_json(args.agent_output)
-        oracle = load_json(args.oracle)
-    except Exception as e:
-        with open(args.reward_out, "w", encoding="utf-8") as f:
-            json.dump({"reward": 0.0}, f)
+        agent_output = json.load(open(args.agent_output, "r", encoding="utf-8"))
+        oracle = json.load(open(args.oracle, "r", encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
         try:
             with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
                 f.write(f"Score: 0.0\n\nAgent output missing or invalid: {e}\n")
@@ -366,28 +110,41 @@ def main():
         return
 
     if agent_output == oracle:
-        score, earned, total, justification = 1.0, 0, 0, "Exact match with oracle."
-    else:
-        score, earned, total, justification = weighted_score(agent_output, oracle)
+        json.dump({"reward": 1.0}, open(args.reward_out, "w", encoding="utf-8"))
+        try:
+            with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+                f.write("Score: 1.0\n\nAgent output exactly matches oracle (shortcut).\n")
+        except OSError:
+            pass
+        return
 
-    with open(args.reward_out, "w", encoding="utf-8") as f:
-        json.dump({"reward": score}, f)
+    client = OpenAI(
+        api_key=os.environ["FIREWORKS_API_KEY"],
+        base_url="https://api.fireworks.ai/inference/v1",
+    )
+    response = client.chat.completions.create(
+        model=JUDGE_MODEL,
+        messages=[{"role": "user", "content": build_prompt(oracle, agent_output)}],
+        temperature=0,
+    )
+    raw = response.choices[0].message.content or ""
+    try:
+        result = json.loads(extract_json(raw))
+    except json.JSONDecodeError as e:
+        json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
+        try:
+            with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+                f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw:\n{raw}\n")
+        except OSError:
+            pass
+        return
 
+    score = max(0.0, min(1.0, float(result.get("score", 0.0))))
+    json.dump({"reward": score}, open(args.reward_out, "w", encoding="utf-8"))
     try:
         with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-            f.write(f"Score: {score:.4f} ({earned}/{total} weighted points)\n\n")
-            f.write("Scored fields and weights:\n")
-            for key, weight in WEIGHTS.items():
-                f.write(f"- {key}: {weight} (per response)\n")
-            f.write(f"- criterion_evidence per criterion (presence + min length): {PER_RESPONSE_EVIDENCE_WEIGHT} (per response per criterion)\n")
-            f.write(f"- primary_failure_code_evidence (presence + min length): {PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT} (per response)\n")
-            f.write(f"- alternative_codes_considered (>=2 items, well-formed): {PER_RESPONSE_ALT_CODES_WEIGHT} (per response)\n")
-            f.write(f"- criteria_satisfied_count (integer match): {PER_RESPONSE_CRITERIA_COUNT_WEIGHT} (per response)\n")
-            f.write(f"- consistency_table per key (exact match against oracle): {CONSISTENCY_TABLE_PER_KEY_WEIGHT}\n")
-            f.write(f"- criterion_pass_rate per key (integer match): {CRITERION_PASS_RATE_PER_KEY_WEIGHT}\n")
-            f.write(f"- verdict_distribution per key (sorted list match): {VERDICT_DISTRIBUTION_PER_KEY_WEIGHT}\n")
-            f.write(f"- cross_response_observations (presence + min length): {CROSS_RESPONSE_OBSERVATIONS_WEIGHT}\n\n")
-            f.write(justification)
+            f.write(f"Score: {score:.4f} ({result.get('total_earned', '?')}/{result.get('total_possible', '?')} pts)\n\n")
+            f.write(json.dumps(result, indent=2))
             f.write("\n")
     except OSError:
         pass

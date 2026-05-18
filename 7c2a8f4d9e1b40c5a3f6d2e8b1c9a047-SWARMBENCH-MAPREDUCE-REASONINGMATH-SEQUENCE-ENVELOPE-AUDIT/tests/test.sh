@@ -5,6 +5,8 @@ mkdir -p /logs/verifier /logs/agent /logs/artifacts
 
 echo "TEST_SH_VERSION=universal-reward-paths"
 
+python3 -m pip install --quiet --no-cache-dir openai==1.93.0 || true
+
 python3 /tests/judge.py \
   --agent-output /logs/agent/output.json \
   --oracle /tests/oracle.json \

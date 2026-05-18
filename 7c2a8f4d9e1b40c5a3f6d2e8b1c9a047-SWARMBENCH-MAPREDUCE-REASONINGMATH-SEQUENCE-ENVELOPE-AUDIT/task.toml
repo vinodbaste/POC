@@ -3,7 +3,7 @@ name = "swarmbench/7c2a8f4d9e1b40c5a3f6d2e8b1c9a047-SWARMBENCH-MAPREDUCE-REASONI
 description = "Audit eight real, unedited model-generated proposed solutions to a sequence-envelope deductive reasoning puzzle using deterministic proof-validity criteria. Each candidate proposes a minimum number of inspections to relabel four mislabeled envelopes of strictly-increasing, strictly-decreasing, constant, and mixed (7/13 split) number sequences; auditors apply a fixed C1-C8 rubric, verdict, and primary failure code."
 
 [metadata]
-verifier_type = "executable"
+verifier_type = "llm-judge"
 domain = "reasoning-math"
 coordination_pattern = "map-reduce"
 human_solving_hours_estimate = 11.0

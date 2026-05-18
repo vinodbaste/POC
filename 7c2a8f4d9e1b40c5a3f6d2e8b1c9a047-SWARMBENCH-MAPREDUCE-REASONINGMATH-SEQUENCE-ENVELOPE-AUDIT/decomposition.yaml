@@ -215,87 +215,58 @@ sub_tasks:
       scratch.
 
       Reducer procedure (apply mechanically, in order):
-      (1) Start from the eight mapper evaluation objects (each of which
-          must already contain its own criteria, verdict,
-          primary_failure_code, brief_justification, criterion_evidence,
-          primary_failure_code_evidence, and alternative_codes_considered
-          fields as produced by the mapper).
-      (2) For each response_id, overwrite each criterion or label that
-          appears in the adjudicator's correction object for that
-          response with the corrected value. Adjudicator corrections
-          always win over mapper outputs.
-      (3) Recompute verdict deterministically per response: ACCEPT iff
-          every C1-C8 is satisfied; otherwise REJECT.
-      (4) Recompute accepted_solutions as the alphabetically-sorted list
-          of response_ids whose verdict is ACCEPT.
-      (5) Recompute rejected_solutions as the alphabetically-sorted list
-          of response_ids whose verdict is REJECT.
-      (6) best_solution is the response_id with the most criteria
-          satisfied (ties broken alphabetically) when no response is
-          accepted, or the single accepted response when one exists.
-      (7) Compose the summary string describing acceptance status and
-          dominant defect categories.
-      (8) Build the top-level consistency_table by iterating the eight
-          (post-correction) evaluations and assigning each response_id
-          (full string, such as "response_A") to the list indexed by its
-          primary_failure_code. The consistency_table MUST contain ALL
-          TEN keys verbatim: NONE, WRONG_FINAL_NUMBER,
-          CONTRADICTORY_FINAL_ANSWER, NO_CONCRETE_STRATEGY,
-          INVALID_UPPER_BOUND, MISSING_LOWER_BOUND, NOT_WORST_CASE,
-          INVALID_ONE_DRAW_INFERENCE, UNNECESSARY_MIXED_PAIR_REQUIREMENT,
-          FATAL_WRONG_CLAIM. Codes with no matching response MUST be
-          assigned an empty JSON array (i.e., []) — do NOT use null,
-          do NOT omit the key, do NOT use a string placeholder. The
-          union of the ten lists must equal {response_A, response_B,
-          response_C, response_D, response_E, response_F, response_G,
-          response_H} exactly. The verifier scores each key against
-          the oracle at 70 points per key; outputting null or omitting
-          a key forfeits the full 70 points for that key.
-      (9) For each evaluation object, set the per-response
-          criteria_satisfied_count field to the integer count of C1-C8
-          booleans that are true (a value between 0 and 8 inclusive).
-          The verifier scores this field at 10 points per response.
-      (10) Build the top-level criterion_pass_rate dict whose 8 keys are
-           exactly the C1-C8 criterion names from instruction.md and
-           whose values are integers equal to the number of responses
-           whose criteria object has that key set to true. The verifier
-           scores each key at 50 points by integer match against the
-           oracle.
-      (11) Build the top-level verdict_distribution dict whose 2 keys
-           are exactly "ACCEPT" and "REJECT" and whose values are
-           alphabetically-sorted lists of response_ids (full strings
-           such as "response_A") whose verdict equals that key. The
-           union of the two lists must equal {response_A, response_B,
-           response_C, response_D, response_E, response_F, response_G,
-           response_H}. The verifier scores each key at 100 points by
-           sorted-list match against the oracle.
-      (12) For each evaluation object, set the per-response
-           verdict_consistency_check boolean to true if and only if
-           the response's verdict matches the deterministic rule
-           (ACCEPT iff every C1-C8 boolean is true, otherwise REJECT).
-           If the verdict does NOT match that rule the value is false.
-           The verifier scores this field at 15 points per response.
-      (13) Build the top-level criterion_pair_co_pass_count dict whose
-           keys are exactly the 28 unordered pairs of the eight
-           criteria, written as "Ci_name & Cj_name" with i < j by name
-           order matching instruction.md (e.g., "C1_correct_final_answer
-           & C2_concrete_strategy"). For each pair, the value is the
-           integer count of responses whose criteria object has BOTH
-           criteria set to true. The verifier scores each key at 12
-           points by integer match against the oracle (336 points total
-           when all 28 pairs are correct).
-      (14) Build the top-level response_pair_criterion_agreement dict
-           whose keys are exactly the 28 unordered pairs of the eight
-           response_ids, written as "response_X & response_Y" with X<Y
-           alphabetically. For each pair, the value is the integer
-           count of criteria (out of C1-C8) where both responses have
-           the same boolean value. The verifier scores each key at 10
-           points by integer match against the oracle (280 points total
-           when all 28 pairs are correct).
-      (15) Compose the top-level cross_response_observations string of
-           at least 300 characters identifying shared defect patterns
-           across the eight responses. The verifier scores this field
-           at 30 points by presence and minimum length.
+      (1) Start from the eight mapper evaluation objects. Each must
+          contain response_id, final_answer_correct, failure_reasons
+          (set of codes from the 10-code vocabulary), primary_failure_code,
+          primary_failure_code_evidence, failure_reason_evidence,
+          alternative_codes_considered.
+      (2) For each response_id, overwrite each field appearing in the
+          adjudicator's correction object with the corrected value.
+          Adjudicator corrections always win.
+      (3) Compute acceptable_solution_ids as the alphabetically-sorted
+          list of response_ids whose final_answer_correct is true AND
+          failure_reasons is the empty list.
+      (4) For each evaluation, compute per-response derived fields:
+          code_application_count = len(failure_reasons);
+          primary_in_set_check = (primary_failure_code in failure_reasons)
+          OR (primary_failure_code == "NONE" AND failure_reasons == []);
+          evidence_key_completeness = number of keys in
+          failure_reason_evidence that are also in failure_reasons.
+      (5) Build the top-level code_application_table with EXACTLY the
+          10 keys of the failure-code vocabulary
+          (contradictory_final_answer, fatal_wrong_claim,
+          invalid_one_draw_inference, invalid_upper_bound,
+          missing_lower_bound, no_concrete_strategy,
+          non_terminating_or_no_final_answer, not_worst_case,
+          unnecessary_mixed_pair_requirement, wrong_final_number).
+          For each code, list alphabetically the response_ids whose
+          failure_reasons contains that code. Codes with no matching
+          response MUST be assigned [] (NEVER null, NEVER omit a key).
+          Verifier scores 100 per key.
+      (6) Build the top-level response_count_per_code with EXACTLY the
+          same 10 keys; integer values = lengths of code_application_table
+          lists. Verifier scores 20 per key.
+      (7) Build the top-level code_co_occurrence_count: for each
+          unordered pair of distinct codes (c_i, c_j) with i<j
+          alphabetical, key = "c_i & c_j" (45 keys total). Value =
+          integer count of responses whose failure_reasons contains
+          BOTH codes. Use 0 for pairs with no matching response. NEVER
+          null, NEVER omit. Verifier scores 5 per key.
+      (8) Build the top-level response_pair_shared_codes: for each
+          unordered pair of distinct response_ids (A, B) with A<B
+          alphabetical, key = "A & B" (28 keys total). Value =
+          alphabetically-sorted list of codes appearing in BOTH
+          responses' failure_reasons. Use [] for pairs with no shared
+          codes. NEVER null, NEVER omit. Verifier scores 8 per key.
+      (9) Build the top-level response_triple_shared_codes: for each
+          unordered triple (A, B, C) with A<B<C alphabetical, key =
+          "A & B & C" (56 keys total). Value = alphabetically-sorted
+          list of codes appearing in ALL THREE responses' failure_reasons.
+          Use [] for triples with no shared codes. NEVER null, NEVER omit.
+          Verifier scores 5 per key.
+      (10) Compose the top-level cross_response_observations string of
+           at least 300 characters identifying shared defect patterns.
+           Verifier scores 30 by presence + length.
 
       If a mapper output is malformed or missing the required per-
       response evidence/alternatives fields, ask a replacement sub-agent
