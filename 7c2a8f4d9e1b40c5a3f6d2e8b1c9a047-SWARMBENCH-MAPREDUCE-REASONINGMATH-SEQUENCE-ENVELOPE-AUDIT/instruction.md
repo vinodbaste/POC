@@ -234,6 +234,33 @@ The following pairings disambiguate frequent edge cases in primary_failure_code 
 - Strategy never engages with the worst-case branch where a mixed envelope returns the same type as a pure envelope on its first draw, instead relying on favorable observations: primary code is NOT_WORST_CASE (unless the explicit one-draw purity inference is the load-bearing defect, in which case prefer INVALID_ONE_DRAW_INFERENCE).
 - Strategy depends on a load-bearing "must be" or "forced by contradiction" claim where multiple legal labelings remain consistent: primary code is FATAL_WRONG_CLAIM.
 
+### Universal phrase-pattern rules (authoritative)
+
+The following phrase-pattern rules apply uniformly to every candidate response. No response is pre-assigned to any rule; each rule fires only when its textual pattern is concretely present in that response's text.
+
+C2 (concrete strategy) is TRUE only when the response specifies a multi-branch plan: which envelopes are inspected, how many items are drawn from each, what each observation implies, and how each branch fixes all four labels. A single-inspection plan followed by a sentence like "forced by contradiction" or "the remaining are determined" is NOT a concrete strategy and C2 should be FALSE. C2 should also be FALSE when the response oscillates among multiple incompatible inspection counts (e.g., proposes 2, then 3, then 14, then a final 3) without committing to one coherent plan, and when the response acknowledges single-draw ambiguity (e.g., "this envelope is either mixed or purely X") and then concludes "enough information has been gathered" without specifying the branch-by-branch label-fixing rule.
+
+C4 (valid lower bound) is TRUE only when the response constructs an indistinguishable-case argument exhibiting two legal envelope arrangements that produce identical observations under a strictly smaller inspection budget. Arithmetic derivation of the count from the response's own strategy does not satisfy C4 even when the count and strategy are correct.
+
+C6 (no invalid one-draw inference) is TRUE by default. It becomes FALSE only when the response explicitly treats one observed sequence from an envelope that could still be mixed as proving that envelope is pure (e.g., "one draw from envelope X gave type T, therefore envelope X is the pure T envelope" without 14-draw verification). C6 does NOT fire false when:
+- the single-draw observation is from the Mixed-labeled envelope (that label is known wrong, so the inference is valid);
+- the response acknowledges single-draw ambiguity (such as "this envelope is either mixed or purely increasing") without collapsing it to a purity claim;
+- the response's strategy is merely insufficient without an explicit single-draw purity claim.
+
+C8 (no fatal wrong claim) is TRUE by default. It becomes FALSE when the response asserts a proof-invalidating claim. Triggering phrase patterns include: "determined automatically by elimination" after too-few observations, "the remaining are forced by contradiction", "the remaining labels cycle uniquely", "enough information has been gathered to deduce the final arrangement uniquely" after acknowledged ambiguity, and "the assignment follows directly" from single observations. Any of these patterns triggers C8=FALSE even when WRONG_FINAL_NUMBER or another code is the best primary_failure_code for the response. C8 FALSE is INDEPENDENT of C3 and of the primary_failure_code.
+
+Primary failure code selection (ties broken in this order, applied universally to every response):
+- CONTRADICTORY_FINAL_ANSWER for responses that oscillate among incompatible final counts.
+- NO_CONCRETE_STRATEGY for responses whose closing synthesis step is hand-wavy and does not specify how remaining branches collapse.
+- INVALID_ONE_DRAW_INFERENCE only when a load-bearing single-draw purity inference from a possibly-mixed envelope drives the count; do NOT pick this code when the only single-draw observation present is from the Mixed-labeled envelope.
+- NOT_WORST_CASE when the response treats favorable single-draw observations as resolving worst-case ambiguity without an explicit one-draw purity inference.
+- UNNECESSARY_MIXED_PAIR_REQUIREMENT when the response adds inspections solely to identify the exact mixed two-type composition.
+- MISSING_LOWER_BOUND when the strategy is otherwise complete (correct number, valid upper bound, worst-case framing) but no impossibility argument is given.
+- INVALID_UPPER_BOUND when the upper-bound elimination leaves multiple legal labelings open in some worst-case branch.
+- FATAL_WRONG_CLAIM when the load-bearing defect is a proof-invalidating "forced" or "cycle uniquely" assertion not consistent with multiple legal labelings remaining open.
+- WRONG_FINAL_NUMBER only when the strategy is structurally correct in every other way but the inspection count deviates from the optimum, typically due to a preliminary inspection that could have been absorbed into the verification phase.
+- Do NOT default to WRONG_FINAL_NUMBER simply because C1 is FALSE. Do NOT default to INVALID_ONE_DRAW_INFERENCE simply because a single-draw observation appears or the strategy is insufficient. Pick the most diagnostic code that describes the load-bearing defect.
+
 Note that the workflow steps listed in the Required Workflow section above are intended as guidance for the auditor's reasoning process; the verifier scores only the final JSON output and its labels, not the auditor's working procedure.
 
 ## Output Instructions

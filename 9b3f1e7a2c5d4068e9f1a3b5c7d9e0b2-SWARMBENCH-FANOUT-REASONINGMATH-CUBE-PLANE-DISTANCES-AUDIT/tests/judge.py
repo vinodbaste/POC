@@ -1,118 +1,295 @@
 import argparse
 import json
 import os
-import re
-from openai import OpenAI
 
 
-def extract_json(text: str) -> str:
-    text = text.strip()
-    match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
-    if match:
-        return match.group(1).strip()
-    return text
+ALL_FAILURE_CODES = [
+    "claims_unique_edge_length",
+    "restricts_to_nonnegative_subset_sums",
+    "assumes_max_distance_equals_space_diagonal",
+    "assumes_plane_parallel_to_cube_face",
+    "equates_max_distance_with_edge_length_directly",
+    "uses_fabricated_invariant_or_invalid_derivation",
+    "accepts_internal_contradictions_in_derivation",
+    "assumes_zero_distance_vertex_is_axis_corner",
+    "omits_sign_pattern_casework",
+    "treats_one_orientation_as_proof_of_uniqueness",
+    "derives_correct_partial_s2_then_discards_it",
+    "non_terminating_or_no_final_answer",
+]
+
+PRIMARY_CODES_INCLUDING_NONE = ALL_FAILURE_CODES + ["NONE"]
+
+GOLD_FINAL_ANSWER_WEIGHT = 2
+GOLD_S2_SET_WEIGHT = 2
+ACCEPTABLE_SOLUTION_IDS_WEIGHT = 2
+
+FINAL_ANSWER_CORRECT_WEIGHT = 5
+FAILURE_REASONS_SET_WEIGHT = 30
+PRIMARY_FAILURE_CODE_WEIGHT = 25
+PRIMARY_FAILURE_CODE_EVIDENCE_WEIGHT = 8
+ALTERNATIVE_CODES_CONSIDERED_WEIGHT = 8
+PER_CODE_EVIDENCE_WEIGHT = 5
+
+CODE_APPLICATION_TABLE_PER_KEY_WEIGHT = 70
+CROSS_RESPONSE_OBSERVATIONS_WEIGHT = 30
+
+EVIDENCE_MIN_CHARS = 20
+PRIMARY_EVIDENCE_MIN_CHARS = 50
+CROSS_OBS_MIN_CHARS = 300
+ALT_CODES_MIN_COUNT = 2
+
+
+def load_json(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def by_id(obj):
+    return {item.get("response_id"): item for item in obj.get("per_response_assessment", [])}
+
+
+def score_top_level_facts(agent, oracle):
+    earned = 0
+    total = 0
+    lines = []
+
+    total += GOLD_FINAL_ANSWER_WEIGHT
+    if agent.get("gold_final_answer") == oracle.get("gold_final_answer"):
+        earned += GOLD_FINAL_ANSWER_WEIGHT
+        lines.append(f"gold_final_answer: {GOLD_FINAL_ANSWER_WEIGHT}/{GOLD_FINAL_ANSWER_WEIGHT}")
+    else:
+        lines.append(
+            f"gold_final_answer: 0/{GOLD_FINAL_ANSWER_WEIGHT}; expected {oracle.get('gold_final_answer')!r}, got {agent.get('gold_final_answer')!r}"
+        )
+
+    total += GOLD_S2_SET_WEIGHT
+    expected_s2 = sorted(oracle.get("gold_edge_length_squared_set", []))
+    actual_s2 = agent.get("gold_edge_length_squared_set", [])
+    if isinstance(actual_s2, list) and sorted(actual_s2) == expected_s2:
+        earned += GOLD_S2_SET_WEIGHT
+        lines.append(f"gold_edge_length_squared_set: {GOLD_S2_SET_WEIGHT}/{GOLD_S2_SET_WEIGHT}")
+    else:
+        lines.append(
+            f"gold_edge_length_squared_set: 0/{GOLD_S2_SET_WEIGHT}; expected {expected_s2}, got {actual_s2}"
+        )
+
+    total += ACCEPTABLE_SOLUTION_IDS_WEIGHT
+    expected_acc = sorted(oracle.get("acceptable_solution_ids", []))
+    actual_acc = agent.get("acceptable_solution_ids", [])
+    if isinstance(actual_acc, list) and sorted(actual_acc) == expected_acc:
+        earned += ACCEPTABLE_SOLUTION_IDS_WEIGHT
+        lines.append(f"acceptable_solution_ids: {ACCEPTABLE_SOLUTION_IDS_WEIGHT}/{ACCEPTABLE_SOLUTION_IDS_WEIGHT}")
+    else:
+        lines.append(
+            f"acceptable_solution_ids: 0/{ACCEPTABLE_SOLUTION_IDS_WEIGHT}; expected {expected_acc}, got {actual_acc}"
+        )
+
+    return earned, total, lines
+
+
+def score_per_response(rid, agent_obj, oracle_obj):
+    earned = 0
+    total = 0
+    issues = []
+
+    total += FINAL_ANSWER_CORRECT_WEIGHT
+    if isinstance(agent_obj, dict) and agent_obj.get("final_answer_correct") == oracle_obj.get("final_answer_correct"):
+        earned += FINAL_ANSWER_CORRECT_WEIGHT
+    else:
+        issues.append("final_answer_correct: mismatch")
+
+    total += FAILURE_REASONS_SET_WEIGHT
+    expected_reasons = set(oracle_obj.get("failure_reasons", []) or [])
+    actual_reasons_raw = agent_obj.get("failure_reasons", []) if isinstance(agent_obj, dict) else []
+    actual_reasons = set(actual_reasons_raw) if isinstance(actual_reasons_raw, list) else set()
+    if actual_reasons == expected_reasons:
+        earned += FAILURE_REASONS_SET_WEIGHT
+    else:
+        missing = expected_reasons - actual_reasons
+        extra = actual_reasons - expected_reasons
+        issues.append(f"failure_reasons set mismatch (missing={sorted(missing)}, extra={sorted(extra)})")
+
+    total += PRIMARY_FAILURE_CODE_WEIGHT
+    expected_primary = oracle_obj.get("primary_failure_code")
+    actual_primary = agent_obj.get("primary_failure_code") if isinstance(agent_obj, dict) else None
+    if actual_primary == expected_primary:
+        earned += PRIMARY_FAILURE_CODE_WEIGHT
+    else:
+        issues.append(f"primary_failure_code: expected {expected_primary!r}, got {actual_primary!r}")
+
+    total += PRIMARY_FAILURE_CODE_EVIDENCE_WEIGHT
+    pfe = agent_obj.get("primary_failure_code_evidence", "") if isinstance(agent_obj, dict) else ""
+    if isinstance(pfe, str) and len(pfe.strip()) >= PRIMARY_EVIDENCE_MIN_CHARS:
+        earned += PRIMARY_FAILURE_CODE_EVIDENCE_WEIGHT
+    else:
+        issues.append(f"primary_failure_code_evidence: missing or under {PRIMARY_EVIDENCE_MIN_CHARS} chars")
+
+    total += ALTERNATIVE_CODES_CONSIDERED_WEIGHT
+    alts = agent_obj.get("alternative_codes_considered", []) if isinstance(agent_obj, dict) else []
+    alts_valid = (
+        isinstance(alts, list)
+        and len(alts) >= ALT_CODES_MIN_COUNT
+        and all(
+            isinstance(it, dict)
+            and isinstance(it.get("code"), str)
+            and isinstance(it.get("reason_excluded"), str)
+            and it["code"] in PRIMARY_CODES_INCLUDING_NONE
+            and it["code"] != actual_primary
+            and len(it["reason_excluded"].strip()) >= EVIDENCE_MIN_CHARS
+            for it in alts
+        )
+    )
+    if alts_valid:
+        earned += ALTERNATIVE_CODES_CONSIDERED_WEIGHT
+    else:
+        issues.append("alternative_codes_considered: missing, malformed, or duplicates primary_failure_code")
+
+    expected_evidence = oracle_obj.get("failure_reason_evidence", {}) or {}
+    actual_evidence = agent_obj.get("failure_reason_evidence", {}) if isinstance(agent_obj, dict) else {}
+    if not isinstance(actual_evidence, dict):
+        actual_evidence = {}
+    for code in expected_evidence.keys():
+        total += PER_CODE_EVIDENCE_WEIGHT
+        val = actual_evidence.get(code, "")
+        if isinstance(val, str) and len(val.strip()) >= EVIDENCE_MIN_CHARS:
+            earned += PER_CODE_EVIDENCE_WEIGHT
+        else:
+            issues.append(f"failure_reason_evidence.{code}: missing or under {EVIDENCE_MIN_CHARS} chars")
+
+    return earned, total, issues
+
+
+def score_code_application_table(agent_table, oracle_table):
+    earned = 0
+    total = 0
+    misses = []
+    if not isinstance(agent_table, dict):
+        agent_table = {}
+    for code, expected_list in oracle_table.items():
+        total += CODE_APPLICATION_TABLE_PER_KEY_WEIGHT
+        agent_list = agent_table.get(code)
+        if isinstance(agent_list, list) and sorted(agent_list) == sorted(expected_list):
+            earned += CODE_APPLICATION_TABLE_PER_KEY_WEIGHT
+        else:
+            misses.append(f"code_application_table[{code}]: expected {sorted(expected_list)}, got {agent_list}")
+    return earned, total, misses
+
+
+def score_cross_response_observations(text):
+    if isinstance(text, str) and len(text.strip()) >= CROSS_OBS_MIN_CHARS:
+        return CROSS_RESPONSE_OBSERVATIONS_WEIGHT, CROSS_RESPONSE_OBSERVATIONS_WEIGHT, []
+    return 0, CROSS_RESPONSE_OBSERVATIONS_WEIGHT, [f"cross_response_observations: missing or under {CROSS_OBS_MIN_CHARS} chars"]
+
+
+def weighted_score(agent_output, oracle):
+    earned = 0
+    total = 0
+    lines = []
+
+    tl_earned, tl_total, tl_lines = score_top_level_facts(agent_output, oracle)
+    earned += tl_earned
+    total += tl_total
+    lines.extend(tl_lines)
+
+    agent_by_id = by_id(agent_output)
+    oracle_by_id = by_id(oracle)
+    for rid in sorted(oracle_by_id):
+        o = oracle_by_id[rid]
+        a = agent_by_id.get(rid)
+        if a is None:
+            response_total = (
+                FINAL_ANSWER_CORRECT_WEIGHT
+                + FAILURE_REASONS_SET_WEIGHT
+                + PRIMARY_FAILURE_CODE_WEIGHT
+                + PRIMARY_FAILURE_CODE_EVIDENCE_WEIGHT
+                + ALTERNATIVE_CODES_CONSIDERED_WEIGHT
+                + PER_CODE_EVIDENCE_WEIGHT * len(o.get("failure_reason_evidence", {}) or {})
+            )
+            total += response_total
+            lines.append(f"{rid}: 0/{response_total}; missing per-response assessment")
+            continue
+        r_earned, r_total, r_issues = score_per_response(rid, a, o)
+        earned += r_earned
+        total += r_total
+        if r_issues:
+            lines.append(f"{rid}: {r_earned}/{r_total}; " + "; ".join(r_issues))
+        else:
+            lines.append(f"{rid}: {r_earned}/{r_total}; all per-response fields correct")
+
+    cat_earned, cat_total, cat_misses = score_code_application_table(
+        agent_output.get("code_application_table"), oracle.get("code_application_table", {})
+    )
+    earned += cat_earned
+    total += cat_total
+    if cat_misses:
+        lines.append(f"code_application_table: {cat_earned}/{cat_total}; " + "; ".join(cat_misses[:6]))
+    else:
+        lines.append(f"code_application_table: {cat_earned}/{cat_total}; all 12 keys correct")
+
+    cro_earned, cro_total, cro_misses = score_cross_response_observations(agent_output.get("cross_response_observations"))
+    earned += cro_earned
+    total += cro_total
+    if cro_misses:
+        lines.append(f"cross_response_observations: {cro_earned}/{cro_total}; " + cro_misses[0])
+    else:
+        lines.append(f"cross_response_observations: {cro_earned}/{cro_total}; ok")
+
+    score = earned / total if total else 0.0
+    return score, earned, total, "\n".join(lines)
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--agent-output")
-    parser.add_argument("--oracle")
-    parser.add_argument("--reward-out")
-    args = parser.parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--agent-output", required=True)
+    ap.add_argument("--oracle", required=True)
+    ap.add_argument("--reward-out", required=True)
+    args = ap.parse_args()
 
     os.makedirs(os.path.dirname(args.reward_out), exist_ok=True)
+    os.makedirs("/logs/agent", exist_ok=True) if os.path.exists("/logs") else None
 
     try:
-        with open(args.agent_output, "r", encoding="utf-8") as f:
-            agent_output = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
-        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-            f.write(f"Score: 0.0\n\nAgent output missing or invalid: {e}")
+        agent_output = load_json(args.agent_output)
+        oracle = load_json(args.oracle)
+    except Exception as e:
+        with open(args.reward_out, "w", encoding="utf-8") as f:
+            json.dump({"reward": 0.0}, f)
+        try:
+            with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+                f.write(f"Score: 0.0\n\nAgent output missing or invalid: {e}\n")
+        except OSError:
+            pass
         return
-
-    with open(args.oracle, "r", encoding="utf-8") as f:
-        oracle = json.load(f)
 
     if agent_output == oracle:
-        json.dump({"reward": 1.0}, open(args.reward_out, "w", encoding="utf-8"))
-        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-            f.write("Score: 1.0\n\nAgent output exactly matches oracle.")
-        return
+        score, _, _, justification = weighted_score(oracle, oracle)
+        score = 1.0
+    else:
+        score, earned, total, justification = weighted_score(agent_output, oracle)
 
-    client = OpenAI(
-        api_key=os.environ["FIREWORKS_API_KEY"],
-        base_url="https://api.fireworks.ai/inference/v1",
-    )
-
-    prompt = (
-        "You are an evaluation judge grading an agent's JSON output against a gold oracle "
-        "for a cube-plane-distances solution-audit task.\n\n"
-        f"ORACLE:\n{json.dumps(oracle, indent=2)}\n\n"
-        f"AGENT OUTPUT:\n{json.dumps(agent_output, indent=2)}\n\n"
-        "Grade only the requested JSON fields. Do not reward prose outside the schema.\n\n"
-        "Allowed failure reason codes are exactly:\n"
-        "- claims_unique_edge_length\n"
-        "- restricts_to_nonnegative_subset_sums\n"
-        "- assumes_max_distance_equals_space_diagonal\n"
-        "- assumes_plane_parallel_to_cube_face\n"
-        "- equates_max_distance_with_edge_length_directly\n"
-        "- uses_fabricated_invariant_or_invalid_derivation\n"
-        "- accepts_internal_contradictions_in_derivation\n"
-        "- assumes_zero_distance_vertex_is_axis_corner\n"
-        "- omits_sign_pattern_casework\n"
-        "- treats_one_orientation_as_proof_of_uniqueness\n"
-        "- derives_correct_partial_s2_then_discards_it\n"
-        "- non_terminating_or_no_final_answer\n\n"
-        "Field meanings:\n"
-        "- gold_final_answer: the literal string \"210\" (sum of squares of all possible cube edge lengths).\n"
-        "- gold_edge_length_squared_set: the set of distinct s² values consistent with the eight given vertex-to-plane distances; the oracle value is [21, 54, 66, 69].\n"
-        "- acceptable_solution_ids: the response letters whose final numeric answers equal the gold AND whose failure_reasons list is empty.\n"
-        "- final_answer_correct: whether that response's final stated numeric answer equals 210.\n"
-        "- failure_reasons: exact set of concrete reasons why the response's reasoning is defective. Must be empty iff final_answer_correct is true AND no failure-reason trigger fires on the response.\n\n"
-        "Equivalence and strictness rules:\n"
-        "1. For gold_final_answer, require exact string equality with the oracle (\"210\").\n"
-        "2. For gold_edge_length_squared_set, require the same multiset of integers as the oracle (order irrelevant).\n"
-        "3. For acceptable_solution_ids, require the same set of response letters as the oracle.\n"
-        "4. per_response_assessment must contain exactly one object for each response A-I.\n"
-        "5. For response_id and final_answer_correct, require exact equality.\n"
-        "6. For failure_reasons, order does not matter, but the set must match exactly. Extra reasons fail. Missing reasons fail. No partial credit inside failure_reasons.\n"
-        "7. A per-response audit receives credit only if response_id, final_answer_correct, and the exact failure_reasons set are all correct for that response.\n\n"
-        "Scoring rubric with weighted points:\n"
-        "- gold_final_answer = 2 points.\n"
-        "- gold_edge_length_squared_set = 2 points.\n"
-        "- acceptable_solution_ids = 2 points.\n"
-        "- Each response audit A-I is all-or-nothing = 30 points. Award the 30 points only if response_id, final_answer_correct, and exact failure_reasons set all match the oracle for that response. Otherwise award 0 for that response.\n"
-        "- Total = 276 points. score = passed/276.\n\n"
-        "Respond in JSON only, no markdown:\n"
-        '{"score": <float 0.0-1.0>, "passed": <int>, "total": 276, '
-        '"justification": "<concise weighted field-by-field breakdown>"}'
-    )
-
-    response = client.chat.completions.create(
-        model="accounts/fireworks/models/kimi-k2p5",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0,
-    )
-
-    raw = response.choices[0].message.content or ""
+    with open(args.reward_out, "w", encoding="utf-8") as f:
+        json.dump({"reward": score}, f)
 
     try:
-        result = json.loads(extract_json(raw))
-    except json.JSONDecodeError as e:
-        json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
         with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-            f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw}")
-        return
-
-    score = max(0.0, min(1.0, float(result.get("score", 0.0))))
-    json.dump({"reward": score}, open(args.reward_out, "w", encoding="utf-8"))
-
-    with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-        f.write(
-            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', '?')} passed)\n\n"
-            f"{result.get('justification', '')}"
-        )
+            f.write(f"Score: {score:.4f}\n\n")
+            f.write("Scored fields and weights:\n")
+            f.write(f"- gold_final_answer (string match): {GOLD_FINAL_ANSWER_WEIGHT}\n")
+            f.write(f"- gold_edge_length_squared_set (sorted-list match): {GOLD_S2_SET_WEIGHT}\n")
+            f.write(f"- acceptable_solution_ids (set match): {ACCEPTABLE_SOLUTION_IDS_WEIGHT}\n")
+            f.write(f"- final_answer_correct (per response): {FINAL_ANSWER_CORRECT_WEIGHT}\n")
+            f.write(f"- failure_reasons (per response, set match, all-or-nothing): {FAILURE_REASONS_SET_WEIGHT}\n")
+            f.write(f"- primary_failure_code (per response, exact match): {PRIMARY_FAILURE_CODE_WEIGHT}\n")
+            f.write(f"- primary_failure_code_evidence (per response, presence + >={PRIMARY_EVIDENCE_MIN_CHARS} chars): {PRIMARY_FAILURE_CODE_EVIDENCE_WEIGHT}\n")
+            f.write(f"- alternative_codes_considered (per response, >={ALT_CODES_MIN_COUNT} well-formed entries, codes != primary): {ALTERNATIVE_CODES_CONSIDERED_WEIGHT}\n")
+            f.write(f"- failure_reason_evidence per oracle-listed code (presence + >={EVIDENCE_MIN_CHARS} chars): {PER_CODE_EVIDENCE_WEIGHT}\n")
+            f.write(f"- code_application_table per key (12 keys, exact list match): {CODE_APPLICATION_TABLE_PER_KEY_WEIGHT}\n")
+            f.write(f"- cross_response_observations (presence + >={CROSS_OBS_MIN_CHARS} chars): {CROSS_RESPONSE_OBSERVATIONS_WEIGHT}\n\n")
+            f.write(justification)
+            f.write("\n")
+    except OSError:
+        pass
 
 
 if __name__ == "__main__":

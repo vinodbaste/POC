@@ -15,71 +15,18 @@ sub_tasks:
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
       Agent tool. Do NOT perform this calibration yourself. The sub-agent
-      must read the task instruction itself and return a concise code-
-      boundary guide for applying the twelve failure-reason codes. The
-      guide emphasizes that codes are evaluated as an exact set per
-      response (both extra and missing codes are wrong); each code applies
-      only when its triggering condition is concretely instantiated in
-      that single response's text.
-
-      The guide must include the following universal code-boundary rules
-      (they apply uniformly to every candidate response):
-
-      - non_terminating_or_no_final_answer is mutually incompatible with
-        any code requiring a final numeric answer; when it applies, it
-        stands alone.
-      - equates_max_distance_with_edge_length_directly (a = 7) and
-        assumes_max_distance_equals_space_diagonal (a = 7/√3) are mutually
-        exclusive; pick the one the response's load-bearing derivation
-        actually uses.
-      - claims_unique_edge_length fires when the final stated conclusion
-        asserts a single edge-length value (|S| = 1). It does NOT fire
-        when the response presents its final answer as a sum over multiple
-        candidate edge lengths.
-      - assumes_zero_distance_vertex_is_axis_corner requires explicit
-        pinning of the zero-distance vertex at a specific cube-local
-        corner (typically (0,0,0)). It does NOT fire on body-diagonal-
-        aligned or face-parallel setups that do not pin a specific corner.
-      - assumes_plane_parallel_to_cube_face fires only when the primary
-        geometric setup uses a face-parallel cut or an axis-aligned cube
-        at constant z. It is mutually exclusive in load-bearing role with
-        space-diagonal and corner-and-subset-sum setups.
-      - restricts_to_nonnegative_subset_sums fires when the load-bearing
-        search requires the seven non-zero distances to arise as non-
-        negative subset sums of three positive quantities; it typically
-        co-occurs with assumes_zero_distance_vertex_is_axis_corner and
-        omits_sign_pattern_casework.
-      - omits_sign_pattern_casework fires only when the response reaches
-        a numeric conclusion without enumerating sign-pattern families.
-        It does NOT fire when the response never produces a numeric
-        conclusion, and it does NOT fire when the response considered
-        sign cases at least partially (e.g., derived the all-positive
-        case and then discarded it).
-      - treats_one_orientation_as_proof_of_uniqueness fires when ONE
-        derivation chain produces ONE numeric value that the response
-        names as the unique answer. It does NOT fire when the load-
-        bearing defect is direct edge=7 or a=7/√3 identification (those
-        target different geometric framings); use the geometry codes
-        instead.
-      - accepts_internal_contradictions_in_derivation requires BOTH (a)
-        an explicit contradictory equation in the text (such as 6 = 7 or
-        3 = 4) AND (b) a final numeric answer extracted despite the
-        contradiction. Inventing an unsupported algebraic identity is
-        NOT an internal contradiction; that is uses_fabricated_invariant.
-      - uses_fabricated_invariant_or_invalid_derivation fires when the
-        final numeric answer rests on an invented algebraic identity not
-        derivable from the problem. Standard subset-sum arithmetic from a
-        corner-fixed setup is not fabrication.
-      - derives_correct_partial_s2_then_discards_it requires BOTH (a) the
-        value 21 (or equivalently 1² + 2² + 4²) appearing as a derived
-        s² intermediate AND (b) explicit rejection of that value. When
-        this code fires, omits_sign_pattern_casework does NOT also fire
-        because the response did engage with at least the all-positive
-        sign case.
-
-      The guide must explain how to choose the exact failure-reason
-      codes from the instruction list without naming any code's
-      applicability to any specific response.
+      must read the task instruction itself (which contains the
+      authoritative TRIGGER definitions for the twelve failure-reason
+      codes, the Failure-code disambiguation guidance section, the
+      Primary failure code selection guidance section, the Common audit
+      anti-patterns section, and the Resolution rules for borderline
+      cases section) and return a concise calibration packet
+      summarizing how to apply the twelve codes, the failure_reasons
+      set-match rule, and the primary_failure_code selection rules.
+      The sub-agent must not introduce new analytical rules beyond
+      what instruction.md already specifies; its output is a structured
+      re-statement of the instruction's authoritative trigger and
+      selection rules for downstream auditors to reference.
     depends_on: []
     parallel_group: fan-out
 
@@ -91,25 +38,29 @@ sub_tasks:
       /input_artifacts/proposed_solutions/response_A.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
       object for response_id "A" with keys response_id,
-      final_answer_correct, and failure_reasons. Focus on whether the
-      response openly carries internal contradictions through its
-      derivation, whether it fixes the zero-distance vertex at a specific
-      cube-local corner, and whether the final stated conclusion is a
-      single unique numeric edge length.
+      final_answer_correct, failure_reasons, primary_failure_code,
+      failure_reason_evidence, primary_failure_code_evidence, and
+      alternative_codes_considered. Focus on whether the response openly
+      carries internal contradictions through its derivation, whether it
+      fixes the zero-distance vertex at a specific cube-local corner, and
+      whether the final stated conclusion is a single unique numeric edge
+      length.
 
-      Boundary disambiguation for this response: when the geometric setup
-      is corner-based and the controlling defect inside it is an explicit
-      contradictory equation, do NOT also include
-      assumes_max_distance_equals_space_diagonal (the space-diagonal code
-      requires an a√3 = 7 framing) or equates_max_distance_with_edge_length_directly
-      (which requires direct a = 7). Do NOT include
-      treats_one_orientation_as_proof_of_uniqueness when the defect is
-      contradictory equations inside one derivation chain — that code
-      targets responses solving one clean orientation and asserting it
-      unique, not contradiction-driven derivations. Do NOT include
-      restricts_to_nonnegative_subset_sums unless the response builds
-      the seven distances from a positive-subset-sum search of {p, q, r};
-      a corner placement alone is not sufficient.
+      The sub-agent MUST also produce the following required scored
+      fields for this response: primary_failure_code (one code from the
+      response's failure_reasons set, or "NONE" if empty); a
+      failure_reason_evidence JSON object whose keys are exactly the
+      codes in the response's failure_reasons set, each value a non-
+      empty string of at least 20 characters citing or paraphrasing the
+      response text justifying that code; a primary_failure_code_evidence
+      string of at least 50 characters explaining why the chosen
+      primary_failure_code is the most diagnostic; and an
+      alternative_codes_considered JSON array of at least two objects,
+      each with a code field different from this response's
+      primary_failure_code and drawn from the controlled vocabulary
+      (including "NONE"), and a reason_excluded field of at least 20
+      characters. These fields are scored by presence and minimum-
+      length checks; omitting them costs significant weighted points.
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
@@ -120,30 +71,20 @@ sub_tasks:
       yourself. The sub-agent must read
       /input_artifacts/proposed_solutions/response_B.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "B". Focus on the primary geometric setup
-      (whether the cutting plane is assumed parallel to a cube face or
-      the cube is taken axis-aligned with the plane at constant z),
-      whether the response directly identifies the maximum vertex-to-
-      plane distance with the cube edge length without projecting through
-      a plane normal, and whether the final conclusion claims uniqueness.
+      object for response_id "B" with all required fields. Focus on the
+      primary geometric setup (whether the cutting plane is assumed
+      parallel to a cube face or the cube is taken axis-aligned with the
+      plane at constant z), whether the response directly identifies the
+      maximum vertex-to-plane distance with the cube edge length without
+      projecting through a plane normal, and whether the final conclusion
+      claims uniqueness.
 
-      Boundary disambiguation for this response: when the load-bearing
-      geometric setup is plane-parallel-to-face (or z=k axis-aligned),
-      do NOT include assumes_zero_distance_vertex_is_axis_corner — that
-      code requires explicit pinning of the zero-distance vertex at a
-      specific corner like (0,0,0), which is distinct from the face-
-      parallel framing. Do NOT include
-      treats_one_orientation_as_proof_of_uniqueness when the controlling
-      defect is the direct edge = 7 identification — the orientation
-      code targets responses solving a non-face-parallel single
-      orientation and asserting uniqueness from it; for face-parallel
-      setups, the geometric defect is captured by
-      assumes_plane_parallel_to_cube_face and
-      equates_max_distance_with_edge_length_directly together. Do NOT
-      include assumes_max_distance_equals_space_diagonal (mutually
-      exclusive with equates_max_distance_with_edge_length_directly) or
-      restricts_to_nonnegative_subset_sums (no subset-sum search is
-      load-bearing here).
+      Required scored fields are: primary_failure_code,
+      failure_reason_evidence (keys exactly the codes in failure_reasons,
+      each value at least 20 characters), primary_failure_code_evidence
+      (at least 50 characters), and alternative_codes_considered (at
+      least two well-formed entries, each code different from
+      primary_failure_code).
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
@@ -154,27 +95,18 @@ sub_tasks:
       yourself. The sub-agent must read
       /input_artifacts/proposed_solutions/response_C.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "C". Focus on whether the response equates
-      the maximum vertex-to-plane distance with the cube's space diagonal
-      (a√3 = 7 or equivalent), whether it works from a single cube
-      orientation, and whether the final stated conclusion is a single
-      unique edge length.
+      object for response_id "C" with all required fields. Focus on
+      whether the response equates the maximum vertex-to-plane distance
+      with the cube's space diagonal (a√3 = 7 or equivalent), whether it
+      works from a single cube orientation, and whether the final stated
+      conclusion is a single unique edge length.
 
-      Boundary disambiguation for this response: when the load-bearing
-      derivation equates the maximum distance with the space diagonal
-      (a√3 = 7), do NOT also include
-      equates_max_distance_with_edge_length_directly (these two codes
-      are mutually exclusive). Do NOT include
-      assumes_zero_distance_vertex_is_axis_corner when the response
-      operates from a body-diagonal or space-diagonal framing rather
-      than a corner-pinned coordinate system. Do NOT include
-      assumes_plane_parallel_to_cube_face (the space-diagonal framing
-      is incompatible with face-parallel) or
-      restricts_to_nonnegative_subset_sums (no subset-sum search is
-      load-bearing). Do NOT include accepts_internal_contradictions or
-      uses_fabricated_invariant when the response runs a clean
-      a√3 = 7 derivation without contradictory equations or invented
-      identities.
+      Required scored fields are: primary_failure_code,
+      failure_reason_evidence (keys exactly the codes in failure_reasons,
+      each value at least 20 characters), primary_failure_code_evidence
+      (at least 50 characters), and alternative_codes_considered (at
+      least two well-formed entries, each code different from
+      primary_failure_code).
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
@@ -185,24 +117,17 @@ sub_tasks:
       yourself. The sub-agent must read
       /input_artifacts/proposed_solutions/response_D.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "D". Focus on whether the response equates
-      the maximum vertex-to-plane distance with the cube's space diagonal
-      and derives a single numeric answer from one orientation, without
-      enumerating sign-pattern families.
+      object for response_id "D" with all required fields. Focus on
+      whether the response equates the maximum vertex-to-plane distance
+      with the cube's space diagonal and derives a single numeric answer
+      from one orientation, without enumerating sign-pattern families.
 
-      Boundary disambiguation for this response: when the load-bearing
-      derivation uses a√3 = 7, do NOT also include
-      equates_max_distance_with_edge_length_directly (mutually exclusive
-      with the space-diagonal code). Do NOT include
-      assumes_zero_distance_vertex_is_axis_corner unless the response
-      explicitly pins the zero-distance vertex at a cube-local corner;
-      a space-diagonal framing typically does not. Do NOT include
-      assumes_plane_parallel_to_cube_face (incompatible with space-
-      diagonal load-bearing reasoning). Do NOT include
-      restricts_to_nonnegative_subset_sums or
-      uses_fabricated_invariant_or_invalid_derivation when the
-      derivation is a clean a√3 = 7 chain without subset-sum search or
-      invented identities.
+      Required scored fields are: primary_failure_code,
+      failure_reason_evidence (keys exactly the codes in failure_reasons,
+      each value at least 20 characters), primary_failure_code_evidence
+      (at least 50 characters), and alternative_codes_considered (at
+      least two well-formed entries, each code different from
+      primary_failure_code).
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
@@ -213,26 +138,18 @@ sub_tasks:
       yourself. The sub-agent must read
       /input_artifacts/proposed_solutions/response_E.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "E". Focus on whether the response produces
-      an identifiable final numeric answer at all (e.g., a boxed value or
-      a "final answer is ..." sentence), or instead loops, truncates, or
-      never commits to a numeric conclusion.
+      object for response_id "E" with all required fields. Focus on
+      whether the response produces an identifiable final numeric answer
+      at all (e.g., a boxed value or a "final answer is ..." sentence),
+      or instead loops, truncates, or never commits to a numeric
+      conclusion.
 
-      Boundary disambiguation for this response:
-      non_terminating_or_no_final_answer is mutually incompatible with
-      any code that requires extracting a final numeric value. When the
-      response truncates, loops, or never commits to a number, do NOT
-      include claims_unique_edge_length,
-      equates_max_distance_with_edge_length_directly,
-      assumes_max_distance_equals_space_diagonal,
-      treats_one_orientation_as_proof_of_uniqueness,
-      omits_sign_pattern_casework, accepts_internal_contradictions,
-      uses_fabricated_invariant, restricts_to_nonnegative_subset_sums,
-      assumes_zero_distance_vertex_is_axis_corner,
-      assumes_plane_parallel_to_cube_face, or
-      derives_correct_partial_s2_then_discards_it. When
-      non_terminating_or_no_final_answer fires, it stands alone in the
-      failure_reasons set.
+      Required scored fields are: primary_failure_code,
+      failure_reason_evidence (keys exactly the codes in failure_reasons,
+      each value at least 20 characters), primary_failure_code_evidence
+      (at least 50 characters), and alternative_codes_considered (at
+      least two well-formed entries, each code different from
+      primary_failure_code).
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
@@ -243,26 +160,19 @@ sub_tasks:
       yourself. The sub-agent must read
       /input_artifacts/proposed_solutions/response_F.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "F". Focus on whether the response fixes the
-      zero-distance vertex at a specific cube-local corner, restricts its
-      search to non-negative subset sums of positive quantities (rather
-      than considering signed projections), and concludes a single unique
-      edge length from one orientation.
+      object for response_id "F" with all required fields. Focus on
+      whether the response fixes the zero-distance vertex at a specific
+      cube-local corner, restricts its search to non-negative subset
+      sums of positive quantities (rather than considering signed
+      projections), and concludes a single unique edge length from one
+      orientation.
 
-      Boundary disambiguation for this response: when the load-bearing
-      setup is corner-fixed with non-negative subset sums of {p, q, r},
-      do NOT include assumes_max_distance_equals_space_diagonal (the
-      response does not use a√3 = 7) or
-      assumes_plane_parallel_to_cube_face (the response does not use a
-      face-parallel cut) — these three geometric framings are mutually
-      exclusive as load-bearing setups. Do NOT include
-      equates_max_distance_with_edge_length_directly (the response does
-      not directly equate the max distance with the edge). Do NOT
-      include uses_fabricated_invariant_or_invalid_derivation when the
-      response uses standard subset-sum arithmetic; that code requires
-      an invented identity. Do NOT include
-      accepts_internal_contradictions unless an explicit contradictory
-      equation appears in the text.
+      Required scored fields are: primary_failure_code,
+      failure_reason_evidence (keys exactly the codes in failure_reasons,
+      each value at least 20 characters), primary_failure_code_evidence
+      (at least 50 characters), and alternative_codes_considered (at
+      least two well-formed entries, each code different from
+      primary_failure_code).
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
@@ -273,33 +183,19 @@ sub_tasks:
       yourself. The sub-agent must read
       /input_artifacts/proposed_solutions/response_G.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "G". Focus on whether the response invents
-      an algebraic identity not derivable from the problem, whether it
-      derives the all-positive-case s² value at some point and then
-      explicitly discards or rejects it, and whether the response's final
-      conclusion is a single unique edge length or a fabricated sum over
-      candidates.
+      object for response_id "G" with all required fields. Focus on
+      whether the response invents an algebraic identity not derivable
+      from the problem, whether it derives the all-positive-case s²
+      value at some point and then explicitly discards or rejects it,
+      and whether the response's final conclusion is a single unique
+      edge length or a fabricated sum over candidates.
 
-      Boundary disambiguation for this response: do NOT include
-      accepts_internal_contradictions_in_derivation when the defect is
-      an invented algebraic identity (such as 3a²(1 + T²) = 140) —
-      fabricated invariants are uses_fabricated_invariant, not internal
-      contradictions; the latter requires an explicit 6 = 7 type
-      contradictory equation. Do NOT include omits_sign_pattern_casework
-      when the response considered the all-positive sign case and
-      explicitly discarded its s² result — that explicit derive-then-
-      reject pattern is captured by
-      derives_correct_partial_s2_then_discards_it instead. Do NOT
-      include claims_unique_edge_length when the response presents its
-      final value as a fabricated sum over multiple candidates rather
-      than asserting one unique edge length. Do NOT include
-      treats_one_orientation_as_proof_of_uniqueness when the response
-      worked through multiple sign branches even if it discarded one.
-      Do NOT include assumes_max_distance_equals_space_diagonal or
-      assumes_plane_parallel_to_cube_face or
-      equates_max_distance_with_edge_length_directly unless those
-      specific load-bearing framings appear in the response's
-      derivation chain.
+      Required scored fields are: primary_failure_code,
+      failure_reason_evidence (keys exactly the codes in failure_reasons,
+      each value at least 20 characters), primary_failure_code_evidence
+      (at least 50 characters), and alternative_codes_considered (at
+      least two well-formed entries, each code different from
+      primary_failure_code).
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
@@ -310,26 +206,19 @@ sub_tasks:
       yourself. The sub-agent must read
       /input_artifacts/proposed_solutions/response_H.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "H". Focus on the same setup pattern as
-      response_F: whether the zero-distance vertex is fixed at a specific
-      cube-local corner, whether the search is restricted to non-negative
-      subset sums, and whether the final stated conclusion is a single
-      unique edge length from one orientation.
+      object for response_id "H" with all required fields. Focus on the
+      same setup pattern as response_F: whether the zero-distance vertex
+      is fixed at a specific cube-local corner, whether the search is
+      restricted to non-negative subset sums, and whether the final
+      stated conclusion is a single unique edge length from one
+      orientation.
 
-      Boundary disambiguation for this response: when the load-bearing
-      setup is corner-fixed with non-negative subset sums, do NOT
-      include assumes_max_distance_equals_space_diagonal or
-      assumes_plane_parallel_to_cube_face or
-      equates_max_distance_with_edge_length_directly — these target
-      mutually exclusive alternative geometric framings. Do NOT include
-      uses_fabricated_invariant_or_invalid_derivation when the
-      derivation uses standard subset-sum arithmetic without an
-      invented algebraic identity. Do NOT include
-      accepts_internal_contradictions unless an explicit contradictory
-      equation appears in the text. Do NOT include
-      derives_correct_partial_s2_then_discards_it unless the response
-      explicitly derives 21 (or 1² + 2² + 4²) and explicitly rejects
-      it.
+      Required scored fields are: primary_failure_code,
+      failure_reason_evidence (keys exactly the codes in failure_reasons,
+      each value at least 20 characters), primary_failure_code_evidence
+      (at least 50 characters), and alternative_codes_considered (at
+      least two well-formed entries, each code different from
+      primary_failure_code).
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
@@ -340,41 +229,50 @@ sub_tasks:
       yourself. The sub-agent must read
       /input_artifacts/proposed_solutions/response_I.md itself, use the
       gold packet and code-boundary guide, and return one JSON assessment
-      object for response_id "I". Focus on whether the response fixes the
-      zero-distance vertex at a specific cube-local corner, restricts its
-      search to non-negative subset sums of positive quantities, derives
-      a single s² from one cube orientation, and asserts that value as
-      the unique answer.
+      object for response_id "I" with all required fields. Focus on
+      whether the response fixes the zero-distance vertex at a specific
+      cube-local corner, restricts its search to non-negative subset
+      sums of positive quantities, derives a single s² from one cube
+      orientation, and asserts that value as the unique answer.
 
-      Boundary disambiguation for this response: when the load-bearing
-      setup is corner-fixed with non-negative subset sums, do NOT
-      include assumes_max_distance_equals_space_diagonal,
-      assumes_plane_parallel_to_cube_face, or
-      equates_max_distance_with_edge_length_directly — these target
-      mutually exclusive alternative geometric framings. Do NOT include
-      uses_fabricated_invariant_or_invalid_derivation when the
-      derivation uses standard subset-sum arithmetic. Do NOT include
-      accepts_internal_contradictions unless an explicit contradictory
-      equation appears in the text. Do NOT include
-      derives_correct_partial_s2_then_discards_it unless the response
-      explicitly derives 21 and then explicitly rejects it.
+      Required scored fields are: primary_failure_code,
+      failure_reason_evidence (keys exactly the codes in failure_reasons,
+      each value at least 20 characters), primary_failure_code_evidence
+      (at least 50 characters), and alternative_codes_considered (at
+      least two well-formed entries, each code different from
+      primary_failure_code).
     depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
     parallel_group: audit
 
-  - id: synthesize-final-audit
+  - id: adjudicate-primary-failure-codes
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a
-      sub-agent using the Agent tool. Do NOT perform the final synthesis
-      yourself. The synthesizer consumes the gold packet, the code-
-      boundary guide, and the nine audit objects. It MUST NOT re-derive
-      the gold answer or re-audit individual responses. If any audit
-      object is malformed, request a replacement sub-agent for that one
-      response. The synthesizer writes exactly one JSON object to
-      /logs/agent/output.json with the four top-level keys defined in
-      instruction.md (gold_final_answer, gold_edge_length_squared_set,
-      acceptable_solution_ids, per_response_assessment with nine objects
-      ordered A through I) and validates that the file exists and parses
-      before returning.
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this adjudicator as a
+      sub-agent using the Agent tool after all nine response auditors
+      finish. Do NOT do this adjudication in the orchestrator. The
+      adjudicator must consume the gold packet, the calibration guide,
+      the nine mapper outputs, and the nine candidate response files. Its
+      job is narrowly to re-check the labels that dominate scoring and
+      are easy to conflate: the failure_reasons set and the
+      primary_failure_code per response. It must return a structured
+      correction object that the reducer applies mechanically.
+
+      The adjudicator must apply the universal trigger-pattern rules
+      and primary-code selection rules already specified in
+      instruction.md (the Failure-code disambiguation guidance section,
+      the Primary failure code selection guidance section, and the
+      Common audit anti-patterns section) uniformly to all nine
+      responses. The adjudicator must not introduce new analytical
+      rules beyond what instruction.md already specifies; it re-checks
+      each mapper's failure_reasons set and primary_failure_code
+      against the response text and instruction.md's authoritative
+      trigger language.
+
+      Return a structured JSON object: a top-level dict keyed by
+      response_id (A through I), each value containing only the fields
+      whose mapper value should be CORRECTED, together with the
+      corrected value and a one-sentence textual evidence quotation
+      from the response. The reducer applies every correction
+      mechanically without re-deriving.
     depends_on:
       - adjudicate-gold-geometry
       - calibrate-failure-code-boundaries
@@ -387,4 +285,87 @@ sub_tasks:
       - audit-response-g
       - audit-response-h
       - audit-response-i
+    parallel_group: adjudicate
+
+  - id: synthesize-final-audit
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a
+      sub-agent using the Agent tool. Do NOT perform the final synthesis
+      yourself. The synthesizer consumes the gold packet, the code-
+      boundary guide, the nine audit objects, and the adjudicator's
+      structured correction object. It MUST NOT re-derive the gold
+      answer or re-audit individual responses. If any audit object is
+      malformed, request a replacement sub-agent for that one response.
+
+      Reducer procedure (apply mechanically, in order):
+      (1) Start from the nine mapper evaluation objects (each of which
+          must already contain its response_id, final_answer_correct,
+          failure_reasons, primary_failure_code, failure_reason_evidence,
+          primary_failure_code_evidence, and alternative_codes_considered
+          fields as produced by the mapper).
+      (2) For each response_id, overwrite each field that appears in the
+          adjudicator's correction object for that response with the
+          corrected value. Adjudicator corrections always win over
+          mapper outputs because the adjudicator has access to all
+          mapper outputs and the calibration guide and re-checks against
+          universal phrase-pattern rules.
+      (3) For any response whose failure_reasons set was corrected,
+          ensure failure_reason_evidence has a key for every code in
+          the corrected set (each value at least 20 characters); request
+          replacement evidence from the original auditor sub-agent if
+          missing.
+      (4) Recompute acceptable_solution_ids as the alphabetically-sorted
+          list of response_ids whose final_answer_correct is true AND
+          failure_reasons is the empty list.
+      (5) Build the top-level code_application_table by iterating the
+          nine (post-correction) evaluations and, for each code in the
+          12-code vocabulary, listing alphabetically the response_ids
+          whose failure_reasons set contains that code. The
+          code_application_table MUST contain exactly the 12 keys
+          (claims_unique_edge_length, restricts_to_nonnegative_subset_sums,
+          assumes_max_distance_equals_space_diagonal,
+          assumes_plane_parallel_to_cube_face,
+          equates_max_distance_with_edge_length_directly,
+          uses_fabricated_invariant_or_invalid_derivation,
+          accepts_internal_contradictions_in_derivation,
+          assumes_zero_distance_vertex_is_axis_corner,
+          omits_sign_pattern_casework,
+          treats_one_orientation_as_proof_of_uniqueness,
+          derives_correct_partial_s2_then_discards_it,
+          non_terminating_or_no_final_answer); codes with no matching
+          response have an empty list. A response with K codes appears
+          in exactly K buckets. The verifier scores each key against
+          the oracle at 70 points per key, so accuracy on this field
+          cascades from per-response failure_reasons accuracy.
+      (6) Compose the top-level cross_response_observations string of at
+          least 300 characters identifying shared defect patterns
+          across the nine responses (which responses share elimination
+          assertions, single-orientation closure, fabricated invariants,
+          corner-and-subset-sum setups, space-diagonal misidentifications,
+          oscillation, etc.). The verifier scores this field at 30
+          points by presence and minimum length.
+
+      The synthesizer writes exactly one JSON object to
+      /logs/agent/output.json with the top-level keys gold_final_answer,
+      gold_edge_length_squared_set, acceptable_solution_ids,
+      per_response_assessment (nine objects ordered A through I, each
+      including response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence,
+      failure_reason_evidence, alternative_codes_considered),
+      code_application_table, and cross_response_observations, as
+      specified by instruction.md. Validate that the output file exists
+      and parses as JSON before returning.
+    depends_on:
+      - adjudicate-gold-geometry
+      - calibrate-failure-code-boundaries
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - adjudicate-primary-failure-codes
     parallel_group: synthesize

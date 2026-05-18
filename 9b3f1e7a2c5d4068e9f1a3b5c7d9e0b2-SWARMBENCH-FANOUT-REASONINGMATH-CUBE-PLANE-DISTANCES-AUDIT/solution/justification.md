@@ -33,6 +33,23 @@ Other Case-B sub-cases (flipping the smallest or middle axis; or r < p+q) all de
 
 Because none of the nine released responses produces 210, `acceptable_solution_ids` is the empty list.
 
+## Scoring rubric (deterministic Python verifier)
+
+The verifier (`tests/judge.py`) scores `/logs/agent/output.json` against `tests/oracle.json` with the following weighted fields. Total possible weight is **1740 points**; the reward is `earned / 1740` clipped to [0.0, 1.0]. An exact JSON-equality match short-circuits to reward = 1.0.
+
+- `gold_final_answer` (string match): 2
+- `gold_edge_length_squared_set` (sorted-list match): 2
+- `acceptable_solution_ids` (set match): 2
+- Per response (nine times):
+  - `final_answer_correct` (exact bool match): 5
+  - `failure_reasons` (exact set match against oracle, all-or-nothing): 30
+  - `primary_failure_code` (exact string match): 25
+  - `primary_failure_code_evidence` (presence + ≥50 chars): 8
+  - `alternative_codes_considered` (≥2 well-formed entries; each `code` from the controlled vocabulary or `"NONE"`, each `code` different from this response's `primary_failure_code`, each `reason_excluded` ≥20 chars): 8
+  - `failure_reason_evidence` per oracle-listed code (presence + ≥20 chars): 5 per code
+- `code_application_table` per key (12 keys, each value an exact sorted-list match): 70 per key (840 total)
+- `cross_response_observations` (presence + ≥300 chars): 30
+
 ## Failure-reason code meanings
 
 - `claims_unique_edge_length` — final stated conclusion asserts |S| = 1 (regardless of value).
@@ -85,3 +102,40 @@ Identical structural failure to F: zero-vertex at (0,0,0), subset-sum search ove
 ### Response I (openmath-nemotron-7b — extracted "21")
 Identical structural failure to F and H: non-negative projections, positive-integer triple search, unique (1, 2, 4), S = {√21}.
 - `failure_reasons`: same as Response F.
+
+## Primary failure code selections
+
+Per-response `primary_failure_code` choices follow the universal selection rules (non-terminating stands alone; fabrication outranks accepted-contradictions; explicit discard outranks fabrication; subset-sum restriction outranks the downstream corner choice; space-diagonal identification outranks orientation-uniqueness and uniqueness wording; face-parallel framing outranks the direct edge-equals-max identification it produces; `claims_unique_edge_length` and `omits_sign_pattern_casework` are never picked as primary when other codes apply).
+
+| response_id | primary_failure_code |
+|---|---|
+| A | `uses_fabricated_invariant_or_invalid_derivation` |
+| B | `assumes_plane_parallel_to_cube_face` |
+| C | `assumes_max_distance_equals_space_diagonal` |
+| D | `assumes_max_distance_equals_space_diagonal` |
+| E | `non_terminating_or_no_final_answer` |
+| F | `restricts_to_nonnegative_subset_sums` |
+| G | `derives_correct_partial_s2_then_discards_it` |
+| H | `restricts_to_nonnegative_subset_sums` |
+| I | `restricts_to_nonnegative_subset_sums` |
+
+## code_application_table
+
+Mechanically built from the nine `failure_reasons` sets: each of the 12 codes maps to the alphabetically-sorted list of response_ids whose set contains it.
+
+| code | response_ids |
+|---|---|
+| claims_unique_edge_length | A, B, C, D, F, H, I |
+| restricts_to_nonnegative_subset_sums | F, H, I |
+| assumes_max_distance_equals_space_diagonal | C, D |
+| assumes_plane_parallel_to_cube_face | B |
+| equates_max_distance_with_edge_length_directly | B |
+| uses_fabricated_invariant_or_invalid_derivation | A, G |
+| accepts_internal_contradictions_in_derivation | A |
+| assumes_zero_distance_vertex_is_axis_corner | A, F, G, H, I |
+| omits_sign_pattern_casework | A, B, C, D, F, H, I |
+| treats_one_orientation_as_proof_of_uniqueness | C, D, F, H, I |
+| derives_correct_partial_s2_then_discards_it | G |
+| non_terminating_or_no_final_answer | E |
+
+Coverage: each of {A, B, C, D, E, F, G, H, I} appears in `code_application_table` once per code in its `failure_reasons` set (5+4+4+4+1+5+3+5+5 = 36 total list entries).
