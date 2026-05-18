@@ -133,14 +133,15 @@ The weights are:
 - alternative_codes_considered (>=2 well-formed entries): 8 (per response)
 - criteria_satisfied_count (integer match against oracle): 10 (per response)
 - verdict_consistency_check (bool match against oracle): 15 (per response)
-- consistency_table per key (sorted-list match against oracle): 70 (top level, 10 keys)
-- criterion_pass_rate per key (integer match against oracle): 50 (top level, 8 keys)
-- verdict_distribution per key (sorted-list match against oracle): 100 (top level, 2 keys)
+- consistency_table per key (sorted-list match against oracle): 100 (top level, 10 keys)
+- criterion_pass_rate per key (integer match against oracle): 80 (top level, 8 keys)
+- verdict_distribution per key (sorted-list match against oracle): 150 (top level, 2 keys)
 - criterion_pair_co_pass_count per key (integer match against oracle): 12 (top level, 28 pairs)
 - response_pair_criterion_agreement per key (integer match against oracle): 10 (top level, 28 pairs)
+- response_triple_criterion_agreement per key (integer match against oracle): 8 (top level, 56 unordered triples)
 - cross_response_observations (presence + >=300 chars): 30 (top level)
 
-The total possible weight per task is 4778. The reported reward is total_earned / 4778 clipped to [0.0, 1.0]. An exact JSON-equality match between agent output and oracle short-circuits to reward = 1.0. Every dict aggregation field MUST contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key); the verifier penalizes null or missing keys as the full weight loss for that key.
+The total possible weight per task is 5866. The reported reward is total_earned / 4778 clipped to [0.0, 1.0]. An exact JSON-equality match between agent output and oracle short-circuits to reward = 1.0. Every dict aggregation field MUST contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key); the verifier penalizes null or missing keys as the full weight loss for that key.
 
 brief_justification, summary, accepted_solutions, rejected_solutions, and best_solution are required for report completeness, but they are not scored.
 
@@ -337,6 +338,9 @@ Write your final answer to /logs/agent/output.json as a single JSON object with 
   },
   "response_pair_criterion_agreement": {
     "<response_X & response_Y for each of the 28 ordered X<Y pairs>": <integer count, 0-8, of criteria where both responses have the same boolean value>
+  },
+  "response_triple_criterion_agreement": {
+    "<response_X & response_Y & response_Z for each of the 56 unordered triples X<Y<Z alphabetical>": <integer count, 0-8, of criteria where ALL THREE responses have the same boolean value>
   },
   "consistency_table": {
     "NONE": [<list of response_ids whose primary_failure_code is NONE>],

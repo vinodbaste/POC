@@ -358,17 +358,7 @@ sub_tasks:
            Verifier scores 30 points.
 
       The synthesizer writes exactly one JSON object to
-      /logs/agent/output.json with these top-level keys:
-      gold_final_answer, gold_edge_length_squared_set,
-      acceptable_solution_ids, per_response_assessment (nine objects
-      ordered A through I, each including response_id,
-      final_answer_correct, failure_reasons, primary_failure_code,
-      primary_failure_code_evidence, failure_reason_evidence,
-      alternative_codes_considered, code_application_count,
-      primary_in_set_check, evidence_key_completeness),
-      code_application_table, response_count_per_code,
-      code_co_occurrence_count, response_pair_shared_codes,
-      response_triple_shared_codes, and cross_response_observations.
+      /logs/agent/output.json with all required top-level keys.
       CRITICAL: every dict aggregation field MUST contain every required
       key with a JSON-valid value (use [] for empty lists, 0 for empty
       integer counts — NEVER null, NEVER omit a key). Validate that the
@@ -386,4 +376,91 @@ sub_tasks:
       - audit-response-h
       - audit-response-i
       - adjudicate-primary-failure-codes
+      - build-code-application-tables
+      - build-response-pair-and-triple-tables
+      - validate-output-consistency
     parallel_group: synthesize
+
+  - id: build-code-application-tables
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
+      the Agent tool. Do NOT compute these aggregations yourself. The
+      sub-agent receives the nine adjudicated per-response evaluations
+      (from the adjudicator's correction object plus the original mapper
+      outputs), and computes two top-level aggregation fields:
+      code_application_table (12 keys × sorted response_id lists) and
+      response_count_per_code (12 keys × integer counts). The sub-agent
+      must iterate every code in the controlled vocabulary, scan each
+      response's corrected failure_reasons set, and emit the exact JSON
+      sub-trees. EVERY code key MUST appear with a JSON-valid value
+      (empty list [] for codes with no matching response, 0 for empty
+      counts — NEVER null, NEVER omit a key). The sub-agent returns
+      these two JSON fragments for the final synthesizer to embed.
+    depends_on:
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - adjudicate-primary-failure-codes
+    parallel_group: aggregate
+
+  - id: build-response-pair-and-triple-tables
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
+      the Agent tool. Do NOT compute these aggregations yourself. The
+      sub-agent receives the nine adjudicated per-response evaluations
+      and computes three top-level aggregation fields:
+      code_co_occurrence_count (66 pairs of codes "code_i & code_j" with
+      i<j alphabetical, integer values = count of responses with both
+      codes), response_pair_shared_codes (36 unordered response pairs
+      "X & Y" with X<Y alphabetical, sorted-list values = codes in both
+      responses' failure_reasons), and response_triple_shared_codes (84
+      unordered response triples "X & Y & Z" with X<Y<Z alphabetical,
+      sorted-list values = codes in all three responses' failure_reasons).
+      EVERY pair/triple key MUST appear with a JSON-valid value (0 for
+      empty counts, [] for empty lists — NEVER null, NEVER omit a key).
+      The sub-agent returns these three JSON fragments.
+    depends_on:
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - adjudicate-primary-failure-codes
+    parallel_group: aggregate
+
+  - id: validate-output-consistency
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
+      the Agent tool. The sub-agent receives the nine adjudicated per-
+      response evaluations and computes the three derived per-response
+      fields for every response: code_application_count (= length of
+      failure_reasons), primary_in_set_check (= boolean: primary in
+      failure_reasons OR (primary == "NONE" and failure_reasons empty)),
+      evidence_key_completeness (= number of keys in
+      failure_reason_evidence that match a code in failure_reasons).
+      The sub-agent also assembles the per_response_assessment list of
+      nine objects in alphabetical order A through I with all required
+      scored fields. Returns the per_response_assessment JSON fragment
+      for the final synthesizer to embed.
+    depends_on:
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - adjudicate-primary-failure-codes
+    parallel_group: aggregate
