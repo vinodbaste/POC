@@ -25,7 +25,7 @@ Task:
 6. For each code in the response's `failure_reasons` set, produce a short evidence quote of at least 20 characters citing or paraphrasing the response text that demonstrates that trigger. Evidence quotes are scored on presence and minimum length.
 7. For each response produce a `primary_failure_code_evidence` string of at least 50 characters explaining why the chosen primary_failure_code is the most load-bearing diagnostic, citing response-specific text.
 8. For each response produce an `alternative_codes_considered` list of at least two objects, each naming a code from the controlled vocabulary that is NOT the response's primary_failure_code together with a `reason_excluded` of at least 20 characters justifying why it is not the most diagnostic.
-9. At the top level, build a `code_application_table` whose 12 keys are the 12 failure-reason codes from the vocabulary; each value is the alphabetically-sorted list of response_ids whose `failure_reasons` set contains that code. Codes with no matching response have an empty list. The verifier scores each key against the oracle at 70 weighted points, so accuracy on this field cascades from per-response failure_reasons accuracy.
+9. At the top level, build a `code_application_table` whose 12 keys are the 12 failure-reason codes from the vocabulary; each value is the alphabetically-sorted list of response_ids whose `failure_reasons` set contains that code. Codes with no matching response have an empty list. The verifier scores each key against the oracle at 100 points, so accuracy on this field cascades from per-response failure_reasons accuracy.
 10. At the top level, produce a `cross_response_observations` string of at least 300 characters identifying shared defect patterns across the nine responses (for example: which responses share the corner-and-subset-sum setup, which share the space-diagonal misidentification, which share fabricated-invariant derivations).
 
 Allowed failure-reason codes (each code applies ONLY when its triggering condition is concretely instantiated in that single response's text):
@@ -87,7 +87,7 @@ Label definitions for each released response:
 
 Many candidate solutions exhibit multiple defects simultaneously. The full code vocabulary is enumerated above; the following disambiguation rules clarify boundaries between near-overlapping codes:
 
-- `equates_max_distance_with_edge_length_directly` (a = 7) and `assumes_max_distance_equals_space_diagonal` (a = 7/√3) are mutually exclusive. A response cannot simultaneously identify the maximum distance with both the edge and the space diagonal; pick the one its load-bearing derivation actually uses.
+- `equates_max_distance_with_edge_length_directly` (a = 7) and `assumes_max_distance_equals_space_diagonal` (a = 7/√3) describe two distinct geometric identifications. A single response's load-bearing derivation typically uses one or the other; pick the one its load-bearing derivation actually uses.
 - `claims_unique_edge_length` fires when the response's final stated conclusion asserts |S| = 1, regardless of whether the value is itself correct or wrong. It does NOT fire when the final stated value is presented as a sum over multiple candidate edge lengths.
 - `treats_one_orientation_as_proof_of_uniqueness` fires when the response solves exactly one cube orientation and asserts the resulting s² as the only solution. It overlaps with but is distinct from `claims_unique_edge_length`: the former targets the geometric step (one orientation solved, asserted unique), the latter targets the final-answer wording (|S| = 1 in conclusion). This code does NOT fire when the load-bearing defect is internal contradictory equations inside one derivation chain (the response did not produce a clean single-orientation derivation), nor when the load-bearing defect is direct edge=7 identification under a face-parallel or axis-aligned setup (those framings are captured by other codes), nor when the load-bearing defect is a space-diagonal a√3=7 identification (the geometric defect is the diagonal misidentification, not the orientation), nor when the response works through multiple sign branches even if it discards one.
 - `assumes_zero_distance_vertex_is_axis_corner` fires when the response fixes the zero-distance vertex at a specific cube-local corner such as (0,0,0). It does NOT fire when the response uses a symmetric signed (±, ±, ±) sign-pattern setup or a body-diagonal-aligned setup that does not pin a specific corner.
@@ -96,7 +96,7 @@ Many candidate solutions exhibit multiple defects simultaneously. The full code 
 - `accepts_internal_contradictions_in_derivation` requires BOTH (a) an explicit contradictory equation in the response text (such as "6 = 7") and (b) a final numeric answer extracted despite the contradiction. Either alone is insufficient.
 - `uses_fabricated_invariant_or_invalid_derivation` fires when the response's final numeric answer rests on an invented algebraic identity (e.g., a fabricated "sum-of-squared-distances" identity) or an unsupported derivation step. The trigger requires that the load-bearing step traces back to fabrication.
 - `derives_correct_partial_s2_then_discards_it` requires both (a) the value 21 (or equivalently 1² + 2² + 4²) appearing as a derived s² intermediate and (b) explicit rejection of it in favor of a different final numeric answer.
-- `non_terminating_or_no_final_answer` fires when no committed final numeric answer exists at all. It is mutually incompatible with any code that requires extracting a final numeric answer; if it fires, it stands alone.
+- `non_terminating_or_no_final_answer` fires when no committed final numeric answer exists at all. The oracle assigns this code as the sole code on any response without a final numeric answer; other codes that require extracting a final numeric answer do not co-apply.
 - `assumes_plane_parallel_to_cube_face` fires only when the response's primary geometric setup uses a face-parallel or axis-aligned cube with the plane at constant z. It does NOT fire when the response merely entertains and discards this hypothesis.
 
 ### Primary failure code selection guidance
@@ -173,7 +173,6 @@ The verifier (llm-judge) scores the final JSON against the oracle. Field weights
   - `primary_in_set_check` (bool match against oracle: true iff primary_failure_code is in failure_reasons OR primary == "NONE" and failure_reasons is []): 5 points
   - `evidence_key_completeness` (integer match against oracle = number of evidence keys matching failure_reasons): 8 points
 - `code_application_table` per key (12 keys, each value an exact sorted-list match against the oracle): 100 points per key
-- `response_count_per_code` per key (12 keys, each value an exact integer match against the oracle): 20 points per key
 - `cross_response_observations` (presence + at least 300 characters): 30 points
 
 Every dict aggregation field MUST contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key). Outputting null or omitting a key forfeits the full weight for that key. Producing complete, well-formed values for every field listed above is essential to achieve a high reward.
@@ -222,21 +221,7 @@ Write your final answer to `/logs/agent/output.json` in this exact JSON format:
     "derives_correct_partial_s2_then_discards_it": [<sorted list>],
     "non_terminating_or_no_final_answer": [<sorted list>]
   },
-  "response_count_per_code": {
-    "claims_unique_edge_length": <integer count>,
-    "restricts_to_nonnegative_subset_sums": <integer count>,
-    "assumes_max_distance_equals_space_diagonal": <integer count>,
-    "assumes_plane_parallel_to_cube_face": <integer count>,
-    "equates_max_distance_with_edge_length_directly": <integer count>,
-    "uses_fabricated_invariant_or_invalid_derivation": <integer count>,
-    "accepts_internal_contradictions_in_derivation": <integer count>,
-    "assumes_zero_distance_vertex_is_axis_corner": <integer count>,
-    "omits_sign_pattern_casework": <integer count>,
-    "treats_one_orientation_as_proof_of_uniqueness": <integer count>,
-    "derives_correct_partial_s2_then_discards_it": <integer count>,
-    "non_terminating_or_no_final_answer": <integer count>
-  },
   "cross_response_observations": "<single string, at least 300 characters, identifying shared defect patterns across the nine responses>"
 }
 
-In the actual output, include nine objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, I, in that order. Every response_id from A through I must appear in `code_application_table` once per code in its `failure_reasons` set. `response_count_per_code[code]` must equal the length of `code_application_table[code]` for every code. Every dict aggregation field (`code_application_table`, `response_count_per_code`) must contain every required key with a JSON-valid value (use [] for empty lists, 0 for empty integer counts — NEVER null, NEVER omit a key).
+In the actual output, include nine objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, I, in that order. Every response_id from A through I must appear in `code_application_table` once per code in its `failure_reasons` set. The `code_application_table` must contain every one of the 12 vocabulary codes as a key with a JSON-valid value (use [] for empty lists — NEVER null, NEVER omit a key).

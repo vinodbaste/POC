@@ -33,22 +33,27 @@ Other Case-B sub-cases (flipping the smallest or middle axis; or r < p+q) all de
 
 Because none of the nine released responses produces 210, `acceptable_solution_ids` is the empty list.
 
-## Scoring rubric (deterministic Python verifier)
+## Scoring rubric (LLM-judge verifier)
 
-The verifier (`tests/judge.py`) scores `/logs/agent/output.json` against `tests/oracle.json` with the following weighted fields. Total possible weight is **1740 points**; the reward is `earned / 1740` clipped to [0.0, 1.0]. An exact JSON-equality match short-circuits to reward = 1.0.
+The verifier (`tests/judge.py`) scores `/logs/agent/output.json` against `tests/oracle.json` with the following weighted fields. Total possible weight is **2307 points**; the reward is `earned / 2307` clipped to [0.0, 1.0]. An exact JSON-equality match short-circuits to reward = 1.0.
 
 - `gold_final_answer` (string match): 2
 - `gold_edge_length_squared_set` (sorted-list match): 2
 - `acceptable_solution_ids` (set match): 2
-- Per response (nine times):
+- Per response (nine times, 99 fixed pts each = 891):
   - `final_answer_correct` (exact bool match): 5
-  - `failure_reasons` (exact set match against oracle, all-or-nothing): 30
-  - `primary_failure_code` (exact string match): 25
+  - `failure_reasons` (substantive set match against oracle; 30 exact / 15 off-by-one substantively-equivalent / 8 overlap ≥50% / 0 otherwise): 30 max
+  - `primary_failure_code` (25 exact; 10 if in oracle's failure_reasons set but not primary; else 0): 25 max
   - `primary_failure_code_evidence` (presence + ≥50 chars): 8
   - `alternative_codes_considered` (≥2 well-formed entries; each `code` from the controlled vocabulary or `"NONE"`, each `code` different from this response's `primary_failure_code`, each `reason_excluded` ≥20 chars): 8
-  - `failure_reason_evidence` per oracle-listed code (presence + ≥20 chars): 5 per code
-- `code_application_table` per key (12 keys, each value an exact sorted-list match): 70 per key (840 total)
+  - `code_application_count` (integer match against oracle = len(failure_reasons)): 10
+  - `primary_in_set_check` (bool match): 5
+  - `evidence_key_completeness` (integer match): 8
+- `failure_reason_evidence` per oracle-listed code (presence + ≥20 chars): 5 per code (sum across all 9 responses = 36 codes × 5 = 180)
+- `code_application_table` per key (12 keys, each value an exact sorted-list match): 100 per key (1200 total)
 - `cross_response_observations` (presence + ≥300 chars): 30
+
+Total: 6 + 891 + 180 + 1200 + 30 = 2307.
 
 ## Failure-reason code meanings
 

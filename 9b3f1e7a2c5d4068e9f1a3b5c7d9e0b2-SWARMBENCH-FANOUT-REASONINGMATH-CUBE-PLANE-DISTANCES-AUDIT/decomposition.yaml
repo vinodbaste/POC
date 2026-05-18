@@ -294,56 +294,30 @@ sub_tasks:
       yourself. The synthesizer consumes the gold packet, the code-
       boundary guide, the nine audit objects, and the adjudicator's
       structured correction object. It MUST NOT re-derive the gold
-      answer or re-audit individual responses. If any audit object is
-      malformed, request a replacement sub-agent for that one response.
+      answer or re-audit individual responses.
 
-      Reducer procedure (apply mechanically, in order):
-      (1) Start from the nine mapper evaluation objects (each of which
-          must already contain its response_id, final_answer_correct,
-          failure_reasons, primary_failure_code, failure_reason_evidence,
-          primary_failure_code_evidence, and alternative_codes_considered
-          fields as produced by the mapper).
-      (2) For each response_id, overwrite each field that appears in the
-          adjudicator's correction object for that response with the
-          corrected value. Adjudicator corrections always win over
-          mapper outputs because the adjudicator has access to all
-          mapper outputs and the calibration guide and re-checks against
-          universal phrase-pattern rules.
-      (3) For any response whose failure_reasons set was corrected,
-          ensure failure_reason_evidence has a key for every code in
-          the corrected set (each value at least 20 characters); request
-          replacement evidence from the original auditor sub-agent if
-          missing.
-      (4) Recompute acceptable_solution_ids as the alphabetically-sorted
-          list of response_ids whose final_answer_correct is true AND
-          failure_reasons is the empty list.
-      (5) For each evaluation object, set per-response derived fields:
-          code_application_count = len(failure_reasons); primary_in_set_check
-          = (primary_failure_code in failure_reasons) OR (primary == "NONE"
-          and failure_reasons is []); evidence_key_completeness = number of
-          keys in failure_reason_evidence that are also in failure_reasons.
-          These are MECHANICAL aggregations of per-response data scored
-          deterministically by the verifier.
-      (6) Build the top-level code_application_table with EXACTLY the
-          12 keys of the failure-code vocabulary; for each code, list
-          alphabetically the response_ids whose failure_reasons set
-          contains that code. Codes with no matching response have an
-          empty list []. NEVER use null, NEVER omit a key. Verifier
-          scores 100 points per key.
-      (7) Build the top-level response_count_per_code with EXACTLY the
-          same 12 keys; each value is an integer equal to the length of
-          the corresponding code_application_table list. Verifier scores
-          20 points per key.
-      (11) Compose the top-level cross_response_observations string of
-           at least 300 characters identifying shared defect patterns.
-           Verifier scores 30 points.
-
-      The synthesizer writes exactly one JSON object to
-      /logs/agent/output.json with all required top-level keys.
-      CRITICAL: every dict aggregation field MUST contain every required
-      key with a JSON-valid value (use [] for empty lists, 0 for empty
-      integer counts — NEVER null, NEVER omit a key). Validate that the
-      output file exists and parses as JSON before returning.
+      Required output state at /logs/agent/output.json: a single JSON
+      object matching the schema declared in instruction.md, with all
+      required top-level keys present and JSON-valid. Where the
+      adjudicator's correction object differs from a mapper's output
+      for a given response field, the synthesizer's output for that
+      field reflects the adjudicator's corrected value. The
+      synthesizer's per_response_assessment contains nine entries in
+      alphabetical order A through I, each carrying every scored field
+      named in instruction.md. The synthesizer's top-level
+      code_application_table contains all 12 vocabulary codes as keys
+      with sorted lists of response_ids whose failure_reasons set
+      contains that code (empty list for codes with no matching
+      response, never null, never omitted). The synthesizer's
+      top-level cross_response_observations is a single string of at
+      least 300 characters describing shared defect patterns across
+      the nine responses. The synthesizer's acceptable_solution_ids
+      is the alphabetically-sorted list of response_ids whose
+      final_answer_correct is true and whose failure_reasons set is
+      empty. If any audit object is malformed or missing required
+      fields, the synthesizer requests a replacement audit for that
+      one response rather than fabricating fields locally. The output
+      file must exist and parse as JSON before the synthesizer returns.
     depends_on:
       - adjudicate-gold-geometry
       - calibrate-failure-code-boundaries
@@ -365,18 +339,17 @@ sub_tasks:
   - id: build-code-application-tables
     description: >
       ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
-      the Agent tool. Do NOT compute these aggregations yourself. The
+      the Agent tool. Do NOT compute the aggregation yourself. The
       sub-agent receives the nine adjudicated per-response evaluations
       (from the adjudicator's correction object plus the original mapper
-      outputs), and computes two top-level aggregation fields:
-      code_application_table (12 keys × sorted response_id lists) and
-      response_count_per_code (12 keys × integer counts). The sub-agent
-      must iterate every code in the controlled vocabulary, scan each
-      response's corrected failure_reasons set, and emit the exact JSON
-      sub-trees. EVERY code key MUST appear with a JSON-valid value
-      (empty list [] for codes with no matching response, 0 for empty
-      counts — NEVER null, NEVER omit a key). The sub-agent returns
-      these two JSON fragments for the final synthesizer to embed.
+      outputs). Required output state: a JSON fragment for the
+      code_application_table top-level field whose keys are exactly the
+      12 codes of the failure-reason vocabulary; for each code, the
+      value is the alphabetically-sorted list of response_ids whose
+      corrected failure_reasons set contains that code. Codes with no
+      matching response carry an empty list. No key is null and no key
+      is omitted. The fragment is returned to the final synthesizer
+      for embedding in the output JSON.
     depends_on:
       - audit-response-a
       - audit-response-b

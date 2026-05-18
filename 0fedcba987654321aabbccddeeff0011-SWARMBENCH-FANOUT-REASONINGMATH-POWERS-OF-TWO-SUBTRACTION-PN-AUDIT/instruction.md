@@ -24,8 +24,8 @@ Task:
 6. For each code in the response's `failure_reasons` set, produce a short evidence quote of at least 20 characters citing or paraphrasing the response text that demonstrates that trigger.
 7. For each response produce a `primary_failure_code_evidence` string of at least 50 characters explaining why the chosen primary_failure_code is the most load-bearing diagnostic.
 8. For each response produce an `alternative_codes_considered` list of at least two unique objects, each naming a code from the controlled vocabulary that is NOT the response's primary_failure_code together with a `reason_excluded` of at least 20 characters.
-9. At the top level, build a `code_application_table` whose 13 keys are the 13 failure-reason codes from the vocabulary; each value is the alphabetically-sorted list of response_ids whose `failure_reasons` set contains that code. Codes with no matching response have an empty list. The verifier scores each key at 70 weighted points.
-10. At the top level, build a `response_count_per_code` whose 13 keys are the 13 failure-reason codes; each value is an integer equal to the number of responses whose `failure_reasons` set contains that code. The verifier scores each key at 15 weighted points.
+9. At the top level, build a `code_application_table` whose 13 keys are the 13 failure-reason codes from the vocabulary; each value is the alphabetically-sorted list of response_ids whose `failure_reasons` set contains that code. Codes with no matching response have an empty list. The verifier scores each key at 100 points.
+10. At the top level, build a `response_count_per_code` whose 13 keys are the 13 failure-reason codes; each value is an integer equal to the number of responses whose `failure_reasons` set contains that code. The verifier scores each key at 20 points.
 11. At the top level, produce a `cross_response_observations` string of at least 300 characters identifying shared defect patterns across the eight responses.
 
 ## Allowed failure-reason codes

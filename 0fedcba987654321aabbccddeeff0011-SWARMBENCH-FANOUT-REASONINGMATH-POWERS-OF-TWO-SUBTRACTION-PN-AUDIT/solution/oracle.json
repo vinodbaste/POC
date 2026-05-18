@@ -37,6 +37,7 @@
       "failure_reasons": [
         "arithmetic_recursion_error",
         "claims_wrong_period",
+        "truncated_or_short_string",
         "wrong_move_set_missing_one"
       ],
       "primary_failure_code": "wrong_move_set_missing_one",
@@ -44,7 +45,8 @@
       "failure_reason_evidence": {
         "arithmetic_recursion_error": "0 = P, 1 = P, 2 = N, 3 = N, 4 = N, 5 = N",
         "claims_wrong_period": "The pattern then repeats in blocks: PPNNNNPPNNNN...",
-        "wrong_move_set_missing_one": "I am not including 1 because (2^0) is usually treated as the empty power and does not remove a meaningful number of stones"
+        "wrong_move_set_missing_one": "I am not including 1 because (2^0) is usually treated as the empty power and does not remove a meaningful number of stones",
+        "truncated_or_short_string": "PPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNNNPPNNN"
       },
       "alternative_codes_considered": [
         {
@@ -56,22 +58,24 @@
           "reason_excluded": "The false periodicity is a downstream rationalization once the wrong move set produces unexpected labels."
         }
       ],
-      "code_application_count": 3,
+      "code_application_count": 4,
       "primary_in_set_check": true,
-      "evidence_key_completeness": 3
+      "evidence_key_completeness": 4
     },
     {
       "response_id": "C",
       "final_answer_correct": false,
       "failure_reasons": [
         "arithmetic_recursion_error",
-        "confused_pn_convention"
+        "confused_pn_convention",
+        "truncated_or_short_string"
       ],
       "primary_failure_code": "confused_pn_convention",
       "primary_failure_code_evidence": "Response C globally swaps the P/N labels with the explicit reasoning 'This is just the normal recurrence but with the labels reversed from the usual convention', producing a string that is the bitwise complement of the gold throughout.",
       "failure_reason_evidence": {
         "arithmetic_recursion_error": "NPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPP",
-        "confused_pn_convention": "This is just the normal recurrence but with the labels reversed from the usual convention"
+        "confused_pn_convention": "This is just the normal recurrence but with the labels reversed from the usual convention",
+        "truncated_or_short_string": "NPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPPNPP"
       },
       "alternative_codes_considered": [
         {
@@ -80,12 +84,12 @@
         },
         {
           "code": "treats_game_as_misere",
-          "reason_excluded": "The mis\u00e8re framing is not explicitly named; an implicit convention swap is captured by confused_pn_convention."
+          "reason_excluded": "The misère framing is not explicitly named; an implicit convention swap is captured by confused_pn_convention."
         }
       ],
-      "code_application_count": 2,
+      "code_application_count": 3,
       "primary_in_set_check": true,
-      "evidence_key_completeness": 2
+      "evidence_key_completeness": 3
     },
     {
       "response_id": "D",
@@ -149,14 +153,16 @@
       "failure_reasons": [
         "arbitrary_pattern_heuristic",
         "arithmetic_recursion_error",
-        "extended_move_set_with_extras"
+        "extended_move_set_with_extras",
+        "truncated_or_short_string"
       ],
       "primary_failure_code": "extended_move_set_with_extras",
       "primary_failure_code_evidence": "Response F enlarges the move set to all positive integers up to 100 with the reasoning 'powers of two means all numbers that can be formed by summing powers of two, so effectively every integer up to 100 is reachable', making every nonzero position trivially N.",
       "failure_reason_evidence": {
         "arbitrary_pattern_heuristic": "from every nonzero pile the player can remove the entire pile and win immediately",
         "arithmetic_recursion_error": "0 is P, every (n>0) is N",
-        "extended_move_set_with_extras": "Equivalently, the move set is: {1,2,3,4,5,6,7,8,...,100}"
+        "extended_move_set_with_extras": "Equivalently, the move set is: {1,2,3,4,5,6,7,8,...,100}",
+        "truncated_or_short_string": "PNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
       },
       "alternative_codes_considered": [
         {
@@ -168,9 +174,9 @@
           "reason_excluded": "Recursion arithmetic is mechanically applied to the wrong move set; the move-set expansion is upstream."
         }
       ],
-      "code_application_count": 3,
+      "code_application_count": 4,
       "primary_in_set_check": true,
-      "evidence_key_completeness": 3
+      "evidence_key_completeness": 4
     },
     {
       "response_id": "G",
@@ -266,8 +272,11 @@
       "F"
     ],
     "truncated_or_short_string": [
+      "B",
+      "C",
       "D",
-      "E"
+      "E",
+      "F"
     ],
     "non_terminating_or_no_final_answer": [
       "H"
@@ -285,7 +294,7 @@
     "arithmetic_recursion_error": 6,
     "claims_wrong_period": 3,
     "arbitrary_pattern_heuristic": 2,
-    "truncated_or_short_string": 2,
+    "truncated_or_short_string": 5,
     "non_terminating_or_no_final_answer": 1
   },
   "cross_response_observations": "The dominant failure category across responses A through G is some structural break in the upstream specification of either the move set, the play convention, the base case, or the dynamic-programming framework. Responses B and F break the move set in opposite directions (B drops 1, F adds non-power values), and although both produce wrong P/N strings the specific code differs. Responses A, B, and G all assert a wrong period for the P-positions: A claims period 2 (alternating P and N), B inherits a wrong period from its truncated move set, and G derives a wrong period from a misapplied Nim XOR framework. Responses E and G both misapply Sprague-Grundy-style frameworks: E computes Grundy values via mex of reachable values, while G applies the Nim XOR rule directly to a single pile. Responses D and E both truncate the output before 101 characters; for D the truncation co-occurs with a flipped base case, for E with the Grundy framework misapplication. Response C is the cleanest deviation: a consistent P/N convention swap that inverts every label without otherwise breaking the DP, producing a string that is the bitwise complement of the gold. Response H is pathological: it loops or truncates before committing to a final classification, so non_terminating_or_no_final_answer is its only applicable code. The single most common downstream code is arithmetic_recursion_error, present in six of the eight responses; it almost never appears as the load-bearing primary diagnostic because in each case some upstream error (move set, convention, base case, or framework) accounts for the wrong labels."
