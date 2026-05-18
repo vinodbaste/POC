@@ -118,18 +118,26 @@ The verifier uses weighted label scoring over the per-response audit labels.
 For each candidate response, the scored labels are C1-C8, verdict, and primary_failure_code. A label earns its assigned weight only if it matches the oracle exactly.
 
 The weights are:
-- C1_correct_final_answer: 8
-- C2_concrete_strategy: 1
-- C3_valid_upper_bound: 12
-- C4_valid_lower_bound: 12
-- C5_worst_case_guarantee: 5
-- C6_no_invalid_one_draw_inference: 15
-- C7_no_exact_mixed_pair_requirement: 15
-- C8_no_fatal_wrong_claim: 30
-- verdict: 35
-- primary_failure_code: 140
+- C1_correct_final_answer: 8 (per response)
+- C2_concrete_strategy: 1 (per response)
+- C3_valid_upper_bound: 12 (per response)
+- C4_valid_lower_bound: 12 (per response)
+- C5_worst_case_guarantee: 5 (per response)
+- C6_no_invalid_one_draw_inference: 15 (per response)
+- C7_no_exact_mixed_pair_requirement: 15 (per response)
+- C8_no_fatal_wrong_claim: 30 (per response)
+- verdict: 35 (per response)
+- primary_failure_code: 140 (per response)
+- criterion_evidence per criterion (presence + >=20 chars): 5 (per response per criterion)
+- primary_failure_code_evidence (presence + >=50 chars): 8 (per response)
+- alternative_codes_considered (>=2 well-formed entries): 8 (per response)
+- criteria_satisfied_count (integer match against oracle): 10 (per response)
+- consistency_table per key (sorted-list match against oracle): 70 (top level, 10 keys)
+- criterion_pass_rate per key (integer match against oracle): 50 (top level, 8 keys)
+- verdict_distribution per key (sorted-list match against oracle): 100 (top level, 2 keys)
+- cross_response_observations (presence + >=300 chars): 30 (top level)
 
-The final score is the total earned weighted label points divided by the total possible weighted label points across all candidate responses.
+The total possible weight per task is 4042. The reported reward is total_earned / 4042 clipped to [0.0, 1.0]. An exact JSON-equality match between agent output and oracle short-circuits to reward = 1.0.
 
 brief_justification, summary, accepted_solutions, rejected_solutions, and best_solution are required for report completeness, but they are not scored.
 
@@ -298,13 +306,28 @@ Write your final answer to /logs/agent/output.json as a single JSON object with 
       "alternative_codes_considered": [
         {"code": <one of the controlled-vocabulary primary failure codes>, "reason_excluded": <string, brief justification for why this code is NOT the primary diagnostic>},
         {"code": <another code>, "reason_excluded": <string>}
-      ]
+      ],
+      "criteria_satisfied_count": <integer 0 through 8, equal to the count of C1-C8 that are true for this response>
     }
   ],
   "accepted_solutions": [<string>],
   "rejected_solutions": [<string>],
   "best_solution": <string or null>,
   "summary": <string>,
+  "criterion_pass_rate": {
+    "C1_correct_final_answer": <integer count of responses with C1 true>,
+    "C2_concrete_strategy": <integer count>,
+    "C3_valid_upper_bound": <integer count>,
+    "C4_valid_lower_bound": <integer count>,
+    "C5_worst_case_guarantee": <integer count>,
+    "C6_no_invalid_one_draw_inference": <integer count>,
+    "C7_no_exact_mixed_pair_requirement": <integer count>,
+    "C8_no_fatal_wrong_claim": <integer count>
+  },
+  "verdict_distribution": {
+    "ACCEPT": [<alphabetically-sorted list of response_ids whose verdict is ACCEPT>],
+    "REJECT": [<alphabetically-sorted list of response_ids whose verdict is REJECT>]
+  },
   "consistency_table": {
     "NONE": [<list of response_ids whose primary_failure_code is NONE>],
     "WRONG_FINAL_NUMBER": [<list of response_ids whose primary_failure_code is WRONG_FINAL_NUMBER>],

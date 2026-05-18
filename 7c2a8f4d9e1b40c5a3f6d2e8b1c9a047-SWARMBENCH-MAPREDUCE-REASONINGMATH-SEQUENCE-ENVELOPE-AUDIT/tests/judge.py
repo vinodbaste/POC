@@ -46,7 +46,10 @@ PRIMARY_CODES = [
 PER_RESPONSE_EVIDENCE_WEIGHT = 5
 PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT = 8
 PER_RESPONSE_ALT_CODES_WEIGHT = 8
+PER_RESPONSE_CRITERIA_COUNT_WEIGHT = 10
 CONSISTENCY_TABLE_PER_KEY_WEIGHT = 70
+CRITERION_PASS_RATE_PER_KEY_WEIGHT = 50
+VERDICT_DISTRIBUTION_PER_KEY_WEIGHT = 100
 CROSS_RESPONSE_OBSERVATIONS_WEIGHT = 30
 EVIDENCE_MIN_CHARS = 20
 PRIMARY_EVIDENCE_MIN_CHARS = 50
@@ -118,6 +121,15 @@ def score_per_response_evidence(a):
     return earned, total, issues
 
 
+def score_per_response_criteria_count(o, a):
+    total = PER_RESPONSE_CRITERIA_COUNT_WEIGHT
+    expected = o.get("criteria_satisfied_count")
+    actual = a.get("criteria_satisfied_count")
+    if isinstance(actual, int) and actual == expected:
+        return PER_RESPONSE_CRITERIA_COUNT_WEIGHT, total, []
+    return 0, total, [f"criteria_satisfied_count: expected {expected}, got {actual}"]
+
+
 def score_consistency_table(agent_table, oracle_table):
     if not isinstance(agent_table, dict):
         return 0, CONSISTENCY_TABLE_PER_KEY_WEIGHT * len(oracle_table), [f"consistency_table missing or non-object; lost all keys"]
@@ -131,6 +143,38 @@ def score_consistency_table(agent_table, oracle_table):
             earned += CONSISTENCY_TABLE_PER_KEY_WEIGHT
         else:
             misses.append(f"consistency_table[{code}]: expected {expected_list}, got {agent_list}")
+    return earned, total, misses
+
+
+def score_criterion_pass_rate(agent_rate, oracle_rate):
+    if not isinstance(agent_rate, dict):
+        return 0, CRITERION_PASS_RATE_PER_KEY_WEIGHT * len(oracle_rate), [f"criterion_pass_rate missing or non-object"]
+    earned = 0
+    total = 0
+    misses = []
+    for crit, expected_count in oracle_rate.items():
+        total += CRITERION_PASS_RATE_PER_KEY_WEIGHT
+        actual_count = agent_rate.get(crit)
+        if isinstance(actual_count, int) and actual_count == expected_count:
+            earned += CRITERION_PASS_RATE_PER_KEY_WEIGHT
+        else:
+            misses.append(f"criterion_pass_rate[{crit}]: expected {expected_count}, got {actual_count}")
+    return earned, total, misses
+
+
+def score_verdict_distribution(agent_dist, oracle_dist):
+    if not isinstance(agent_dist, dict):
+        return 0, VERDICT_DISTRIBUTION_PER_KEY_WEIGHT * len(oracle_dist), [f"verdict_distribution missing or non-object"]
+    earned = 0
+    total = 0
+    misses = []
+    for verdict, expected_list in oracle_dist.items():
+        total += VERDICT_DISTRIBUTION_PER_KEY_WEIGHT
+        agent_list = agent_dist.get(verdict)
+        if isinstance(agent_list, list) and sorted(agent_list) == sorted(expected_list):
+            earned += VERDICT_DISTRIBUTION_PER_KEY_WEIGHT
+        else:
+            misses.append(f"verdict_distribution[{verdict}]: expected {expected_list}, got {agent_list}")
     return earned, total, misses
 
 
@@ -151,19 +195,20 @@ def weighted_score(agent_output, oracle):
         o = oracle_evals[sid]
         a = agent_evals.get(sid)
         if a is None:
-            response_total = sum(WEIGHTS.values()) + len(CRITERIA) * PER_RESPONSE_EVIDENCE_WEIGHT + PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT + PER_RESPONSE_ALT_CODES_WEIGHT
+            response_total = sum(WEIGHTS.values()) + len(CRITERIA) * PER_RESPONSE_EVIDENCE_WEIGHT + PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT + PER_RESPONSE_ALT_CODES_WEIGHT + PER_RESPONSE_CRITERIA_COUNT_WEIGHT
             total += response_total
             lines.append(f"{sid}: 0/{response_total} weighted points; missing evaluation")
             continue
         lbl_earned, lbl_total, lbl_issues = score_per_response_labels(o, a)
         ev_earned, ev_total, ev_issues = score_per_response_evidence(a)
-        earned += lbl_earned + ev_earned
-        total += lbl_total + ev_total
-        all_issues = lbl_issues + ev_issues
+        ct_earned, ct_total, ct_issues = score_per_response_criteria_count(o, a)
+        earned += lbl_earned + ev_earned + ct_earned
+        total += lbl_total + ev_total + ct_total
+        all_issues = lbl_issues + ev_issues + ct_issues
         if all_issues:
-            lines.append(f"{sid}: {lbl_earned + ev_earned}/{lbl_total + ev_total}; " + "; ".join(all_issues))
+            lines.append(f"{sid}: {lbl_earned + ev_earned + ct_earned}/{lbl_total + ev_total + ct_total}; " + "; ".join(all_issues))
         else:
-            lines.append(f"{sid}: {lbl_earned + ev_earned}/{lbl_total + ev_total}; all scored fields correct")
+            lines.append(f"{sid}: {lbl_earned + ev_earned + ct_earned}/{lbl_total + ev_total + ct_total}; all scored fields correct")
 
     ct_earned, ct_total, ct_issues = score_consistency_table(agent_output.get("consistency_table"), oracle.get("consistency_table", {}))
     earned += ct_earned
@@ -172,6 +217,22 @@ def weighted_score(agent_output, oracle):
         lines.append(f"consistency_table: {ct_earned}/{ct_total}; " + "; ".join(ct_issues[:6]))
     else:
         lines.append(f"consistency_table: {ct_earned}/{ct_total}; all keys correct")
+
+    cpr_earned, cpr_total, cpr_issues = score_criterion_pass_rate(agent_output.get("criterion_pass_rate"), oracle.get("criterion_pass_rate", {}))
+    earned += cpr_earned
+    total += cpr_total
+    if cpr_issues:
+        lines.append(f"criterion_pass_rate: {cpr_earned}/{cpr_total}; " + "; ".join(cpr_issues[:6]))
+    else:
+        lines.append(f"criterion_pass_rate: {cpr_earned}/{cpr_total}; all keys correct")
+
+    vd_earned, vd_total, vd_issues = score_verdict_distribution(agent_output.get("verdict_distribution"), oracle.get("verdict_distribution", {}))
+    earned += vd_earned
+    total += vd_total
+    if vd_issues:
+        lines.append(f"verdict_distribution: {vd_earned}/{vd_total}; " + "; ".join(vd_issues))
+    else:
+        lines.append(f"verdict_distribution: {vd_earned}/{vd_total}; all keys correct")
 
     cro_earned, cro_total, cro_issues = score_cross_response_observations(agent_output.get("cross_response_observations"))
     earned += cro_earned
@@ -190,11 +251,12 @@ def main():
     ap.add_argument("--agent-output", required=True)
     ap.add_argument("--oracle", required=True)
     ap.add_argument("--reward-out", required=True)
-    ap.add_argument("--details-out", required=True, default=None)
+    ap.add_argument("--details-out", default=None)
     args = ap.parse_args()
 
     os.makedirs(os.path.dirname(args.reward_out), exist_ok=True)
-    os.makedirs("/logs/agent", exist_ok=True)
+    if os.path.exists("/logs"):
+        os.makedirs("/logs/agent", exist_ok=True)
 
     try:
         agent_output = load_json(args.agent_output)
@@ -202,34 +264,39 @@ def main():
     except Exception as e:
         with open(args.reward_out, "w", encoding="utf-8") as f:
             json.dump({"reward": 0.0}, f)
-        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-            f.write(f"Score: 0.0\n\nAgent output missing or invalid: {e}\n")
+        try:
+            with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+                f.write(f"Score: 0.0\n\nAgent output missing or invalid: {e}\n")
+        except OSError:
+            pass
         return
 
     if agent_output == oracle:
-        per_response_total = sum(WEIGHTS.values()) + len(CRITERIA) * PER_RESPONSE_EVIDENCE_WEIGHT + PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT + PER_RESPONSE_ALT_CODES_WEIGHT
-        n = len(oracle.get("evaluations", []))
-        total = n * per_response_total + CONSISTENCY_TABLE_PER_KEY_WEIGHT * len(oracle.get("consistency_table", {})) + CROSS_RESPONSE_OBSERVATIONS_WEIGHT
-        score, earned, total, justification = 1.0, total, total, "Exact match with oracle."
+        score, earned, total, justification = 1.0, 0, 0, "Exact match with oracle."
     else:
         score, earned, total, justification = weighted_score(agent_output, oracle)
 
     with open(args.reward_out, "w", encoding="utf-8") as f:
         json.dump({"reward": score}, f)
 
-    with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-        f.write(f"Score: {score:.3f} ({earned}/{total} weighted points)\n\n")
-        f.write("Scored fields and weights:\n")
-        for key, weight in WEIGHTS.items():
-            f.write(f"- {key}: {weight} (per response)\n")
-        f.write(f"- criterion_evidence per criterion (presence + min length): {PER_RESPONSE_EVIDENCE_WEIGHT} (per response per criterion)\n")
-        f.write(f"- primary_failure_code_evidence (presence + min length): {PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT} (per response)\n")
-        f.write(f"- alternative_codes_considered (>=2 items, well-formed): {PER_RESPONSE_ALT_CODES_WEIGHT} (per response)\n")
-        f.write(f"- consistency_table per key (exact match against oracle): {CONSISTENCY_TABLE_PER_KEY_WEIGHT}\n")
-        f.write(f"- cross_response_observations (presence + min length): {CROSS_RESPONSE_OBSERVATIONS_WEIGHT}\n")
-        f.write("\nbrief_justification, summary, accepted_solutions, rejected_solutions, and best_solution are not scored.\n\n")
-        f.write(justification)
-        f.write("\n")
+    try:
+        with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
+            f.write(f"Score: {score:.4f} ({earned}/{total} weighted points)\n\n")
+            f.write("Scored fields and weights:\n")
+            for key, weight in WEIGHTS.items():
+                f.write(f"- {key}: {weight} (per response)\n")
+            f.write(f"- criterion_evidence per criterion (presence + min length): {PER_RESPONSE_EVIDENCE_WEIGHT} (per response per criterion)\n")
+            f.write(f"- primary_failure_code_evidence (presence + min length): {PER_RESPONSE_PRIMARY_EVIDENCE_WEIGHT} (per response)\n")
+            f.write(f"- alternative_codes_considered (>=2 items, well-formed): {PER_RESPONSE_ALT_CODES_WEIGHT} (per response)\n")
+            f.write(f"- criteria_satisfied_count (integer match): {PER_RESPONSE_CRITERIA_COUNT_WEIGHT} (per response)\n")
+            f.write(f"- consistency_table per key (exact match against oracle): {CONSISTENCY_TABLE_PER_KEY_WEIGHT}\n")
+            f.write(f"- criterion_pass_rate per key (integer match): {CRITERION_PASS_RATE_PER_KEY_WEIGHT}\n")
+            f.write(f"- verdict_distribution per key (sorted list match): {VERDICT_DISTRIBUTION_PER_KEY_WEIGHT}\n")
+            f.write(f"- cross_response_observations (presence + min length): {CROSS_RESPONSE_OBSERVATIONS_WEIGHT}\n\n")
+            f.write(justification)
+            f.write("\n")
+    except OSError:
+        pass
 
 
 if __name__ == "__main__":

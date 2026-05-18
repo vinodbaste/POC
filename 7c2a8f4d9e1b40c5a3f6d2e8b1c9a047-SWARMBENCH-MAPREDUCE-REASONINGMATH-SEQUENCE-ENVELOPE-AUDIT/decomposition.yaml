@@ -246,12 +246,30 @@ sub_tasks:
           response_H} exactly. The verifier scores each key against
           the oracle at 70 points per key, so accuracy on this field
           cascades from the per-response primary_failure_code values.
-      (9) Compose the top-level cross_response_observations string of
-          at least 300 characters identifying shared defect patterns
-          across the eight responses (which responses share elimination
-          assertions, single-draw inferences, oscillation, missing
-          lower bounds, etc.). The verifier scores this field at 30
-          points by presence and minimum length.
+      (9) For each evaluation object, set the per-response
+          criteria_satisfied_count field to the integer count of C1-C8
+          booleans that are true (a value between 0 and 8 inclusive).
+          The verifier scores this field at 10 points per response.
+      (10) Build the top-level criterion_pass_rate dict whose 8 keys are
+           exactly the C1-C8 criterion names from instruction.md and
+           whose values are integers equal to the number of responses
+           whose criteria object has that key set to true. The verifier
+           scores each key at 50 points by integer match against the
+           oracle.
+      (11) Build the top-level verdict_distribution dict whose 2 keys
+           are exactly "ACCEPT" and "REJECT" and whose values are
+           alphabetically-sorted lists of response_ids (full strings
+           such as "response_A") whose verdict equals that key. The
+           union of the two lists must equal {response_A, response_B,
+           response_C, response_D, response_E, response_F, response_G,
+           response_H}. The verifier scores each key at 100 points by
+           sorted-list match against the oracle.
+      (12) Compose the top-level cross_response_observations string of
+           at least 300 characters identifying shared defect patterns
+           across the eight responses (which responses share elimination
+           assertions, single-draw inferences, oscillation, missing
+           lower bounds, etc.). The verifier scores this field at 30
+           points by presence and minimum length.
 
       If a mapper output is malformed or missing the required per-
       response evidence/alternatives fields, ask a replacement sub-agent
@@ -259,9 +277,11 @@ sub_tasks:
       in the orchestrator. The reducer writes exactly one JSON object to
       /logs/agent/output.json with top-level keys evaluations (eight
       objects in alphabetical order response_A through response_H, each
-      including all required scored fields), accepted_solutions,
-      rejected_solutions, best_solution, summary, consistency_table,
-      and cross_response_observations, as specified by instruction.md.
+      including all required scored fields and the per-response
+      criteria_satisfied_count integer), accepted_solutions,
+      rejected_solutions, best_solution, summary, criterion_pass_rate,
+      verdict_distribution, consistency_table, and
+      cross_response_observations, as specified by instruction.md.
       Validate that the output file exists and parses as JSON before
       returning.
     depends_on:

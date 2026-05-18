@@ -3,7 +3,7 @@ name = "swarmbench/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGM
 description = "Solve an olympiad-level 3D geometry problem and audit nine real, unedited model responses from the public RUC-AIBOX/OlymMATH-eval benchmark. A shared gold-derivation agent establishes the full cube edge-length squared set, a rubric calibrator separates near-overlapping failure codes, and each response auditor identifies the exact set of failure-reason codes concretely instantiated in one response's mathematical reasoning chain."
 
 [metadata]
-verifier_type = "executable"
+verifier_type = "llm-judge"
 domain = "reasoning-math"
 coordination_pattern = "fan-out-synthesize"
 human_solving_hours_estimate = 16

@@ -3,7 +3,7 @@ name = "swarmbench/a1b2c3d4e5f60718293a4b5c6d7e8f90-SWARMBENCH-FANOUT-REASONINGM
 description = "Solve a deterministic combinatorial game theory problem (P/N classification for the Fibonacci Subtraction Game on pile sizes 0 through 100) and audit eight real, unedited model responses from public weak-model sources. A shared gold-derivation agent establishes the 101-character P/N classification string by dynamic programming over the Fibonacci move set; a rubric-calibration agent re-states the instruction's twelve failure-code triggers; eight isolated response auditors each own one response; a primary-code adjudicator re-checks failure_reasons sets and primary_failure_code selections; a synthesizer assembles the deterministic top-level code_application_table and response_count_per_code."
 
 [metadata]
-verifier_type = "executable"
+verifier_type = "llm-judge"
 domain = "reasoning-math"
 coordination_pattern = "fan-out-synthesize"
 human_solving_hours_estimate = 14

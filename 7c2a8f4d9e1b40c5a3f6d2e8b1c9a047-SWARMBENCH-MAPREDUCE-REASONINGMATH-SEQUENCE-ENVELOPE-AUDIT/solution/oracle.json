@@ -35,7 +35,8 @@
           "code": "WRONG_FINAL_NUMBER",
           "reason_excluded": "The number deviates because the strategy is structurally insufficient, not because of arithmetic error in an otherwise valid strategy."
         }
-      ]
+      ],
+      "criteria_satisfied_count": 3
     },
     {
       "solution_id": "response_B",
@@ -72,7 +73,8 @@
           "code": "FATAL_WRONG_CLAIM",
           "reason_excluded": "The 'uniquely deduced' assertion is downstream of the missing strategy; the primary diagnostic is the strategy gap."
         }
-      ]
+      ],
+      "criteria_satisfied_count": 2
     },
     {
       "solution_id": "response_C",
@@ -109,7 +111,8 @@
           "code": "WRONG_FINAL_NUMBER",
           "reason_excluded": "The stated number is correct; the defect is the missing lower-bound impossibility argument."
         }
-      ]
+      ],
+      "criteria_satisfied_count": 7
     },
     {
       "solution_id": "response_D",
@@ -146,7 +149,8 @@
           "code": "WRONG_FINAL_NUMBER",
           "reason_excluded": "The number is wrong because the underlying assertion is wrong, not because of arithmetic error."
         }
-      ]
+      ],
+      "criteria_satisfied_count": 2
     },
     {
       "solution_id": "response_E",
@@ -183,7 +187,8 @@
           "code": "WRONG_FINAL_NUMBER",
           "reason_excluded": "The arithmetic is not the issue; the response cannot decide which number to commit to."
         }
-      ]
+      ],
+      "criteria_satisfied_count": 2
     },
     {
       "solution_id": "response_F",
@@ -220,7 +225,8 @@
           "code": "INVALID_UPPER_BOUND",
           "reason_excluded": "The upper-bound defect is downstream of the single-draw purity inference."
         }
-      ]
+      ],
+      "criteria_satisfied_count": 2
     },
     {
       "solution_id": "response_G",
@@ -257,7 +263,8 @@
           "code": "FATAL_WRONG_CLAIM",
           "reason_excluded": "The double-count is an arithmetic over-count, not an independent proof-invalidating claim."
         }
-      ]
+      ],
+      "criteria_satisfied_count": 5
     },
     {
       "solution_id": "response_H",
@@ -294,7 +301,8 @@
           "code": "INVALID_UPPER_BOUND",
           "reason_excluded": "The upper-bound failure is downstream of treating single observations as worst-case proof."
         }
-      ]
+      ],
+      "criteria_satisfied_count": 2
     }
   ],
   "accepted_solutions": [],
@@ -338,5 +346,28 @@
       "response_D"
     ]
   },
-  "cross_response_observations": "Responses A and D both rely on elimination-based assertions about remaining envelopes after a single observation: A claims the remaining two are determined automatically by elimination after two inspections, and D claims the remaining three are forced by contradiction after one inspection. Responses F and H both treat single-draw observations as proving envelope purity in the absence of multi-draw verification, with F deriving the conclusion explicitly and H asserting the assignment follows directly from four single observations. Responses B and E share a problem of hand-wavy synthesis or oscillation without committing to a single coherent strategy: B leaps from acknowledged ambiguity to a unique deduction without specifying the branch-by-branch rule, while E proposes multiple incompatible counts and never settles on one. Response C is the structurally-closest valid attempt and fails only on the missing lower bound (C4). Response G achieves a valid worst-case strategy with structurally correct upper-bound reasoning but over-counts by one inspection due to a preliminary draw that could have been absorbed into the 14-draw verification phase. The dominant defect category across the eight responses is failure to engage with the worst-case branch where a mixed envelope can mimic a pure envelope on its first draw or where elimination-based assertions break across observation branches."
+  "cross_response_observations": "Responses A and D both rely on elimination-based assertions about remaining envelopes after a single observation: A claims the remaining two are determined automatically by elimination after two inspections, and D claims the remaining three are forced by contradiction after one inspection. Responses F and H both treat single-draw observations as proving envelope purity in the absence of multi-draw verification, with F deriving the conclusion explicitly and H asserting the assignment follows directly from four single observations. Responses B and E share a problem of hand-wavy synthesis or oscillation without committing to a single coherent strategy: B leaps from acknowledged ambiguity to a unique deduction without specifying the branch-by-branch rule, while E proposes multiple incompatible counts and never settles on one. Response C is the structurally-closest valid attempt and fails only on the missing lower bound (C4). Response G achieves a valid worst-case strategy with structurally correct upper-bound reasoning but over-counts by one inspection due to a preliminary draw that could have been absorbed into the 14-draw verification phase. The dominant defect category across the eight responses is failure to engage with the worst-case branch where a mixed envelope can mimic a pure envelope on its first draw or where elimination-based assertions break across observation branches.",
+  "criterion_pass_rate": {
+    "C1_correct_final_answer": 1,
+    "C2_concrete_strategy": 5,
+    "C3_valid_upper_bound": 2,
+    "C4_valid_lower_bound": 0,
+    "C5_worst_case_guarantee": 2,
+    "C6_no_invalid_one_draw_inference": 6,
+    "C7_no_exact_mixed_pair_requirement": 8,
+    "C8_no_fatal_wrong_claim": 1
+  },
+  "verdict_distribution": {
+    "ACCEPT": [],
+    "REJECT": [
+      "response_A",
+      "response_B",
+      "response_C",
+      "response_D",
+      "response_E",
+      "response_F",
+      "response_G",
+      "response_H"
+    ]
+  }
 }
