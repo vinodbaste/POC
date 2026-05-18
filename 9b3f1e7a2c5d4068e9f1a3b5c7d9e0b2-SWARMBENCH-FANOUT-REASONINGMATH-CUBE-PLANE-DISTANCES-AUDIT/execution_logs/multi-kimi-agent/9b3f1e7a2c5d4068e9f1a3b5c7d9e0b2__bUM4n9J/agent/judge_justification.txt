@@ -1,0 +1,26 @@
+Score: 0.5505 (1270/2307 weighted points)
+
+{
+  "score": 0.5505,
+  "total_earned": 1270,
+  "total_possible": 2307,
+  "top_level": {
+    "gold_final_answer": 0,
+    "gold_edge_length_squared_set": 0,
+    "acceptable_solution_ids": 2
+  },
+  "per_response": {
+    "A": 54,
+    "B": 59,
+    "C": 96,
+    "D": 76,
+    "E": 81,
+    "F": 81,
+    "G": 46,
+    "H": 81,
+    "I": 64
+  },
+  "code_application_table_total": 600,
+  "cross_response_observations": 30,
+  "justification": "Top-level gold fields failed: agent predicted '21' and [21] instead of oracle's '210' and [21,54,66,69]. Per-response audits missed three strict structural fields (code_application_count, primary_in_set_check, evidence_key_completeness), forfeiting 90 points per response. Failure_reasons received partial credit (8-30 pts) due to missing codes; primary_failure_code matched exactly only for C, D, E, I (25 pts each), with others receiving 0-10 pts. Evidence fields generally scored well (8 pts for presence, 5-25 pts for coverage). Code_application_table scored 600/1200 with 6/12 exact matches. Cross-response observations earned full 30 pts for substantive, >300 char analysis. Agent incorrectly marked F, H, I as final_answer_correct=true (oracle=false), losing 15 pts there."
+}
