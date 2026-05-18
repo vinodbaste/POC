@@ -1,6 +1,6 @@
 {
     "schema_version": 1,
-    "created_at": "2026-05-18T10:50:07.330535Z",
+    "created_at": "2026-05-18T12:12:48.987509Z",
     "harbor": {
         "version": "0.6.4",
         "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
@@ -27,11 +27,11 @@
     "retry": {
         "max_retries": 0,
         "exclude_exceptions": [
-            "VerifierTimeoutError",
             "RewardFileEmptyError",
-            "VerifierOutputParseError",
+            "RewardFileNotFoundError",
             "AgentTimeoutError",
-            "RewardFileNotFoundError"
+            "VerifierOutputParseError",
+            "VerifierTimeoutError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,
@@ -42,7 +42,7 @@
             "task": {
                 "name": "0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-POWERS-OF-TWO-SUBTRACTION-PN-AUDIT",
                 "type": "local",
-                "digest": "sha256:f68ff87cb4a3fca5706aa5924e7f87515afc13146fd119b78ee9f0b3ed02c7f8",
+                "digest": "sha256:cc403e4c7d7267510bbbad02ad0056b5ab0e9a78ec99c09056b16e7ce56a58bf",
                 "path": "/Users/vinodbaste/Turing Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-POWERS-OF-TWO-SUBTRACTION-PN-AUDIT"
             },
             "timeout_multiplier": 1.0,
