@@ -1,0 +1,28 @@
+Score: 0.3180 (940/2957 pts)
+
+{
+  "score": 0.318,
+  "total_earned": 940,
+  "total_possible": 2957,
+  "top_level": {
+    "gold_final_answer": 4,
+    "acceptable_solution_ids": 0
+  },
+  "per_response": {
+    "A": 62,
+    "B": 59,
+    "C": 21,
+    "D": 79,
+    "E": 79,
+    "F": 64,
+    "G": 56,
+    "H": 76
+  },
+  "code_application_table_total": 200,
+  "response_count_per_code_total": 100,
+  "code_co_occurrence_total": 110,
+  "response_pair_total": 0,
+  "response_triple_total": 0,
+  "cross_response_observations": 30,
+  "justification": "Agent correctly identified gold answer (15) but missed acceptable_solution_ids (empty vs [C]). Per-response: Strong performance on D/E (79 pts) due to correct primary code identification; weak on C (21 pts) for failing to flag missing_lower_bound. Structural aggregation: code_application_table scored 200/1000 (only empty keys matched strictly); response_count_per_code scored 100/200 (5 of 10 counts matched); code_co_occurrence scored 110/225 (22 zero-count pairs matched). Response pair/triple shared codes scored 0 due to divergent code assignments (e.g., agent overused invalid_one_draw_inference). Cross-response observations earned 30/30 for substantive >300-char analysis."
+}

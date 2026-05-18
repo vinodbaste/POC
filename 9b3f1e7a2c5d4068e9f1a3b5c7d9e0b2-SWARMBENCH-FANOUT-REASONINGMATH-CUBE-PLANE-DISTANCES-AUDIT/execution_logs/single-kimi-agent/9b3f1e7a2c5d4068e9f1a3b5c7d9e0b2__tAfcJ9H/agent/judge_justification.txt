@@ -1,0 +1,26 @@
+Score: 0.4050 (1470/3630 weighted points)
+
+{
+  "score": 0.405,
+  "total_earned": 1470,
+  "total_possible": 3630,
+  "top_level": {
+    "gold_final_answer": 2,
+    "gold_edge_length_squared_set": 2,
+    "acceptable_solution_ids": 2
+  },
+  "per_response": {
+    "A": 77,
+    "B": 76,
+    "C": 69,
+    "D": 69,
+    "E": 64,
+    "F": 124,
+    "G": 72,
+    "H": 124,
+    "I": 124
+  },
+  "code_application_table_total": 500,
+  "cross_response_observations": 30,
+  "justification": "Top-level fields perfect (6 pts). Per-response: strong performance on F/H/I (124 each) with exact failure_reasons matches; weaker on A/B/C/D/E/G due to missing/extra codes in failure_reasons sets and primary_code mismatches (e.g., E used 'NONE' instead of oracle's code). Evidence strings all met length thresholds. Strict structural checks (code_application_count, evidence_key_completeness) failed for B/C/D where agent under-reported counts. Aggregation: code_application_table scored 500/1200 (5 exact matches out of 12); response_count_per_code scored 120/240 (6 matches); co-occurrence/pair/triple fields largely forfeited due to propagated table errors (only 3 co-occurrence keys matched). Cross-response observations substantive and >300 chars (30 pts)."
+}

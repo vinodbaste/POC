@@ -1,0 +1,886 @@
+{
+  "gold_final_answer": "12474",
+  "gold_edge_length_squared_set": [
+    21,
+    54,
+    66,
+    69
+  ],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "restricts_to_nonnegative_subset_sums",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "omits_sign_pattern_casework",
+        "uses_fabricated_invariant_or_invalid_derivation",
+        "accepts_internal_contradictions_in_derivation"
+      ],
+      "primary_failure_code": "uses_fabricated_invariant_or_invalid_derivation",
+      "failure_reason_evidence": {
+        "restricts_to_nonnegative_subset_sums": "Response restricts search to non-negative subset sums pattern",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response treats single orientation as unique proof",
+        "claims_unique_edge_length": "Response claims only one possible edge length",
+        "assumes_zero_distance_vertex_is_axis_corner": "Response assumes zero-distance vertex at axis corner",
+        "omits_sign_pattern_casework": "Response omits sign pattern casework analysis",
+        "uses_fabricated_invariant_or_invalid_derivation": "Response uses fabricated invariant with 6=7 contradiction",
+        "accepts_internal_contradictions_in_derivation": "Response accepts internal contradiction 6=7 explicitly"
+      },
+      "primary_failure_code_evidence": "Adjudicator explicit correction: invented configuration with '6 = 7' contradiction constitutes fabricated invariant; internal contradictions explicitly accepted",
+      "alternative_codes_considered": [
+        {
+          "code": "restricts_to_nonnegative_subset_sums",
+          "reason_excluded": "Upstream of fabrication but fabrication is more load-bearing"
+        },
+        {
+          "code": "accepts_internal_contradictions_in_derivation",
+          "reason_excluded": "Downstream of fabricated invariant per selection rules"
+        }
+      ],
+      "code_application_count": 7,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 7
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_plane_parallel_to_cube_face",
+        "equates_max_distance_with_edge_length_directly",
+        "restricts_to_nonnegative_subset_sums",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "assumes_plane_parallel_to_cube_face",
+      "failure_reason_evidence": {
+        "assumes_plane_parallel_to_cube_face": "Response assumes plane parallel to cube face z=k",
+        "equates_max_distance_with_edge_length_directly": "Response equates max distance 7 directly to edge length a=7",
+        "restricts_to_nonnegative_subset_sums": "Response restricts to non-negative subset sums",
+        "claims_unique_edge_length": "Response claims unique edge length is 7"
+      },
+      "primary_failure_code_evidence": "Adjudicator explicit correction: assumes_plane_parallel_to_cube_face is upstream root cause of max-distance=edge error",
+      "alternative_codes_considered": [
+        {
+          "code": "equates_max_distance_with_edge_length_directly",
+          "reason_excluded": "Downstream of face-parallel assumption per selection rules"
+        },
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "Never pick as primary when upstream errors exist"
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_max_distance_equals_space_diagonal",
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "omits_sign_pattern_casework"
+      ],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": "Response assumes max distance 7 equals space diagonal a\u221a3=7",
+        "claims_unique_edge_length": "Response claims unique edge length is 7/\u221a3",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response treats one orientation as proof of uniqueness",
+        "omits_sign_pattern_casework": "Response omits sign pattern casework"
+      },
+      "primary_failure_code_evidence": "Mapper assessment confirmed by adjudicator: no correction needed",
+      "alternative_codes_considered": [
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "Downstream symptom not root cause per hierarchy"
+        },
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "Downstream of space-diagonal misidentification"
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_max_distance_equals_space_diagonal",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "claims_unique_edge_length",
+        "omits_sign_pattern_casework"
+      ],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": "Response assumes max distance equals space diagonal",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response treats one orientation as unique",
+        "assumes_zero_distance_vertex_is_axis_corner": "Response assumes zero-distance vertex at axis corner",
+        "claims_unique_edge_length": "Response claims unique edge length",
+        "omits_sign_pattern_casework": "Response omits sign pattern casework"
+      },
+      "primary_failure_code_evidence": "Mapper assessment confirmed by adjudicator: no correction needed",
+      "alternative_codes_considered": [
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "Secondary to space-diagonal misidentification"
+        },
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "Downstream of the geometric setup error"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ],
+      "primary_failure_code": "non_terminating_or_no_final_answer",
+      "failure_reason_evidence": {
+        "non_terminating_or_no_final_answer": "Response loops with repetitive phrase without producing final answer"
+      },
+      "primary_failure_code_evidence": "Mapper assessment confirmed by adjudicator: loops without termination",
+      "alternative_codes_considered": [
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "Response never reaches any conclusion to claim uniqueness"
+        },
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "Response never completes any derivation"
+        }
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "derives_correct_partial_s2_then_discards_it",
+        "claims_unique_edge_length",
+        "omits_sign_pattern_casework"
+      ],
+      "primary_failure_code": "derives_correct_partial_s2_then_discards_it",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response assumes zero-distance vertex at origin",
+        "restricts_to_nonnegative_subset_sums": "Response restricts to non-negative subset sums",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response treats one orientation as unique proof",
+        "derives_correct_partial_s2_then_discards_it": "Response derives s\u00b2=21 then discards other configs",
+        "claims_unique_edge_length": "Response claims unique edge length sqrt(21)",
+        "omits_sign_pattern_casework": "Response omits sign pattern casework"
+      },
+      "primary_failure_code_evidence": "Adjudicator explicit correction: primary should be derives_correct_partial_s2_then_discards_it due to explicit discarding of other configurations after finding 21",
+      "alternative_codes_considered": [
+        {
+          "code": "restricts_to_nonnegative_subset_sums",
+          "reason_excluded": "Upstream but discard of valid configs is more load-bearing"
+        },
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "Consequence of discarding other valid configurations"
+        }
+      ],
+      "code_application_count": 6,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 6
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "uses_fabricated_invariant_or_invalid_derivation",
+        "derives_correct_partial_s2_then_discards_it",
+        "restricts_to_nonnegative_subset_sums",
+        "claims_unique_edge_length",
+        "omits_sign_pattern_casework"
+      ],
+      "primary_failure_code": "derives_correct_partial_s2_then_discards_it",
+      "failure_reason_evidence": {
+        "uses_fabricated_invariant_or_invalid_derivation": "Response uses fabricated sum-of-squares invariant",
+        "derives_correct_partial_s2_then_discards_it": "Response derives s\u00b2=21 then discards it",
+        "restricts_to_nonnegative_subset_sums": "Response restricts to non-negative subset sums",
+        "claims_unique_edge_length": "Response claims unique edge length",
+        "omits_sign_pattern_casework": "Response omits sign pattern casework"
+      },
+      "primary_failure_code_evidence": "Mapper assessment confirmed by adjudicator: no correction needed; derives_correct_partial_s2_then_discards_it is primary",
+      "alternative_codes_considered": [
+        {
+          "code": "uses_fabricated_invariant_or_invalid_derivation",
+          "reason_excluded": "Present but deriving-then-discarding is more diagnostic"
+        },
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "Result of discarding other valid configurations"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "derives_correct_partial_s2_then_discards_it",
+        "claims_unique_edge_length",
+        "omits_sign_pattern_casework"
+      ],
+      "primary_failure_code": "derives_correct_partial_s2_then_discards_it",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response assumes zero-distance vertex at axis corner",
+        "restricts_to_nonnegative_subset_sums": "Response restricts to non-negative subset sums",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response treats one orientation as unique",
+        "derives_correct_partial_s2_then_discards_it": "Response derives s\u00b2=21 then discards others",
+        "claims_unique_edge_length": "Response claims unique edge length sqrt(21)",
+        "omits_sign_pattern_casework": "Response omits sign pattern casework"
+      },
+      "primary_failure_code_evidence": "Adjudicator explicit correction: primary should be derives_correct_partial_s2_then_discards_it",
+      "alternative_codes_considered": [
+        {
+          "code": "restricts_to_nonnegative_subset_sums",
+          "reason_excluded": "Upstream but discard behavior is more diagnostic"
+        },
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "Present but less load-bearing than explicit discard"
+        }
+      ],
+      "code_application_count": 6,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 6
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "restricts_to_nonnegative_subset_sums",
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "treats_one_orientation_as_proof_of_uniqueness",
+        "claims_unique_edge_length",
+        "derives_correct_partial_s2_then_discards_it"
+      ],
+      "primary_failure_code": "derives_correct_partial_s2_then_discards_it",
+      "failure_reason_evidence": {
+        "restricts_to_nonnegative_subset_sums": "Response restricts to non-negative subset sums",
+        "assumes_zero_distance_vertex_is_axis_corner": "Response assumes zero-distance vertex at axis corner",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response treats one orientation as unique",
+        "claims_unique_edge_length": "Response claims unique edge length",
+        "derives_correct_partial_s2_then_discards_it": "Response derives s2=21 then discards other valid configurations"
+      },
+      "primary_failure_code_evidence": "Adjudicator explicit correction: primary should be derives_correct_partial_s2_then_discards_it",
+      "alternative_codes_considered": [
+        {
+          "code": "restricts_to_nonnegative_subset_sums",
+          "reason_excluded": "Upstream cause but lacks explicit discard seen in others"
+        },
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "Downstream of non-negative restriction per hierarchy"
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    }
+  ],
+  "code_application_table": {
+    "claims_unique_edge_length": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "F",
+      "G",
+      "H",
+      "I"
+    ],
+    "restricts_to_nonnegative_subset_sums": [
+      "A",
+      "B",
+      "F",
+      "G",
+      "H",
+      "I"
+    ],
+    "assumes_max_distance_equals_space_diagonal": [
+      "C",
+      "D"
+    ],
+    "assumes_plane_parallel_to_cube_face": [
+      "B"
+    ],
+    "equates_max_distance_with_edge_length_directly": [
+      "B"
+    ],
+    "uses_fabricated_invariant_or_invalid_derivation": [
+      "A",
+      "G"
+    ],
+    "accepts_internal_contradictions_in_derivation": [
+      "A"
+    ],
+    "assumes_zero_distance_vertex_is_axis_corner": [
+      "A",
+      "D",
+      "F",
+      "H",
+      "I"
+    ],
+    "omits_sign_pattern_casework": [
+      "A",
+      "C",
+      "D",
+      "F",
+      "G",
+      "H"
+    ],
+    "treats_one_orientation_as_proof_of_uniqueness": [
+      "A",
+      "C",
+      "D",
+      "F",
+      "H",
+      "I"
+    ],
+    "derives_correct_partial_s2_then_discards_it": [
+      "F",
+      "G",
+      "H",
+      "I"
+    ],
+    "non_terminating_or_no_final_answer": [
+      "E"
+    ]
+  },
+  "response_count_per_code": {
+    "claims_unique_edge_length": 8,
+    "restricts_to_nonnegative_subset_sums": 6,
+    "assumes_max_distance_equals_space_diagonal": 2,
+    "assumes_plane_parallel_to_cube_face": 1,
+    "equates_max_distance_with_edge_length_directly": 1,
+    "uses_fabricated_invariant_or_invalid_derivation": 2,
+    "accepts_internal_contradictions_in_derivation": 1,
+    "assumes_zero_distance_vertex_is_axis_corner": 5,
+    "omits_sign_pattern_casework": 6,
+    "treats_one_orientation_as_proof_of_uniqueness": 6,
+    "derives_correct_partial_s2_then_discards_it": 4,
+    "non_terminating_or_no_final_answer": 1
+  },
+  "code_co_occurrence_count": {
+    "accepts_internal_contradictions_in_derivation & assumes_max_distance_equals_space_diagonal": 0,
+    "accepts_internal_contradictions_in_derivation & assumes_plane_parallel_to_cube_face": 0,
+    "accepts_internal_contradictions_in_derivation & assumes_zero_distance_vertex_is_axis_corner": 1,
+    "accepts_internal_contradictions_in_derivation & claims_unique_edge_length": 1,
+    "accepts_internal_contradictions_in_derivation & derives_correct_partial_s2_then_discards_it": 0,
+    "accepts_internal_contradictions_in_derivation & equates_max_distance_with_edge_length_directly": 0,
+    "accepts_internal_contradictions_in_derivation & non_terminating_or_no_final_answer": 0,
+    "accepts_internal_contradictions_in_derivation & omits_sign_pattern_casework": 1,
+    "accepts_internal_contradictions_in_derivation & restricts_to_nonnegative_subset_sums": 1,
+    "accepts_internal_contradictions_in_derivation & treats_one_orientation_as_proof_of_uniqueness": 1,
+    "accepts_internal_contradictions_in_derivation & uses_fabricated_invariant_or_invalid_derivation": 1,
+    "assumes_max_distance_equals_space_diagonal & assumes_plane_parallel_to_cube_face": 0,
+    "assumes_max_distance_equals_space_diagonal & assumes_zero_distance_vertex_is_axis_corner": 1,
+    "assumes_max_distance_equals_space_diagonal & claims_unique_edge_length": 2,
+    "assumes_max_distance_equals_space_diagonal & derives_correct_partial_s2_then_discards_it": 0,
+    "assumes_max_distance_equals_space_diagonal & equates_max_distance_with_edge_length_directly": 0,
+    "assumes_max_distance_equals_space_diagonal & non_terminating_or_no_final_answer": 0,
+    "assumes_max_distance_equals_space_diagonal & omits_sign_pattern_casework": 2,
+    "assumes_max_distance_equals_space_diagonal & restricts_to_nonnegative_subset_sums": 0,
+    "assumes_max_distance_equals_space_diagonal & treats_one_orientation_as_proof_of_uniqueness": 2,
+    "assumes_max_distance_equals_space_diagonal & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "assumes_plane_parallel_to_cube_face & assumes_zero_distance_vertex_is_axis_corner": 0,
+    "assumes_plane_parallel_to_cube_face & claims_unique_edge_length": 1,
+    "assumes_plane_parallel_to_cube_face & derives_correct_partial_s2_then_discards_it": 0,
+    "assumes_plane_parallel_to_cube_face & equates_max_distance_with_edge_length_directly": 1,
+    "assumes_plane_parallel_to_cube_face & non_terminating_or_no_final_answer": 0,
+    "assumes_plane_parallel_to_cube_face & omits_sign_pattern_casework": 0,
+    "assumes_plane_parallel_to_cube_face & restricts_to_nonnegative_subset_sums": 1,
+    "assumes_plane_parallel_to_cube_face & treats_one_orientation_as_proof_of_uniqueness": 0,
+    "assumes_plane_parallel_to_cube_face & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "assumes_zero_distance_vertex_is_axis_corner & claims_unique_edge_length": 5,
+    "assumes_zero_distance_vertex_is_axis_corner & derives_correct_partial_s2_then_discards_it": 3,
+    "assumes_zero_distance_vertex_is_axis_corner & equates_max_distance_with_edge_length_directly": 0,
+    "assumes_zero_distance_vertex_is_axis_corner & non_terminating_or_no_final_answer": 0,
+    "assumes_zero_distance_vertex_is_axis_corner & omits_sign_pattern_casework": 4,
+    "assumes_zero_distance_vertex_is_axis_corner & restricts_to_nonnegative_subset_sums": 4,
+    "assumes_zero_distance_vertex_is_axis_corner & treats_one_orientation_as_proof_of_uniqueness": 5,
+    "assumes_zero_distance_vertex_is_axis_corner & uses_fabricated_invariant_or_invalid_derivation": 1,
+    "claims_unique_edge_length & derives_correct_partial_s2_then_discards_it": 4,
+    "claims_unique_edge_length & equates_max_distance_with_edge_length_directly": 1,
+    "claims_unique_edge_length & non_terminating_or_no_final_answer": 0,
+    "claims_unique_edge_length & omits_sign_pattern_casework": 6,
+    "claims_unique_edge_length & restricts_to_nonnegative_subset_sums": 6,
+    "claims_unique_edge_length & treats_one_orientation_as_proof_of_uniqueness": 6,
+    "claims_unique_edge_length & uses_fabricated_invariant_or_invalid_derivation": 2,
+    "derives_correct_partial_s2_then_discards_it & equates_max_distance_with_edge_length_directly": 0,
+    "derives_correct_partial_s2_then_discards_it & non_terminating_or_no_final_answer": 0,
+    "derives_correct_partial_s2_then_discards_it & omits_sign_pattern_casework": 3,
+    "derives_correct_partial_s2_then_discards_it & restricts_to_nonnegative_subset_sums": 4,
+    "derives_correct_partial_s2_then_discards_it & treats_one_orientation_as_proof_of_uniqueness": 3,
+    "derives_correct_partial_s2_then_discards_it & uses_fabricated_invariant_or_invalid_derivation": 1,
+    "equates_max_distance_with_edge_length_directly & non_terminating_or_no_final_answer": 0,
+    "equates_max_distance_with_edge_length_directly & omits_sign_pattern_casework": 0,
+    "equates_max_distance_with_edge_length_directly & restricts_to_nonnegative_subset_sums": 1,
+    "equates_max_distance_with_edge_length_directly & treats_one_orientation_as_proof_of_uniqueness": 0,
+    "equates_max_distance_with_edge_length_directly & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "non_terminating_or_no_final_answer & omits_sign_pattern_casework": 0,
+    "non_terminating_or_no_final_answer & restricts_to_nonnegative_subset_sums": 0,
+    "non_terminating_or_no_final_answer & treats_one_orientation_as_proof_of_uniqueness": 0,
+    "non_terminating_or_no_final_answer & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "omits_sign_pattern_casework & restricts_to_nonnegative_subset_sums": 4,
+    "omits_sign_pattern_casework & treats_one_orientation_as_proof_of_uniqueness": 5,
+    "omits_sign_pattern_casework & uses_fabricated_invariant_or_invalid_derivation": 2,
+    "restricts_to_nonnegative_subset_sums & treats_one_orientation_as_proof_of_uniqueness": 4,
+    "restricts_to_nonnegative_subset_sums & uses_fabricated_invariant_or_invalid_derivation": 2,
+    "treats_one_orientation_as_proof_of_uniqueness & uses_fabricated_invariant_or_invalid_derivation": 1
+  },
+  "response_pair_shared_codes": {
+    "A & B": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "A & C": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & D": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & E": [],
+    "A & F": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "uses_fabricated_invariant_or_invalid_derivation"
+    ],
+    "A & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "B & C": [
+      "claims_unique_edge_length"
+    ],
+    "B & D": [
+      "claims_unique_edge_length"
+    ],
+    "B & E": [],
+    "B & F": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "B & G": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "B & H": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "B & I": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "C & D": [
+      "assumes_max_distance_equals_space_diagonal",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "C & E": [],
+    "C & F": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "C & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "C & H": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "C & I": [
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "D & E": [],
+    "D & F": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "D & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "D & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "D & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "E & F": [],
+    "E & G": [],
+    "E & H": [],
+    "E & I": [],
+    "F & G": [
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "F & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "F & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "G & H": [
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "G & I": [
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "H & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ]
+  },
+  "response_triple_shared_codes": {
+    "A & B & C": [
+      "claims_unique_edge_length"
+    ],
+    "A & B & D": [
+      "claims_unique_edge_length"
+    ],
+    "A & B & E": [],
+    "A & B & F": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "A & B & G": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "A & B & H": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "A & B & I": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "A & C & D": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & C & E": [],
+    "A & C & F": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & C & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "A & C & H": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & C & I": [
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & D & E": [],
+    "A & D & F": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & D & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "A & D & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & D & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & E & F": [],
+    "A & E & G": [],
+    "A & E & H": [],
+    "A & E & I": [],
+    "A & F & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "A & F & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & F & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & G & H": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "A & G & I": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "A & H & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "B & C & D": [
+      "claims_unique_edge_length"
+    ],
+    "B & C & E": [],
+    "B & C & F": [
+      "claims_unique_edge_length"
+    ],
+    "B & C & G": [
+      "claims_unique_edge_length"
+    ],
+    "B & C & H": [
+      "claims_unique_edge_length"
+    ],
+    "B & C & I": [
+      "claims_unique_edge_length"
+    ],
+    "B & D & E": [],
+    "B & D & F": [
+      "claims_unique_edge_length"
+    ],
+    "B & D & G": [
+      "claims_unique_edge_length"
+    ],
+    "B & D & H": [
+      "claims_unique_edge_length"
+    ],
+    "B & D & I": [
+      "claims_unique_edge_length"
+    ],
+    "B & E & F": [],
+    "B & E & G": [],
+    "B & E & H": [],
+    "B & E & I": [],
+    "B & F & G": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "B & F & H": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "B & F & I": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "B & G & H": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "B & G & I": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "B & H & I": [
+      "claims_unique_edge_length",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "C & D & E": [],
+    "C & D & F": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "C & D & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "C & D & H": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "C & D & I": [
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "C & E & F": [],
+    "C & E & G": [],
+    "C & E & H": [],
+    "C & E & I": [],
+    "C & F & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "C & F & H": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "C & F & I": [
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "C & G & H": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "C & G & I": [
+      "claims_unique_edge_length"
+    ],
+    "C & H & I": [
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "D & E & F": [],
+    "D & E & G": [],
+    "D & E & H": [],
+    "D & E & I": [],
+    "D & F & G": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "D & F & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "D & F & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "D & G & H": [
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework"
+    ],
+    "D & G & I": [
+      "claims_unique_edge_length"
+    ],
+    "D & H & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "E & F & G": [],
+    "E & F & H": [],
+    "E & F & I": [],
+    "E & G & H": [],
+    "E & G & I": [],
+    "E & H & I": [],
+    "F & G & H": [
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "F & G & I": [
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "restricts_to_nonnegative_subset_sums"
+    ],
+    "F & H & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "G & H & I": [
+      "claims_unique_edge_length",
+      "derives_correct_partial_s2_then_discards_it",
+      "restricts_to_nonnegative_subset_sums"
+    ]
+  },
+  "cross_response_observations": "All nine responses (A through I) failed to produce the correct final answer of 12474, with the gold edge length squared set being {21, 54, 66, 69}. The most prevalent failure code across responses was claims_unique_edge_length, appearing in 8 out of 9 responses, indicating a systematic tendency to incorrectly assert that only one edge length is possible. The second most common code was restricts_to_nonnegative_subset_sums (6 responses), followed by omits_sign_pattern_casework and treats_one_orientation_as_proof_of_uniqueness (6 responses each). The derives_correct_partial_s2_then_discards_it code appeared in 4 responses (F, G, H, I), representing a particularly insidious failure mode where the solver correctly identifies one valid squared edge length (typically 21) but then incorrectly discards other valid configurations. The adjudicator made significant corrections to responses A, B, F, H, and I, promoting derives_correct_partial_s2_then_discards_it or uses_fabricated_invariant_or_invalid_derivation to primary status when mappers had originally selected different primaries. Notably, response E was unique in exhibiting non_terminating_or_no_final_answer, getting stuck in repetitive loops. Response A stood out for accepting internal contradictions ('6 = 7'). The code co-occurrence patterns reveal that assumes_zero_distance_vertex_is_axis_corner frequently appears alongside claims_unique_edge_length (4 co-occurrences) and derives_correct_partial_s2_then_discards_it (3 co-occurrences), suggesting these errors reinforce each other. The four responses with derives_correct_partial_s2_then_discards_it as primary (F, G, H, I) share substantial commonality, with F, H, and I all exhibiting assumes_zero_distance_vertex_is_axis_corner and treats_one_orientation_as_proof_of_uniqueness alongside their primary failure mode."
+}

@@ -1,0 +1,670 @@
+{
+  "gold_final_answer": "210",
+  "gold_edge_length_squared_set": [
+    21,
+    54,
+    66,
+    69
+  ],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "accepts_internal_contradictions_in_derivation",
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness"
+      ],
+      "primary_failure_code": "accepts_internal_contradictions_in_derivation",
+      "primary_failure_code_evidence": "Response A explicitly derives contradictory equations like 3=4 and 6=7 at lines 584-544 (e.g., '3 = 4, which is impossible' and '6 = 7, which is impossible'), then ignores these contradictions and proceeds to claim s\u00b2 = 21 is the only valid solution. The response finds that setting distances 1,2,3 for the three adjacent vertices leads to 3=4 in the equations, but instead of recognizing this as evidence for alternative sign patterns, it dismisses the contradiction and asserts a unique solution.",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response A states 'Let me assume that the plane passes through the origin (0,0,0)' and 'one vertex is at (0,0,0) lies on the plane', fixing the zero-distance vertex at the cube-local origin (0,0,0) without justifying why this specific corner must be the zero-vertex.",
+        "restricts_to_nonnegative_subset_sums": "Response A searches only for positive-integer triples {p,q,r} = {1,2,4} where all distances arise as non-negative subset sums, stating 'the set {1,2,4,3,5,6,7} which is exactly {1,2,3,4,5,6,7}' without considering signed (negative) values for the projections.",
+        "accepts_internal_contradictions_in_derivation": "Response A derives explicit contradictions: '3 = 4, which is impossible' (line 584), '6 = 7, which is impossible' (line 544), and earlier '8 = 6, which is false' (line 352), yet proceeds to extract a final numeric answer of 6 (s\u00b2=21 interpretation) despite these contradictions invalidating the derivation chain.",
+        "claims_unique_edge_length": "Response A concludes 'the only possible edge length is \u221a21' and 'the set S contains only one element, which is \u221a21', explicitly asserting |S| = 1 with final boxed answer 6 (meaning s\u00b2 = 6 in the response's confused calculation, though internal calculation found 21).",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response A solves only the all-positive projection case (1,2,4) and concludes this gives the only edge length, without exploring sign-flipped configurations that could yield different s\u00b2 values."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "restricts_to_nonnegative_subset_sums",
+          "reason_excluded": "While present, the acceptance of internal contradictions (3=4, 6=7) is more load-bearing because the response recognizes the derivation is invalid yet still extracts an answer."
+        },
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "This is a downstream symptom of restricting to non-negative subset sums; the root defect is accepting contradictions while ignoring valid sign alternatives."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_plane_parallel_to_cube_face",
+        "equates_max_distance_with_edge_length_directly",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "assumes_plane_parallel_to_cube_face",
+      "primary_failure_code_evidence": "Response B's primary geometric setup assumes 'the plane is z = k' with an axis-aligned cube, stating 'the distance from each vertex (x, y, z) to the plane z = k would be |z - k|'. This face-parallel framing is the load-bearing defect that leads directly to identifying max distance 7 with edge length a=7. The response explicitly says 'the plane is z = k' and 'the cube is axis-aligned', which fundamentally mischaracterizes the geometry.",
+      "failure_reason_evidence": {
+        "assumes_plane_parallel_to_cube_face": "Response B states 'the plane is z = k' and 'the cube is axis-aligned with edges parallel to the coordinate axes', leading to only two distinct distance values (k and a-k) rather than eight distinct distances.",
+        "equates_max_distance_with_edge_length_directly": "Response B states 'the edge length of the cube is 7' and 'a = 7' directly from max distance 7, without projecting through plane normal, calculating s\u00b2 = 49.",
+        "claims_unique_edge_length": "Response B concludes 'the only possible edge length is 7' and 'set S is {7}', with final boxed answer 49 (= 7\u00b2), explicitly asserting |S| = 1."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "equates_max_distance_with_edge_length_directly",
+          "reason_excluded": "While present, this is downstream of the face-parallel framing. If the cube weren't axis-aligned with plane z=k, this identification wouldn't follow."
+        },
+        {
+          "code": "restricts_to_nonnegative_subset_sums",
+          "reason_excluded": "Response B doesn't use the subset-sum framework at all; it uses a completely different (and incorrect) geometric setup."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "assumes_max_distance_equals_space_diagonal",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "primary_failure_code_evidence": "Response C's load-bearing defect is equating maximum vertex-to-plane distance (7) with the cube's space diagonal a\u221a3. The response explicitly states 'the space diagonal is a\u221a3, so if the maximum distance is 7, then 7 = a\u221a3' and derives 'a = 7/\u221a3' giving s\u00b2 = 49/3. This misidentification of the geometric relationship is the upstream error that invalidates the entire derivation.",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response C states 'let's assume this vertex is at the origin, so (0,0,0)' and uses axis-aligned coordinates throughout, fixing the zero-distance vertex at (0,0,0).",
+        "assumes_max_distance_equals_space_diagonal": "Response C explicitly states 'the space diagonal of the cube is a\u221a3' and 'the maximum distance from the plane to any vertex is 7, which must correspond to the space diagonal', deriving a = 7/\u221a3 and s\u00b2 = 49/3.",
+        "claims_unique_edge_length": "Response C concludes 'the only possible edge length is 7/\u221a3' and 'there is only one possible edge length', with final answer 49/3, asserting |S| = 1."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "While present, the space-diagonal misidentification is more fundamental. The axis-corner choice alone doesn't force the wrong answer; combined with the diagonal error it produces 49/3."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "Response C doesn't solve a clean single-orientation derivation; it makes a direct geometric misidentification (space diagonal = 7) which is the primary defect."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "assumes_max_distance_equals_space_diagonal",
+        "claims_unique_edge_length"
+      ],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "primary_failure_code_evidence": "Response D explicitly states 'the space diagonal is a\u221a3' and 'if the maximum distance is 7, then 7 = a\u221a3', deriving a = 7/\u221a3 and s\u00b2 = 49/3. This equating of max vertex-to-plane distance with the space diagonal is the load-bearing geometric error. The response acknowledges 'the edge length would be 7/\u221a3' as its key derivation step.",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response D states 'let's assume that the vertex (0,0,0) is on the plane' and works with axis-aligned cube coordinates throughout.",
+        "assumes_max_distance_equals_space_diagonal": "Response D explicitly states 'the space diagonal of a cube is a\u221a3' and 'if the space diagonal is 7, then a\u221a3 = 7', deriving s\u00b2 = 49/3.",
+        "claims_unique_edge_length": "Response D concludes 'the only possible edge length is 7/\u221a3' and 'the sum of squares is 49/3', asserting |S| = 1 with final boxed answer 49/3."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "The axis-corner setup is secondary to the space-diagonal misidentification. Even with axis corner, correct handling of sign patterns yields multiple solutions."
+        },
+        {
+          "code": "treats_one_orientation_as_proof_of_uniqueness",
+          "reason_excluded": "The response misidentifies the geometric constraint (space diagonal = 7) rather than correctly solving one orientation and claiming uniqueness."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "Response E loops on the phrase 'Let us define' and variants from line 90 through line 1000+ without reaching any numeric conclusion. The response is truncated mid-loop with no boxed answer or final numeric result. The looping phrase appears hundreds of times, constituting a non-terminating generation.",
+      "failure_reason_evidence": {
+        "non_terminating_or_no_final_answer": "Response E begins repeating 'Let us let us define' and similar phrases from approximately line 90 continuing through the entire remaining document without producing a final answer."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "restricts_to_nonnegative_subset_sums",
+          "reason_excluded": "Response E never reaches the point of making any substantive mathematical claims; it is purely non-terminating."
+        },
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "The response truncates before any geometric setup is established; no zero-vertex assumption is made."
+        }
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "omits_sign_pattern_casework",
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness"
+      ],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "primary_failure_code_evidence": "Response F's load-bearing defect is restricting the search to non-negative subset sums of positive quantities {p,q,r}. The response states 'we can assume without loss of generality that u, v, w are positive real numbers' and 'the set {u, v, w, u+v, u+w, v+w, u+v+w} must be {1,2,3,4,5,6,7}'. This restriction prevents finding the other three valid solutions (s\u00b2 = 54, 66, 69) that require negative projections. The response finds only (1,2,4) with s\u00b2=21 and concludes this is the only solution.",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response F states 'let us assume that the vertex (0,0,0) is on the plane' and 'we can set s = 0 for simplicity', fixing the zero-distance vertex at the cube-local origin.",
+        "restricts_to_nonnegative_subset_sums": "Response F explicitly states 'we can assume without loss of generality that u, v, w >= 0' and searches only for positive triples where subset sums give {1,2,3,4,5,6,7}, finding only (1,2,4).",
+        "omits_sign_pattern_casework": "Response F does not enumerate sign-pattern families or consider configurations where some projections are negative, stating 'the signed distances would all be positive or zero' without justification.",
+        "claims_unique_edge_length": "Response F concludes 'there is only one possible edge length' and 'S contains only \u221a21', with final answer 21, asserting |S| = 1.",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response F derives s\u00b2 = 21 from the all-positive case and explicitly states 'this is the only possible configuration', without ruling out other orientations with negative projections."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "While present, the subset-sum restriction is more load-bearing because it actively filters out the valid solutions with negative projections. The axis-corner choice alone doesn't preclude finding all solutions."
+        },
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "The uniqueness claim is a downstream symptom of the subset-sum restriction; with the restriction removed, multiple solutions become apparent."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "uses_fabricated_invariant_or_invalid_derivation",
+        "accepts_internal_contradictions_in_derivation"
+      ],
+      "primary_failure_code": "uses_fabricated_invariant_or_invalid_derivation",
+      "primary_failure_code_evidence": "Response G's final answer rests on a fabricated algebraic identity. The response invents 'the sum of the squares of the distances is 3a\u00b2(1 + T\u00b2)' where T = x+y+z, derives a quadratic '3a\u2074 - 140a\u00b2 + 147 = 0', and sums the roots (70\u00b17\u221a91)/3 to get 140/3. This 'sum of squared distances' invariant is not derived from the problem geometry; it appears by algebraic manipulation without geometric backing. The response's final boxed answer 140/3 is the output of this fabricated derivation chain.",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response G states 'let us assume that (0,0,0) is on the plane' and 'the plane equation simplifies to px + qy + rz = 0', fixing the zero-distance vertex at the origin.",
+        "uses_fabricated_invariant_or_invalid_derivation": "Response G invents the identity 'sum of squares of distances = 3a\u00b2(1 + T\u00b2)' without geometric justification, uses it to derive a quadratic, and extracts 140/3 by summing the two roots of the fabricated quadratic equation.",
+        "accepts_internal_contradictions_in_derivation": "Response G explicitly acknowledges contradictions like '3a\u00b2(1 + 49) = 3150 \u2260 140' when checking its own derivation, but proceeds to accept both roots of the quadratic as valid despite the algebraic inconsistency with the actual distance set."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "accepts_internal_contradictions_in_derivation",
+          "reason_excluded": "The acceptance of contradictions is a symptom of the fabricated derivation. The upstream defect is the invented invariant that leads to the contradictory equations."
+        },
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "While present, the axis-corner assumption alone doesn't force the specific fabricated invariant; the geometric misstep is more fundamental."
+        }
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "omits_sign_pattern_casework",
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness"
+      ],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "primary_failure_code_evidence": "Response H's load-bearing defect is the restriction to non-negative subset sums. The response searches for 'three integers p, q, r such that {0, p, q, r, p+q, p+r, q+r, p+q+r} = {0,1,2,3,4,5,6,7}' and finds only (1,2,4). It explicitly checks that no other triple of distinct positive integers works, but never considers negative projections like (-7,1,2) which yield valid solutions s\u00b2=54, 66, 69. The response states 'the only valid triple is (1,2,4)' because it restricts to positive integers.",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response H states 'let us assume that the cube is axis-aligned with one vertex at the origin (0,0,0)' and 'the plane passes through this vertex', fixing the zero-distance vertex.",
+        "restricts_to_nonnegative_subset_sums": "Response H searches for 'positive integers' p, q, r with '0 < p < q < r' and checks only triples like (1,2,4), (1,3,3), (2,2,3), finding only (1,2,4) works, never considering negative values.",
+        "omits_sign_pattern_casework": "Response H does not consider sign-flipped configurations, stating 'the projections must be non-negative' and only checking positive-integer triples for the subset sum condition.",
+        "claims_unique_edge_length": "Response H concludes 'there is only one possible edge length' and 'S = {\u221a21}', with final answer 21, asserting |S| = 1.",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response H solves the all-positive projection case and explicitly states 'this is the only possible configuration', without considering other orientations with negative projections that yield different s\u00b2 values."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "The uniqueness claim is a downstream symptom. The root cause is the restriction to positive integers which filters out valid solutions with negative projections."
+        },
+        {
+          "code": "assumes_zero_distance_vertex_is_axis_corner",
+          "reason_excluded": "The axis-corner assumption is present but the non-negative restriction is more directly responsible for missing the other three valid s\u00b2 values."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "assumes_zero_distance_vertex_is_axis_corner",
+        "restricts_to_nonnegative_subset_sums",
+        "omits_sign_pattern_casework",
+        "claims_unique_edge_length",
+        "treats_one_orientation_as_proof_of_uniqueness"
+      ],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "primary_failure_code_evidence": "Response I's load-bearing defect is the explicit restriction to non-negative subset sums. The response states 'we can assume without loss of generality that u, v, w >= 0' and searches for positive triples {p,q,r} = {1,2,4}. It calculates that 'the set {0, p, q, r, p+q, p+r, q+r, p+q+r} = {0,1,2,3,4,5,6,7}' only works for (1,2,4), never considering configurations like (-7,1,2), (-7,1,4), (-7,2,4) which yield the other three valid s\u00b2 values (54, 66, 69).",
+      "failure_reason_evidence": {
+        "assumes_zero_distance_vertex_is_axis_corner": "Response I states 'let us assume that the vertex (0,0,0) is on the plane' and uses coordinates 'all combinations of 0 and a in x, y, z', fixing the zero-distance vertex at the origin.",
+        "restricts_to_nonnegative_subset_sums": "Response I explicitly states 'we can assume without loss of generality that u, v, w >= 0' and 'the set {u, v, w, u+v, u+w, v+w, u+v+w} must be {1,2,3,4,5,6,7}', finding only (1,2,4).",
+        "omits_sign_pattern_casework": "Response I does not enumerate sign-pattern families, stating 'the signed distances would all be positive or zero' and checking only the all-positive case for valid configurations.",
+        "claims_unique_edge_length": "Response I concludes 'the only possible edge length is \u221a21' and 'S contains only \u221a21', with final answer 21, asserting |S| = 1.",
+        "treats_one_orientation_as_proof_of_uniqueness": "Response I derives s\u00b2 = 21 from the all-positive case and states 'this is the only possible edge length', without ruling out orientations with negative projections that give different s\u00b2 values."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "claims_unique_edge_length",
+          "reason_excluded": "The uniqueness claim follows from the non-negative restriction; removing that restriction reveals multiple valid edge lengths."
+        },
+        {
+          "code": "omits_sign_pattern_casework",
+          "reason_excluded": "This is a symptom of the non-negative subset-sum restriction; if negative projections were considered, sign-pattern casework would naturally follow."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    }
+  ],
+  "code_application_table": {
+    "claims_unique_edge_length": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "F",
+      "H",
+      "I"
+    ],
+    "restricts_to_nonnegative_subset_sums": [
+      "A",
+      "F",
+      "H",
+      "I"
+    ],
+    "assumes_max_distance_equals_space_diagonal": [
+      "C",
+      "D"
+    ],
+    "assumes_plane_parallel_to_cube_face": [
+      "B"
+    ],
+    "equates_max_distance_with_edge_length_directly": [
+      "B"
+    ],
+    "uses_fabricated_invariant_or_invalid_derivation": [
+      "G"
+    ],
+    "accepts_internal_contradictions_in_derivation": [
+      "A",
+      "G"
+    ],
+    "assumes_zero_distance_vertex_is_axis_corner": [
+      "A",
+      "C",
+      "D",
+      "F",
+      "G",
+      "H",
+      "I"
+    ],
+    "omits_sign_pattern_casework": [
+      "F",
+      "H",
+      "I"
+    ],
+    "treats_one_orientation_as_proof_of_uniqueness": [
+      "A",
+      "F",
+      "H",
+      "I"
+    ],
+    "derives_correct_partial_s2_then_discards_it": [],
+    "non_terminating_or_no_final_answer": [
+      "E"
+    ]
+  },
+  "response_count_per_code": {
+    "claims_unique_edge_length": 7,
+    "restricts_to_nonnegative_subset_sums": 4,
+    "assumes_max_distance_equals_space_diagonal": 2,
+    "assumes_plane_parallel_to_cube_face": 1,
+    "equates_max_distance_with_edge_length_directly": 1,
+    "uses_fabricated_invariant_or_invalid_derivation": 1,
+    "accepts_internal_contradictions_in_derivation": 2,
+    "assumes_zero_distance_vertex_is_axis_corner": 7,
+    "omits_sign_pattern_casework": 3,
+    "treats_one_orientation_as_proof_of_uniqueness": 4,
+    "derives_correct_partial_s2_then_discards_it": 0,
+    "non_terminating_or_no_final_answer": 1
+  },
+  "code_co_occurrence_count": {
+    "accepts_internal_contradictions_in_derivation & assumes_max_distance_equals_space_diagonal": 0,
+    "accepts_internal_contradictions_in_derivation & assumes_plane_parallel_to_cube_face": 0,
+    "accepts_internal_contradictions_in_derivation & assumes_zero_distance_vertex_is_axis_corner": 2,
+    "accepts_internal_contradictions_in_derivation & claims_unique_edge_length": 1,
+    "accepts_internal_contradictions_in_derivation & derives_correct_partial_s2_then_discards_it": 0,
+    "accepts_internal_contradictions_in_derivation & equates_max_distance_with_edge_length_directly": 0,
+    "accepts_internal_contradictions_in_derivation & non_terminating_or_no_final_answer": 0,
+    "accepts_internal_contradictions_in_derivation & omits_sign_pattern_casework": 0,
+    "accepts_internal_contradictions_in_derivation & restricts_to_nonnegative_subset_sums": 1,
+    "accepts_internal_contradictions_in_derivation & treats_one_orientation_as_proof_of_uniqueness": 1,
+    "accepts_internal_contradictions_in_derivation & uses_fabricated_invariant_or_invalid_derivation": 1,
+    "assumes_max_distance_equals_space_diagonal & assumes_plane_parallel_to_cube_face": 0,
+    "assumes_max_distance_equals_space_diagonal & assumes_zero_distance_vertex_is_axis_corner": 2,
+    "assumes_max_distance_equals_space_diagonal & claims_unique_edge_length": 2,
+    "assumes_max_distance_equals_space_diagonal & derives_correct_partial_s2_then_discards_it": 0,
+    "assumes_max_distance_equals_space_diagonal & equates_max_distance_with_edge_length_directly": 0,
+    "assumes_max_distance_equals_space_diagonal & non_terminating_or_no_final_answer": 0,
+    "assumes_max_distance_equals_space_diagonal & omits_sign_pattern_casework": 0,
+    "assumes_max_distance_equals_space_diagonal & restricts_to_nonnegative_subset_sums": 0,
+    "assumes_max_distance_equals_space_diagonal & treats_one_orientation_as_proof_of_uniqueness": 0,
+    "assumes_max_distance_equals_space_diagonal & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "assumes_plane_parallel_to_cube_face & assumes_zero_distance_vertex_is_axis_corner": 0,
+    "assumes_plane_parallel_to_cube_face & claims_unique_edge_length": 1,
+    "assumes_plane_parallel_to_cube_face & derives_correct_partial_s2_then_discards_it": 0,
+    "assumes_plane_parallel_to_cube_face & equates_max_distance_with_edge_length_directly": 1,
+    "assumes_plane_parallel_to_cube_face & non_terminating_or_no_final_answer": 0,
+    "assumes_plane_parallel_to_cube_face & omits_sign_pattern_casework": 0,
+    "assumes_plane_parallel_to_cube_face & restricts_to_nonnegative_subset_sums": 0,
+    "assumes_plane_parallel_to_cube_face & treats_one_orientation_as_proof_of_uniqueness": 0,
+    "assumes_plane_parallel_to_cube_face & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "assumes_zero_distance_vertex_is_axis_corner & claims_unique_edge_length": 7,
+    "assumes_zero_distance_vertex_is_axis_corner & derives_correct_partial_s2_then_discards_it": 0,
+    "assumes_zero_distance_vertex_is_axis_corner & equates_max_distance_with_edge_length_directly": 0,
+    "assumes_zero_distance_vertex_is_axis_corner & non_terminating_or_no_final_answer": 0,
+    "assumes_zero_distance_vertex_is_axis_corner & omits_sign_pattern_casework": 3,
+    "assumes_zero_distance_vertex_is_axis_corner & restricts_to_nonnegative_subset_sums": 4,
+    "assumes_zero_distance_vertex_is_axis_corner & treats_one_orientation_as_proof_of_uniqueness": 4,
+    "assumes_zero_distance_vertex_is_axis_corner & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "claims_unique_edge_length & derives_correct_partial_s2_then_discards_it": 0,
+    "claims_unique_edge_length & equates_max_distance_with_edge_length_directly": 0,
+    "claims_unique_edge_length & non_terminating_or_no_final_answer": 0,
+    "claims_unique_edge_length & omits_sign_pattern_casework": 3,
+    "claims_unique_edge_length & restricts_to_nonnegative_subset_sums": 4,
+    "claims_unique_edge_length & treats_one_orientation_as_proof_of_uniqueness": 4,
+    "claims_unique_edge_length & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "derives_correct_partial_s2_then_discards_it & equates_max_distance_with_edge_length_directly": 0,
+    "derives_correct_partial_s2_then_discards_it & non_terminating_or_no_final_answer": 0,
+    "derives_correct_partial_s2_then_discards_it & omits_sign_pattern_casework": 0,
+    "derives_correct_partial_s2_then_discards_it & restricts_to_nonnegative_subset_sums": 0,
+    "derives_correct_partial_s2_then_discards_it & treats_one_orientation_as_proof_of_uniqueness": 0,
+    "derives_correct_partial_s2_then_discards_it & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "equates_max_distance_with_edge_length_directly & non_terminating_or_no_final_answer": 0,
+    "equates_max_distance_with_edge_length_directly & omits_sign_pattern_casework": 0,
+    "equates_max_distance_with_edge_length_directly & restricts_to_nonnegative_subset_sums": 0,
+    "equates_max_distance_with_edge_length_directly & treats_one_orientation_as_proof_of_uniqueness": 0,
+    "equates_max_distance_with_edge_length_directly & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "non_terminating_or_no_final_answer & omits_sign_pattern_casework": 0,
+    "non_terminating_or_no_final_answer & restricts_to_nonnegative_subset_sums": 0,
+    "non_terminating_or_no_final_answer & treats_one_orientation_as_proof_of_uniqueness": 0,
+    "non_terminating_or_no_final_answer & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "omits_sign_pattern_casework & restricts_to_nonnegative_subset_sums": 4,
+    "omits_sign_pattern_casework & treats_one_orientation_as_proof_of_uniqueness": 3,
+    "omits_sign_pattern_casework & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "restricts_to_nonnegative_subset_sums & treats_one_orientation_as_proof_of_uniqueness": 4,
+    "restricts_to_nonnegative_subset_sums & uses_fabricated_invariant_or_invalid_derivation": 0,
+    "treats_one_orientation_as_proof_of_uniqueness & uses_fabricated_invariant_or_invalid_derivation": 0
+  },
+  "response_pair_shared_codes": {
+    "A & B": [],
+    "A & C": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "A & D": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "A & E": [],
+    "A & F": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & G": [
+      "accepts_internal_contradictions_in_derivation",
+      "assumes_zero_distance_vertex_is_axis_corner"
+    ],
+    "A & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "B & C": [
+      "claims_unique_edge_length"
+    ],
+    "B & D": [
+      "claims_unique_edge_length"
+    ],
+    "B & E": [],
+    "B & F": [
+      "claims_unique_edge_length"
+    ],
+    "B & G": [],
+    "B & H": [
+      "claims_unique_edge_length"
+    ],
+    "B & I": [
+      "claims_unique_edge_length"
+    ],
+    "C & D": [
+      "assumes_max_distance_equals_space_diagonal",
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "C & E": [],
+    "C & F": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "C & G": [
+      "assumes_zero_distance_vertex_is_axis_corner"
+    ],
+    "C & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "C & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "D & E": [],
+    "D & F": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "D & G": [
+      "assumes_zero_distance_vertex_is_axis_corner"
+    ],
+    "D & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "D & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "E & F": [],
+    "E & G": [],
+    "E & H": [],
+    "E & I": [],
+    "F & G": [
+      "assumes_zero_distance_vertex_is_axis_corner"
+    ],
+    "F & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "F & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "G & H": [
+      "assumes_zero_distance_vertex_is_axis_corner"
+    ],
+    "G & I": [
+      "assumes_zero_distance_vertex_is_axis_corner"
+    ],
+    "H & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ]
+  },
+  "response_triple_shared_codes": {
+    "A & B & C": [],
+    "A & B & D": [],
+    "A & B & E": [],
+    "A & B & F": [],
+    "A & B & G": [],
+    "A & B & H": [],
+    "A & B & I": [],
+    "A & C & D": [],
+    "A & C & E": [],
+    "A & C & F": [],
+    "A & C & G": [],
+    "A & C & H": [],
+    "A & C & I": [],
+    "A & D & E": [],
+    "A & D & F": [],
+    "A & D & G": [],
+    "A & D & H": [],
+    "A & D & I": [],
+    "A & E & F": [],
+    "A & E & G": [],
+    "A & E & H": [],
+    "A & E & I": [],
+    "A & F & G": [],
+    "A & F & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & F & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "A & G & H": [],
+    "A & G & I": [],
+    "A & H & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "B & C & D": [],
+    "B & C & E": [],
+    "B & C & F": [],
+    "B & C & G": [],
+    "B & C & H": [],
+    "B & C & I": [],
+    "B & D & E": [],
+    "B & D & F": [],
+    "B & D & G": [],
+    "B & D & H": [],
+    "B & D & I": [],
+    "B & E & F": [],
+    "B & E & G": [],
+    "B & E & H": [],
+    "B & E & I": [],
+    "B & F & G": [],
+    "B & F & H": [],
+    "B & F & I": [],
+    "B & G & H": [],
+    "B & G & I": [],
+    "B & H & I": [],
+    "C & D & E": [],
+    "C & D & F": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "C & D & G": [],
+    "C & D & H": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "C & D & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length"
+    ],
+    "C & E & F": [],
+    "C & E & G": [],
+    "C & E & H": [],
+    "C & E & I": [],
+    "C & F & G": [],
+    "C & F & H": [],
+    "C & F & I": [],
+    "C & G & H": [],
+    "C & G & I": [],
+    "C & H & I": [],
+    "D & E & F": [],
+    "D & E & G": [],
+    "D & E & H": [],
+    "D & E & I": [],
+    "D & F & G": [],
+    "D & F & H": [],
+    "D & F & I": [],
+    "D & G & H": [],
+    "D & G & I": [],
+    "D & H & I": [],
+    "E & F & G": [],
+    "E & F & H": [],
+    "E & F & I": [],
+    "E & G & H": [],
+    "E & G & I": [],
+    "E & H & I": [],
+    "F & G & H": [],
+    "F & G & I": [],
+    "F & H & I": [
+      "assumes_zero_distance_vertex_is_axis_corner",
+      "claims_unique_edge_length",
+      "omits_sign_pattern_casework",
+      "restricts_to_nonnegative_subset_sums",
+      "treats_one_orientation_as_proof_of_uniqueness"
+    ],
+    "G & H & I": []
+  },
+  "cross_response_observations": "Seven of the nine responses (A, C, D, F, G, H, I) share the defect of fixing the zero-distance vertex at the cube-local origin (0,0,0), preventing them from considering general cube orientations. Four responses (A, F, H, I) form a cluster sharing the 'corner-and-subset-sum' approach, restricting to non-negative subset sums {p,q,r} with p,q,r > 0, finding only s\u00b2=21 and claiming uniqueness. This cluster shares five failure codes: assumes_zero_distance_vertex_is_axis_corner, restricts_to_nonnegative_subset_sums, omits_sign_pattern_casework, claims_unique_edge_length, and treats_one_orientation_as_proof_of_uniqueness. Responses C and D form a second cluster sharing the space-diagonal misidentification (assumes_max_distance_equals_space_diagonal), both concluding s\u00b2=49/3. Response B is isolated with its face-parallel/axis-aligned setup (assumes_plane_parallel_to_cube_face). Response G stands alone with its fabricated algebraic invariant. Response E is the only non-terminating response, looping on 'Let us define'. The most common defect is assumes_zero_distance_vertex_is_axis_corner (7 responses), followed by claims_unique_edge_length (7 responses). No response correctly identifies all four s\u00b2 values (21, 54, 66, 69) or the correct sum 210. Responses F, H, I correctly derive s\u00b2=21 but incorrectly claim it's the unique solution due to non-negative restriction."
+}

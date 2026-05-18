@@ -1,0 +1,628 @@
+{
+  "gold_final_answer": "15",
+  "acceptable_solution_ids": [
+    "C"
+  ],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "invalid_one_draw_inference",
+      "primary_failure_code_evidence": "Response A claims inspecting one sequence from the 'Mixed' envelope proves it is pure: 'Inspect one sequence from the Mixed envelope. Suppose it is strictly increasing. Then the Mixed envelope is actually the strictly increasing envelope.' This is invalid because a mixed envelope with 7 of one type and 13 of another could yield the majority type on the first draw.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims 'remaining two envelopes are determined automatically by elimination' without justification.",
+        "invalid_one_draw_inference": "Claims one observed sequence proves purity of the Mixed-labeled envelope.",
+        "missing_lower_bound": "No proof why fewer than 2 inspections is impossible.",
+        "not_worst_case": "Treats favorable single-draw outcomes as resolving all ambiguity.",
+        "wrong_final_number": "Final answer is 2, not the canonical 15."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "While present, the invalid inference about one draw is more fundamental to why the answer is wrong."
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "The strategy is concrete but wrong, not hand-wavy."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_one_draw_inference",
+        "no_concrete_strategy",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "not_worst_case",
+      "primary_failure_code_evidence": "Response B claims 'At this point enough information has been gathered to deduce the final arrangement uniquely' after only 4 inspections, treating favorable outcomes as sufficient without addressing the worst-case scenario where the mixed envelope has 13 of one type and 7 of another.",
+      "failure_reason_evidence": {
+        "invalid_one_draw_inference": "Inspecting 2 sequences from Mixed to 'verify they belong to the same category' is insufficient - a 7/13 mixed envelope could yield 2 of the same type.",
+        "no_concrete_strategy": "The response does not provide a branch-by-branch label-fixing rule for all cases.",
+        "not_worst_case": "Strategy treats favorable outcomes (2 draws showing same type) as resolving worst-case ambiguity.",
+        "wrong_final_number": "Final answer is 4, not the canonical 15."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "The primary issue is treating favorable outcomes as worst-case, not lack of lower bound proof."
+        },
+        {
+          "code": "invalid_upper_bound",
+          "reason_excluded": "The upper bound claimed is not just invalid but based on non-worst-case reasoning."
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "Response C correctly identifies that 14 identical observations are needed to distinguish a pure envelope from a 7/13 mixed envelope, giving total 15 inspections (1 initial + 14 worst-case).",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [
+        {
+          "code": "unnecessary_mixed_pair_requirement",
+          "reason_excluded": "Response does not add inspections solely to determine exact 2-type composition; it correctly stops at identifying purity."
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "Response provides clear reasoning about the 14-inspection threshold for distinguishing mixed from pure."
+        }
+      ],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response D contains multiple fatal wrong claims: 'remaining three are forced by contradiction', 'remaining labels cycle uniquely', and 'follow directly' - none of which are mathematically valid given the 7/13 composition of the mixed envelope.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims 'remaining three are forced by contradiction' and 'remaining labels cycle uniquely' without valid reasoning.",
+        "invalid_one_draw_inference": "Claims one inspection immediately identifies the true category and forces the rest.",
+        "missing_lower_bound": "No proof provided for why answer couldn't be less than 1.",
+        "not_worst_case": "Treats single most favorable outcome as resolving everything.",
+        "wrong_final_number": "Final answer is 1, not the canonical 15."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "contradictory_final_answer",
+          "reason_excluded": "Response commits to answer 1 without oscillation."
+        },
+        {
+          "code": "non_terminating_or_no_final_answer",
+          "reason_excluded": "Response provides a clear final answer of 1."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "contradictory_final_answer",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "contradictory_final_answer",
+      "primary_failure_code_evidence": "Response E oscillates between incompatible counts: starts with '3 inspections', then 'maybe 2', then mentions 'perhaps we need 14', then 'probably 15', before finally committing to 'Final answer: 3'. This oscillation among 2, 3, 14, and 15 without principled resolution demonstrates contradictory reasoning.",
+      "failure_reason_evidence": {
+        "contradictory_final_answer": "Oscillates: 3 -> 2 -> 3 -> 14 -> 15 -> Final answer 3, without committing to consistent reasoning.",
+        "missing_lower_bound": "No proof for why answer is 3 rather than higher or lower.",
+        "not_worst_case": "Briefly acknowledges 14 needed for worst case but then ignores it.",
+        "wrong_final_number": "Final answer is 3, not the canonical 15."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "The oscillation is the primary issue, not a specific wrong claim."
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "While reasoning is confused, it does attempt a concrete approach."
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response F claims 'Then the last envelope must be mixed' and 'the correct arrangement can be deduced from these three observations' without valid reasoning. It assumes three distinct observations uniquely determine all four envelopes, ignoring that the mixed envelope could contain sequences matching the other types.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims 'the last envelope must be mixed' and arrangement is deducible from 3 observations.",
+        "missing_lower_bound": "No proof why fewer than 3 is impossible.",
+        "not_worst_case": "Treats the favorable outcome (three distinct types) as sufficient for all cases.",
+        "wrong_final_number": "Final answer is 3, not the canonical 15."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "invalid_one_draw_inference",
+          "reason_excluded": "Uses one draw per envelope, but the primary issue is the false deduction about the remaining envelope."
+        },
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "The strategy is concrete but wrong, not hand-wavy."
+        }
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "wrong_final_number",
+      "primary_failure_code_evidence": "Response G correctly identifies the logic of needing 1 initial inspection plus 14 worst-case inspections to confirm purity (distinguishing from 7/13 mixed), but then incorrectly states the total is 16 instead of 15, making a simple arithmetic error.",
+      "failure_reason_evidence": {
+        "wrong_final_number": "Correctly reasons 1 initial + 14 worst-case but states total is 16 instead of 15."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "missing_lower_bound",
+          "reason_excluded": "The response implicitly understands the lower bound through the 14-inspection reasoning."
+        },
+        {
+          "code": "fatal_wrong_claim",
+          "reason_excluded": "The claims are logically sound; only the final number is wrong."
+        }
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "fatal_wrong_claim",
+        "invalid_one_draw_inference",
+        "missing_lower_bound",
+        "not_worst_case",
+        "wrong_final_number"
+      ],
+      "primary_failure_code": "fatal_wrong_claim",
+      "primary_failure_code_evidence": "Response H claims 'By inspecting a single sequence from each envelope, we can identify which categories are present. Since there are only four envelopes and four labels, the assignment follows directly.' This is fatally wrong - one inspection per envelope cannot distinguish the mixed envelope (with 7/13 composition) from pure envelopes.",
+      "failure_reason_evidence": {
+        "fatal_wrong_claim": "Claims assignment 'follows directly' from 4 inspections without valid logical basis.",
+        "invalid_one_draw_inference": "Assumes one inspection per envelope is sufficient to identify categories.",
+        "missing_lower_bound": "No proof why fewer than 4 is impossible.",
+        "not_worst_case": "Assumes the most favorable outcomes (distinct categories) will occur.",
+        "wrong_final_number": "Final answer is 4, not the canonical 15."
+      },
+      "alternative_codes_considered": [
+        {
+          "code": "no_concrete_strategy",
+          "reason_excluded": "The strategy is concrete but wrong, not hand-wavy."
+        },
+        {
+          "code": "contradictory_final_answer",
+          "reason_excluded": "Response commits to 4 without oscillation."
+        }
+      ],
+      "code_application_count": 5,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 5
+    }
+  ],
+  "code_application_table": {
+    "contradictory_final_answer": [
+      "E"
+    ],
+    "fatal_wrong_claim": [
+      "A",
+      "D",
+      "F",
+      "H"
+    ],
+    "invalid_one_draw_inference": [
+      "A",
+      "B",
+      "D",
+      "H"
+    ],
+    "invalid_upper_bound": [],
+    "missing_lower_bound": [
+      "A",
+      "D",
+      "E",
+      "F",
+      "H"
+    ],
+    "no_concrete_strategy": [
+      "B"
+    ],
+    "non_terminating_or_no_final_answer": [],
+    "not_worst_case": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F",
+      "H"
+    ],
+    "unnecessary_mixed_pair_requirement": [],
+    "wrong_final_number": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ]
+  },
+  "response_count_per_code": {
+    "contradictory_final_answer": 1,
+    "fatal_wrong_claim": 4,
+    "invalid_one_draw_inference": 4,
+    "invalid_upper_bound": 0,
+    "missing_lower_bound": 5,
+    "no_concrete_strategy": 1,
+    "non_terminating_or_no_final_answer": 0,
+    "not_worst_case": 6,
+    "unnecessary_mixed_pair_requirement": 0,
+    "wrong_final_number": 7
+  },
+  "code_co_occurrence_count": {
+    "contradictory_final_answer & fatal_wrong_claim": 0,
+    "contradictory_final_answer & invalid_one_draw_inference": 0,
+    "contradictory_final_answer & invalid_upper_bound": 0,
+    "contradictory_final_answer & missing_lower_bound": 1,
+    "contradictory_final_answer & no_concrete_strategy": 0,
+    "contradictory_final_answer & non_terminating_or_no_final_answer": 0,
+    "contradictory_final_answer & not_worst_case": 1,
+    "contradictory_final_answer & unnecessary_mixed_pair_requirement": 0,
+    "contradictory_final_answer & wrong_final_number": 1,
+    "fatal_wrong_claim & invalid_one_draw_inference": 3,
+    "fatal_wrong_claim & invalid_upper_bound": 0,
+    "fatal_wrong_claim & missing_lower_bound": 4,
+    "fatal_wrong_claim & no_concrete_strategy": 0,
+    "fatal_wrong_claim & non_terminating_or_no_final_answer": 0,
+    "fatal_wrong_claim & not_worst_case": 4,
+    "fatal_wrong_claim & unnecessary_mixed_pair_requirement": 0,
+    "fatal_wrong_claim & wrong_final_number": 4,
+    "invalid_one_draw_inference & invalid_upper_bound": 0,
+    "invalid_one_draw_inference & missing_lower_bound": 3,
+    "invalid_one_draw_inference & no_concrete_strategy": 1,
+    "invalid_one_draw_inference & non_terminating_or_no_final_answer": 0,
+    "invalid_one_draw_inference & not_worst_case": 4,
+    "invalid_one_draw_inference & unnecessary_mixed_pair_requirement": 0,
+    "invalid_one_draw_inference & wrong_final_number": 4,
+    "invalid_upper_bound & missing_lower_bound": 0,
+    "invalid_upper_bound & no_concrete_strategy": 0,
+    "invalid_upper_bound & non_terminating_or_no_final_answer": 0,
+    "invalid_upper_bound & not_worst_case": 0,
+    "invalid_upper_bound & unnecessary_mixed_pair_requirement": 0,
+    "invalid_upper_bound & wrong_final_number": 0,
+    "missing_lower_bound & no_concrete_strategy": 0,
+    "missing_lower_bound & non_terminating_or_no_final_answer": 0,
+    "missing_lower_bound & not_worst_case": 5,
+    "missing_lower_bound & unnecessary_mixed_pair_requirement": 0,
+    "missing_lower_bound & wrong_final_number": 5,
+    "no_concrete_strategy & non_terminating_or_no_final_answer": 0,
+    "no_concrete_strategy & not_worst_case": 1,
+    "no_concrete_strategy & unnecessary_mixed_pair_requirement": 0,
+    "no_concrete_strategy & wrong_final_number": 1,
+    "non_terminating_or_no_final_answer & not_worst_case": 0,
+    "non_terminating_or_no_final_answer & unnecessary_mixed_pair_requirement": 0,
+    "non_terminating_or_no_final_answer & wrong_final_number": 0,
+    "not_worst_case & unnecessary_mixed_pair_requirement": 0,
+    "not_worst_case & wrong_final_number": 6,
+    "unnecessary_mixed_pair_requirement & wrong_final_number": 0
+  },
+  "response_pair_shared_codes": {
+    "A & B": [
+      "invalid_one_draw_inference",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & C": [],
+    "A & D": [
+      "fatal_wrong_claim",
+      "invalid_one_draw_inference",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & E": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & F": [
+      "fatal_wrong_claim",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & G": [
+      "wrong_final_number"
+    ],
+    "A & H": [
+      "fatal_wrong_claim",
+      "invalid_one_draw_inference",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & C": [],
+    "B & D": [
+      "invalid_one_draw_inference",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & E": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & F": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & G": [
+      "wrong_final_number"
+    ],
+    "B & H": [
+      "invalid_one_draw_inference",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "C & D": [],
+    "C & E": [],
+    "C & F": [],
+    "C & G": [],
+    "C & H": [],
+    "D & E": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "D & F": [
+      "fatal_wrong_claim",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "D & G": [
+      "wrong_final_number"
+    ],
+    "D & H": [
+      "fatal_wrong_claim",
+      "invalid_one_draw_inference",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "E & F": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "E & G": [
+      "wrong_final_number"
+    ],
+    "E & H": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "F & G": [
+      "wrong_final_number"
+    ],
+    "F & H": [
+      "fatal_wrong_claim",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "G & H": [
+      "wrong_final_number"
+    ]
+  },
+  "response_triple_shared_codes": {
+    "A & B & C": [],
+    "A & B & D": [
+      "invalid_one_draw_inference",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & B & E": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & B & F": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & B & G": [
+      "wrong_final_number"
+    ],
+    "A & B & H": [
+      "invalid_one_draw_inference",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & C & D": [],
+    "A & C & E": [],
+    "A & C & F": [],
+    "A & C & G": [],
+    "A & C & H": [],
+    "A & D & E": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & D & F": [
+      "fatal_wrong_claim",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & D & G": [
+      "wrong_final_number"
+    ],
+    "A & D & H": [
+      "fatal_wrong_claim",
+      "invalid_one_draw_inference",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & E & F": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & E & G": [
+      "wrong_final_number"
+    ],
+    "A & E & H": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & F & G": [
+      "wrong_final_number"
+    ],
+    "A & F & H": [
+      "fatal_wrong_claim",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "A & G & H": [
+      "wrong_final_number"
+    ],
+    "B & C & D": [],
+    "B & C & E": [],
+    "B & C & F": [],
+    "B & C & G": [],
+    "B & C & H": [],
+    "B & D & E": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & D & F": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & D & G": [
+      "wrong_final_number"
+    ],
+    "B & D & H": [
+      "invalid_one_draw_inference",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & E & F": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & E & G": [
+      "wrong_final_number"
+    ],
+    "B & E & H": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & F & G": [
+      "wrong_final_number"
+    ],
+    "B & F & H": [
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "B & G & H": [
+      "wrong_final_number"
+    ],
+    "C & D & E": [],
+    "C & D & F": [],
+    "C & D & G": [],
+    "C & D & H": [],
+    "C & E & F": [],
+    "C & E & G": [],
+    "C & E & H": [],
+    "C & F & G": [],
+    "C & F & H": [],
+    "C & G & H": [],
+    "D & E & F": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "D & E & G": [
+      "wrong_final_number"
+    ],
+    "D & E & H": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "D & F & G": [
+      "wrong_final_number"
+    ],
+    "D & F & H": [
+      "fatal_wrong_claim",
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "D & G & H": [
+      "wrong_final_number"
+    ],
+    "E & F & G": [
+      "wrong_final_number"
+    ],
+    "E & F & H": [
+      "missing_lower_bound",
+      "not_worst_case",
+      "wrong_final_number"
+    ],
+    "E & G & H": [
+      "wrong_final_number"
+    ],
+    "F & G & H": [
+      "wrong_final_number"
+    ]
+  },
+  "cross_response_observations": "Analysis of the eight responses reveals systematic failure patterns. The most common failure is wrong_final_number (7/8 responses), with only Response C providing the correct answer of 15. Response D is particularly egregious with answer 1, while Responses A, B, F, and H cluster around 2-4 inspections, dramatically underestimating the problem complexity.\n\nThe invalid_one_draw_inference code applies to Responses A, B, D, and H, all claiming that inspecting one (or a few) sequences can definitively identify envelope types, ignoring the 7/13 composition of the mixed envelope. The fatal_wrong_claim code is present in A, D, F, and H, where responses make strong claims about logical deduction ('forced by elimination', 'follows directly') without valid mathematical basis.\n\nThe not_worst_case failure appears in A, B, D, E, F, and H - six responses treat favorable outcomes (distinct categories observed) as sufficient for worst-case guarantees, failing to account for scenarios where the mixed envelope shows 13 of the same type before revealing its mixed nature.\n\nResponse E is unique in exhibiting contradictory_final_answer, oscillating between 2, 3, 14, and 15 before arbitrarily settling on 3. Only Response C demonstrates correct reasoning: 1 initial inspection to identify the Mixed-labeled envelope's pure type, plus 14 same-type observations to distinguish it from a potential 7/13 mixed envelope."
+}
