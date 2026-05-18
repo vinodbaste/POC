@@ -16,9 +16,9 @@
         "exclude_exceptions": [
             "RewardFileEmptyError",
             "VerifierTimeoutError",
+            "VerifierOutputParseError",
             "RewardFileNotFoundError",
-            "AgentTimeoutError",
-            "VerifierOutputParseError"
+            "AgentTimeoutError"
         ],
         "wait_multiplier": 1.0,
         "min_wait_sec": 1.0,

@@ -1,0 +1,69 @@
+TEST_SH_VERSION=universal-reward-paths
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 24.2 -> 26.1.1
+[notice] To update, run: pip install --upgrade pip
+FINAL_REWARD=0.421
+=== reward files before sync/sleep ===
+/logs/reward.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/reward.txt
+0.421
+/logs/verifier/reward.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/verifier/reward.json
+{"reward": 0.421}
+/logs/verifier/score.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/verifier/score.json
+{"reward": 0.421}
+/logs/verifier/reward.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/verifier/reward.txt
+0.421
+/logs/verifier/score.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/verifier/score.txt
+0.421
+/logs/artifacts/reward.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/artifacts/reward.json
+{"reward": 0.421}
+/logs/artifacts/reward.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/artifacts/reward.txt
+0.421
+/logs/agent/reward.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/agent/reward.json
+{"reward": 0.421}
+/logs/agent/reward.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/agent/reward.txt
+0.421
+/logs/reward.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/reward.json
+{"reward": 0.421}
+Sleeping 5 seconds before Harbor reward collection...
+=== reward files after sleep ===
+/logs/reward.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/reward.txt
+0.421
+/logs/verifier/reward.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/verifier/reward.json
+{"reward": 0.421}
+/logs/verifier/score.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/verifier/score.json
+{"reward": 0.421}
+/logs/verifier/reward.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/verifier/reward.txt
+0.421
+/logs/verifier/score.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/verifier/score.txt
+0.421
+/logs/artifacts/reward.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/artifacts/reward.json
+{"reward": 0.421}
+/logs/artifacts/reward.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/artifacts/reward.txt
+0.421
+/logs/agent/reward.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/agent/reward.json
+{"reward": 0.421}
+/logs/agent/reward.txt
+-rw-r--r-- 1 root root 6 May 18 08:47 /logs/agent/reward.txt
+0.421
+/logs/reward.json
+-rw-r--r-- 1 root root 18 May 18 08:47 /logs/reward.json
+{"reward": 0.421}

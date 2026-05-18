@@ -1,0 +1,28 @@
+Score: 0.3940 (878/2228 pts)
+
+{
+  "score": 0.394,
+  "total_earned": 878,
+  "total_possible": 2228,
+  "top_level": {
+    "gold_final_answer": 4,
+    "acceptable_solution_ids": 0
+  },
+  "per_response": {
+    "A": 59,
+    "B": 64,
+    "C": 26,
+    "D": 79,
+    "E": 79,
+    "F": 64,
+    "G": 49,
+    "H": 64
+  },
+  "code_application_table_total": 300,
+  "response_count_per_code_total": 60,
+  "code_co_occurrence_total": 0,
+  "response_pair_total": 0,
+  "response_triple_total": 0,
+  "cross_response_observations": 30,
+  "justification": "Agent correctly matched gold answer '15' (4 pts) but failed on acceptable_solution_ids by including response_C when oracle listed none (0 pts). Per-response scores were moderate: while final_answer_correct booleans matched all 8 responses (40 pts total) and primary_failure_code_evidence was consistently substantive (64 pts), the agent struggled with exact failure_reasons set matching (only 48/240 pts, mostly 8-point overlap scores) and exact primary_failure_code matching (only 90/200 pts, with only D and E exact). Response C was particularly weak (26 pts) as the agent incorrectly assigned 'NONE' primary code and empty failure_reasons against oracle's 'missing_lower_bound' finding. Code_application_table scored 300/1000 (only 3/10 keys matched: contradictory_final_answer, non_terminating_or_no_final_answer, wrong_final_number). Response_count_per_code scored 60/200 (3/10 integers matched). Cross-response observations earned full 30/30 for substantive >300 char analysis. Strict structural matching on code counts and evidence completeness caused significant point loss against the rubric's high exact-match requirements."
+}

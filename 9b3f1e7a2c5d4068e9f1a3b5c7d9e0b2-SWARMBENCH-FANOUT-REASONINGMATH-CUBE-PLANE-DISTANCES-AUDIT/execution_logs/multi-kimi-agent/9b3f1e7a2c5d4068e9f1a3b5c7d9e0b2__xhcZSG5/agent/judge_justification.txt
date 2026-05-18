@@ -1,0 +1,26 @@
+Score: 0.6235 (1585/2542 weighted points)
+
+{
+  "score": 0.6235,
+  "total_earned": 1585,
+  "total_possible": 2542,
+  "top_level": {
+    "gold_final_answer": 0,
+    "gold_edge_length_squared_set": 0,
+    "acceptable_solution_ids": 2
+  },
+  "per_response": {
+    "A": 59,
+    "B": 74,
+    "C": 74,
+    "D": 96,
+    "E": 104,
+    "F": 79,
+    "G": 69,
+    "H": 79,
+    "I": 79
+  },
+  "code_application_table_total": 700,
+  "cross_response_observations": 30,
+  "justification": "Top-level fields: gold_final_answer (28) and gold_edge_length_squared_set ([4,24]) both mismatch oracle (210 and [21,54,66,69]), scoring 0/4; acceptable_solution_ids match (2/2). Per-response: Strong alignment on primary_failure_code selection (7 exact, 2 plausible alternatives) and evidence structure, but failure_reasons sets rarely exact (only D and E exact; others partial overlap at 8/30), and code_application_count mismatches (0/10 for A-D,F-I) hurt. Evidence keys mostly complete but missing 'omits_sign_pattern_casework' across A-C,F-I. Code_application_table: 7/12 keys exact (700/1200), missing entries for claims_unique_edge_length (D), assumes_zero_distance_vertex_is_axis_corner (G), etc. Response_count_per_code: 7/12 exact (140/240). Cross-response observations substantive and >300 chars (30/30)."
+}
