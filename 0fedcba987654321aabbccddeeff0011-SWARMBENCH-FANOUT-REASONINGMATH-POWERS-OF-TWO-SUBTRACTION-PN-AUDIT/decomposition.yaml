@@ -1,229 +1,166 @@
 sub_tasks:
-  - id: derive-gold-pn-string
+  - id: derive-canonical-pn-classification
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
-      Agent tool. Do NOT perform this derivation yourself. The sub-agent must
-      read /input_artifacts/problem.md itself and return a compact gold
-      packet containing the 101-character P/N classification string it
-      derives by running the dynamic-programming recurrence stated in the
-      problem (position 0 = P; position n = N iff some legal move leads
-      to a P-position). The packet must also include the move set the
-      sub-agent enumerated and a short note on the base-case convention
-      it used. Do not inspect any candidate response in this sub-task.
-    depends_on: []
-    parallel_group: fan-out
-
-  - id: calibrate-failure-code-boundaries
-    description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
-      Agent tool. Do NOT perform this calibration yourself. The sub-agent
-      must read the task instruction itself (which contains the
-      authoritative TRIGGER definitions for the thirteen failure-reason
-      codes, the Failure-code disambiguation guidance section, the
-      Primary failure code selection guidance section, the Worked
-      scoring example, and the Common audit anti-patterns section) and
-      return a concise calibration packet summarizing how to apply the
-      thirteen codes, the failure_reasons set-match rule, and the
-      primary_failure_code selection rules. The sub-agent must not
-      introduce new analytical rules beyond what instruction.md already
-      specifies; its output is a structured re-statement of the
-      instruction's authoritative trigger and selection rules for
-      downstream auditors to reference.
+      Read /input_artifacts/problem.md only. Independently compute the
+      101-character P/N classification string for pile sizes 0 through 100
+      using dp[0] = P and dp[k] = N iff some legal move m in M = {1, 2, 4, 8,
+      16, 32, 64} (with m <= k) reaches a P-position. Return the derived
+      classification string, the resulting period structure, and a concise
+      mechanics summary for the synthesizer. Do not inspect any candidate
+      response.
     depends_on: []
     parallel_group: fan-out
 
   - id: audit-response-a
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_A using the Agent tool. Do NOT classify response_A
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_A.md itself, use the
-      gold packet and calibration packet, and return one JSON
-      assessment object for response_id "A" with all required fields
-      (response_id, final_answer_correct, failure_reasons,
-      primary_failure_code, primary_failure_code_evidence,
-      failure_reason_evidence, alternative_codes_considered) following
-      the schema and minimum-length requirements in instruction.md.
-    depends_on: [derive-gold-pn-string, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A.
+      Decide whether its claimed 101-character classification matches the
+      independently computed gold string. If it is wrong, return the exact
+      applicable failure_reasons chosen from the thirteen-code vocabulary
+      defined in instruction.md:
+        wrong_move_set_including_zero, wrong_move_set_missing_one,
+        extended_move_set_with_extras, confused_pn_convention,
+        base_case_set_to_n, treats_game_as_misere,
+        computes_grundy_instead_of_pn, confuses_with_nim_xor,
+        arithmetic_recursion_error, claims_wrong_period,
+        arbitrary_pattern_heuristic, truncated_or_short_string,
+        non_terminating_or_no_final_answer.
+      Focus on Response A's overall output form: whether it commits to a
+      single full 101-character P/N classification string at all, and on the
+      stated period structure of its reasoning. Apply codes strictly per the
+      universal trigger and disambiguation rules in instruction.md. Do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-b
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_B using the Agent tool. Do NOT classify response_B
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_B.md itself, use the
-      gold packet and calibration packet, and return one JSON
-      assessment object for response_id "B" with all required fields
-      following the schema and minimum-length requirements in
-      instruction.md.
-    depends_on: [derive-gold-pn-string, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B.
+      Decide whether its claimed 101-character classification matches the
+      independently computed gold string. If it is wrong, return the exact
+      applicable failure_reasons chosen from the same thirteen-code
+      vocabulary defined in instruction.md. Focus on Response B's stated
+      move set and the length of its committed classification string. Apply
+      codes strictly per the universal trigger and disambiguation rules in
+      instruction.md. Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-c
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_C using the Agent tool. Do NOT classify response_C
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_C.md itself, use the
-      gold packet and calibration packet, and return one JSON
-      assessment object for response_id "C" with all required fields
-      following the schema and minimum-length requirements in
-      instruction.md.
-    depends_on: [derive-gold-pn-string, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C.
+      Decide whether its claimed 101-character classification matches the
+      independently computed gold string. If it is wrong, return the exact
+      applicable failure_reasons chosen from the same thirteen-code
+      vocabulary defined in instruction.md. Focus on Response C's treatment
+      of the P/N convention (whether labels are globally swapped or only the
+      base case is changed) and on the length of its committed classification
+      string. Apply codes strictly per the universal trigger and
+      disambiguation rules in instruction.md. Do not infer correctness from
+      other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-d
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_D using the Agent tool. Do NOT classify response_D
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_D.md itself, use the
-      gold packet and calibration packet, and return one JSON
-      assessment object for response_id "D" with all required fields
-      following the schema and minimum-length requirements in
-      instruction.md.
-    depends_on: [derive-gold-pn-string, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D.
+      Decide whether its claimed 101-character classification matches the
+      independently computed gold string. If it is wrong, return the exact
+      applicable failure_reasons chosen from the same thirteen-code
+      vocabulary defined in instruction.md. Focus on Response D's base-case
+      treatment at pile size 0 and on the length of its committed
+      classification string. Apply codes strictly per the universal trigger
+      and disambiguation rules in instruction.md. Do not infer correctness
+      from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-e
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_E using the Agent tool. Do NOT classify response_E
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_E.md itself, use the
-      gold packet and calibration packet, and return one JSON
-      assessment object for response_id "E" with all required fields
-      following the schema and minimum-length requirements in
-      instruction.md.
-    depends_on: [derive-gold-pn-string, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E.
+      Decide whether its claimed 101-character classification matches the
+      independently computed gold string. If it is wrong, return the exact
+      applicable failure_reasons chosen from the same thirteen-code
+      vocabulary defined in instruction.md. Focus on whether Response E
+      computes Sprague-Grundy values rather than binary P/N labels, and on
+      the length of its committed classification string. Apply codes
+      strictly per the universal trigger and disambiguation rules in
+      instruction.md. Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-f
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_F using the Agent tool. Do NOT classify response_F
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_F.md itself, use the
-      gold packet and calibration packet, and return one JSON
-      assessment object for response_id "F" with all required fields
-      following the schema and minimum-length requirements in
-      instruction.md.
-    depends_on: [derive-gold-pn-string, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F.
+      Decide whether its claimed 101-character classification matches the
+      independently computed gold string. If it is wrong, return the exact
+      applicable failure_reasons chosen from the same thirteen-code
+      vocabulary defined in instruction.md. Focus on the values Response F
+      enumerates in its move set (whether it adds non-power-of-two
+      integers), on any stated period for the P-position pattern, and on the
+      length of its committed classification string. Apply codes strictly
+      per the universal trigger and disambiguation rules in instruction.md.
+      Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-g
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_G using the Agent tool. Do NOT classify response_G
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_G.md itself, use the
-      gold packet and calibration packet, and return one JSON
-      assessment object for response_id "G" with all required fields
-      following the schema and minimum-length requirements in
-      instruction.md.
-    depends_on: [derive-gold-pn-string, calibrate-failure-code-boundaries]
-    parallel_group: audit
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G.
+      Decide whether its claimed 101-character classification matches the
+      independently computed gold string. If it is wrong, return the exact
+      applicable failure_reasons chosen from the same thirteen-code
+      vocabulary defined in instruction.md. Focus on whether Response G
+      treats the single pile as if it were multi-pile Nim and applies an XOR
+      rule, and on any stated period for the P-position pattern. Apply codes
+      strictly per the universal trigger and disambiguation rules in
+      instruction.md. Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: audit-response-h
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
-      response_H using the Agent tool. Do NOT classify response_H
-      yourself. The sub-agent must read
-      /input_artifacts/proposed_solutions/response_H.md itself, use the
-      gold packet and calibration packet, and return one JSON
-      assessment object for response_id "H" with all required fields
-      following the schema and minimum-length requirements in
-      instruction.md.
-    depends_on: [derive-gold-pn-string, calibrate-failure-code-boundaries]
-    parallel_group: audit
-
-  - id: adjudicate-primary-failure-codes
-    description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this adjudicator as a
-      sub-agent using the Agent tool after all eight response auditors
-      finish. Do NOT do this adjudication in the orchestrator. The
-      adjudicator must consume the gold packet, the calibration packet,
-      the eight mapper outputs, and the eight candidate response files.
-      Its job is narrowly to re-check the labels that dominate scoring
-      and are easy to conflate: the failure_reasons set and the
-      primary_failure_code per response. The adjudicator must apply the
-      universal trigger-pattern rules and primary-code selection rules
-      already specified in instruction.md uniformly to all eight
-      responses; it must not introduce new analytical rules beyond what
-      instruction.md already specifies. Return a structured JSON object
-      keyed by response_id, each value containing only the fields whose
-      mapper value should be CORRECTED with the corrected value and a
-      one-sentence evidence quotation from the response. The reducer
-      applies every correction mechanically without re-deriving.
-    depends_on:
-      - derive-gold-pn-string
-      - calibrate-failure-code-boundaries
-      - audit-response-a
-      - audit-response-b
-      - audit-response-c
-      - audit-response-d
-      - audit-response-e
-      - audit-response-f
-      - audit-response-g
-      - audit-response-h
-    parallel_group: adjudicate
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only Response H.
+      Decide whether Response H produces an identifiable final 101-character
+      P/N classification at all. If the response loops on a repeated phrase,
+      truncates mid-derivation, or otherwise never commits to a full
+      classification string, classify as non_terminating_or_no_final_answer;
+      this code stands alone when it fires (other codes that require a
+      committed string do not co-apply). Otherwise return the exact
+      applicable failure_reasons chosen from the same thirteen-code
+      vocabulary defined in instruction.md. Apply codes strictly per the
+      universal trigger and disambiguation rules. Do not infer correctness
+      from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
 
   - id: synthesize-final-audit
     description: >
-      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a
-      sub-agent using the Agent tool. Do NOT perform the final
-      synthesis yourself. The synthesizer consumes the gold packet, the
-      calibration packet, the eight audit objects, and the
-      adjudicator's structured correction object. It MUST NOT re-derive
-      the gold answer or re-audit individual responses. If any audit
-      object is malformed, request a replacement sub-agent for that one
-      response.
-
-      Reducer procedure (apply mechanically, in order):
-      (1) Start from the eight mapper evaluation objects.
-      (2) For each response_id, overwrite each field that appears in
-          the adjudicator's correction object with the corrected value.
-      (3) Ensure failure_reason_evidence has a key for every code in
-          the corrected failure_reasons set, each value at least 20
-          characters; request replacement evidence from the original
-          auditor sub-agent if missing.
-      (4) Recompute acceptable_solution_ids as the alphabetically-
-          sorted list of response_ids whose final_answer_correct is
-          true AND failure_reasons is the empty list.
-      (5) For each evaluation object, set per-response derived fields:
-          code_application_count = len(failure_reasons); primary_in_set_check
-          = (primary_failure_code in failure_reasons) OR (primary == "NONE"
-          and failure_reasons is []); evidence_key_completeness = number of
-          keys in failure_reason_evidence that are also in failure_reasons.
-          Verifier scores these deterministically.
-      (6) Build the top-level code_application_table with EXACTLY the
-          13 keys of the failure-code vocabulary. Codes with no matching
-          response have []. NEVER null, NEVER omit. Verifier scores
-          100 per key.
-      (7) Build the top-level response_count_per_code with EXACTLY the
-          same 13 keys; integer values = lengths of the code_application_table
-          lists. Verifier scores 20 per key.
-      (11) Compose the top-level cross_response_observations string of
-           at least 300 characters identifying shared defect patterns.
-           Scores 30 by presence + length.
-
-      The synthesizer writes exactly one JSON object to
-      /logs/agent/output.json with the top-level keys gold_final_answer,
-      acceptable_solution_ids, per_response_assessment (eight objects
-      ordered A through H, each including response_id,
-      final_answer_correct, failure_reasons, primary_failure_code,
-      primary_failure_code_evidence, failure_reason_evidence,
-      alternative_codes_considered, code_application_count,
-      primary_in_set_check, evidence_key_completeness),
-      code_application_table, response_count_per_code and cross_response_observations.
-      CRITICAL: every dict aggregation field MUST contain every required
-      key with a JSON-valid value (use [] for empty lists, 0 for empty
-      integer counts — NEVER null, NEVER omit a key). Validate that the
-      output file exists and parses as JSON before returning.
+      Read the canonical classification produced by
+      derive-canonical-pn-classification and the eight per-response audit
+      objects produced by audit-response-a through audit-response-h.
+      Compose one JSON object with top-level keys gold_final_answer,
+      acceptable_solution_ids, and per_response_assessment (eight objects
+      ordered A through H), as specified by instruction.md. Set
+      final_answer_correct on each per-response object based on whether its
+      claimed string equals the gold string character-for-character. Compute
+      acceptable_solution_ids as the alphabetically-sorted list of
+      response_ids whose final_answer_correct is true AND whose
+      failure_reasons list is empty. Do not re-derive the gold
+      classification or re-audit individual responses in this step. If any
+      audit object is malformed, request a replacement sub-agent for that
+      one response. Write the JSON to /logs/agent/output.json and validate
+      that the file exists and parses before returning.
     depends_on:
-      - derive-gold-pn-string
-      - calibrate-failure-code-boundaries
+      - derive-canonical-pn-classification
       - audit-response-a
       - audit-response-b
       - audit-response-c
@@ -232,5 +169,4 @@ sub_tasks:
       - audit-response-f
       - audit-response-g
       - audit-response-h
-      - adjudicate-primary-failure-codes
     parallel_group: synthesize
