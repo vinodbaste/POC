@@ -1,12 +1,70 @@
 {
   "correct_count": 20,
+  "correct_valid_d_set": [5, 13, 17, 29, 37],
+  "correct_valid_k_set": [7, 18, 38, 41, 43, 57, 68, 117, 157],
+  "code_application_table": {
+    "arbitrary_final_count": ["A", "C", "D", "E"],
+    "misstates_problem_setup": ["F"],
+    "no_systematic_enumeration": ["A", "C", "E"],
+    "no_visible_derivation": ["B"],
+    "non_terminating_or_no_final_integer": ["F"],
+    "wrong_fermat_constraint": ["D", "E"]
+  },
   "acceptable_solution_ids": [],
   "per_response_assessment": [
-    {"response_id":"A","final_answer_correct":false,"failure_reasons":["arbitrary_final_count","no_systematic_enumeration"]},
-    {"response_id":"B","final_answer_correct":false,"failure_reasons":["no_visible_derivation"]},
-    {"response_id":"C","final_answer_correct":false,"failure_reasons":["arbitrary_final_count","no_systematic_enumeration"]},
-    {"response_id":"D","final_answer_correct":false,"failure_reasons":["arbitrary_final_count","wrong_fermat_constraint"]},
-    {"response_id":"E","final_answer_correct":false,"failure_reasons":["arbitrary_final_count","no_systematic_enumeration","wrong_fermat_constraint"]},
-    {"response_id":"F","final_answer_correct":false,"failure_reasons":["misstates_problem_setup","non_terminating_or_no_final_integer"]}
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "Final Answer: The final answer is $\\boxed{15}$",
+        "no_systematic_enumeration": "$n=1, k= \\sqrt{3}$, not an integer. $n=2, k= \\sqrt{7}$, not an integer. $n=3, k= \\sqrt{11}$, not an integer."
+      }
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": ["no_visible_derivation"],
+      "evidence_quote_per_code": {
+        "no_visible_derivation": "$\\boxed{322}$"
+      }
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "After some searching, the answer is 313.",
+        "no_systematic_enumeration": "If $a=7$ and $b=23$, then $a+1 = 8$ and $b+1 = 24$. $\\gcd(8,24)=8>1$. $ab+a+b = 7(23)+7+23 = 161+30 = 191$, which is not a perfect square."
+      }
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "wrong_fermat_constraint"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "After detailed combinatorial counting, we find that the number of harmonic pairs is 1600.",
+        "wrong_fermat_constraint": "The only way $k^2 + 1$ can have a common divisor greater than 1 is if it is divisible by 2 or 4."
+      }
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration", "wrong_fermat_constraint"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "Through systematic counting, the total harmonic pairs in $S$ yield: 392",
+        "no_systematic_enumeration": "Loop over pairs $(a,b)$: For each $a$ from 1 to 200: For each $b$ from 1 to 200: Calculate $A = a+1$ and $B = b+1$. Check if $\\gcd(A,B) > 1$.",
+        "wrong_fermat_constraint": "Consider $d=2$, check pairs resulting in: $a+1 = 2m$, $b+1 = 2n$, Determine if $k^2 = 4mn-1$ is a perfect square."
+      }
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": ["misstates_problem_setup", "non_terminating_or_no_final_integer"],
+      "evidence_quote_per_code": {
+        "misstates_problem_setup": "1. The product $a \\cdot (a + b) + a + b$ is a perfect square, let's call this square number $k^2$.",
+        "non_terminating_or_no_final_integer": "The $\\gcd(g^2(k + d)^2 + (-2d^2,k - d)^2)$ for $k$ in this equation with a sum $b = 1$ yields $(d^2,k - 1 - d^2)$, where $a + b$ is equivalent to $(d^2 +b^2,k+d,b)$."
+      }
+    }
   ]
 }
