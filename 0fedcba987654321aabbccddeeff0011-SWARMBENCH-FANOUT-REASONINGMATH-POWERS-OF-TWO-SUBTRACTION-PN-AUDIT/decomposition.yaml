@@ -18,19 +18,12 @@ sub_tasks:
       Decide whether its claimed 101-character classification matches the
       independently computed gold string. If it is wrong, return the exact
       applicable failure_reasons chosen from the thirteen-code vocabulary
-      defined in instruction.md:
-        wrong_move_set_including_zero, wrong_move_set_missing_one,
-        extended_move_set_with_extras, confused_pn_convention,
-        base_case_set_to_n, treats_game_as_misere,
-        computes_grundy_instead_of_pn, confuses_with_nim_xor,
-        arithmetic_recursion_error, claims_wrong_period,
-        arbitrary_pattern_heuristic, truncated_or_short_string,
-        non_terminating_or_no_final_answer.
-      Focus on Response A's overall output form: whether it commits to a
-      single full 101-character P/N classification string at all, and on the
-      stated period structure of its reasoning. Apply codes strictly per the
-      universal trigger and disambiguation rules in instruction.md. Do not
-      infer correctness from other proposed responses.
+      defined in instruction.md. Focus on Response A's overall output form:
+      whether it commits to a single full 101-character P/N classification
+      string at all, and on the stated period structure of its reasoning.
+      Apply codes strictly per the universal trigger and disambiguation rules
+      in instruction.md. Do not infer correctness from other proposed
+      responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -38,13 +31,13 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and
       /input_artifacts/proposed_solutions/response_B.md. Audit only Response B.
-      Decide whether its claimed 101-character classification matches the
-      independently computed gold string. If it is wrong, return the exact
-      applicable failure_reasons chosen from the same thirteen-code
-      vocabulary defined in instruction.md. Focus on Response B's stated
-      move set and the length of its committed classification string. Apply
-      codes strictly per the universal trigger and disambiguation rules in
-      instruction.md. Do not infer correctness from other proposed responses.
+      Decide whether its claimed classification matches the independently
+      computed gold string. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same thirteen-code vocabulary defined
+      in instruction.md. Focus on Response B's stated move set and the length
+      of its committed classification string. Apply codes strictly per the
+      universal trigger and disambiguation rules in instruction.md. Do not
+      infer correctness from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -52,15 +45,15 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and
       /input_artifacts/proposed_solutions/response_C.md. Audit only Response C.
-      Decide whether its claimed 101-character classification matches the
-      independently computed gold string. If it is wrong, return the exact
-      applicable failure_reasons chosen from the same thirteen-code
-      vocabulary defined in instruction.md. Focus on Response C's treatment
-      of the P/N convention (whether labels are globally swapped or only the
-      base case is changed) and on the length of its committed classification
-      string. Apply codes strictly per the universal trigger and
-      disambiguation rules in instruction.md. Do not infer correctness from
-      other proposed responses.
+      Decide whether its claimed classification matches the independently
+      computed gold string. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same thirteen-code vocabulary defined
+      in instruction.md. Focus on Response C's treatment of the P/N
+      convention (whether labels are globally swapped or only the base case
+      is changed) and on the length of its committed classification string.
+      Apply codes strictly per the universal trigger and disambiguation rules
+      in instruction.md. Do not infer correctness from other proposed
+      responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -68,14 +61,13 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and
       /input_artifacts/proposed_solutions/response_D.md. Audit only Response D.
-      Decide whether its claimed 101-character classification matches the
-      independently computed gold string. If it is wrong, return the exact
-      applicable failure_reasons chosen from the same thirteen-code
-      vocabulary defined in instruction.md. Focus on Response D's base-case
-      treatment at pile size 0 and on the length of its committed
-      classification string. Apply codes strictly per the universal trigger
-      and disambiguation rules in instruction.md. Do not infer correctness
-      from other proposed responses.
+      Decide whether its claimed classification matches the independently
+      computed gold string. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same thirteen-code vocabulary defined
+      in instruction.md. Focus on Response D's base-case treatment at pile
+      size 0 and on the length of its committed classification string. Apply
+      codes strictly per the universal trigger and disambiguation rules in
+      instruction.md. Do not infer correctness from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -83,14 +75,14 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and
       /input_artifacts/proposed_solutions/response_E.md. Audit only Response E.
-      Decide whether its claimed 101-character classification matches the
-      independently computed gold string. If it is wrong, return the exact
-      applicable failure_reasons chosen from the same thirteen-code
-      vocabulary defined in instruction.md. Focus on whether Response E
-      computes Sprague-Grundy values rather than binary P/N labels, and on
-      the length of its committed classification string. Apply codes
-      strictly per the universal trigger and disambiguation rules in
-      instruction.md. Do not infer correctness from other proposed responses.
+      Decide whether its claimed classification matches the independently
+      computed gold string. If it is wrong, return the exact applicable
+      failure_reasons chosen from the same thirteen-code vocabulary defined
+      in instruction.md. Focus on whether Response E computes Sprague-Grundy
+      values rather than binary P/N labels, and on the length of its
+      committed classification string. Apply codes strictly per the universal
+      trigger and disambiguation rules in instruction.md. Do not infer
+      correctness from other proposed responses.
     depends_on: []
     parallel_group: fan-out
 
@@ -98,38 +90,7 @@ sub_tasks:
     description: >
       Read /input_artifacts/problem.md and
       /input_artifacts/proposed_solutions/response_F.md. Audit only Response F.
-      Decide whether its claimed 101-character classification matches the
-      independently computed gold string. If it is wrong, return the exact
-      applicable failure_reasons chosen from the same thirteen-code
-      vocabulary defined in instruction.md. Focus on the values Response F
-      enumerates in its move set (whether it adds non-power-of-two
-      integers), on any stated period for the P-position pattern, and on the
-      length of its committed classification string. Apply codes strictly
-      per the universal trigger and disambiguation rules in instruction.md.
-      Do not infer correctness from other proposed responses.
-    depends_on: []
-    parallel_group: fan-out
-
-  - id: audit-response-g
-    description: >
-      Read /input_artifacts/problem.md and
-      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G.
-      Decide whether its claimed 101-character classification matches the
-      independently computed gold string. If it is wrong, return the exact
-      applicable failure_reasons chosen from the same thirteen-code
-      vocabulary defined in instruction.md. Focus on whether Response G
-      treats the single pile as if it were multi-pile Nim and applies an XOR
-      rule, and on any stated period for the P-position pattern. Apply codes
-      strictly per the universal trigger and disambiguation rules in
-      instruction.md. Do not infer correctness from other proposed responses.
-    depends_on: []
-    parallel_group: fan-out
-
-  - id: audit-response-h
-    description: >
-      Read /input_artifacts/problem.md and
-      /input_artifacts/proposed_solutions/response_H.md. Audit only Response H.
-      Decide whether Response H produces an identifiable final 101-character
+      Decide whether Response F produces an identifiable final 101-character
       P/N classification at all. If the response loops on a repeated phrase,
       truncates mid-derivation, or otherwise never commits to a full
       classification string, classify as non_terminating_or_no_final_answer;
@@ -145,20 +106,20 @@ sub_tasks:
   - id: synthesize-final-audit
     description: >
       Read the canonical classification produced by
-      derive-canonical-pn-classification and the eight per-response audit
-      objects produced by audit-response-a through audit-response-h.
-      Compose one JSON object with top-level keys gold_final_answer,
-      acceptable_solution_ids, and per_response_assessment (eight objects
-      ordered A through H), as specified by instruction.md. Set
+      derive-canonical-pn-classification and the six per-response audit
+      objects produced by audit-response-a through audit-response-f. Compose
+      one JSON object with top-level keys gold_final_answer,
+      acceptable_solution_ids, and per_response_assessment (six objects
+      ordered A through F), as specified by instruction.md. Set
       final_answer_correct on each per-response object based on whether its
       claimed string equals the gold string character-for-character. Compute
-      acceptable_solution_ids as the alphabetically-sorted list of
-      response_ids whose final_answer_correct is true AND whose
-      failure_reasons list is empty. Do not re-derive the gold
-      classification or re-audit individual responses in this step. If any
-      audit object is malformed, request a replacement sub-agent for that
-      one response. Write the JSON to /logs/agent/output.json and validate
-      that the file exists and parses before returning.
+      acceptable_solution_ids as the set of response_ids whose
+      final_answer_correct is true AND whose failure_reasons list is empty.
+      Do not re-derive the gold classification or re-audit individual
+      responses in this step. If any audit object is malformed, request a
+      replacement sub-agent for that one response. Write the JSON to
+      /logs/agent/output.json and validate that the file exists and parses
+      before returning.
     depends_on:
       - derive-canonical-pn-classification
       - audit-response-a
@@ -167,6 +128,4 @@ sub_tasks:
       - audit-response-d
       - audit-response-e
       - audit-response-f
-      - audit-response-g
-      - audit-response-h
     parallel_group: synthesize

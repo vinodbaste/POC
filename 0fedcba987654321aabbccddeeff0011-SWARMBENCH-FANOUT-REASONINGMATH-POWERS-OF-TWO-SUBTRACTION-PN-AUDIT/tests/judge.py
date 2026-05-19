@@ -137,8 +137,9 @@ def main():
         "- acceptable_solution_ids = 2 points.\n"
         f"- Each response audit {response_id_text} is all-or-nothing = 30 points. Award the 30 points only if response_id, final_answer_correct, and exact failure_reasons set all match the oracle for that response. Otherwise award 0 for that response.\n"
         f"- Total = {total_points} points. score = passed/{total_points}.\n\n"
-        "Output EXACTLY this JSON object, with the appropriate numbers filled in, and NOTHING else (no thinking, no preamble):\n"
-        f'{{"score": <float 0.0-1.0>, "passed": <int>, "total": {total_points}, '
+        "Output EXACTLY this JSON object, with the appropriate integer values filled in, and NOTHING else (no thinking, no preamble). "
+        "Do NOT output a separate 'score' field; only 'passed' (the integer point sum) is required and the harness computes score as passed/total:\n"
+        f'{{"passed": <int from 0 to {total_points}>, "total": {total_points}, '
         '"justification": "<concise weighted field-by-field breakdown, 50-300 chars>"}'
     )
 
@@ -166,12 +167,19 @@ def main():
             f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw[:4000]}")
         return
 
-    score = max(0.0, min(1.0, float(result.get("score", 0.0))))
+    passed_raw = result.get("passed")
+    try:
+        passed = int(passed_raw)
+    except (TypeError, ValueError):
+        passed = 0
+    passed = max(0, min(total_points, passed))
+    score = passed / total_points if total_points else 0.0
+    score = max(0.0, min(1.0, score))
     json.dump({"reward": score}, open(args.reward_out, "w", encoding="utf-8"))
 
     with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
         f.write(
-            f"Score: {score} ({result.get('passed', '?')}/{result.get('total', '?')} passed)\n\n"
+            f"Score: {score:.4f} ({passed}/{total_points} passed)\n\n"
             f"{result.get('justification', '')}"
         )
 

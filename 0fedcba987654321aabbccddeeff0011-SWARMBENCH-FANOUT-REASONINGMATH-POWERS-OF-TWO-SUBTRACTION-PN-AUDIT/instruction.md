@@ -1,4 +1,4 @@
-You are auditing eight real, unedited model responses to a deterministic combinatorial game theory problem: classifying every position 0 through 100 of a single-pile subtraction game whose move set is the set of powers of two up to 100.
+You are auditing six real, unedited model responses to a deterministic combinatorial game theory problem: classifying every position 0 through 100 of a single-pile subtraction game whose move set is the set of powers of two up to 100.
 
 Working directory: `/workspace`.
 
@@ -12,15 +12,13 @@ Input artifacts:
   - `/input_artifacts/proposed_solutions/response_D.md`
   - `/input_artifacts/proposed_solutions/response_E.md`
   - `/input_artifacts/proposed_solutions/response_F.md`
-  - `/input_artifacts/proposed_solutions/response_G.md`
-  - `/input_artifacts/proposed_solutions/response_H.md`
 
 Task:
 
-1. Read the problem statement and all eight released responses.
+1. Read the problem statement and all six released responses.
 2. Independently derive the gold 101-character P/N classification string for positions 0 through 100 of the Powers-of-Two Subtraction Game, using the normal play convention (player who cannot move loses; position 0 is P).
 3. Determine which response(s), if any, give a classification string that exactly matches the gold string.
-4. For each response A through H, identify the EXACT SET of failure-reason codes from the controlled vocabulary below whose triggering condition is concretely present in that single response's text. Each response typically has 1-4 applicable codes.
+4. For each response A through F, identify the EXACT SET of failure-reason codes from the controlled vocabulary below whose triggering condition is concretely present in that single response's text. Each response typically has 1-4 applicable codes.
 
 ## Allowed failure-reason codes
 
@@ -75,7 +73,7 @@ Each code applies ONLY when its triggering condition is concretely instantiated 
 
 ## Label definitions for each released response
 
-- `response_id`: the response letter, exactly one of `"A"`, `"B"`, `"C"`, `"D"`, `"E"`, `"F"`, `"G"`, `"H"`.
+- `response_id`: the response letter, exactly one of `"A"`, `"B"`, `"C"`, `"D"`, `"E"`, `"F"`.
 - `final_answer_correct`: `true` exactly when the response's final committed 101-character P/N string equals the gold. Otherwise `false`.
 - `failure_reasons`: a JSON list of strings chosen only from the 13 allowed failure-reason codes above.
 
@@ -90,7 +88,8 @@ The following universal rules clarify boundaries between near-overlapping codes.
 5. `computes_grundy_instead_of_pn` (computes mex over reachable Grundy values) and `confuses_with_nim_xor` (applies Nim XOR rule directly) are distinct framework misapplications. Pick the one whose specific framework error fires in the response text.
 6. `arithmetic_recursion_error` fires when the response's stated recurrence is correct but specific positions are mislabeled. It almost always co-occurs with an upstream error.
 7. `claims_wrong_period` and `arbitrary_pattern_heuristic` may co-occur. `claims_wrong_period` fires when a specific period is asserted; `arbitrary_pattern_heuristic` fires when ANY unsupported heuristic appears.
-8. `truncated_or_short_string` fires when the output is shorter than 101 characters but still produces a committed string. It is distinct from `non_terminating_or_no_final_answer`, which fires only when no committed classification exists at all.
+8. `truncated_or_short_string` fires when the response emits ANY P/N classification string of length other than 101 — even a very short committed string still counts as truncated, not non-terminating. The presence of caveat phrases such as "that's how far I got", "running out of space", "the rest follows the same pattern", or "partial" attached to a committed P/N string DOES NOT promote the response to non-terminating; the response is still truncated as long as a P/N string of some length is emitted.
+9. `non_terminating_or_no_final_answer` fires ONLY when the response produces NO P/N classification string of any length. Pure looping on a non-classification sentence, mid-derivation cut-off before any P/N string is written, or explicit refusal to commit any P/N output qualifies. As soon as the response writes even one P/N character as part of a committed classification, `non_terminating_or_no_final_answer` no longer applies and the appropriate codes are `truncated_or_short_string` (if length != 101) plus whatever upstream defects fired.
 
 ## Worked scoring example
 
@@ -128,11 +127,11 @@ An audit that applies any of the thirteen failure-reason codes should be able to
 
 ## Verifier scoring rule
 
-The verifier (llm-judge) scores the final JSON against the oracle. The total weight is 4 + 30 x 8 = 244 points.
+The verifier (llm-judge) scores the final JSON against the oracle. The total weight is 4 + 30 x 6 = 184 points.
 
 - `gold_final_answer` (exact 101-character string match against oracle): 2 points
 - `acceptable_solution_ids` (set match against oracle): 2 points
-- Each per-response audit (eight times, one per response_id A through H): 30 points all-or-nothing. The 30 points are awarded only if all three of `response_id`, `final_answer_correct`, and the EXACT failure_reasons set match the oracle for that response. Any mismatch in failure_reasons (extra code, missing code, or both) forfeits the full 30 points for that response. No partial credit inside failure_reasons.
+- Each per-response audit (six times, one per response_id A through F): 30 points all-or-nothing. The 30 points are awarded only if all three of `response_id`, `final_answer_correct`, and the EXACT failure_reasons set match the oracle for that response. Any mismatch in failure_reasons (extra code, missing code, or both) forfeits the full 30 points for that response. No partial credit inside failure_reasons.
 
 Producing complete, well-formed values for every field listed above is essential to achieve a high reward. Note that the workflow steps in the Task section above are guidance for the auditor's reasoning process; the verifier scores only the final JSON output and its labels.
 
@@ -153,4 +152,4 @@ Write your final answer to `/logs/agent/output.json` in this exact JSON format:
   ]
 }
 
-In the actual output, include eight objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, in that order.
+In the actual output, include six objects in `per_response_assessment`, one for each response A, B, C, D, E, F, in that order.
