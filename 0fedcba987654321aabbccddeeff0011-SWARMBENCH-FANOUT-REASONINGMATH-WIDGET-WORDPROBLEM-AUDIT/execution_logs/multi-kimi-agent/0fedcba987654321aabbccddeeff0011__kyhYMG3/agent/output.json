@@ -1,0 +1,12 @@
+{
+  "gold_final_value": 2640,
+  "acceptable_solution_ids": ["C"],
+  "per_response_assessment": [
+    {"response_id": "A", "final_value_correct": false, "failure_reasons": ["wrong_percentage_interpretation"]},
+    {"response_id": "B", "final_value_correct": false, "failure_reasons": ["wrong_rate_or_constant"]},
+    {"response_id": "C", "final_value_correct": true, "failure_reasons": []},
+    {"response_id": "D", "final_value_correct": false, "failure_reasons": ["truncated_or_incomplete_answer"]},
+    {"response_id": "E", "final_value_correct": false, "failure_reasons": ["wrong_operation_applied"]},
+    {"response_id": "F", "final_value_correct": false, "failure_reasons": ["wrong_arithmetic_at_specific_step"]}
+  ]
+}
