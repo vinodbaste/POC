@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-GARBAGE-APPLICATION-AUDIT"
+description = "Audit six proposed solutions to a Tetris garbage-line application board-state problem and label their final-board and mechanics errors."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 9.0
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end audit workflow: 1.5h to independently apply the four garbage lines to the initial 20x10 board, shift surviving rows up by four, drop the top four rows, and produce the gold final board; 6 x 0.85h = 5.1h to audit six heterogeneous AI-generated responses, extract their final-board claims, and assign exact failure-reason sets from the five-code vocabulary; 1.5h to reconcile conflicting audits and prepare the 184-point verifier-aligned oracle; 0.9h to document response-specific rationale and run consistency checks. Total: 1.5 + 5.1 + 1.5 + 0.9 = 9.0h. Mathematical reasoning remains the primary cognitive activity: every audit depends on the exact arithmetic of row-shifting, the bitwise position of holes per garbage line, and the exact final 20x10 grid."
+estimated_sub_agents = 8
+input_token_estimate = 4200
+why_multi_agent = "The task uses a fan-out audit workflow with all-or-nothing per-response scoring: each of the six responses earns 30 of 184 total points only if (response_id, final_board_correct, EXACT failure_reasons set) all match the oracle for that response. A single extra or missing code in a response's failure_reasons set forfeits the full 30 points. The 5-code controlled vocabulary contains near-overlapping pairs whose triggers are systematically conflated by single-agent attention across multiple response audits: insertion-direction errors (wrong_garbage_insertion_direction) versus topout-handling errors (wrong_post_shift_topout_handling) often co-occur and require careful disambiguation; hole-column-alignment errors and garbage-order-or-count errors both produce wrong rows in the garbage block but trigger on different aspects of the candidate response. A single agent producing all six per-response audits in one context window systematically introduces a code-set error on at least half the responses, zeroing those response blocks. The fan-out decomposition assigns one mechanics-adjudicator that applies the four garbage lines and computes the gold final board once, six isolated response auditors that each focus on a single response's text and final board claim, and one synthesizer that mechanically composes the final JSON from the six mapper outputs."
+reference_link = "https://tetris.wiki/Garbage"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

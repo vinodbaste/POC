@@ -1,0 +1,135 @@
+sub_tasks:
+  - id: derive-canonical-final-board
+    description: >
+      Read /input_artifacts/problem.md only. Independently apply the four
+      garbage lines (with hole columns [3, 3, 5, 2], oldest-first, pushed
+      from below) to the initial 20-by-10 board state. Shift the existing
+      board content upward by 4 rows, drop any top rows that shift past
+      row 0, place the four garbage rows at the bottom (oldest at row 16,
+      newest at row 19), and run any post-application clears. Return the
+      gold 20-row board as a list of 10-character strings of digits in
+      {0, 1}, plus a concise mechanics summary for the synthesizer. Do
+      not inspect any candidate response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A.
+      Decide whether its claimed 20-by-10 final board matches the
+      independently computed gold board. If it does not match, return the
+      exact applicable failure_reasons chosen from the five-code vocabulary
+      defined in instruction.md:
+        wrong_garbage_insertion_direction, wrong_hole_column_alignment,
+        wrong_garbage_order_or_count, wrong_post_shift_topout_handling,
+        invalid_or_incomplete_final_output.
+      Focus on Response A's stated rising-garbage direction, its shift
+      amount, and the column positions of holes in its committed garbage
+      rows. Apply codes strictly per the universal trigger and
+      disambiguation rules in instruction.md. Do not infer correctness
+      from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B.
+      Decide whether its claimed 20-by-10 final board matches the
+      independently computed gold board. If it does not match, return the
+      exact applicable failure_reasons chosen from the same five-code
+      vocabulary defined in instruction.md. Focus on whether Response B
+      inserts garbage at the top or the bottom of the playfield, and on
+      the direction in which it shifts existing content. Apply codes
+      strictly per the universal trigger and disambiguation rules in
+      instruction.md. Do not infer correctness from other proposed
+      responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C.
+      Decide whether its claimed final board matches the gold board. If
+      it does not match, return the exact applicable failure_reasons
+      chosen from the same five-code vocabulary defined in instruction.md.
+      Focus on the number and order of garbage lines applied in Response
+      C's committed garbage block. Apply codes strictly per the universal
+      trigger and disambiguation rules in instruction.md. Do not infer
+      correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D.
+      Decide whether Response D produces a complete identifiable 20-by-10
+      final board. If it does not (fewer than 20 rows, more than 20 rows,
+      rows of wrong length, or characters outside {0, 1}), the
+      `invalid_or_incomplete_final_output` code applies. Otherwise return
+      the exact applicable failure_reasons chosen from the same five-code
+      vocabulary defined in instruction.md. Apply codes strictly per the
+      universal trigger and disambiguation rules. Do not infer correctness
+      from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E.
+      Decide whether its claimed 20-by-10 final board matches the
+      independently computed gold board. If it does not match, return the
+      exact applicable failure_reasons chosen from the same five-code
+      vocabulary defined in instruction.md. Focus on the shift amount
+      Response E applies to the existing board and on the column positions
+      of holes in its committed garbage rows. Apply codes strictly per the
+      universal trigger and disambiguation rules. Do not infer correctness
+      from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F.
+      Decide whether its claimed 20-by-10 final board matches the
+      independently computed gold board. If it does not match, return the
+      exact applicable failure_reasons chosen from the same five-code
+      vocabulary defined in instruction.md. Focus on whether Response F
+      shifts the existing board upward when applying garbage, or simply
+      overlays garbage at the bottom without shifting. Apply codes
+      strictly per the universal trigger and disambiguation rules. Do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Read the canonical final board produced by
+      derive-canonical-final-board and the six per-response audit objects
+      produced by audit-response-a through audit-response-f. Compose one
+      JSON object with top-level keys correct_final_board,
+      acceptable_solution_ids, and per_response_assessment (six objects
+      ordered A through F), as specified by instruction.md. Set
+      final_board_correct on each per-response object based on whether its
+      claimed board equals the gold board row by row. Compute
+      acceptable_solution_ids as the set of response_ids whose
+      final_board_correct is true AND whose failure_reasons list is empty.
+      Do not re-derive the gold board or re-audit individual responses in
+      this step. If any audit object is malformed, request a replacement
+      sub-agent for that one response. Write the JSON to
+      /logs/agent/output.json and validate that the file exists and parses
+      before returning.
+    depends_on:
+      - derive-canonical-final-board
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+    parallel_group: synthesize
