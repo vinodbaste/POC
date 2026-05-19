@@ -6,10 +6,50 @@ from openai import OpenAI
 
 
 def extract_json(text: str) -> str:
+    """Best-effort JSON extraction from a model response.
+
+    Tries in order:
+      1. A fenced ```json ...``` or ```...``` code block.
+      2. The LAST balanced {...} block whose contents parse as JSON
+         (handles "thinking then answer" outputs).
+      3. The FIRST {...} substring.
+      4. Returns the raw text (will fail json.loads in caller).
+    """
     text = text.strip()
-    match = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
-    if match:
-        return match.group(1).strip()
+
+    fenced = re.search(r"```(?:json)?\s*([\s\S]*?)```", text)
+    if fenced:
+        return fenced.group(1).strip()
+
+    candidates = list(re.finditer(r"\{[\s\S]*?\}(?=\s*(?:```|$|\Z))", text))
+    for m in reversed(candidates):
+        snippet = m.group(0)
+        try:
+            json.loads(snippet)
+            return snippet
+        except json.JSONDecodeError:
+            continue
+
+    starts = [i for i, ch in enumerate(text) if ch == "{"]
+    for s in reversed(starts):
+        depth = 0
+        for j in range(s, len(text)):
+            if text[j] == "{":
+                depth += 1
+            elif text[j] == "}":
+                depth -= 1
+                if depth == 0:
+                    snippet = text[s:j + 1]
+                    try:
+                        json.loads(snippet)
+                        return snippet
+                    except json.JSONDecodeError:
+                        break
+
+    first = re.search(r"\{[\s\S]*\}", text)
+    if first:
+        return first.group(0)
+
     return text
 
 
@@ -58,6 +98,11 @@ def main():
     prompt = (
         "You are an evaluation judge grading an agent's JSON output against a gold oracle "
         "for a Powers-of-Two Subtraction Game P/N classification audit task.\n\n"
+        "OUTPUT FORMAT REQUIREMENT (HARD): your entire response MUST be a single JSON "
+        "object and NOTHING else. No preamble, no analysis, no reasoning prose, no "
+        "markdown, no code fences. Begin your response with the character `{` and end "
+        "with the character `}`. Do not narrate your decision process. Do not output "
+        "any text outside the JSON object.\n\n"
         f"ORACLE:\n{json.dumps(oracle, indent=2)}\n\n"
         f"AGENT OUTPUT:\n{json.dumps(agent_output, indent=2)}\n\n"
         "Grade only the requested JSON fields. Do not reward prose outside the schema.\n\n"
@@ -92,16 +137,24 @@ def main():
         "- acceptable_solution_ids = 2 points.\n"
         f"- Each response audit {response_id_text} is all-or-nothing = 30 points. Award the 30 points only if response_id, final_answer_correct, and exact failure_reasons set all match the oracle for that response. Otherwise award 0 for that response.\n"
         f"- Total = {total_points} points. score = passed/{total_points}.\n\n"
-        "Respond in JSON only, no markdown:\n"
+        "Output EXACTLY this JSON object, with the appropriate numbers filled in, and NOTHING else (no thinking, no preamble):\n"
         f'{{"score": <float 0.0-1.0>, "passed": <int>, "total": {total_points}, '
-        '"justification": "<concise weighted field-by-field breakdown>"}'
+        '"justification": "<concise weighted field-by-field breakdown, 50-300 chars>"}'
     )
 
-    response = client.chat.completions.create(
-        model="accounts/fireworks/models/kimi-k2p5",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0,
-    )
+    try:
+        response = client.chat.completions.create(
+            model="accounts/fireworks/models/kimi-k2p5",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0,
+            response_format={"type": "json_object"},
+        )
+    except Exception:
+        response = client.chat.completions.create(
+            model="accounts/fireworks/models/kimi-k2p5",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0,
+        )
 
     raw = response.choices[0].message.content or ""
 
@@ -110,7 +163,7 @@ def main():
     except json.JSONDecodeError as e:
         json.dump({"reward": 0.0}, open(args.reward_out, "w", encoding="utf-8"))
         with open("/logs/agent/judge_justification.txt", "w", encoding="utf-8") as f:
-            f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw}")
+            f.write(f"Score: 0.0\n\nJudge parse error: {e}\nRaw: {raw[:4000]}")
         return
 
     score = max(0.0, min(1.0, float(result.get("score", 0.0))))

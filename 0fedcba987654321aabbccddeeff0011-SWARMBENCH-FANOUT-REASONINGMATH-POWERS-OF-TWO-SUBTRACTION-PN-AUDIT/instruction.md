@@ -71,7 +71,7 @@ Each code applies ONLY when its triggering condition is concretely instantiated 
 - Most responses have 2-4 applicable codes. One response has only 1 code (the non-terminating case).
 - Apply a code only when its triggering condition is concretely instantiated in the response's text.
 - Use an empty list `[]` for `failure_reasons` exactly when the response's final classification string equals the gold AND no failure-reason trigger fires.
-- `acceptable_solution_ids` is the uppercase, alphabetically-sorted list of `response_id`s whose `final_answer_correct` is `true` AND whose `failure_reasons` list is empty.
+- `acceptable_solution_ids` is the set of `response_id` strings (uppercase) whose `final_answer_correct` is `true` AND whose `failure_reasons` list is empty.
 
 ## Label definitions for each released response
 
@@ -153,4 +153,4 @@ Write your final answer to `/logs/agent/output.json` in this exact JSON format:
   ]
 }
 
-In the actual output, include eight objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, in that order. Do not write anything else to that file.
+In the actual output, include eight objects in `per_response_assessment`, one for each response A, B, C, D, E, F, G, H, in that order.
