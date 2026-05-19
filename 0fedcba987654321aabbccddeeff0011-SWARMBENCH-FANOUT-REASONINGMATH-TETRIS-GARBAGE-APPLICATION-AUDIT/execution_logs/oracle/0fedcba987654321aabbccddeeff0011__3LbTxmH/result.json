@@ -1,13 +1,13 @@
 {
-    "id": "3a376bce-f9ac-4ca1-bfba-709355edcf5c",
+    "id": "c748cca8-4f78-4f09-a438-7e6416fc98aa",
     "task_name": "swarmbench/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-GARBAGE-APPLICATION-AUDIT",
-    "trial_name": "0fedcba987654321aabbccddeeff0011__2q2kecc",
-    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-GARBAGE-APPLICATION-AUDIT/execution_logs/oracle/0fedcba987654321aabbccddeeff0011__2q2kecc",
+    "trial_name": "0fedcba987654321aabbccddeeff0011__3LbTxmH",
+    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-GARBAGE-APPLICATION-AUDIT/execution_logs/oracle/0fedcba987654321aabbccddeeff0011__3LbTxmH",
     "task_id": {
         "path": "/Users/vinodbaste/Turing Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-GARBAGE-APPLICATION-AUDIT"
     },
     "source": null,
-    "task_checksum": "b67f5a631d0c22f8a41b87b1a6ddc1c535b23f6343912b90803d38e5b8896b90",
+    "task_checksum": "9a1c76861b29f6b389ba2f1af2bc39060209c4c8093bdafbe27d2c4e5f19f3b8",
     "config": {
         "task": {
             "path": "/Users/vinodbaste/Turing Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-GARBAGE-APPLICATION-AUDIT",
@@ -19,7 +19,7 @@
             "download_dir": null,
             "source": null
         },
-        "trial_name": "0fedcba987654321aabbccddeeff0011__2q2kecc",
+        "trial_name": "0fedcba987654321aabbccddeeff0011__3LbTxmH",
         "trials_dir": "/Users/vinodbaste/Turing Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-GARBAGE-APPLICATION-AUDIT/execution_logs/oracle",
         "timeout_multiplier": 1.0,
         "agent_timeout_multiplier": null,
@@ -61,7 +61,7 @@
             "disable": false
         },
         "artifacts": [],
-        "job_id": "02507c3f-1c0e-4149-93f0-f5ea869b4d78"
+        "job_id": "4cfff45f-6a7c-4ae8-b175-0d18a5a8dad2"
     },
     "agent_info": {
         "name": "oracle",
@@ -82,23 +82,23 @@
         }
     },
     "exception_info": null,
-    "started_at": "2026-05-19T04:56:13.295309Z",
-    "finished_at": "2026-05-19T04:56:32.188193Z",
+    "started_at": "2026-05-19T05:24:47.527531Z",
+    "finished_at": "2026-05-19T05:25:03.643155Z",
     "environment_setup": {
-        "started_at": "2026-05-19T04:56:13.480914Z",
-        "finished_at": "2026-05-19T04:56:19.913532Z"
+        "started_at": "2026-05-19T05:24:47.684136Z",
+        "finished_at": "2026-05-19T05:24:51.750209Z"
     },
     "agent_setup": {
-        "started_at": "2026-05-19T04:56:19.913721Z",
-        "finished_at": "2026-05-19T04:56:19.913854Z"
+        "started_at": "2026-05-19T05:24:51.750335Z",
+        "finished_at": "2026-05-19T05:24:51.750441Z"
     },
     "agent_execution": {
-        "started_at": "2026-05-19T04:56:19.913996Z",
-        "finished_at": "2026-05-19T04:56:20.757068Z"
+        "started_at": "2026-05-19T05:24:51.750542Z",
+        "finished_at": "2026-05-19T05:24:52.351175Z"
     },
     "verifier": {
-        "started_at": "2026-05-19T04:56:21.066480Z",
-        "finished_at": "2026-05-19T04:56:29.175342Z"
+        "started_at": "2026-05-19T05:24:52.589145Z",
+        "finished_at": "2026-05-19T05:25:01.219831Z"
     },
     "step_results": null
 }

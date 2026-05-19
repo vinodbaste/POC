@@ -1,3 +1,0 @@
-Score: 0.6739 (124/184 passed)
-
-correct_final_board: 2/2 (exact match). acceptable_solution_ids: 2/2 (exact match). per_response_assessment: A 30/30 (exact), B 0/30 (wrong_garbage_order_or_count extra, missing wrong_post_shift_topout_handling), C 0/30 (invalid_or_incomplete_final_output extra), D 30/30 (exact), E 30/30 (order irrelevant, set exact), F 0/30 (invalid_or_incomplete_final_output extra). Total: 2+2+30+0+0+30+30+0=124.

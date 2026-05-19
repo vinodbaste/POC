@@ -1,3 +1,0 @@
-Score: 0.8370 (154/184 passed)
-
-correct_final_board: 2/2 (exact match). acceptable_solution_ids: 2/2 (exact match). per_response_assessment: A 30/30 (exact), B 0/30 (missing 'wrong_post_shift_topout_handling'), C 0/30 (extra 'wrong_post_shift_topout_handling'), D 30/30 (exact), E 30/30 (exact), F 30/30 (exact). Total: 2+2+30+0+0+30+30+30=154.

@@ -9,7 +9,7 @@
         "download_dir": null,
         "source": null
     },
-    "trial_name": "0fedcba987654321aabbccddeeff0011__pGqciqe",
+    "trial_name": "0fedcba987654321aabbccddeeff0011__NTsqPsK",
     "trials_dir": "/Users/vinodbaste/Turing Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-TETRIS-GARBAGE-APPLICATION-AUDIT/execution_logs/single-kimi-agent",
     "timeout_multiplier": 1.0,
     "agent_timeout_multiplier": null,
@@ -51,5 +51,5 @@
         "disable": false
     },
     "artifacts": [],
-    "job_id": "5236ad72-a2a5-4ba1-a25a-08c4ff708f7e"
+    "job_id": "48198e79-c9e5-4ac4-8055-799c34646982"
 }
