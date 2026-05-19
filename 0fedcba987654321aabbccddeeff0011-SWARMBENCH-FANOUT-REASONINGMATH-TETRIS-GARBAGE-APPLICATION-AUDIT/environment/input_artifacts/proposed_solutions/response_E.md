@@ -1,30 +1,11 @@
-# Solution
+To determine the board state after applying the 4 garbage lines and processing any resulting clears, we can follow these steps:
 
-Let me work through this step-by-step.
+Initial Board State:
 
-**Step 1: Identify the initial board.**
-
-The bottom six rows have stack content. The top fourteen rows are empty.
-
-**Step 2: Apply rising garbage.**
-
-Four garbage lines push up from the bottom. The existing board shifts upward. The garbage lines occupy the bottom four positions of the playfield.
-
-**Step 3: Compute the shift.**
-
-The shift amount equals the number of garbage rows minus one for the topmost (since the topmost garbage occupies the lowest existing row's position), so existing content shifts up by 3 rows.
-
-**Step 4: Place the garbage rows.**
-
-In order of arrival (oldest first, top of the garbage block to bottom):
-- hole at column 3 -> "1110111111"
-- hole at column 3 -> "1110111111"
-- hole at column 5 -> "1111011111"
-- hole at column 2 -> "1101111111"
-
-**Step 5: Assemble the final board.**
-
-```text
+dns
+0000000000
+0000000000
+0000000000
 0000000000
 0000000000
 0000000000
@@ -41,10 +22,112 @@ In order of arrival (oldest first, top of the garbage block to bottom):
 0011111000
 1011111110
 1111111110
-1110111111
-1110111111
-1111011111
-1101111111
-```
+1111111110
 
-No row of all 1s, so no clears trigger.
+Garbage Lines:
+
+Garbage line with hole at column 3: 1111110111
+Garbage line with hole at column 3: 1111110111
+Garbage line with hole at column 5: 1111101111
+Garbage line with hole at column 2: 1111111011
+Apply Garbage Lines: These lines push the existing rows upward by 4 rows.
+
+Before Garbage Application:
+
+basic
+0000000000  <- Row 0
+0000000000  <- Row 1
+0000000000  <- Row 2
+0000000000  <- Row 3
+0000000000  <- Row 4
+0000000000  <- Row 5
+0000000000  <- Row 6
+0000000000  <- Row 7
+0000000000  <- Row 8
+0000000000  <- Row 9
+0000000000  <- Row 10
+0000000000  <- Row 11
+0000000000  <- Row 12
+0000000000  <- Row 13
+0000010000  <- Row 14
+0001011000  <- Row 15
+0011111000  <- Row 16
+1011111110  <- Row 17
+1111111110  <- Row 18
+1111111110  <- Row 19
+
+After Application (rows shifted up):
+
+basic
+0000000000  <- Row 0
+0000000000  <- Row 1
+0000000000  <- Row 2
+0000000000  <- Row 3
+0000010000  <- Row 4
+0001011000  <- Row 5
+0011111000  <- Row 6
+1011111110  <- Row 7
+1111111110  <- Row 8
+1111111110  <- Row 9
+1111111011  <- Row 10 (new garbage)
+1111101111  <- Row 11 (new garbage)
+1111110111  <- Row 12 (new garbage)
+1111110111  <- Row 13 (new garbage)
+0000000000  <- Row 14
+0000000000  <- Row 15
+0000000000  <- Row 16
+0000000000  <- Row 17
+0000000000  <- Row 18
+0000000000  <- Row 19
+
+Row Clearing:
+
+We check for filled rows starting from the bottom:
+Rows 8, 9, and 10 are fully filled and will be cleared.
+Final Board State After Clearing:
+
+dns
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000010000
+0001011000
+0011111000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+
+Here’s the final board state:
+
+dns
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000010000
+0001011000
+0011111000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000

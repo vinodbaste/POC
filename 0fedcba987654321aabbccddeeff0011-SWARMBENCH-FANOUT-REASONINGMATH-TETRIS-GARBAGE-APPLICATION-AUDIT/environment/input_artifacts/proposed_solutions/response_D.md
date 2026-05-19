@@ -1,12 +1,112 @@
-After applying the four garbage lines, the bottom of the board fills with the garbage rows (holes at columns 3, 3, 5, 2 from top of the garbage block to bottom) and the existing stack shifts up by four. The top empty rows shift past the playfield, but they were already empty so nothing meaningful tops out. Here's the result for the bottom portion of the board (rows 10 through 19):
+To determine the resulting board state after applying the garbage lines and processing any row-clears, follow these steps:
 
+1. **Initial Board State:**
+   
+   ```
+   0000000000
+   0000000000
+   0000000000
+   0000000000
+   0000000000
+   0000000000
+   0000000000
+   0000000000
+   0000010000
+   0001011000
+   0011111000
+   1011111110
+   1111111110
+   1111111110
+   ```
+
+2. **Applying Each Garbage Line:**
+   
+   - **Garbage Line 1:** Hole at column 3
+     ```
+     0000000000
+     0000000000
+     0000000000
+     0000010000
+     0001011000
+     0011111000
+     1011111110
+     1111111110
+     1111111110
+     0000000000
+     ```
+
+   - **Garbage Line 2:** Hole at column 5
+     ```
+     0000000000
+     0000000000
+     0000000000
+     0000010000
+     0001011000
+     0001111100
+     0011111000
+     1011111110
+     1111111110
+     0000000000
+     ```
+
+   - **Garbage Line 3:** Hole at column 2
+     ```
+     0000000000
+     0000000000
+     0000000000
+     0000010000
+     0001011000
+     0011111000
+     1011111110
+     1111111110
+     1111111110
+     0000000000
+     ```
+
+   - **Garbage Line 4:** Hole at column 3
+     ```
+     0000000000
+     0000000000
+     0000000000
+     0000010000
+     0001011000
+     0011111000
+     1011111110
+     1111111110
+     1111111110
+     0000000000
+     ```
+
+3. **Processing Row-Clears:**
+   
+   After each garbage line is applied, the board is checked for any fully filled rows. If any row becomes entirely filled with ones, it is cleared, and the remaining rows shift downward with empty rows added at the top.
+
+4. **Final Board State After Processing:**
+   
+   ```
+   0000000000
+   0000000000
+   0000000000
+   0000010000
+   0001011000
+   0011111000
+   1011111110
+   1111111110
+   1111111110
+   0000000000
+   ```
+
+**Final Answer:**
+
+```
+0000000000
+0000000000
+0000000000
 0000010000
 0001011000
 0011111000
 1011111110
 1111111110
 1111111110
-1110111111
-1110111111
-1111101111
-1101111111
+0000000000
+```
