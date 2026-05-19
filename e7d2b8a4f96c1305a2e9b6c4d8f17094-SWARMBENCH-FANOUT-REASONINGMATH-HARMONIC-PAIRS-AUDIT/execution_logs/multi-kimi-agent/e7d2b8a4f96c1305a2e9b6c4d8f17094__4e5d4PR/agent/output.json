@@ -1,0 +1,70 @@
+{
+  "correct_count": 20,
+  "correct_valid_d_set": [5, 13, 17, 29, 37],
+  "correct_valid_k_set": [7, 18, 32, 38, 41, 43, 57, 68, 70, 82, 93, 99, 107, 117, 118, 132, 143, 157, 168, 182, 193],
+  "code_application_table": {
+    "misstates_problem_setup": ["F"],
+    "wrong_fermat_constraint": ["D", "E"],
+    "no_systematic_enumeration": ["A", "C", "D", "E"],
+    "no_visible_derivation": ["B"],
+    "arbitrary_final_count": ["A", "C", "D"],
+    "non_terminating_or_no_final_integer": ["F"]
+  },
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "Final Answer: The final answer is $\\boxed{15}$",
+        "no_systematic_enumeration": "Let's consider the case when $a=b$... Let $a=1$... $n=1, k= \\sqrt{3}$, not an integer. $n=2, k= \\sqrt{7}$, not an integer. $n=3, k= \\sqrt{11}$, not an integer."
+      }
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": ["no_visible_derivation"],
+      "evidence_quote_per_code": {
+        "no_visible_derivation": "$\\boxed{322}$"
+      }
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "After some searching, the answer is 313.",
+        "no_systematic_enumeration": "Let a+1 = 5 and b+1 = 5. Then a=4 and b=4. ab+a+b = 16+4+4 = 24, which is not a perfect square. If a=7 and b=23, then a+1 = 8 and b+1 = 24. gcd(8,24)=8>1. ab+a+b = 7(23)+7+23 = 161+30 = 191, which is not a perfect square."
+      }
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration", "wrong_fermat_constraint"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "After detailed combinatorial counting, we find that the number of harmonic pairs is 1600",
+        "no_systematic_enumeration": "Let's check the smallest values of k: - For k = 1... - For k = 2... - For k = 3... - For k = 4... - For k = 5...",
+        "wrong_fermat_constraint": "The only way k² + 1 can have a common divisor greater than 1 is if it is divisible by 2 or 4"
+      }
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": ["no_systematic_enumeration", "wrong_fermat_constraint"],
+      "evidence_quote_per_code": {
+        "no_systematic_enumeration": "Loop over pairs $(a,b)$:\n   - For each $a$ from 1 to 200:\n     - For each $b$ from 1 to 200:\n       - Calculate $A = a+1$ and $B = b+1$.\n       - Check if $\\gcd(A,B) > 1$.\n       - If true, let $d = \\gcd(A,B).\n       - Check if $(A \\cdot B) - 1$ is a perfect square.",
+        "wrong_fermat_constraint": "Consider d=2, check pairs resulting in:\n   - a+1 = 2m\n   - b+1 = 2n\n   - Determine if k² = 4mn-1 is a perfect square."
+      }
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": ["misstates_problem_setup", "non_terminating_or_no_final_integer"],
+      "evidence_quote_per_code": {
+        "misstates_problem_setup": "The product $a \\cdot (a + b) + a + b$ is a perfect square, let's call this square number $k^2$.",
+        "non_terminating_or_no_final_integer": "We'll compute $k$ as the sum of $(d, -d)$, with all $d = 0 \\mod(g)$. The $\\gcd(g^2(k + d)^2 + (-2d^2,k - d)^2)$ for $k$ in this equation with a sum $b = 1$ yields $(d^2,k - 1 - d^2)$, where $a + b$ is equivalent to $(d^2 +b^2,k+d,b)$."
+      }
+    }
+  ]
+}

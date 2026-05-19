@@ -1,0 +1,69 @@
+{
+  "correct_count": 20,
+  "correct_valid_d_set": [5, 17, 29, 37],
+  "correct_valid_k_set": [7, 18, 38, 41, 43, 57, 68, 117, 157],
+  "code_application_table": {
+    "misstates_problem_setup": ["F"],
+    "wrong_fermat_constraint": ["D"],
+    "no_systematic_enumeration": ["A", "C", "D"],
+    "no_visible_derivation": ["B"],
+    "arbitrary_final_count": ["A", "C", "D"],
+    "non_terminating_or_no_final_integer": ["E", "F"]
+  },
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "Final Answer: The final answer is $\boxed{15}$",
+        "no_systematic_enumeration": "Let's look at $a=1$. Then $b+1+b = k^2$, so $2b+1=k^2$."
+      }
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": ["no_visible_derivation"],
+      "evidence_quote_per_code": {
+        "no_visible_derivation": "$\\boxed{322}$"
+      }
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "After some searching, the answer is 313.",
+        "no_systematic_enumeration": "If $a=7$ and $b=23$, then $a+1 = 8$ and $b+1 = 24$."
+      }
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration", "wrong_fermat_constraint"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "After detailed combinatorial counting, we find that the number of harmonic pairs is 1600.",
+        "no_systematic_enumeration": "For $k = 1$, $k^2 + 1 = 2$. The factor pairs are $(1, 2)$ and $(2, 1)$",
+        "wrong_fermat_constraint": "The only way $k^2 + 1$ can have a common divisor greater than 1 is if it is divisible by 2 or 4."
+      }
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": ["non_terminating_or_no_final_integer"],
+      "evidence_quote_per_code": {
+        "non_terminating_or_no_final_integer": "This would represent the total number of harmonic pairs meeting both criteria."
+      }
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": ["misstates_problem_setup", "non_terminating_or_no_final_integer"],
+      "evidence_quote_per_code": {
+        "misstates_problem_setup": "The product $a \\cdot (a + b) + a + b$ is a perfect square",
+        "non_terminating_or_no_final_integer": "The $\\gcd(g^2(k + d)^2 + (-2d^2,k - d)^2)$ for $k$ in this equation with a sum $b = 1$ yields $(d^2,k - 1 - d^2)$"
+      }
+    }
+  ]
+}
