@@ -1,0 +1,77 @@
+{
+  "gold_final_answer": "PNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPN",
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "arbitrary_pattern_heuristic",
+        "arithmetic_recursion_error",
+        "claims_wrong_period"
+      ]
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "arithmetic_recursion_error",
+        "claims_wrong_period",
+        "truncated_or_short_string",
+        "wrong_move_set_missing_one"
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "arithmetic_recursion_error",
+        "confused_pn_convention",
+        "truncated_or_short_string"
+      ]
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "arithmetic_recursion_error",
+        "base_case_set_to_n",
+        "truncated_or_short_string"
+      ]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "computes_grundy_instead_of_pn",
+        "truncated_or_short_string"
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "arbitrary_pattern_heuristic",
+        "arithmetic_recursion_error",
+        "extended_move_set_with_extras",
+        "truncated_or_short_string"
+      ]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "arithmetic_recursion_error",
+        "claims_wrong_period",
+        "confuses_with_nim_xor"
+      ]
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "non_terminating_or_no_final_answer"
+      ]
+    }
+  ]
+}Oracle solution applied.
