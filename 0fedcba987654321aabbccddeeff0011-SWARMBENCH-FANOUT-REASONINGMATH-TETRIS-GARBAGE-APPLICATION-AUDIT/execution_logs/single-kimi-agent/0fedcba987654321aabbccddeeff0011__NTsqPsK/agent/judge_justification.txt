@@ -1,3 +1,0 @@
-Score: 0.6739 (124/184 passed)
-
-correct_final_board: 2/2 (exact match). acceptable_solution_ids: 2/2 (exact match). per_response_assessment: A 30/30 (exact match), B 0/30 (missing wrong_post_shift_topout_handling, has extra wrong_garbage_insertion_direction), C 0/30 (missing wrong_post_shift_topout_handling), D 0/30 (extra wrong_garbage_insertion_direction), E 0/30 (missing wrong_garbage_insertion_direction, has extra wrong_hole_column_alignment), F 30/30 (exact match). Total: 2+2+30+0+0+0+0+30=64? Recheck: A=30, F=30, others 0 = 60 + 2 + 2 = 64. Wait: 2+2+30+0+0+0+0+30=64. Actually per-response is 6×30=180 max. Passed: A(30)+F(30)=60, plus board(2)+solutions(2)=64.

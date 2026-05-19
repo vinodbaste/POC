@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-WIDGET-WORDPROBLEM-AUDIT"
+description = "Audit six proposed solutions to a multi-step factory word problem and label their reasoning failures from an eight-code controlled vocabulary."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 8.0
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end audit workflow: 0.8h to independently solve the word problem and confirm the gold integer; 6 x 0.9h = 5.4h to audit six heterogeneous AI-generated responses, extract their final-answer claims and intermediate-step reasoning, and assign exact failure-reason sets from the eight-code vocabulary; 1.2h to reconcile audits and prepare the 184-point verifier-aligned oracle; 0.6h to document response-specific rationale and run consistency checks. Total: 0.8 + 5.4 + 1.2 + 0.6 = 8.0h. Mathematical reasoning is the primary cognitive activity: every audit depends on independently solving the problem, comparing claimed intermediate values against the correct chain, and identifying the specific step at which each response's reasoning fails."
+estimated_sub_agents = 8
+input_token_estimate = 3500
+why_multi_agent = "The task uses a fan-out audit workflow with all-or-nothing per-response scoring: each of the six responses earns 30 of 184 total points only if (response_id, final_value_correct, EXACT failure_reasons set) all match the oracle. The eight-code controlled vocabulary contains near-overlapping pairs whose triggers single-agent attention conflates across multiple response audits: wrong_rate_or_constant versus wrong_arithmetic_at_specific_step (both produce wrong numbers but trigger on different defects), wrong_operation_applied versus wrong_percentage_interpretation, truncated_or_incomplete_answer versus non_terminating_or_no_committed_answer. A single agent juggling six responses simultaneously systematically introduces one trigger-misclassification on at least half the responses, zeroing those 30-point blocks. The fan-out decomposition assigns one solver sub-agent that computes the gold integer once, six isolated response auditors each focused on one response's text in isolation under uniform disambiguation rules, and one synthesizer that mechanically composes the final JSON."
+reference_link = "https://en.wikipedia.org/wiki/Word_problem_(mathematics_education)"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600
