@@ -9,7 +9,7 @@
         "download_dir": null,
         "source": null
     },
-    "trial_name": "0fedcba987654321aabbccddeeff0011__sJH3YqZ",
+    "trial_name": "0fedcba987654321aabbccddeeff0011__ZEakJwc",
     "trials_dir": "/Users/vinodbaste/Turing Projects/POC/0fedcba987654321aabbccddeeff0011-SWARMBENCH-FANOUT-REASONINGMATH-POWERS-OF-TWO-SUBTRACTION-PN-AUDIT/execution_logs/multi-kimi-agent",
     "timeout_multiplier": 1.0,
     "agent_timeout_multiplier": null,
@@ -51,5 +51,5 @@
         "disable": false
     },
     "artifacts": [],
-    "job_id": "09910557-4fc8-426e-a3a8-fd239964ba44"
+    "job_id": "0207188c-2f34-4f25-94f7-3470b4eda73d"
 }
