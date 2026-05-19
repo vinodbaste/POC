@@ -21,20 +21,22 @@
     "1111101111",
     "1101111111"
   ],
-  "acceptable_solution_ids": [],
+  "acceptable_solution_ids": [
+    "F"
+  ],
   "per_response_assessment": [
     {
       "response_id": "A",
       "final_board_correct": false,
       "failure_reasons": [
-        "wrong_hole_column_alignment"
+        "wrong_post_shift_topout_handling"
       ]
     },
     {
       "response_id": "B",
       "final_board_correct": false,
       "failure_reasons": [
-        "wrong_garbage_insertion_direction",
+        "wrong_hole_column_alignment",
         "wrong_post_shift_topout_handling"
       ]
     },
@@ -42,7 +44,8 @@
       "response_id": "C",
       "final_board_correct": false,
       "failure_reasons": [
-        "wrong_garbage_order_or_count"
+        "wrong_garbage_insertion_direction",
+        "wrong_post_shift_topout_handling"
       ]
     },
     {
@@ -56,16 +59,15 @@
       "response_id": "E",
       "final_board_correct": false,
       "failure_reasons": [
+        "wrong_garbage_insertion_direction",
         "wrong_hole_column_alignment",
         "wrong_post_shift_topout_handling"
       ]
     },
     {
       "response_id": "F",
-      "final_board_correct": false,
-      "failure_reasons": [
-        "wrong_garbage_insertion_direction"
-      ]
+      "final_board_correct": true,
+      "failure_reasons": []
     }
   ]
 }
