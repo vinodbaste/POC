@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/0016d9a4c8e14f7b9a2d5e3c6b8f0a1c-SWARMBENCH-MAPREDUCE-REASONINGMATH-SOLUTION-AUDIT"
+description = "Audit four candidate model analyses of a backward-induction voting game using deterministic game-theory failure-mode labels."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 10.0
+human_solving_hours_justification = "A reproducible game-theory QC audit requires about 10.0h of expert work: 1.0h to formalize the sequential voting game, seniority relation, strict-majority thresholds, elimination rule, and two-player mutual-veto exception; 1.5h to derive the backward-induction continuation values and independently verify the accepted allocation; 4 candidate responses x 1.0h = 4.0h to audit each response across final answer, seniority, backward-induction structure, stalemate handling, majority thresholds, continuation-value comparisons, budget/unit consistency, internal contradictions, and requested format; 2.0h to build a traceable adjudication record with quoted evidence for each disputed boolean label; and 1.5h for cross-checking label consistency, oracle JSON consistency, and final reviewer-ready documentation. The arithmetic is 1.0 + 1.5 + 4.0 + 2.0 + 1.5 = 10.0h."
+estimated_sub_agents = 8
+input_token_estimate = 4151
+why_multi_agent = "The multi-agent benefit is reasoning-quality isolation rather than raw context-window scale. The task requires one independent game adjudication, four response-specific audits, and two cross-cutting validators for continuation-value comparisons and internal contradictions. A single sequential pass can anchor on one interpretation and propagate that judgment across responses; the map-reduce setup separates those responsibilities and uses a reducer to reconcile independent findings into one schema-consistent adjudication record."
+reference_link = "https://www.mathsisfun.com/puzzles/5-pirates.html"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

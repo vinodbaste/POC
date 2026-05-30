@@ -1,0 +1,218 @@
+sub_tasks:
+  - id: adjudicate-harmonic-count
+    description: >
+      Read /input_artifacts/problem.md only. Independently derive three gold quantities
+      for the harmonic-pairs problem with 1 <= a, b <= 200:
+      (1) correct_count: the integer total of harmonic ordered pairs (a, b);
+      (2) correct_valid_d_set: the sorted-ascending list of prime numbers p such that p
+      divides gcd(a+1, b+1) for at least one harmonic pair;
+      (3) correct_valid_k_set: the sorted-ascending list of integers k in [2, 200] such
+      that at least one harmonic pair (a, b) satisfies a*b + a + b = k^2.
+      Use the substitution (a+1)(b+1) = k^2 + 1 and Fermat's theorem on sums of two
+      squares (a prime p divides some k^2 + 1 iff p = 2 or p == 1 mod 4; p = 2 is
+      further ruled out because 4 does not divide k^2 + 1). For each prime p == 1 mod 4
+      with p <= 201, compute the smallest positive Hensel lift s with s^2 == -1 mod p^2,
+      then enumerate modular-candidate k values in [2, 200] from the lift. IMPORTANT:
+      correct_valid_k_set is NOT the raw modular-candidate set. For each candidate k,
+      factor k^2 + 1 and keep k in correct_valid_k_set only if at least one ordered
+      factor pair (u, v) satisfies uv = k^2 + 1, u and v are both in [2, 201], and
+      gcd(u, v) > 1. A k value with zero contributing ordered pairs after this factor
+      filter must be excluded from correct_valid_k_set even if k^2 == -1 mod p^2 for
+      some valid prime p. Return the three final derived quantities, the discarded
+      modular-candidate k values with their zero-pair reason, and a concise per-prime
+      breakdown. Do not inspect or rely on any proposed response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_A.md.
+      Audit only Response A. Return four required fields:
+      response_id = "A",
+      final_answer_correct (boolean comparing the response's final integer to the
+      correct_count derived independently),
+      failure_reasons (sorted-alphabetical list from the 6-code vocabulary:
+      misstates_problem_setup, wrong_fermat_constraint, no_systematic_enumeration,
+      no_visible_derivation, arbitrary_final_count, non_terminating_or_no_final_integer),
+      and evidence_quote_per_code (an object mapping each applied code to a verbatim
+      quote of at least 20 characters drawn from response_A.md that demonstrates the
+      trigger). Pay attention to whether the response derives (a+1)(b+1) = k^2 + 1,
+      whether it enumerates valid d or valid k systematically, and whether the final
+      integer is reconstructible from the visible reasoning. A response that derives
+      the algebra correctly but devolves into ad-hoc small-case checking (substituting
+      individual (a, b) values like a=1, b=1, b=3, b=5, ...) before stating an arbitrary
+      final integer typically triggers no_systematic_enumeration AND arbitrary_final_count.
+      A response that explores d = 2, 3, or 4 and correctly rules them out via modular
+      arithmetic does NOT trigger wrong_fermat_constraint; that code requires a positive
+      assertion that some prime not congruent to 1 mod 4 is a valid common divisor. For
+      each code applied, extract a verbatim quote from the response text showing the
+      trigger (for example, the boxed final integer line for arbitrary_final_count, or
+      the ad-hoc case substitution sequence for no_systematic_enumeration). Do not infer
+      correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_B.md.
+      Audit only Response B. Return response_id = "B", final_answer_correct, failure_reasons
+      (sorted-alphabetical), and evidence_quote_per_code from the same 6-code vocabulary.
+      A response that provides only a final number (such as a single boxed integer) with
+      NO algebraic setup, NO listed pairs, NO enumeration, and NO reasoning trace triggers
+      no_visible_derivation. When no_visible_derivation fires, do NOT also apply
+      arbitrary_final_count (precedence rule: the former dominates the latter). The
+      evidence quote for no_visible_derivation may be the entire response if the response
+      is extremely short. If the response is too short to yield a 20-character quote
+      demonstrating absence of derivation, quote whatever the response contains and note
+      its brevity. Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_C.md.
+      Audit only Response C. Return response_id = "C", final_answer_correct, failure_reasons
+      (sorted-alphabetical), and evidence_quote_per_code from the same 6-code vocabulary.
+      Pay attention to whether the response substitutes specific (a, b) pairs as test
+      cases without producing a systematic enumeration, and whether the final integer
+      follows from the visible work. A response that tests pairs such as (4, 4) or (7, 23)
+      individually and rejects them without aggregating any successful cases, then asserts
+      a final count from "searching," triggers no_systematic_enumeration AND
+      arbitrary_final_count. Testing a specific pair such as gcd(8, 24) = 8 > 1 as a
+      candidate (without asserting positively that gcd = 8 is valid for harmonic pairs in
+      general) does NOT by itself trigger wrong_fermat_constraint. For each applied code,
+      extract a verbatim quote from response_C.md showing the trigger. Do not infer
+      correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_D.md.
+      Audit only Response D. Return response_id = "D", final_answer_correct, failure_reasons
+      (sorted-alphabetical), and evidence_quote_per_code from the same 6-code vocabulary.
+      Pay specific attention to whether the response asserts (positively) that gcd(a+1, b+1)
+      must be 2 or 4, OR that k^2 + 1 must be divisible by 2 or 4 for the harmonic
+      condition to be satisfied. Such an assertion is the inverse of the correct Fermat
+      constraint (the actual constraint requires the common-divisor primes to be congruent
+      to 1 mod 4; both 2 and 4 are ruled out because 4 does not divide k^2 + 1). This
+      triggers wrong_fermat_constraint. Distinguish from responses that correctly rule
+      out d = 2, 3, 4 via modular arithmetic, which do NOT trigger this code. A response
+      that examines k = 1 through k = 5 for small cases and then asserts a large final
+      count without showing the aggregation step triggers arbitrary_final_count. The
+      evidence quote for wrong_fermat_constraint should be the exact sentence asserting
+      "divisible by 2 or 4" or equivalent. Do not infer correctness from other proposed
+      responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_E.md.
+      Audit only Response E. Return response_id = "E", final_answer_correct, failure_reasons
+      (sorted-alphabetical), and evidence_quote_per_code from the same 6-code vocabulary.
+      A response that enters a d = 2 enumeration loop (for example, "Consider d = 2,
+      check pairs resulting in a+1 = 2m, b+1 = 2n, determine if k^2 = 4mn - 1 is a perfect
+      square") and proceeds to enumerate as though d = 2 were a valid harmonic case -
+      rather than ruling it out via 4 not dividing k^2 + 1 - triggers
+      wrong_fermat_constraint. A response that claims to iterate over all (a, b) pairs
+      (with explicit loop pseudocode) without producing the iteration's actual numeric
+      breakdown triggers no_systematic_enumeration. Both codes can apply jointly along
+      with arbitrary_final_count if the final integer is not derivable from visible work.
+      For each applied code, extract a verbatim quote of >= 20 chars from response_E.md.
+      Do not infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_F.md.
+      Audit only Response F. Return response_id = "F", final_answer_correct, failure_reasons
+      (sorted-alphabetical), and evidence_quote_per_code from the same 6-code vocabulary.
+      A response that misquotes the harmonic conditions in its own restatement of the
+      problem - for example, replacing a*b + a + b with a*(a+b) + a + b, or with
+      a^2 + b^2 - ab - triggers misstates_problem_setup. The misquote must occur in the
+      response's own restatement of the conditions, not in a quote of the original
+      problem statement. A response that produces only partial analysis, contradictory
+      candidate counts, or never converges to a single committed integer answer triggers
+      non_terminating_or_no_final_integer. Both codes can apply jointly. For each applied
+      code, extract a verbatim quote from response_F.md showing the trigger. Do not infer
+      correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: adjudicate-sensitive-boundaries
+    description: >
+      Reconcile the high-weight fields that are most likely to be confused by isolated
+      auditors. Read /input_artifacts/problem.md and all six proposed response files,
+      plus the outputs from adjudicate-harmonic-count and audit-response-a through
+      audit-response-f. Return a correction report with:
+      (1) final_correct_valid_k_set, after reapplying the factor-pair filter to every
+      modular-candidate k from the harmonic-count adjudicator;
+      (2) final failure_reasons recommendations for responses D and E only;
+      (3) a short explanation for any mapper label you changed.
+      Apply these boundary rules exactly:
+      - correct_valid_k_set contains only k values that actually produce at least one
+        harmonic ordered pair within 1 <= a,b <= 200. Do not include raw Hensel-lift
+        candidates that produce zero in-range factor pairs with gcd(u, v) > 1.
+      - For response D, wrong_fermat_constraint fires if the response claims k^2 + 1
+        must be divisible by 2 or 4 to have a common divisor. arbitrary_final_count
+        fires if the final count is asserted after limited visible work. Do NOT add
+        no_systematic_enumeration merely because D checks k = 1 through 5 as local
+        support for its wrong divisibility claim; that code requires ad-hoc pair
+        enumeration or a claimed full loop/enumeration without numeric breakdown.
+      - For response E, no_systematic_enumeration fires if it presents loop/pseudocode
+        over all pairs without the actual numeric breakdown. wrong_fermat_constraint
+        fires if it proceeds with d = 2 as a live contributing common divisor case
+        instead of ruling it out. arbitrary_final_count also fires when the final
+        integer is asserted from that unexecuted loop/pseudocode and cannot be
+        reconstructed from visible counted cases.
+      - Keep the precedence rules: no_visible_derivation dominates arbitrary_final_count
+        only when a response has no visible reasoning at all, and
+        non_terminating_or_no_final_integer dominates arbitrary_final_count only when
+        there is no single committed final integer.
+      This adjudicator is the authority for correct_valid_k_set and for responses D
+      and E. For responses A, B, C, and F, only flag a mapper output if it contradicts
+      the controlled vocabulary definition or lacks evidence quotes.
+    depends_on:
+      - adjudicate-harmonic-count
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+    parallel_group: adjudicate
+
+  - id: synthesize-final-audit
+    description: >
+      Combine the harmonic-count adjudication and six response audits. Resolve conflicts
+      by independently re-checking the problem statement and response text, not by
+      majority vote. Use adjudicate-sensitive-boundaries as the authority for the final
+      correct_valid_k_set and for response D/E failure_reasons. For A, B, C, and F,
+      use the per-response audits unless the sensitive-boundary adjudicator flags a
+      concrete vocabulary or evidence problem. Compute the top-level fields:
+      (a) correct_count, correct_valid_d_set (sorted ascending), and correct_valid_k_set
+      (sorted ascending) from the adjudicator;
+      (b) code_application_table by aggregating mechanically over per_response_assessment:
+      for each of the 6 failure-reason codes in the controlled vocabulary, list the
+      sorted-alphabetical response_ids whose failure_reasons contains that code (every
+      code must appear as a key with empty list if no responses use it);
+      (c) acceptable_solution_ids as the sorted-alphabetical list of response_ids whose
+      final_answer_correct is true AND failure_reasons is empty.
+      Write the result to /logs/agent/output.json. Top-level keys exactly:
+      correct_count, correct_valid_d_set, correct_valid_k_set, code_application_table,
+      acceptable_solution_ids, per_response_assessment. per_response_assessment must
+      contain exactly six objects, ordered alphabetically A through F, each with exactly
+      the keys response_id, final_answer_correct, failure_reasons, evidence_quote_per_code.
+      Validate that the file exists and parses before returning.
+    depends_on:
+      - adjudicate-harmonic-count
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - adjudicate-sensitive-boundaries
+    parallel_group: synthesize

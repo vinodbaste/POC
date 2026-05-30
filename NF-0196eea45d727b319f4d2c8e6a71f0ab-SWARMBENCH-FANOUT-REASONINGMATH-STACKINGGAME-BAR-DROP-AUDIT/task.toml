@@ -1,0 +1,30 @@
+[task]
+name = "swarmbench/0196eea45d727b319f4d2c8e6a71f0ab-SWARMBENCH-FANOUT-REASONINGMATH-STACKINGGAME-BAR-DROP-AUDIT"
+description = "Audit six AI candidate derivations of a 12x18 lattice combinatorial reasoning problem. Reproduce the gold proof: derive the row-by-row occupancy histogram, prove the resting cells of three sequentially dropped 4-cell bars under collision-aware gravity, apply row removal with downward shift, and compute the final occupied-cell count. Then judge each candidate's natural-language reasoning, including ambiguous and truncated prose, and assign failure-reason labels per response."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+
+human_solving_hours_estimate = 10.0
+
+human_solving_hours_justification = "About 4 hours of mathematical reasoning to derive the gold proof: enumerate initial occupancy across 18 rows, prove the resting cells of three sequentially dropped bars under collision-aware gravity, evaluate row-fullness across all 12 columns, and compute the final-count identity. About 4 hours of mathematical verification to audit six candidate derivations against the gold proof. About 2 hours of mathematical consolidation to reconcile per-derivation labels. Total: 10 hours."
+
+estimated_sub_agents = 9
+
+input_token_estimate = 8200
+
+why_multi_agent = "The mathematical bottleneck is sustaining proof-step precision across the gold derivation and six candidate derivations simultaneously, not context size. A single agent reasoning over all seven derivations exhibits precision drift between responses, where slips on one derivation contaminate later ones. Fan-out isolates one gold-proof derivation and six per-derivation verification sub-tasks, each a bounded slice of combinatorial reasoning that can be checked independently."
+reference_link = "https://codeforces.com/problemset/tags/games"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

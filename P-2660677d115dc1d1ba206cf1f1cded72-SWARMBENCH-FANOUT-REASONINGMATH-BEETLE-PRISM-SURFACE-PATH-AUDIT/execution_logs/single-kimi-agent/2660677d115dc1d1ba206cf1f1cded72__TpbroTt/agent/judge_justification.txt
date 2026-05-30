@@ -1,0 +1,5 @@
+Score: 0.4390 (LLM raw 0.4390, capped at 0.99)
+
+LLM-judge score: 0.4390  (180/410 pts)
+
+Gold decomp 0/100, anchors 0/30, acceptable IDs 0/10, per-response 180/270 (6/9 correct). Total 180/410.

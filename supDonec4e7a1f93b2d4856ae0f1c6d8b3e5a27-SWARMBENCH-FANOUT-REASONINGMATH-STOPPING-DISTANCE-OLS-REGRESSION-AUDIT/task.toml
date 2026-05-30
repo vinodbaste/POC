@@ -1,0 +1,14 @@
+[task]
+name = "swarmbench/c4e7a1f93b2d4856ae0f1c6d8b3e5a27-SWARMBENCH-FANOUT-REASONINGMATH-STOPPING-DISTANCE-OLS-REGRESSION-AUDIT"
+description = "Derive from first principles the ordinary-least-squares regression of car stopping distance on speed for a real 50-observation dataset (means, mean-centered sums of squares, slope, intercept, residual SE on n-2 df, slope SE, and the 95% CI using the Student-t quantile), then mathematically audit twelve AI-generated derivations, proving each one's estimator algebra correct or incorrect and assigning the exact failure-code set."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11.0
+human_solving_hours_justification = "Reviewer-grade mathematical audit: 1.5h to derive the OLS estimator from first principles (means, mean-centered sums of squares Sxx/Syy/Sxy, slope and intercept, residual variance on n-2 df, slope standard error, and the t-based 95% CI); 12 x ~0.6h to re-derive each candidate's estimator algebra and prove its slope and CI correct or incorrect, assigning the exact failure-code set (7.2h); 2.3h to reconcile co-firing errors and refutation traps and build the 364-point oracle. Total: 1.5 + 7.2 + 2.3 = 11.0h."
+estimated_sub_agents = 14
+input_token_estimate = 8000
+why_multi_agent = "A single agent must derive the OLS estimator (mean-centered sums, slope, residual variance, t-based CI) and validate twelve dense derivations, each with a distinct error: axis swap, correlation-as-slope, through-origin, wrong CI quantile, dropped points. Multiplexing the derivation with twelve audits, it drifts to popular wrong values, drops co-firing errors, and false-fires on refuted methods. Fan-out gives one derivation specialist and twelve focused auditors; the synthesizer is mechanical."
+reference_link = "https://vincentarelbundock.github.io/Rdatasets/doc/datasets/cars.html"

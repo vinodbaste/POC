@@ -1,0 +1,94 @@
+Score: 0.9591 (1970/2054 passed)
+
+top.correct_answer_latex: PASS +200
+top.acceptable_solution_ids: PASS +200
+A.response_id: PASS +1
+A.extracted_final_answer_latex: PASS +1
+A.extracted_path_count_latex: PASS +1
+A.final_answer_correct: PASS +1
+A.path_count_setup_correct: PASS +3
+A.has_p_adic_or_modular_error: PASS +40
+A.has_crt_or_final_reduction_error: PASS +420
+A.has_unsupported_computational_claim: PASS +70
+A.has_stepwise_structure: PASS +1
+A.has_proper_latex_format: PASS +1
+B.response_id: PASS +1
+B.extracted_final_answer_latex: PASS +1
+B.extracted_path_count_latex: PASS +1
+B.final_answer_correct: PASS +1
+B.path_count_setup_correct: PASS +3
+B.has_p_adic_or_modular_error: PASS +40
+B.has_crt_or_final_reduction_error: PASS +1
+B.has_unsupported_computational_claim: PASS +4
+B.has_stepwise_structure: PASS +1
+B.has_proper_latex_format: PASS +1
+C.response_id: PASS +1
+C.extracted_final_answer_latex: PASS +1
+C.extracted_path_count_latex: PASS +1
+C.final_answer_correct: PASS +1
+C.path_count_setup_correct: PASS +3
+C.has_p_adic_or_modular_error: PASS +40
+C.has_crt_or_final_reduction_error: PASS +1
+C.has_unsupported_computational_claim: PASS +4
+C.has_stepwise_structure: PASS +1
+C.has_proper_latex_format: PASS +1
+D.response_id: PASS +1
+D.extracted_final_answer_latex: PASS +1
+D.extracted_path_count_latex: PASS +1
+D.final_answer_correct: PASS +1
+D.path_count_setup_correct: PASS +3
+D.has_p_adic_or_modular_error: PASS +40
+D.has_crt_or_final_reduction_error: PASS +1
+D.has_unsupported_computational_claim: PASS +4
+D.has_stepwise_structure: PASS +1
+D.has_proper_latex_format: PASS +1
+E.response_id: PASS +1
+E.extracted_final_answer_latex: PASS +1
+E.extracted_path_count_latex: PASS +1
+E.final_answer_correct: PASS +1
+E.path_count_setup_correct: PASS +3
+E.has_p_adic_or_modular_error: PASS +40
+E.has_crt_or_final_reduction_error: FAIL +0/1 (oracle=False, agent=True)
+E.has_unsupported_computational_claim: PASS +70
+E.has_stepwise_structure: PASS +1
+E.has_proper_latex_format: PASS +1
+F.response_id: PASS +1
+F.extracted_final_answer_latex: PASS +1
+F.extracted_path_count_latex: PASS +1
+F.final_answer_correct: PASS +1
+F.path_count_setup_correct: PASS +3
+F.has_p_adic_or_modular_error: FAIL +0/40 (oracle=True, agent=False)
+F.has_crt_or_final_reduction_error: FAIL +0/1 (oracle=False, agent=True)
+F.has_unsupported_computational_claim: PASS +70
+F.has_stepwise_structure: PASS +1
+F.has_proper_latex_format: PASS +1
+G.response_id: PASS +1
+G.extracted_final_answer_latex: PASS +1
+G.extracted_path_count_latex: PASS +1
+G.final_answer_correct: PASS +1
+G.path_count_setup_correct: PASS +3
+G.has_p_adic_or_modular_error: PASS +40
+G.has_crt_or_final_reduction_error: FAIL +0/1 (oracle=False, agent=True)
+G.has_unsupported_computational_claim: PASS +70
+G.has_stepwise_structure: PASS +1
+G.has_proper_latex_format: PASS +1
+H.response_id: PASS +1
+H.extracted_final_answer_latex: PASS +1
+H.extracted_path_count_latex: PASS +1
+H.final_answer_correct: PASS +1
+H.path_count_setup_correct: PASS +3
+H.has_p_adic_or_modular_error: FAIL +0/40 (oracle=True, agent=False)
+H.has_crt_or_final_reduction_error: PASS +420
+H.has_unsupported_computational_claim: PASS +70
+H.has_stepwise_structure: PASS +1
+H.has_proper_latex_format: PASS +1
+I.response_id: PASS +1
+I.extracted_final_answer_latex: PASS +1
+I.extracted_path_count_latex: PASS +1
+I.final_answer_correct: PASS +1
+I.path_count_setup_correct: PASS +3
+I.has_p_adic_or_modular_error: PASS +40
+I.has_crt_or_final_reduction_error: FAIL +0/1 (oracle=False, agent=True)
+I.has_unsupported_computational_claim: PASS +4
+I.has_stepwise_structure: PASS +1
+I.has_proper_latex_format: PASS +1

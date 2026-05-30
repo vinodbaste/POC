@@ -1,0 +1,74 @@
+{
+  "correct_values": {
+    "m": 14,
+    "M": 35,
+    "m_plus_M": 49
+  },
+  "acceptable_solution_ids": [
+    "C"
+  ],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_minimum_formula",
+        "final_answer_error"
+      ]
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "ignored_continuity_constraint",
+        "invalid_or_incomplete_justification",
+        "final_answer_error"
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_or_incomplete_justification",
+        "final_answer_error"
+      ]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_minimum_formula",
+        "final_answer_error"
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_or_incomplete_justification",
+        "final_answer_error"
+      ]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "arithmetic_error",
+        "final_answer_error"
+      ]
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_maximum_formula",
+        "final_answer_error"
+      ]
+    }
+  ]
+}

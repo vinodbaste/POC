@@ -1,0 +1,5 @@
+Score: 0.6703 (LLM raw 0.6703, capped at 0.99)
+
+LLM-judge score: 0.6703  (244/364 pts)
+
+Gold slope & acceptable IDs correct (4 pts). 8/12 responses perfect: A,B,C,E,F,G,H,L (240 pts). D missing F4, I missing F6, J missing F4, K wrong boolean (0 pts each).

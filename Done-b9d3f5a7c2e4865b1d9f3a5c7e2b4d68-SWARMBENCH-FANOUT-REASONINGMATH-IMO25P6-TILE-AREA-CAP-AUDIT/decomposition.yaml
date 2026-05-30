@@ -1,0 +1,311 @@
+version: 1
+coordination_pattern: fan-out-synthesize
+estimated_sub_agents: 18
+
+description: >
+  Derive the minimum number of axis-aligned rectangular tiles (each area ≤ 3)
+  needed to partition a 4×4 grid, then audit sixteen proposed solutions
+  against five phrase-triggered failure codes.
+
+  ORCHESTRATOR RESTRICTIONS (binding):
+
+    FORBIDDEN — the orchestrator MUST NOT read any file under
+    /input_artifacts/, perform any arithmetic on or sanity-check any
+    sub-agent's return value, re-classify any audit verdict, re-derive
+    minimum_tiles or anchor values, or restate per-response results in
+    its final message. The orchestrator's final assistant message MUST be
+    EXACTLY one sentence: "Output written to /logs/agent/output.json."
+
+    REQUIRED — the orchestrator MUST dispatch all parallel sub-tasks in
+    one step, then dispatch the synthesizer once they return, then emit
+    the one-sentence acknowledgement. Target step count: 3-4.
+
+sub_tasks:
+  - id: derive-minimum-tiles
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md only.
+      Independently determine minimum_tiles for the 4×4 grid under the
+      modified problem (partition into axis-aligned rectangles each of
+      area at most 3). Combine an area-based lower bound with an explicit
+      witness construction. Also compute minimum_tiles for the five anchor
+      grids anchor_2x2, anchor_3x3, anchor_5x5, anchor_6x6, anchor_8x8 by
+      the same method, verifying achievability for each. Return
+      answer.minimum_tiles and anchor_results.{anchor_2x2, anchor_3x3,
+      anchor_5x5, anchor_6x6, anchor_8x8}. Do not inspect any proposed
+      response except as an after-the-fact non-voting cross-check.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only
+      Response A. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only
+      Response B. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only
+      Response C. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only
+      Response D. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only
+      Response E. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only
+      Response F. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only
+      Response G. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only
+      Response H. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-i
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_I.md. Audit only
+      Response I. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-j
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_J.md. Audit only
+      Response J. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-k
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_K.md. Audit only
+      Response K. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-l
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_L.md. Audit only
+      Response L. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-m
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_M.md. Audit only
+      Response M. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-n
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_N.md. Audit only
+      Response N. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-o
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_O.md. Audit only
+      Response O. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-p
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_P.md. Audit only
+      Response P. Extract its final stated minimum_tiles and decide
+      final_answer_correct against the modified-problem gold (which you
+      derive yourself if needed). Then determine the exact set of
+      failure_reasons whose trigger phrase is concretely present in this
+      single response, drawn ONLY from {F1, F2, F3, F4, F5} defined in
+      instruction.md. Most responses have 0, 1, or 2 failure reasons.
+      Return failure_reasons=[] when the final answer is correct AND no
+      trigger phrase fires. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Stitch upstream sub-agent reports into the final JSON. Do NOT
+      re-derive minimum_tiles and do NOT re-classify any response. Copy
+      answer.minimum_tiles and anchor_results from derive-minimum-tiles
+      verbatim. Build per_response_assessment as a list in order A..P
+      where each object's fields come verbatim from the corresponding
+      audit-response-X. Compute acceptable_solution_ids as the
+      alphabetically-sorted list of letters with
+      final_answer_correct=true AND failure_reasons=[]. Write to
+      /logs/agent/output.json. Top-level keys exactly: answer,
+      anchor_results, acceptable_solution_ids, per_response_assessment.
+      Return {"status":"written","path":"/logs/agent/output.json"} as
+      mechanical telemetry — do NOT return a free-form summary.
+    depends_on:
+      - derive-minimum-tiles
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - audit-response-j
+      - audit-response-k
+      - audit-response-l
+      - audit-response-m
+      - audit-response-n
+      - audit-response-o
+      - audit-response-p
+    parallel_group: synthesize

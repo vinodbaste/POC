@@ -1,0 +1,184 @@
+version: 1
+coordination_pattern: fan-out-synthesize
+estimated_sub_agents: 14
+
+sub_tasks:
+  - id: derive-gold-meta-analysis
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/trials.csv only. Independently compute the DerSimonian-Laird
+      random-effects pooled odds ratio and its 95% confidence interval, plus the
+      supporting fixed-effect odds ratio, Q, I^2, and tau^2. Report the gold
+      random-effects OR and CI for the synthesizer. Do not inspect any proposed response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only Response H. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-i
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_I.md. Audit only Response I. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-j
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_J.md. Audit only Response J. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-k
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_K.md. Audit only Response K. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-l
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_L.md. Audit only Response L. Decide
+      final_answer_correct by comparing its reported random-effects pooled odds ratio and
+      95% CI to the independently computed gold, and assign the exact set of failure_reasons
+      from {F1, F2, F3, F4, F5} whose triggers are directly observable. Most responses have
+      0-2 failure reasons. Return failure_reasons=[] when the final answer is correct and no
+      trigger appears. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Combine the gold derivation and the twelve response audits into the final JSON.
+      Trust each per-response audit's failure_reasons list; do not add or delete codes.
+      Set gold_random_effects_or_x100 from the gold derivation (random-effects pooled
+      odds ratio times 100, rounded to an integer). Compute acceptable_solution_ids =
+      sorted uppercase list of response_ids whose final_answer_correct is true AND
+      failure_reasons is empty. Write to /logs/agent/output.json. Top-level keys exactly:
+      gold_random_effects_or_x100, acceptable_solution_ids, per_response_assessment, with
+      the twelve per-response objects in alphabetical order.
+    depends_on:
+      - derive-gold-meta-analysis
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - audit-response-j
+      - audit-response-k
+      - audit-response-l
+    parallel_group: synthesize

@@ -1,0 +1,3 @@
+Score: 0.9487 (370/390 points)
+
+audit I: final_answer_correct=False oracle=False; failure_reasons=['F1', 'F3'] oracle=['F1']

@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/b9d3f5a7c2e4865b1d9f3a5c7e2b4d68-SWARMBENCH-FANOUT-REASONINGMATH-IMO25P6-TILE-AREA-CAP-AUDIT"
+description = "Solve a modified IMO 2025 Problem 6 combinatorial-geometry tiling task: prove the lower bound and exhibit a witness partition for the minimum number of axis-aligned rectangular tiles, each of area at most 3, that exactly partition a 4 by 4 grid; then mathematically validate sixteen proposed solutions against five orthogonal phrase-triggered failure modes including buried co-fires."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11
+human_solving_hours_justification = "Phase 1 (~1.8h): derive minimum_tiles for the 4×4 grid via an area-based lower-bound argument paired with an explicit witness partition, then re-derive the same bound for the five anchor n×n grids. Phase 2 (~7.2h): 16 × 0.45h to validate sixteen proposed proofs against five phrase-triggered failure modes including buried co-fires (F1+F4, F2+F3, F1+F2, F4+F5). Phase 3 (~2.0h): reconcile co-firing modes and finalize. Total 11.0h."
+estimated_sub_agents = 18
+input_token_estimate = 13500
+why_multi_agent = "The dominant single-agent failure on this combinatorial-geometry audit is buried-co-fire blindness: when a proposed proof first commits an obvious error (e.g. uses an area-4 tile, F1) and then commits a second subtler error several paragraphs later (e.g. silently leaves a cell uncovered, F4), a single agent multiplexing one gold derivation with sixteen audits anchors on the first error and stops scanning. Fan-out gives each proposed proof its own focused reviewer and the gold derivation its own combinatorial-geometry sub-agent."
+reference_link = "https://www.imo-official.org/problems/IMO2025SL.pdf"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 300
+
+[environment]
+cpus = 2
+memory_mb = 2048
+build_timeout_sec = 600

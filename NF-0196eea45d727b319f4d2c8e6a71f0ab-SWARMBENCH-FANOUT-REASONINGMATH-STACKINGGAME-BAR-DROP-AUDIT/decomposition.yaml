@@ -1,0 +1,288 @@
+sub_tasks:
+  - id: adjudicate-stacking-mechanics
+    description: >
+      You are the dedicated mechanics adjudicator. Read /input_artifacts/problem.md
+      and produce a JSON object with the fields below, derived strictly from the
+      problem statement. Do not inspect any proposed response. Apply the mechanics
+      exactly as written in the problem statement, with no additional rules.
+
+      Required output fields and types:
+      - initial_per_row_counts: list of 18 integers, the count of occupied cells
+        in each row, ordered from row 1 (the floor) to row 18 (the ceiling).
+      - initial_total_occupied_cells: integer equal to the sum of
+        initial_per_row_counts.
+      - bar_1_resting_cells: list of exactly four [row, column] integer pairs
+        giving the resting cells of the first bar.
+      - bar_2_resting_cells: list of exactly four [row, column] integer pairs
+        giving the resting cells of the second bar.
+      - bar_3_resting_cells: list of exactly four [row, column] integer pairs
+        giving the resting cells of the third bar.
+      - rows_cleared: sorted list of integer row indices that became completely
+        full and were removed (empty list when no row clears).
+      - final_occupied_cells: integer equal to the total number of occupied
+        cells after all three bar drops and any row clearing have resolved.
+      - mechanics_proof: a string of at least 800 characters that justifies
+        every field above by reference to the problem statement, written so a
+        downstream auditor can independently re-verify the result without
+        consulting any proposed response.
+
+      This output is the gold mechanics packet. Downstream auditors consume
+      these values verbatim and never re-derive them.
+
+    depends_on: []
+    parallel_group: adjudicate
+
+  - id: audit-response-a
+    description: >
+      You are the dedicated auditor for Response A. Read
+      /input_artifacts/proposed_solutions/response_A.md and consume the gold
+      mechanics packet from adjudicate-stacking-mechanics. The full label
+      vocabulary, trigger conditions, and decision rules are defined in
+      instruction.md; consult that file and apply those rules without
+      modification. This sub-task adds no new label rules and no new
+      constraints; it only structures the per-response label-derivation
+      record so the synthesizer can copy fields verbatim.
+
+      Required output fields and types:
+      - response_id: the literal string "A".
+      - final_answer_correct: boolean.
+      - failure_reasons: list of zero or more labels chosen from the
+        instruction.md label vocabulary; empty list iff final_answer_correct
+        is true.
+      - evidence_quotes: object with four keys — claimed_initial_count,
+        claimed_bar_resting_cells, claimed_cleared_rows, claimed_final_answer.
+        Each value is a verbatim quote from the response text or the literal
+        string "not stated" if the response does not provide that claim.
+      - per_label_decision: object with five keys, one per label defined in
+        instruction.md. Each value is an object {present: boolean, reason:
+        string at least 30 characters} grounded in evidence_quotes and the
+        gold mechanics packet.
+
+      The synthesizer copies response_id, final_answer_correct, and
+      failure_reasons verbatim from this output and discards the remaining
+      fields, which exist solely as this sub-agent's verifiable
+      label-derivation record.
+
+    depends_on:
+      - adjudicate-stacking-mechanics
+    parallel_group: audit
+
+  - id: audit-response-b
+    description: >
+      You are the dedicated auditor for Response B. Read
+      /input_artifacts/proposed_solutions/response_B.md and consume the gold
+      mechanics packet. Apply the label vocabulary, trigger conditions, and
+      decision rules defined in instruction.md without modification.
+
+      Required output fields and types:
+      - response_id: the literal string "B".
+      - final_answer_correct: boolean.
+      - failure_reasons: list of zero or more labels chosen from the
+        instruction.md label vocabulary; empty list iff final_answer_correct
+        is true.
+      - evidence_quotes: object with four keys (claimed_initial_count,
+        claimed_bar_resting_cells, claimed_cleared_rows, claimed_final_answer);
+        each value is a verbatim quote or the string "not stated".
+      - per_label_decision: object with five keys, one per label defined in
+        instruction.md, each value {present: boolean, reason: string at least
+        30 characters}.
+
+      The synthesizer copies response_id, final_answer_correct, and
+      failure_reasons verbatim and discards the remaining fields.
+
+    depends_on:
+      - adjudicate-stacking-mechanics
+    parallel_group: audit
+
+  - id: audit-response-c
+    description: >
+      You are the dedicated auditor for Response C. Read
+      /input_artifacts/proposed_solutions/response_C.md and consume the gold
+      mechanics packet. Apply the label vocabulary, trigger conditions, and
+      decision rules defined in instruction.md without modification. When the
+      response terminates mid-sentence, mid-table, or before producing a
+      single final integer, record claimed_final_answer as "not stated".
+
+      Required output fields and types:
+      - response_id: the literal string "C".
+      - final_answer_correct: boolean.
+      - failure_reasons: list of zero or more labels chosen from the
+        instruction.md label vocabulary; empty list iff final_answer_correct
+        is true.
+      - evidence_quotes: object with four keys (claimed_initial_count,
+        claimed_bar_resting_cells, claimed_cleared_rows, claimed_final_answer);
+        each value is a verbatim quote or "not stated".
+      - per_label_decision: object with five keys, one per label defined in
+        instruction.md, each value {present: boolean, reason: string at least
+        30 characters}.
+
+      The synthesizer copies response_id, final_answer_correct, and
+      failure_reasons verbatim and discards the remaining fields.
+
+    depends_on:
+      - adjudicate-stacking-mechanics
+    parallel_group: audit
+
+  - id: audit-response-d
+    description: >
+      You are the dedicated auditor for Response D. Read
+      /input_artifacts/proposed_solutions/response_D.md and consume the gold
+      mechanics packet. Apply the label vocabulary, trigger conditions, and
+      decision rules defined in instruction.md without modification.
+
+      Required output fields and types:
+      - response_id: the literal string "D".
+      - final_answer_correct: boolean.
+      - failure_reasons: list of zero or more labels chosen from the
+        instruction.md label vocabulary; empty list iff final_answer_correct
+        is true.
+      - evidence_quotes: object with four keys (claimed_initial_count,
+        claimed_bar_resting_cells, claimed_cleared_rows, claimed_final_answer);
+        each value is a verbatim quote or "not stated".
+      - per_label_decision: object with five keys, one per label defined in
+        instruction.md, each value {present: boolean, reason: string at least
+        30 characters}.
+
+      The synthesizer copies response_id, final_answer_correct, and
+      failure_reasons verbatim and discards the remaining fields.
+
+    depends_on:
+      - adjudicate-stacking-mechanics
+    parallel_group: audit
+
+  - id: audit-response-e
+    description: >
+      You are the dedicated auditor for Response E. Read
+      /input_artifacts/proposed_solutions/response_E.md and consume the gold
+      mechanics packet. Apply the label vocabulary, trigger conditions, and
+      decision rules defined in instruction.md without modification.
+
+      Required output fields and types:
+      - response_id: the literal string "E".
+      - final_answer_correct: boolean.
+      - failure_reasons: list of zero or more labels chosen from the
+        instruction.md label vocabulary; empty list iff final_answer_correct
+        is true.
+      - evidence_quotes: object with four keys (claimed_initial_count,
+        claimed_bar_resting_cells, claimed_cleared_rows, claimed_final_answer);
+        each value is a verbatim quote or "not stated".
+      - per_label_decision: object with five keys, one per label defined in
+        instruction.md, each value {present: boolean, reason: string at least
+        30 characters}.
+
+      The synthesizer copies response_id, final_answer_correct, and
+      failure_reasons verbatim and discards the remaining fields.
+
+    depends_on:
+      - adjudicate-stacking-mechanics
+    parallel_group: audit
+
+  - id: audit-response-f
+    description: >
+      You are the dedicated auditor for Response F. Read
+      /input_artifacts/proposed_solutions/response_F.md and consume the gold
+      mechanics packet. Apply the label vocabulary, trigger conditions, and
+      decision rules defined in instruction.md without modification.
+
+      Required output fields and types:
+      - response_id: the literal string "F".
+      - final_answer_correct: boolean.
+      - failure_reasons: list of zero or more labels chosen from the
+        instruction.md label vocabulary; empty list iff final_answer_correct
+        is true.
+      - evidence_quotes: object with four keys (claimed_initial_count,
+        claimed_bar_resting_cells, claimed_cleared_rows, claimed_final_answer);
+        each value is a verbatim quote or "not stated".
+      - per_label_decision: object with five keys, one per label defined in
+        instruction.md, each value {present: boolean, reason: string at least
+        30 characters}.
+
+      The synthesizer copies response_id, final_answer_correct, and
+      failure_reasons verbatim and discards the remaining fields.
+
+    depends_on:
+      - adjudicate-stacking-mechanics
+    parallel_group: audit
+
+  - id: cross-check-labels
+    description: >
+      You are the label cross-checker. Read the gold mechanics packet from
+      adjudicate-stacking-mechanics and the six per-response audit objects
+      from audit-response-a through audit-response-f. Apply the label
+      vocabulary, trigger conditions, and decision rules defined in
+      instruction.md without modification. Produce a JSON object keyed by
+      response_id A through F. The synthesizer treats this object's
+      final_failure_reasons fields as the authoritative label sets for the
+      final output.
+
+      Required output structure:
+      - top-level object with keys "A", "B", "C", "D", "E", "F".
+      - Each value is an object with three keys:
+        - verdict: one of the strings "CONFIRMED" or "CORRECTED".
+        - final_failure_reasons: list of zero or more labels chosen from the
+          instruction.md label vocabulary; the authoritative label set for
+          that response after cross-checking the auditor's set against the
+          response text and the gold mechanics packet.
+        - rationale: string of at least 50 characters explaining why
+          final_failure_reasons either matches or differs from the auditor's
+          original failure_reasons set, anchored in the instruction.md
+          trigger conditions and the response text.
+
+      Do not introduce any new labels or any new rules beyond those defined
+      in instruction.md.
+
+    depends_on:
+      - adjudicate-stacking-mechanics
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+    parallel_group: cross-check
+
+  - id: synthesize-final-audit
+    description: >
+      You are the synthesizer. The orchestrator writes your output verbatim
+      to /logs/agent/output.json. Do not re-derive the gold mechanics, do
+      not re-audit any response, and do not change any final_failure_reasons
+      set produced by cross-check-labels.
+
+      Required output is a single JSON object with these top-level fields,
+      assembled by copying values from upstream sub-agents:
+      - correct_final_answer: integer equal to the gold mechanics packet's
+        final_occupied_cells.
+      - acceptable_equivalent_answers: list of two strings,
+        ["<N>", "<N> occupied cells"], where N is correct_final_answer
+        rendered as a decimal string with no leading zeros.
+      - per_response_assessment: list of exactly six objects, in this exact
+        index order: index 0 is the Response A audit, index 1 is Response B,
+        index 2 is Response C, index 3 is Response D, index 4 is Response E,
+        index 5 is Response F. Each object MUST contain EXACTLY the three
+        keys "response_id", "final_answer_correct", "failure_reasons" and
+        NO other keys. The verifier defined in instruction.md counts keys
+        and rejects objects with any extra field; an out-of-order entry
+        forfeits the entire per-response credit.
+
+      Validation requirements before writing the output file (these are
+      structural; the underlying label vocabulary is defined in
+      instruction.md):
+      - the array has exactly six entries in A-F order;
+      - each entry contains exactly the three required keys;
+      - every label in any failure_reasons list is one of the labels
+        defined in instruction.md.
+
+      Write the validated single JSON object to /logs/agent/output.json. Do
+      not include markdown fences. Do not include any prose outside the
+      JSON object.
+
+    depends_on:
+      - adjudicate-stacking-mechanics
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - cross-check-labels
+    parallel_group: synthesize

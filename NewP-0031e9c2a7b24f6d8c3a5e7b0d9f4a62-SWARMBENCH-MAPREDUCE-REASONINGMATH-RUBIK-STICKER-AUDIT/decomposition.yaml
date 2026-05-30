@@ -1,0 +1,107 @@
+# The orchestrator must use the map-reduce plan below.
+# The orchestrator MUST spawn the seven audit sub-agents and the reducer sub-agent.
+# The orchestrator MUST NOT audit all responses by itself before delegation.
+sub_tasks:
+  - id: audit-response-a
+    description: >
+      MUST be delegated to a separate sub-agent. Read /input_artifacts/problem.tex and
+      /input_artifacts/proposed_solutions/response_A.tex. Independently solve the Rubik's-cube
+      sticker-tracking problem using standard notation, then audit only Response A against the
+      labels requested in the main task: extracted final sum, final-sum correctness, acceptability,
+      standard-notation tracking error, arithmetic error, unsupported front-face tracking,
+      numbered-step structure, and readable math format. Return a concise JSON-like assessment
+      for Response A only, with no assumptions based on any other response.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-b
+    description: >
+      MUST be delegated to a separate sub-agent. Read /input_artifacts/problem.tex and
+      /input_artifacts/proposed_solutions/response_B.tex. Independently solve the Rubik's-cube
+      sticker-tracking problem using standard notation, then audit only Response B against the
+      labels requested in the main task: extracted final sum, final-sum correctness, acceptability,
+      standard-notation tracking error, arithmetic error, unsupported front-face tracking,
+      numbered-step structure, and readable math format. Return a concise JSON-like assessment
+      for Response B only, with no assumptions based on any other response.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-c
+    description: >
+      MUST be delegated to a separate sub-agent. Read /input_artifacts/problem.tex and
+      /input_artifacts/proposed_solutions/response_C.tex. Independently solve the Rubik's-cube
+      sticker-tracking problem using standard notation, then audit only Response C against the
+      labels requested in the main task: extracted final sum, final-sum correctness, acceptability,
+      standard-notation tracking error, arithmetic error, unsupported front-face tracking,
+      numbered-step structure, and readable math format. Return a concise JSON-like assessment
+      for Response C only, with no assumptions based on any other response.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-d
+    description: >
+      MUST be delegated to a separate sub-agent. Read /input_artifacts/problem.tex and
+      /input_artifacts/proposed_solutions/response_D.tex. Independently solve the Rubik's-cube
+      sticker-tracking problem using standard notation, then audit only Response D against the
+      labels requested in the main task: extracted final sum, final-sum correctness, acceptability,
+      standard-notation tracking error, arithmetic error, unsupported front-face tracking,
+      numbered-step structure, and readable math format. Return a concise JSON-like assessment
+      for Response D only, with no assumptions based on any other response.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-e
+    description: >
+      MUST be delegated to a separate sub-agent. Read /input_artifacts/problem.tex and
+      /input_artifacts/proposed_solutions/response_E.tex. Independently solve the Rubik's-cube
+      sticker-tracking problem using standard notation, then audit only Response E against the
+      labels requested in the main task: extracted final sum, final-sum correctness, acceptability,
+      standard-notation tracking error, arithmetic error, unsupported front-face tracking,
+      numbered-step structure, and readable math format. Return a concise JSON-like assessment
+      for Response E only, with no assumptions based on any other response.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-f
+    description: >
+      MUST be delegated to a separate sub-agent. Read /input_artifacts/problem.tex and
+      /input_artifacts/proposed_solutions/response_F.tex. Independently solve the Rubik's-cube
+      sticker-tracking problem using standard notation, then audit only Response F against the
+      labels requested in the main task: extracted final sum, final-sum correctness, acceptability,
+      standard-notation tracking error, arithmetic error, unsupported front-face tracking,
+      numbered-step structure, and readable math format. Return a concise JSON-like assessment
+      for Response F only, with no assumptions based on any other response.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-g
+    description: >
+      MUST be delegated to a separate sub-agent. Read /input_artifacts/problem.tex and
+      /input_artifacts/proposed_solutions/response_G.tex. Independently solve the Rubik's-cube
+      sticker-tracking problem using standard notation, then audit only Response G against the
+      labels requested in the main task: extracted final sum, final-sum correctness, acceptability,
+      standard-notation tracking error, arithmetic error, unsupported front-face tracking,
+      numbered-step structure, and readable math format. Return a concise JSON-like assessment
+      for Response G only, with no assumptions based on any other response.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final-json
+    description: >
+      MUST be delegated to a reducer sub-agent after all seven audit sub-agents complete.
+      Reconcile the seven response-level audit assessments and produce the final JSON output.
+      Before writing the final answer, re-read /input_artifacts/problem.tex and copy the exact
+      move sequence from that file. Treat mapper outputs as tentative evidence because mappers
+      may disagree about cube tracking. Resolve conflicts by checking the exact sequence under
+      standard Rubik notation and by enforcing consistency among correct_sum,
+      acceptable_solution_ids, and every per-response field. Write the final JSON to
+      /logs/agent/output.json using exactly the schema required by instruction.md.
+    depends_on:
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+    parallel_group: reduce

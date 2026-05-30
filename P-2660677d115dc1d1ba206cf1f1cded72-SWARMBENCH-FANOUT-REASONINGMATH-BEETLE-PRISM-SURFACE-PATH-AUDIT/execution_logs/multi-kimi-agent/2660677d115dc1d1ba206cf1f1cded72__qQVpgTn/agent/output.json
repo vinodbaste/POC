@@ -1,0 +1,76 @@
+{
+  "gold_distance_squared_decomposition": {
+    "rational_part": 20503125,
+    "radical_coefficient_sqrt3": 8201250
+  },
+  "small_case_anchor_results": {
+    "anchor_a1_h1": {
+      "rational_part": 5,
+      "radical_coefficient_sqrt3": 2
+    },
+    "anchor_a1_h2": {
+      "rational_part": 13,
+      "radical_coefficient_sqrt3": 0
+    },
+    "anchor_a2_h1": {
+      "rational_part": 17,
+      "radical_coefficient_sqrt3": 4
+    },
+    "anchor_a2_h3": {
+      "rational_part": 45,
+      "radical_coefficient_sqrt3": 0
+    },
+    "anchor_a3_h2": {
+      "rational_part": 40,
+      "radical_coefficient_sqrt3": 12
+    }
+  },
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": ["F1", "F5"]
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": ["F3"]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": ["F1"]
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": ["F1"]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": ["F2"]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": ["F2", "F4"]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": true,
+      "failure_reasons": ["F1", "F4"]
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": ["F3", "F5"]
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "failure_reasons": ["F2", "F5"]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+Score: 0.5641 (220/390 points)
+
+acceptable_solution_ids: ['B', 'E', 'F'] != ['B', 'F', 'K']
+audit C: final_answer_correct=False oracle=False; failure_reasons=['F2'] oracle=['F2', 'F3']
+audit E: final_answer_correct=True oracle=True; failure_reasons=[] oracle=['F4']
+audit G: final_answer_correct=False oracle=False; failure_reasons=[] oracle=['F3']
+audit H: final_answer_correct=False oracle=False; failure_reasons=['F4'] oracle=['F3', 'F4']
+audit J: final_answer_correct=False oracle=True; failure_reasons=[] oracle=['F2']
+audit K: final_answer_correct=False oracle=True; failure_reasons=[] oracle=[]
+audit L: final_answer_correct=False oracle=False; failure_reasons=['F3'] oracle=['F1', 'F3']
+audit M: final_answer_correct=False oracle=False; failure_reasons=['F3', 'F4'] oracle=['F2', 'F3', 'F4']

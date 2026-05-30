@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT"
+description = "Solve an olympiad-level 3D geometry problem and audit nine real, unedited model responses from the public RUC-AIBOX/OlymMATH-eval benchmark. A shared gold-derivation agent establishes the full cube edge-length squared set, a rubric calibrator separates near-overlapping failure codes, and each response auditor identifies the exact set of failure-reason codes concretely instantiated in one response's mathematical reasoning chain."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 32
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end mathematical workflow on ~110K tokens of input. (a) Gold cube-plane derivation, including the all-same-sign case and the one-axis-flipped sign-pattern family that yields s^2 values 21, 54, 66, and 69, with full proof: 3.5h. (b) Rubric calibration for the 12 near-overlapping failure codes, set-match scoring, primary-code selection rules, and the deterministic per-key code_application_table: 2.5h. (c) Per-response mathematical analysis of each released response's reasoning chain, claimed answer, geometric setup, and load-bearing trigger phrases (responses average 12K tokens each, requiring careful close reading): 9 x 2.0h = 18.0h. (d) Mapping each response to exact failure-code sets, choosing the primary_failure_code, drafting per-code evidence quotations and alternative-codes-considered entries: 9 x 0.6h = 5.4h. (e) Building the cross-response code_application_table and the cross_response_observations synthesis, plus scoring-schema consistency checks: 2.6h. Total: 3.5 + 2.5 + 18.0 + 5.4 + 2.6 = 32.0h. Mathematical reasoning remains the dominant activity because every audit depends on the full sign-pattern geometry and exact interpretation of the candidate derivations; close reading of long reasoning traces dominates time-on-task."
+estimated_sub_agents = 15
+input_token_estimate = 110000
+why_multi_agent = "The task decomposes into a fan-out audit workflow with an LLM-judge verifier whose weight concentrates on set-match per-response failure_reasons (270 points across 9 responses), per-response primary_failure_code (225 points), per-response evidence and alternatives (≈324 points), and a top-level code_application_table whose 12 keys are scored 100 points each (1200 points). The gold derivation requires enumerating both the all-same-sign and one-axis-flipped sign-pattern families to obtain all four s² values [21,54,66,69]; a single agent often solves only the all-positive family or drifts to a wrong candidate set. The per-response set match (30 points, all-or-nothing) over a 12-code controlled vocabulary with near-overlapping triggers zeros entire response blocks on a single missing or extra code, and any per-response failure_reasons error cascades into the code_application_table at 100 points per affected key. With ~110K tokens of input across nine long reasoning traces, a single agent's attention degrades across responses while a fan-out decomposition keeps each mapper's context bounded to one response. The decomposition assigns one gold-derivation agent, one rubric-calibration agent, nine isolated response auditors, a primary-code adjudicator that re-checks the failure_reasons set and primary_failure_code per response against universal phrase-pattern rules, and a synthesizer that builds the deterministic code_application_table mechanically from corrected per-response failure_reasons."
+reference_link = "https://huggingface.co/datasets/RUC-AIBOX/OlymMATH-eval"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

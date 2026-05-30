@@ -1,0 +1,104 @@
+{
+    "id": "348635c2-9d26-4484-bbe0-6a160e5aeb86",
+    "task_name": "swarmbench/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT",
+    "trial_name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__uXMBvvh",
+    "trial_uri": "file:///Users/vinodbaste/Turing%20Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT/execution_logs/oracle/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__uXMBvvh",
+    "task_id": {
+        "path": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT"
+    },
+    "source": null,
+    "task_checksum": "931b13c470a0a2315a72b11a46c07fde6a0b0d7f39dcf09446667b76358979f3",
+    "config": {
+        "task": {
+            "path": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2__uXMBvvh",
+        "trials_dir": "/Users/vinodbaste/Turing Projects/POC/9b3f1e7a2c5d4068e9f1a3b5c7d9e0b2-SWARMBENCH-FANOUT-REASONINGMATH-CUBE-PLANE-DISTANCES-AUDIT/execution_logs/oracle",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            }
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            },
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "11b3297e-bf6c-4f2e-a771-54609df8c686"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-05-18T13:05:40.708064Z",
+    "finished_at": "2026-05-18T13:05:57.720726Z",
+    "environment_setup": {
+        "started_at": "2026-05-18T13:05:40.870179Z",
+        "finished_at": "2026-05-18T13:05:45.226564Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-18T13:05:45.226668Z",
+        "finished_at": "2026-05-18T13:05:45.226750Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-18T13:05:45.226845Z",
+        "finished_at": "2026-05-18T13:05:45.774098Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-18T13:05:45.982474Z",
+        "finished_at": "2026-05-18T13:05:55.168620Z"
+    },
+    "step_results": null
+}

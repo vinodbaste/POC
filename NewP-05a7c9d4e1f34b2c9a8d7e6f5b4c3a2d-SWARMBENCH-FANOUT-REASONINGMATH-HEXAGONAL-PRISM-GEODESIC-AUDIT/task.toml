@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/05a7c9d4e1f34b2c9a8d7e6f5b4c3a2d-SWARMBENCH-FANOUT-REASONINGMATH-HEXAGONAL-PRISM-GEODESIC-AUDIT"
+description = "Independently derive the shortest surface distance on a right regular hexagonal prism between opposite top-and-bottom vertices, validate against five small-case anchors, and audit seven AI-generated proposed solutions using a phrase-triggered five-code failure vocabulary."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 9.0
+human_solving_hours_justification = "Mathematical derivation: 2.0h to derive squared shortest surface distance for the full prism by enumerating every relevant unfolding family (lateral strip, broken base+edge, hex+lateral). Anchor verification: 5 anchors x 0.3h = 1.5h. Per-response audits: 7 responses x 0.5h = 3.5h to extract each response's final stated value and identify the failure-code subset. Cross-checking, oracle authoring, and JSON consistency QA: 2.0h. Total: 2.0 + 1.5 + 3.5 + 2.0 = 9.0h."
+estimated_sub_agents = 9
+input_token_estimate = 8000
+why_multi_agent = "Audit requires one olympiad geometry derivation across multiple unfolding families plus seven per-response phrase-trigger classifications across five overlapping failure codes. A single agent multiplexing derivation and seven audits drops failure-code co-fires through focus dilution and is prone to vote-following on the popular-but-nonminimal lateral-strip answer. Fan-out gives each sub-agent one narrow task and a mechanical synthesizer copies upstream verdicts verbatim. The advantage is cognitive specialization, not context-window overflow."
+reference_link = "https://example.invalid/internal-origin/hexagonal-prism-geodesic"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

@@ -1,0 +1,5 @@
+A regular triangular pegboard $\mathcal{B}$ is laid out on the standard Cartesian integer lattice in such a way that every interior lattice point of the relevant region carries exactly one peg. A small bead is released from the lattice point $(1234, 2026)$ at the top of the apparatus.
+
+At each peg encounter the bead descends exactly one row and shifts exactly one column, with the column shift being either to the left or to the right. Equivalently, from any current lattice position $(m, n)$ on the board the bead's next position is either $(m-1, n-1)$ or $(m+1, n-1)$, with the choice between the two outcomes determined by the local peg geometry. The bead is captured the first time it lands at the lattice origin $(0, 0)$, which is the only catch-slot at the bottom of the board.
+
+Let $N$ denote the total number of distinct descending lattice paths the bead can take from its release point at $(1234, 2026)$ to the catch-slot at $(0, 0)$, where two paths are considered distinct whenever they differ at any single step. Determine the value of $N \bmod 1000$.

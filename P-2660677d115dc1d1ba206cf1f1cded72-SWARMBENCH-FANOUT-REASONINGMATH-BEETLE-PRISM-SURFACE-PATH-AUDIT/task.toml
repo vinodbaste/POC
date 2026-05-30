@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/2660677d115dc1d1ba206cf1f1cded72-SWARMBENCH-FANOUT-REASONINGMATH-BEETLE-PRISM-SURFACE-PATH-AUDIT"
+description = "Solve an olympiad-level 3D geometry problem: derive the squared shortest surface distance d^2 = R + C*sqrt(3) on a regular hexagonal prism with side a = height h = 2025 by comparing every relevant flat-net unfolding family and proving minimality, independently re-derive the same closed-form decomposition for five small-case (a, h) parameter pairs, and mathematically validate nine proposed derivations against five orthogonal proof-error modes."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11.0
+human_solving_hours_justification = "1.5h to derive the gold answer d^2 = 20503125 + 8201250*sqrt(3) by enumerating the lateral-strip, base-edge, and base-plus-lateral unfolding families and proving minimality; 9 x 0.8h = 7.2h to mathematically validate nine proposed proofs against the five proof-error modes; 2.3h to reconcile co-occurring error modes and finalize the audit. Total: 1.5 + 7.2 + 2.3 = 11h."
+estimated_sub_agents = 11
+input_token_estimate = 8000
+why_multi_agent = "Dominant single-agent failure is majority-vote bias: 4 of 9 proposed derivations give 2025*sqrt(10), 3 give 2025*sqrt(5), 2 give 6075. A single agent reading all nine proofs in one context picks the lateral-strip majority as gold, losing the 100-pt gold derivation and the 30-pt audit on every wrong-direction proof. Fan-out gives the gold derivation its own isolated solver and each proof its own focused validator for per-proof error-mode classification."
+reference_link = "https://datagenetics.com/blog/april22021/index.html"
+
+[agent]
+timeout_sec = 3000
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

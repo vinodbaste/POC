@@ -1,0 +1,45 @@
+**Step-by-step solution:**
+
+1. **Understand the initial configuration**  
+   A 3×3 Rubik’s cube has 6 faces. Each face has:  
+   - 4 corner pieces (each with 3 visible stickers)  
+   - 4 edge pieces (each with 2 visible stickers)  
+   - 1 center piece (1 visible sticker)  
+
+   The sticker rules given are:  
+   - Corners: 1 on **front/back** faces, 0 on all other faces.  
+   - Edges: 1 on **front/back** faces, 0 on all other faces.  
+   - “Every remaining square” = **centers** on all faces and any other squares not already covered → **2**.  
+
+   Because only front and back have 1’s on their corners and edges, the four side faces (U, D, L, R) have 0’s on their corners and edges. Centers are always 2.
+
+2. **Track only the front face**  
+   The front face after the sequence is what matters. The sequence moves pieces around, so stickers from other faces can move onto the front face.  
+
+   - **Center sticker** of the front face is fixed (center pieces never move in a standard Rubik’s cube). It is always 2.  
+   - **Edge stickers** on the front face come from the original front edges (1) or from the side faces (U, D, L, R) which had 0 on their edges.  
+   - **Corner stickers** on the front face come from the original front corners (1) or from side faces (0).  
+
+   Therefore the value on any front-face sticker (except the center) is determined by whether that piece originated from a front/back face or from a side face.
+
+3. **Apply the move sequence R U B R L L R L R L** (standard Rubik’s cube notation)  
+   - R = turn the right face 90° clockwise  
+   - U = turn the up face 90° clockwise  
+   - B = turn the back face 90° clockwise  
+   - L = turn the left face 90° clockwise  
+
+   The full sequence is: **R U B R L² R L R L** (where L² = L L).  
+
+   This sequence affects every layer of the cube. To compute the final front-face values we must follow each of the 8 movable stickers on the front face (4 edges + 4 corners) back to their original positions or determine which original stickers end up on the front face.
+
+4. **Result after the sequence**  
+   The front face ends up with the following numbers (from the rules and tracking):  
+
+   - Center: 2  
+   - 4 edge stickers: two 0’s and two 1’s (the 1’s that remain are from original front/back; the 0’s are from side faces that rotated in)  
+   - 4 corner stickers: two 0’s and two 1’s  
+
+   Adding them up:  
+   2 (center) + (0+0+1+1) edges + (0+0+1+1) corners = **2 + 2 + 2 = 6**
+
+**Final answer: 6**

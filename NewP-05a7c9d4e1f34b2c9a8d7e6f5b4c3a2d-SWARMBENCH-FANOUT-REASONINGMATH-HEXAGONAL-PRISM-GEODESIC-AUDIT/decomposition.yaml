@@ -1,0 +1,180 @@
+version: 1
+coordination_pattern: fan-out-synthesize
+description: >
+  Independent derivation of the hexagonal-prism shortest surface distance,
+  parallel single-response audits of seven AI-generated proposed solutions,
+  and a mechanical synthesizer that copies sub-agent verdicts verbatim into
+  the final JSON output. The orchestrator does not derive the geometry,
+  audit any response, or override any sub-agent verdict; its role is plan,
+  dispatch, and stitch.
+
+estimated_sub_agents: 9
+
+sub_tasks:
+  - id: derive-gold-distance
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md. Derive
+      the squared shortest surface distance from A to D' for the full prism
+      (a = h = 2025) AND for each of the five anchor parameter pairs listed
+      in instruction.md, working from the problem statement alone. For each
+      prism, compute every relevant unfolding-family candidate (three-face
+      lateral strip; broken base + vertical-edge path; top hex base
+      unfolded with one adjacent lateral rectangle; any other families you
+      can construct) and take the minimum of the squared values. Express
+      each squared distance as `R + C * sqrt(3)` with R and C integers and
+      report (R, C) for the full prism in `gold_distance_squared_decomposition`
+      and for each anchor in `small_case_anchor_results`. Briefly compare
+      your numerical results against the values claimed in the proposed
+      responses; this is a sanity check, not a vote, so do not adopt any
+      value just because it is popular, but if your derivation contradicts
+      a clear majority you should re-examine your reasoning before settling
+      on a final answer. Return the decomposed values and a concise
+      justification for each.
+    depends_on: []
+    parallel_group: derive
+
+  - id: audit-response-a
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A.
+      Extract its final stated distance (use the LAST boxed value or Final
+      answer statement per R3) and decide whether it equals the gold value
+      computed by derive-gold-distance (final_answer_correct). Then
+      determine the exact set of failure_reasons whose trigger phrase is
+      concretely present in this single response, drawn ONLY from the
+      five-code vocabulary defined in instruction.md. The literal phrase
+      "diameter" is NOT interchangeable with "circumradius". Most responses
+      have 0 or 1 failure reasons. Return failure_reasons=[] when the
+      claimed value equals the gold AND no trigger phrase fires. Do not
+      infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B.
+      Extract its final stated distance (use the LAST boxed value or Final
+      answer statement per R3) and decide whether it equals the gold value
+      computed by derive-gold-distance (final_answer_correct). Then
+      determine the exact set of failure_reasons whose trigger phrase is
+      concretely present in this single response, drawn ONLY from the
+      five-code vocabulary defined in instruction.md. The literal phrase
+      "diameter" is NOT interchangeable with "circumradius". Most responses
+      have 0 or 1 failure reasons. Return failure_reasons=[] when the
+      claimed value equals the gold AND no trigger phrase fires. Do not
+      infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C.
+      Extract its final stated distance (use the LAST boxed value or Final
+      answer statement per R3) and decide whether it equals the gold value
+      computed by derive-gold-distance (final_answer_correct). Then
+      determine the exact set of failure_reasons whose trigger phrase is
+      concretely present in this single response, drawn ONLY from the
+      five-code vocabulary defined in instruction.md. The literal phrase
+      "diameter" is NOT interchangeable with "circumradius". Most responses
+      have 0 or 1 failure reasons. Return failure_reasons=[] when the
+      claimed value equals the gold AND no trigger phrase fires. Do not
+      infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D.
+      Extract its final stated distance (use the LAST boxed value or Final
+      answer statement per R3) and decide whether it equals the gold value
+      computed by derive-gold-distance (final_answer_correct). Then
+      determine the exact set of failure_reasons whose trigger phrase is
+      concretely present in this single response, drawn ONLY from the
+      five-code vocabulary defined in instruction.md. The literal phrase
+      "diameter" is NOT interchangeable with "circumradius". Most responses
+      have 0 or 1 failure reasons. Return failure_reasons=[] when the
+      claimed value equals the gold AND no trigger phrase fires. Do not
+      infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E.
+      Extract its final stated distance (use the LAST boxed value or Final
+      answer statement per R3) and decide whether it equals the gold value
+      computed by derive-gold-distance (final_answer_correct). Then
+      determine the exact set of failure_reasons whose trigger phrase is
+      concretely present in this single response, drawn ONLY from the
+      five-code vocabulary defined in instruction.md. The literal phrase
+      "diameter" is NOT interchangeable with "circumradius". Most responses
+      have 0 or 1 failure reasons. Return failure_reasons=[] when the
+      claimed value equals the gold AND no trigger phrase fires. Do not
+      infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F.
+      Extract its final stated distance (use the LAST boxed value or Final
+      answer statement per R3) and decide whether it equals the gold value
+      computed by derive-gold-distance (final_answer_correct). Then
+      determine the exact set of failure_reasons whose trigger phrase is
+      concretely present in this single response, drawn ONLY from the
+      five-code vocabulary defined in instruction.md. The literal phrase
+      "diameter" is NOT interchangeable with "circumradius". Most responses
+      have 0 or 1 failure reasons. Return failure_reasons=[] when the
+      claimed value equals the gold AND no trigger phrase fires. Do not
+      infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G.
+      Extract its final stated distance (use the LAST boxed value or Final
+      answer statement per R3) and decide whether it equals the gold value
+      computed by derive-gold-distance (final_answer_correct). Then
+      determine the exact set of failure_reasons whose trigger phrase is
+      concretely present in this single response, drawn ONLY from the
+      five-code vocabulary defined in instruction.md. The literal phrase
+      "diameter" is NOT interchangeable with "circumradius". Most responses
+      have 0 or 1 failure reasons. Return failure_reasons=[] when the
+      claimed value equals the gold AND no trigger phrase fires. Do not
+      infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Combine the gold-distance derivation and seven response audits into
+      the final JSON output. Trust each per-response audit's failure_reasons
+      list; do not add codes the audit did not identify, and do not delete
+      codes the audit did identify. Copy gold_distance_squared_decomposition
+      and small_case_anchor_results verbatim from derive-gold-distance.
+      Compute acceptable_solution_ids as the uppercase, alphabetically-sorted
+      list of response_ids whose final_answer_correct is true AND
+      failure_reasons is empty. Write the result to /logs/agent/output.json.
+      Top-level keys exactly: gold_distance_squared_decomposition,
+      small_case_anchor_results, acceptable_solution_ids,
+      per_response_assessment. per_response_assessment must contain exactly
+      seven objects, ordered alphabetically A through G, each with exactly
+      the keys response_id, final_answer_correct, failure_reasons. Do NOT
+      re-derive the geometry and do NOT re-classify any response.
+    depends_on:
+      - derive-gold-distance
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+    parallel_group: synthesize

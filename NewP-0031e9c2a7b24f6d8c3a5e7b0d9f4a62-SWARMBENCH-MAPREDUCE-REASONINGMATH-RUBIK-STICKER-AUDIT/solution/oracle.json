@@ -1,0 +1,83 @@
+{
+  "correct_sum": 6,
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "extracted_final_sum": 7,
+      "final_sum_correct": false,
+      "acceptable_solution": false,
+      "has_standard_notation_tracking_error": true,
+      "has_arithmetic_error": false,
+      "has_unsupported_front_face_tracking": false,
+      "has_numbered_step_structure": true,
+      "has_readable_math_format": true
+    },
+    {
+      "response_id": "B",
+      "extracted_final_sum": 7,
+      "final_sum_correct": false,
+      "acceptable_solution": false,
+      "has_standard_notation_tracking_error": true,
+      "has_arithmetic_error": false,
+      "has_unsupported_front_face_tracking": false,
+      "has_numbered_step_structure": true,
+      "has_readable_math_format": true
+    },
+    {
+      "response_id": "C",
+      "extracted_final_sum": 6,
+      "final_sum_correct": true,
+      "acceptable_solution": false,
+      "has_standard_notation_tracking_error": false,
+      "has_arithmetic_error": false,
+      "has_unsupported_front_face_tracking": true,
+      "has_numbered_step_structure": true,
+      "has_readable_math_format": true
+    },
+    {
+      "response_id": "D",
+      "extracted_final_sum": 7,
+      "final_sum_correct": false,
+      "acceptable_solution": false,
+      "has_standard_notation_tracking_error": true,
+      "has_arithmetic_error": false,
+      "has_unsupported_front_face_tracking": false,
+      "has_numbered_step_structure": true,
+      "has_readable_math_format": true
+    },
+    {
+      "response_id": "E",
+      "extracted_final_sum": 10,
+      "final_sum_correct": false,
+      "acceptable_solution": false,
+      "has_standard_notation_tracking_error": true,
+      "has_arithmetic_error": false,
+      "has_unsupported_front_face_tracking": true,
+      "has_numbered_step_structure": true,
+      "has_readable_math_format": true
+    },
+    {
+      "response_id": "F",
+      "extracted_final_sum": 2,
+      "final_sum_correct": false,
+      "acceptable_solution": false,
+      "has_standard_notation_tracking_error": true,
+      "has_arithmetic_error": false,
+      "has_unsupported_front_face_tracking": false,
+      "has_numbered_step_structure": true,
+      "has_readable_math_format": true
+    },
+    {
+      "response_id": "G",
+      "extracted_final_sum": 18,
+      "final_sum_correct": false,
+      "acceptable_solution": false,
+      "has_standard_notation_tracking_error": true,
+      "has_arithmetic_error": false,
+      "has_unsupported_front_face_tracking": true,
+      "has_numbered_step_structure": true,
+      "has_readable_math_format": true
+    }
+  ]
+}

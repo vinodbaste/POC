@@ -1,0 +1,189 @@
+{
+  "gold_final_answer": "21",
+  "gold_edge_length_squared_set": [21],
+  "acceptable_solution_ids": ["F", "I"],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": ["accepts_internal_contradictions_in_derivation", "assumes_zero_distance_vertex_is_axis_corner", "claims_unique_edge_length", "omits_sign_pattern_casework", "restricts_to_nonnegative_subset_sums", "treats_one_orientation_as_proof_of_uniqueness"],
+      "primary_failure_code": "restricts_to_nonnegative_subset_sums",
+      "primary_failure_code_evidence": "The response derives values by requiring all seven non-zero distances to be non-negative subset-sums of three positive quantities {p, q, r}, specifically setting up equations where distances from vertices (a,0,0), (0,a,0), (0,0,a) are a/k, 2a/k, 3a/k respectively, and asserting these must equal 1, 2, 3. This restricts the search to the all-positive sign case without considering that other sign configurations could yield different valid edge lengths, though the response then reaches an inconsistent result of a = sqrt(6) instead of the correct subset-sum solution.",
+      "failure_reason_evidence": {
+        "accepts_internal_contradictions_in_derivation": "The response explicitly notes contradictions such as '4 = 5' and '6 = 7' in its equations (e.g., '2a = 4/d' vs '2a = 5/d') but continues to produce a final numeric answer of 6 despite these acknowledged contradictions.",
+        "assumes_zero_distance_vertex_is_axis_corner": "The response places the cube with 'one vertex at (0,0,0)' and assumes this vertex with distance 0 is the specific corner of an axis-aligned cube, treating the other vertices' signed distances as non-negative coordinate combinations without justifying this specific corner choice.",
+        "claims_unique_edge_length": "The response concludes 'the edge length is uniquely determined' and gives a final boxed answer of 6, asserting a single unique edge length (|S| = 1) despite the incorrect derivation.",
+        "omits_sign_pattern_casework": "The response never enumerates sign-pattern families or considers whether the plane might intersect the cube's interior with vertices on opposite sides of the plane; it assumes all seven non-zero distances are positive projections from the corner vertex.",
+        "restricts_to_nonnegative_subset_sums": "The response sets up equations where the seven non-zero distances must equal non-negative sums of three positive quantities {p, q, r}, specifically deriving that distances from adjacent vertices are proportional to 1, 2, 3 and their sums give 4, 5, 6, 7, but then finds this leads to contradictions without considering that the restriction to non-negative subset-sums is the fundamental defect.",
+        "treats_one_orientation_as_proof_of_uniqueness": "The response solves only one geometric configuration (axis-aligned with vertex at origin and all positive projections) and asserts the resulting edge length is the unique answer, without ruling out other orientations."
+      },
+      "alternative_codes_considered": [
+        {"code": "accepts_internal_contradictions_in_derivation", "reason_excluded": "While the response does note internal contradictions, these are symptoms of the subset-sum restriction which causes the algebraic inconsistency; the contradiction-acceptance is not the most load-bearing defect."},
+        {"code": "assumes_zero_distance_vertex_is_axis_corner", "reason_excluded": "Though present, this is downstream of the subset-sum restriction which forces the axis-corner assumption to make the subset-sum search tractable."}
+      ],
+      "code_application_count": 6,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 6
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": ["assumes_plane_parallel_to_cube_face", "claims_unique_edge_length", "equates_max_distance_with_edge_length_directly", "treats_one_orientation_as_proof_of_uniqueness"],
+      "primary_failure_code": "equates_max_distance_with_edge_length_directly",
+      "primary_failure_code_evidence": "The response explicitly identifies the maximum vertex-to-plane distance (7) with the cube's edge length a, stating 'the edge length is 7' and 'a = 7' as the load-bearing derivation step. This direct identification without projecting through the plane normal is the core geometric defect that produces the wrong answer of 49.",
+      "failure_reason_evidence": {
+        "assumes_plane_parallel_to_cube_face": "The response considers 'the plane is z = k' and assumes 'the distance from each vertex (x, y, z) to the plane z = 0 is |z - 0| = z', treating the plane as parallel to the xy-face of an axis-aligned cube with distances being the z-coordinates.",
+        "claims_unique_edge_length": "The response states 'the only possible edge length is 7, so set S is {7}' and concludes with boxed answer 49 = 7², asserting exactly one possible edge length.",
+        "equates_max_distance_with_edge_length_directly": "The response explicitly states 'the edge length is 7' because 'the maximum distance is 7' and 'the maximum distance from the plane to any vertex is 7', directly equating max distance with edge length a = 7 without the sqrt(3) factor.",
+        "treats_one_orientation_as_proof_of_uniqueness": "The response considers only the face-parallel orientation (plane z = k) with axis-aligned cube, derives a = 7 from this single orientation, and asserts this is the only possible edge length without ruling out other orientations."
+      },
+      "alternative_codes_considered": [
+        {"code": "assumes_plane_parallel_to_cube_face", "reason_excluded": "While present, the face-parallel assumption is the setup; the critical error is the direct equating of max distance with edge length (a = 7) rather than the space diagonal, which this code specifically targets."},
+        {"code": "claims_unique_edge_length", "reason_excluded": "This is a downstream symptom of the geometric misidentification; the response claims uniqueness because it incorrectly believes a = 7 is forced by the maximum distance."}
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": ["assumes_max_distance_equals_space_diagonal", "claims_unique_edge_length", "treats_one_orientation_as_proof_of_uniqueness"],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "primary_failure_code_evidence": "The response explicitly equates the maximum vertex-to-plane distance (7) with the cube's space diagonal a√3, deriving 'a√3 = 7, so a = 7/√3' as the load-bearing step. This geometric misidentification of the maximum distance with the space diagonal is the upstream defect that produces the wrong answer of 49/3.",
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": "The response states 'the space diagonal is a√3, so a√3 = 7, so a = 7/√3' and 'the maximum distance from the plane to any vertex is 7, which must correspond to the space diagonal', directly equating max distance with space diagonal length.",
+        "claims_unique_edge_length": "The response concludes with 'the only possible edge length is 7/√3' and boxed answer 49/3, asserting exactly one possible edge length.",
+        "treats_one_orientation_as_proof_of_uniqueness": "The response solves only the space-diagonal-aligned orientation and asserts the resulting s² = 49/3 is the only solution without ruling out other orientations or sign configurations."
+      },
+      "alternative_codes_considered": [
+        {"code": "claims_unique_edge_length", "reason_excluded": "This is a downstream symptom of the space-diagonal misidentification; the response claims uniqueness because it believes the space diagonal constraint forces a unique answer."},
+        {"code": "treats_one_orientation_as_proof_of_uniqueness", "reason_excluded": "While present, this is secondary to the specific geometric misidentification of max distance with space diagonal, which is the more precise diagnostic."}
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": ["non_terminating_or_no_final_answer"],
+      "primary_failure_code": "non_terminating_or_no_final_answer",
+      "primary_failure_code_evidence": "The response enters an infinite repetition loop starting around line 90 with the phrase 'Let’s let’s denote' repeated hundreds of times (through line 10176), never reaching a final numeric answer or conclusion. This is a clear case of non-termination with no committed final answer.",
+      "failure_reason_evidence": {
+        "non_terminating_or_no_final_answer": "The response loops on 'Let’s let’s denote' and similar phrases for thousands of lines without ever reaching a final boxed answer or numeric conclusion, truncating mid-derivation."
+      },
+      "alternative_codes_considered": [
+        {"code": "restricts_to_nonnegative_subset_sums", "reason_excluded": "The response never actually reaches the point of setting up the subset-sum equations due to the infinite repetition loop."},
+        {"code": "claims_unique_edge_length", "reason_excluded": "The response never reaches a final answer at all, so it cannot claim any specific edge length."}
+      ],
+      "code_application_count": 1,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 1
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": ["accepts_internal_contradictions_in_derivation", "claims_unique_edge_length", "derives_correct_partial_s2_then_discards_it", "uses_fabricated_invariant_or_invalid_derivation"],
+      "primary_failure_code": "uses_fabricated_invariant_or_invalid_derivation",
+      "primary_failure_code_evidence": "The response invents an algebraic identity 'sum of squares of distances = 3a²(1 + T²)' where T = x + y + z, and uses this fabricated invariant as the load-bearing derivation step to reach its final answer of 140/3. This invented identity has no valid geometric basis in the cube-plane distance problem.",
+      "failure_reason_evidence": {
+        "accepts_internal_contradictions_in_derivation": "The response explicitly notes contradictions in its derivation (such as computing one sum as 3150 vs 140) but continues to extract a final numeric answer of 140/3 despite these contradictions.",
+        "claims_unique_edge_length": "The response gives a final single numeric answer of 140/3, implicitly asserting this is the sum over all possible edge lengths (treating it as the unique answer to the problem).",
+        "derives_correct_partial_s2_then_discards_it": "The response explicitly computes 'a² = 21' as one solution to its quadratic, then explicitly states 'this configuration is impossible' and 'rejects or discards that value, choosing a different final numeric answer' of 140/3.",
+        "uses_fabricated_invariant_or_invalid_derivation": "The response invents the identity '3a²(1 + T²) = 140' and 'sum of squared distances = 3a²(1 + T²)' without geometric justification, using this fabricated algebraic chain to produce the final answer."
+      },
+      "alternative_codes_considered": [
+        {"code": "derives_correct_partial_s2_then_discards_it", "reason_excluded": "While the response does derive s² = 21 and discard it, this is downstream of the fabricated invariant which creates the false quadratic with two spurious solutions; the fabrication is the more fundamental defect."},
+        {"code": "accepts_internal_contradictions_in_derivation", "reason_excluded": "The contradictions are symptoms of the fabricated invariant; the fabrication is the upstream cause."}
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "The response correctly identifies that the subset-sums of {1, 2, 4} give exactly {1, 2, 3, 4, 5, 6, 7}, computes the edge length squared as 1² + 2² + 4² = 21, and concludes with the correct final answer of 21. The derivation correctly handles the geometric constraints without any identified failure triggers.",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [
+        {"code": "restricts_to_nonnegative_subset_sums", "reason_excluded": "The response uses non-negative subset-sums correctly as part of a valid derivation that correctly identifies the only valid edge length; the code triggers only when this restriction is a defect, not when it's used correctly in a valid solution."},
+        {"code": "claims_unique_edge_length", "reason_excluded": "The response correctly identifies that there is exactly one possible edge length (sqrt(21)), so the claim of uniqueness is factually correct and not a failure."}
+      ],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": ["accepts_internal_contradictions_in_derivation", "claims_unique_edge_length", "derives_correct_partial_s2_then_discards_it", "uses_fabricated_invariant_or_invalid_derivation"],
+      "primary_failure_code": "uses_fabricated_invariant_or_invalid_derivation",
+      "primary_failure_code_evidence": "The response invents the algebraic identity 'sum of squares of distances = 3a²(1 + T²)' and uses this fabricated invariant to derive a quadratic equation producing two spurious edge length solutions. This invented identity is the load-bearing defect that produces the wrong final answer of 140/3 (the sum of the two spurious solutions).",
+      "failure_reason_evidence": {
+        "accepts_internal_contradictions_in_derivation": "The response notes that one solution gives distances 'not integers' but continues to include it in the final answer sum of 140/3, accepting contradictory equations in its derivation chain.",
+        "claims_unique_edge_length": "The response gives a final single numeric answer of 140/3, presenting this as the sum over all possible edge lengths (which it claims are two values summing to 140/3).",
+        "derives_correct_partial_s2_then_discards_it": "The response derives 'a² = 21' as a valid intermediate, then explicitly considers 'this specific assignment is invalid' and 'rejects' it in favor of the 140/3 result from the fabricated quadratic.",
+        "uses_fabricated_invariant_or_invalid_derivation": "The response explicitly states 'sum of the squares of the distances = 3a²[1 + (x + y + z)²]' as a key derivation step, which is an invented algebraic identity without valid geometric foundation for this problem."
+      },
+      "alternative_codes_considered": [
+        {"code": "derives_correct_partial_s2_then_discards_it", "reason_excluded": "While present, the explicit discard of s² = 21 is triggered by the fabricated invariant's quadratic; the fabrication is the more fundamental upstream defect."},
+        {"code": "accepts_internal_contradictions_in_derivation", "reason_excluded": "The contradictions are downstream effects of the fabricated invariant producing inconsistent distance sets."}
+      ],
+      "code_application_count": 4,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 4
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": ["assumes_max_distance_equals_space_diagonal", "claims_unique_edge_length", "treats_one_orientation_as_proof_of_uniqueness"],
+      "primary_failure_code": "assumes_max_distance_equals_space_diagonal",
+      "primary_failure_code_evidence": "The response explicitly equates the maximum vertex-to-plane distance (7) with the cube's space diagonal a√3, stating 'the space diagonal of the cube must be 7' and 'a√3 = 7' as the load-bearing geometric step. This misidentification of max distance with space diagonal (rather than with a more general projection) is the core defect producing the wrong answer of 49/3.",
+      "failure_reason_evidence": {
+        "assumes_max_distance_equals_space_diagonal": "The response states 'the space diagonal of the cube must be 7' and 'a√3 = 7', directly equating the maximum distance from the plane with the space diagonal length.",
+        "claims_unique_edge_length": "The response states 'the only possible edge length is 7/√3' and gives final answer 49/3, asserting exactly one possible edge length.",
+        "treats_one_orientation_as_proof_of_uniqueness": "The response solves only the space-diagonal-aligned configuration and asserts the resulting s² = 49/3 is the unique answer without considering other orientations."
+      },
+      "alternative_codes_considered": [
+        {"code": "claims_unique_edge_length", "reason_excluded": "This is a downstream symptom of the space-diagonal misidentification; the response believes the answer is unique because it thinks the max distance = space diagonal constraint forces uniqueness."},
+        {"code": "treats_one_orientation_as_proof_of_uniqueness", "reason_excluded": "While present, the specific geometric misidentification of max distance with space diagonal is the more precise diagnostic."}
+      ],
+      "code_application_count": 3,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 3
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": true,
+      "failure_reasons": [],
+      "primary_failure_code": "NONE",
+      "primary_failure_code_evidence": "The response correctly identifies the subset-sum solution with {1, 2, 4}, computes a² = 1² + 2² + 4² = 21, and concludes with the correct final answer of 21. The derivation correctly sets up the distance equations from the plane to the cube vertices and finds the unique valid edge length without any identified failure triggers.",
+      "failure_reason_evidence": {},
+      "alternative_codes_considered": [
+        {"code": "restricts_to_nonnegative_subset_sums", "reason_excluded": "The response uses non-negative subset-sums as part of a correct and valid derivation; this code applies only when the restriction is a reasoning defect, not when it's used correctly in a valid solution."},
+        {"code": "claims_unique_edge_length", "reason_excluded": "The response correctly concludes there is exactly one possible edge length (sqrt(21)), so this claim is factually correct and not a failure."}
+      ],
+      "code_application_count": 0,
+      "primary_in_set_check": true,
+      "evidence_key_completeness": 0
+    }
+  ],
+  "code_application_table": {
+    "claims_unique_edge_length": ["A", "B", "C", "E", "G", "H"],
+    "restricts_to_nonnegative_subset_sums": ["A"],
+    "assumes_max_distance_equals_space_diagonal": ["C", "H"],
+    "assumes_plane_parallel_to_cube_face": ["B"],
+    "equates_max_distance_with_edge_length_directly": ["B"],
+    "uses_fabricated_invariant_or_invalid_derivation": ["E", "G"],
+    "accepts_internal_contradictions_in_derivation": ["A", "E", "G"],
+    "assumes_zero_distance_vertex_is_axis_corner": ["A"],
+    "omits_sign_pattern_casework": ["A"],
+    "treats_one_orientation_as_proof_of_uniqueness": ["A", "B", "C", "H"],
+    "derives_correct_partial_s2_then_discards_it": ["E", "G"],
+    "non_terminating_or_no_final_answer": ["D"]
+  },
+  "cross_response_observations": "Three distinct failure patterns emerge across the nine responses. First, the space-diagonal misidentification appears in responses C and H, where both models incorrectly equate the maximum vertex-to-plane distance (7) with the cube's space diagonal (a√3), yielding the wrong answer 49/3. These two responses share identical reasoning chains despite being from different model configurations. Second, the face-parallel assumption appears in response B, which assumes the plane is parallel to a cube face and thus equates the max distance directly with edge length (a = 7), yielding 49. Third, the fabricated invariant pattern appears in responses E and G, where both models invent an algebraic identity 'sum of squared distances = 3a²(1 + T²)' that has no geometric validity, producing a spurious quadratic with two solutions whose sum is 140/3. Responses E and G both derive the correct s² = 21 as an intermediate step but then explicitly reject it in favor of the fabricated quadratic's solutions. The corner-and-subset-sum setup appears in responses A, F, I, and the beginning of E and G. Response A uses this setup but makes algebraic errors and accepts internal contradictions. Responses F and I correctly execute the subset-sum analysis with {1, 2, 4} and arrive at the correct answer 21. Response D stands alone as a non-terminating loop. Notably, the subset-sum approach is the correct geometric framework, but only F and I execute it correctly without introducing spurious constraints or fabricated invariants."
+}

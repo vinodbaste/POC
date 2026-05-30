@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/e7d2b8a4f96c1305a2e9b6c4d8f17094-SWARMBENCH-FANOUT-REASONINGMATH-HARMONIC-PAIRS-AUDIT"
+description = "Solve the harmonic-pairs number-theory problem for 1 <= a,b <= 200, deriving the gold count and valid divisor/k-value invariants from (a+1)(b+1)=k^2+1. Then audit six real model responses, using the shared mathematical gold to identify each response's exact proof-failure codes."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11.0
+human_solving_hours_justification = "Estimated from a reviewer-grade end-to-end mathematical workflow. (a) Independent derivation and verification of the three gold number-theoretic invariants - correct_count, correct_valid_d_set, and correct_valid_k_set - from first principles using the (a+1)(b+1) = k^2 + 1 reduction, Fermat-on-sums-of-two-squares constraints, Hensel-lift enumeration, and pair-producing k filtering: 2.8h. (b) Rubric boundary calibration for exact-set proof-failure matching: 0.7h. (c) Mathematical analysis of each released model response's reasoning chain - identifying its setup, common-divisor logic, enumeration method, final count, and exact failure-code set: 6 x 0.85h = 5.1h. (d) Reconciling the six audits against the shared mathematical derivation and verifier-aligned output schema: 1.4h. (e) Cross-check of weighted scoring, JSON structure, and execution-log consistency: 1.0h. Total: 2.8 + 0.7 + 5.1 + 1.4 + 1.0 = 11.0h. Mathematical reasoning remains the primary cognitive activity because every response audit depends on the exact number-theoretic gold invariants."
+estimated_sub_agents = 9
+input_token_estimate = 7500
+why_multi_agent = "The task is a mathematical-reasoning workload with brittle exact-set scoring. One gold-derivation agent solves the harmonic-pairs count and derives the valid divisor and k-value invariants, six response auditors each own a single candidate solution with isolated context, one adjudicator reconciles sensitive mathematical/code boundaries, and one synthesizer writes the final JSON. A single agent juggling all six responses in one context is likely to confuse close proof-failure codes, mix evidence across candidates, or lose the distinction between raw modular k candidates and pair-producing k values. Fan-out gives each mathematical proof audit an isolated workspace while the shared gold derivation preserves consistency."
+reference_link = "https://en.wikipedia.org/wiki/Fermat%27s_theorem_on_sums_of_two_squares"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

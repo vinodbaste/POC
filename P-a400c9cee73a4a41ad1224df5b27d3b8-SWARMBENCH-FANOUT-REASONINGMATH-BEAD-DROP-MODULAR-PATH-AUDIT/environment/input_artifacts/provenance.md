@@ -1,0 +1,5 @@
+This task is a reasoning-math audit task. The central object being evaluated is not a real incident log; it is a bundle of candidate AI solution outputs for a constrained binomial-modulo counting problem.
+
+The problem is framed as a bead-on-pegboard lattice-path enumeration question inspired by classical Pascal-triangle path-counting and modular-arithmetic settings. The proposed solution files `response_A.md` through `response_M.md` are candidate model responses collected for auditing. They are intentionally left as standalone markdown files because the agent must judge the closed-form path-count derivation, the Legendre / Kummer valuation handling, the recursive 5-free factorial product modulo 125, the CRT combination of mod-8 and mod-125 residues, and the final answer formatting of each response.
+
+The external reference in `task.toml` provides general professional context for binomial-coefficient-modulo / Chinese-Remainder-Theorem problems. The exact bead-on-pegboard instance and the candidate response bundle are included locally in `/input_artifacts`.

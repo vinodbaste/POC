@@ -1,0 +1,23 @@
+The cube begins in its solved state with the following relevant sticker values (centers are always 2 and never leave their faces):
+
+- All 8 non-center stickers on the front face are 1.
+- All 8 non-center stickers on the back face are 1.
+- All non-center stickers on U/D/L/R are 0.
+- Thus the initial front-face sum is \(2 + 8 \times 1 = 10\).
+
+The move sequence is applied one move at a time while tracking only the 8 movable stickers on the front face (the center remains 2 throughout). Only R, U, and L moves affect the front face; B moves leave it unchanged.
+
+1. **R**: The front right column (three 1’s) is replaced by the U right column (three 0’s). Front now holds five 1’s. Sum = 7.
+2. **U**: The front top row (two remaining 1’s) is replaced by the L top row (three 0’s). Front now holds three 1’s. Sum = 5.
+3. **B**: No effect on front. Sum remains 5.
+4. **R**: The front right column is already 0’s; it is again replaced by U-right 0’s. No change. Sum remains 5.
+5. **L L** (= 180°): The front left column is replaced by the corresponding back left column (three 1’s). Two additional 1’s enter. Front now holds four 1’s. Sum = 6.
+6. **R**: The front right column remains 0’s; replacement brings more 0’s. No change. Sum remains 6.
+7. **L**: The front left column (now three 1’s) is cycled outward; the incoming stickers are 0’s from U. Two 1’s leave. Front now holds two 1’s. Sum = 4.
+8. **R**: Again replaces right column (already 0’s) with U-right 0’s. No change. Sum remains 4.
+9. **L**: Another L brings three fresh 0’s into the left column, replacing any remaining 1’s there. Front now holds zero 1’s on the edges/corners. Sum = 2.
+10. **R**: Final R replaces right column with 0’s. No change. Sum remains 2.
+
+After the full sequence the front face therefore contains only its center sticker valued 2 and eight 0-valued stickers.
+
+**Final sum on the front face: 2**

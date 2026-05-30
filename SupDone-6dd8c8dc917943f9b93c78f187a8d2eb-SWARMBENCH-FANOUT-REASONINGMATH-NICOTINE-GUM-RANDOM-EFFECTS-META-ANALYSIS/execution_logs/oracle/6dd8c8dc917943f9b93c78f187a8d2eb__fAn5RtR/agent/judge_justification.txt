@@ -1,0 +1,3 @@
+Score: 1.0
+
+Agent output is byte-identical to the oracle (exact-match fast-path). No LLM call required.

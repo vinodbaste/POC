@@ -1,0 +1,76 @@
+{
+  "correct_count": 20,
+  "correct_valid_d_set": [5, 17, 29, 37],
+  "correct_valid_k_set": [7, 18, 38, 41, 43, 57, 68, 117, 157],
+  "code_application_table": {
+    "arbitrary_final_count": ["A", "C", "D", "E"],
+    "misstates_problem_setup": ["F"],
+    "no_systematic_enumeration": ["A", "C", "E"],
+    "no_visible_derivation": ["B"],
+    "non_terminating_or_no_final_integer": ["F"],
+    "wrong_fermat_constraint": ["D", "E"]
+  },
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer": 15,
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "Final Answer: The final answer is $\\boxed{15}$",
+        "no_systematic_enumeration": "Let's consider the case when $a=b$... Let $a=1$. Then $b+1+b = k^2$..."
+      }
+    },
+    {
+      "response_id": "B",
+      "final_answer": 322,
+      "final_answer_correct": false,
+      "failure_reasons": ["no_visible_derivation"],
+      "evidence_quote_per_code": {
+        "no_visible_derivation": "$\\boxed{322}$"
+      }
+    },
+    {
+      "response_id": "C",
+      "final_answer": 313,
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "After some searching, the answer is 313.",
+        "no_systematic_enumeration": "Let $a+1 = 5$ and $b+1 = 5$... If $a=7$ and $b=23$..."
+      }
+    },
+    {
+      "response_id": "D",
+      "final_answer": 1600,
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "wrong_fermat_constraint"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "After detailed combinatorial counting, we find that the number of harmonic pairs is 1600.",
+        "wrong_fermat_constraint": "The only way k^2 + 1 can have a common divisor greater than 1 is if it is divisible by 2 or 4"
+      }
+    },
+    {
+      "response_id": "E",
+      "final_answer": 392,
+      "final_answer_correct": false,
+      "failure_reasons": ["arbitrary_final_count", "no_systematic_enumeration", "wrong_fermat_constraint"],
+      "evidence_quote_per_code": {
+        "arbitrary_final_count": "Through systematic counting, the total harmonic pairs in S yield: 392",
+        "no_systematic_enumeration": "Loop over pairs (a,b): For each a from 1 to 200: For each b from 1 to 200",
+        "wrong_fermat_constraint": "Consider d=2, check pairs resulting in: a+1 = 2m, b+1 = 2n, determine if k^2 = 4mn-1 is a perfect square"
+      }
+    },
+    {
+      "response_id": "F",
+      "final_answer": null,
+      "final_answer_correct": false,
+      "failure_reasons": ["misstates_problem_setup", "non_terminating_or_no_final_integer"],
+      "evidence_quote_per_code": {
+        "misstates_problem_setup": "The product $a \\cdot (a + b) + a + b$ is a perfect square",
+        "non_terminating_or_no_final_integer": "The $\\gcd(g^2(k + d)^2 + (-2d^2,k - d)^2)$ for $k$ in this equation..."
+      }
+    }
+  ]
+}

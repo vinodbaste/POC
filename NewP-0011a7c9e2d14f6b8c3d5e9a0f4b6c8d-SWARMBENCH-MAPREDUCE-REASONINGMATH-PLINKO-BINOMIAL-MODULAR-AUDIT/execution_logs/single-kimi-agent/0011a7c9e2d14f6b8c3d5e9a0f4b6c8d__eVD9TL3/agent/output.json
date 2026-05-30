@@ -1,0 +1,114 @@
+{
+  "correct_answer_latex": "800",
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "extracted_final_answer_latex": "375",
+      "extracted_path_count_latex": "\\binom{2026}{396}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": true,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": true,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "B",
+      "extracted_final_answer_latex": "400",
+      "extracted_path_count_latex": "\\binom{2026}{396}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": true,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": false,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "C",
+      "extracted_final_answer_latex": "0",
+      "extracted_path_count_latex": "\\binom{2026}{396}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": true,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": false,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "D",
+      "extracted_final_answer_latex": "400",
+      "extracted_path_count_latex": "\\binom{2026}{396}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": true,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": false,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "E",
+      "extracted_final_answer_latex": "376",
+      "extracted_path_count_latex": "\\binom{2026}{396}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": true,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": true,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "F",
+      "extracted_final_answer_latex": "500",
+      "extracted_path_count_latex": "\\binom{3260}{1234}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": false,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": true,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "G",
+      "extracted_final_answer_latex": "0",
+      "extracted_path_count_latex": "\\binom{3260}{1234}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": false,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": false,
+      "has_stepwise_structure": false,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "H",
+      "extracted_final_answer_latex": "500",
+      "extracted_path_count_latex": "\\binom{2026}{396}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": true,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": true,
+      "has_stepwise_structure": false,
+      "has_proper_latex_format": true
+    },
+    {
+      "response_id": "I",
+      "extracted_final_answer_latex": "400",
+      "extracted_path_count_latex": "\\binom{2026}{396}",
+      "final_answer_correct": false,
+      "path_count_setup_correct": true,
+      "has_p_adic_or_modular_error": true,
+      "has_crt_or_final_reduction_error": false,
+      "has_unsupported_computational_claim": false,
+      "has_stepwise_structure": true,
+      "has_proper_latex_format": true
+    }
+  ]
+}

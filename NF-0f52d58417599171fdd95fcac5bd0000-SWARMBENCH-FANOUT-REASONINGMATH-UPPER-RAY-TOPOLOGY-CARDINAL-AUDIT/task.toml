@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/0f52d58417599171fdd95fcac5bd0000-SWARMBENCH-FANOUT-REASONINGMATH-UPPER-RAY-TOPOLOGY-CARDINAL-AUDIT"
+description = "Audit eight candidate submissions to an upper-ray topology cardinal arithmetic problem and identify the only fully valid proof."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 12.0
+human_solving_hours_justification = "A domain expert would spend about 1.5h independently solving the topology/cardinality problem, about 0.75h auditing each of 8 candidate proofs (6h), and about 4.5h reconciling subtle proof-validity distinctions, counterexamples, and structured referee-report output. Total is approximately 12h."
+estimated_sub_agents = 10
+input_token_estimate = 9000
+why_multi_agent = "The task requires independent mathematical proof derivation plus eight separate proof audits. A single agent is prone to accepting submissions with the correct final answer but invalid reasoning, or to confusing local Euclidean intuition with global upper-ray neighborhoods. Fan-out assigns one sub-agent per candidate submission plus one ground-truth derivation, then a synthesizer merges classifications and fatal-error diagnoses."
+reference_link = "https://en.wikipedia.org/wiki/Order_topology"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

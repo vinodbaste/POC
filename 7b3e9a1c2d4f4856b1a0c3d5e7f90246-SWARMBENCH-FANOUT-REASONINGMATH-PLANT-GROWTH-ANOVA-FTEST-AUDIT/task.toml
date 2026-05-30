@@ -1,0 +1,14 @@
+[task]
+name = "swarmbench/7b3e9a1c2d4f4856b1a0c3d5e7f90246-SWARMBENCH-FANOUT-REASONINGMATH-PLANT-GROWTH-ANOVA-FTEST-AUDIT"
+description = "Compute from first principles the one-way ANOVA F-test for a real 30-plant, 3-group experiment (group and grand means, between- and within-group sums of squares, the (k-1, N-k) degrees of freedom, the mean squares MSB and MSW, and F = MSB/MSW), then mathematically audit ten AI-generated derivations, proving each one's variance-decomposition algebra correct or incorrect and assigning the exact failure-code set."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 10.0
+human_solving_hours_justification = "Reviewer-grade mathematical audit: 1.5h to derive the one-way ANOVA from first principles (group/grand means, between- and within-group sums of squares, df = (k-1, N-k), mean squares MSB/MSW, and F with its p-value); 10 x 0.75h to re-derive each candidate's variance-decomposition algebra and prove its F and df correct or incorrect, assigning the exact failure-code set (7.5h); 1h to reconcile co-firing errors and the refutation trap and assemble the oracle. Total: 1.5 + 7.5 + 1 = 10.0h."
+estimated_sub_agents = 12
+input_token_estimate = 4000
+why_multi_agent = "A single agent must derive the ANOVA F (between/within sums of squares, mean squares on (k-1, N-k) df) and validate ten dense derivations, each with a distinct defect: SS used as F, wrong within or between df, a t-test for the omnibus, a dropped group, buried arithmetic slips. Multiplexing derivation with ten audits, it drops co-firing codes and false-fires on refuted methods. Fan-out gives one derivation specialist, ten focused auditors, and a mechanical synthesizer."
+reference_link = "https://vincentarelbundock.github.io/Rdatasets/doc/datasets/PlantGrowth.html"

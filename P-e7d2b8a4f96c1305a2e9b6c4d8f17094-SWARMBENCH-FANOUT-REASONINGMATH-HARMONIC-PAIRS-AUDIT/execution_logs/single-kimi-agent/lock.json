@@ -1,0 +1,79 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-05-19T11:11:42.078593Z",
+    "harbor": {
+        "version": "0.6.4",
+        "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
+        "is_editable": true
+    },
+    "invocation": [
+        "/Users/vinodbaste/Turing Projects/harbor/.venv/bin/harbor",
+        "run",
+        "-p",
+        "/Users/vinodbaste/Turing Projects/POC/e7d2b8a4f96c1305a2e9b6c4d8f17094-SWARMBENCH-FANOUT-REASONINGMATH-HARMONIC-PAIRS-AUDIT",
+        "-a",
+        "swarm-kimi-single",
+        "-m",
+        "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+        "-k",
+        "1",
+        "-n",
+        "1",
+        "--job-name",
+        "single-kimi-agent",
+        "--jobs-dir",
+        "/Users/vinodbaste/Turing Projects/POC/e7d2b8a4f96c1305a2e9b6c4d8f17094-SWARMBENCH-FANOUT-REASONINGMATH-HARMONIC-PAIRS-AUDIT/execution_logs",
+        "--ve",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--ae",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--quiet"
+    ],
+    "n_concurrent_trials": 1,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileEmptyError",
+            "VerifierOutputParseError",
+            "VerifierTimeoutError",
+            "RewardFileNotFoundError",
+            "AgentTimeoutError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "e7d2b8a4f96c1305a2e9b6c4d8f17094-SWARMBENCH-FANOUT-REASONINGMATH-HARMONIC-PAIRS-AUDIT",
+                "type": "local",
+                "digest": "sha256:58d8e5bdd90676abf2d0f49af60189fe7d55c947dae127fa186516268e7261b8",
+                "path": "/Users/vinodbaste/Turing Projects/POC/e7d2b8a4f96c1305a2e9b6c4d8f17094-SWARMBENCH-FANOUT-REASONINGMATH-HARMONIC-PAIRS-AUDIT"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "swarm-kimi-single",
+                "model_name": "fireworks_ai/accounts/fireworks/models/kimi-k2p5",
+                "kwargs": {},
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                }
+            },
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                },
+                "disable": false
+            }
+        }
+    ]
+}

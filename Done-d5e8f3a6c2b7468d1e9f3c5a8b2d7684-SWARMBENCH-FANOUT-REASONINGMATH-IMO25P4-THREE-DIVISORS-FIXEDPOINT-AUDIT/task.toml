@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/d5e8f3a6c2b7468d1e9f3c5a8b2d7684-SWARMBENCH-FANOUT-REASONINGMATH-IMO25P4-THREE-DIVISORS-FIXEDPOINT-AUDIT"
+description = "Solve a modified IMO 2025 P4 number-theoretic divisor problem: for each integer n in [4, 30] with at least three proper divisors, define s(n) as the sum of the three largest proper divisors and count how many n satisfy s(n) = n; then mathematically validate fourteen proposed enumerations against four phrase-triggered proof-error modes (proper-divisor-set errors, missing-fixed-point claims, arithmetic slips)."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11
+human_solving_hours_justification = "Phase 1 (~2.0h): enumerate n in [4, 30] satisfying the three-proper-divisor condition, compute s(n) exactly per n, identify fixed points, derive the categorical anchor counts. Phase 2 (~7.0h): 14 x 0.5h to validate fourteen proposed enumerations against four phrase-triggered failure codes including buried co-fires (F1+F3, F2+F4, F3+F4). Phase 3 (~2.0h): reconcile and finalize. Total: 2.0 + 7.0 + 2.0 = 11.0h."
+estimated_sub_agents = 16
+input_token_estimate = 12000
+why_multi_agent = "The dominant single-agent failure on this divisor-enumeration audit is fixed-point-skip bias: the smallest fixed point is found early and is so attractive that a single agent multiplexing one enumeration with fourteen audits is liable to declare 'this is the only fixed point' before completing the enumeration window, missing F3-firings on every response that makes the same premature claim. Fan-out gives the gold sub-agent a focused enumeration over the full window and each proposed proof its own focused phrase-trigger validator."
+reference_link = "https://www.imo-official.org/problems/IMO2025SL.pdf"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 2048
+build_timeout_sec = 600

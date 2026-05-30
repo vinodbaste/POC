@@ -1,0 +1,31 @@
+{
+  "answer": {
+    "minimum_tiles": 6
+  },
+  "anchor_results": {
+    "anchor_2x2": 2,
+    "anchor_3x3": 3,
+    "anchor_5x5": 9,
+    "anchor_6x6": 12,
+    "anchor_8x8": 22
+  },
+  "acceptable_solution_ids": ["B", "G", "L"],
+  "per_response_assessment": [
+    {"response_id": "A", "final_answer_correct": false, "failure_reasons": ["F1"]},
+    {"response_id": "B", "final_answer_correct": true, "failure_reasons": []},
+    {"response_id": "C", "final_answer_correct": false, "failure_reasons": ["F2", "F4"]},
+    {"response_id": "D", "final_answer_correct": true, "failure_reasons": ["F3"]},
+    {"response_id": "E", "final_answer_correct": false, "failure_reasons": ["F4"]},
+    {"response_id": "F", "final_answer_correct": false, "failure_reasons": ["F1"]},
+    {"response_id": "G", "final_answer_correct": true, "failure_reasons": []},
+    {"response_id": "H", "final_answer_correct": false, "failure_reasons": ["F1", "F2"]},
+    {"response_id": "I", "final_answer_correct": false, "failure_reasons": ["F3"]},
+    {"response_id": "J", "final_answer_correct": false, "failure_reasons": ["F4"]},
+    {"response_id": "K", "final_answer_correct": true, "failure_reasons": ["F5"]},
+    {"response_id": "L", "final_answer_correct": true, "failure_reasons": []},
+    {"response_id": "M", "final_answer_correct": true, "failure_reasons": ["F1"]},
+    {"response_id": "N", "final_answer_correct": true, "failure_reasons": ["F2", "F3"]},
+    {"response_id": "O", "final_answer_correct": false, "failure_reasons": ["F1", "F2"]},
+    {"response_id": "P", "final_answer_correct": false, "failure_reasons": ["F4", "F5"]}
+  ]
+}

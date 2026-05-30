@@ -1,0 +1,259 @@
+sub_tasks:
+  - id: verify-correct-answer
+    description: >
+      Read /input_artifacts/problem.md to understand the problem in full,
+      including the tree given by the parent array P, the lexicographic
+      ordering condition on (A_i, B_i) pairs, and the requirement that
+      every road appears in exactly one of the simple tree-paths between
+      the listed pairs. Independently determine the gold value of the
+      count of valid arrays modulo the prime stated in the problem. You
+      must commit to a single closed-form expression, recurrence, or DP
+      that genuinely computes this count, justify why it does, and apply
+      it to this specific tree. Be deliberate at every step about whether
+      a candidate identity counts the same combinatorial object the
+      problem asks about (counts of distinct partitions, not sizes of a
+      single partition). Sanity-check your method on the smallest
+      non-trivial trees you can write down by hand (a path on three
+      vertices and a star with three leaves are sufficient to detect the
+      most common framework bugs) before applying it to the full tree.
+      Compute the final number with a single deliberate Python script
+      that uses big-integer arithmetic, builds the degree multiset
+      directly from the parent array, applies your committed formula or
+      DP, and prints the value modulo the stated prime. Write the script
+      defensively the first time (parse P unambiguously, build degrees
+      with explicit assertions on the edge count and on at least one
+      hand-verifiable small example, use big-int multiplication followed
+      by a single final mod, also recompute the mod step by step as a
+      cross-check). If your script runs without exception and reports a
+      single integer in [0, prime), commit to that value as your gold
+      answer; do not run additional verification scripts to second-guess
+      your own arithmetic. After committing, briefly note whether the
+      proposed responses' final stated values agree or disagree with
+      yours; this is informational only and is not a vote. Do not adopt
+      any value just because it is popular among the responses, and do
+      not abandon your committed value merely because it disagrees with
+      the responses (the responses include known incorrect derivations
+      and may all disagree with the gold value). The only legitimate
+      reasons to revise your committed value are (a) you discover a
+      concrete bug in your own script (a wrong index, a wrong formula
+      term, a sign error) when reading it once more, or (b) your method
+      fails its small-tree sanity checks. If neither holds, stop, and
+      output the verified gold value, a concise proof of the formula or
+      DP, the explicit numerical evaluation including modular reduction,
+      and a short list of common reasoning traps. Do not assign
+      correctness labels to any candidate response and do not classify
+      failure reasons.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only
+      Response A. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only
+      Response B. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only
+      Response C. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only
+      Response D. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only
+      Response E. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only
+      Response F. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only
+      Response G. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only
+      Response H. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-i
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_I.md. Audit only
+      Response I. Extract the response's final stated value modulo the
+      prime, the closed-form expression, recurrence, DP, or algorithm it
+      claims for the count, the optimality or correctness argument it
+      offers for that method, and any arithmetic it performs. Decide
+      whether the response's final stated value is mathematically
+      correct and whether its derivation is valid as a proof. Produce
+      the exact applicable failure_reasons set chosen from these four
+      allowed codes: wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification, final_answer_error. Apply
+      each code only when its trigger condition is concretely present
+      in this response's text. Do not infer correctness from other
+      proposed responses or from other audit sub-tasks; each audit must
+      rest entirely on the contents of this one response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Stitch the upstream sub-agent reports into the final JSON document
+      that the verifier expects. Do NOT re-derive the problem and do NOT
+      re-classify any response. Specifically: copy correct_answer
+      directly from the verify-correct-answer sub-agent's output. Build
+      per_response_assessment as a list of nine objects in the order
+      A, B, C, D, E, F, G, H, I, where each object's response_id,
+      final_answer_correct, and failure_reasons fields come verbatim
+      from the corresponding audit-response-X sub-agent's output.
+      Compute acceptable_solution_ids as the list of response letters
+      whose audit reported final_answer_correct=true and
+      failure_reasons=[] (use [] when no response qualifies); the
+      verifier compares this list as an unordered set, so order is not
+      enforced. Validate the JSON schema described in instruction.md
+      and write the document to /logs/agent/output.json. If any upstream
+      sub-agent's output is missing or malformed, escalate by leaving
+      its slot blank and noting the missing piece, but do not invent
+      values; mechanical reconciliation only.
+    depends_on:
+      - verify-correct-answer
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+    parallel_group: synthesize

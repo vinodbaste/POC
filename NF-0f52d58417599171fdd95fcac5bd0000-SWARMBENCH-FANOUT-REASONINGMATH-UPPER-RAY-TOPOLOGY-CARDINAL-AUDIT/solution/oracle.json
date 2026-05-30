@@ -1,0 +1,68 @@
+{
+  "response_audits": [
+    {
+      "response_id": "A",
+      "final_answer_correct": true,
+      "proof_valid": true,
+      "verdict": "fully_valid",
+      "primary_error_label": "CLEAN_PROOF",
+      "required_evidence_label": "NO_CHECK_NEEDED"
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "proof_valid": false,
+      "verdict": "incorrect_answer",
+      "primary_error_label": "RAY_NEIGHBORHOOD_UNDERCOUNT",
+      "required_evidence_label": "RAY_CARDINALITY_VERIFICATION"
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": true,
+      "proof_valid": false,
+      "verdict": "answer_correct_proof_unsound",
+      "primary_error_label": "FINITE_SUBSET_LIMIT_BLINDSPOT",
+      "required_evidence_label": "FINITE_SUBSET_NEIGHBORHOOD_TEST"
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "proof_valid": false,
+      "verdict": "incorrect_answer",
+      "primary_error_label": "PARTNER_BINDING_MISCONCEPTION",
+      "required_evidence_label": "PAIR_GLOBALITY_AUDIT"
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": true,
+      "proof_valid": false,
+      "verdict": "answer_correct_proof_unsound",
+      "primary_error_label": "INFINITE_CASE_OVERREACH",
+      "required_evidence_label": "DECREASING_INTEGER_WITNESS"
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "proof_valid": false,
+      "verdict": "incorrect_answer",
+      "primary_error_label": "SUPREMUM_VS_SUCCESSOR_MIXUP",
+      "required_evidence_label": "LUB_DEFINITIONAL_TEST"
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "proof_valid": false,
+      "verdict": "incorrect_answer",
+      "primary_error_label": "UNCONSTRUCTIBLE_TAIL_HYPOTHESIS",
+      "required_evidence_label": "BOUNDED_INTERVAL_COVER_TEST"
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": true,
+      "proof_valid": false,
+      "verdict": "answer_correct_proof_unsound",
+      "primary_error_label": "MISAPPLIED_TOPOLOGY_INTUITION",
+      "required_evidence_label": "FINITE_SUBSET_NEIGHBORHOOD_TEST"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+A Plinko board is overlaid on the Cartesian plane. A Plinko chip is dropped from a starting position at $(1234, 2026)$. As the chip falls, it moves from its current position $(m, n)$ to either $(m-1, n-1)$ or $(m+1, n-1)$ with each peg it encounters. Let $N$ be the total number of distinct paths the chip can take to land in a slot at the origin, $(0,0)$. Compute $N \pmod{1000}$.

@@ -1,0 +1,2 @@
+Skipping image OS validation for hb__swarmbench-3a6ace7586d041d49aa4f8f0a1b4a93a-swarmbench-fanout-reasoningmath-large-tree-path-partition-audit: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

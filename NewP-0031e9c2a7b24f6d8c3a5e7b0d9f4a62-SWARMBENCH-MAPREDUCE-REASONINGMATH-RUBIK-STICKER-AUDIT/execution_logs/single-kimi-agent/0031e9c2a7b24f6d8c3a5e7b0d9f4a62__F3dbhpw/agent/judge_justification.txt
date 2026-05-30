@@ -1,0 +1,3 @@
+Score: 0.6484 (142/219 passed)
+
+correct_sum 0/10 (agent 7 vs oracle 6), acceptable_solution_ids 0/20 (agent [B] vs oracle []). Per-response: A 20/27 (final_sum_correct wrong, has_unsupported_front_face_tracking wrong), B 6/27 (final_sum_correct, acceptable_solution, has_standard_notation_tracking_error all wrong), C 14/27 (final_sum_correct and has_standard_notation_tracking_error wrong), D 22/27 (final_sum_correct wrong), E 27/27, F 26/27 (has_unsupported_front_face_tracking wrong), G 27/27. Sum: 142.

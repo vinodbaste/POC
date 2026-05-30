@@ -1,0 +1,46 @@
+{
+  "correct_classification_string": "PNPNNNNNPNPNNNNNNNNNNPNPNNNNNPNPNNNNNNNNNNPNNNNNNNPNPNNNNNNNPNNPNNNNNNNPNPNNNNNNNNNNPNNNNNPNNNNNNPNNNNNNNPNNNNNNNNNNNNPNNNNNNNNNPNNNNNNNPNNNN",
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "classification_correct": false,
+      "failure_reasons": ["missing_subtraction_moves", "truncated_or_short_string"]
+    },
+    {
+      "response_id": "B",
+      "classification_correct": false,
+      "failure_reasons": ["wrong_base_case", "truncated_or_short_string"]
+    },
+    {
+      "response_id": "C",
+      "classification_correct": false,
+      "failure_reasons": ["missing_subtraction_moves", "truncated_or_short_string", "arbitrary_pattern_heuristic"]
+    },
+    {
+      "response_id": "D",
+      "classification_correct": false,
+      "failure_reasons": ["non_terminating_or_no_final_string"]
+    },
+    {
+      "response_id": "E",
+      "classification_correct": false,
+      "failure_reasons": ["non_terminating_or_no_final_string"]
+    },
+    {
+      "response_id": "F",
+      "classification_correct": false,
+      "failure_reasons": ["arithmetic_recursion_error"]
+    },
+    {
+      "response_id": "G",
+      "classification_correct": false,
+      "failure_reasons": ["arbitrary_pattern_heuristic", "truncated_or_short_string"]
+    },
+    {
+      "response_id": "H",
+      "classification_correct": false,
+      "failure_reasons": ["pn_convention_swapped", "truncated_or_short_string"]
+    }
+  ]
+}

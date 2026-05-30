@@ -1,0 +1,20 @@
+Score: 1.0000 (348/348 points)
+
+correct_answer: PASS (got 253)
+small_case_anchor_results.P3_K2: PASS
+small_case_anchor_results.P4_K2: PASS
+small_case_anchor_results.P5_K2: PASS
+small_case_anchor_results.S3_K2: PASS
+small_case_anchor_results.S4_K2: PASS
+acceptable_solution_ids: PASS
+audit A: PASS
+audit B: PASS
+audit C: PASS
+audit D: PASS
+audit E: PASS
+audit F: PASS
+audit G: PASS
+audit H: PASS
+audit I: PASS
+audit J: PASS
+audit K: PASS

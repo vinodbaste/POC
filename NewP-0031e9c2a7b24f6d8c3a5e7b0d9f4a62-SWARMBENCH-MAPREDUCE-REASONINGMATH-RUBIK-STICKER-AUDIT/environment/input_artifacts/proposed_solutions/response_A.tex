@@ -1,0 +1,67 @@
+1) Initial sticker values (only what matters for the front-face sum)
+- The 8 non-center stickers on the original Front face (F) are all 1.
+- The 8 non-center stickers on the original Back face (B) are all 1.
+- Every non-center sticker on U, D, L, R is 0.
+- All 6 centers are 2.
+Therefore, after any moves:
+- The front-center sticker is still the original front center, hence it is always 2.
+- The sum on the front face = 2 + (number of "1-stickers" currently on the front face).
+
+2) Reduce the problem
+We only need to count how many of the sixteen 1-stickers (the 8 perimeter stickers on F and the 8 perimeter stickers on B) end up facing Front (i.e. lying on the front face) after the move sequence
+
+$R, U, B, R, L, L, R, L, R, L$.
+
+3) Model for tracking stickers
+Use coordinates with axes: x right, y up, z front. Faces are:
+- Front F: normal (0,0,1), Back B: (0,0,-1), Right R: (1,0,0), Left L: (-1,0,0), Up U: (0,1,0), Down D: (0,-1,0).
+
+Track each 1-sticker as a pair (position p, outward normal n). A sticker is on the front face exactly when its final normal is (0,0,1).
+
+Rotation rules used (standard cube notation):
+- R: rotate layer x=+1 by +90 degrees about x: $(x,y,z)\mapsto (x,-z,y)$ and $n\mapsto (n_x,-n_z,n_y)$.
+- L: rotate layer x=-1 by +90 degrees about x: same formula but applied only when x=-1.
+- U: rotate layer y=+1 by +90 degrees about y: $(x,y,z)\mapsto (z,y,-x)$ and $n\mapsto (n_z,n_y,-n_x)$.
+- B: rotate layer z=-1 by -90 degrees about z: $(x,y,z)\mapsto (y,-x,z)$ and $n\mapsto (n_y,-n_x,n_z)$.
+
+4) Track the front-perimeter 1-stickers (those initially on F)
+Denote the five front stickers that end up on the front face at the end (computations follow the above rotation rules, step-by-step through the 10 moves):
+
+(a) FD (front-down edge) starts at p=(0,-1,1), n=F.
+None of the moves R,U,B,L affects this sticker's cubie-layer (it is never in y=+1, x=+-1, z=-1), so it stays on the front face.
+=> FD ends with n=F.
+
+(b) FR (front-right edge) starts at p=(1,0,1), n=F.
+Applying the 10 moves gives final normal n=F.
+=> FR ends on the front face.
+
+(c) FL (front-left edge) starts at p=(-1,0,1), n=F.
+Applying the 10 moves gives final normal n=F.
+=> FL ends on the front face.
+
+(d) FUR (front-up right corner sticker) starts at p=(1,1,1), n=F.
+Applying the 10 moves gives final normal n=F.
+=> FUR ends on the front face.
+
+(e) FDL (front-down left corner sticker) starts at p=(-1,-1,1), n=F.
+Applying the 10 moves gives final normal n=F.
+=> FDL ends on the front face.
+
+The remaining three original front 1-stickers (FU, FUL, FDR) end with normals different from F (they end on side faces), hence they do NOT contribute to the front-face count.
+
+5) Track the back-perimeter 1-stickers (those initially on B)
+Applying the same update rules to the 8 back 1-stickers (BU, BR, BD, BL and the four back corners) shows that none finishes with normal F.
+=> 0 back-1-stickers contribute to the final front face.
+
+6) Count 1-stickers on the final front face
+From Steps 4-5:
+- Number of 1-stickers on the final front face = 5.
+
+7) Compute the required sum on the front face
+- Front center = 2.
+- 5 perimeter stickers are 1.
+- The remaining 3 perimeter stickers are 0.
+
+Sum = 2 + 5*1 + 3*0 = 7.
+
+FINAL ANSWER: 7

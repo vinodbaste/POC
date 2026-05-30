@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/6dd8c8dc917943f9b93c78f187a8d2eb-SWARMBENCH-FANOUT-REASONINGMATH-NICOTINE-GUM-RANDOM-EFFECTS-META-ANALYSIS"
+description = "Derive from first principles, on the log-odds-ratio scale, the random-effects pooled odds ratio and 95% CI for a 26-trial dataset (per-study variance algebra, inverse-variance weights, Cochran's Q, the DerSimonian-Laird tau^2 estimator, re-weighted pooling), then mathematically audit twelve AI-generated derivations, proving each one's estimator algebra correct or incorrect and assigning the exact failure-code set."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11.0
+human_solving_hours_justification = "Reviewer-grade mathematical audit: 1.5h to derive the DerSimonian-Laird random-effects estimator from first principles (per-study log-OR variance, fixed-effect pool, Q, I^2, tau^2, re-weighted pool, CI); 12 x ~0.6h to re-derive each candidate's estimator algebra and prove its pooled OR correct or incorrect, assigning the exact failure-code set (7.2h); 2.3h to reconcile co-firing errors and refutation traps and build the 364-point oracle. Total: 1.5 + 7.2 + 2.3 = 11.0h."
+estimated_sub_agents = 14
+input_token_estimate = 9000
+why_multi_agent = "A single agent must derive the random-effects estimator (log-OR variance algebra, Q, DerSimonian-Laird tau^2, re-weighted pooling) and validate the estimator algebra of twelve dense derivations, each with a distinct mathematical error. Multiplexing the derivation with twelve proof-audits, it drifts to the majority value, drops co-firing errors, and false-fires on refuted methods. Fan-out assigns one derivation specialist and twelve focused proof-auditors; the synthesizer is mechanical."
+reference_link = "https://vincentarelbundock.github.io/Rdatasets/doc/HSAUR/smoking.html"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

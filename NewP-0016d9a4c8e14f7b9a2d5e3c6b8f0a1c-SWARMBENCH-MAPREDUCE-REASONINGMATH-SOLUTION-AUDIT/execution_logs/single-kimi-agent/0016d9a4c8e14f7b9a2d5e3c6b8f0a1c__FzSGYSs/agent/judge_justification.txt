@@ -1,0 +1,3 @@
+Score: 0.5396 (886/1642 passed)
+
+correct_seniority_order 6/6; correct_final_allocation 0/12 (agent [98,100,0,1,0,1] ≠ oracle [196,0,1,1,2,0]); acceptable_solution_ids 8/8; D:73/404 (id+alloc+answer+order+induction+stalemate+majority+preserves=73, compares+contradiction+format=0); E:322/404 (id+answer+order+induction+stalemate+compares+preserves+format=322, alloc+majority+contradiction=0); F:74/404 (id+alloc+answer+order+induction+stalemate+majority+preserves+format=74, compares+contradiction=0); G:403/404 (id+answer+order+induction+stalemate+majority+compares+preserves+contradiction+format=403, alloc=0)

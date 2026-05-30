@@ -1,0 +1,2 @@
+Skipping image OS validation for hb__swarmbench-b9d3f5a7c2e4865b1d9f3a5c7e2b4d68-swarmbench-fanout-reasoningmath-imo25p6-tile-area-cap-audit: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

@@ -1,0 +1,225 @@
+sub_tasks:
+  - id: verify-extremal-formulas
+    description: >
+      Read /input_artifacts/problem.md to understand the contiguous-interval
+      visibility constraint. The problem asks for two distinct extremes over
+      all valid star-interval configurations consistent with the visibility
+      array A: m is the SMALLEST possible total number of distinct stars,
+      and M is the LARGEST possible total number of distinct stars. Derive m
+      and M from first principles. For each extremum produce BOTH (a) an
+      explicit construction of star intervals that achieves your claimed
+      value, and (b) a tight bound proof. Be deliberate about the
+      optimization direction at every step: bounds and identities that look
+      similar can apply to different extremes for different reasons, so
+      double-check that any inequality you write is actually pushing in the
+      direction you intend. Sanity-check your derivation on small synthetic
+      arrays of length one and two before applying it to the full A. After
+      your independent derivation, briefly compare your numerical m, M, m+M
+      against the values claimed in the eight proposed responses; this is
+      a sanity check, not a vote, so do not adopt any value just because it
+      is popular, but if your derivation contradicts a clear majority of
+      responses, re-examine your reasoning before settling on a final answer.
+      Output the verified m, M, m+M, the construction and proof for each,
+      and a short list of common reasoning traps. Do not assign correctness
+      labels to any candidate response and do not classify failure reasons.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only
+      Response A. Extract the response's stated numerical values of m, M,
+      and m+M, the closed-form expressions or invariants it claims for
+      each extremum, the optimality argument or construction it offers,
+      and any arithmetic it performs. Decide whether the response's stated
+      final value of m+M is mathematically correct and whether its
+      extremal reasoning is valid as a proof. Produce the exact applicable
+      failure_reasons set chosen from these six allowed codes:
+      wrong_minimum_formula, wrong_maximum_formula, arithmetic_error,
+      ignored_continuity_constraint, invalid_or_incomplete_justification,
+      final_answer_error. Apply each code only when its trigger condition
+      is concretely present in this response's text. Do not infer
+      correctness from other proposed responses or from other audit
+      sub-tasks; each audit must rest entirely on the contents of this one
+      response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only
+      Response B. Extract the response's stated numerical values of m, M,
+      and m+M, the closed-form expressions or invariants it claims for
+      each extremum, the optimality argument or construction it offers,
+      and any arithmetic it performs. Decide whether the response's stated
+      final value of m+M is mathematically correct and whether its
+      extremal reasoning is valid as a proof. Produce the exact applicable
+      failure_reasons set chosen from these six allowed codes:
+      wrong_minimum_formula, wrong_maximum_formula, arithmetic_error,
+      ignored_continuity_constraint, invalid_or_incomplete_justification,
+      final_answer_error. Apply each code only when its trigger condition
+      is concretely present in this response's text. Do not infer
+      correctness from other proposed responses or from other audit
+      sub-tasks; each audit must rest entirely on the contents of this one
+      response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only
+      Response C. Extract the response's stated numerical values of m, M,
+      and m+M, the closed-form expressions or invariants it claims for
+      each extremum, the optimality argument or construction it offers,
+      and any arithmetic it performs. Decide whether the response's stated
+      final value of m+M is mathematically correct and whether its
+      extremal reasoning is valid as a proof. Produce the exact applicable
+      failure_reasons set chosen from these six allowed codes:
+      wrong_minimum_formula, wrong_maximum_formula, arithmetic_error,
+      ignored_continuity_constraint, invalid_or_incomplete_justification,
+      final_answer_error. Apply each code only when its trigger condition
+      is concretely present in this response's text. Do not infer
+      correctness from other proposed responses or from other audit
+      sub-tasks; each audit must rest entirely on the contents of this one
+      response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only
+      Response D. Extract the response's stated numerical values of m, M,
+      and m+M, the closed-form expressions or invariants it claims for
+      each extremum, the optimality argument or construction it offers,
+      and any arithmetic it performs. Decide whether the response's stated
+      final value of m+M is mathematically correct and whether its
+      extremal reasoning is valid as a proof. Produce the exact applicable
+      failure_reasons set chosen from these six allowed codes:
+      wrong_minimum_formula, wrong_maximum_formula, arithmetic_error,
+      ignored_continuity_constraint, invalid_or_incomplete_justification,
+      final_answer_error. Apply each code only when its trigger condition
+      is concretely present in this response's text. Do not infer
+      correctness from other proposed responses or from other audit
+      sub-tasks; each audit must rest entirely on the contents of this one
+      response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only
+      Response E. Extract the response's stated numerical values of m, M,
+      and m+M, the closed-form expressions or invariants it claims for
+      each extremum, the optimality argument or construction it offers,
+      and any arithmetic it performs. Decide whether the response's stated
+      final value of m+M is mathematically correct and whether its
+      extremal reasoning is valid as a proof. Produce the exact applicable
+      failure_reasons set chosen from these six allowed codes:
+      wrong_minimum_formula, wrong_maximum_formula, arithmetic_error,
+      ignored_continuity_constraint, invalid_or_incomplete_justification,
+      final_answer_error. Apply each code only when its trigger condition
+      is concretely present in this response's text. Do not infer
+      correctness from other proposed responses or from other audit
+      sub-tasks; each audit must rest entirely on the contents of this one
+      response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only
+      Response F. Extract the response's stated numerical values of m, M,
+      and m+M, the closed-form expressions or invariants it claims for
+      each extremum, the optimality argument or construction it offers,
+      and any arithmetic it performs. Decide whether the response's stated
+      final value of m+M is mathematically correct and whether its
+      extremal reasoning is valid as a proof. Produce the exact applicable
+      failure_reasons set chosen from these six allowed codes:
+      wrong_minimum_formula, wrong_maximum_formula, arithmetic_error,
+      ignored_continuity_constraint, invalid_or_incomplete_justification,
+      final_answer_error. Apply each code only when its trigger condition
+      is concretely present in this response's text. Do not infer
+      correctness from other proposed responses or from other audit
+      sub-tasks; each audit must rest entirely on the contents of this one
+      response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only
+      Response G. Extract the response's stated numerical values of m, M,
+      and m+M, the closed-form expressions or invariants it claims for
+      each extremum, the optimality argument or construction it offers,
+      and any arithmetic it performs. Decide whether the response's stated
+      final value of m+M is mathematically correct and whether its
+      extremal reasoning is valid as a proof. Produce the exact applicable
+      failure_reasons set chosen from these six allowed codes:
+      wrong_minimum_formula, wrong_maximum_formula, arithmetic_error,
+      ignored_continuity_constraint, invalid_or_incomplete_justification,
+      final_answer_error. Apply each code only when its trigger condition
+      is concretely present in this response's text. Do not infer
+      correctness from other proposed responses or from other audit
+      sub-tasks; each audit must rest entirely on the contents of this one
+      response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only
+      Response H. Extract the response's stated numerical values of m, M,
+      and m+M, the closed-form expressions or invariants it claims for
+      each extremum, the optimality argument or construction it offers,
+      and any arithmetic it performs. Decide whether the response's stated
+      final value of m+M is mathematically correct and whether its
+      extremal reasoning is valid as a proof. Produce the exact applicable
+      failure_reasons set chosen from these six allowed codes:
+      wrong_minimum_formula, wrong_maximum_formula, arithmetic_error,
+      ignored_continuity_constraint, invalid_or_incomplete_justification,
+      final_answer_error. Apply each code only when its trigger condition
+      is concretely present in this response's text. Do not infer
+      correctness from other proposed responses or from other audit
+      sub-tasks; each audit must rest entirely on the contents of this one
+      response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Stitch the upstream sub-agent reports into the final JSON document
+      that the verifier expects. Do NOT re-derive the problem and do NOT
+      re-classify any response. Specifically: copy correct_values.m,
+      correct_values.M, and correct_values.m_plus_M directly from the
+      verify-extremal-formulas sub-agent's output (verify that
+      m_plus_M = m + M). Build per_response_assessment as a list of eight
+      objects in the order A, B, C, D, E, F, G, H, where each object's
+      response_id, final_answer_correct, and failure_reasons fields come
+      verbatim from the corresponding audit-response-X sub-agent's output.
+      Compute acceptable_solution_ids as the alphabetically-sorted list of
+      response letters whose audit reported final_answer_correct=true and
+      failure_reasons=[] (use [] when no response qualifies). Validate the
+      JSON schema described in instruction.md and write the document to
+      /logs/agent/output.json. If any upstream sub-agent's output is
+      missing or malformed, escalate by leaving its slot blank and noting
+      the missing piece, but do not invent values; mechanical reconciliation
+      only.
+    depends_on:
+      - verify-extremal-formulas
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+    parallel_group: synthesize

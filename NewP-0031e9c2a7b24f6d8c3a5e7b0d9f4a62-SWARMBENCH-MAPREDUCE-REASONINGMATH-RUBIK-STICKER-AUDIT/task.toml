@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/0031e9c2a7b24f6d8c3a5e7b0d9f4a62-SWARMBENCH-MAPREDUCE-REASONINGMATH-RUBIK-STICKER-AUDIT"
+description = "Audit seven proposed solutions to a Rubik's-cube sticker-tracking problem and identify the fully acceptable solution set."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 10.0
+human_solving_hours_justification = "A careful human audit requires three distinct phases: 2.0h to formalize the cube-coordinate convention and the reduced move sequence; 5.0h to independently audit seven conflicting proposed solutions at about 40-45 minutes per response, including final-sum extraction, move-tracking verification, arithmetic checking, and provenance checking; and 3.0h to reconcile the seven audits into one consistent field-by-field answer with written justification. Total: 2.0 + 5.0 + 3.0 = 10.0h."
+estimated_sub_agents = 8
+input_token_estimate = 4758
+why_multi_agent = "This is a map-reduce audit task with seven independent response-level adjudications followed by one consistency reducer. The structural risk for a single agent is not raw context overflow; it is maintaining seven separate error profiles while also solving the underlying cube-tracking problem and applying eight boolean/extraction criteria consistently. A single pass tends to reuse one mistaken tracking convention across multiple responses or accept a correct final sum without checking provenance. The multi-agent plan assigns one isolated mapper to each response, so each mapper can solve the cube provenance check locally without being influenced by other proposed answers; the reducer then reconciles the seven local audits into one schema, verifies that acceptable_solution_ids agrees with all per-response fields, and catches cross-response inconsistencies."
+reference_link = "https://www.worldcubeassociation.org/regulations/#article-12-notation"
+
+[agent]
+timeout_sec = 2400
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

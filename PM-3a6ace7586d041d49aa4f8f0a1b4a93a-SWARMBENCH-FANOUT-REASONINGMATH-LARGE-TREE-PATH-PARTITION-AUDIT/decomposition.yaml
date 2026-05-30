@@ -1,0 +1,573 @@
+# Multi-agent decomposition for this audit task.
+#
+# ============================================================================
+# ORCHESTRATOR COORDINATION CONTRACT (multi-agent runs only)
+# ============================================================================
+# This file describes a fan-out/synthesise decomposition. The runtime
+# orchestrator is bound by the following hard constraints:
+#
+# 1. The orchestrator MUST NOT read /input_artifacts/problem.md,
+#    /input_artifacts/provenance.md, or any file in
+#    /input_artifacts/proposed_solutions/. Every input read happens
+#    inside a sub-agent invocation; the orchestrator never inlines the
+#    contents of those files into a sub-task prompt or into its own
+#    context. Each sub-task description names the exact files its
+#    sub-agent is responsible for reading directly during the
+#    sub-agent's own execution.
+#
+# 2. The orchestrator MUST NOT write /logs/agent/output.json. The
+#    final JSON document is produced and written exclusively by the
+#    `synthesize-final-audit` sub-agent.
+#
+# 3. The orchestrator MUST NOT re-derive the problem, re-classify any
+#    response, or perform any of the per-audit reasoning itself; all
+#    such work is delegated to sub-agents.
+#
+# 4. The orchestrator's only legitimate token expenditure is to
+#    (a) dispatch each sub-task to a fresh sub-agent invocation,
+#    respecting `depends_on`, (b) collect the structured returns from
+#    each sub-agent, and (c) hand those structured returns to
+#    `synthesize-final-audit` which writes the final JSON.
+#
+# 5. As a budget guideline for this task, the orchestrator's total
+#    token consumption SHOULD remain well below 30% of the combined
+#    multi-agent budget; the dominant per-response audit reasoning is
+#    expected to live inside the eleven `audit-response-*` sub-agents
+#    and the mathematical derivation inside `verify-correct-answer`.
+#
+# The audit rules and output schema themselves live in
+# `/instruction.md` and apply identically to single-agent and
+# multi-agent runs; this file is a multi-agent-only coordination
+# contract and must not be read by single-agent runs.
+# ============================================================================
+
+sub_tasks:
+  - id: verify-correct-answer
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md from disk during its own
+      execution; the orchestrator does NOT pre-read or inline this
+      file into this sub-task prompt. Open the file yourself and
+      extract the parent array and the values of N and K.
+
+      Read /input_artifacts/problem.md and independently produce SIX
+      mathematical sub-quantities required by the verifier:
+
+        * `correct_answer`: the count of valid length-K=22 arrays
+          modulo 997 on the given N=44 tree.
+        * `small_case_anchor_results.P3_K2`: the length-K=2 count on
+          path P_3 (vertices 1-2-3, two edges), modulo 997.
+        * `small_case_anchor_results.P4_K2`: the length-K=2 count on
+          path P_4 (four vertices, three edges), modulo 997.
+        * `small_case_anchor_results.P5_K2`: the length-K=2 count on
+          path P_5 (five vertices, four edges), modulo 997.
+        * `small_case_anchor_results.S3_K2`: the length-K=2 count on
+          the three-leaf star (one hub, three leaves), modulo 997.
+        * `small_case_anchor_results.S4_K2`: the length-K=2 count on
+          the four-leaf star (one hub, four leaves), modulo 997.
+
+      Compute the final N=44 number with a single deliberate Python
+      script that uses big-integer arithmetic, builds the degree
+      multiset directly from the parent array, applies your committed
+      framework, and prints the length-K=22 value modulo 997 as well
+      as the five small-tree K=2 values modulo 997 from the SAME
+      framework. If your script reproduces every small-tree anchor
+      and reports a single integer in [0, 997) for the N=44 case,
+      commit to those six values. You have at most 30 thinking
+      steps; if after 25 you have not produced a value that reproduces
+      every anchor, report your best-effort intermediate values and
+      stop. Do not assign correctness labels to any candidate response
+      and do not classify failure reasons.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_A.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context, not in the orchestrator's): (i)
+      summarise Response A's stated counting method or DP in 2-3
+      sentences quoting the exact formula or recurrence the response
+      commits to; (ii) pick at least one of the five small-tree
+      anchors P_3, P_4, P_5, S_3, S_4 at K=2 and expand Response A's
+      stated method on that anchor by direct polynomial
+      multiplication or DP simulation, writing the expansion out
+      step-by-step in your reasoning trace, then compare the value
+      you obtain to the brute-force anchor (P3_K2=1, P4_K2=2,
+      P5_K2=3, S3_K2=3, S4_K2=3) listed in instruction.md; (iii)
+      decide which audit rule (R2/R3/R4/R5) and which W-pattern (if
+      any) applies, and pick the error_category from R6; (iv) emit
+      the structured audit object below.
+
+      Produce ONE structured audit object for Response A by
+      applying the audit rules R1-R5 and the error_category rule R6
+      from /instruction.md verbatim, exactly as a single auditor
+      would, without consulting any other response.
+
+      The deterministic verifier grades SEVEN per-audit fields
+      strictly all-or-nothing per audit (one slip zeros the 30
+      points): response_id (must equal the letter "A");
+      final_answer_correct (bool); failure_reasons (size-0 list when
+      correct, size-2 list when wrong consisting of one primary code
+      from {wrong_formula, arithmetic_error,
+      invalid_or_incomplete_justification} chosen by R2/R3/R4/R5
+      plus the mandatory final_answer_error per R1);
+      primary_failure_evidence (string of >=60 chars quoting exact
+      textual evidence from response_A.md);
+      alternative_codes_considered (>=2 distinct entries drawn from
+      the FOUR-CODE FAILURE vocabulary, codes not in
+      failure_reasons, each entry's reason_excluded string of >=30
+      chars); error_category (one of the five values per R6); and
+      anchor_verification_summary (string of >=100 chars recording
+      the auditor's own independent expansion of the response's
+      stated method on at least one of P_3, P_4, P_5, S_3, S_4 at
+      K=2). Two additional fields, dominant_error_location and
+      length_constraint_handling, are emitted but NOT graded — set
+      them to your best-effort value.
+
+      Return ONE audit object for Response A and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_B.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response B's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response B's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response B by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "B"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response B and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_C.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response C's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response C's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response C by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "C"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response C and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_D.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response D's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response D's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response D by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "D"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response D and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_E.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response E's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response E's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response E by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "E"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response E and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_F.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response F's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response F's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response F by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "F"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response F and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_G.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response G's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response G's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response G by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "G"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response G and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_H.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response H's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response H's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response H by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "H"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response H and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-i
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_I.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response I's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response I's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response I by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "I"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response I and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-j
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_J.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response J's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response J's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response J by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "J"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response J and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-k
+    description: >
+      File-reading directive: this sub-agent MUST itself read
+      /input_artifacts/problem.md and ONLY
+      /input_artifacts/proposed_solutions/response_K.md from disk
+      during its own execution; the orchestrator does NOT pre-read
+      or inline these files into this sub-task prompt. Open both
+      files yourself and quote from them verbatim as you reason.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context): (i) summarise Response K's stated
+      counting method or DP in 2-3 sentences quoting the exact
+      formula or recurrence; (ii) expand Response K's stated method
+      on at least one of P_3, P_4, P_5, S_3, S_4 at K=2, writing
+      the expansion step-by-step, then compare to the brute-force
+      anchors (P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3); (iii)
+      decide which audit rule (R2/R3/R4/R5) and W-pattern apply,
+      and pick the error_category from R6; (iv) emit the audit
+      object.
+
+      Produce ONE structured audit object for Response K by
+      applying R1-R5 and R6 from /instruction.md verbatim, exactly
+      as a single auditor would, without consulting any other
+      response.
+
+      Same seven-graded-field schema as audit-response-a (response_id
+      equals "K"; final_answer_correct; failure_reasons in the legal
+      shape; primary_failure_evidence >=60 chars; >=2 distinct
+      alternative codes from the four-code FAILURE vocabulary with
+      reason_excluded >=30 chars each; error_category per R6;
+      anchor_verification_summary >=100 chars).
+
+      Return ONE audit object for Response K and nothing else.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      File-writing directive: this sub-agent MUST itself write the
+      final JSON document at /logs/agent/output.json from inside its
+      own execution; the orchestrator does NOT write that file and
+      does NOT inline its contents. Open the output path yourself and
+      perform the write call directly.
+
+      Reasoning protocol (perform every step inside this sub-agent's
+      own execution context, NOT in the orchestrator's): (i) collect
+      the structured returns from verify-correct-answer and from each
+      of the eleven audit-response-* sub-agents; (ii) for each
+      returned audit, validate every per-audit field against the
+      schema in instruction.md (response_id letter, final_answer_correct
+      bool, failure_reasons size 0 / size 2, primary_failure_evidence
+      >=60 chars, alternative_codes_considered >=2 entries with
+      reason_excluded >=30 chars each, error_category in vocabulary,
+      anchor_verification_summary >=100 chars); (iii) compute
+      acceptable_solution_ids as the alphabetically-sorted list of
+      letters whose audit has final_answer_correct=true and
+      failure_reasons=[]; (iv) assemble the full JSON object in
+      memory and serialise it; (v) write the bytes to
+      /logs/agent/output.json yourself. Do NOT re-derive the problem
+      and do NOT re-classify any response.
+
+      The output JSON must satisfy these declarative constraints:
+
+        * `correct_answer` is an integer in [0, 997) equal to the value
+          produced by verify-correct-answer.
+        * `small_case_anchor_results` is an object whose five integer
+          values come verbatim from the verify-correct-answer report.
+        * `per_response_assessment` is an ordered array of eleven audit
+          objects whose `response_id` values are exactly A, B, C, D, E,
+          F, G, H, I, J, K (in that order); the contents of each audit
+          object come from the matching audit-response-* sub-agent.
+        * For every audit whose `final_answer_correct` is `true`, the
+          `failure_reasons` array is empty.
+        * For every audit whose `final_answer_correct` is `false`, the
+          `failure_reasons` array has exactly two distinct codes, one
+          of which is `final_answer_error`, and the other is the
+          primary code chosen by the corresponding sub-agent.
+        * `alternative_codes_considered` for each audit is disjoint
+          from that audit's `failure_reasons` and contains entries
+          whose `code` field comes only from the four-code FAILURE
+          vocabulary {wrong_formula, arithmetic_error,
+          invalid_or_incomplete_justification, final_answer_error}.
+        * `acceptable_solution_ids` is the alphabetically-sorted list
+          of response letters whose audit has
+          `final_answer_correct=true` and `failure_reasons=[]`.
+
+      You MUST write the final JSON to /logs/agent/output.json
+      yourself. A missing or malformed sub-agent slot is satisfied by
+      a stub whose primary code is
+      `invalid_or_incomplete_justification`, whose `error_category`
+      is `incomplete_or_truncated`, and whose free-text fields meet
+      the per-field length minimums (>=60 chars for
+      primary_failure_evidence; >=30 chars for each reason_excluded;
+      >=100 chars for anchor_verification_summary).
+      Do not exit without writing /logs/agent/output.json. The
+      orchestrator does not perform any of this assembly or write
+      step itself; it only collects your acknowledgement that the
+      file was written.
+    depends_on:
+      - verify-correct-answer
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - audit-response-j
+      - audit-response-k
+    parallel_group: synthesize

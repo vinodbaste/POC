@@ -1,0 +1,11 @@
+FROM python:3.12.11-slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir numpy==2.2.6
+
+
+COPY input_artifacts/ /input_artifacts/
+WORKDIR /workspace

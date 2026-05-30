@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/0011a7c9e2d14f6b8c3d5e9a0f4b6c8d-SWARMBENCH-MAPREDUCE-REASONINGMATH-PLINKO-BINOMIAL-MODULAR-AUDIT"
+description = "Audit nine proposed solutions to a Plinko path-counting and binomial-coefficient modular arithmetic problem using canonical and domain-specific error labels."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "map-reduce"
+human_solving_hours_estimate = 14.0
+human_solving_hours_justification = "Core problem solve: 1.0h. Initial reading and extraction for 9 proposed responses: 9 x 0.45h = 4.05h. Detailed mathematical audit of path-count setup, p-adic valuations, reduced-factorial or modulo-prime-power work, CRT consistency, and unsupported-computation labels: 9 x 0.75h = 6.75h. Cross-response label reconciliation and oracle construction: 1.4h. Final consistency QA: 0.8h. Total = 1.0 + 4.05 + 6.75 + 1.4 + 0.8 = 14.0h."
+estimated_sub_agents = 11
+input_token_estimate = 12000
+reference_link = "https://cp-algorithms.com/combinatorics/binomial-coefficients.html, https://cp-algorithms.com/algebra/factorial-modulo.html, https://cp-algorithms.com/algebra/chinese-remainder-theorem.html"
+why_multi_agent = "The task has a large multi-document audit workload: one mathematical reference problem plus nine long proposed solutions, each requiring extraction, modular-arithmetic verification, and consistent sparse error labels. The primary single-agent failure mode is attention drift across many similar derivations and inconsistent label calibration on rare but high-impact p-adic, CRT, and unsupported-computation traps. A map-reduce decomposition provides genuine coordination value: one mapper establishes the reference mathematics, nine focused mappers independently audit one response each, and the reducer reconciles all labels under a shared schema without rereading the entire corpus or relying on majority vote."
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

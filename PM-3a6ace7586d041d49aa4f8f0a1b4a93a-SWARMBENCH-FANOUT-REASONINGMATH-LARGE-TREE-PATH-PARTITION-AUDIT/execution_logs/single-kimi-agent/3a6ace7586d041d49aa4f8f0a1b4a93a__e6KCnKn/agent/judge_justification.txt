@@ -1,0 +1,20 @@
+Score: 0.3966 (138/348 points)
+
+correct_answer: PASS (got 253)
+small_case_anchor_results.P3_K2: PASS
+small_case_anchor_results.P4_K2: PASS
+small_case_anchor_results.P5_K2: PASS
+small_case_anchor_results.S3_K2: PASS
+small_case_anchor_results.S4_K2: PASS
+acceptable_solution_ids: PASS
+audit A: PASS
+audit B: PASS
+audit C: FAIL (failure_reasons set mismatch: missing=['wrong_formula'], extra=['arithmetic_error']; error_category mismatch: got 'arithmetic_slip', expected 'wrong_method')
+audit D: FAIL (failure_reasons set mismatch: missing=['wrong_formula'], extra=['arithmetic_error']; error_category mismatch: got 'arithmetic_slip', expected 'wrong_method')
+audit E: FAIL (failure_reasons set mismatch: missing=['invalid_or_incomplete_justification'], extra=['wrong_formula']; error_category mismatch: got 'wrong_method', expected 'incomplete_or_truncated')
+audit F: FAIL (failure_reasons set mismatch: missing=['wrong_formula'], extra=['invalid_or_incomplete_justification']; error_category mismatch: got 'no_method_committed', expected 'wrong_method')
+audit G: PASS
+audit H: FAIL (failure_reasons set mismatch: missing=['invalid_or_incomplete_justification'], extra=['arithmetic_error']; error_category mismatch: got 'arithmetic_slip', expected 'incomplete_or_truncated')
+audit I: FAIL (failure_reasons set mismatch: missing=['invalid_or_incomplete_justification'], extra=['wrong_formula']; error_category mismatch: got 'incomplete_or_truncated', expected 'no_method_committed')
+audit J: FAIL (failure_reasons set mismatch: missing=['invalid_or_incomplete_justification'], extra=['wrong_formula']; error_category mismatch: got 'wrong_method', expected 'no_method_committed')
+audit K: PASS

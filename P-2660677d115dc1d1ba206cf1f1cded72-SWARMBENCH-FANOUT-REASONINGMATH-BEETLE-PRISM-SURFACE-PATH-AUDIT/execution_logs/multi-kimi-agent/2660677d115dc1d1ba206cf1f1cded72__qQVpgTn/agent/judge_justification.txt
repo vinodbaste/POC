@@ -1,0 +1,5 @@
+Score: 0.9268 (LLM raw 0.9268, capped at 0.99)
+
+LLM-judge score: 0.9268  (380/410 pts)
+
+Gold distance correct (100), all anchors correct (30), acceptable IDs correct (10), responses A-F,H,I correct (240), response G incorrect (0). Total 380/410.

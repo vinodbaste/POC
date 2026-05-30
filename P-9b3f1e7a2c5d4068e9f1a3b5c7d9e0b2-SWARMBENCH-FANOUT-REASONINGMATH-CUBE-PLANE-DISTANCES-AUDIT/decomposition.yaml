@@ -1,0 +1,277 @@
+sub_tasks:
+  - id: adjudicate-gold-geometry
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this derivation yourself. The sub-agent must
+      read /input_artifacts/problem.md itself and return a compact gold packet
+      containing the gold final numeric answer it derives, the complete set of
+      distinct s² values it finds, and a short proof sketch covering the cube
+      sign-pattern geometry. Do not inspect any candidate response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: calibrate-failure-code-boundaries
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using the
+      Agent tool. Do NOT perform this calibration yourself. The sub-agent must
+      read the task instruction itself, including the controlled vocabulary,
+      Failure-code disambiguation guidance, Primary failure code selection
+      guidance, Common audit anti-patterns, and Resolution rules. Return a
+      concise calibration packet summarizing how to apply the twelve codes,
+      the failure_reasons set-match rule, primary_failure_code selection, and
+      required evidence/alternative fields. Do not introduce new analytical
+      rules beyond instruction.md.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_A using the Agent tool. Do NOT classify response_A yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_A.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "A" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: audit-response-b
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_B using the Agent tool. Do NOT classify response_B yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_B.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "B" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: audit-response-c
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_C using the Agent tool. Do NOT classify response_C yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_C.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "C" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: audit-response-d
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_D using the Agent tool. Do NOT classify response_D yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_D.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "D" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: audit-response-e
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_E using the Agent tool. Do NOT classify response_E yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_E.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "E" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: audit-response-f
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_F using the Agent tool. Do NOT classify response_F yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_F.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "F" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: audit-response-g
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_G using the Agent tool. Do NOT classify response_G yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_G.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "G" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: audit-response-h
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_H using the Agent tool. Do NOT classify response_H yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_H.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "H" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: audit-response-i
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn a separate sub-agent for
+      response_I using the Agent tool. Do NOT classify response_I yourself.
+      The sub-agent must read /input_artifacts/proposed_solutions/response_I.md
+      itself, use the gold packet and code-boundary guide, and return one JSON
+      assessment object for response_id "I" with every scored field required
+      by instruction.md: response_id, final_answer_correct, failure_reasons,
+      primary_failure_code, primary_failure_code_evidence, failure_reason_evidence,
+      alternative_codes_considered, code_application_count, primary_in_set_check,
+      and evidence_key_completeness. Apply the same universal trigger and primary
+      selection rules from instruction.md that apply to every response. Do not
+      infer labels from any other proposed response.
+    depends_on: [adjudicate-gold-geometry, calibrate-failure-code-boundaries]
+    parallel_group: audit
+
+  - id: adjudicate-primary-failure-codes
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this adjudicator as a sub-agent
+      using the Agent tool after all nine response auditors finish. Do NOT do
+      this adjudication in the orchestrator. The adjudicator must consume the
+      gold packet, the calibration guide, the nine mapper outputs, and the nine
+      candidate response files. Its job is narrowly to re-check the labels that
+      dominate scoring and are easy to conflate: the failure_reasons set and
+      the primary_failure_code per response. It must apply the universal trigger
+      and primary-code selection rules already specified in instruction.md
+      uniformly to all nine responses, without introducing new response-specific
+      analytical rules. Return a structured correction object keyed by response_id
+      A through I, containing only fields whose mapper value should be corrected,
+      plus the corrected value and a short evidence quotation from the response.
+    depends_on:
+      - adjudicate-gold-geometry
+      - calibrate-failure-code-boundaries
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+    parallel_group: adjudicate
+
+  - id: build-code-application-tables
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
+      the Agent tool. Do NOT compute the aggregation yourself. The sub-agent
+      receives the nine adjudicated per-response evaluations from the
+      adjudicator's correction object plus original mapper outputs. Required
+      output state: a JSON fragment for code_application_table whose keys are
+      exactly the 12 failure-reason codes; each value is the alphabetically
+      sorted list of response_ids whose corrected failure_reasons set contains
+      that code. Codes with no matching response carry an empty list. No key is
+      null and no key is omitted.
+    depends_on:
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - adjudicate-primary-failure-codes
+    parallel_group: aggregate
+
+  - id: validate-output-consistency
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this as a sub-agent using
+      the Agent tool. The sub-agent receives the nine adjudicated per-response
+      evaluations and computes the derived per-response fields for every
+      response: code_application_count, primary_in_set_check, and
+      evidence_key_completeness. It also assembles the per_response_assessment
+      list of nine objects in alphabetical order A through I with all required
+      scored fields. Return the per_response_assessment JSON fragment for the
+      final synthesizer to embed.
+    depends_on:
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - adjudicate-primary-failure-codes
+    parallel_group: aggregate
+
+  - id: synthesize-final-audit
+    description: >
+      ORCHESTRATOR INSTRUCTION: You MUST spawn this synthesizer as a sub-agent
+      using the Agent tool. Do NOT perform the final synthesis yourself. The
+      synthesizer consumes the gold packet, code-boundary guide, nine audit
+      objects, adjudicator correction object, code_application_table fragment,
+      and per_response_assessment fragment. It MUST NOT re-derive the gold
+      answer or re-audit individual responses. It writes /logs/agent/output.json
+      as a single JSON object matching the schema declared in instruction.md,
+      with nine per_response_assessment entries ordered A through I, all 12
+      code_application_table keys present, acceptable_solution_ids sorted, and
+      cross_response_observations as one response-specific string of at least
+      300 characters. If any audit object is malformed or missing required
+      fields, request a replacement audit for that one response rather than
+      fabricating fields locally. The output file must exist and parse as JSON
+      before the synthesizer returns.
+    depends_on:
+      - adjudicate-gold-geometry
+      - calibrate-failure-code-boundaries
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - adjudicate-primary-failure-codes
+      - build-code-application-tables
+      - validate-output-consistency
+    parallel_group: synthesize

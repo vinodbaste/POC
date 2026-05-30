@@ -1,0 +1,72 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-05-27T19:01:19.846001Z",
+    "harbor": {
+        "version": "0.6.4",
+        "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
+        "is_editable": true
+    },
+    "invocation": [
+        "/Users/vinodbaste/Turing Projects/harbor/.venv/bin/harbor",
+        "run",
+        "-p",
+        "/Users/vinodbaste/Turing Projects/POC/2660677d115dc1d1ba206cf1f1cded72-SWARMBENCH-FANOUT-REASONINGMATH-BEETLE-PRISM-SURFACE-PATH-AUDIT",
+        "-a",
+        "oracle",
+        "--job-name",
+        "oracle",
+        "--jobs-dir",
+        "/Users/vinodbaste/Turing Projects/POC/2660677d115dc1d1ba206cf1f1cded72-SWARMBENCH-FANOUT-REASONINGMATH-BEETLE-PRISM-SURFACE-PATH-AUDIT/execution_logs",
+        "--ve",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--ae",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--quiet"
+    ],
+    "n_concurrent_trials": 4,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "AgentTimeoutError",
+            "RewardFileEmptyError",
+            "VerifierTimeoutError",
+            "RewardFileNotFoundError",
+            "VerifierOutputParseError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "2660677d115dc1d1ba206cf1f1cded72-SWARMBENCH-FANOUT-REASONINGMATH-BEETLE-PRISM-SURFACE-PATH-AUDIT",
+                "type": "local",
+                "digest": "sha256:93dd1c6c9a2ccbf1b3d8e40f86602a6c240a247ce820eb0692a4011603fbda9e",
+                "path": "/Users/vinodbaste/Turing Projects/POC/2660677d115dc1d1ba206cf1f1cded72-SWARMBENCH-FANOUT-REASONINGMATH-BEETLE-PRISM-SURFACE-PATH-AUDIT"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "oracle",
+                "kwargs": {},
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                }
+            },
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                },
+                "disable": false
+            }
+        }
+    ]
+}

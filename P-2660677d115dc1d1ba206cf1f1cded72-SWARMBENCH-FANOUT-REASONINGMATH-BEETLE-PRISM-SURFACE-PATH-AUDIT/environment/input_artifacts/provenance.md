@@ -1,0 +1,5 @@
+This task is a reasoning-math audit task. The central object being evaluated is not a real incident log; it is a bundle of candidate AI solution outputs for a constrained 3D surface-geodesic problem.
+
+The problem is framed as a regular-hexagonal-prism shortest-surface-path question inspired by classical polyhedral-geodesic and flat-net-unfolding settings. The proposed solution files `response_A.md` through `response_I.md` are candidate model responses collected for auditing. They are intentionally left as standalone markdown files because the agent must judge the unfolding-family enumeration, the straight-line geodesic computation across each flat development, the opposite-vertex base distance (true value $2a$ vs the common $2a\sqrt{3}$ error), external-citation discipline, and the final answer formatting of each response.
+
+The external reference in `task.toml` provides general professional context for polyhedral-surface shortest-path problems. The exact hexagonal-prism instance and the candidate response bundle are included locally in `/input_artifacts`.

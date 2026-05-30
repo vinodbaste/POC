@@ -1,0 +1,39 @@
+{
+    "id": "51661ad4-42a3-47db-8153-887e931a2ca9",
+    "started_at": "2026-05-24T01:24:00.430275",
+    "updated_at": "2026-05-24T01:27:46.900426",
+    "finished_at": "2026-05-24T01:27:46.900426",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "swarm-kimi-single__accounts/bhanu-nalamadgu-7pl5/deployments/ba0vhq9e__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.556475170399221
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.556475170399221": [
+                            "0011a7c9e2d14f6b8c3d5e9a0f4b6c8d__eVD9TL3"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 334421,
+        "n_cache_tokens": 305418,
+        "n_output_tokens": 11631,
+        "cost_usd": null
+    }
+}

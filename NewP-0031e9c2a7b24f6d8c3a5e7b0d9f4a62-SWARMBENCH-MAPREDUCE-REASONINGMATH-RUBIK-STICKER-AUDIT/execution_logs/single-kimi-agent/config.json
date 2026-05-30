@@ -1,0 +1,78 @@
+{
+    "job_name": "single-kimi-agent",
+    "jobs_dir": "/Users/ducphamviet/Works/Turing/multi-agent/swarmbench-harness/0031e9c2a7b24f6d8c3a5e7b0d9f4a62-SWARMBENCH-MAPREDUCE-REASONINGMATH-RUBIK-STICKER-AUDIT/execution_logs",
+    "n_attempts": 1,
+    "timeout_multiplier": 1.0,
+    "agent_timeout_multiplier": null,
+    "verifier_timeout_multiplier": null,
+    "agent_setup_timeout_multiplier": null,
+    "environment_build_timeout_multiplier": null,
+    "debug": false,
+    "n_concurrent_trials": 1,
+    "quiet": true,
+    "retry": {
+        "max_retries": 0,
+        "include_exceptions": null,
+        "exclude_exceptions": [
+            "AgentTimeoutError",
+            "RewardFileNotFoundError",
+            "VerifierTimeoutError",
+            "VerifierOutputParseError",
+            "RewardFileEmptyError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "environment": {
+        "type": "docker",
+        "import_path": null,
+        "force_build": false,
+        "delete": true,
+        "override_cpus": null,
+        "override_memory_mb": null,
+        "override_storage_mb": null,
+        "override_gpus": null,
+        "suppress_override_warnings": false,
+        "mounts_json": null,
+        "env": {},
+        "kwargs": {}
+    },
+    "verifier": {
+        "override_timeout_sec": null,
+        "max_timeout_sec": null,
+        "env": {
+            "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+        },
+        "disable": false
+    },
+    "metrics": [],
+    "agents": [
+        {
+            "name": "swarm-kimi-single",
+            "import_path": null,
+            "model_name": "fireworks_ai/accounts/bhanu-nalamadgu-7pl5/deployments/ba0vhq9e",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {
+                "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+            }
+        }
+    ],
+    "datasets": [],
+    "tasks": [
+        {
+            "path": "/Users/ducphamviet/Works/Turing/multi-agent/swarmbench-harness/0031e9c2a7b24f6d8c3a5e7b0d9f4a62-SWARMBENCH-MAPREDUCE-REASONINGMATH-RUBIK-STICKER-AUDIT",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        }
+    ],
+    "artifacts": []
+}

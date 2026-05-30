@@ -1,0 +1,39 @@
+Let's break down the problem step by step:
+
+1. **Initial Configuration**:
+   - Front face (F): Each corner square is 1, each edge square is 1, and the center square is 2.
+   - Back face (B): Each corner square is 1, each edge square is 1, and the center square is 2.
+   - Other faces (U, D, L, R): Each corner square is 0, each edge square is 0, and the center square is 2.
+
+2. **Moves**:
+   - R: Rotate the right face 90 degrees clockwise.
+   - U: Rotate the upper face 90 degrees clockwise.
+   - B: Rotate the back face 90 degrees clockwise.
+   - L: Rotate the left face 90 degrees clockwise.
+
+3. **Effect of Moves on the Front Face**:
+   - R: Does not affect the front face directly.
+   - U: Does not affect the front face directly.
+   - B: Does not affect the front face directly.
+   - L: Does not affect the front face directly.
+
+   After the first four moves (R, U, B, R), the front face remains unchanged.
+
+4. **Effect of Subsequent Moves**:
+   - L: Rotates the left face 90 degrees clockwise.
+   - L: Rotates the left face 90 degrees clockwise again.
+   - R: Rotates the right face 90 degrees clockwise.
+   - L: Rotates the left face 90 degrees clockwise.
+   - R: Rotates the right face 90 degrees clockwise.
+   - L: Rotates the left face 90 degrees clockwise.
+
+   These moves do not directly affect the front face, but they do affect the edges and corners that are adjacent to the front face.
+
+5. **Final Configuration of the Front Face**:
+   - After all the moves, the front face will have the same configuration as the initial configuration because the moves do not directly affect the front face.
+
+6. **Sum of the Numbers on the Front Face**:
+   - The front face has 4 corner squares with 1, 4 edge squares with 1, and 1 center square with 2.
+   - Sum = 4(1) + 4(1) + 1(2) = 4 + 4 + 2 = 10.
+
+Therefore, the sum of the numbers on the front face after the moves is **10**.

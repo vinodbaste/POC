@@ -1,0 +1,704 @@
+sub_tasks:
+  - id: derive-canonical-game-classification
+    description: >
+      Read /input_artifacts/problem.md only. Independently compute the
+      141-character P/N classification string for pile sizes 0 through 140
+      using dp[0] = P and dp[k] = N iff some legal move m in the union of
+      perfect squares and pentagonal numbers (with m <= k) reaches a
+      P-position. Return the derived classification string, the resulting
+      P-position index list, and a concise mechanics summary for the
+      synthesizer. Do not inspect any candidate response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A
+      against the eight controlled failure-reason codes (wrong_base_case,
+      missing_subtraction_moves, pn_convention_swapped, wrong_loss_convention,
+      truncated_or_short_string, arbitrary_pattern_heuristic,
+      arithmetic_recursion_error, non_terminating_or_no_final_string). Apply
+      the following STRICT 3-STEP GATE in order. Do not skip steps.
+
+      STEP 1 - LOCATE THE COMMITTED FINAL CLASSIFICATION STRING. Scan the
+      response and identify the single committed final P/N classification
+      string. A committed string is a contiguous sequence of >= 20 characters
+      from {P, N, whitespace} that appears inside a \boxed{...} expression,
+      or inside a fenced code block (triple backticks), or as a clearly
+      labelled bare final answer. Use the LAST such candidate in the response
+      (final-answer convention). If NO candidate of length >= 20 with
+      alphabet {P, N} exists anywhere in the response (including code
+      blocks, boxed expressions, and bare prose), the response has no
+      committed classification: set classification_correct=false and
+      failure_reasons=[non_terminating_or_no_final_string]. Do NOT apply
+      truncated_or_short_string, arithmetic_recursion_error, or
+      arbitrary_pattern_heuristic in this case; stop here.
+
+      STEP 2 - MEASURE THE COMMITTED STRING. Strip whitespace from the
+      committed string and measure its length L and its alphabet. Compare
+      character-for-character to the independently-computed 141-character
+      gold classification.
+      (a) If L == 141 AND the committed string equals the gold exactly,
+          set classification_correct=true; failure_reasons may still
+          contain trigger-instantiated codes (typically empty).
+      (b) If L != 141 OR the alphabet contains any character outside
+          {P, N} OR the committed string is split across newlines,
+          ALWAYS apply truncated_or_short_string. In this case
+          arithmetic_recursion_error is RULED OUT for the remainder of
+          the audit (do not apply it regardless of other content).
+
+      STEP 3 - APPLY CONTENT-DEPENDENT CODES (only after Steps 1 and 2).
+      Examine the response text and the committed string for each remaining
+      code:
+      - wrong_base_case fires iff the committed string's character at
+        index 0 is N (not P), OR the response explicitly states that the
+        empty pile is a winning position for the current player or that
+        dp[0] = N.
+      - pn_convention_swapped fires iff the response explicitly defines
+        P-position as "current player wins" or "winning position" (or the
+        equivalent inverted definition), OR the committed string equals
+        the exact bitwise inverse of the 141-character gold (P<->N
+        flipped). Mathematical disagreement alone is not sufficient.
+      - missing_subtraction_moves fires iff the response's enumerated move
+        set in its reasoning OMITS at least one legal move from the union
+        {1, 4, 5, 9, 12, 16, 22, 25, 35, 36, 49, 51, 64, 70, 81, 92, 100,
+        117, 121}. Inclusion of spurious extra values that are neither
+        squares nor pentagonals does NOT trigger this code.
+      - wrong_loss_convention fires iff the response explicitly endorses
+        the misere convention (last player to move loses) or another
+        inconsistent base-case convention; do not infer this from a wrong
+        string alone.
+      - arbitrary_pattern_heuristic fires iff the response's classification
+        rests on an explicit unjustified positional rule articulated in
+        text (for example "every Nth position is P", "all even positions
+        are P", "all nonzero positions are N because move size 1 exists",
+        "the pattern stabilizes into long runs", or an explicit
+        period-based claim). Mere visible regularity in the output without
+        textual pattern language does NOT trigger this code per the
+        disambiguation rule.
+      - arithmetic_recursion_error fires iff ALL FIVE of these hold: the
+        committed string has length EXACTLY 141; the character at index 0
+        is P; the alphabet is {P, N}; the response explicitly sets up the
+        standard recurrence (k is N iff some legal move reaches a P) with
+        the correct move set; and the response does NOT explicitly invert
+        the P/N convention. If any one of these prerequisites fails, do
+        NOT apply this code. Per-position errors are necessary but not
+        sufficient.
+
+      Return the exact set of triggered codes for Response A only; do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B
+      against the eight controlled failure-reason codes (wrong_base_case,
+      missing_subtraction_moves, pn_convention_swapped, wrong_loss_convention,
+      truncated_or_short_string, arbitrary_pattern_heuristic,
+      arithmetic_recursion_error, non_terminating_or_no_final_string). Apply
+      the following STRICT 3-STEP GATE in order. Do not skip steps.
+
+      STEP 1 - LOCATE THE COMMITTED FINAL CLASSIFICATION STRING. Scan the
+      response and identify the single committed final P/N classification
+      string. A committed string is a contiguous sequence of >= 20 characters
+      from {P, N, whitespace} that appears inside a \boxed{...} expression,
+      or inside a fenced code block (triple backticks), or as a clearly
+      labelled bare final answer. Use the LAST such candidate in the response
+      (final-answer convention). If NO candidate of length >= 20 with
+      alphabet {P, N} exists anywhere in the response (including code
+      blocks, boxed expressions, and bare prose), the response has no
+      committed classification: set classification_correct=false and
+      failure_reasons=[non_terminating_or_no_final_string]. Do NOT apply
+      truncated_or_short_string, arithmetic_recursion_error, or
+      arbitrary_pattern_heuristic in this case; stop here.
+
+      STEP 2 - MEASURE THE COMMITTED STRING. Strip whitespace from the
+      committed string and measure its length L and its alphabet. Compare
+      character-for-character to the independently-computed 141-character
+      gold classification.
+      (a) If L == 141 AND the committed string equals the gold exactly,
+          set classification_correct=true; failure_reasons may still
+          contain trigger-instantiated codes (typically empty).
+      (b) If L != 141 OR the alphabet contains any character outside
+          {P, N} OR the committed string is split across newlines,
+          ALWAYS apply truncated_or_short_string. In this case
+          arithmetic_recursion_error is RULED OUT for the remainder of
+          the audit (do not apply it regardless of other content).
+
+      STEP 3 - APPLY CONTENT-DEPENDENT CODES (only after Steps 1 and 2).
+      Examine the response text and the committed string for each remaining
+      code:
+      - wrong_base_case fires iff the committed string's character at
+        index 0 is N (not P), OR the response explicitly states that the
+        empty pile is a winning position for the current player or that
+        dp[0] = N.
+      - pn_convention_swapped fires iff the response explicitly defines
+        P-position as "current player wins" or "winning position" (or the
+        equivalent inverted definition), OR the committed string equals
+        the exact bitwise inverse of the 141-character gold (P<->N
+        flipped). Mathematical disagreement alone is not sufficient.
+      - missing_subtraction_moves fires iff the response's enumerated move
+        set in its reasoning OMITS at least one legal move from the union
+        {1, 4, 5, 9, 12, 16, 22, 25, 35, 36, 49, 51, 64, 70, 81, 92, 100,
+        117, 121}. Inclusion of spurious extra values that are neither
+        squares nor pentagonals does NOT trigger this code.
+      - wrong_loss_convention fires iff the response explicitly endorses
+        the misere convention (last player to move loses) or another
+        inconsistent base-case convention; do not infer this from a wrong
+        string alone.
+      - arbitrary_pattern_heuristic fires iff the response's classification
+        rests on an explicit unjustified positional rule articulated in
+        text (for example "every Nth position is P", "all even positions
+        are P", "all nonzero positions are N because move size 1 exists",
+        "the pattern stabilizes into long runs", or an explicit
+        period-based claim). Mere visible regularity in the output without
+        textual pattern language does NOT trigger this code per the
+        disambiguation rule.
+      - arithmetic_recursion_error fires iff ALL FIVE of these hold: the
+        committed string has length EXACTLY 141; the character at index 0
+        is P; the alphabet is {P, N}; the response explicitly sets up the
+        standard recurrence (k is N iff some legal move reaches a P) with
+        the correct move set; and the response does NOT explicitly invert
+        the P/N convention. If any one of these prerequisites fails, do
+        NOT apply this code. Per-position errors are necessary but not
+        sufficient.
+
+      Return the exact set of triggered codes for Response B only; do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C
+      against the eight controlled failure-reason codes (wrong_base_case,
+      missing_subtraction_moves, pn_convention_swapped, wrong_loss_convention,
+      truncated_or_short_string, arbitrary_pattern_heuristic,
+      arithmetic_recursion_error, non_terminating_or_no_final_string). Apply
+      the following STRICT 3-STEP GATE in order. Do not skip steps.
+
+      STEP 1 - LOCATE THE COMMITTED FINAL CLASSIFICATION STRING. Scan the
+      response and identify the single committed final P/N classification
+      string. A committed string is a contiguous sequence of >= 20 characters
+      from {P, N, whitespace} that appears inside a \boxed{...} expression,
+      or inside a fenced code block (triple backticks), or as a clearly
+      labelled bare final answer. Use the LAST such candidate in the response
+      (final-answer convention). If NO candidate of length >= 20 with
+      alphabet {P, N} exists anywhere in the response (including code
+      blocks, boxed expressions, and bare prose), the response has no
+      committed classification: set classification_correct=false and
+      failure_reasons=[non_terminating_or_no_final_string]. Do NOT apply
+      truncated_or_short_string, arithmetic_recursion_error, or
+      arbitrary_pattern_heuristic in this case; stop here.
+
+      STEP 2 - MEASURE THE COMMITTED STRING. Strip whitespace from the
+      committed string and measure its length L and its alphabet. Compare
+      character-for-character to the independently-computed 141-character
+      gold classification.
+      (a) If L == 141 AND the committed string equals the gold exactly,
+          set classification_correct=true; failure_reasons may still
+          contain trigger-instantiated codes (typically empty).
+      (b) If L != 141 OR the alphabet contains any character outside
+          {P, N} OR the committed string is split across newlines,
+          ALWAYS apply truncated_or_short_string. In this case
+          arithmetic_recursion_error is RULED OUT for the remainder of
+          the audit (do not apply it regardless of other content).
+
+      STEP 3 - APPLY CONTENT-DEPENDENT CODES (only after Steps 1 and 2).
+      Examine the response text and the committed string for each remaining
+      code:
+      - wrong_base_case fires iff the committed string's character at
+        index 0 is N (not P), OR the response explicitly states that the
+        empty pile is a winning position for the current player or that
+        dp[0] = N.
+      - pn_convention_swapped fires iff the response explicitly defines
+        P-position as "current player wins" or "winning position" (or the
+        equivalent inverted definition), OR the committed string equals
+        the exact bitwise inverse of the 141-character gold (P<->N
+        flipped). Mathematical disagreement alone is not sufficient.
+      - missing_subtraction_moves fires iff the response's enumerated move
+        set in its reasoning OMITS at least one legal move from the union
+        {1, 4, 5, 9, 12, 16, 22, 25, 35, 36, 49, 51, 64, 70, 81, 92, 100,
+        117, 121}. Inclusion of spurious extra values that are neither
+        squares nor pentagonals does NOT trigger this code.
+      - wrong_loss_convention fires iff the response explicitly endorses
+        the misere convention (last player to move loses) or another
+        inconsistent base-case convention; do not infer this from a wrong
+        string alone.
+      - arbitrary_pattern_heuristic fires iff the response's classification
+        rests on an explicit unjustified positional rule articulated in
+        text (for example "every Nth position is P", "all even positions
+        are P", "all nonzero positions are N because move size 1 exists",
+        "the pattern stabilizes into long runs", or an explicit
+        period-based claim). Mere visible regularity in the output without
+        textual pattern language does NOT trigger this code per the
+        disambiguation rule.
+      - arithmetic_recursion_error fires iff ALL FIVE of these hold: the
+        committed string has length EXACTLY 141; the character at index 0
+        is P; the alphabet is {P, N}; the response explicitly sets up the
+        standard recurrence (k is N iff some legal move reaches a P) with
+        the correct move set; and the response does NOT explicitly invert
+        the P/N convention. If any one of these prerequisites fails, do
+        NOT apply this code. Per-position errors are necessary but not
+        sufficient.
+
+      Return the exact set of triggered codes for Response C only; do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D
+      against the eight controlled failure-reason codes (wrong_base_case,
+      missing_subtraction_moves, pn_convention_swapped, wrong_loss_convention,
+      truncated_or_short_string, arbitrary_pattern_heuristic,
+      arithmetic_recursion_error, non_terminating_or_no_final_string). Apply
+      the following STRICT 3-STEP GATE in order. Do not skip steps.
+
+      STEP 1 - LOCATE THE COMMITTED FINAL CLASSIFICATION STRING. Scan the
+      response and identify the single committed final P/N classification
+      string. A committed string is a contiguous sequence of >= 20 characters
+      from {P, N, whitespace} that appears inside a \boxed{...} expression,
+      or inside a fenced code block (triple backticks), or as a clearly
+      labelled bare final answer. Use the LAST such candidate in the response
+      (final-answer convention). If NO candidate of length >= 20 with
+      alphabet {P, N} exists anywhere in the response (including code
+      blocks, boxed expressions, and bare prose), the response has no
+      committed classification: set classification_correct=false and
+      failure_reasons=[non_terminating_or_no_final_string]. Do NOT apply
+      truncated_or_short_string, arithmetic_recursion_error, or
+      arbitrary_pattern_heuristic in this case; stop here.
+
+      STEP 2 - MEASURE THE COMMITTED STRING. Strip whitespace from the
+      committed string and measure its length L and its alphabet. Compare
+      character-for-character to the independently-computed 141-character
+      gold classification.
+      (a) If L == 141 AND the committed string equals the gold exactly,
+          set classification_correct=true; failure_reasons may still
+          contain trigger-instantiated codes (typically empty).
+      (b) If L != 141 OR the alphabet contains any character outside
+          {P, N} OR the committed string is split across newlines,
+          ALWAYS apply truncated_or_short_string. In this case
+          arithmetic_recursion_error is RULED OUT for the remainder of
+          the audit (do not apply it regardless of other content).
+
+      STEP 3 - APPLY CONTENT-DEPENDENT CODES (only after Steps 1 and 2).
+      Examine the response text and the committed string for each remaining
+      code:
+      - wrong_base_case fires iff the committed string's character at
+        index 0 is N (not P), OR the response explicitly states that the
+        empty pile is a winning position for the current player or that
+        dp[0] = N.
+      - pn_convention_swapped fires iff the response explicitly defines
+        P-position as "current player wins" or "winning position" (or the
+        equivalent inverted definition), OR the committed string equals
+        the exact bitwise inverse of the 141-character gold (P<->N
+        flipped). Mathematical disagreement alone is not sufficient.
+      - missing_subtraction_moves fires iff the response's enumerated move
+        set in its reasoning OMITS at least one legal move from the union
+        {1, 4, 5, 9, 12, 16, 22, 25, 35, 36, 49, 51, 64, 70, 81, 92, 100,
+        117, 121}. Inclusion of spurious extra values that are neither
+        squares nor pentagonals does NOT trigger this code.
+      - wrong_loss_convention fires iff the response explicitly endorses
+        the misere convention (last player to move loses) or another
+        inconsistent base-case convention; do not infer this from a wrong
+        string alone.
+      - arbitrary_pattern_heuristic fires iff the response's classification
+        rests on an explicit unjustified positional rule articulated in
+        text (for example "every Nth position is P", "all even positions
+        are P", "all nonzero positions are N because move size 1 exists",
+        "the pattern stabilizes into long runs", or an explicit
+        period-based claim). Mere visible regularity in the output without
+        textual pattern language does NOT trigger this code per the
+        disambiguation rule.
+      - arithmetic_recursion_error fires iff ALL FIVE of these hold: the
+        committed string has length EXACTLY 141; the character at index 0
+        is P; the alphabet is {P, N}; the response explicitly sets up the
+        standard recurrence (k is N iff some legal move reaches a P) with
+        the correct move set; and the response does NOT explicitly invert
+        the P/N convention. If any one of these prerequisites fails, do
+        NOT apply this code. Per-position errors are necessary but not
+        sufficient.
+
+      Return the exact set of triggered codes for Response D only; do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E
+      against the eight controlled failure-reason codes (wrong_base_case,
+      missing_subtraction_moves, pn_convention_swapped, wrong_loss_convention,
+      truncated_or_short_string, arbitrary_pattern_heuristic,
+      arithmetic_recursion_error, non_terminating_or_no_final_string). Apply
+      the following STRICT 3-STEP GATE in order. Do not skip steps.
+
+      STEP 1 - LOCATE THE COMMITTED FINAL CLASSIFICATION STRING. Scan the
+      response and identify the single committed final P/N classification
+      string. A committed string is a contiguous sequence of >= 20 characters
+      from {P, N, whitespace} that appears inside a \boxed{...} expression,
+      or inside a fenced code block (triple backticks), or as a clearly
+      labelled bare final answer. Use the LAST such candidate in the response
+      (final-answer convention). If NO candidate of length >= 20 with
+      alphabet {P, N} exists anywhere in the response (including code
+      blocks, boxed expressions, and bare prose), the response has no
+      committed classification: set classification_correct=false and
+      failure_reasons=[non_terminating_or_no_final_string]. Do NOT apply
+      truncated_or_short_string, arithmetic_recursion_error, or
+      arbitrary_pattern_heuristic in this case; stop here.
+
+      STEP 2 - MEASURE THE COMMITTED STRING. Strip whitespace from the
+      committed string and measure its length L and its alphabet. Compare
+      character-for-character to the independently-computed 141-character
+      gold classification.
+      (a) If L == 141 AND the committed string equals the gold exactly,
+          set classification_correct=true; failure_reasons may still
+          contain trigger-instantiated codes (typically empty).
+      (b) If L != 141 OR the alphabet contains any character outside
+          {P, N} OR the committed string is split across newlines,
+          ALWAYS apply truncated_or_short_string. In this case
+          arithmetic_recursion_error is RULED OUT for the remainder of
+          the audit (do not apply it regardless of other content).
+
+      STEP 3 - APPLY CONTENT-DEPENDENT CODES (only after Steps 1 and 2).
+      Examine the response text and the committed string for each remaining
+      code:
+      - wrong_base_case fires iff the committed string's character at
+        index 0 is N (not P), OR the response explicitly states that the
+        empty pile is a winning position for the current player or that
+        dp[0] = N.
+      - pn_convention_swapped fires iff the response explicitly defines
+        P-position as "current player wins" or "winning position" (or the
+        equivalent inverted definition), OR the committed string equals
+        the exact bitwise inverse of the 141-character gold (P<->N
+        flipped). Mathematical disagreement alone is not sufficient.
+      - missing_subtraction_moves fires iff the response's enumerated move
+        set in its reasoning OMITS at least one legal move from the union
+        {1, 4, 5, 9, 12, 16, 22, 25, 35, 36, 49, 51, 64, 70, 81, 92, 100,
+        117, 121}. Inclusion of spurious extra values that are neither
+        squares nor pentagonals does NOT trigger this code.
+      - wrong_loss_convention fires iff the response explicitly endorses
+        the misere convention (last player to move loses) or another
+        inconsistent base-case convention; do not infer this from a wrong
+        string alone.
+      - arbitrary_pattern_heuristic fires iff the response's classification
+        rests on an explicit unjustified positional rule articulated in
+        text (for example "every Nth position is P", "all even positions
+        are P", "all nonzero positions are N because move size 1 exists",
+        "the pattern stabilizes into long runs", or an explicit
+        period-based claim). Mere visible regularity in the output without
+        textual pattern language does NOT trigger this code per the
+        disambiguation rule.
+      - arithmetic_recursion_error fires iff ALL FIVE of these hold: the
+        committed string has length EXACTLY 141; the character at index 0
+        is P; the alphabet is {P, N}; the response explicitly sets up the
+        standard recurrence (k is N iff some legal move reaches a P) with
+        the correct move set; and the response does NOT explicitly invert
+        the P/N convention. If any one of these prerequisites fails, do
+        NOT apply this code. Per-position errors are necessary but not
+        sufficient.
+
+      Return the exact set of triggered codes for Response E only; do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F
+      against the eight controlled failure-reason codes (wrong_base_case,
+      missing_subtraction_moves, pn_convention_swapped, wrong_loss_convention,
+      truncated_or_short_string, arbitrary_pattern_heuristic,
+      arithmetic_recursion_error, non_terminating_or_no_final_string). Apply
+      the following STRICT 3-STEP GATE in order. Do not skip steps.
+
+      STEP 1 - LOCATE THE COMMITTED FINAL CLASSIFICATION STRING. Scan the
+      response and identify the single committed final P/N classification
+      string. A committed string is a contiguous sequence of >= 20 characters
+      from {P, N, whitespace} that appears inside a \boxed{...} expression,
+      or inside a fenced code block (triple backticks), or as a clearly
+      labelled bare final answer. Use the LAST such candidate in the response
+      (final-answer convention). If NO candidate of length >= 20 with
+      alphabet {P, N} exists anywhere in the response (including code
+      blocks, boxed expressions, and bare prose), the response has no
+      committed classification: set classification_correct=false and
+      failure_reasons=[non_terminating_or_no_final_string]. Do NOT apply
+      truncated_or_short_string, arithmetic_recursion_error, or
+      arbitrary_pattern_heuristic in this case; stop here.
+
+      STEP 2 - MEASURE THE COMMITTED STRING. Strip whitespace from the
+      committed string and measure its length L and its alphabet. Compare
+      character-for-character to the independently-computed 141-character
+      gold classification.
+      (a) If L == 141 AND the committed string equals the gold exactly,
+          set classification_correct=true; failure_reasons may still
+          contain trigger-instantiated codes (typically empty).
+      (b) If L != 141 OR the alphabet contains any character outside
+          {P, N} OR the committed string is split across newlines,
+          ALWAYS apply truncated_or_short_string. In this case
+          arithmetic_recursion_error is RULED OUT for the remainder of
+          the audit (do not apply it regardless of other content).
+
+      STEP 3 - APPLY CONTENT-DEPENDENT CODES (only after Steps 1 and 2).
+      Examine the response text and the committed string for each remaining
+      code:
+      - wrong_base_case fires iff the committed string's character at
+        index 0 is N (not P), OR the response explicitly states that the
+        empty pile is a winning position for the current player or that
+        dp[0] = N.
+      - pn_convention_swapped fires iff the response explicitly defines
+        P-position as "current player wins" or "winning position" (or the
+        equivalent inverted definition), OR the committed string equals
+        the exact bitwise inverse of the 141-character gold (P<->N
+        flipped). Mathematical disagreement alone is not sufficient.
+      - missing_subtraction_moves fires iff the response's enumerated move
+        set in its reasoning OMITS at least one legal move from the union
+        {1, 4, 5, 9, 12, 16, 22, 25, 35, 36, 49, 51, 64, 70, 81, 92, 100,
+        117, 121}. Inclusion of spurious extra values that are neither
+        squares nor pentagonals does NOT trigger this code.
+      - wrong_loss_convention fires iff the response explicitly endorses
+        the misere convention (last player to move loses) or another
+        inconsistent base-case convention; do not infer this from a wrong
+        string alone.
+      - arbitrary_pattern_heuristic fires iff the response's classification
+        rests on an explicit unjustified positional rule articulated in
+        text (for example "every Nth position is P", "all even positions
+        are P", "all nonzero positions are N because move size 1 exists",
+        "the pattern stabilizes into long runs", or an explicit
+        period-based claim). Mere visible regularity in the output without
+        textual pattern language does NOT trigger this code per the
+        disambiguation rule.
+      - arithmetic_recursion_error fires iff ALL FIVE of these hold: the
+        committed string has length EXACTLY 141; the character at index 0
+        is P; the alphabet is {P, N}; the response explicitly sets up the
+        standard recurrence (k is N iff some legal move reaches a P) with
+        the correct move set; and the response does NOT explicitly invert
+        the P/N convention. If any one of these prerequisites fails, do
+        NOT apply this code. Per-position errors are necessary but not
+        sufficient.
+
+      Return the exact set of triggered codes for Response F only; do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G
+      against the eight controlled failure-reason codes (wrong_base_case,
+      missing_subtraction_moves, pn_convention_swapped, wrong_loss_convention,
+      truncated_or_short_string, arbitrary_pattern_heuristic,
+      arithmetic_recursion_error, non_terminating_or_no_final_string). Apply
+      the following STRICT 3-STEP GATE in order. Do not skip steps.
+
+      STEP 1 - LOCATE THE COMMITTED FINAL CLASSIFICATION STRING. Scan the
+      response and identify the single committed final P/N classification
+      string. A committed string is a contiguous sequence of >= 20 characters
+      from {P, N, whitespace} that appears inside a \boxed{...} expression,
+      or inside a fenced code block (triple backticks), or as a clearly
+      labelled bare final answer. Use the LAST such candidate in the response
+      (final-answer convention). If NO candidate of length >= 20 with
+      alphabet {P, N} exists anywhere in the response (including code
+      blocks, boxed expressions, and bare prose), the response has no
+      committed classification: set classification_correct=false and
+      failure_reasons=[non_terminating_or_no_final_string]. Do NOT apply
+      truncated_or_short_string, arithmetic_recursion_error, or
+      arbitrary_pattern_heuristic in this case; stop here.
+
+      STEP 2 - MEASURE THE COMMITTED STRING. Strip whitespace from the
+      committed string and measure its length L and its alphabet. Compare
+      character-for-character to the independently-computed 141-character
+      gold classification.
+      (a) If L == 141 AND the committed string equals the gold exactly,
+          set classification_correct=true; failure_reasons may still
+          contain trigger-instantiated codes (typically empty).
+      (b) If L != 141 OR the alphabet contains any character outside
+          {P, N} OR the committed string is split across newlines,
+          ALWAYS apply truncated_or_short_string. In this case
+          arithmetic_recursion_error is RULED OUT for the remainder of
+          the audit (do not apply it regardless of other content).
+
+      STEP 3 - APPLY CONTENT-DEPENDENT CODES (only after Steps 1 and 2).
+      Examine the response text and the committed string for each remaining
+      code:
+      - wrong_base_case fires iff the committed string's character at
+        index 0 is N (not P), OR the response explicitly states that the
+        empty pile is a winning position for the current player or that
+        dp[0] = N.
+      - pn_convention_swapped fires iff the response explicitly defines
+        P-position as "current player wins" or "winning position" (or the
+        equivalent inverted definition), OR the committed string equals
+        the exact bitwise inverse of the 141-character gold (P<->N
+        flipped). Mathematical disagreement alone is not sufficient.
+      - missing_subtraction_moves fires iff the response's enumerated move
+        set in its reasoning OMITS at least one legal move from the union
+        {1, 4, 5, 9, 12, 16, 22, 25, 35, 36, 49, 51, 64, 70, 81, 92, 100,
+        117, 121}. Inclusion of spurious extra values that are neither
+        squares nor pentagonals does NOT trigger this code.
+      - wrong_loss_convention fires iff the response explicitly endorses
+        the misere convention (last player to move loses) or another
+        inconsistent base-case convention; do not infer this from a wrong
+        string alone.
+      - arbitrary_pattern_heuristic fires iff the response's classification
+        rests on an explicit unjustified positional rule articulated in
+        text (for example "every Nth position is P", "all even positions
+        are P", "all nonzero positions are N because move size 1 exists",
+        "the pattern stabilizes into long runs", or an explicit
+        period-based claim). Mere visible regularity in the output without
+        textual pattern language does NOT trigger this code per the
+        disambiguation rule.
+      - arithmetic_recursion_error fires iff ALL FIVE of these hold: the
+        committed string has length EXACTLY 141; the character at index 0
+        is P; the alphabet is {P, N}; the response explicitly sets up the
+        standard recurrence (k is N iff some legal move reaches a P) with
+        the correct move set; and the response does NOT explicitly invert
+        the P/N convention. If any one of these prerequisites fails, do
+        NOT apply this code. Per-position errors are necessary but not
+        sufficient.
+
+      Return the exact set of triggered codes for Response G only; do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      Read /input_artifacts/problem.md and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only Response H
+      against the eight controlled failure-reason codes (wrong_base_case,
+      missing_subtraction_moves, pn_convention_swapped, wrong_loss_convention,
+      truncated_or_short_string, arbitrary_pattern_heuristic,
+      arithmetic_recursion_error, non_terminating_or_no_final_string). Apply
+      the following STRICT 3-STEP GATE in order. Do not skip steps.
+
+      STEP 1 - LOCATE THE COMMITTED FINAL CLASSIFICATION STRING. Scan the
+      response and identify the single committed final P/N classification
+      string. A committed string is a contiguous sequence of >= 20 characters
+      from {P, N, whitespace} that appears inside a \boxed{...} expression,
+      or inside a fenced code block (triple backticks), or as a clearly
+      labelled bare final answer. Use the LAST such candidate in the response
+      (final-answer convention). If NO candidate of length >= 20 with
+      alphabet {P, N} exists anywhere in the response (including code
+      blocks, boxed expressions, and bare prose), the response has no
+      committed classification: set classification_correct=false and
+      failure_reasons=[non_terminating_or_no_final_string]. Do NOT apply
+      truncated_or_short_string, arithmetic_recursion_error, or
+      arbitrary_pattern_heuristic in this case; stop here.
+
+      STEP 2 - MEASURE THE COMMITTED STRING. Strip whitespace from the
+      committed string and measure its length L and its alphabet. Compare
+      character-for-character to the independently-computed 141-character
+      gold classification.
+      (a) If L == 141 AND the committed string equals the gold exactly,
+          set classification_correct=true; failure_reasons may still
+          contain trigger-instantiated codes (typically empty).
+      (b) If L != 141 OR the alphabet contains any character outside
+          {P, N} OR the committed string is split across newlines,
+          ALWAYS apply truncated_or_short_string. In this case
+          arithmetic_recursion_error is RULED OUT for the remainder of
+          the audit (do not apply it regardless of other content).
+
+      STEP 3 - APPLY CONTENT-DEPENDENT CODES (only after Steps 1 and 2).
+      Examine the response text and the committed string for each remaining
+      code:
+      - wrong_base_case fires iff the committed string's character at
+        index 0 is N (not P), OR the response explicitly states that the
+        empty pile is a winning position for the current player or that
+        dp[0] = N.
+      - pn_convention_swapped fires iff the response explicitly defines
+        P-position as "current player wins" or "winning position" (or the
+        equivalent inverted definition), OR the committed string equals
+        the exact bitwise inverse of the 141-character gold (P<->N
+        flipped). Mathematical disagreement alone is not sufficient.
+      - missing_subtraction_moves fires iff the response's enumerated move
+        set in its reasoning OMITS at least one legal move from the union
+        {1, 4, 5, 9, 12, 16, 22, 25, 35, 36, 49, 51, 64, 70, 81, 92, 100,
+        117, 121}. Inclusion of spurious extra values that are neither
+        squares nor pentagonals does NOT trigger this code.
+      - wrong_loss_convention fires iff the response explicitly endorses
+        the misere convention (last player to move loses) or another
+        inconsistent base-case convention; do not infer this from a wrong
+        string alone.
+      - arbitrary_pattern_heuristic fires iff the response's classification
+        rests on an explicit unjustified positional rule articulated in
+        text (for example "every Nth position is P", "all even positions
+        are P", "all nonzero positions are N because move size 1 exists",
+        "the pattern stabilizes into long runs", or an explicit
+        period-based claim). Mere visible regularity in the output without
+        textual pattern language does NOT trigger this code per the
+        disambiguation rule.
+      - arithmetic_recursion_error fires iff ALL FIVE of these hold: the
+        committed string has length EXACTLY 141; the character at index 0
+        is P; the alphabet is {P, N}; the response explicitly sets up the
+        standard recurrence (k is N iff some legal move reaches a P) with
+        the correct move set; and the response does NOT explicitly invert
+        the P/N convention. If any one of these prerequisites fails, do
+        NOT apply this code. Per-position errors are necessary but not
+        sufficient.
+
+      Return the exact set of triggered codes for Response H only; do not
+      infer correctness from other proposed responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Read the canonical classification produced by
+      derive-canonical-game-classification and the eight per-response audit
+      objects produced by audit-response-a through audit-response-h.
+      Compose one JSON object with top-level keys
+      correct_classification_string, acceptable_solution_ids, and
+      per_response_assessment (eight objects ordered A through H), as
+      specified by instruction.md.
+
+      SANITY CHECKS before writing the JSON:
+      (1) For each per-response object, verify classification_correct is
+          TRUE only if the response's committed classification string
+          equals the gold 141-character string character-for-character.
+          If unsure, treat as FALSE.
+      (2) acceptable_solution_ids must contain only response letters whose
+          classification_correct is true AND whose failure_reasons list is
+          EMPTY. If a sub-agent reported an acceptable response, verify by
+          re-reading that response and checking that its committed string
+          matches the gold exactly. If the response has NO committed
+          string (only Python code, only a P-position list, or only
+          discussion), it is NEVER acceptable and must not appear in
+          acceptable_solution_ids.
+      (3) For any per-response object where failure_reasons contains
+          arithmetic_recursion_error, verify that the response's committed
+          classification string has length exactly 141. If not, remove
+          arithmetic_recursion_error from that object's failure_reasons.
+      (4) For any per-response object where failure_reasons contains
+          non_terminating_or_no_final_string, verify that the response has
+          NO committed P/N classification string anywhere (no boxed,
+          fenced, or bare-final-answer string of length >= 20 with
+          alphabet {P, N}). If a committed string exists, remove
+          non_terminating_or_no_final_string and apply
+          truncated_or_short_string (and any other content-dependent
+          codes) instead.
+
+      Do not re-derive the gold classification or re-audit individual
+      responses beyond these sanity checks. Write the JSON to
+      /logs/agent/output.json and validate that the file exists and parses
+      before returning.
+    depends_on:
+      - derive-canonical-game-classification
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+    parallel_group: synthesize

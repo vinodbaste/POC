@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/3a6ace7586d041d49aa4f8f0a1b4a93a-SWARMBENCH-FANOUT-REASONINGMATH-LARGE-TREE-PATH-PARTITION-AUDIT"
+description = "Independently derive the number of length-K=22 lex-ordered arrays of vertex pairs whose simple paths partition the edges of a fixed 44-vertex tree, modulo 997, plus five small-tree count anchors that certify the auditor's counting method, then audit eleven proposed solutions against the derivation: classify each one's failure_reasons under R1-R5 and error_category per R6, under a strict deterministic per-audit verifier graded all-or-nothing on six sub-fields."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 14
+human_solving_hours_justification = "3.0h to derive the length-K path-partition counting framework and verify it by independently computing the five graded small-case anchor results (P_3, P_4, P_5 at K=2 and three- and four-leaf stars at K=2); 2.5h to evaluate on the N=44 tree (degrees 8,7,6,5,4,4,3,3,2*10,1*26) mod 997; 11 x 0.7h to audit confusable failure modes (W7 length-drop, W8 length-reinterpret, buggy DP, hand-wave, truncation); 0.8h to reconcile under R1-R5/R6. Total = 14h."
+estimated_sub_agents = 13
+input_token_estimate = 36000
+why_multi_agent = "Six mathematical derivations and eleven independent per-response audits are graded together: the K=22 mod-997 count for N=44, five small-tree K=2 anchor counts pinning down the method, then eleven seven-field audits per response — each requiring an independent polynomial expansion of the response's stated formula on the small-tree anchors before R3 can be applied (this anchor-verification is the dominant per-audit work and is what differentiates a wrong_formula method from an arithmetic_slip in a valid framework). Fan-out parallelises one math-derivation sub-agent and eleven independent per-response audit sub-agents, each performing the anchor-expansion step on its assigned response in isolation with a full per-task token budget; the synthesiser sub-agent collects, schema-validates, and writes the final JSON. The orchestrator's role is strictly dispatch/collect: per the coordination contract in /decomposition.yaml, the orchestrator does NOT read /input_artifacts files itself, does NOT write /logs/agent/output.json, and does NOT perform any per-audit reasoning — every input read, every per-response classification, and the final write are sub-agent responsibilities, so the orchestrator's expected token share is well below 30% of the multi-agent budget."
+reference_link = "https://www.iarcs.org.in/inoi/2025/"
+
+[agent]
+timeout_sec = 5400
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

@@ -1,0 +1,91 @@
+sub_tasks:
+  - id: derive-ground-truth
+    description: >
+      Read /input_artifacts/submission_packet.md. Independently solve the original
+      problem from the definitions in the prompt. Summarize the correct answer and the
+      main checks needed to classify the candidate submissions using the labels in
+      instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: audit-submission-a
+    description: >
+      Read /input_artifacts/submission_packet.md and audit only Submission A. Return
+      response_id, final_answer_correct, proof_valid, verdict, primary_error_label, and
+      required_evidence_label using only the allowed values from instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: audit-submission-b
+    description: >
+      Read /input_artifacts/submission_packet.md and audit only Submission B. Return
+      response_id, final_answer_correct, proof_valid, verdict, primary_error_label, and
+      required_evidence_label using only the allowed values from instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: audit-submission-c
+    description: >
+      Read /input_artifacts/submission_packet.md and audit only Submission C. Return
+      response_id, final_answer_correct, proof_valid, verdict, primary_error_label, and
+      required_evidence_label using only the allowed values from instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: audit-submission-d
+    description: >
+      Read /input_artifacts/submission_packet.md and audit only Submission D. Return
+      response_id, final_answer_correct, proof_valid, verdict, primary_error_label, and
+      required_evidence_label using only the allowed values from instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: audit-submission-e
+    description: >
+      Read /input_artifacts/submission_packet.md and audit only Submission E. Return
+      response_id, final_answer_correct, proof_valid, verdict, primary_error_label, and
+      required_evidence_label using only the allowed values from instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: audit-submission-f
+    description: >
+      Read /input_artifacts/submission_packet.md and audit only Submission F. Return
+      response_id, final_answer_correct, proof_valid, verdict, primary_error_label, and
+      required_evidence_label using only the allowed values from instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: audit-submission-g
+    description: >
+      Read /input_artifacts/submission_packet.md and audit only Submission G. Return
+      response_id, final_answer_correct, proof_valid, verdict, primary_error_label, and
+      required_evidence_label using only the allowed values from instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: audit-submission-h
+    description: >
+      Read /input_artifacts/submission_packet.md and audit only Submission H. Return
+      response_id, final_answer_correct, proof_valid, verdict, primary_error_label, and
+      required_evidence_label using only the allowed values from instruction.md.
+    depends_on: []
+    parallel_group: analysis
+
+  - id: synthesize-final-report
+    description: >
+      Merge the independent ground-truth derivation and all eight submission audits. Resolve
+      disagreements by rechecking the problem statement and the label definitions in
+      instruction.md. Write the final JSON object to /logs/agent/output.json using exactly
+      the schema in instruction.md.
+    depends_on:
+      - derive-ground-truth
+      - audit-submission-a
+      - audit-submission-b
+      - audit-submission-c
+      - audit-submission-d
+      - audit-submission-e
+      - audit-submission-f
+      - audit-submission-g
+      - audit-submission-h
+    parallel_group: synthesize

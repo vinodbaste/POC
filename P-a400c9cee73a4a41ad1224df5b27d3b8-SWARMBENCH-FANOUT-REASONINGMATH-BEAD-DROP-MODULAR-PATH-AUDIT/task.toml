@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/a400c9cee73a4a41ad1224df5b27d3b8-SWARMBENCH-FANOUT-REASONINGMATH-BEAD-DROP-MODULAR-PATH-AUDIT"
+description = "Olympiad combinatorics and modular arithmetic: derive N mod 1000 for the binomial coefficient C(2026, 396) counting descending lattice paths from (1234, 2026) to the origin, by Legendre's 2-adic and 5-adic valuations, the recursive 5-free factorial product mod 125, and CRT combination of mod 8 and mod 125 congruences; independently re-derive the residue for five named small-case anchors; mathematically validate thirteen proof attempts against five orthogonal proof-error modes."
+
+[metadata]
+verifier_type = "executable"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 12.0
+human_solving_hours_justification = "Closed-form derivation of N mod 1000 = C(2026, 396) mod 1000 via Legendre v_2, v_5, recursive 5-free factorial mod 5, CRT of mod 8 and mod 125: 3.0h. Closed-form re-derivation of the residue for five anchor (start_x, start_y) pairs: 2.0h. Mathematical validation of thirteen dense derivations against five proof-error modes F1-F5 with multi-code co-fires (avg 3.3 codes each, several with four): 6.0h. Oracle + judge cross-check: 1.0h. Total: 12.0h."
+estimated_sub_agents = 15
+input_token_estimate = 10000
+reference_link = "https://math.stackexchange.com/questions/95491/n-choose-k-bmod-m-using-chinese-remainder-theorem"
+why_multi_agent = "Bottleneck: cognitive specialization across heterogeneous reasoning, not context overflow. A single agent multiplexing the closed-form modular derivation, five anchor re-derivations, and proof-review of thirteen dense derivations (avg 3.3 codes each, several with four co-fires) drops co-fires through focus dilution and over-fires F4 on self-consistent responses. Fan-out specialises one arithmetic sub-agent and thirteen focused per-response sub-agents with all-or-nothing 30-pt scoring."
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

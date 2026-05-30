@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/c219bc0a7c134a93b82ba3b561526e69-SWARMBENCH-FANOUT-REASONINGMATH-RMQ-PERMUTATION-COUNT-AUDIT"
+description = "Audit nine proposed solutions to a permutation-counting problem given a range-minimum-query (RMQ) table for an N=15 permutation, determine whether any permutation is consistent with the table, and label each response's formula, arithmetic, justification, and final-answer errors against the resulting count."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 11
+human_solving_hours_justification = "2.5h derivation: derive every strict-min constraint from the T(l,r) cells, detect the partial-order cycle, conclude empty count by definition. 9 x 0.85h per-response audit: reconstruct each response's counting identity (binomial, N!/sizes, block, uniqueness, 2^k), prove whether it counts permutations of THIS constraint system, classify wrong_formula vs arithmetic_error via length-2/length-3 hand checks. 0.85h reconciliation. Total ~11h mathematical proof work."
+estimated_sub_agents = 11
+input_token_estimate = 25000
+why_multi_agent = "Audit requires one gold derivation plus nine per-response counting-identity audits across four overlapping codes. A single agent multiplexing derivation and nine audits drops failure-code co-fires through focus dilution and pivots to a plausible counting identity without verifying constraint-system feasibility. Fan-out gives each sub-agent one narrow task; a mechanical synthesizer copies upstream verdicts verbatim. The advantage is cognitive specialization, not context-window overflow."
+reference_link = "https://www.iarcs.org.in/inoi/2025/"
+
+[agent]
+timeout_sec = 3600
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

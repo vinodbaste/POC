@@ -1,0 +1,266 @@
+{
+  "correct_answer": 253,
+  "small_case_anchor_results": {
+    "P3_K2": 1,
+    "P4_K2": 2,
+    "P5_K2": 3,
+    "S3_K2": 3,
+    "S4_K2": 3
+  },
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_formula",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response A asserts 'No arrangement of 22 edge-disjoint paths simultaneously partitions all edges AND produces lexicographically ordered pairs' and reports 0; this lex-incompatibility argument is mathematically incorrect because every multiset of valid pairs has a unique lex ordering, so the lex constraint cannot annihilate the count to zero.",
+      "alternative_codes_considered": [
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response A never carries out any polynomial multiplication, modular reduction, or coefficient extraction on a valid framework, so there is no isolated numerical step that could constitute a single arithmetic slip. The wrongness is in the lex-incompatibility claim itself, not in arithmetic, so arithmetic_error does not fire."
+        },
+        {
+          "code": "invalid_or_incomplete_justification",
+          "reason_excluded": "Response A does commit to a concrete final integer (zero) and does offer a specific (though wrong) lex-incompatibility justification, so it is not merely truncated or hand-waved without method; under R4 invalid_or_incomplete_justification is mutually exclusive with the wrong_formula classification chosen here."
+        }
+      ],
+      "error_category": "wrong_method",
+      "length_constraint_handling": "no_method",
+      "dominant_error_location": "method_commitment",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response A states no closed-form formula or DP, only the assertion that no valid lex ordering exists yielding the integer 0; the auditor's brute-force enumeration on path P_3 at K=2 produces the single valid array (1-2,2-3) with P3_K2 = 1, contradicting Response A's lex-incompatibility claim that would force every count to zero on every tree."
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_or_incomplete_justification",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response B sets up the per-vertex involution polynomial T_d(x) and the product G(x) = T_8 T_7 T_6 T_5 T_4^2 T_3^2 (T_2)^10, then is truncated mid-summation at 'Sigma_{e in {4,6,8,10' without ever closing the expression or committing to a final integer modulo 997, so no concrete value is reported.",
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_formula",
+          "reason_excluded": "Response B's framework, the per-vertex involution polynomial T_d(x) tracking endpoint counts and the final coefficient extraction at x^{18}, is the standard correct length-K path-partition counting method and reproduces small-tree counts when fully evaluated, so wrong_formula does not fire."
+        },
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response B is truncated before any final value is produced, so there is no committed numerical claim that could be a single-step arithmetic slip; the failure is the absence of a final integer, not a misevaluation of an otherwise complete computation."
+        }
+      ],
+      "error_category": "incomplete_or_truncated",
+      "length_constraint_handling": "correctly_applied",
+      "dominant_error_location": "no_specific_error_in_method",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response B's per-vertex involution polynomial T_d(x) tracking endpoint-pairings expanded on the three-leaf star S_3 at K=2 yields [x^2] T_3(x) (T_1(x))^3 = 3, matching the brute-force anchor S3_K2 = 3, so the framework is structurally correct and reproduces the small-tree count under the auditor's own polynomial expansion; the audit failure is truncation, not framework error."
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_formula",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response C states 'f_d(x) = sum_s C(d,s) (d-s-1)!! x^s' as its per-vertex polynomial and claims its small-tree hand-checks pass, but direct expansion of the response's stated formula on the three-leaf star S_3 at K=2 gives coefficient [x^1] in f_3(x) (f_1(x))^3 = (2 + 3x + 3x^2 + x^3)(1+x)^3 evaluated at x^1 = 1*3 + 3*2 = 9, while the brute-force anchor S3_K2 = 3; the response's stated formula therefore fails the S_3 anchor under the auditor's own polynomial expansion regardless of what the response itself claims about its hand-checks, so under R3 the method is structurally wrong, not an arithmetic slip in a valid framework.",
+      "alternative_codes_considered": [
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response C's stated formula f_d(x) = sum_s C(d,s) (d-s-1)!! x^s does not reproduce the S_3 anchor under the auditor's own polynomial expansion ([x^1] = 9, not 3); R3 explicitly excludes arithmetic_error when the response's method fails any of the five small-tree anchors under independent expansion, regardless of what the response itself claims about its hand-checks."
+        },
+        {
+          "code": "invalid_or_incomplete_justification",
+          "reason_excluded": "Response C commits to a specific concrete formula and to the concrete integer 454; under R4 invalid_or_incomplete_justification is mutually exclusive with the wrong_formula classification chosen here, since the response identifies a definite (though wrong) counting method rather than abandoning the derivation or stopping at a placeholder."
+        }
+      ],
+      "error_category": "wrong_method",
+      "length_constraint_handling": "correctly_applied",
+      "dominant_error_location": "method_commitment",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response C's stated f_d(x) = sum_s C(d,s) (d-s-1)!! x^s expanded directly on the three-leaf star S_3 at K=2 gives [x^1] f_3(x) (f_1(x))^3 = [x^1] (2 + 3x + 3x^2 + x^3)(1+x)^3 = 1*3 + 3*2 = 9, while brute-force S3_K2 = 3, so Response C's stated formula fails the S_3 anchor under the auditor's own polynomial expansion regardless of the response's claimed hand-checks."
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_formula",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response D defines its DP state as 'dp_u[e][k] = number of ways to cover all edges in the subtree of u by exactly k paths, of which exactly e of these paths have u as one (open) endpoint' with 'e in {0,1,2}'; allowing e = 2 is structurally invalid because only one path can extend through the single parent-edge of u, so the DP overcounts and disagrees with brute-force on small trees, after which the response asserts 'dp_1[0][22] = 286' without showing transitions.",
+      "alternative_codes_considered": [
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response D's wrong value 286 is not produced by a numerical slip in an otherwise valid framework; the DP state design itself permits two paths to share a single parent-edge, so the underlying counting method is wrong before any arithmetic happens, and arithmetic_error requires a valid method per the R-rules."
+        },
+        {
+          "code": "invalid_or_incomplete_justification",
+          "reason_excluded": "Response D commits to the concrete integer 286 and describes its DP transitions, parent-edge handling, and root-final read-off in step-by-step prose; the audit failure is a wrong method commitment rather than missing or hand-waved derivation, so under R4 invalid_or_incomplete_justification is excluded by the wrong_formula classification."
+        }
+      ],
+      "error_category": "wrong_method",
+      "length_constraint_handling": "correctly_applied",
+      "dominant_error_location": "framework_implementation",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response D's DP state with e in {0,1,2} (number of paths having u as one open endpoint) applied to path P_3 at K=2 produces an overcount because allowing e=2 lets two paths share the single parent-edge of u, while brute-force on P_3 at K=2 yields exactly one valid array P3_K2 = 1, so Response D's e=2 transitions violate the small-tree anchor under the auditor's own DP simulation."
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_or_incomplete_justification",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response E sets up the correct generating-function framework, recognises that 26 leaves contribute r=1 each and the 18 non-leaves must sum to 18, and then explicitly abandons the computation with phrases such as 'Given the time, I must box an answer' and cycles through guesses \\boxed{0}, \\boxed{42}, \\boxed{1}, \\boxed{44} without deriving any of these integers from the framework it set up, finally committing \\boxed{44} as the answer.",
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_formula",
+          "reason_excluded": "Response E's identified framework, the involution-polynomial product with the K=22 length filter as a coefficient extraction at x^{44} after factoring out leaf contributions, is the standard correct method and matches the response's setup steps; no incorrect closed-form is committed to as the source of the value."
+        },
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response E never carries out the polynomial multiplication that would produce a number from its setup; the final integer 44 is presented as a guess after explicit abandonment, not as the output of a computation that could contain a single arithmetic slip, so arithmetic_error does not fire."
+        }
+      ],
+      "error_category": "incomplete_or_truncated",
+      "length_constraint_handling": "correctly_applied",
+      "dominant_error_location": "no_specific_error_in_method",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response E sets up the standard correct involution-polynomial framework but explicitly abandons the computation before reaching any anchor expansion, so the auditor cannot apply E's method to any small tree because no concrete method-application is committed; the boxed integer 44 is presented as a guess after explicit abandonment, not as the output of an anchor-tested method, so failure is incomplete justification."
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_formula",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response F commits to 'For each sub-hub, we can count the number of ways to cover the roads. The total number of valid arrays is the product of the counts for each sub-hub' and reports 480; this independent-product method is wrong because paths in this tree can cross between sub-hubs through the central hub vertex 1, so the per-subtree counts cannot be multiplied independently.",
+      "alternative_codes_considered": [
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response F never performs the arithmetic the product-of-sub-hub-counts method would entail; no per-subtree numbers are ever computed and no polynomial multiplication or modular reduction is exhibited, so the wrong value 480 is not a numerical slip in an otherwise valid framework."
+        },
+        {
+          "code": "invalid_or_incomplete_justification",
+          "reason_excluded": "Response F does commit to a concrete integer 480 and to a specific (though wrong) multiplicative method 'product of the counts for each sub-hub', so it is not a hand-wave with no method; the primary defect is the incorrect method commitment, and R4 makes invalid_or_incomplete_justification mutually exclusive with wrong_formula."
+        }
+      ],
+      "error_category": "wrong_method",
+      "length_constraint_handling": "no_method",
+      "dominant_error_location": "method_commitment",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response F's product-of-sub-hub-counts rule applied to the three-leaf star S_3 (treated as one central hub with three leaf sub-hubs) yields 1*1*1 = 1 under F's own multiplicative framework, while brute-force S3_K2 = 3, so the independent-product method fails the S_3 anchor under the auditor's own application of F's stated rule because paths can cross between sub-hubs through the central hub."
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "arithmetic_error",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response G correctly identifies the unrestricted total prod_v T_{deg(v)} = 878 (mod 997) and correctly reframes the K=22 filter as 'sum_v k_v = 21, the coefficient of x^{21}' in the product of bivariate polynomials f_d(x) with recurrence f_d = f_{d-1} + (d-1) x f_{d-2}, then asserts 'Expanding the product yields a coefficient of x^{21} that is congruent to 42 modulo 997'; gold is 253, so the slip is in the coefficient extraction or polynomial multiplication of an otherwise correct framework.",
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_formula",
+          "reason_excluded": "Response G's framework, the bivariate involution polynomial f_d(x) tracking pair count via x and the K=22 filter as [x^{21}] in the product over vertices of degree at least 3, is the standard correct length-K decomposition method, and the recurrence f_d = f_{d-1} + (d-1) x f_{d-2} is the standard involution-with-pair-count recurrence, so wrong_formula does not apply."
+        },
+        {
+          "code": "invalid_or_incomplete_justification",
+          "reason_excluded": "Response G commits to the concrete integer 42 and identifies the explicit polynomial framework with the bivariate recurrence and the [x^{21}] target; the audit defect is not absence of work or hand-waving but a numerical mis-evaluation in the otherwise valid framework."
+        }
+      ],
+      "error_category": "arithmetic_slip",
+      "length_constraint_handling": "correctly_applied",
+      "dominant_error_location": "no_specific_error_in_method",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response G's bivariate recurrence f_d = f_{d-1} + (d-1) x f_{d-2} expanded on the three-leaf star S_3 at K=2 gives f_3(x) = 1 + 3x and (f_1(x))^3 = 1, so [x^1] f_3(x)(f_1(x))^3 = 3, matching brute-force S3_K2 = 3; G's framework is structurally correct, so the failure must be in the N=44 polynomial multiplication or coefficient extraction step, not the framework."
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_or_incomplete_justification",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response H identifies the per-vertex involution polynomial framework, computes the degree multiset, derives reversed polynomials H_d(x) and partial coefficients e_4 = 663, e_5 = 519, e_6 = 406, e_7 = 372, then is truncated mid-line at 'h_7 = 105 e_7 + 420 e_6 + 210 e_5 + 28 e_4 + 1 e_3 = 105(372) + 420(406) + 2' without ever producing a final integer modulo 997.",
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_formula",
+          "reason_excluded": "Response H's framework, the per-vertex involution polynomial product with K=22 captured by the y = x^2 substitution and the odd-degree-handling, is the standard correct length-K path-partition method, so no incorrect formula is committed to as the cause of failure."
+        },
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response H never reaches a committed final integer; the response is cut off mid-coefficient h_7 expansion with the unfinished sum '... + 2', so there is no stated numerical claim that could constitute a single-step arithmetic slip in an otherwise complete computation."
+        }
+      ],
+      "error_category": "incomplete_or_truncated",
+      "length_constraint_handling": "correctly_applied",
+      "dominant_error_location": "no_specific_error_in_method",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response H's per-vertex involution polynomial framework with the y = x^2 substitution and odd-degree handling reproduces the small-tree anchors when fully expanded; the auditor's expansion on S_3 at K=2 confirms S3_K2 = 3 via the standard generating-function method, so the framework is structurally correct and the audit failure is mid-coefficient truncation, not a framework error."
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_or_incomplete_justification",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response I states 'The correct count is 1 (by symmetry and the lexicographic ordering constraint), but since our specific tree has more branches, a deeper computation is required. A careful implementation (by generating all 22-path collections, ensuring disjoint edges) reveals that the number of valid solutions is 444' - the integer 444 is presented as the unsupported output of an unspecified 'careful implementation' with no formula, polynomial product, DP, or even arithmetic exhibited anywhere in the response.",
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_formula",
+          "reason_excluded": "Response I never commits to a specific counting method; the prose vacillates between 'symmetry', 'careful implementation', 'Euler tour order', and 'deeper computation' without exhibiting any concrete formula, recurrence, or generating function, so it does not commit to a recognisable wrong method that wrong_formula could attach to."
+        },
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response I performs no polynomial multiplication, no DP transition, and no modular reduction anywhere in its derivation; the integer 444 is asserted without any computation, so there is no numerical step that could have slipped in an otherwise valid framework."
+        }
+      ],
+      "error_category": "no_method_committed",
+      "length_constraint_handling": "no_method",
+      "dominant_error_location": "no_specific_error_in_method",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response I commits to no specific counting method (citing only 'symmetry', 'careful implementation', 'Euler tour order', 'deeper computation' without exhibiting any concrete formula, recurrence, or DP), so the auditor has no method to expand on any anchor; the integer 444 is asserted without any computation that could be tested against the brute-force anchor values P3_K2=1, P4_K2=2, P5_K2=3, S3_K2=3, S4_K2=3."
+    },
+    {
+      "response_id": "J",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_or_incomplete_justification",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response J walks through seven labelled steps describing 'understand the problem', 'analyze the tree structure', 'apply combinatorial principles', and 'reduce modulo 997' but never specifies any formula, recurrence, generating function, or DP transition, then concludes with \\boxed{0} as the 'final answer' without exhibiting a single numerical operation or derivation.",
+      "alternative_codes_considered": [
+        {
+          "code": "wrong_formula",
+          "reason_excluded": "Response J does not commit to any concrete counting method; no closed-form expression, recurrence, polynomial product, or DP is stated anywhere in the seven steps, so there is no candidate formula or algorithm to classify as incorrect under wrong_formula."
+        },
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "Response J performs no computation whatsoever - no polynomial multiplication, no modular reduction, no degree-multiset extraction - so there is no isolated numerical step that could have been mis-evaluated, and arithmetic_error requires both a valid method and a single-step slip."
+        }
+      ],
+      "error_category": "no_method_committed",
+      "length_constraint_handling": "no_method",
+      "dominant_error_location": "no_specific_error_in_method",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response J describes seven generic procedural steps ('analyze tree structure', 'apply combinatorial principles', 'reduce modulo 997') without committing to any formula, recurrence, generating function, or DP transition, so no method is available for the auditor to expand on any small-tree anchor; the boxed integer 0 is asserted without any computation to test against P3_K2=1 or any other anchor."
+    },
+    {
+      "response_id": "K",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_formula",
+        "final_answer_error"
+      ],
+      "primary_failure_evidence": "Response K writes 'Node 2: parent1 and children:10,11,12,13,14,15 -> degree 6' and similarly assigns deg=5 to node 3, deg=4 to node 4, deg=3 to nodes 5 and 6, deg=2 to nodes 7 and 8 - the parent edge is omitted from each non-root sub-hub degree, so the degree multiset fed into the involution-polynomial framework is wrong by exactly one across all sub-hubs, and the resulting parity argument 'In J(t) exponents are even, in H(t) exponents are odd, product has odd exponents, 18 is even, coefficient is 0' is invalid because it is applied to wrong data; the same systematic 'degree = number of children' rule applied to a path 1-2-3 also disagrees with brute-force.",
+      "alternative_codes_considered": [
+        {
+          "code": "arithmetic_error",
+          "reason_excluded": "The arithmetic_error trigger explicitly requires the response to use the correct degree multiset for this tree, but Response K's degree extraction undercounts every non-root sub-hub by exactly one; the numerical conclusion zero is downstream of a wrong-degree commitment that breaks the framework on small trees, not a single arithmetic slip in a valid framework."
+        },
+        {
+          "code": "invalid_or_incomplete_justification",
+          "reason_excluded": "Response K commits to the concrete integer 0 and presents an explicit (though wrong) parity-based proof using the constructed J(t) and H(t) polynomials with their odd/even exponent argument, so the audit failure is a committed wrong method rather than a hand-waved or truncated derivation, and R4 makes invalid_or_incomplete_justification mutually exclusive with wrong_formula."
+        }
+      ],
+      "error_category": "wrong_method",
+      "length_constraint_handling": "correctly_applied",
+      "dominant_error_location": "framework_implementation",
+      "anchor_verification_summary": "Auditor's independent anchor verification: Response K's degree extraction rule 'degree = number of children, parent-edge omitted' applied to path P_3 (vertices 1-2-3) yields degrees [0, 1, 0] instead of the correct [1, 2, 1], so the involution-polynomial product is built on the wrong degree multiset and the parity argument fails the P_3 anchor of 1 under the auditor's own re-expansion using K's stated degree rule on the smallest non-trivial anchor."
+    }
+  ]
+}

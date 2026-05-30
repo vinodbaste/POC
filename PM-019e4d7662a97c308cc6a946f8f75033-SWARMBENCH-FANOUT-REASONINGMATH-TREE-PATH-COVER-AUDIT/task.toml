@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/019e4d7662a97c308cc6a946f8f75033-SWARMBENCH-FANOUT-REASONINGMATH-TREE-PATH-COVER-AUDIT"
+description = "Audit nine proposed solutions to a tree path-decomposition counting problem (count of lexicographically-ordered (A_i, B_i) arrays whose simple paths partition the edge set, modulo a prime) and label their formula, arithmetic, and justification errors."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 13
+human_solving_hours_justification = "2.5h to derive prod_v I(deg(v)) for the count of edge-disjoint path partitions, verify on small trees (path-3, star-3), and evaluate 451 = 32897228800 mod 997 by hand and by independent program; 9 x 1h to audit nine derivations, distinguishing wrong-formula errors from a single modular-reduction slip, truncated drafts, symbolic non-answers, broken greedy code, and a buggy tree DP that disagrees on small examples; 1.5h to reconcile audits and write per-response rationales. Total: 2.5 + 9 + 1.5 = 13h."
+estimated_sub_agents = 11
+input_token_estimate = 30000
+why_multi_agent = "Audit requires deriving the involution-product count over the given tree and nine independent per-response classifications whose error modes confuse easily: wrong combinatorial identity (spanning trees, Catalan, double factorial, broken greedy, leaf-buggy DP), modular-reduction slips that look identical to formula errors, and qualitative non-derivations versus truncated drafts. Fan-out splits derivation, nine focused per-response audits, and a mechanical synthesizer that copies upstream verdicts verbatim."
+reference_link = "https://www.iarcs.org.in/inoi/2025/"
+
+[agent]
+timeout_sec = 2700
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

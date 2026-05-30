@@ -1,0 +1,79 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-05-23T18:27:50.373906Z",
+    "harbor": {
+        "version": "0.6.4",
+        "git_commit_hash": "e70d5f060ffeb4525f320669d50b290925b55425",
+        "is_editable": true
+    },
+    "invocation": [
+        "<LOCAL_PATH_REDACTED>",
+        "run",
+        "-p",
+        "<LOCAL_PATH_REDACTED>",
+        "-a",
+        "swarm-kimi-multi",
+        "-m",
+        "fireworks_ai/accounts/bhanu-nalamadgu-7pl5/deployments/ba0vhq9e",
+        "-k",
+        "1",
+        "-n",
+        "1",
+        "--job-name",
+        "multi-kimi-agent",
+        "--jobs-dir",
+        "<LOCAL_PATH_REDACTED>",
+        "--ve",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--ae",
+        "FIREWORKS_API_KEY=${FIREWORKS_API_KEY}",
+        "--quiet"
+    ],
+    "n_concurrent_trials": 1,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "VerifierOutputParseError",
+            "RewardFileEmptyError",
+            "RewardFileNotFoundError",
+            "AgentTimeoutError",
+            "VerifierTimeoutError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "0011a7c9e2d14f6b8c3d5e9a0f4b6c8d-SWARMBENCH-MAPREDUCE-REASONINGMATH-PLINKO-BINOMIAL-MODULAR-AUDIT",
+                "type": "local",
+                "digest": "sha256:bceb510e2a472a351679e3de06bf44822f767ce6eee4885a79c2a67d847f8e73",
+                "path": "<LOCAL_PATH_REDACTED>"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "swarm-kimi-multi",
+                "model_name": "fireworks_ai/accounts/bhanu-nalamadgu-7pl5/deployments/ba0vhq9e",
+                "kwargs": {},
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                }
+            },
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {
+                    "FIREWORKS_API_KEY": "${FIREWORKS_API_KEY}"
+                },
+                "disable": false
+            }
+        }
+    ]
+}

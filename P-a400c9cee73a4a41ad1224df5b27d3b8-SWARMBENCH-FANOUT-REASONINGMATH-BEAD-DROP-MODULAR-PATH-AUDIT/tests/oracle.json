@@ -1,0 +1,91 @@
+{
+  "final_residue_mod_1000": 800,
+  "intermediate_residues": {
+    "mod_8": 0,
+    "mod_125": 50
+  },
+  "gold_path_count_decomposition": {
+    "total_steps": 2026,
+    "right_moves": 396,
+    "left_moves": 1630,
+    "binomial_n": 2026,
+    "binomial_k": 396,
+    "v_2": 3,
+    "v_5": 2,
+    "mod_8": 0,
+    "mod_125": 50
+  },
+  "small_case_anchor_results": [
+    {
+      "anchor_name": "start_2_4_to_origin",
+      "start_x": 2,
+      "start_y": 4,
+      "right_moves": 1,
+      "left_moves": 3,
+      "binomial_n": 4,
+      "binomial_k": 1,
+      "exact_path_count": 4,
+      "residue_mod_1000": 4
+    },
+    {
+      "anchor_name": "start_4_10_to_origin",
+      "start_x": 4,
+      "start_y": 10,
+      "right_moves": 3,
+      "left_moves": 7,
+      "binomial_n": 10,
+      "binomial_k": 3,
+      "exact_path_count": 120,
+      "residue_mod_1000": 120
+    },
+    {
+      "anchor_name": "start_6_14_to_origin",
+      "start_x": 6,
+      "start_y": 14,
+      "right_moves": 4,
+      "left_moves": 10,
+      "binomial_n": 14,
+      "binomial_k": 4,
+      "exact_path_count": 1001,
+      "residue_mod_1000": 1
+    },
+    {
+      "anchor_name": "start_8_20_to_origin",
+      "start_x": 8,
+      "start_y": 20,
+      "right_moves": 6,
+      "left_moves": 14,
+      "binomial_n": 20,
+      "binomial_k": 6,
+      "exact_path_count": 38760,
+      "residue_mod_1000": 760
+    },
+    {
+      "anchor_name": "start_10_24_to_origin",
+      "start_x": 10,
+      "start_y": 24,
+      "right_moves": 7,
+      "left_moves": 17,
+      "binomial_n": 24,
+      "binomial_k": 7,
+      "exact_path_count": 346104,
+      "residue_mod_1000": 104
+    }
+  ],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {"response_id": "A", "final_answer_correct": false, "failure_reasons": ["F3", "F4", "F5"]},
+    {"response_id": "B", "final_answer_correct": false, "failure_reasons": ["F3", "F4", "F5"]},
+    {"response_id": "C", "final_answer_correct": false, "failure_reasons": ["F2", "F4", "F5"]},
+    {"response_id": "D", "final_answer_correct": false, "failure_reasons": ["F2", "F3", "F5"]},
+    {"response_id": "E", "final_answer_correct": false, "failure_reasons": ["F2", "F4", "F5"]},
+    {"response_id": "F", "final_answer_correct": false, "failure_reasons": ["F1", "F4", "F5"]},
+    {"response_id": "G", "final_answer_correct": false, "failure_reasons": ["F1", "F2", "F4", "F5"]},
+    {"response_id": "H", "final_answer_correct": false, "failure_reasons": ["F2", "F4", "F5"]},
+    {"response_id": "I", "final_answer_correct": false, "failure_reasons": ["F3", "F4", "F5"]},
+    {"response_id": "J", "final_answer_correct": false, "failure_reasons": ["F1", "F4", "F5"]},
+    {"response_id": "K", "final_answer_correct": false, "failure_reasons": ["F2", "F3", "F5"]},
+    {"response_id": "L", "final_answer_correct": false, "failure_reasons": ["F2", "F3", "F4", "F5"]},
+    {"response_id": "M", "final_answer_correct": false, "failure_reasons": ["F1", "F2", "F4", "F5"]}
+  ]
+}

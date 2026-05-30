@@ -1,0 +1,3 @@
+Score: 0.9976 (1638/1642 passed)
+
+Global fields perfect (26/26). Response D: 403/404 (wrong has_proper_requested_format). Response E: 402/404 (wrong extracted_final_allocation [oracle null vs agent list], wrong applies_strict_majority_rule [oracle true vs agent false]). Response F: 404/404 (perfect). Response G: 403/404 (wrong extracted_final_allocation [oracle null vs agent list]). Total 1638/1642.

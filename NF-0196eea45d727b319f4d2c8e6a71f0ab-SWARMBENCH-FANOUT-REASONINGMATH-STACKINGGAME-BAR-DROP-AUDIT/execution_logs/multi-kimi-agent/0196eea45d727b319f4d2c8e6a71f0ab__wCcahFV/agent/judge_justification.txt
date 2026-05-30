@@ -1,0 +1,10 @@
+Score: 0.8421052631578947 (160/190 passed)
+
+correct_final_answer 5/5
+acceptable_equivalent_answers 5/5
+Response A 30/30 (exact match)
+Response B 0/30 (mismatch: failure_reasons)
+Response C 30/30 (exact match)
+Response D 30/30 (exact match)
+Response E 30/30 (exact match)
+Response F 30/30 (exact match)

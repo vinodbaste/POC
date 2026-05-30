@@ -1,0 +1,256 @@
+version: 1
+coordination_pattern: fan-out-synthesize
+estimated_sub_agents: 16
+
+description: >
+  Derive fixed_point_count for s(n)=n in [4,30] using "three largest proper
+  divisors", and audit fourteen proposed solutions against four phrase-triggered
+  failure codes.
+
+  ORCHESTRATOR RESTRICTIONS (binding):
+
+    FORBIDDEN — the orchestrator MUST NOT read any file under
+    /input_artifacts/, re-compute s(n) for any n, re-classify any
+    audit verdict, or restate verdicts in its final message. Final
+    assistant message MUST be EXACTLY: "Output written to
+    /logs/agent/output.json."
+
+    REQUIRED — dispatch all parallel sub-tasks in one step, then the
+    synthesizer, then the one-sentence acknowledgement. Target step
+    count: 3-4.
+
+sub_tasks:
+  - id: derive-fixed-point-count
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md only.
+      Independently enumerate n in [4, 30], filter to those with at least
+      three proper divisors, list the three largest proper divisors for
+      each surviving n, compute s(n), and identify which n satisfy
+      s(n) = n. Return answer.fixed_point_count and
+      anchor_results.{five fields}. Do not inspect any proposed response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only
+      Response A. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only
+      Response B. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only
+      Response C. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only
+      Response D. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only
+      Response E. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only
+      Response F. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only
+      Response G. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only
+      Response H. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-i
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_I.md. Audit only
+      Response I. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-j
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_J.md. Audit only
+      Response J. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-k
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_K.md. Audit only
+      Response K. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-l
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_L.md. Audit only
+      Response L. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-m
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_M.md. Audit only
+      Response M. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-n
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_N.md. Audit only
+      Response N. Extract its final stated fixed_point_count and decide
+      final_answer_correct. Then determine the exact set of failure_reasons
+      whose trigger phrase is concretely present in this single response,
+      drawn ONLY from {F1, F2, F3, F4} defined in instruction.md. Most
+      responses have 0, 1, or 2 failure reasons. Return failure_reasons=[]
+      when the final answer is correct AND no trigger phrase fires.
+      Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Stitch upstream reports. Do NOT re-derive fixed_point_count and
+      do NOT re-classify. Copy answer.fixed_point_count and
+      anchor_results verbatim. Build per_response_assessment as a list
+      A..N with verbatim copies. Compute acceptable_solution_ids as the
+      sorted list with final_answer_correct=true AND failure_reasons=[].
+      Write to /logs/agent/output.json. Top-level keys exactly: answer,
+      anchor_results, acceptable_solution_ids, per_response_assessment.
+      Return {"status":"written","path":"/logs/agent/output.json"} only.
+    depends_on:
+      - derive-fixed-point-count
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - audit-response-j
+      - audit-response-k
+      - audit-response-l
+      - audit-response-m
+      - audit-response-n
+    parallel_group: synthesize

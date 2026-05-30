@@ -1,0 +1,3 @@
+Score: 0.45255474452554745 (124/274 passed)
+
+correct_answer correct (2/2), acceptable_solution_ids correct (2/2), A missing invalid_or_incomplete_justification (0/30), B missing invalid_or_incomplete_justification (0/30), C correct (30/30), D missing invalid_or_incomplete_justification (0/30), E correct (30/30), F missing invalid_or_incomplete_justification (0/30), G correct (30/30), H wrong failure_reasons set (0/30), I correct (30/30)

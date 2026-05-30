@@ -1,0 +1,26 @@
+Score: 0.6440 (1488/2312 weighted points)
+
+{
+  "score": 0.644,
+  "total_earned": 1488,
+  "total_possible": 2312,
+  "top_level": {
+    "gold_final_answer": 0,
+    "gold_edge_length_squared_set": 0,
+    "acceptable_solution_ids": 2
+  },
+  "per_response": {
+    "A": 59,
+    "B": 81,
+    "C": 74,
+    "D": 119,
+    "E": 104,
+    "F": 86,
+    "G": 61,
+    "H": 86,
+    "I": 86
+  },
+  "code_application_table_total": 700,
+  "cross_response_observations": 30,
+  "justification": "Top-level: Agent's gold_final_answer (105) and gold_edge_length_squared_set ([21,84]) both mismatch oracle (210, [21,54,66,69]), forfeiting 4 points; acceptable_solution_ids matched (2 pts). Per-response: Strong alignment on primary_failure_code (5 exact matches, 4 plausible alternatives) and evidence quality (all strings >50 chars). However, failure_reasons sets frequently missed 'omits_sign_pattern_casework' and one other code, scoring 15 or 8 instead of 30. Code_application_count and evidence_key_completeness often mismatched (agent reported 3-4 vs oracle 5 for most responses). Code_application_table: 7 of 12 keys matched exactly (700 pts); 5 failed strict sorted-list check due to missing response IDs (e.g., 'omits_sign_pattern_casework' listed only ['D','I'] vs oracle's 7 entries). Cross_response_observations exceeded 300 chars with substantive response-specific analysis (30 pts)."
+}

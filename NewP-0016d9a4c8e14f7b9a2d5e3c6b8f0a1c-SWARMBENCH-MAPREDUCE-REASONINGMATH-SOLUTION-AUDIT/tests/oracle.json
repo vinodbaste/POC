@@ -1,0 +1,141 @@
+{
+  "correct_seniority_order": [
+    "Richard",
+    "Charles",
+    "Jessica",
+    "Darren",
+    "Adam",
+    "Christopher"
+  ],
+  "correct_final_allocation": [
+    {
+      "name": "Richard",
+      "stacks": 196
+    },
+    {
+      "name": "Charles",
+      "stacks": 0
+    },
+    {
+      "name": "Jessica",
+      "stacks": 1
+    },
+    {
+      "name": "Darren",
+      "stacks": 1
+    },
+    {
+      "name": "Adam",
+      "stacks": 2
+    },
+    {
+      "name": "Christopher",
+      "stacks": 0
+    }
+  ],
+  "acceptable_solution_ids": [],
+  "per_response_assessment": [
+    {
+      "response_id": "D",
+      "extracted_final_allocation": [
+        {
+          "name": "Richard",
+          "stacks": 196
+        },
+        {
+          "name": "Charles",
+          "stacks": 0
+        },
+        {
+          "name": "Jessica",
+          "stacks": 1
+        },
+        {
+          "name": "Darren",
+          "stacks": 1
+        },
+        {
+          "name": "Adam",
+          "stacks": 0
+        },
+        {
+          "name": "Christopher",
+          "stacks": 2
+        }
+      ],
+      "final_answer_correct": false,
+      "seniority_order_correct": true,
+      "uses_backward_induction": true,
+      "respects_two_player_stalemate_rule": false,
+      "applies_strict_majority_rule": true,
+      "compares_votes_against_continuation_values": false,
+      "preserves_total_budget_and_stack_units": true,
+      "has_internal_contradiction": true,
+      "has_proper_requested_format": false
+    },
+    {
+      "response_id": "E",
+      "extracted_final_allocation": null,
+      "final_answer_correct": false,
+      "seniority_order_correct": true,
+      "uses_backward_induction": false,
+      "respects_two_player_stalemate_rule": false,
+      "applies_strict_majority_rule": true,
+      "compares_votes_against_continuation_values": false,
+      "preserves_total_budget_and_stack_units": false,
+      "has_internal_contradiction": true,
+      "has_proper_requested_format": false
+    },
+    {
+      "response_id": "F",
+      "extracted_final_allocation": [
+        {
+          "name": "Richard",
+          "stacks": 196
+        },
+        {
+          "name": "Charles",
+          "stacks": 1
+        },
+        {
+          "name": "Jessica",
+          "stacks": 0
+        },
+        {
+          "name": "Darren",
+          "stacks": 1
+        },
+        {
+          "name": "Adam",
+          "stacks": 1
+        },
+        {
+          "name": "Christopher",
+          "stacks": 1
+        }
+      ],
+      "final_answer_correct": false,
+      "seniority_order_correct": true,
+      "uses_backward_induction": true,
+      "respects_two_player_stalemate_rule": false,
+      "applies_strict_majority_rule": true,
+      "compares_votes_against_continuation_values": false,
+      "preserves_total_budget_and_stack_units": true,
+      "has_internal_contradiction": true,
+      "has_proper_requested_format": true
+    },
+    {
+      "response_id": "G",
+      "extracted_final_allocation": null,
+      "final_answer_correct": false,
+      "seniority_order_correct": true,
+      "uses_backward_induction": false,
+      "respects_two_player_stalemate_rule": false,
+      "applies_strict_majority_rule": false,
+      "compares_votes_against_continuation_values": false,
+      "preserves_total_budget_and_stack_units": false,
+      "has_internal_contradiction": true,
+      "has_proper_requested_format": false
+    }
+  ]
+}

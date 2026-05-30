@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/59ce4e2383c0482fa75a53c64d2c4270-SWARMBENCH-FANOUT-REASONINGMATH-CONTINUOUS-STARS-INTERVAL-AUDIT"
+description = "Audit eight proposed solutions to a combinatorial interval-reconstruction problem (continuous-stars visibility) and label their extremal-formula, continuity, arithmetic, and justification errors."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 10.0
+human_solving_hours_justification = "2.5h to derive the two extremal closed forms, prove the matching constructions (length-1 intervals for M, positive-jump greedy for m), and verify the gold values m=14, M=35, m+M=49 by hand and by independent enumeration; 8 x 0.75h to audit eight heterogeneous AI-generated proofs, distinguish formula errors from arithmetic slips, and assign exact failure-reason sets; 1.5h to reconcile audits, calibrate the verifier rubric, and write per-response oracle rationales. Total: 2.5 + 6.0 + 1.5 = 10.0h."
+estimated_sub_agents = 10
+input_token_estimate = 11000
+why_multi_agent = "Audit requires deriving two extremal invariants and eight independent per-response classifications whose error modes are easy to confuse: swapped m and M formulas, ignored continuity, arithmetic slips on the same two sums, qualitative non-derivations, and a fabricated adjacent-min identity. A single agent must hold all eight responses plus the derivation in one context, where confirmation bias and context dilution both apply. Fan-out splits derivation, eight focused per-response audits, and a mechanical synthesizer that copies upstream verdicts verbatim, so each sub-agent has a small, well-scoped reasoning load."
+reference_link = "https://www.iarcs.org.in/inoi/2026/"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

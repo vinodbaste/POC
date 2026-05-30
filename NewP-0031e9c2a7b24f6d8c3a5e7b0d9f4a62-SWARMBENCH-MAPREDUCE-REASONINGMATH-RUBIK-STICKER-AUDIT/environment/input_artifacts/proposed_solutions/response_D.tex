@@ -1,0 +1,130 @@
+# Solution: Rubik's Cube Number Sticker Problem
+
+## Step 1: Initial Configuration
+
+**Front face initial state:**
+```
+1 1 1
+1 2 1
+1 1 1
+```
+Sum = 10
+
+**Initial configuration on all faces:**
+- Front/Back faces: corners=1, edges=1, center=2
+- Top/Bottom/Left/Right faces: corners=0, edges=0, center=2
+
+## Step 2: Move R (Right clockwise)
+
+Right column of front → right column of top
+Right column of bottom → right column of front
+Right column of top → right column of back
+Right column of back → right column of bottom
+
+**Front face after R:**
+```
+1 1 0
+1 2 0
+1 1 0
+```
+
+## Step 3: Move U (Up clockwise)
+
+Top row cycles: Front → Left → Back → Right → Front
+
+**Front face after U:**
+```
+1 1 0
+1 2 0
+1 1 0
+```
+(No change to front face from this move)
+
+## Step 4: Move B (Back clockwise)
+
+Right column of left → right column of top
+Right column of top → right column of left  
+Back face rotates (but doesn't directly affect most of front)
+
+**Front face after B:**
+```
+1 1 0
+1 2 0
+1 1 0
+```
+
+## Step 5: Move R (Right clockwise)
+
+**Front face after R:**
+```
+1 1 0
+1 2 0
+1 1 0
+```
+
+## Step 6: Move L (Left clockwise)
+
+Left column of front → left column of bottom
+Left column of top → left column of front
+Left column of bottom → left column of back
+Left column of back → left column of top
+
+**Front face after L:**
+```
+0 1 0
+0 2 0
+0 1 0
+```
+
+## Step 7: Move L (Left clockwise, second time)
+
+Left column cycles again.
+
+**Front face after L:**
+```
+1 1 0
+1 2 0
+1 1 0
+```
+
+## Step 8: Move R (Right clockwise)
+
+**Front face after R:**
+```
+1 1 0
+1 2 0
+1 1 0
+```
+
+## Step 9: Move L (Left clockwise)
+
+**Front face after L:**
+```
+0 1 0
+0 2 0
+0 1 0
+```
+
+## Step 10: Move R (Right clockwise)
+
+**Front face after R:**
+```
+0 1 0
+0 2 0
+0 1 0
+```
+
+## Step 11: Move L (Left clockwise)
+
+**Final front face:**
+```
+1 1 0
+1 2 0
+1 1 0
+```
+
+---
+
+## **Final Answer**
+
+**Sum of numbers on front face = 1 + 1 + 0 + 1 + 2 + 0 + 1 + 1 + 0 = 7**

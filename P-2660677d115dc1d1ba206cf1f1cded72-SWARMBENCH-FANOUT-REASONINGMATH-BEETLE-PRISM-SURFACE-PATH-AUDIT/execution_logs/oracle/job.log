@@ -1,0 +1,2 @@
+Skipping image OS validation for hb__swarmbench-2660677d115dc1d1ba206cf1f1cded72-swarmbench-fanout-reasoningmath-beetle-prism-surface-path-audit: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

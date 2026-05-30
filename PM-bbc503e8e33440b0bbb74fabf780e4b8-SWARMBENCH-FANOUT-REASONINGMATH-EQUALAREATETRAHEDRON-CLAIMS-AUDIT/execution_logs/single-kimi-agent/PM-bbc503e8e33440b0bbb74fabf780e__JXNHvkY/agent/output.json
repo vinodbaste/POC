@@ -1,0 +1,51 @@
+{
+  "gold_set": ["a", "b", "c", "d", "h"],
+  "acceptable_solution_ids": ["A", "H"],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": ["F2"]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": ["F3"]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": ["F4"]
+    },
+    {
+      "response_id": "G",
+      "final_answer_correct": false,
+      "failure_reasons": ["F5"]
+    },
+    {
+      "response_id": "H",
+      "final_answer_correct": true,
+      "failure_reasons": []
+    },
+    {
+      "response_id": "I",
+      "final_answer_correct": false,
+      "failure_reasons": ["F5"]
+    }
+  ]
+}

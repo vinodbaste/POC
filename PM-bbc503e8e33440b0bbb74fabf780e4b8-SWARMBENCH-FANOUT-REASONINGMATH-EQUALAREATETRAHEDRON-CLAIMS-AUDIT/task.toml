@@ -1,0 +1,25 @@
+[task]
+name = "swarmbench/bbc503e8e33440b0bbb74fabf780e4b8-SWARMBENCH-FANOUT-REASONINGMATH-EQUALAREATETRAHEDRON-CLAIMS-AUDIT"
+description = "Audit nine model-produced solutions to an olympiad-style 3D geometry multi-claim problem about a tetrahedron with all dihedrals acute and four equal-area faces; identify which of 8 claims are necessarily true and classify each candidate's errors using a five-code phrase-trigger vocabulary."
+
+[metadata]
+verifier_type = "llm-judge"
+domain = "reasoning-math"
+coordination_pattern = "fan-out-synthesize"
+human_solving_hours_estimate = 10.0
+human_solving_hours_justification = "2.0h to derive the gold set from the equifacial-tetrahedron theorem and refute (e), (f), (g) by a concrete non-regular counterexample; 9 x 0.7h = 6.3h to audit nine responses for final_answer + failure_reasons set against the five-code phrase-trigger vocabulary; 1.7h to reconcile multi-code co-fires and document the 305-point oracle. Total: 2.0 + 6.3 + 1.7 = 10.0h."
+estimated_sub_agents = 11
+input_token_estimate = 13000
+why_multi_agent = "Dominant single-agent failure is majority-vote bias: 5 of 9 proofs commit to the conservative-omit-d decoy set {a,b,c,h}, only 2 affirm the true gold {a,b,c,d,h}, 2 over-include e. A single agent reading all 9 picks the 5-vote decoy, losing the 25-pt gold_set, the 10-pt acceptable_ids, and every 30-pt audit that depends on knowing true gold. Fan-out's isolated gold-derivation sub-agent reads only the problem, so cannot be majority-biased."
+reference_link = "https://en.wikipedia.org/wiki/Isosceles_tetrahedron"
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 600
+
+[environment]
+cpus = 2
+memory_mb = 4096
+build_timeout_sec = 600

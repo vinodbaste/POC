@@ -1,0 +1,5 @@
+Score: 0.9176 (LLM raw 0.9176, capped at 0.99)
+
+LLM-judge score: 0.9176  (334/364 pts)
+
+Only response K differs: oracle marks final_answer_correct=true, agent marks false. All other 11 responses, gold value, and acceptable set match perfectly. 334 = 364 - 30.

@@ -1,0 +1,58 @@
+{
+  "correct_final_answer": 141,
+  "acceptable_equivalent_answers": [
+    "141",
+    "141 occupied cells"
+  ],
+  "per_response_assessment": [
+    {
+      "response_id": "A",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_bar_placement",
+        "wrong_row_clear_count",
+        "initial_cell_count_error"
+      ]
+    },
+    {
+      "response_id": "B",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "invalid_or_incomplete_final_output"
+      ]
+    },
+    {
+      "response_id": "C",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_bar_placement",
+        "wrong_row_clear_count",
+        "invalid_or_incomplete_final_output"
+      ]
+    },
+    {
+      "response_id": "D",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "correct_stacking_logic",
+        "wrong_row_clear_count",
+        "initial_cell_count_error"
+      ]
+    },
+    {
+      "response_id": "E",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "correct_stacking_logic"
+      ]
+    },
+    {
+      "response_id": "F",
+      "final_answer_correct": false,
+      "failure_reasons": [
+        "wrong_bar_placement",
+        "wrong_row_clear_count"
+      ]
+    }
+  ]
+}

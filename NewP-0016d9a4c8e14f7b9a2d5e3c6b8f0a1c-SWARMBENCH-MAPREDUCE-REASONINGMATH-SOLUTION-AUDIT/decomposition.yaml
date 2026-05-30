@@ -1,0 +1,103 @@
+# Orchestrator constraints:
+# - The orchestrator MUST spawn and use all sub-agents below.
+# - The orchestrator MUST NOT solve the mathematical audit itself.
+# - The orchestrator MUST NOT read and analyze all response files itself.
+# - The orchestrator should dispatch the map tasks, wait for results, dispatch the reducer, and then write the reducer's final JSON.
+# - Sub-agents must do substantive quote-grounded work, not just return final labels.
+
+sub_tasks:
+  - id: game-adjudication
+    description: >
+      Read /input_artifacts/problem.md. Solve the underlying finite voting game and produce a
+      quote-grounded game-adjudication note. Your note must include: the seniority chain, the
+      strict-majority thresholds, the two-player mutual-veto continuation value, the continuation
+      allocation for each remaining-player subgame, and the final accepted allocation. Include enough
+      intermediate arithmetic and rule references that a reducer can audit your work without redoing
+      the whole derivation.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-d
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_D.md.
+      Audit only Response D using the same label definitions as the main task. Produce a detailed
+      evidence note with exact quotes from Response D for every disputed or non-obvious label. You
+      must explicitly evaluate final_answer_correct, respects_two_player_stalemate_rule,
+      compares_votes_against_continuation_values, has_internal_contradiction, and
+      has_proper_requested_format, and explain how each follows from the quoted text.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-e
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_E.md.
+      Audit only Response E using the same label definitions as the main task. Produce a detailed
+      evidence note with exact quotes from Response E for every disputed or non-obvious label. You
+      must explicitly evaluate budget/unit preservation, strict-majority usage, backward-induction
+      usage, continuation-value comparison, final-answer correctness, and requested format.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-f
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_F.md.
+      Audit only Response F using the same label definitions as the main task. Produce a detailed
+      evidence note with exact quotes from Response F for every disputed or non-obvious label. You
+      must explicitly evaluate the two-player base case, strict-majority correction, continuation-
+      value comparisons, intermediate-allocation consistency, has_internal_contradiction, and final
+      requested format.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-g
+    description: >
+      Read /input_artifacts/problem.md and /input_artifacts/proposed_solutions/response_G.md.
+      Audit only Response G using the same label definitions as the main task. Produce a detailed
+      evidence note with exact quotes from Response G for every disputed or non-obvious label. You
+      must explicitly evaluate whether the response performs backward induction or uses a fairness
+      heuristic, whether the stack/dollar units are consistent, and whether the final answer has an
+      internal contradiction.
+    depends_on: []
+    parallel_group: map
+
+  - id: continuation-value-validator
+    description: >
+      Read /input_artifacts/problem.md and all four response files D, E, F, and G. This is a
+      cross-cutting validation task focused only on continuation-value comparisons and the two-player
+      stalemate rule. For each response, decide whether its voter-acceptance reasoning compares the
+      proposed payoff against the correct continuation payoff after proposer elimination. Produce a
+      compact table with one row per response and quote at least one supporting phrase for each row.
+      Do not decide final allocations or format labels.
+    depends_on: []
+    parallel_group: map
+
+  - id: contradiction-validator
+    description: >
+      Read /input_artifacts/problem.md and all four response files D, E, F, and G. This is a
+      cross-cutting validation task focused only on internal contradictions and unit consistency.
+      For each response, decide whether the response contradicts its own stated allocation, changes
+      units, or gives mutually inconsistent numerical interpretations. Produce a compact table with
+      one row per response and quote at least one supporting phrase for each row. Do not decide final
+      allocations or majority-threshold labels.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final-audit
+    description: >
+      Use the game-adjudication note, the four response-audit notes, and the two cross-cutting
+      validator notes to produce the final JSON. The reducer must rely on sub-agent outputs and
+      should only re-open /input_artifacts files for targeted consistency checks. Before writing the
+      final JSON, explicitly reconcile any disagreement between a response-specific audit note and
+      a cross-cutting validator note for compares_votes_against_continuation_values or
+      has_internal_contradiction. The final output must contain correct_seniority_order,
+      correct_final_allocation, acceptable_solution_ids, and per_response_assessment for D, E, F,
+      and G in that order. Write the final JSON to /logs/agent/output.json.
+    depends_on:
+      - game-adjudication
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - continuation-value-validator
+      - contradiction-validator
+    parallel_group: reduce

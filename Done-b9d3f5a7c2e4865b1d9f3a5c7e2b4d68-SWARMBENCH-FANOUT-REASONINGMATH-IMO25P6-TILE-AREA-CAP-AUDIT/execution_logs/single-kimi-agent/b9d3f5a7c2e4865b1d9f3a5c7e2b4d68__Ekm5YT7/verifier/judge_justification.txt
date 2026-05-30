@@ -1,0 +1,9 @@
+Score: 0.6900 (414/600 points)
+
+anchor_results.anchor_5x5: 10 != 9
+audit C: final_answer_correct=False oracle=False; failure_reasons=['F2'] oracle=['F2', 'F4']
+audit E: final_answer_correct=False oracle=False; failure_reasons=['F3', 'F4'] oracle=['F4']
+audit H: final_answer_correct=False oracle=False; failure_reasons=['F1'] oracle=['F1', 'F2']
+audit K: final_answer_correct=True oracle=True; failure_reasons=['F3', 'F5'] oracle=['F5']
+audit N: final_answer_correct=True oracle=True; failure_reasons=['F2', 'F3'] oracle=['F3']
+audit P: final_answer_correct=False oracle=False; failure_reasons=['F3', 'F4', 'F5'] oracle=['F4', 'F5']

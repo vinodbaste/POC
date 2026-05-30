@@ -1,0 +1,135 @@
+
+# Core-answer stability requirement:
+# The core-reference-math mapper must verify the final residue with exact integer arithmetic as well as the modular reasoning.
+# The reducer must take correct_answer_latex only from this independently verified core computation.
+# The reducer must not use any proposed response's claimed answer to set correct_answer_latex or acceptable_solution_ids.
+
+
+# Top-level answer consistency requirement:
+# The core-reference-math mapper must compute the final residue from the original problem independently.
+# It must cross-check the result using separate congruences modulo 8 and modulo 125 and then CRT.
+# The reducer must set correct_answer_latex from the core-reference-math mapper, not from any proposed response.
+# The reducer must set acceptable_solution_ids using the formal definition in instruction.md, not from a response's self-assessment.
+
+# Coordination compliance requirement:
+# The orchestrator MUST follow the map-reduce decomposition below.
+# The orchestrator MUST spawn and delegate work to sub-agents for the map tasks.
+# The orchestrator MUST NOT solve the mathematical audit mostly by itself.
+# The orchestrator should use sub-agent outputs to produce the final reduce output.
+# The final trajectory must demonstrate that the specified coordination pattern was followed.
+#
+# Runtime constraint:
+# Do not spawn extra cross-check agents that read all responses A-I.
+# Each response auditor must read only /input_artifacts/problem_statement.md and its assigned response file.
+# The reducer should use mapper outputs and should not re-audit all response files unless a mapper output is missing or internally inconsistent.
+
+sub_tasks:
+  - id: core-reference-math
+    description: >
+      Independently solve the Plinko path-counting problem from /input_artifacts/problem_statement.md.
+      Determine the correct number of diagonal moves, the corresponding binomial coefficient, the
+      reference p-adic valuations and modular congruences needed for modulo 1000, and the final residue.
+      Do not audit individual proposed responses. Return a concise reference summary for the reducer.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-a
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_A.md.
+      Extract response A's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response A and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-b
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_B.md.
+      Extract response B's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response B and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-c
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_C.md.
+      Extract response C's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response C and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-d
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_D.md.
+      Extract response D's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response D and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-e
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_E.md.
+      Extract response E's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response E and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-f
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_F.md.
+      Extract response F's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response F and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-g
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_G.md.
+      Extract response G's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response G and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-h
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_H.md.
+      Extract response H's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response H and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: audit-response-i
+    description: >
+      Audit only /input_artifacts/problem_statement.md and /input_artifacts/proposed_solutions/response_I.md.
+      Extract response I's claimed final answer and path-count expression. Evaluate every required label
+      from instruction.md using direct evidence from response I and the reference mathematics. Do not read
+      any other response file.
+    depends_on: []
+    parallel_group: map
+
+  - id: reduce-final-audit
+    description: >
+      Use the core-reference-math output and the nine individual response-audit outputs to produce exactly
+      the JSON required by instruction.md at /logs/agent/output.json. Preserve all nine response objects in
+      order A through I. Resolve conflicts using the mapper evidence and the instruction.md label definitions;
+      do not decide labels by majority vote. Do not spawn additional sub-agents and do not perform a second
+      full re-audit of all response files unless a mapper output is missing or internally inconsistent.
+    depends_on:
+      - core-reference-math
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+    parallel_group: reduce

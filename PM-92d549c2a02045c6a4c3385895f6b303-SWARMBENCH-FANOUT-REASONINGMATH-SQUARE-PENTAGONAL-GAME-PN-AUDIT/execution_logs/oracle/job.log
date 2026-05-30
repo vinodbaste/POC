@@ -1,0 +1,2 @@
+Skipping image OS validation for hb__swarmbench-92d549c2a02045c6a4c3385895f6b303-swarmbench-fanout-reasoningmath-square-pentagonal-game-pn-audit: docker inspect returned 1
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

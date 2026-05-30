@@ -1,0 +1,112 @@
+We only need the numbers on the final front face.
+
+### Step 1. Translate the sticker values into a simple rule
+Initially:
+- Each front corner/edge sticker is 1.
+- Each back corner/edge sticker is 1.
+- Every other corner/edge sticker is 0.
+- Every center sticker is 2.
+
+So on the final front face:
+- the center is always 2 (centers never leave their face under standard moves),
+- each of the other 8 stickers is 1 if that sticker originally belonged to the F face or B face,
+- and 0 otherwise.
+
+Therefore, if
+
+$$
+k = \#(\text{front face edge/corner stickers that come from original F or B})
+$$
+
+then the required sum is
+
+$$
+2+k.
+$$
+
+So we only track, after the moves, which original face label F,B,U,D,L,R appears on the front side of each front edge/corner cubie.
+
+### Step 2. Use standard cube-move rules (position + face-label rotation)
+We use standard Singmaster moves:
+- R affects the right layer; on moved cubies the face labels cycle
+
+$$
+U \to F \to D \to B \to U.
+$$
+
+- U affects the top layer; labels cycle
+
+$$
+F \to R \to B \to L \to F.
+$$
+
+- B affects the back layer; labels cycle
+
+$$
+U \to R \to D \to L \to U.
+$$
+
+- L affects the left layer; labels cycle
+
+$$
+U \to B \to D \to F \to U.
+$$
+
+We apply the given move sequence:
+
+$$
+R, U, B, R, L, L, R, L, R, L.
+$$
+
+Tracking corners and edges through these moves (permuting the cubies in the moved layer and applying the corresponding label-cycle each time) gives the following final front-face stickers.
+
+---
+
+### Step 3. Final front-face corner stickers (which label is on the F side)
+Final corner face-labels on the front side:
+- UFR has front label F
+- UFL has front label L
+- DFR has front label U
+- DFL has front label F
+
+Thus, among 4 front corners, the ones coming from {F,B} are:
+- UFR (F) -> counts 1
+- DFL (F) -> counts 1
+- UFL (L) -> counts 0
+- DFR (U) -> counts 0
+
+So corner contribution to k: 2.
+
+---
+
+### Step 4. Final front-face edge stickers (which label is on the F side)
+Final edge face-labels on the front side:
+- UF has front label L
+- FR has front label F
+- DF has front label F
+- FL has front label F
+
+Thus, among 4 front edges, the ones coming from {F,B} are:
+- FR (F) -> counts 1
+- DF (F) -> counts 1
+- FL (F) -> counts 1
+- UF (L) -> counts 0
+
+So edge contribution to k: 3.
+
+---
+
+### Step 5. Compute the sum on the final front face
+Total number of front edge/corner stickers coming from original F or B:
+
+$$
+k=2+3=5.
+$$
+
+Center is always 2, hence
+
+$$
+\text{sum}=2+k=2+5=7.
+$$
+
+Final answer: 7.

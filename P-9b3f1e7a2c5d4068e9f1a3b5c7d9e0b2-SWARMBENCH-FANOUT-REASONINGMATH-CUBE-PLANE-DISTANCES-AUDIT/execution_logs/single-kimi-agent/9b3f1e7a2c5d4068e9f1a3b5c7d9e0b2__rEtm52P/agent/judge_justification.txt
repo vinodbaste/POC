@@ -1,0 +1,26 @@
+Score: 0.2710 (626/2307 weighted points)
+
+{
+  "score": 0.271,
+  "total_earned": 626,
+  "total_possible": 2307,
+  "top_level": {
+    "gold_final_answer": 0,
+    "gold_edge_length_squared_set": 0,
+    "acceptable_solution_ids": 0
+  },
+  "per_response": {
+    "A": 54,
+    "B": 77,
+    "C": 81,
+    "D": 26,
+    "E": 26,
+    "F": 21,
+    "G": 54,
+    "H": 36,
+    "I": 21
+  },
+  "code_application_table_total": 200,
+  "cross_response_observations": 30,
+  "justification": "Top-level fields all incorrect (agent claims 21/210, single value vs set, and IDs F/I vs empty). Per-response: A misidentified primary (restricts_to_nonnegative vs fabricated) and miscounted codes; B matched primary in oracle set (10 pts) and evidence keys; C matched primary exactly (25 pts) and had high overlap; D/E completely mismatched identity (agent swapped D/E with E/D content); F/I incorrectly marked correct (0 pts for final_answer_correct); G had plausible primary in oracle set. Code table: only 'assumes_plane_parallel_to_cube_face' and 'equates_max_distance_with_edge_length_directly' matched exactly (200 pts). Cross-observations substantive and length-compliant (30 pts). Strict structural checks (code counts, evidence completeness) failed for most responses due to agent's misidentification of response content."
+}
