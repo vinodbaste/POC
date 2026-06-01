@@ -41,24 +41,28 @@ still mis-build its CI (B) or drop a single redundant row yet stay in tolerance
 
 ## 3. Per-response labels (oracle)
 
-| id | slope | final | codes | rationale |
+| id | slope | final | codes | what makes it adversarial |
 |---|---|---|---|---|
 | A | 0.755 | true | [] | clean full-data OLS, t-based CI |
-| B | 0.755 | true | [F4] | correct slope/intercept but CI uses 1.96 |
-| C | 0.696 | false | [F6] | Sxy mis-stated as 3579.6 (true 3879.6) |
-| D | 0.825 | false | [F2, F4] | reports r as slope, CI with 1.96 |
-| E | 0.958 | false | [F3, F4, F5] | drops 2 "outliers", forces origin, 1.96 CI |
-| F | 0.962 | false | [F3] | through-origin on all 30 rows |
+| B | 0.755 | true | [F4] | TRAP: right slope/intercept, CI quietly uses 1.96 — single drops F4 |
+| C | 0.720 | false | [F6] | NEAR-GOLD TRAP: buried slip sum(xy)=132837 vs 133017 → slope 0.720; number-matcher accepts it AND misses F6 |
+| D | 0.825 | false | [F2, F4] | r-as-slope (loud) co-fires with a quiet 1.96 — single gets F2, drops F4 |
+| E | 0.958 | false | [F3, F4, F5] | triple co-fire: through-origin + dropped 2 "outliers" + 1.96 |
+| F | 0.962 | false | [F3] | through-origin buried as "physical zero"; CI uses the correct t |
 | G | 0.755 | true | [] | clean; names and rejects axis-swap and r-as-slope |
-| H | 0.755 | true | [] | clean full-data OLS |
-| I | 0.800 | false | [F5, F6] | drops 2 high-x rows (n=28) and mis-states R²=0.79 (true 0.682) |
-| J | 0.903 | false | [F1, F4] | Sxy/Syy axis swap, CI with 1.96 |
-| K | 0.755 | true | [F5] | drops 1 redundant row (n=29); fit stays within all tolerances |
-| L | 0.903 | false | [F1] | Sxy/Syy axis swap, t-based CI |
+| H | 0.755 | true | [] | REFUTATION TRAP: quotes the F1/F2/F5 triggers only to reject them → single false-fires |
+| I | 0.800 | false | [F5, F6] | drops 2 high-x rows (n=28) and states R²=0.91 (true 0.68) → glaring slip |
+| J | 0.903 | false | [F1, F4] | Sxy/Syy axis swap (loud) co-fires with a quiet 1.96 — single drops F4 |
+| K | 0.755 | true | [F5] | TRAP: drops 1 redundant row (n=29); fit stays within all tolerances → single marks [] |
+| L | 0.903 | false | [F1] | Sxy/Syy axis swap alone, correct t-CI |
 
-Every flawed write-up is internally arithmetic-consistent with its own (wrong)
-method, so a defect can only be confirmed by re-deriving the estimator, not by
-spotting an inconsistency on the page.
+Every flawed write-up is internally arithmetic-consistent **with its own stated
+method** — through-origin, reduced-data, and axis-swap responses all report the
+`s`, `se`, and CI that recompute exactly under that method. A defect can therefore
+only be confirmed by re-deriving the estimator and the code set, never by spotting
+an on-page inconsistency. The single buried numeric slips (C's cross-product, I's
+R²) are the only quantities that fail their own method's recomputation, which is
+precisely what makes them F6 rather than a method choice.
 
 ## 4. Why fan-out beats a single agent here
 

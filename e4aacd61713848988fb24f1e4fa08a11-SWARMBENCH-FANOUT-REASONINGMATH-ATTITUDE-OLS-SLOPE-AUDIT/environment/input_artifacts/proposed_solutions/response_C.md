@@ -1,14 +1,23 @@
 # Response C
 
-OLS of rating on complaints, all 30 rows.
+Least-squares line `rating ~ complaints`, all 30 rows, intercept included.
 
-x̄ = 66.600, ȳ = 64.633.
-Sxx = 5141.200, and for the cross-product I get Sxy = **3579.600**, Syy = 4296.967.
+Means: x̄ = 66.600, ȳ = 64.633. For the cross-product I accumulate
+`sum(complaints*rating)` row by row and get **132837**; also
+`sum(complaints^2) = 138208`. Then
+```
+Sxx = 138208 - 1998^2/30        = 5141.200
+Sxy = 132837 - (1998*1939)/30   = 132837 - 129137.4 = 3699.600
+```
+Slope `b1 = Sxy/Sxx = 3699.600/5141.200 = 0.71960`, and
+`b0 = 64.633 - 0.71960*66.600 = 16.708`.
 
-Slope β₁ = Sxy/Sxx = 3579.600/5141.200 = **0.69625**.
-Intercept β₀ = 64.633 − 0.69625·66.600 = **18.265**.
+Residual: `SSE = sum (y - b0 - b1*x)^2 = 1375.68`, `df = 28`,
+`s = sqrt(1375.68/28) = 7.009`, `se(b1) = 7.009/sqrt(5141.200) = 0.09776`.
+Using t*(0.975, 28) = 2.048,
+```
+CI = 0.71960 +/- 2.048*0.09776 = 0.71960 +/- 0.20021 = [0.5194, 0.9198].
+```
 
-SSE = 1400.9, df = 28, s = 7.074, se(β₁) = 7.074/71.703 = 0.09866.
-With t*(0.975, 28) = 2.048: 0.69625 ± 2.048·0.09866 = **[0.4942, 0.8983]**.
-
-**Answer:** β₁ = 0.696, 95% CI [0.494, 0.898]; complaints handling predicts rating.
+**Final answer:** slope = 0.720, 95% CI [0.519, 0.920]. Intercept 16.708,
+R^2 = 1 - 1375.68/4296.967 = 0.680.
