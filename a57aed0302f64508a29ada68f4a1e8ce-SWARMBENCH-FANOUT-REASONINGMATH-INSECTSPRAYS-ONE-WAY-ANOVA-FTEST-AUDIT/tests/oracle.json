@@ -1,0 +1,18 @@
+{
+  "gold_F_x1000": 34702,
+  "acceptable_solution_ids": ["A", "G", "H"],
+  "per_response_assessment": [
+    {"response_id": "A", "final_answer_correct": true, "failure_reasons": []},
+    {"response_id": "B", "final_answer_correct": true, "failure_reasons": ["C4"]},
+    {"response_id": "C", "final_answer_correct": false, "failure_reasons": ["C6"]},
+    {"response_id": "D", "final_answer_correct": false, "failure_reasons": ["C1", "C4"]},
+    {"response_id": "E", "final_answer_correct": false, "failure_reasons": ["C2", "C4", "C5"]},
+    {"response_id": "F", "final_answer_correct": false, "failure_reasons": ["C2"]},
+    {"response_id": "G", "final_answer_correct": true, "failure_reasons": []},
+    {"response_id": "H", "final_answer_correct": true, "failure_reasons": []},
+    {"response_id": "I", "final_answer_correct": false, "failure_reasons": ["C5", "C6"]},
+    {"response_id": "J", "final_answer_correct": false, "failure_reasons": ["C3", "C4", "C5"]},
+    {"response_id": "K", "final_answer_correct": true, "failure_reasons": ["C6"]},
+    {"response_id": "L", "final_answer_correct": false, "failure_reasons": ["C3", "C5"]}
+  ]
+}

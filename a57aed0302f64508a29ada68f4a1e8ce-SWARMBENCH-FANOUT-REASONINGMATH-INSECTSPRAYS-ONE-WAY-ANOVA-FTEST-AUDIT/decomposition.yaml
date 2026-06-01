@@ -1,0 +1,213 @@
+coordination_pattern: fan-out-synthesize
+estimated_sub_agents: 14
+
+description: >
+  One derivation specialist computes the one-way ANOVA of insect count on spray type
+  from first principles; twelve auditors each independently re-derive the ANOVA and
+  adjudicate a single candidate solution, assigning its exact failure-code set; one
+  synthesizer assembles the final JSON. The work fans out cleanly because each
+  candidate review is an independent proof obligation.
+
+  ORCHESTRATOR RESTRICTIONS (binding; non-compliance inflates orchestrator token
+  share and is treated as a fan-out anti-pattern under QD-14):
+
+    FORBIDDEN — the orchestrator MUST NOT:
+      1. Read any file under /input_artifacts/. Every sub-agent reads the files it
+         needs; the orchestrator never needs their content.
+      2. Read /workspace/instruction.md beyond the system context already provided.
+      3. Perform any arithmetic on, verify, or sanity-check any value returned by a
+         sub-agent. Pass returned values verbatim to the synthesizer.
+      4. Re-classify or second-guess any verdict returned by an audit/verify sub-agent.
+      5. Re-derive the gold F or restate any oracle-keyed result.
+      6. In its final assistant message, re-list verdicts, summarize results, or
+         narrate findings. The final message MUST be exactly one sentence:
+         "Output written to /logs/agent/output.json."
+
+    REQUIRED — the orchestrator MUST:
+      1. In its first step, dispatch all parallel sub-tasks simultaneously, before
+         any ReadFile or natural-language analysis.
+      2. After the parallel sub-tasks return, dispatch the synthesizer as a single
+         sub-agent call without summarizing the parallel results first.
+      3. After the synthesizer reports completion, emit the one-sentence
+         acknowledgement and end. Target total orchestrator step count: 3-4.
+
+sub_tasks:
+  - id: derive-gold-anova
+    description: >
+      Read /workspace/instruction.md and /input_artifacts/problem.md (and
+      /input_artifacts/insect_sprays.csv) only. Independently compute the one-way
+      ANOVA on all 72 observations across the six groups: group means and grand
+      mean, between-group and within-group sums of squares, the degrees of freedom
+      (k-1, N-k), the mean squares MSB and MSW, and F = MSB/MSW. Emit gold_F_x1000
+      = round(F * 1000). Do not inspect any proposed response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-a
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_A.md. Audit only Response A.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-b
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_B.md. Audit only Response B.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-c
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_C.md. Audit only Response C.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-d
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_D.md. Audit only Response D.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-e
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_E.md. Audit only Response E.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-f
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_F.md. Audit only Response F.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-g
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_G.md. Audit only Response G.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-h
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_H.md. Audit only Response H.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-i
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_I.md. Audit only Response I.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-j
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_J.md. Audit only Response J.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-k
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_K.md. Audit only Response K.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-l
+    description: >
+      Read /workspace/instruction.md, /input_artifacts/problem.md, and
+      /input_artifacts/proposed_solutions/response_L.md. Audit only Response L.
+      Independently recompute the one-way ANOVA, decide final_answer_correct
+      against the stated tolerances, and assign the exact failure-code set from
+      {C1,C2,C3,C4,C5,C6}. Most responses have 0-2 failure reasons; return
+      failure_reasons=[] when none applies. Do not infer from other responses.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Combine the gold derivation and the twelve response audits into the final
+      JSON. Do NOT re-derive the ANOVA and do NOT re-classify any response. Copy
+      gold_F_x1000 from derive-gold-anova verbatim. Build per_response_assessment
+      as a list in order A..L, each object's response_id, final_answer_correct, and
+      failure_reasons copied verbatim from the matching audit. Compute
+      acceptable_solution_ids as the sorted uppercase list of response_ids whose
+      final_answer_correct is true AND failure_reasons is empty. Write
+      /logs/agent/output.json with exactly the keys gold_F_x1000,
+      acceptable_solution_ids, per_response_assessment.
+    depends_on:
+      - derive-gold-anova
+      - audit-response-a
+      - audit-response-b
+      - audit-response-c
+      - audit-response-d
+      - audit-response-e
+      - audit-response-f
+      - audit-response-g
+      - audit-response-h
+      - audit-response-i
+      - audit-response-j
+      - audit-response-k
+      - audit-response-l
+    parallel_group: synthesize
+
+output_contract:
+  file: /logs/agent/output.json
+  schema:
+    gold_F_x1000: int
+    acceptable_solution_ids: [str]
+    per_response_assessment:
+      - response_id: str
+        final_answer_correct: bool
+        failure_reasons: [str]

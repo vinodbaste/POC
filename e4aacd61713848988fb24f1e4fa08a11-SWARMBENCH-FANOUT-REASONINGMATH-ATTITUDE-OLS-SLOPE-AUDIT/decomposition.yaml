@@ -1,0 +1,161 @@
+coordination_pattern: fan-out-synthesize
+estimated_sub_agents: 14
+
+description: >
+  One derivation specialist fits the OLS regression of rating on complaints from
+  first principles; twelve auditors each independently re-derive the estimator
+  algebra of a single candidate solution and assign its exact failure-code set;
+  one synthesizer assembles the final JSON. The work fans out cleanly because each
+  candidate audit is an independent proof obligation.
+
+sub_tasks:
+  - id: derive-gold-regression
+    description: >
+      Fit the OLS line rating ~ complaints on all 30 observations in attitude.csv.
+      Compute the means, the mean-centered sums of squares and cross-products, the
+      slope and intercept, the residual standard error on n-2 degrees of freedom,
+      the slope standard error, and the 95% confidence interval using the Student-t
+      quantile. Emit the headline gold_slope_x1000 and the reference wrong-method
+      values that the auditors will key on.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-A
+    description: >
+      Audit only Response A (environment/input_artifacts/proposed_solutions/response_A.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-B
+    description: >
+      Audit only Response B (environment/input_artifacts/proposed_solutions/response_B.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-C
+    description: >
+      Audit only Response C (environment/input_artifacts/proposed_solutions/response_C.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-D
+    description: >
+      Audit only Response D (environment/input_artifacts/proposed_solutions/response_D.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-E
+    description: >
+      Audit only Response E (environment/input_artifacts/proposed_solutions/response_E.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-F
+    description: >
+      Audit only Response F (environment/input_artifacts/proposed_solutions/response_F.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-G
+    description: >
+      Audit only Response G (environment/input_artifacts/proposed_solutions/response_G.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-H
+    description: >
+      Audit only Response H (environment/input_artifacts/proposed_solutions/response_H.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-I
+    description: >
+      Audit only Response I (environment/input_artifacts/proposed_solutions/response_I.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-J
+    description: >
+      Audit only Response J (environment/input_artifacts/proposed_solutions/response_J.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-K
+    description: >
+      Audit only Response K (environment/input_artifacts/proposed_solutions/response_K.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: audit-response-L
+    description: >
+      Audit only Response L (environment/input_artifacts/proposed_solutions/response_L.md).
+      Independently refit the OLS regression, decide final_answer_correct against the
+      stated tolerances, and assign the exact failure-code set from {F1,F2,F3,F4,F5,F6}.
+      Do not read any other response.
+    depends_on: []
+    parallel_group: fan-out
+
+  - id: synthesize-final-audit
+    description: >
+      Collect the gold field and the twelve independent audit verdicts, order the
+      entries A..L alphabetically, derive acceptable_solution_ids (final_answer_correct
+      true AND empty failure_reasons), and emit /logs/agent/output.json. Perform no
+      new mathematics; this step is purely structural assembly.
+    depends_on:
+      - derive-gold-regression
+      - audit-response-A
+      - audit-response-B
+      - audit-response-C
+      - audit-response-D
+      - audit-response-E
+      - audit-response-F
+      - audit-response-G
+      - audit-response-H
+      - audit-response-I
+      - audit-response-J
+      - audit-response-K
+      - audit-response-L
+    parallel_group: synthesize
+
+output_contract:
+  file: /logs/agent/output.json
+  schema:
+    gold_slope_x1000: int
+    acceptable_solution_ids: [str]
+    per_response_assessment:
+      - response_id: str
+        final_answer_correct: bool
+        failure_reasons: [str]
